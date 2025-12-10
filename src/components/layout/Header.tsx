@@ -1,6 +1,5 @@
 import { IoMoon, IoSunny, IoLogOutOutline } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
-import { BsLayoutSidebarInsetReverse } from "react-icons/bs";
+import { FaChevronDown, FaBars } from "react-icons/fa";
 import { useContext, useState, useRef, useEffect } from "react";
 import { AppContext } from "../../context/ContextApp";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +13,17 @@ interface HeaderProps {
   onToggle: () => void;
   profile: ProfileModel | null;
   isLoading: boolean;
+  isMobile: boolean;
+  onMobileMenuToggle: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onToggle, profile, isLoading }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  onToggle, 
+  profile, 
+  isLoading, 
+  isMobile,
+  onMobileMenuToggle 
+}) => {
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
   const { theme, toggleTheme } = appContext;
@@ -54,7 +61,8 @@ const Header: React.FC<HeaderProps> = ({ onToggle, profile, isLoading }) => {
                     transition-all duration-300">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          {window.innerWidth >= 768 && (
+          {/* Desktop sidebar toggle - only visible on desktop */}
+          {!isMobile && (
             <button
               onClick={onToggle}
               className="p-2 rounded-lg 
@@ -63,7 +71,21 @@ const Header: React.FC<HeaderProps> = ({ onToggle, profile, isLoading }) => {
                         transition-colors duration-200"
               aria-label="Toggle sidebar"
             >
-              <BsLayoutSidebarInsetReverse className="w-5 h-5" />
+              <FaBars className="w-5 h-5" />
+            </button>
+          )}
+
+          {/* Mobile menu button - only visible on mobile */}
+          {isMobile && (
+            <button
+              onClick={onMobileMenuToggle}
+              className="p-2 rounded-lg 
+                        text-slate-600 hover:bg-slate-100
+                        dark:text-slate-300 dark:hover:bg-slate-800
+                        transition-colors duration-200"
+              aria-label="Open menu"
+            >
+              <FaBars className="w-5 h-5" />
             </button>
           )}
 
@@ -71,6 +93,14 @@ const Header: React.FC<HeaderProps> = ({ onToggle, profile, isLoading }) => {
             <h1 className="text-xl font-bold tracking-wider 
                            text-slate-800 dark:text-white">
               Welcome to PCPS Life 👋
+            </h1>
+          </div>
+          
+          {/* Mobile title */}
+          <div className="md:hidden">
+            <h1 className="text-lg font-bold 
+                           text-slate-800 dark:text-white">
+              PCPS Life
             </h1>
           </div>
         </div>
@@ -160,7 +190,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, profile, isLoading }) => {
 
             {/* Dropdown menu */}
             <div
-              className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg border z-2147483647
+              className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg border z-50
                         transform transition-all duration-200 ease-in-out 
                         ${dropdownOpen
                           ? "scale-100 opacity-100"

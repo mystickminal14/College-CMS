@@ -13,7 +13,6 @@ const CoursesPage = () => {
   const [selectedCourse, setSelectedCourse] = useState<CourseModel | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // Your custom handlers
   const handleAddCourse = () => {
     setSelectedCourse(null);
     setIsEditMode(false);
