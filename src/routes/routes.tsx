@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import AppLayout from "../components/layout/AppLayout";
 import CoursePage from "../pages/courses/CoursePage";
 import NoticesPage from "../pages/notices/NoticePage";
+import { HomePage } from "../website";
 
 // const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 //   const token = localStorage.getItem("token");
@@ -25,18 +26,21 @@ const router = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
   },
-  
+  {
+    path: "/home",
+    element: <HomePage />,
+  },
   {
     path: "/app",
     element: (
-        <AppLayout />
+      <AppLayout />
     ),
     children: [
-  {
+      {
         path: "course",
         element: <CoursePage />,
       },
-        {
+      {
         path: "notice",
         element: <NoticesPage />,
       },
