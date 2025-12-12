@@ -1,4 +1,4 @@
-import logo from "../assets/lbef_white.png"
+import logo from "../assets/lbef_black.jpeg"
 import butterfiles from "../assets/butterfiles.png"
 import graduation from "../assets/graduations.jpg"
 import arrow from "../assets/arrow.png"

@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate,  } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import CoursePage from "../pages/courses/CoursePage";
 import NoticesPage from "../pages/notices/NoticePage";
-import { HomePage } from "../website";
+import { HomePage } from "../website/web";
 import LoginPage from "../login/page/LoginPage";
 import type { ReactNode } from "react";
 import { EmailSubscribe } from "../website/components/Home/EmailSubscribe";
