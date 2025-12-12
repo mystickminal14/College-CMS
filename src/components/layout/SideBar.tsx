@@ -1,14 +1,14 @@
-import { FaChevronDown } from "react-icons/fa";
-import { useEffect, useState, useContext } from "react";
+import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useState, useContext } from "react";
 import appLogo from "../../assets/applogo.png";
 import pcpsLogo from "../../assets/pcpsLogo.png";
 import {
   MdDashboard,
 } from "react-icons/md";
 import { AppContext } from "../../context/ContextApp";
-import type { ProfileModel } from "../model/ProfileModel";
-import { IMAGE_URL } from "../../constants";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IoLogOutOutline } from "react-icons/io5";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface MenuItem {
   id: string;
@@ -21,8 +21,6 @@ interface MenuItem {
 interface SideBarProps {
   collapsed: boolean;
   onCollapse?: () => void;
-  profile: ProfileModel | null;
-  isLoading: boolean;
   isMobile: boolean;
   mobileOpen: boolean;
   onCloseMobile: () => void;
@@ -31,26 +29,14 @@ interface SideBarProps {
 const menuItems: MenuItem[] = [
   { id: "course", icon: MdDashboard, label: "Dashboard", badge: "New" },
   { id: "notice", icon: MdDashboard, label: "Notices", badge: "New" },
+  { id: "user", icon: MdDashboard, label: "Users", badge: "New" },
+  { id: "alumni", icon: MdDashboard, label: "Alumni", badge: "New" },
 ];
-
-// Hook to detect mobile (<768px)
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
-  );
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-  return isMobile;
-}
 
 const SideBar: React.FC<SideBarProps> = ({
   collapsed,
   onCollapse,
-  profile,
-  isLoading,
+
   isMobile,
   mobileOpen,
   onCloseMobile,
@@ -58,6 +44,12 @@ const SideBar: React.FC<SideBarProps> = ({
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [activeMobileItem, setActiveMobileItem] = useState<MenuItem | null>(null);
   const [submenuOpen, setSubmenuOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    queryClient.clear();
+    navigate("/");
+  };
 
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
@@ -90,7 +82,6 @@ const SideBar: React.FC<SideBarProps> = ({
       navigate(`/app/${item.id}`);
     }
 
-    // Close sidebar on mobile after navigation
     if (isMobile) {
       onCloseMobile();
     }
@@ -105,23 +96,15 @@ const SideBar: React.FC<SideBarProps> = ({
   const isSubMenuActive = (item: MenuItem, subMenuId: string) =>
     pathname === `/app/${item.id}/${subMenuId}`;
 
-  const profileImage = profile
-    ? `${IMAGE_URL}${profile.stu_profile_path}/${profile.stu_photo}`
-    : appLogo;
-
-  // Mobile sidebar overlay
   if (isMobile) {
     return (
       <>
-        {/* Mobile overlay */}
         {mobileOpen && (
           <div
             onClick={onCloseMobile}
             className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 transition-opacity duration-300"
           />
         )}
-
-        {/* Mobile sidebar */}
         <div
           className={`fixed top-0 left-0 h-full z-50
                     transition-all duration-300 ease-in-out
@@ -129,9 +112,8 @@ const SideBar: React.FC<SideBarProps> = ({
                     ${collapsed ? "w-20" : "w-64"}
                     bg-white dark:bg-slate-900 
                     border-r border-slate-200 dark:border-slate-700
-                    shadow-xl`}
+                    shadow-xl flex flex-col`}
         >
-          {/* Logo */}
           <div className="p-3 border-b 
                         border-slate-200/50 dark:border-slate-700/50 
                         flex justify-center">
@@ -142,7 +124,6 @@ const SideBar: React.FC<SideBarProps> = ({
             )}
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
             {menuItems.map((item) => {
               const isActive = isMenuItemActive(item);
@@ -152,34 +133,36 @@ const SideBar: React.FC<SideBarProps> = ({
                 <div key={item.id}>
                   <button
                     className={`w-full flex cursor-pointer items-center justify-between p-3 rounded-xl 
-                              transition-all duration-200
-                              ${isActive
-                              ? "bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25"
-                              : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/50"
-                            }`}
+              transition-all duration-200
+              ${isActive
+                        ? "bg-[#125DAA] text-white shadow-lg shadow-blue-500/25"
+                        : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/50"
+                      }`}
                     onClick={() => handleMenuClick(item)}
                   >
                     <div className="flex items-center space-x-3">
                       <item.icon
                         className={`w-6 h-6 
-                                  ${isActive
-                                ? "text-white"
-                                : "text-slate-700 dark:text-slate-200"
-                              }`}
+                  ${isActive
+                            ? "text-white"
+                            : "text-slate-700 dark:text-slate-200"
+                          }`}
                       />
                       {!collapsed && <span className="font-medium">{item.label}</span>}
                     </div>
+
                     {!collapsed && item.subMenus && (
                       <FaChevronDown
                         className={`w-4 h-4 transition-transform 
-                                  ${isExpanded ? "rotate-180" : ""} 
-                                  ${isActive
-                                ? "text-white"
-                                : "text-slate-700 dark:text-slate-200"
-                              }`}
+                  ${isExpanded ? "rotate-180" : ""} 
+                  ${isActive
+                            ? "text-white"
+                            : "text-slate-700 dark:text-slate-200"
+                          }`}
                       />
                     )}
                   </button>
+
 
                   {/* Mobile submenus */}
                   {item.subMenus && isExpanded && (
@@ -189,9 +172,9 @@ const SideBar: React.FC<SideBarProps> = ({
                           key={menu.id}
                           className={`w-full text-left p-2 text-sm rounded-lg transition-all 
                                     ${isSubMenuActive(item, menu.id)
-                                ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
-                                : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
-                              }`}
+                              ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
+                              : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
+                            }`}
                           onClick={() => handleMenuClick(item, menu.id)}
                         >
                           {menu.label}
@@ -204,58 +187,22 @@ const SideBar: React.FC<SideBarProps> = ({
             })}
           </nav>
 
-          {/* Profile Section */}
-          <div
-            className={`border-t 
-                      border-slate-200/50 dark:border-slate-700/50 
-                      ${collapsed ? "p-2" : "p-4"}`}
-          >
-            <div
-              className={`flex items-center 
-                        ${collapsed ? "justify-center" : "space-x-3"} 
-                        p-3 rounded-xl 
-                        bg-slate-50 dark:bg-slate-800/50`}
+          {/* Mobile Logout Button - Icon Only */}
+          <div className="p-4 border-t border-slate-200 dark:border-slate-700">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center p-3 rounded-xl 
+                        bg-linear-to-r from-red-500 to-red-600 text-white 
+                        hover:from-red-600 hover:to-red-700 
+                        active:from-red-700 active:to-red-800
+                        shadow-lg hover:shadow-red-500/25
+                        transition-all duration-200 group"
+              aria-label="Log out"
+              title="Log out"
             >
-              {isLoading ? (
-                <div className="w-10 h-12 rounded-md 
-                              bg-slate-300 dark:bg-slate-700 
-                              animate-pulse" />
-              ) : (
-                <img src={profileImage} alt="user" className="w-10 h-12 rounded-md ring-2 object-cover" />
-              )}
-              {!collapsed && (
-                <div className="flex-1 min-w-0">
-                  {isLoading ? (
-                    <div className="space-y-2">
-                      <div className="h-4 w-28 
-                                    bg-slate-300 dark:bg-slate-700 
-                                    rounded animate-pulse" />
-                      <div className="h-3 w-20 
-                                    bg-slate-200 dark:bg-slate-600 
-                                    rounded animate-pulse" />
-                      <div className="h-3 w-16 
-                                    bg-slate-200 dark:bg-slate-600 
-                                    rounded animate-pulse" />
-                    </div>
-                  ) : (
-                    <>
-                      <p className="text-sm font-medium truncate 
-                                 text-slate-800 dark:text-white">
-                        {profile ? `${profile.stu_firstname} ${profile.stu_lastname || ""}` : "No Profile"}
-                      </p>
-                      <p className="text-xs truncate 
-                                 text-slate-600 dark:text-slate-300">
-                        {profile ? profile.semester_name : "Invalid!"}
-                      </p>
-                      <p className="text-xs truncate 
-                                 text-slate-600 dark:text-slate-300">
-                        {profile ? profile.session_name : "Invalid!"}
-                      </p>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
+              <IoLogOutOutline className="w-6 h-6 group-hover:scale-110 transition-transform" />
+              {!collapsed && <span className="ml-3 font-medium hidden">Logout</span>}
+            </button>
           </div>
         </div>
 
@@ -300,9 +247,9 @@ const SideBar: React.FC<SideBarProps> = ({
                     key={menu.id}
                     className={`block w-full text-left p-2 rounded-lg transition-all 
                               ${isSubMenuActive(activeMobileItem, menu.id)
-                          ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
-                          : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
-                        }`}
+                        ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
+                        : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
+                      }`}
                     onClick={() => {
                       handleMenuClick(activeMobileItem, menu.id);
                       setSubmenuOpen(false);
@@ -324,10 +271,25 @@ const SideBar: React.FC<SideBarProps> = ({
     <div
       className={`hidden md:flex flex-col relative z-10 
                   transition-all duration-300 ease-in-out border-r
-                  ${collapsed ? "w-20" : "w-65"} 
+                  ${collapsed ? "w-20" : "w-64"} 
                   bg-white dark:bg-slate-900 
                   border-slate-200 dark:border-slate-700`}
     >
+      {/* Collapse Toggle Button for Web View - Hidden on Mobile */}
+      {!isMobile && onCollapse && (
+        <button
+          onClick={onCollapse}
+          className="absolute -right-3 top-6 z-20 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 flex items-center justify-center shadow-md hover:shadow-lg transition-all hover:scale-110"
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {collapsed ? (
+            <FaChevronRight className="w-3 h-3 text-slate-600 dark:text-slate-300" />
+          ) : (
+            <FaChevronLeft className="w-3 h-3 text-slate-600 dark:text-slate-300" />
+          )}
+        </button>
+      )}
+
       {/* Logo */}
       <div className="p-3 border-b 
                     border-slate-200/50 dark:border-slate-700/50 
@@ -351,18 +313,18 @@ const SideBar: React.FC<SideBarProps> = ({
                 className={`w-full flex cursor-pointer items-center justify-between p-3 rounded-xl 
                           transition-all duration-200
                           ${isActive
-                        ? "bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25"
-                        : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/50"
-                      }`}
+                    ? "bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/50"
+                  }`}
                 onClick={() => handleMenuClick(item)}
               >
                 <div className="flex items-center space-x-3">
                   <item.icon
                     className={`w-6 h-6 
                               ${isActive
-                          ? "text-white"
-                          : "text-slate-700 dark:text-slate-200"
-                        }`}
+                        ? "text-white"
+                        : "text-slate-700 dark:text-slate-200"
+                      }`}
                   />
                   {!collapsed && <span className="font-medium">{item.label}</span>}
                 </div>
@@ -371,9 +333,9 @@ const SideBar: React.FC<SideBarProps> = ({
                     className={`w-4 h-4 transition-transform 
                               ${isExpanded ? "rotate-180" : ""} 
                               ${isActive
-                          ? "text-white"
-                          : "text-slate-700 dark:text-slate-200"
-                        }`}
+                        ? "text-white"
+                        : "text-slate-700 dark:text-slate-200"
+                      }`}
                   />
                 )}
               </button>
@@ -401,58 +363,23 @@ const SideBar: React.FC<SideBarProps> = ({
         })}
       </nav>
 
-      {/* Profile Section */}
-      <div
-        className={`border-t 
-                  border-slate-200/50 dark:border-slate-700/50 
-                  ${collapsed ? "p-2" : "p-4"}`}
-      >
-        <div
-          className={`flex items-center 
-                    ${collapsed ? "justify-center" : "space-x-3"} 
+      {/* Desktop Logout Button - Enhanced Design */}
+      <div className="p-4 border-t border-slate-200 dark:border-slate-700">
+        <button
+          onClick={handleLogout}
+          className={`w-full flex items-center ${collapsed ? 'justify-center' : 'justify-start'} 
                     p-3 rounded-xl 
-                    bg-slate-50 dark:bg-slate-800/50`}
+                    bg-linear-to-r from-red-500 to-red-600 text-white 
+                    hover:from-red-600 hover:to-red-700 
+                    active:from-red-700 active:to-red-800
+                    shadow-lg hover:shadow-red-500/25 hover:shadow-xl
+                    transition-all duration-200 group`}
+          aria-label="Log out"
+          title="Log out"
         >
-          {isLoading ? (
-            <div className="w-10 h-12 rounded-md 
-                          bg-slate-300 dark:bg-slate-700 
-                          animate-pulse" />
-          ) : (
-            <img src={profileImage} alt="user" className="w-10 h-12 rounded-md ring-2 object-cover" />
-          )}
-          {!collapsed && (
-            <div className="flex-1 min-w-0">
-              {isLoading ? (
-                <div className="space-y-2">
-                  <div className="h-4 w-28 
-                                bg-slate-300 dark:bg-slate-700 
-                                rounded animate-pulse" />
-                  <div className="h-3 w-20 
-                                bg-slate-200 dark:bg-slate-600 
-                                rounded animate-pulse" />
-                  <div className="h-3 w-16 
-                                bg-slate-200 dark:bg-slate-600 
-                                rounded animate-pulse" />
-                </div>
-              ) : (
-                <>
-                  <p className="text-sm font-medium truncate 
-                               text-slate-800 dark:text-white">
-                    {profile ? `${profile.stu_firstname} ${profile.stu_lastname || ""}` : "No Profile"}
-                  </p>
-                  <p className="text-xs truncate 
-                               text-slate-600 dark:text-slate-300">
-                    {profile ? profile.semester_name : "Invalid!"}
-                  </p>
-                  <p className="text-xs truncate 
-                               text-slate-600 dark:text-slate-300">
-                    {profile ? profile.session_name : "Invalid!"}
-                  </p>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+          <IoLogOutOutline className={`w-6 h-6 group-hover:scale-110 transition-transform ${collapsed ? '' : 'mr-3'}`} />
+          {!collapsed && <span className="font-medium">Logout</span>}
+        </button>
       </div>
     </div>
   );

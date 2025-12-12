@@ -12,7 +12,7 @@ const TitleBox: React.FC<TitleBoxProps> = ({ title, subtitle,  }) => {
         relative 
         w-full 
         h-20
-       bg-linear-to-r from-blue-500 to-purple-600
+       bg-linear-to-r from-[#125DAA] to-[#135EAB]
         rounded-xl 
         flex 
         items-center 
@@ -20,7 +20,6 @@ const TitleBox: React.FC<TitleBoxProps> = ({ title, subtitle,  }) => {
         px-6
       "
     >
-      {/* Text */}
       <div className="z-10">
         <h1 className="text-2xl font-bold text-white">{title}</h1>
         {subtitle && (

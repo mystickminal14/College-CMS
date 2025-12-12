@@ -4,9 +4,9 @@ import router from "./routes/routes";
 
 function App() {
   return (
-  
-     <ContextApp> 
-      <RouterProvider router={router} /> 
+
+    <ContextApp>
+      <RouterProvider router={router} />
     </ContextApp>
   );
 }

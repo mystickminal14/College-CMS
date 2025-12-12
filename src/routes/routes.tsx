@@ -1,39 +1,48 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import type { ReactNode } from "react";
+import { createBrowserRouter, Navigate,  } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import CoursePage from "../pages/courses/CoursePage";
 import NoticesPage from "../pages/notices/NoticePage";
 import { HomePage } from "../website";
+import LoginPage from "../login/page/LoginPage";
+import type { ReactNode } from "react";
+import NotFoundPage from "../components/NoRouteFound";
+import UserPage from "../pages/users/UserTable";
+import AlumniPage from "../pages/alumni/AlumniPage";
 
-// const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     return <Navigate to="/" replace />;
-//   }
-//   return children;
-// };
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
 
-// const LoginRoute = () => {
-//   const token = localStorage.getItem("token");
-//   if (token) {
-//     return <Navigate to="/app/dashboard" replace />;
-//   }
-//   return <LoginPage />;
-// };
+const LoginRoute = () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    return <Navigate to="/app/course" replace />;
+  }
+  return <LoginPage />;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <LoginRoute />,
   },
   {
     path: "/home",
     element: <HomePage />,
+  },  {
+    path: "*",
+    element: <NotFoundPage />,
   },
   {
     path: "/app",
     element: (
-      <AppLayout />
+     <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
     ),
     children: [
       {
@@ -43,6 +52,14 @@ const router = createBrowserRouter([
       {
         path: "notice",
         element: <NoticesPage />,
+      },
+      {
+        path: "user",
+        element: <UserPage />,
+      },
+      {
+        path: "alumni",
+        element: <AlumniPage />,
       },
     ],
   },
