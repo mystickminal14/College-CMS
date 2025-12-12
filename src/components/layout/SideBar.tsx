@@ -27,10 +27,15 @@ interface SideBarProps {
 }
 
 const menuItems: MenuItem[] = [
-  { id: "course", icon: MdDashboard, label: "Dashboard", badge: "New" },
-  { id: "notice", icon: MdDashboard, label: "Notices", badge: "New" },
   { id: "user", icon: MdDashboard, label: "Users", badge: "New" },
+  { id: "course", icon: MdDashboard, label: "Dashboard", badge: "New" },
   { id: "alumni", icon: MdDashboard, label: "Alumni", badge: "New" },
+  { id: "news", icon: MdDashboard, label: "News", badge: "New" },
+  { id: "recognition", icon: MdDashboard, label: "Recognitions", badge: "New" },
+  { id: "teams", icon: MdDashboard, label: "Our Teams", badge: "New" },
+
+  { id: "notice", icon: MdDashboard, label: "Notices", badge: "New" },
+
 ];
 
 const SideBar: React.FC<SideBarProps> = ({

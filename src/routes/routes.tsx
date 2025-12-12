@@ -8,6 +8,9 @@ import type { ReactNode } from "react";
 import NotFoundPage from "../components/NoRouteFound";
 import UserPage from "../pages/users/UserTable";
 import AlumniPage from "../pages/alumni/AlumniPage";
+import NewsPage from "../pages/news/NewsPage";
+import RecognitionsPage from "../pages/recognitions/RecognitionPage";
+import TeamsPage from "../pages/our-teams/OurTeam";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -60,6 +63,18 @@ const router = createBrowserRouter([
       {
         path: "alumni",
         element: <AlumniPage />,
+      },
+      {
+        path: "news",
+        element: <NewsPage />,
+      },
+        {
+        path: "recognition",
+        element: <RecognitionsPage />,
+      },
+        {
+        path: "teams",
+        element: <TeamsPage />,
       },
     ],
   },

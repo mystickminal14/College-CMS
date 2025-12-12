@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { Role, User } from "../model/AlumniModel";
+import type { Role, User } from "../model/NewsModel";
 import { FaUserCog, FaShieldAlt } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineSave } from "react-icons/ai";
 import useUpdateRole from "../hooks/useUpdateRole";

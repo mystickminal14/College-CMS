@@ -107,7 +107,7 @@ class APIClient<T> {
   ): Promise<ApiResponse<T>> => {
     const url = params ? `${this.endpoint}/${params}` : this.endpoint;
 
-    const res = await axiosInstance.post<ApiResponse<T>>(url, formData, {
+    const res = await axiosInstance.put<ApiResponse<T>>(url, formData, {
       ...config,
       headers: {
         ...config?.headers,

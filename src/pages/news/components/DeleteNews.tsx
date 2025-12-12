@@ -1,24 +1,25 @@
 import React from "react";
 import { X, AlertTriangle, Trash2, Loader2 } from "lucide-react";
-import type { User } from "../model/AlumniModel";
-import useDeleteUser from "../hooks/useDeleteAlumni";
+import type { NewsModel } from "../model/NewsModel";
+import useDeleteNews from "../hooks/useDeleteNews";
+
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  user: User | null;
+  news: NewsModel | null;
 }
 
-const DeleteUserModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
-  const mutation = useDeleteUser();
-    if (!isOpen || !user) return null;
+const DeleteNewsModel: React.FC<Props> = ({ isOpen, onClose, news }) => {
+  const mutation = useDeleteNews();
+    if (!isOpen || !news) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (user.id) {
+    if (news.id) {
       mutation.mutate(
-        { id: user.id },
+        { id: news.id },
         {
           onSuccess: () => {
             onClose();
@@ -42,7 +43,7 @@ const DeleteUserModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                 <Trash2 className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">Delete User</h2>
+                <h2 className="text-xl font-bold text-white">Delete News</h2>
                 <p className="text-white/80 text-sm mt-1">Confirm deletion</p>
               </div>
             </div>
@@ -67,20 +68,15 @@ const DeleteUserModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
 
               <div className="text-center mb-2">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Delete <span className="text-red-600">{user.fullname}</span>?
+                  Delete <span className="text-red-600">{news.title}</span>?
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  This user will be permanently deleted from the system.
+                  This news will be permanently deleted from the system.
                 </p>
               </div>
 
               <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  <strong>Email:</strong> {user.email}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  <strong>Role:</strong> {user.role}
-                </p>
+             
                 <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
                   This action cannot be undone.
                 </p>
@@ -110,7 +106,7 @@ const DeleteUserModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                 ) : (
                   <>
                     <Trash2 className="w-4 h-4 mr-2" />
-                    Delete User
+                    Delete News
                   </>
                 )}
               </button>
@@ -122,4 +118,4 @@ const DeleteUserModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
   );
 };
 
-export default DeleteUserModal;
+export default DeleteNewsModel;

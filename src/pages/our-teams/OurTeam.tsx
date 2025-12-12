@@ -1,0 +1,178 @@
+import { useState } from "react";
+import { Edit, Trash2 } from "lucide-react";
+import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
+import { debounce } from "lodash";
+
+import TitleBox from "../../components/layout/TitleBox";
+import EnhancedTable from "../../template/EnhancedTable";
+import Pagination from "../../utils/Pagination";
+import SearchBox from "./utils/SearchBox";
+
+import useGetTeams from "./hooks/useGetAll";
+import useCreateTeams from "./hooks/useCreate";
+import useEditTeams from "./hooks/useEdit";
+import { useUploadTeamsImage } from "./hooks/useUploadAlumni";
+import { useUpdateImage } from "./hooks/useUpdateImage";
+
+import AddEditTeamsWizardModal from "./components/Wizard";
+import DeleteTeamsModal from "./components/DeleteModel";
+import TeamsCardView from "./components/TeamsCardView";
+
+import { TeamsColumns } from "./utils/columns";
+import type { Department, Teams } from "./model/TeamsModel";
+import { PAGE_LIMIT } from "../../constants";
+
+const TeamsPage = () => {
+  const [page, setPage] = useState(1);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState<Department | "">("");
+  const [teamToEdit, setTeamToEdit] = useState<Teams | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+
+  const handleSearch = debounce((value: string) => {
+    setDebouncedSearch(value);
+    setPage(1);
+  }, 500);
+
+  const { data, isLoading, isError } = useGetTeams({
+    search: debouncedSearch,
+    department: selectedDepartment,
+    page,
+    limit: PAGE_LIMIT
+  });
+
+  const createMutation = useCreateTeams();
+  const editMutation = useEditTeams();
+  const uploadImageMutation = useUploadTeamsImage();
+  const updateImageMutation = useUpdateImage();
+
+  const teams = data?.data ?? [];
+  const totalPages = data?.pagination?.totalPages ?? 1;
+
+  const departments: Department[] = ["ADMINISTRATION", "COMPUTING", "MANAGEMENT"];
+
+  const handleAdd = () => { setTeamToEdit(null); setShowModal(true); };
+  const handleEdit = (team: Teams) => { setTeamToEdit(team); setShowModal(true); };
+  const handleDeleteTeam = (team: Teams) => { setTeamToEdit(team); setShowDeleteModal(true); };
+
+  const tableActions = [
+    {
+      icon: <Edit className="w-5 h-5" />,
+      tooltip: "Edit Team",
+      onClick: handleEdit,
+      color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white"
+    },
+    {
+      icon: <Trash2 className="w-5 h-5" />,
+      tooltip: "Delete Team",
+      onClick: handleDeleteTeam,
+      color: "text-red-600 hover:bg-red-600 hover:text-white"
+    },
+  ];
+
+  return (
+    <div className="bg-gray-50 dark:bg-gray-900 p-2 md:p-4">
+      <TitleBox title="Teams Management" subtitle="Manage application Teams" />
+
+      {/* Controls */}
+      <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
+
+        {/* View Toggle */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setViewMode("table")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
+              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+          >
+            <FaTable className="w-4 h-4" />
+            <span>Table</span>
+          </button>
+
+          <button
+            onClick={() => setViewMode("card")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
+              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+          >
+            <FaThLarge className="w-4 h-4" />
+            <span>Cards</span>
+          </button>
+        </div>
+
+        {/* Search + Department Filter + Add */}
+        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
+          <SearchBox placeholder="Search Teams..." onSearch={handleSearch} />
+
+          <select
+            className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+            value={selectedDepartment}
+            onChange={(e) => { setSelectedDepartment(e.target.value as Department | ""); setPage(1); }}
+          >
+            <option value="">All Departments</option>
+            {departments.map((dept) => (
+              <option key={dept} value={dept}>
+                {dept.charAt(0) + dept.slice(1).toLowerCase()}
+              </option>
+            ))}
+          </select>
+
+          <button
+            onClick={handleAdd}
+            disabled={createMutation.isPending}
+            className="px-4 py-2 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
+          >
+            <FaPlus className="w-4 h-4" />
+            <span>Add</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div>
+        {viewMode === "table" ? (
+          <EnhancedTable
+            data={teams}
+            columns={TeamsColumns}
+            actions={tableActions}
+            loading={isLoading}
+            emptyMessage={isError ? "Failed to load Teams" : "No Teams found"}
+          />
+        ) : (
+          <TeamsCardView
+            teams={teams}
+            isLoading={isLoading}
+            isError={isError}
+            onEdit={handleEdit}
+            onDelete={handleDeleteTeam}
+          />
+        )}
+      </div>
+
+      {/* Pagination */}
+      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+
+      {/* Modals */}
+      <DeleteTeamsModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        Teams={teamToEdit}
+      />
+      <AddEditTeamsWizardModal
+        updateImageMutation={updateImageMutation}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        TeamsToEdit={teamToEdit}
+        createMutation={createMutation}
+        editMutation={editMutation}
+        uploadImageMutation={uploadImageMutation}
+      />
+    </div>
+  );
+};
+
+export default TeamsPage;

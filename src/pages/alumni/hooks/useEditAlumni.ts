@@ -20,7 +20,7 @@ const useEditAlumni = () => {
 
       const { id, ...updateData } = payload;
       const apiClient = new APIClient<Partial<Alumni>>(
-        `/${encodeURIComponent(id)}`
+        `/alumni/${encodeURIComponent(id)}`
       );
 
       return apiClient.put(updateData);

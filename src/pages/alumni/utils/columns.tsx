@@ -15,7 +15,7 @@ export const AlumniColumns = [
         <img
           src={imageUrl}
           alt="User"
-          className="w-16 h-16 rounded-md object-cover border shadow-sm" // ← updated
+          className="w-18 h-18 rounded-md object-cover border shadow-sm" // ← updated
         />
       );
     },
@@ -25,5 +25,4 @@ export const AlumniColumns = [
   { label: "Position", accessor: "position" },
   { label: "Batch", accessor: "batch" },
   { label: "Course", accessor: "course" },
-  { label: "Story", accessor: "story" },
 ];

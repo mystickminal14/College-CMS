@@ -13,6 +13,7 @@ import Pagination from "./utils/Pagination";
 import useCreateUser from "./hooks/useCreateUser";
 import useEditUser from "./hooks/useEditUser";
 import DeleteUserModal from "./components/DeleteUserModel";
+import { Edit, Key, Trash2, UserCog } from "lucide-react";
 
 const PAGE_LIMIT = 10;
 
@@ -65,17 +66,37 @@ const UserPage = () => {
     };
 
     const handleDeleteUser = (user: User) => {
-       setSelectedUser(user);
+        setSelectedUser(user);
         setShowDeleteModal(true);
     };
 
-
     const tableActions = [
-        { icon: "📝", tooltip: "Edit User", onClick: handleEditUser, color: "text-[#135EAB]" },
-        { icon: "⚙️", tooltip: "Change Role", onClick: handleChangeRole, color: "text-[#135EAB]" },
-        { icon: "🔑", tooltip: "Reset Password", onClick: handleResetPassword, color: "text-[#135EAB]" },
-        { icon: "🗑️", tooltip: "Delete User", onClick: handleDeleteUser, color: "text-red-600 hover:bg-red-100" },
+        {
+            icon: <Edit className="w-5 h-5" />,
+            tooltip: "Edit User",
+            onClick: handleEditUser,
+            color: "text-blue-600 hover:bg-blue-600 hover:text-white"
+        },
+        {
+            icon: <UserCog className="w-5 h-5" />,
+            tooltip: "Change Role",
+            onClick: handleChangeRole,
+            color: "text-purple-600 hover:bg-purple-600 hover:text-white"
+        },
+        {
+            icon: <Key className="w-5 h-5" />,
+            tooltip: "Reset Password",
+            onClick: handleResetPassword,
+            color: "text-amber-600 hover:bg-amber-600 hover:text-white"
+        },
+        {
+            icon: <Trash2 className="w-5 h-5" />,
+            tooltip: "Delete User",
+            onClick: handleDeleteUser,
+            color: "text-red-600 hover:bg-red-600 hover:text-white"
+        },
     ];
+
 
     return (
         <div className="bg-gray-50 dark:bg-gray-900 p-1 md:p-4">
