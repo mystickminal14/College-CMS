@@ -5,11 +5,12 @@ import NoticesPage from "../pages/notices/NoticePage";
 import { HomePage } from "../website";
 import LoginPage from "../login/page/LoginPage";
 import type { ReactNode } from "react";
+import { EmailSubscribe } from "../website/components/Home/EmailSubscribe";
 import NotFoundPage from "../components/NoRouteFound";
 import UserPage from "../pages/users/UserTable";
 import AlumniPage from "../pages/alumni/AlumniPage";
 import NewsPage from "../pages/news/NewsPage";
-import RecognitionsPage from "../pages/recognitions/RecognitionPage";
+import RecognitionsPage from "../pages/handbook/RecognitionPage";
 import TeamsPage from "../pages/our-teams/OurTeam";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginRoute />,
+  },
+  {
+    path: "/components",
+    element: <EmailSubscribe />,
   },
   {
     path: "/home",
