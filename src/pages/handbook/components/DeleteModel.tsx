@@ -1,25 +1,25 @@
 import React from "react";
 import { X, AlertTriangle, Trash2, Loader2 } from "lucide-react";
-import type { Recognitions } from "../model/RecognitionsModel";
-import useDeleteRecognitions from "../hooks/useDelete";
+import type { Downloads } from "../model/handbookModel";
+import useDeleteDownloads from "../hooks/useDelete";
 
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  Recognitions: Recognitions | null;
+  Downloads: Downloads | null;
 }
 
-const DeleteRecognitionsModal: React.FC<Props> = ({ isOpen, onClose, Recognitions }) => {
-  const mutation = useDeleteRecognitions();
-    if (!isOpen || !Recognitions) return null;
+const DeleteDownloadsModal: React.FC<Props> = ({ isOpen, onClose, Downloads }) => {
+  const mutation = useDeleteDownloads();
+    if (!isOpen || !Downloads) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (Recognitions.id) {
+    if (Downloads.id) {
       mutation.mutate(
-        { id: Recognitions.id },
+        { id: Downloads.id },
         {
           onSuccess: () => {
             onClose();
@@ -43,7 +43,7 @@ const DeleteRecognitionsModal: React.FC<Props> = ({ isOpen, onClose, Recognition
                 <Trash2 className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">Delete Recognitions</h2>
+                <h2 className="text-xl font-bold text-white">Delete Downloads</h2>
                 <p className="text-white/80 text-sm mt-1">Confirm deletion</p>
               </div>
             </div>
@@ -68,10 +68,10 @@ const DeleteRecognitionsModal: React.FC<Props> = ({ isOpen, onClose, Recognition
 
               <div className="text-center mb-2">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Delete <span className="text-red-600">{Recognitions.name}</span>?
+                  Delete <span className="text-red-600">file</span>?
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">
-                  This Recognitions will be permanently deleted from the system.
+                  This Downloads will be permanently deleted from the system.
                 </p>
               </div>
 
@@ -106,7 +106,7 @@ const DeleteRecognitionsModal: React.FC<Props> = ({ isOpen, onClose, Recognition
                 ) : (
                   <>
                     <Trash2 className="w-4 h-4 mr-2" />
-                    Delete Recognitions
+                    Delete Downloads
                   </>
                 )}
               </button>
@@ -118,4 +118,4 @@ const DeleteRecognitionsModal: React.FC<Props> = ({ isOpen, onClose, Recognition
   );
 };
 
-export default DeleteRecognitionsModal;
+export default DeleteDownloadsModal;

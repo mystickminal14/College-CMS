@@ -3,8 +3,8 @@ import { X, ImageIcon, Upload, Loader2, Check } from "lucide-react";
 import { validateImageFile } from "../../../utils/ImageCompression";
 import { AppContext } from "../../../context/ContextApp";
 
-interface RecognitionImageUploadFormProps {
-  reccognitionName: string;
+interface HolidaysImageUploadFormProps {
+  HolidaysName: string;
   imagePreview: string | null;
   imageFile: File | null;
   onImageChange: (file: File) => void;
@@ -14,8 +14,8 @@ interface RecognitionImageUploadFormProps {
   onSubmit: () => void;
 }
 
-const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
-  reccognitionName,
+const HolidaysImageUploadForm: React.FC<HolidaysImageUploadFormProps> = ({
+  HolidaysName,
   imagePreview,
   imageFile,
   onImageChange,
@@ -25,21 +25,22 @@ const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
   onSubmit,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const appContext = useContext(AppContext);
+const appContext = useContext(AppContext);
 
   if (!appContext)
     throw new Error("useEditAlumni must be used inside AppContext");
   const { showToast } = appContext;
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const validationError = validateImageFile(file);
-      if (validationError) {
-        showToast(validationError, 'error');
-        return;
-      }
-      onImageChange(file);
+    if (!file) return;
+
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      showToast(validationError);
+      return;
     }
+
+    onImageChange(file);
   };
 
   const triggerFileInput = () => fileInputRef.current?.click();
@@ -48,10 +49,10 @@ const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
     <div className="space-y-6">
       <div className="text-center mb-2">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {imagePreview ? "Current Image / Upload New" : "Upload Alumni Photo"}
+          {imagePreview ? "Current Image / Upload New" : "Upload Holidays Photo"}
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
-          {imagePreview ? `Current image for ${reccognitionName}` : `Add a professional photo for ${reccognitionName}`}
+          {imagePreview ? `Current image for ${HolidaysName}` : `Add an image for ${HolidaysName}`}
         </p>
       </div>
 
@@ -95,11 +96,21 @@ const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
         </button>
 
         <button type="button" onClick={onSubmit} disabled={isUploading} className="px-4 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium flex items-center justify-center space-x-2 disabled:opacity-50">
-          {isUploading ? <><Loader2 className="w-5 h-5 animate-spin" /><span>Uploading...</span></> : <><Check className="w-5 h-5" /><span>Save</span></>}
+          {isUploading ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Uploading...</span>
+            </>
+          ) : (
+            <>
+              <Check className="w-5 h-5" />
+              <span>Save</span>
+            </>
+          )}
         </button>
       </div>
     </div>
   );
 };
 
-export default RecognitionImageUploadForm;
+export default HolidaysImageUploadForm;

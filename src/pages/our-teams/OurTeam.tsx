@@ -71,12 +71,12 @@ const TeamsPage = () => {
       color: "text-red-600 hover:bg-red-600 hover:text-white"
     },
   ];
+  const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-2 md:p-4">
-      <TitleBox title="Teams Management" subtitle="Manage application Teams" />
+      <TitleBox title="Our Teams" subtitle="Manage your team members" />
 
-      {/* Controls */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
 
         {/* View Toggle */}
@@ -86,18 +86,17 @@ const TeamsPage = () => {
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
               ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+              }`}
           >
             <FaTable className="w-4 h-4" />
             <span>Table</span>
           </button>
-
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
               ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+              }`}
           >
             <FaThLarge className="w-4 h-4" />
             <span>Cards</span>
@@ -154,7 +153,7 @@ const TeamsPage = () => {
       </div>
 
       {/* Pagination */}
-      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
 
       {/* Modals */}
       <DeleteTeamsModal

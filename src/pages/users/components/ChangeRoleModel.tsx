@@ -11,12 +11,12 @@ interface Props {
 }
 
 const ChangeRoleModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
-  const [role, setRole] = useState<Role>("USER");
+  const [role, setRole] = useState<Role>("MANAGER");
   const mutation = useUpdateRole();
 
   useEffect(() => {
     if (user) setRole(user.role as Role);
-    else setRole("USER");
+    else setRole("MANAGER");
   }, [user]);
 
   if (!isOpen) return null;
@@ -67,7 +67,7 @@ const ChangeRoleModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                 onChange={(e) => setRole(e.target.value as Role)}
                 className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#125DAA] focus:border-transparent"
               >
-                <option value="USER">USER</option>
+                <option value="MANAGER">MANAGER</option>
                 <option value="ADMIN">ADMIN</option>
               </select>
             </div>

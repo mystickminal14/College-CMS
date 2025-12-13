@@ -1,29 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import type { Recognitions } from "../model/RecognitionsModel";
+import type { Downloads } from "../model/handbookModel";
 import { AppContext } from "../../../context/ContextApp";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
-import { RECOGNITION_CACHE_KEY } from "../../../constants";
-import recognitionsApi from "../services/RecognitionsService";
+import { DOWNLOAD_CACHE_KEY } from "../../../constants";
+import DownloadsApi from "../services/HandBookService";
 
-const useDeleteRecognitions = () => {
+const useDeleteDownloads = () => {
   const appContext = useContext(AppContext);
   const queryClient = useQueryClient();
 
   if (!appContext)
-    throw new Error("useDeleteRecognitions must be used inside AppContext");
+    throw new Error("useDeleteDownloads must be used inside AppContext");
   const { showToast } = appContext;
 
-  return useMutation<ApiResponse<Recognitions>, ApiErrorResponse, Partial<Recognitions>>({
-    mutationFn: (payload: Partial<Recognitions>) => {
-      if (!payload.id) throw new Error("Recognitions ID is required");
-      return recognitionsApi.delete(
+  return useMutation<ApiResponse<Downloads>, ApiErrorResponse, Partial<Downloads>>({
+    mutationFn: (payload: Partial<Downloads>) => {
+      if (!payload.id) throw new Error("Downloads ID is required");
+      return DownloadsApi.delete(
         `${encodeURIComponent(payload.id)}`
       );
     },
     onSuccess: (res) => {
-      showToast(res.message || "Recognitions Deleted successfully!", "success");
-      queryClient.invalidateQueries({ queryKey: [RECOGNITION_CACHE_KEY] });
+      showToast(res.message || "Downloads Deleted successfully!", "success");
+      queryClient.invalidateQueries({ queryKey: [DOWNLOAD_CACHE_KEY] });
     },
     onError: (err) => {
       const msg =
@@ -33,4 +33,4 @@ const useDeleteRecognitions = () => {
   });
 };
 
-export default useDeleteRecognitions;
+export default useDeleteDownloads;

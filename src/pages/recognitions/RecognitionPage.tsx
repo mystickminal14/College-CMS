@@ -29,6 +29,7 @@ const RecognitionsPage = () => {
 
     const Recognitions = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
+ const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
     const handleAdd = () => { setRecognitionsToEdit(null); setShowModal(true); };
     const handleEdit = (Recognitions: Recognitions) => { setRecognitionsToEdit(Recognitions); setShowModal(true); };
@@ -65,7 +66,7 @@ const RecognitionsPage = () => {
             </div>
 
             <EnhancedTable data={Recognitions} columns={RecognitionsColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Recognitions" : "No Recognitions found"} />
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination page={page}hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
             <DeleteRecognitionsModal
                 isOpen={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}

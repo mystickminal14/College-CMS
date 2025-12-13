@@ -11,6 +11,8 @@ import AlumniPage from "../pages/alumni/AlumniPage";
 import NewsPage from "../pages/news/NewsPage";
 import RecognitionsPage from "../pages/recognitions/RecognitionPage";
 import TeamsPage from "../pages/our-teams/OurTeam";
+import DownloadsPage from "../pages/handbook/DownloadsPage";
+import HolidaysPage from "../pages/holiday/HolidayPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -75,6 +77,14 @@ const router = createBrowserRouter([
         {
         path: "teams",
         element: <TeamsPage />,
+      },
+       {
+        path: "downloads",
+        element: <DownloadsPage />,
+      },
+        {
+        path: "holiday",
+        element: <HolidaysPage />,
       },
     ],
   },

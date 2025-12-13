@@ -1,6 +1,6 @@
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useContext } from "react";
-import appLogo from "../../assets/applogo.png";
+import appLogo from "../../assets/butterfiles.png";
 import pcpsLogo from "../../assets/pcpsLogo.png";
 import {
   MdDashboard,
@@ -33,8 +33,8 @@ const menuItems: MenuItem[] = [
   { id: "news", icon: MdDashboard, label: "News", badge: "New" },
   { id: "recognition", icon: MdDashboard, label: "Recognitions", badge: "New" },
   { id: "teams", icon: MdDashboard, label: "Our Teams", badge: "New" },
-
-  { id: "notice", icon: MdDashboard, label: "Notices", badge: "New" },
+  { id: "downloads", icon: MdDashboard, label: "Downloads", badge: "New" },
+ { id: "holiday", icon: MdDashboard, label: "Holiday", badge: "New" },
 
 ];
 

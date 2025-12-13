@@ -1,5 +1,5 @@
 import { IMAGE_URL } from "../../../constants";
-import type { Recognitions } from "../model/RecognitionsModel";
+import type { Recognitions } from "../model/HolidayModel";
 import img from "../../../assets/applogo.png";
 
 export const RecognitionsColumns = [

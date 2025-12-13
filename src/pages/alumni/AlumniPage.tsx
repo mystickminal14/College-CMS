@@ -14,7 +14,7 @@ import { useUpdateImage } from "./hooks/useUpdateImage";
 import DeleteAlumniModal from "./components/DeleteAlumni";
 import type { Alumni } from "./model/AlumniModel";
 import { Edit, Trash2 } from "lucide-react";
-import Pagination from "../users/utils/Pagination";
+import Pagination from "../../utils/Pagination";
 
 const AlumniPage = () => {
     const [page, setPage] = useState(1);
@@ -31,7 +31,7 @@ const AlumniPage = () => {
 
     const alumni = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
-
+ const hasNextPage = data?.pagination?.hasNextPage ?? false;
     const handleSearch = debounce((value: string) => { setDebouncedSearch(value); setPage(1); }, 500);
     const handleAdd = () => { setAlumniToEdit(null); setShowModal(true); };
     const handleEdit = (alumni: Alumni) => { setAlumniToEdit(alumni); setShowModal(true); };
@@ -67,16 +67,14 @@ const AlumniPage = () => {
                     <span>Add Alumni</span>
                 </button>
             </div>
-
             <EnhancedTable data={alumni} columns={AlumniColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Alumni" : "No Alumni found"} />
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} hasNextPage={hasNextPage} />
             <DeleteAlumniModal
                 isOpen={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}
                 alumni={alumniToEdit}
 
             />
-
             <AddEditAlumniWizardModal updateImageMutation={updateImageMutation} isOpen={showModal} onClose={() => setShowModal(false)} alumniToEdit={alumniToEdit} createMutation={createMutation} editMutation={editMutation} uploadImageMutation={uploadImageMutation} />
         </div>
     );
