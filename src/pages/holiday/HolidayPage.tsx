@@ -26,7 +26,7 @@ const HolidaysPage = () => {
 
   
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-4 md:p-6 min-h-screen">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 ">
       <TitleBox 
         title="Holidays Management" 
         subtitle="Upload and manage holiday images" 
@@ -37,7 +37,7 @@ const HolidaysPage = () => {
         <button
           onClick={handleAdd}
           disabled={updateImageMutation.isPending}
-          className="px-6 py-3 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
+          className="px-6 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />

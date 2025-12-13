@@ -45,7 +45,7 @@ const DownloadsPage = () => {
     },
   ];
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-4">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox title="Downloads Management" subtitle="Manage application downloads (PDF only)" />
 
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
@@ -53,7 +53,7 @@ const DownloadsPage = () => {
           <button
             onClick={() => setViewMode("table")}
             className={`px-4 py-2 cursor-pointer flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
-              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              ? "bg-linear-to-r from-[#1a7cd3] to-[#1a7cd3] text-white"
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
@@ -63,7 +63,7 @@ const DownloadsPage = () => {
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 flex cursor-pointer items-center space-x-1 transition-colors rounded ${viewMode === "card"
-              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              ? "bg-linear-to-r from-[#1a7cd3] to-[#1a7cd3] text-white"
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >

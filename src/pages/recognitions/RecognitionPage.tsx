@@ -45,7 +45,7 @@ const RecognitionsPage = () => {
             icon: <Edit className="w-5 h-5" />,
             tooltip: "Edit Recognitions",
             onClick: handleEdit,
-            color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white"
+            color: "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white"
         },
         {
             icon: <Trash2 className="w-5 h-5" />,
@@ -56,10 +56,10 @@ const RecognitionsPage = () => {
     ];
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-900 p-1 md:p-4">
+        <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
             <TitleBox title="Recognitions Management" subtitle="Manage application Recognitions" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
-                <button onClick={handleAdd} disabled={createMutation.isPending} className="px-5 py-2.5 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-2 shadow hover:shadow-md transition-all duration-200 font-medium w-full md:w-auto justify-center disabled:opacity-50">
+                <button onClick={handleAdd} disabled={createMutation.isPending} className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-2 shadow hover:shadow-md transition-all duration-200 font-medium w-full md:w-auto justify-center disabled:opacity-50">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
                     <span>Add Recognitions</span>
                 </button>

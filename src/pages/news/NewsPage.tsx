@@ -51,7 +51,7 @@ const NewsPage = () => {
       icon: <Edit className="w-5 h-5" />,
       tooltip: "Edit News",
       onClick: handleEdit,
-      color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white",
+      color: "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white",
     },
     {
       icon: <Trash2 className="w-5 h-5" />,
@@ -63,7 +63,7 @@ const NewsPage = () => {
  const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-1 md:p-4">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox title="News Management" subtitle="Manage application news" />
 
       {/* ADD BUTTON */}
@@ -71,7 +71,7 @@ const NewsPage = () => {
         <button
           onClick={handleAdd}
           disabled={createMutation.isPending}
-          className="px-5 py-2.5 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] 
+          className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] 
                      flex items-center space-x-2 shadow hover:shadow-md transition-all 
                      duration-200 font-medium w-full md:w-auto justify-center 
                      disabled:opacity-50"

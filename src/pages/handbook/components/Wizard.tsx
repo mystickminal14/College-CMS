@@ -85,7 +85,7 @@ const DownloadPdfUploadForm: React.FC<DownloadPdfUploadFormProps> = ({
       <div className="relative w-full max-w-xl mx-auto">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
           {/* HEADER */}
-          <div className="bg-linear-to-r from-[#125DAA] to-[#1a7cd3] p-6">
+          <div className="bg-linear-to-r from-[#1a7cd3] to-[#1a7cd3] p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="p-2 bg-white/20 rounded-xl cursor-pointer">

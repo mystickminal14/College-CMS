@@ -74,7 +74,7 @@ const TeamsPage = () => {
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-2 md:p-4">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox title="Our Teams" subtitle="Manage your team members" />
 
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">

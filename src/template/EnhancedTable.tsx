@@ -34,7 +34,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
         <table className="w-full">
           <thead>
             <tr>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-white bg-[#125DAA]">
+              <th className="px-6 py-4 text-left text-sm font-semibold text-white bg-[#1a7cd3]">
                 <div className="flex items-center">
                   <span className="font-bold">#</span>
                 </div>
@@ -43,7 +43,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
               {columns.map((col, i) => (
                 <th
                   key={i}
-                  className={`px-6 py-4 text-left text-sm font-semibold text-white bg-[#125DAA] ${col.className || ""}`}
+                  className={`px-6 py-4 text-left text-sm font-semibold text-white bg-[#1a7cd3] ${col.className || ""}`}
                 >
                   <div className="flex items-center">
                     <span>{col.label}</span>
@@ -52,7 +52,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
               ))}
 
               {actions.length > 0 && (
-                <th className="px-6 py-4 text-left text-sm font-semibold text-white bg-[#125DAA]">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-white bg-[#1a7cd3]">
                   <div className="flex items-center">
                     <span>Actions</span>
                   </div>
@@ -68,7 +68,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
                   <div className="flex flex-col items-center justify-center">
                     <div className="relative">
                       <div className="w-12 h-12 rounded-full border-4 border-gray-200 dark:border-gray-700"></div>
-                      <div className="absolute top-0 left-0 w-12 h-12 rounded-full border-4 border-[#125DAA] border-t-transparent animate-spin"></div>
+                      <div className="absolute top-0 left-0 w-12 h-12 rounded-full border-4 border-[#1a7cd3] border-t-transparent animate-spin"></div>
                     </div>
                     <p className="mt-4 text-gray-600 dark:text-gray-400 font-medium">Loading data...</p>
                   </div>
@@ -81,8 +81,8 @@ const EnhancedTable = <T extends { id?: string | number }>({
                   className="px-6 py-16 text-center"
                 >
                   <div className="flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-[#125DAA]/10 flex items-center justify-center mb-4">
-                      <svg className="w-8 h-8 text-[#125DAA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-16 h-16 rounded-full bg-[#1a7cd3]/10 flex items-center justify-center mb-4">
+                      <svg className="w-8 h-8 text-[#1a7cd3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                       </svg>
                     </div>
@@ -101,7 +101,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-md bg-[#125DAA] flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-md bg-[#1a7cd3] flex items-center justify-center">
                         <span className="text-xs font-bold text-white">
                           {index + 1}
                         </span>
@@ -141,7 +141,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
                               onClick={() => action.onClick(row)}
                               className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 ${
                                 action.color ||
-                                "text-[#125DAA] hover:bg-[#125DAA] hover:text-white border-[#125DAA]/20 hover:border-[#125DAA]"
+                                "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white border-[#1a7cd3]/20 hover:border-[#1a7cd3]"
                               }`}
                             >
                               {iconEl}

@@ -2,9 +2,10 @@ import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useContext } from "react";
 import appLogo from "../../assets/butterfiles.png";
 import pcpsLogo from "../../assets/pcpsLogo.png";
-import {
-  MdDashboard,
-} from "react-icons/md";
+import { 
+  MdPeople, MdSchool, MdBusinessCenter, MdArticle,
+  MdWorkspacePremium, MdGroups, MdDownload, MdEvent
+} from 'react-icons/md';
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -26,16 +27,17 @@ interface SideBarProps {
   onCloseMobile: () => void;
 }
 
-const menuItems: MenuItem[] = [
-  { id: "user", icon: MdDashboard, label: "Users", badge: "New" },
-  { id: "course", icon: MdDashboard, label: "Dashboard", badge: "New" },
-  { id: "alumni", icon: MdDashboard, label: "Alumni", badge: "New" },
-  { id: "news", icon: MdDashboard, label: "News", badge: "New" },
-  { id: "recognition", icon: MdDashboard, label: "Recognitions", badge: "New" },
-  { id: "teams", icon: MdDashboard, label: "Our Teams", badge: "New" },
-  { id: "downloads", icon: MdDashboard, label: "Downloads", badge: "New" },
- { id: "holiday", icon: MdDashboard, label: "Holiday", badge: "New" },
 
+
+const menuItems: MenuItem[] = [
+  { id: "user", icon: MdPeople, label: "Users", badge: "New" },
+  { id: "course", icon: MdSchool, label: "Courses", badge: "New" },
+  { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
+  { id: "news", icon: MdArticle, label: "News", badge: "New" },
+  { id: "recognition", icon: MdWorkspacePremium, label: "Recognitions", badge: "New" },
+  { id: "teams", icon: MdGroups, label: "Our Teams", badge: "New" },
+  { id: "downloads", icon: MdDownload, label: "Downloads", badge: "New" },
+  { id: "holiday", icon: MdEvent, label: "Holiday", badge: "New" },
 ];
 
 const SideBar: React.FC<SideBarProps> = ({

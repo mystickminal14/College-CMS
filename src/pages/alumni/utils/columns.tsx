@@ -20,7 +20,7 @@ export const AlumniColumns = [
         <img
           src={imageUrl}
           alt="User"
-          className="w-18 h-18 rounded-md object-cover border shadow-sm" // ← updated
+          className="w-18 cursor-pointer h-18 rounded-md object-cover border shadow-sm" // ← updated
         /></a>
       );
     },

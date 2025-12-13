@@ -72,7 +72,7 @@ const ResetPasswordModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                     className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
                 >
                     {/* HEADER */}
-                    <div className="bg-[#135EAB] p-6 flex justify-between items-center">
+                    <div className="bg-[#1a7cd3] p-6 flex justify-between items-center">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-white/20 rounded-lg">
                                 <Lock className="w-6 h-6 text-white" />
@@ -119,7 +119,7 @@ const ResetPasswordModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="Enter new password"
-                                        className="w-full px-4 py-2.5 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135EAB] focus:border-transparent pr-10"
+                                        className="w-full px-4 py-2.5 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1a7cd3] focus:border-transparent pr-10"
                                     />
                                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                                     <button
@@ -140,7 +140,7 @@ const ResetPasswordModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         placeholder="Confirm new password"
-                                        className="w-full px-4 py-2.5 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135EAB] focus:border-transparent"
+                                        className="w-full px-4 py-2.5 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1a7cd3] focus:border-transparent"
                                     />
                                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 </div>
@@ -165,7 +165,7 @@ const ResetPasswordModal: React.FC<Props> = ({ isOpen, onClose, user }) => {
                             <button
                                 type="submit"
                                 disabled={mutation.isPending}
-                                className="flex-1 px-4 py-3 bg-[#135EAB] text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                                className="flex-1 px-4 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                             >
                                 {mutation.isPending ? (
                                     <>

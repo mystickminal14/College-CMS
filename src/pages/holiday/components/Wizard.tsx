@@ -215,7 +215,7 @@ const HolidayImageUploadForm: React.FC<HolidayImageUploadFormProps> = ({
               <button
                 onClick={handleCancel}
                 disabled={updateImageMutation.isPending}
-                className="px-4 py-3 text-[#135EAB] hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors font-medium disabled:opacity-50 cursor-pointer"
+                className="px-4 py-3 text-[#1a7cd3] hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors font-medium disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </button>

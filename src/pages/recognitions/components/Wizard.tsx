@@ -156,9 +156,9 @@ const AddEditRecognitionsWizardModal: React.FC<AddEditRecognitionsWizardModalPro
             {/* Progress */}
             <div className="flex items-center justify-center mt-6">
               <div className="flex items-center">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 1 ? 'bg-white text-[#135EAB]' : 'bg-white/30 text-white'}`}><span className="font-bold">1</span></div>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 1 ? 'bg-white text-[#1a7cd3]' : 'bg-white/30 text-white'}`}><span className="font-bold">1</span></div>
                 <div className={`w-24 h-1 ${step === 2 ? 'bg-white' : 'bg-white/30'}`}></div>
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 2 ? 'bg-white text-[#135EAB]' : 'bg-white/30 text-white'}`}><span className="font-bold">2</span></div>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 2 ? 'bg-white text-[#1a7cd3]' : 'bg-white/30 text-white'}`}><span className="font-bold">2</span></div>
               </div>
             </div>
           </div>
@@ -180,7 +180,7 @@ const AddEditRecognitionsWizardModal: React.FC<AddEditRecognitionsWizardModalPro
               type="button"
               onClick={handleSubmitStep1}
               disabled={editMutation?.isPending}
-              className="flex-1 px-6 py-3.5 bg-[#135EAB] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
+              className="flex-1 px-6 py-3.5 bg-[#1a7cd3] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
             >
               {editMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Update"}
             </button>
@@ -196,7 +196,7 @@ const AddEditRecognitionsWizardModal: React.FC<AddEditRecognitionsWizardModalPro
           <button
             type="submit"
             disabled={createMutation?.isPending}
-            className="w-full px-6 py-3.5 bg-[#135EAB] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
+            className="w-full px-6 py-3.5 bg-[#1a7cd3] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
           >
             {createMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Submit & Continue"}
           </button>
