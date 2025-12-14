@@ -3,8 +3,8 @@ import { X, ImageIcon, Upload, Loader2, Check } from "lucide-react";
 import { validateImageFile } from "../../../utils/ImageCompression";
 import { AppContext } from "../../../context/ContextApp";
 
-interface RecognitionImageUploadFormProps {
-  reccognitionName: string;
+interface CourseImageUploadFormProps {
+  courseName: string;
   imagePreview: string | null;
   imageFile: File | null;
   onImageChange: (file: File) => void;
@@ -14,8 +14,8 @@ interface RecognitionImageUploadFormProps {
   onSubmit: () => void;
 }
 
-const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
-  reccognitionName,
+const CourseImageUploadForm: React.FC<CourseImageUploadFormProps> = ({
+  courseName,
   imagePreview,
   imageFile,
   onImageChange,
@@ -28,7 +28,7 @@ const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
   const appContext = useContext(AppContext);
 
   if (!appContext)
-    throw new Error("useEditAlumni must be used inside AppContext");
+    throw new Error("useEditCourse must be used inside AppContext");
   const { showToast } = appContext;
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,10 +48,10 @@ const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
     <div className="space-y-6">
       <div className="text-center mb-2">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {imagePreview ? "Current Image / Upload New" : "Upload Alumni Photo"}
+          {imagePreview ? "Current Image / Upload New" : "Upload Course Photo"}
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
-          {imagePreview ? `Current image for ${reccognitionName}` : `Add a professional photo for ${reccognitionName}`}
+          {imagePreview ? `Current image for ${courseName}` : `Add a professional photo for ${courseName}`}
         </p>
       </div>
 
@@ -102,4 +102,4 @@ const RecognitionImageUploadForm: React.FC<RecognitionImageUploadFormProps> = ({
   );
 };
 
-export default RecognitionImageUploadForm;
+export default CourseImageUploadForm;
