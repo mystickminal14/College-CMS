@@ -73,7 +73,35 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
                                 </div>
                             </div>
                         </div>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 mb-8">
+                            {/* Class Timing Block */}
+                            <div className="bg-linear-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <div className="flex items-start gap-4">
+                                    <div className="bg-blue-100 p-3 rounded-lg">
+                                        <Clock className="w-6 h-6 text-blue-600" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-gray-800 mb-1">Class Timing</h3>
+                                        <p className="text-lg font-semibold text-blue-700">6:30AM - 8:30AM</p>
+                                        <p className="text-sm text-gray-600 mt-1">Sunday - Friday</p>
+                                    </div>
+                                </div>
+                            </div>
 
+                            {/* Tutorials Block */}
+                            <div className="bg-linear-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <div className="flex items-start gap-4">
+                                    <div className="bg-emerald-100 p-3 rounded-lg">
+                                        <BookOpen className="w-6 h-6 text-emerald-600" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-gray-800 mb-1">Tutorials</h3>
+                                        <p className="text-lg font-semibold text-emerald-700">8:30AM - 9:30AM</p>
+                                        <p className="text-sm text-gray-600 mt-1">Sunday - Friday</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="mt-8">
                             <button className="bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg w-full md:w-auto">
                                 Apply for Scholarship →

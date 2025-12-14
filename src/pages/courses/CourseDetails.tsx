@@ -1,4 +1,4 @@
-
+// CourseDetails.tsx
 import { ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -23,108 +23,134 @@ const CourseDetails = () => {
   const blocks = data?.data ?? [];
   const tocItems = buildToc(blocks);
 
-  const scrollToSection = (sectionId: string) => {
-    const section = sectionRefs.current[sectionId];
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveSection(sectionId);
-    }
-  };
-
+  /* ===============================
+     Scroll Spy
+  =============================== */
   useEffect(() => {
+    if (!blocks.length) return;
+
     const onScroll = () => {
-      const scrollPos = window.scrollY + 120;
+      const scrollPos = window.scrollY + 100;
 
       const sections = Object.entries(sectionRefs.current)
         .filter(([, ref]) => ref)
         .sort(([, a], [, b]) => a!.offsetTop - b!.offsetTop);
+
+      let current = sections[0]?.[0] ?? "";
 
       for (const [id, ref] of sections) {
         if (
           scrollPos >= ref!.offsetTop &&
           scrollPos < ref!.offsetTop + ref!.offsetHeight
         ) {
-          setActiveSection(id);
+          current = id;
           break;
         }
+      }
+
+      if (current !== activeSection) {
+        setActiveSection(current);
       }
     };
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [blocks, activeSection]);
+
+  const scrollToSection = (id: string) => {
+    const section = sectionRefs.current[id];
+    if (!section) return;
+
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveSection(id);
+  };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header always visible */}
       <CourseHeader course={course} />
 
-      <div className="p-4 md:p-8">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
-          {/* Desktop TOC */}
-          <aside className="hidden lg:block lg:w-1/4">
-            <div className="sticky top-8 bg-white rounded-xl shadow-lg p-6 max-h-[calc(100vh-4rem)] overflow-y-auto">
-              <h3 className="text-lg font-bold mb-4 pb-3 border-b">
-                On this page
-              </h3>
-
-              <nav className="space-y-2">
-                {tocItems.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`w-full text-left px-3 py-2 rounded-lg flex justify-between items-center transition ${
-                      activeSection === item.id
-                        ? "bg-blue-50 text-blue-700 font-medium border-l-4 border-blue-600"
-                        : "text-gray-600 hover:bg-gray-50"
-                    }`}
-                  >
-                    {item.label}
-                    {activeSection === item.id && (
-                      <ChevronRight className="w-4 h-4" />
-                    )}
-                  </button>
-                ))}
-              </nav>
+      {/* ===============================
+          LOADING → SKELETON
+      =============================== */}
+      {isLoading && (
+        <div className="max-w-7xl mx-auto flex">
+          {/* TOC Skeleton */}
+          <aside className="hidden lg:block w-1/4 sticky top-0 h-screen">
+            <div className="bg-white border-r h-full px-8 py-8 space-y-4">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="h-4 bg-gray-200 rounded animate-pulse"
+                />
+              ))}
             </div>
           </aside>
 
-          {/* Content */}
-          <main className="lg:w-3/4">
-            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-              {isLoading ? (
-                <p className="text-gray-500">Loading course details...</p>
-              ) : (
-                <CourseDetailRenderer
-                  blocks={blocks}
-                  sectionRefs={sectionRefs}
-                />
-              )}
-            </div>
+          {/* Content Skeleton */}
+          <main className="flex-1 bg-white px-12 py-8 space-y-6">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="space-y-3">
+                <div className="h-6 w-1/3 bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 w-5/6 bg-gray-200 rounded animate-pulse" />
+              </div>
+            ))}
+          </main>
+        </div>
+      )}
 
-            {/* Mobile TOC */}
-            <div className="lg:hidden mt-8">
-              <details className="bg-white rounded-xl shadow">
-                <summary className="p-4 font-bold flex justify-between cursor-pointer">
+      {/* ===============================
+          DATA EXISTS → SHOW DETAILS
+      =============================== */}
+      {!isLoading && blocks.length > 0 && (
+        <div className="max-w-7xl mx-auto flex">
+          
+          {/* TOC */}
+          <aside className="hidden lg:block w-1/4 sticky top-0 h-screen">
+            <div className="bg-white border-r border-gray-200 h-full overflow-y-auto py-8">
+              <div className="px-8">
+                <h3 className="text-lg font-bold mb-6">
                   On this page
-                  <ChevronRight className="w-5 h-5" />
-                </summary>
+                </h3>
 
-                <div className="p-4 space-y-2">
+                <nav className="space-y-1">
                   {tocItems.map(item => (
                     <button
                       key={item.id}
                       onClick={() => scrollToSection(item.id)}
-                      className="block w-full text-left px-3 py-2 rounded hover:bg-gray-100"
+                      className={`w-full text-left py-3 px-2 rounded-lg
+                        flex justify-between items-center
+                        ${
+                          activeSection === item.id
+                            ? "bg-[#1a7cd3] text-white font-semibold"
+                            : "text-gray-600 hover:bg-gray-100"
+                        }
+                        ${item.level === 2 ? "pl-6" : ""}
+                      `}
                     >
-                      {item.label}
+                      <span className="truncate">{item.label}</span>
+                      {activeSection === item.id && (
+                        <ChevronRight className="w-4 h-4" />
+                      )}
                     </button>
                   ))}
-                </div>
-              </details>
+                </nav>
+              </div>
+            </div>
+          </aside>
+
+          {/* CONTENT */}
+          <main className="flex-1 bg-white min-h-screen">
+            <div className="py-8 px-4 md:px-8 lg:px-12">
+              <CourseDetailRenderer
+                blocks={blocks}
+                sectionRefs={sectionRefs}
+              />
             </div>
           </main>
         </div>
-      </div>
+      )}
     </div>
   );
 };
