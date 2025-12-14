@@ -1,11 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import type { ReactNode } from "react";
 import AppLayout from "../components/layout/AppLayout";
 import CoursePage from "../pages/courses/CoursePage";
 import NoticesPage from "../pages/notices/NoticePage";
-import { HomePage } from "../website";
-import { OurPartners } from "../website/components/Home/OurPartners";
-import { EmailSubscribe } from "../website/components/Home/EmailSubscribe";
+import { HomePage } from "../website/Website";
+import { NavBar } from "../website/pages/home/components/NavBar";
 
 // const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 //   const token = localStorage.getItem("token");
@@ -30,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/components",
-    element: <EmailSubscribe />,
+    element: <NavBar />,
   },
   {
     path: "/home",

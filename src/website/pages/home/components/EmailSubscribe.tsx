@@ -1,30 +1,30 @@
-import { Mail} from 'lucide-react';
+import { Mail } from 'lucide-react';
 
-import leftSideGirl from "../../../assets/girl_left_side.png"
-import rightSideGirl from "../../../assets/right_side_girl.png"
+import leftSideGirl from "../../../../assets/girl_left_side.png"
+import rightSideGirl from "../../../../assets/right_side_girl.png"
+
 export function EmailSubscribe() {
   return (
     <section className="py-20 px-6 lg:px-40">
       <div className="max-w-8xl mx-auto">
         {/* Main CTA Card */}
         <div className="relative bg-[#3040E5] rounded-3xl overflow-hidden shadow-2xl">
-          {/* Background Students */}
-          <div className="absolute inset-0 flex justify-between items-center ">
+          {/* Background Students - Hidden below 1300px */}
+          <div className="absolute inset-0 flex justify-between items-center pointer-events-none max-[1299px]:hidden">
             {/* Left Student */}
             <img
               src={leftSideGirl}
               alt="Happy student"
-              className="-ml-50 w-150 h-full left-0 object-cover object-center hidden lg:block"
+              className="-ml-50 w-150 h-full left-0 object-cover object-center"
             />
 
             {/* Right Student */}
             <img
               src={rightSideGirl}
               alt="Confident student"
-              className=" -mr-20 w-150 h-full  object-cover object-center hidden lg:block"
+              className="-mr-20 w-150 h-full object-cover object-center"
             />
           </div>
-
 
           {/* Content */}
           <div className="relative z-10 py-16 lg:py-24 px-8 lg:px-16 text-center">
@@ -60,22 +60,8 @@ export function EmailSubscribe() {
             </form>
           </div>
 
-          {/* Mobile Students (Visible on small screens) */}
-          <div className="lg:hidden flex justify-center gap-8 mt-10 px-8">
-            <img
-              src={leftSideGirl}
-              alt="Student"
-              className="w-40 h-56 object-cover rounded-2xl shadow-xl"
-            />
-            <img
-              src={rightSideGirl}
-              alt="Student"
-              className="w-40 h-56 object-cover rounded-2xl shadow-xl"
-            />
-          </div>
         </div>
       </div>
     </section>
   );
 }
-
