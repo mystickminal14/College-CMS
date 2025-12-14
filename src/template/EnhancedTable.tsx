@@ -10,6 +10,7 @@ interface EnhancedTableProps<T> {
     tooltip: string | ((row: T) => string);
     onClick: (row: T) => void;
     color?: string;
+    condition?: (row: T) => boolean; // <-- optional condition to show action
   }[];
   onRowClick?: (row: T) => void;
   loading?: boolean;
@@ -76,10 +77,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
               </tr>
             ) : data.length === 0 ? (
               <tr>
-                <td
-                  colSpan={columns.length + 2}
-                  className="px-6 py-16 text-center"
-                >
+                <td colSpan={columns.length + 2} className="px-6 py-16 text-center">
                   <div className="flex flex-col items-center justify-center">
                     <div className="w-16 h-16 rounded-full bg-[#1a7cd3]/10 flex items-center justify-center mb-4">
                       <svg className="w-8 h-8 text-[#1a7cd3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,17 +92,13 @@ const EnhancedTable = <T extends { id?: string | number }>({
               data.map((row, index) => (
                 <tr
                   key={row.id ?? index}
-                  className={`group transition-all duration-200 ${
-                    onRowClick ? "hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer" : ""
-                  } ${index % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50/50 dark:bg-gray-900/30"}`}
+                  className={`group transition-all duration-200 ${onRowClick ? "hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer" : ""} ${index % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50/50 dark:bg-gray-900/30"}`}
                   onClick={() => onRowClick?.(row)}
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <div className="w-8 h-8 rounded-md bg-[#1a7cd3] flex items-center justify-center">
-                        <span className="text-xs font-bold text-white">
-                          {index + 1}
-                        </span>
+                        <span className="text-xs font-bold text-white">{index + 1}</span>
                       </div>
                     </div>
                   </td>
@@ -112,9 +106,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
                   {columns.map((col, i) => (
                     <td key={i} className="px-6 py-4">
                       <div className="text-gray-700 dark:text-gray-300 font-medium">
-                        {col.render ? col.render(row) : (row as any)[col.accessor] || (
-                          <span className="text-gray-400 dark:text-gray-500 italic">—</span>
-                        )}
+                        {col.render ? col.render(row) : (row as any)[col.accessor] ?? <span className="text-gray-400 dark:text-gray-500 italic">—</span>}
                       </div>
                     </td>
                   ))}
@@ -122,36 +114,28 @@ const EnhancedTable = <T extends { id?: string | number }>({
                   {actions.length > 0 && (
                     <td className="px-6 py-4" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center space-x-2">
-                        {actions.map((action, i) => {
-                          const iconEl =
-                            typeof action.icon === "function"
-                              ? action.icon(row)
-                              : action.icon;
+                        {actions
+                          .filter(action => !action.condition || action.condition(row)) // <-- condition check
+                          .map((action, i) => {
+                            const iconEl = typeof action.icon === "function" ? action.icon(row) : action.icon;
+                            const tooltipContent = typeof action.tooltip === "function" ? action.tooltip(row) : action.tooltip;
 
-                          const tooltipContent =
-                            typeof action.tooltip === "function"
-                              ? action.tooltip(row)
-                              : action.tooltip;
-
-                          return (
-                            <button
-                              key={i}
-                              data-tooltip-id={`tooltip-${row.id ?? index}-${i}`}
-                              data-tooltip-content={tooltipContent}
-                              onClick={() => action.onClick(row)}
-                              className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 ${
-                                action.color ||
-                                "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white border-[#1a7cd3]/20 hover:border-[#1a7cd3]"
-                              }`}
-                            >
-                              {iconEl}
-                              <Tooltip 
-                                id={`tooltip-${row.id ?? index}-${i}`}
-                                className="z-50 bg-gray-900 dark:bg-gray-700 text-white dark:text-gray-200 text-xs px-2 py-1 rounded shadow-lg"
-                              />
-                            </button>
-                          );
-                        })}
+                            return (
+                              <button
+                                key={i}
+                                data-tooltip-id={`tooltip-${row.id ?? index}-${i}`}
+                                data-tooltip-content={tooltipContent}
+                                onClick={() => action.onClick(row)}
+                                className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 ${action.color || "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white border-[#1a7cd3]/20 hover:border-[#1a7cd3]"}`}
+                              >
+                                {iconEl}
+                                <Tooltip
+                                  id={`tooltip-${row.id ?? index}-${i}`}
+                                  className="z-50 bg-gray-900 dark:bg-gray-700 text-white dark:text-gray-200 text-xs px-2 py-1 rounded shadow-lg"
+                                />
+                              </button>
+                            );
+                          })}
                       </div>
                     </td>
                   )}

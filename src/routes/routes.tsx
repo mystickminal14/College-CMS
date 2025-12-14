@@ -14,6 +14,7 @@ import DownloadsPage from "../pages/handbook/DownloadsPage";
 import HolidaysPage from "../pages/holiday/HolidayPage";
 import CourseDetails from "../pages/courses/CourseDetails";
 import CoursePage from "../pages/courses/CousePage";
+import AddCourseDetailsPage from "../pages/add-course/AddCourseDetailsPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -36,10 +37,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <LoginRoute />,
   },
-  {
-    path: "/course-details",
-    element: <CourseDetails />,
-  },
+  
   {
     path: "/home",
     element: <HomePage />,
@@ -59,6 +57,13 @@ const router = createBrowserRouter([
         path: "course",
         element: <CoursePage />,
       },
+      {
+    path: "course-details/:id",
+    element: <CourseDetails />,
+  },
+    { path: "course-details/add/:id",
+    element: <AddCourseDetailsPage />,
+  },
       {
         path: "notice",
         element: <NoticesPage />,

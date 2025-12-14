@@ -6,6 +6,10 @@ export interface Courses {
   duration: string;
   category: string;
   semester: string;
+  prefix: string;
+  degree: string;
+
   image?: string;
+  hasDetails?:boolean;
 }
 export type EShift = "MORNING" | "BOTH" | "EVENING";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Edit, Trash2 } from "lucide-react";
-import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
+import { FaTable, FaThLarge, } from "react-icons/fa";
 import { debounce } from "lodash";
 
 import TitleBox from "../../components/layout/TitleBox";
@@ -120,13 +120,14 @@ const TeamsPage = () => {
           </select>
 
           <button
-            onClick={handleAdd}
-            disabled={createMutation.isPending}
-            className="px-4 py-2 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
-          >
-            <FaPlus className="w-4 h-4" />
-            <span>Add</span>
-          </button>
+          onClick={handleAdd}
+          className="px-6 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Add Member</span>
+        </button>
         </div>
       </div>
 

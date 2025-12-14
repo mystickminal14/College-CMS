@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, View } from "lucide-react";
 import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
 import { debounce } from "lodash";
 
@@ -20,6 +20,8 @@ import { useUpdateImage } from "./hooks/useUpdateImage";
 import { CoursesColumns } from "./utils/columns";
 
 import type { Courses } from "./model/CourseModel";
+import CoursesCardView from "./CourseCardView";
+import { useNavigate } from "react-router-dom";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -37,77 +39,80 @@ const CoursePage = () => {
   const { data, isLoading, isError } = useGetAll({
     search: debouncedSearch,
     page,
-    limit: PAGE_LIMIT
+    limit: PAGE_LIMIT,
   });
 
   const createMutation = useCreateCourse();
   const editMutation = useEditCourses();
   const uploadImageMutation = useUploadCourseImage();
   const updateImageMutation = useUpdateImage();
+  const navigate = useNavigate();
 
   const courses = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
+  const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
-  const handleAdd = () => { setCourseToEdit(null); setShowModal(true); };
+  const handleAdd = (course?: Courses) => {
+    setCourseToEdit(course ?? null);
+    setShowModal(true);
+  };
   const handleEdit = (course: Courses) => { setCourseToEdit(course); setShowModal(true); };
   const handleDelete = (course: Courses) => { setCourseToEdit(course); setShowDeleteModal(true); };
+  const handleView = (course: Courses) => {
+    navigate(`/app/course-details/add/${course.id}`, { state: { course } });
+  };
+  const handlePreview = (course: Courses) => {
+    navigate(`/app/course-details/${course.id}`, { state: { course } });
+  };
 
   const tableActions = [
+    { icon: <Edit className="w-5 h-5" />, tooltip: "Edit Course", onClick: handleEdit, color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white" },
+    { icon: <Trash2 className="w-5 h-5" />, tooltip: "Delete Course", onClick: handleDelete, color: "text-red-600 hover:bg-red-600 hover:text-white" },
+    { icon: <View className="w-5 h-5" />, tooltip: "Preview Course", onClick: handlePreview, color: "text-blue-500 hover:bg-blue-600 hover:text-white" },
     {
-      icon: <Edit className="w-5 h-5" />,
-      tooltip: "Edit Course",
-      onClick: handleEdit,
-      color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white"
-    },
-    {
-      icon: <Trash2 className="w-5 h-5" />,
-      tooltip: "Delete Course",
-      onClick: handleDelete,
-      color: "text-red-600 hover:bg-red-600 hover:text-white"
+      icon: <FaPlus className="w-4 h-4" />,
+      tooltip: "Add Details",
+      onClick: handleView,
+      color: "text-green-600 hover:bg-green-600 hover:text-white",
+      condition: (course: Courses) => !course.hasDetails, // hide if course already has details
     },
   ];
 
-  const hasNextPage = data?.pagination?.hasNextPage ?? false;
-
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 min-h-screen">
       <TitleBox title="Course Management" subtitle="Manage your courses" />
 
+      {/* VIEW MODE + SEARCH + ADD */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
-        {/* View Mode Toggle */}
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("table")}
-            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
-              viewMode === "table"
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
                 ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+              }`}
           >
             <FaTable className="w-4 h-4" />
             <span>Table</span>
           </button>
           <button
             onClick={() => setViewMode("card")}
-            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
-              viewMode === "card"
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
                 ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+              }`}
           >
             <FaThLarge className="w-4 h-4" />
             <span>Cards</span>
           </button>
         </div>
 
-        {/* Search + Add */}
         <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
           <SearchBox placeholder="Search Courses..." onSearch={handleSearch} />
-
           <button
-            onClick={handleAdd}
+            onClick={() => handleAdd()}
             disabled={createMutation.isPending}
-            className="px-4 py-2 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
+            className="px-4 py-2 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c]  flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
           >
             <FaPlus className="w-4 h-4" />
             <span>Add</span>
@@ -115,7 +120,6 @@ const CoursePage = () => {
         </div>
       </div>
 
-      {/* Content */}
       <div>
         {viewMode === "table" ? (
           <EnhancedTable
@@ -126,16 +130,20 @@ const CoursePage = () => {
             emptyMessage={isError ? "Failed to load Courses" : "No Courses found"}
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {/* Add Card view rendering here if needed */}
-          </div>
+          <CoursesCardView
+            courses={courses}
+            isLoading={isLoading}
+            isError={isError}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            onView={handleView}
+          />
         )}
       </div>
 
-      {/* Pagination */}
       <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
 
-      {/* Modals */}
+      {/* MODALS */}
       <DeleteTeamsModal
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}

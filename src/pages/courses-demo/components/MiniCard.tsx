@@ -1,27 +1,25 @@
-// CourseMiniCard.tsx
-import { FaUser, FaBookmark } from "react-icons/fa";
-import headerBg from "../../../assets/mountain.jpg";
+import { FaUser, FaBookmark, FaTimes } from "react-icons/fa";
 
 interface MiniCardProps {
   title: string;
-  credits: number;
-  instructor: string;
+  credits: string;
   semester: string;
-  enrolled: number;
-  capacity: number;
+  category: string;
+  duration: string;
+  image: string;
   status: string;
-  color?: string;
+  onView?: () => void;
 }
 
 const CourseMiniCard = ({
   title,
   credits,
-  instructor,
   semester,
-  enrolled,
-  capacity,
+  category,
+  duration,
+  image,
   status,
-  color = "#3B82F6"
+  onView,
 }: MiniCardProps) => {
   const getStatusColor = () => {
     switch (status) {
@@ -35,134 +33,54 @@ const CourseMiniCard = ({
   };
 
   return (
-    <div className="
-      bg-white 
-      dark:bg-slate-800
-      rounded-2xl 
-      shadow 
-      border border-gray-200 
-      dark:border-slate-700
-      p-4
-      hover:shadow-lg 
-      transition-all
-      w-full
-      h-full
-      flex flex-col
-    ">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow border border-[#002B6B8F] dark:border-slate-700 p-4 hover:shadow-lg transition-all w-full h-full flex flex-col">
       {/* IMAGE */}
       <div
-        className="
-          h-40 
-          w-full 
-          rounded-xl 
-          relative 
-          overflow-hidden
-          flex-shrink-0
-        "
+        className="h-40 w-full rounded-xl relative overflow-hidden shrink-0"
         style={{
-          backgroundImage: `url(${headerBg})`,
+          backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        {/* OVERLAY BADGE */}
-        <div className="
-          absolute 
-          bottom-3 
-          left-3 
-          bg-[#002B6B] 
-          text-white 
-          px-3 
-          py-1 
-          rounded-md 
-          text-xs 
-          font-semibold
-          whitespace-nowrap
-        ">
-          Artificial Intelligence
+        <div className="absolute bottom-3 left-3 bg-[#002B6B] text-white px-3 py-1 rounded-md text-xs font-semibold whitespace-nowrap">
+          {category}
         </div>
       </div>
 
       {/* CONTENT */}
       <div className="flex flex-col flex-1 mt-3 overflow-hidden">
-        {/* TITLE */}
-        <h3 className="
-          font-semibold 
-          text-[15px] 
-          text-gray-800 
-          dark:text-white
-          leading-tight
-          line-clamp-2
-          mb-2
-        ">
+        <h3 className="font-semibold text-[15px] text-gray-800 dark:text-white leading-tight line-clamp-2 mb-2">
           {title}
         </h3>
 
         {/* METADATA */}
         <div className="flex flex-wrap gap-2 mb-3">
-          <div className="
-            flex 
-            items-center 
-            gap-1 
-            text-gray-600 
-            dark:text-gray-300
-            text-[13px]
-          ">
+          <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-[13px]">
             <FaBookmark className="text-blue-600 dark:text-blue-400" size={12} />
             <span>{credits} Credits</span>
           </div>
 
-          <div className="
-            flex 
-            items-center 
-            gap-1 
-            text-gray-600 
-            dark:text-gray-300
-            text-[13px]
-          ">
+          <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-[13px]">
             <FaUser className="text-blue-600 dark:text-blue-400" size={12} />
             <span>{semester}</span>
           </div>
 
-          <div className={`
-            px-2 
-            py-1 
-            rounded-full 
-            text-[11px] 
-            font-medium
-            ${getStatusColor()}
-          `}>
+          <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-[13px]">
+            <FaTimes className="text-blue-600 dark:text-blue-400" size={12} />
+            <span>{duration}</span>
+          </div>
+
+          <div className={`px-2 py-1 rounded-full text-[11px] font-medium ${getStatusColor()}`}>
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </div>
         </div>
 
-        {/* INSTRUCTOR AND ENROLLMENT */}
-        <div className="mb-4">
-          <p className="text-gray-700 dark:text-gray-300 text-sm font-medium mb-1">
-            Instructor: <span className="font-normal">{instructor}</span>
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 text-sm font-medium">
-            Enrollment: <span className="font-normal">{enrolled}/{capacity}</span>
-          </p>
-        </div>
-
-        {/* BOTTOM ACTION */}
+        {/* LEARN MORE BUTTON */}
         <div className="mt-auto">
           <button
-            className="
-              bg-blue-600 
-              hover:bg-blue-700 
-              dark:bg-blue-700
-              dark:hover:bg-blue-600
-              text-white 
-              w-full
-              py-2.5
-              rounded-xl 
-              text-sm
-              font-medium 
-              flex items-center justify-center gap-2
-              transition-colors
-            "
+            onClick={onView}
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white w-full py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-colors"
           >
             Learn More →
           </button>

@@ -71,11 +71,14 @@ const DownloadsPage = () => {
             <span>Cards</span>
           </button>
         </div>
-        <button
+       <button
           onClick={handleAdd}
-          className="px-5 py-2.5 cursor-pointer bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] shadow transition-all"
+          className="px-6 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
         >
-          Add Downloads
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Add Downloads</span>
         </button>
       </div>
       <div>

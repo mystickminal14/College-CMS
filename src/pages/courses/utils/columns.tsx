@@ -12,15 +12,27 @@ export const CoursesColumns = [
       const hasImage = row.image && row.image !== "";
       const imageUrl = hasImage ? `${IMAGE_URL}${row.image}` : defaultAvatar;
       return (
-        <img
-          src={imageUrl}
-          alt="User"
-          className="w-18 h-18 rounded-md object-cover border shadow-sm"
-        />
+        <a
+          href={imageUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={imageUrl}
+            alt="User"
+            className="w-18 cursor-pointer h-18 rounded-md object-cover border shadow-sm" // ← updated
+          /></a>
       );
     },
   },
+  {
+    label: "Course Name",
+    accessor: "title",
+    render: (row: Courses) => `${row.prefix} ${row.title}`
+  },
+  { label: "Duration", accessor: "duration" },
+  { label: "Shift", accessor: "shift" ,  render: (row: Courses) => `${row.shift==='BOTH'?"Morning/Evening":row.shift.toLowerCase()} `},
+  { label: "Credits", accessor: "credit" },
 
-  { label: "Name", accessor: "name" },
-  
+
 ];

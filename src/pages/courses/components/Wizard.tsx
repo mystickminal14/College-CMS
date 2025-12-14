@@ -38,6 +38,8 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const [formData, setFormData] = useState({
     title: "",
     category: "",
+    degree:"",
+    prefix:"",
     credit: "",
     duration: "",
     semester: "",
@@ -55,6 +57,10 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
       setFormData({
         title: courseToEdit.title ?? "",
         category: courseToEdit.category ?? "",
+        degree: courseToEdit.degree ?? "",
+
+        prefix: courseToEdit.prefix ?? "",
+
         credit: String(courseToEdit.credit ?? ""),
         duration: courseToEdit.duration ?? "",
         semester: String(courseToEdit.semester ?? ""),
@@ -72,6 +78,8 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const resetForm = () => {
     setFormData({
       title: "",
+      prefix:"",
+      degree:"",
       category: "",
       credit: "",
       duration: "",
@@ -103,6 +111,9 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   /* ---------------- VALIDATION ---------------- */
   const validateStep1 = () => {
     if (!formData.title.trim()) return appContext?.showToast("Course title is required", "warn");
+    if (!formData.degree.trim()) return appContext?.showToast("Degree  is required", "warn");
+    if (!formData.prefix.trim()) return appContext?.showToast("Degree Prefix is required", "warn");
+
     if (!formData.category.trim()) return appContext?.showToast("Category is required", "warn");
     if (!formData.credit.trim()) return appContext?.showToast("Credit is required", "warn");
     if (!formData.duration.trim()) return appContext?.showToast("Duration is required", "warn");
@@ -184,14 +195,28 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
                 isSubmitting={createMutation?.isPending || editMutation?.isPending}
               />
 
-              <button
-                type="submit"
-                className="w-full py-3.5 bg-[#135EAB] text-white rounded-xl font-medium hover:bg-blue-700 flex justify-center"
-              >
-                {(createMutation?.isPending || editMutation?.isPending)
-                  ? <Loader2 className="animate-spin" />
-                  : isEditMode ? "Update Course" : "Save & Continue"}
-              </button>
+              <div className="flex gap-3">
+                {/* Primary Save/Update Button */}
+                <button
+                  type="submit"
+                  className="flex-1 py-3.5 bg-[#135EAB] text-white rounded-xl font-medium hover:bg-blue-700 flex justify-center items-center"
+                >
+                  {(createMutation?.isPending || editMutation?.isPending)
+                    ? <Loader2 className="animate-spin" />
+                    : isEditMode ? "Update Course" : "Save & Continue"}
+                </button>
+
+                {/* Next Image Button for Edit Mode */}
+                {isEditMode && (
+                  <button
+              type="button"
+              onClick={() => setStep(2)}
+              className="flex-1 px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
+            >
+              Next
+            </button>
+                )}
+              </div>
             </form>
           ) : (
             <CourseImageUploadForm
@@ -200,7 +225,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
               imageFile={imageFile}
               onImageChange={handleImageChange}
               onRemoveImage={handleRemoveImage}
-              isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending}
+                    isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
               onSkip={() => { resetForm(); onClose(); }}
               onSubmit={handleSubmitStep2}
             />

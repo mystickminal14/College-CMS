@@ -13,6 +13,8 @@ import type { EShift } from "../model/CourseModel";
 interface CoursesBasicFormProps {
   formData: {
     title: string;
+    prefix: string;
+    degree: string;
     credit: string;
     duration: string;
     category: string;
@@ -33,7 +35,16 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
+        <InputField
+          icon={<BookOpen className="w-5 h-5" />}
+          label="Degree Prefix"
+          value={formData.prefix}
+          field="prefix"
+          onChange={onChange}
+          placeholder="BSc (Hons)"
+          required
+          isSubmitting={isSubmitting}
+        />
         {/* Course Name */}
         <InputField
           icon={<BookOpen className="w-5 h-5" />}
@@ -41,7 +52,17 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
           value={formData.title}
           field="title"
           onChange={onChange}
-          placeholder="BSc (Hons) Information Technology"
+          placeholder="Information Technology"
+          required
+          isSubmitting={isSubmitting}
+        />
+        <InputField
+          icon={<BookOpen className="w-5 h-5" />}
+          label="Degree "
+          value={formData.degree}
+          field="degree"
+          onChange={onChange}
+          placeholder="Bachlelor / Master"
           required
           isSubmitting={isSubmitting}
         />
