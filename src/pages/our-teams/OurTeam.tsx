@@ -79,7 +79,6 @@ const TeamsPage = () => {
 
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
 
-        {/* View Toggle */}
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("table")}

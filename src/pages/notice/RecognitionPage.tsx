@@ -14,12 +14,14 @@ import type { Recognitions } from "./model/RecognitionsModel";
 import { Edit, Trash2 } from "lucide-react";
 import { useUploadRecognitionsImage } from "./hooks/useUploadAlumni";
 import Pagination from "../../utils/Pagination";
+import RecognitionsCardView from "../recognitions/components/RecognitionCard";
 
 const RecognitionsPage = () => {
     const [page, setPage] = useState(1);
     const [showModal, setShowModal] = useState(false);
     const [RecognitionsToEdit, setRecognitionsToEdit] = useState<any>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [viewMode, setViewMode] = useState<"table" | "card">("table");
 
     const { data, isLoading, isError } = useGetRecognitions({ page, limit: PAGE_LIMIT });
     const createMutation = useCreateRecognitions();
@@ -63,8 +65,17 @@ const RecognitionsPage = () => {
                     <span>Add Recognitions</span>
                 </button>
             </div>
+            {viewMode === "table" ? (
+                <EnhancedTable data={Recognitions} columns={RecognitionsColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Recognitions" : "No Recognitions found"} />
 
-            <EnhancedTable data={Recognitions} columns={RecognitionsColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Recognitions" : "No Recognitions found"} />
+            ) : (
+                <RecognitionsCardView
+                    Recognitions={Recognitions}
+                    isLoading={isLoading}
+                    isError={isError}
+                    onDelete={handleDeleteUser}
+                />
+            )}
             <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
             <DeleteRecognitionsModal
                 isOpen={showDeleteModal}

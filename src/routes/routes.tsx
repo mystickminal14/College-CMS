@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate,  } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
-import CoursePage from "../pages/courses/CoursePage";
+import CoursePage from "../pages/courses-demo/CoursePage";
 import NoticesPage from "../pages/notices/NoticePage";
 import { HomePage } from "../website";
 import LoginPage from "../login/page/LoginPage";
