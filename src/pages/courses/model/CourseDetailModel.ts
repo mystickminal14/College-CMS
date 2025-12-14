@@ -1,3 +1,4 @@
+// model/CourseDetailModel.ts
 export const BlockType = {
   HEADING: "HEADING",
   SUBHEADING: "SUBHEADING",
@@ -41,8 +42,13 @@ export interface ListBlock extends BaseBlock {
   title?: never;
 }
 
-export type CourseDetailBlock =
-  | HeadingBlock
-  | SubHeadingBlock
-  | ParagraphBlock
-  | ListBlock;
+export type CourseDetailBlock = HeadingBlock | SubHeadingBlock | ParagraphBlock | ListBlock;
+
+export interface UpdateBlockData {
+  id: number;
+  type: BlockType;
+  title?: string;
+  content?: string | string[] | null;
+  order?: number;
+  children?: CourseDetailBlock[];
+}

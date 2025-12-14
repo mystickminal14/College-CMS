@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Edit, Trash2, View } from "lucide-react";
+import { Edit, Edit3, Trash2, View } from "lucide-react";
 import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
 import { debounce } from "lodash";
 
@@ -64,11 +64,15 @@ const CoursePage = () => {
   const handlePreview = (course: Courses) => {
     navigate(`/app/course-details/${course.id}`, { state: { course } });
   };
-
+ const handleEditDetails = (course: Courses) => {
+    navigate(`/app/course-details/edit/${course.id}`, { state: { course } });
+  };
   const tableActions = [
     { icon: <Edit className="w-5 h-5" />, tooltip: "Edit Course", onClick: handleEdit, color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white" },
     { icon: <Trash2 className="w-5 h-5" />, tooltip: "Delete Course", onClick: handleDelete, color: "text-red-600 hover:bg-red-600 hover:text-white" },
     { icon: <View className="w-5 h-5" />, tooltip: "Preview Course", onClick: handlePreview, color: "text-blue-500 hover:bg-blue-600 hover:text-white" },
+  
+    
     {
       icon: <FaPlus className="w-4 h-4" />,
       tooltip: "Add Details",
@@ -76,10 +80,18 @@ const CoursePage = () => {
       color: "text-green-600 hover:bg-green-600 hover:text-white",
       condition: (course: Courses) => !course.hasDetails, // hide if course already has details
     },
+     {
+      icon: <Edit3 className="w-4 h-4" />,
+      tooltip: "Edit Details",
+      onClick: handleEditDetails,
+      color: "text-green-600 hover:bg-green-600 hover:text-white",
+      condition: (course: Courses) => course.hasDetails, 
+    },
+
   ];
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 min-h-screen">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 ">
       <TitleBox title="Course Management" subtitle="Manage your courses" />
 
       {/* VIEW MODE + SEARCH + ADD */}

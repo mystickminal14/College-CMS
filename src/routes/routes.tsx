@@ -15,6 +15,7 @@ import HolidaysPage from "../pages/holiday/HolidayPage";
 import CourseDetails from "../pages/courses/CourseDetails";
 import CoursePage from "../pages/courses/CousePage";
 import AddCourseDetailsPage from "../pages/add-course/AddCourseDetailsPage";
+import EditCourseDetailsPage from "../pages/add-course/EditCourseDetailsPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -63,6 +64,9 @@ const router = createBrowserRouter([
   },
     { path: "course-details/add/:id",
     element: <AddCourseDetailsPage />,
+  },
+   { path: "course-details/edit/:id",
+    element: <EditCourseDetailsPage />,
   },
       {
         path: "notice",
