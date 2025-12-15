@@ -16,7 +16,7 @@ const NotFoundPage: React.FC = () => {
       className={`flex flex-col items-center justify-center min-h-screen px-4 transition-all duration-500 ${
         theme === "dark"
           ? "bg-gray-900 text-gray-200"
-          : "bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 text-gray-800"
+          : "bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 text-gray-800"
       }`}
     >
       <img
