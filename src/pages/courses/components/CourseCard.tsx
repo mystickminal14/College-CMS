@@ -1,121 +1,101 @@
-// CoursesCardView.tsx
-import { FaPlus } from "react-icons/fa";
-import DottedBorderWrapper from "./DottedWrapper";
-import CourseMiniCard from "./MiniCard";
-import type { CourseModel } from "../model/CourseModel";
+import { FaUser, FaBookmark, FaTimes } from "react-icons/fa";
 
-interface CoursesCardViewProps {
-  courses: CourseModel[];
-  onEdit: (course: CourseModel) => void;
-  onDelete: (id: string) => void;
-  onAddNew: () => void;
-  onView?: (course: CourseModel) => void;
+interface MiniCardProps {
+  title: string;
+  credits: string;
+  semester: string;
+  category?: string;
+  duration: string;
+  image: string;
+  onView: () => void;
 }
 
-const CoursesCardView = ({
-  courses,
-  onEdit,
-  onDelete,
-  onAddNew,
-  onView
-}: CoursesCardViewProps) => {
+const CourseMiniCard = ({
+  title,
+  credits,
+  semester,
+  category,
+  duration,
+  image,
+  onView,
+}: MiniCardProps) => {
   return (
-    <div className="
-      grid 
-      grid-cols-1 
-      gap-3
-      sm:gap-4
-      sm:grid-cols-2 
-      lg:grid-cols-3 
-      place-items-center
-      max-w-[95vw]
-      mx-auto
-      p-2
-    ">
-      {courses.map((course) => (
-        <div key={course.id} className="w-full max-w-[400px]">
-          <DottedBorderWrapper
-            onEdit={() => onEdit(course)}
-            onView={() => onView?.(course)}
-            onDelete={() => onDelete(course.id)}
-          >
-            <CourseMiniCard
-              title={course.title}
-              credits={course.credits}
-              instructor={course.instructor}
-              semester={course.semester}
-              enrolled={course.enrolled}
-              capacity={course.capacity}
-              status={course.status}
-              color={course.color}
-            />
-          </DottedBorderWrapper>
-        </div>
-      ))}
+    <div
+      className="
+        w-[280px] sm:w-[320px]  /* 280px on mobile, 340px above 500px */
+        bg-white dark:bg-slate-800
+        rounded-2xl shadow border border-[#002B6B8F] dark:border-slate-700
+        p-4 hover:shadow-lg transition-all
+        flex flex-col
+      "
+    >
+      {/* IMAGE */}
+      <div
+        className="h-60 w-full rounded-xl relative overflow-hidden shrink-0"
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {category && (
+          <div className="
+            absolute bottom-3 left-3
+            bg-[#002B6B] text-white
+            px-3 py-1 rounded-md
+            text-xs font-semibold
+          ">
+            {category}
+          </div>
+        )}
+      </div>
 
-      {/* Add New Course */}
-      <div className="w-full max-w-[400px]">
-        <div
-          onClick={onAddNew}
+      {/* CONTENT */}
+      <div className="flex flex-col flex-1 mt-3">
+        <h3 className="
+          font-semibold text-[15px]
+          text-gray-800 dark:text-white
+          line-clamp-2 mb-2
+        ">
+          {title}
+        </h3>
+
+        {/* META */}
+        <div className="flex flex-wrap gap-2 mb-4 text-[13px]">
+          <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+            <FaBookmark size={12} />
+            {credits} Credits
+          </div>
+
+          <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+            <FaUser size={12} />
+            {semester}
+          </div>
+
+          <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+            <FaTimes size={12} />
+            {duration}
+          </div>
+        </div>
+
+        {/* ACTION */}
+        <button
+          onClick={onView}
           className="
-            cursor-pointer 
-            border-2 
-            border-dashed 
-            border-slate-300 
-            dark:border-slate-700 
-            rounded-2xl 
-            p-6 
-            flex 
-            flex-col 
-            items-center 
-            justify-center 
-            hover:border-blue-400 
-            dark:hover:border-blue-500
-            transition-all
-            hover:shadow-lg
-            h-full
-            min-h-[424px]
-            w-full
+            mt-auto
+            bg-blue-600 hover:bg-blue-700
+            dark:bg-blue-700 dark:hover:bg-blue-600
+            text-white
+            py-2.5 rounded-xl
+            text-sm font-medium
+            transition-colors
           "
         >
-          <div className="
-            w-16 
-            h-16 
-            rounded-full 
-            bg-blue-600 
-            dark:bg-blue-700
-            text-white 
-            flex 
-            items-center 
-            justify-center 
-            mb-4
-            hover:scale-110
-            transition-transform
-          ">
-            <FaPlus className="text-2xl" />
-          </div>
-          <p className="
-            text-slate-700 
-            dark:text-slate-300 
-            font-semibold
-            text-lg
-            text-center
-          ">
-            Add New Course
-          </p>
-          <p className="
-            text-slate-500 
-            dark:text-slate-400
-            text-sm
-            text-center
-            mt-2
-          ">
-            Click to create a new course
-          </p>
-        </div>
+          Learn More →
+        </button>
       </div>
     </div>
   );
 };
 
-export default CoursesCardView;
+export default CourseMiniCard;

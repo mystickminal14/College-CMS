@@ -1,39 +1,37 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import type { Recognitions } from "../model/RecognitionsModel";
-import { AppContext } from "../../../context/ContextApp";
+import type { Downloads } from "../model/handbookModel";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
-import { RECOGNITION_CACHE_KEY } from "../../../constants";
-import { compressImage, validateImageFile } from "../../../utils/ImageCompression";
+import { DOWNLOAD_CACHE_KEY } from "../../../constants";
+import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 
-export const useUpdateImage = () => {
-  const appContext = useContext(AppContext);
-  const queryClient = useQueryClient();
+interface CreateFilePayload {
+  file: File;
+  name: string;
+}
 
-  if (!appContext) {
-    throw new Error("useUploadRecognitionsImage must be used within AppContext provider");
-  }
+export const useUpdatefile = () => {
+  const appContext = useContext(AppContext);
+  if (!appContext) throw new Error("useUpdatefile must be used within AppContext");
 
   const { showToast } = appContext;
+  const queryClient = useQueryClient();
 
-  return useMutation<ApiResponse<Recognitions>, ApiErrorResponse, { id: number; image: File }>({
-    mutationFn: async ({ id, image }) => {
-      const validationError = validateImageFile(image);
-      if (validationError) throw new Error(validationError);
-      
-      const compressedImage = await compressImage(image);
-      
+  return useMutation<ApiResponse<Downloads>, ApiErrorResponse, CreateFilePayload>({
+    mutationFn: async ({ file, name }) => {
       const formData = new FormData();
-      formData.append("image", compressedImage);
+      formData.append("name", name);
+      formData.append("file", file);
 
-      const apiClient = new APIClient<Recognitions>(`/recognition/update-image/${id}`);
-      return apiClient.postImage(formData);
+      // Only POST — because backend only supports CREATE
+      const apiClient = new APIClient<Downloads>("/downloads");
+      return apiClient.postFile(formData);
     },
 
     onSuccess: (res) => {
-      showToast(res.message || "Recognitions image uploaded successfully!", "success");
-      queryClient.invalidateQueries({ queryKey: [RECOGNITION_CACHE_KEY] });
+      showToast(res.message || "Download uploaded successfully!", "success");
+      queryClient.invalidateQueries({ queryKey: [DOWNLOAD_CACHE_KEY] });
     },
 
     onError: (err) => {
@@ -42,4 +40,3 @@ export const useUpdateImage = () => {
     },
   });
 };
-

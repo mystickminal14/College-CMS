@@ -6,4 +6,4 @@ export interface User {
   email?: string;
   role?: Role;
 }
-export type Role = "USER" | "ADMIN";
+export type Role = "MANAGER" | "ADMIN";

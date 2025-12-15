@@ -54,7 +54,7 @@ const TeamsCardView: React.FC<TeamsCardViewProps> = ({
             {teams.map((team) => (
                 <div
                     key={team.id}
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow p-4 w-full"
+                    className="bg-white  dark:bg-gray-800 rounded-xl shadow p-4 w-full"
                 >
                     <div className="relative w-full overflow-hidden rounded-lg group">
 

@@ -12,17 +12,22 @@ export const TeamsColumns = [
       const hasImage = row.image && row.image !== "";
       const imageUrl = hasImage ? `${IMAGE_URL}${row.image}` : defaultAvatar;
       return (
+        <a
+          href={imageUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
         <img
           src={imageUrl}
           alt="User"
-          className="w-18 h-18 rounded-md object-cover border shadow-sm" // ← updated
-        />
+          className="w-18 cursor-pointer h-18 rounded-md object-cover border shadow-sm" // ← updated
+        /></a>
       );
     },
   },
 
   { label: "Name", accessor: "name" },
   { label: "Position", accessor: "position" },
-  { label: "Department", accessor: "department" },
+  { label: "Department", accessor: "department",render: (row: Teams) => `${row.department.toLowerCase()} ` },
   
 ];

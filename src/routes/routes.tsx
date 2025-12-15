@@ -1,8 +1,6 @@
 import { createBrowserRouter, Navigate,  } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
-import CoursePage from "../pages/courses/CoursePage";
-import NoticesPage from "../pages/notices/NoticePage";
-import { HomePage } from "../website/web";
+import { HomePage } from "../website";
 import LoginPage from "../login/page/LoginPage";
 import type { ReactNode } from "react";
 import { EmailSubscribe } from "../website/components/Home/EmailSubscribe";
@@ -12,6 +10,13 @@ import AlumniPage from "../pages/alumni/AlumniPage";
 import NewsPage from "../pages/news/NewsPage";
 import RecognitionsPage from "../pages/handbook/RecognitionPage";
 import TeamsPage from "../pages/our-teams/OurTeam";
+import DownloadsPage from "../pages/handbook/DownloadsPage";
+import HolidaysPage from "../pages/holiday/HolidayPage";
+import CourseDetails from "../pages/courses/CourseDetails";
+import CoursePage from "../pages/courses/CousePage";
+import AddCourseDetailsPage from "../pages/add-course/AddCourseDetailsPage";
+import EditCourseDetailsPage from "../pages/add-course/EditCourseDetailsPage";
+import NoticesPage from "../pages/notices/NoticesPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -35,10 +40,6 @@ const router = createBrowserRouter([
     element: <LoginRoute />,
   },
   {
-    path: "/components",
-    element: <EmailSubscribe />,
-  },
-  {
     path: "/home",
     element: <HomePage />,
   },  {
@@ -57,6 +58,16 @@ const router = createBrowserRouter([
         path: "course",
         element: <CoursePage />,
       },
+      {
+    path: "course-details/:id",
+    element: <CourseDetails />,
+  },
+    { path: "course-details/add/:id",
+    element: <AddCourseDetailsPage />,
+  },
+   { path: "course-details/edit/:id",
+    element: <EditCourseDetailsPage />,
+  },
       {
         path: "notice",
         element: <NoticesPage />,
@@ -80,6 +91,14 @@ const router = createBrowserRouter([
         {
         path: "teams",
         element: <TeamsPage />,
+      },
+       {
+        path: "downloads",
+        element: <DownloadsPage />,
+      },
+        {
+        path: "holiday",
+        element: <HolidaysPage />,
       },
     ],
   },

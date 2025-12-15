@@ -1,26 +1,27 @@
-import { IMAGE_URL } from "../../../constants";
-import type { Recognitions } from "../model/RecognitionsModel";
-import img from "../../../assets/applogo.png";
+import { IMAGE_URL } from "../../../constants"; // use if files are stored in a URL base
+import type { Downloads } from "../model/handbookModel";
 
-export const RecognitionsColumns = [
+export const DownloadsColumns = [
   {
-    label: "Image",
-    accessor: "image" as keyof Recognitions,
-    render: (row: Recognitions) => {
-      const defaultAvatar = img;
+    label: "Name",
+    accessor: "name" as keyof Downloads,
+  },
+  {
+    label: "File",
+    accessor: "file" as keyof Downloads,
+    render: (row: Downloads) => {
+      if (!row.file) return <span className="text-gray-400">No file</span>;
 
-      const hasImage = row.image && row.image !== "";
-      const imageUrl = hasImage ? `${IMAGE_URL}${row.image}` : defaultAvatar;
+      const fileUrl = `${IMAGE_URL}${row.file}`; // full URL to file
+
       return (
-        <img
-          src={imageUrl}
-          alt="User"
-          className="w-18 h-18 rounded-md object-cover border shadow-sm" // ← updated
-        />
+       <button
+          onClick={fileUrl ? () => window.open(fileUrl, "_blank") : undefined}
+          className="px-3 py-1 bg-blue-500 cursor-pointer text-white rounded hover:bg-blue-600 transition"
+        >
+          Open File
+        </button>
       );
     },
   },
-
-  { label: "Name", accessor: "name" },
-  
 ];

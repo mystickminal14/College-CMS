@@ -1,10 +1,12 @@
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useContext } from "react";
-import appLogo from "../../assets/applogo.png";
+import appLogo from "../../assets/butterfiles.png";
 import pcpsLogo from "../../assets/pcpsLogo.png";
 import {
-  MdDashboard,
-} from "react-icons/md";
+  MdPeople, MdSchool, MdBusinessCenter, MdArticle,
+  MdWorkspacePremium, MdGroups, MdDownload, MdEvent,
+  MdNotificationsActive
+} from 'react-icons/md';
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -26,15 +28,18 @@ interface SideBarProps {
   onCloseMobile: () => void;
 }
 
-const menuItems: MenuItem[] = [
-  { id: "user", icon: MdDashboard, label: "Users", badge: "New" },
-  { id: "course", icon: MdDashboard, label: "Dashboard", badge: "New" },
-  { id: "alumni", icon: MdDashboard, label: "Alumni", badge: "New" },
-  { id: "news", icon: MdDashboard, label: "News", badge: "New" },
-  { id: "recognition", icon: MdDashboard, label: "Recognitions", badge: "New" },
-  { id: "teams", icon: MdDashboard, label: "Our Teams", badge: "New" },
 
-  { id: "notice", icon: MdDashboard, label: "Notices", badge: "New" },
+
+const menuItems: MenuItem[] = [
+  { id: "user", icon: MdPeople, label: "Users", badge: "New" },
+  { id: "course", icon: MdSchool, label: "Courses", badge: "New" },
+  { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
+  { id: "news", icon: MdArticle, label: "News", badge: "New" },
+  { id: "recognition", icon: MdWorkspacePremium, label: "Recognitions", badge: "New" },
+  { id: "teams", icon: MdGroups, label: "Our Teams", badge: "New" },
+  { id: "downloads", icon: MdDownload, label: "Downloads", badge: "New" },
+  { id: "holiday", icon: MdEvent, label: "Holiday", badge: "New" },
+  { id: "notice", icon: MdNotificationsActive, label: "Notice", badge: "New" },
 
 ];
 
@@ -284,13 +289,13 @@ const SideBar: React.FC<SideBarProps> = ({
       {!isMobile && onCollapse && (
         <button
           onClick={onCollapse}
-          className="absolute -right-3 top-6 z-20 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 flex items-center justify-center shadow-md hover:shadow-lg transition-all hover:scale-110"
+          className="absolute cursor-pointer -right-3 top-10 z-20 w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 flex items-center justify-center shadow-md hover:shadow-lg transition-all hover:scale-110"
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? (
-            <FaChevronRight className="w-3 h-3 text-slate-600 dark:text-slate-300" />
+            <FaChevronRight className="w-4 h-4  text-slate-600 dark:text-slate-300" />
           ) : (
-            <FaChevronLeft className="w-3 h-3 text-slate-600 dark:text-slate-300" />
+            <FaChevronLeft className="w-4 h-4  text-slate-600 dark:text-slate-300" />
           )}
         </button>
       )}

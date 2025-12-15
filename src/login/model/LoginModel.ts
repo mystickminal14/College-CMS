@@ -3,7 +3,7 @@ export interface LoginUser {
   password?: string;
   fullname?:string;
   message?:string;
-  role?:'ADMIN' | 'USER';
+  role?:'ADMIN' | 'MANAGER'|'SUPERADMIN';
   token?:string
 }
 

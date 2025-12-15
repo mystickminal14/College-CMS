@@ -4,10 +4,11 @@ import React from "react";
 interface PaginationProps {
   page: number;
   totalPages: number;
+  hasNextPage?: boolean;
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ page, totalPages, onPageChange }) => {
+const Pagination: React.FC<PaginationProps> = ({ page, totalPages, hasNextPage = true, onPageChange }) => {
   return (
     <div className="flex justify-between items-center mt-4">
       <button
@@ -33,10 +34,10 @@ const Pagination: React.FC<PaginationProps> = ({ page, totalPages, onPageChange 
       </div>
 
       <button
-        disabled={page === totalPages}
+        disabled={!hasNextPage || page === totalPages}
         onClick={() => onPageChange(page + 1)}
         className={`px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors duration-200 ${
-          page === totalPages
+          !hasNextPage || page === totalPages
             ? "bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
             : "bg-[#135EAB] text-white hover:bg-[#0f4a8c]"
         }`}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Edit, Trash2 } from "lucide-react";
-import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
+import { FaTable, FaThLarge, } from "react-icons/fa";
 import { debounce } from "lodash";
 
 import TitleBox from "../../components/layout/TitleBox";
@@ -71,33 +71,31 @@ const TeamsPage = () => {
       color: "text-red-600 hover:bg-red-600 hover:text-white"
     },
   ];
+  const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-2 md:p-4">
-      <TitleBox title="Teams Management" subtitle="Manage application Teams" />
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
+      <TitleBox title="Our Teams" subtitle="Manage your team members" />
 
-      {/* Controls */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
 
-        {/* View Toggle */}
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("table")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
               ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+              }`}
           >
             <FaTable className="w-4 h-4" />
             <span>Table</span>
           </button>
-
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
               ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+              }`}
           >
             <FaThLarge className="w-4 h-4" />
             <span>Cards</span>
@@ -122,13 +120,14 @@ const TeamsPage = () => {
           </select>
 
           <button
-            onClick={handleAdd}
-            disabled={createMutation.isPending}
-            className="px-4 py-2 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
-          >
-            <FaPlus className="w-4 h-4" />
-            <span>Add</span>
-          </button>
+          onClick={handleAdd}
+          className="px-6 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Add Member</span>
+        </button>
         </div>
       </div>
 
@@ -154,7 +153,7 @@ const TeamsPage = () => {
       </div>
 
       {/* Pagination */}
-      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
 
       {/* Modals */}
       <DeleteTeamsModal

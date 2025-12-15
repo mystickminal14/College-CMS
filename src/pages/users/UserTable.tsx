@@ -9,11 +9,11 @@ import AddEditUserModal from "./components/AddEditUserModel";
 import { debounce } from "lodash";
 import { userColumns } from "./utils/columns";
 import SearchBox from "./utils/SearchBox";
-import Pagination from "./utils/Pagination";
 import useCreateUser from "./hooks/useCreateUser";
 import useEditUser from "./hooks/useEditUser";
 import DeleteUserModal from "./components/DeleteUserModel";
 import { Edit, Key, Trash2, UserCog } from "lucide-react";
+import Pagination from "../../utils/Pagination";
 
 const PAGE_LIMIT = 10;
 
@@ -35,7 +35,6 @@ const UserPage = () => {
 
     const users = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
-
     const userMutation = useCreateUser();
     const editMutation = useEditUser();
     const handleSearch = debounce((value: string) => {
@@ -96,17 +95,18 @@ const UserPage = () => {
             color: "text-red-600 hover:bg-red-600 hover:text-white"
         },
     ];
+ const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-900 p-1 md:p-4">
+        <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
             <TitleBox title="User Management" subtitle="Manage application users" />
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
                 <SearchBox placeholder="Search users..." onSearch={handleSearch} />
                 <button
                     onClick={handleAddUser}
-                    className="px-5 py-2.5 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-2 shadow hover:shadow-md transition-all duration-200 font-medium w-full md:w-auto justify-center"
+                    className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-2 shadow hover:shadow-md transition-all duration-200 font-medium w-full md:w-auto justify-center"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -123,7 +123,7 @@ const UserPage = () => {
                 emptyMessage={isError ? "Failed to load users" : "No users found"}
             />
 
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} hasNextPage={hasNextPage} />
 
             <AddEditUserModal
                 isOpen={showAddEditModal}
@@ -137,7 +137,6 @@ const UserPage = () => {
             <ChangeRoleModal
                 isOpen={showRoleModal}
                 onClose={() => setShowRoleModal(false)}
-
                 user={selectedUser ?? undefined}
             />
 

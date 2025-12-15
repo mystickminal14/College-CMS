@@ -52,7 +52,7 @@ const AddEditUserModal: React.FC<Props> = ({
         username: "",
         email: "",
         password: "",
-        role: "USER",
+        role: "MANAGER",
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -80,7 +80,7 @@ const AddEditUserModal: React.FC<Props> = ({
             username: "",
             email: "",
             password: "",
-            role: "USER",
+            role: "MANAGER",
         });
         setShowPassword(false);
     };
@@ -185,7 +185,7 @@ const AddEditUserModal: React.FC<Props> = ({
                             </label>
                             <div className="relative">
                                 <select value={formData.role} onChange={(e) => handleChange("role", e.target.value)} className="w-full px-4 py-2.5 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#125DAA] focus:border-transparent appearance-none">
-                                    <option value="USER">USER</option>
+                                    <option value="MANAGER">MANAGER</option>
                                     <option value="ADMIN">ADMIN</option>
                                 </select>
                                 <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />

@@ -9,10 +9,11 @@ import type { NewsModel } from "./model/NewsModel";
 import useGetNews from "./hooks/useGetAllNews";
 import useEditNews from "./hooks/useEditNews";
 import { NewsModelColumns } from "./utils/columns";
-import Pagination from "../users/utils/Pagination";
+
 import AddEditNewsWizardModal from "./components/NewsWizard";
 import { useUploadNewsImage } from "./hooks/useUploadImage";
 import DeleteNewsModel from "./components/DeleteNews";
+import Pagination from "../../utils/Pagination";
 
 const NewsPage = () => {
   const [page, setPage] = useState(1);
@@ -50,7 +51,7 @@ const NewsPage = () => {
       icon: <Edit className="w-5 h-5" />,
       tooltip: "Edit News",
       onClick: handleEdit,
-      color: "text-[#135EAB] hover:bg-[#135EAB] hover:text-white",
+      color: "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white",
     },
     {
       icon: <Trash2 className="w-5 h-5" />,
@@ -59,9 +60,10 @@ const NewsPage = () => {
       color: "text-red-600 hover:bg-red-600 hover:text-white",
     },
   ];
+ const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-1 md:p-4">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox title="News Management" subtitle="Manage application news" />
 
       {/* ADD BUTTON */}
@@ -69,7 +71,7 @@ const NewsPage = () => {
         <button
           onClick={handleAdd}
           disabled={createMutation.isPending}
-          className="px-5 py-2.5 bg-[#135EAB] text-white rounded-lg hover:bg-[#0f4a8c] 
+          className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] 
                      flex items-center space-x-2 shadow hover:shadow-md transition-all 
                      duration-200 font-medium w-full md:w-auto justify-center 
                      disabled:opacity-50"
@@ -100,7 +102,7 @@ const NewsPage = () => {
         emptyMessage={isError ? "Failed to load news" : "No news found"}
       />
 
-      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
 
       {/* DELETE MODAL */}
       <DeleteNewsModel

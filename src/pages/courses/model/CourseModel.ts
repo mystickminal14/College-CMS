@@ -1,13 +1,15 @@
-export interface CourseModel {
-  id: string;
-  code: string;
+export interface Courses {
+  id?: number;
+  shift: EShift;
   title: string;
-  description: string;
-  credits: number;
+  credit: string;
+  duration: string;
+  category: string;
   semester: string;
-  instructor: string;
-  status: 'active' | 'inactive' | 'upcoming';
-  enrolled: number;
-  capacity: number;
-  color?: string;
+  prefix: string;
+  degree: string;
+
+  image?: string;
+  hasDetails?:boolean;
 }
+export type EShift = "MORNING" | "BOTH" | "EVENING";

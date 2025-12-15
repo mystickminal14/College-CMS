@@ -10,7 +10,7 @@ export interface LayoutModuleConfig<T> {
 
 export interface LayoutColumnConfig<T> {
   label: string;
-  accessor: keyof T | string;
+   accessor: keyof T | string;
   render?: (row: T) => React.ReactNode;
   className?: string;
 }
