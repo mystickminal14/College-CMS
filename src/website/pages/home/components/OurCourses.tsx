@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import CourseMiniCard from "../../../../components/courses/MiniCard";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import decoration from '../../../../assets/decoration.png';
 
 export function OurCourses() {
   const courses = [
@@ -148,7 +149,14 @@ export function OurCourses() {
             <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-80">
               Our Courses
             </span>
-            World Class Course Student Can<br />
+            World Class Course <span className="relative inline-block">
+              Student
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+              />
+            </span>{" "} Can<br />
             <span>Join With Us.</span>
           </h2>
           <button className="hidden md:flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:bg-gray-100 transition">
@@ -186,7 +194,7 @@ export function OurCourses() {
             style={{ scrollbarWidth: 'none' }}
           >
             {courses.map((course, index) => (
-              <div key={`${course.id}-${index}`} className="flex-none w-[240px] sm:w-[280px] md:w-[360px]">
+              <div key={`${course.id}-${index}`} className="flex-none w-60 sm:w-[280px] md:w-[360px]">
                 <CourseMiniCard
                   title={course.title}
                   credits={course.credits}

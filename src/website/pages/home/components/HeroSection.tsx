@@ -3,7 +3,7 @@ import graduation from "../../../../assets/graduations.jpg"
 export function HeroSection() {
   return (
     <>
-      <section className=" bg-white flex lg:justify-between md:justify-center p-10 pt-15">
+      <section className="bg-white flex lg:justify-between md:justify-center p-10 pt-15">
         <div className="hidden lg:flex items-center">
           <div className="w-3 h-3 bg-[#0F183F] rotate-45"></div>
           <div className="h-0.5 bg-[#0F183F] w-[10vw]"></div>
@@ -40,7 +40,7 @@ export function HeroSection() {
           <div className="w-3 h-3 bg-[#0F183F] rotate-45"></div>
         </div>
       </section>
-      <section className="w-90vw h-[30vw] relative overflow-hidden">
+      <section className="w-90vw h-[22vw] relative overflow-hidden">
         <img
           src={graduation}
           alt="Graduation"

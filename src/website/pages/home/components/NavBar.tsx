@@ -20,6 +20,16 @@ export function NavBar() {
       setActiveDropdown(null);
     }, 200);
   };
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10); // shadow appears after 10px
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -80,7 +90,10 @@ export function NavBar() {
   ];
 
   return (
-    <header className="w-full bg-white shadow-lg sticky top-0 z-50">
+    <header
+      className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-none"
+        }`}
+    >
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3">
         {/* Logo */}
         <div className="w-32 md:w-36">
@@ -111,8 +124,8 @@ export function NavBar() {
                 {/* Modern Dropdown */}
                 <div
                   className={`absolute left-0 top-full pt-2 transition-all duration-300 transform origin-top ${activeDropdown === item.name
-                      ? "opacity-100 scale-y-100 translate-y-0"
-                      : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
+                    ? "opacity-100 scale-y-100 translate-y-0"
+                    : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
                     }`}
                 >
                   <div className="bg-white rounded-xl shadow-2xl border border-gray-100 min-w-[220px] overflow-hidden">
@@ -130,7 +143,7 @@ export function NavBar() {
                         </a>
                       ))}
                     </div>
-                    <div className="border-t border-gray-100 p-3 bg-gradient-to-r from-blue-50/50 to-white">
+                    <div className="border-t border-gray-100 p-3 bg-linear-to-r from-blue-50/50 to-white">
                       <a
                         href="#"
                         className="inline-flex items-center gap-2 text-sm font-medium text-[#3040E5] hover:text-blue-700 transition-colors"
@@ -166,7 +179,7 @@ export function NavBar() {
           </a>
           <a
             href="#"
-            className="bg-gradient-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105"
+            className="bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105"
           >
             Enroll Now
           </a>
@@ -239,7 +252,7 @@ export function NavBar() {
           <div className="mt-4 pt-4 border-t border-gray-200">
             <a
               href="#"
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#3040E5] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 mb-3"
+              className="flex items-center justify-center gap-2 bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 mb-3"
             >
               <i className="fa-solid fa-graduation-cap"></i>
               Enroll Now

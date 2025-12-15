@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import CoursePage from "../pages/courses/CoursePage";
 import NoticesPage from "../pages/notices/NoticePage";
-import { HomePage } from "../website/Website";
+import { HomePage } from "../website/pages/home/Home";
 import { NavBar } from "../website/pages/home/components/NavBar";
 
 // const ProtectedRoute = ({ children }: { children: ReactNode }) => {

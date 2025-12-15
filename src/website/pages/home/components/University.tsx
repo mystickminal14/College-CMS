@@ -1,5 +1,6 @@
 import apu from "../../../../assets/apu_logo.png";
 import ranking from "../../../../assets/university_ranking.png";
+import decoration from '../../../../assets/decoration.png';
 
 export function University() {
   return (
@@ -18,7 +19,14 @@ export function University() {
 
         {/* Main Title */}
         <h1 className="text-center text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 sm:mb-10">
-          <span className="text-[#3040E5]">Gateway </span>To Personal
+          <span className="text-[#3040E5]">Gateway </span>To <span className="relative inline-block">
+            Personal
+            <img
+              src={decoration}
+              alt="Decoration"
+              className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+            />
+          </span>{" "}
           <br />
           <span className="text-gray-900">
             And Professional <span className="text-[#3040E5]">Growth</span>

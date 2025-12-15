@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
+import decoration from '../../../../assets/decoration.png';
 export function Testimonial() {
   const testimonials = [
     {
@@ -48,9 +48,19 @@ export function Testimonial() {
         {/* Heading */}
         <div className="text-center mb-12">
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900">
-            What our students say
+            What our{" "}
+            <span className="relative inline-block">
+              students
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 mt-2 w-full h-3"
+              />
+            </span>{" "}
+            say
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-10">
             Lorem ipsum dolor sit amet consectetur in in dignissim vulputate lectus enim diam placerat praesent diam.
           </p>
         </div>

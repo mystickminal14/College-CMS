@@ -1,6 +1,8 @@
 import girlWithCup from "../../../../assets/gril_with_cup.png"
 import girlwithThinking from "../../../../assets/girl_with_thinking.png"
 import { CheckCircle, Users, Video } from "lucide-react"
+import decoration from '../../../../assets/decoration.png';
+
 export function JoinStudents() {
   return (
     <section className="py-20 px-6 lg:px-20 bg-[#0066FF0A]">
@@ -73,8 +75,15 @@ export function JoinStudents() {
 
             {/* Main Heading - Responsive sizing */}
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-              Join as a Student–<br />
-              <span className="text-blue-600">Start Your Learning</span><br />
+              Join as a <span className="relative inline-block">
+                Students
+                <img
+                  src={decoration}
+                  alt="Decoration"
+                  className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+                />
+              </span>{" "}–<br />
+              <span>Start Your Learning</span><br />
               Journey Today!
             </h2>
 

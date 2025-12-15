@@ -2,6 +2,8 @@ import { Award, Briefcase, GraduationCap, Users } from "lucide-react";
 import arrow_down from "../../../../assets/arrow_down.png"
 import arrow_up from "../../../../assets/arrow_top.png"
 import lbef_bufferfly from "../../../../assets/pcpsLogo.png"
+import decoration from '../../../../assets/decoration.png';
+
 export function WhyChooseLBEF() {
   const images = [
     {
@@ -101,7 +103,14 @@ export function WhyChooseLBEF() {
 
           {/* Heading */}
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-            Why Choose LBEF ?
+            Why <span className="relative inline-block">
+              Choose
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+              />
+            </span>{" "} LBEF ?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Unlock your true potential and discover a world of opportunities<br />
@@ -271,7 +280,14 @@ export function WhyChooseLBEF() {
 
           {/* Heading */}
           <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            Why Choose LBEF ?
+            Why <span className="relative inline-block">
+              Choose
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+              />
+            </span>{" "}  LBEF ?
           </h2>
           <p className="text-sm text-gray-600 mb-10">
             Unlock your true potential and discover a world of opportunities<br />
