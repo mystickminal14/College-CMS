@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate,  } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
-import NoticesPage from "../pages/notices/NoticePage";
 import { HomePage } from "../website";
 import LoginPage from "../login/page/LoginPage";
 import type { ReactNode } from "react";
@@ -16,6 +15,7 @@ import CourseDetails from "../pages/courses/CourseDetails";
 import CoursePage from "../pages/courses/CousePage";
 import AddCourseDetailsPage from "../pages/add-course/AddCourseDetailsPage";
 import EditCourseDetailsPage from "../pages/add-course/EditCourseDetailsPage";
+import NoticesPage from "../pages/notices/NoticesPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");

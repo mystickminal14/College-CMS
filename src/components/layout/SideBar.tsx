@@ -4,7 +4,8 @@ import appLogo from "../../assets/butterfiles.png";
 import pcpsLogo from "../../assets/pcpsLogo.png";
 import {
   MdPeople, MdSchool, MdBusinessCenter, MdArticle,
-  MdWorkspacePremium, MdGroups, MdDownload, MdEvent
+  MdWorkspacePremium, MdGroups, MdDownload, MdEvent,
+  MdNotificationsActive
 } from 'react-icons/md';
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -38,6 +39,8 @@ const menuItems: MenuItem[] = [
   { id: "teams", icon: MdGroups, label: "Our Teams", badge: "New" },
   { id: "downloads", icon: MdDownload, label: "Downloads", badge: "New" },
   { id: "holiday", icon: MdEvent, label: "Holiday", badge: "New" },
+  { id: "notice", icon: MdNotificationsActive, label: "Notice", badge: "New" },
+
 ];
 
 const SideBar: React.FC<SideBarProps> = ({

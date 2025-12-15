@@ -10,6 +10,8 @@ export const HOLIDAY_CACHE_KEY='holiday';
 export const COURSE_CACHE_KEY='courses';
 
 export const TEAM_CACHE_KEY='team';
+export const NOTICE_CACHE_KEY='notice';
+
 export const NEWS_CACHE_KEY='news';
 
 

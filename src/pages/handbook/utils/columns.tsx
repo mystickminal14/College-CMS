@@ -15,14 +15,12 @@ export const DownloadsColumns = [
       const fileUrl = `${IMAGE_URL}${row.file}`; // full URL to file
 
       return (
-        <a
-          href={fileUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+       <button
+          onClick={fileUrl ? () => window.open(fileUrl, "_blank") : undefined}
+          className="px-3 py-1 bg-blue-500 cursor-pointer text-white rounded hover:bg-blue-600 transition"
         >
-          {row.file.split("/").pop()} {/* shows file name only */}
-        </a>
+          Open File
+        </button>
       );
     },
   },

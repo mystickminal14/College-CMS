@@ -148,7 +148,7 @@ const CoursePage = () => {
             isError={isError}
             onEdit={handleEdit}
             onDelete={handleDelete}
-            onView={handleView}
+            onView={handlePreview}
           />
         )}
       </div>

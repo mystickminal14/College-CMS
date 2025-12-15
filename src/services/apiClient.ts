@@ -134,6 +134,23 @@ class APIClient<T> {
 
     return res.data;
   };
+  putFile = async (
+    formData: FormData,
+    params?: any,
+    config?: AxiosRequestConfig
+  ): Promise<ApiResponse<T>> => {
+    const url = params ? `${this.endpoint}/${params}` : this.endpoint;
+
+    const res = await axiosInstance.put<ApiResponse<T>>(url, formData, {
+      ...config,
+      headers: {
+        ...config?.headers,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return res.data;
+  };
 }
 
 export default APIClient;
