@@ -14,7 +14,6 @@ import { OurPartners } from "./components/OurPartners";
 export function HomePage() {
   return (
     <>
-      <NavBar />
       <HeroSection />
       <ApplyNow />
       <OurCourses />
