@@ -73,8 +73,8 @@ const EditBlockModal = ({ isOpen, onClose, block, onSave, isSaving }: EditBlockM
     onSave(updatedBlock);
   };
 
-  // Don't render if modal is not open or no block
-  if (!isOpen || !block) {
+  // Don't render if modal is not open
+  if (!isOpen) {
     return null;
   }
 
@@ -134,10 +134,10 @@ const EditBlockModal = ({ isOpen, onClose, block, onSave, isSaving }: EditBlockM
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         {/* Backdrop */}
-        <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onClick={onClose} />
+        <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75 z-10" onClick={onClose} />
 
         {/* Modal */}
-        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full z-20">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900">Edit Block</h3>
@@ -195,7 +195,7 @@ const EditBlockModal = ({ isOpen, onClose, block, onSave, isSaving }: EditBlockM
             <button
               type="button"
               onClick={handleSave}
-              disabled={isSaving}
+              disabled={isSaving || !block}
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSaving ? "Saving..." : "Save Changes"}

@@ -19,7 +19,7 @@ const useUpdateCourseBlock = () => {
   return useMutation<ApiResponse<UpdateBlockData>, ApiErrorResponse, UpdateBlockData>({
     mutationFn: async (payload) => {
       const { id, ...data } = payload;
-      const apiClient = new APIClient<UpdateBlockData>(`/courses/${id}/details`);
+      const apiClient = new APIClient<UpdateBlockData>(`/courses/${id}/details/update`);
       return apiClient.put(data);
     },
 
