@@ -1,14 +1,11 @@
 import { createBrowserRouter, Navigate,  } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
-import { HomePage } from "../website";
 import LoginPage from "../login/page/LoginPage";
 import type { ReactNode } from "react";
-import { EmailSubscribe } from "../website/components/Home/EmailSubscribe";
 import NotFoundPage from "../components/NoRouteFound";
 import UserPage from "../pages/users/UserTable";
 import AlumniPage from "../pages/alumni/AlumniPage";
 import NewsPage from "../pages/news/NewsPage";
-import RecognitionsPage from "../pages/handbook/RecognitionPage";
 import TeamsPage from "../pages/our-teams/OurTeam";
 import DownloadsPage from "../pages/handbook/DownloadsPage";
 import HolidaysPage from "../pages/holiday/HolidayPage";
@@ -17,6 +14,8 @@ import CoursePage from "../pages/courses/CousePage";
 import AddCourseDetailsPage from "../pages/add-course/AddCourseDetailsPage";
 import EditCourseDetailsPage from "../pages/add-course/EditCourseDetailsPage";
 import NoticesPage from "../pages/notices/NoticesPage";
+import { HomePage } from "../website/web";
+import RecognitionsPage from "../pages/recognitions/RecognitionPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
