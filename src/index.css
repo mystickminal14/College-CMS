@@ -28,4 +28,8 @@
 }
 }
 
-
+.apply-button{
+  @media (max-width:640px) {
+    padding: 0 30px ;
+  }
+}

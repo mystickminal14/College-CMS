@@ -156,10 +156,10 @@ export function OurCourses() {
                 alt="Decoration"
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
-            </span>{" "} Can<br />
-            <span>Join With Us.</span>
+            </span>{" "} Can
+            <span> Join With Us.</span>
           </h2>
-          <button className="hidden md:flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:bg-gray-100 transition">
+          <button className="flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:bg-gray-100 transition">
             Learn About Course
             <ChevronRight className="w-5 h-5" />
           </button>
