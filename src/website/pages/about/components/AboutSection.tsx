@@ -1,6 +1,6 @@
 import { ArrowRight, Users2 } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import { FaPeopleArrows } from "react-icons/fa";
+
 export default function AboutSection() {
   return (
     <div className=" bg-linear-to-br from-blue-50 to-white">

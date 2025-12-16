@@ -1,163 +1,201 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import decoration from '../../../../assets/decoration.png';
-export function OurCore() {
-  const messages = [
-    {
-      id: 1,
-      name: "Pratik Tamang",
-      batch: "Batch 2024",
-      quote: "Unmatched education with personalized learning experiences",
-      details: "The faculty here doesn't just teach—they mentor. From day one, I've had access to industry projects, one-on-one guidance, and a curriculum that actually prepares you for real-world challenges.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800"
-    },
-    {
-      id: 2,
-      name: "Aarati Shrestha",
-      batch: "Batch 2023",
-      quote: "Best decision of my academic life",
-      details: "LBEF transformed how I see education. The blend of theoretical knowledge and practical exposure through internships made me job-ready even before graduation.",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800"
-    },
-    {
-      id: 3,
-      name: "Roshan KC",
-      batch: "Batch 2024",
-      quote: "Supportive environment that pushes you to excel",
-      details: "What I love most is the community. Seniors help juniors, teachers are approachable 24/7, and there's always someone to guide you through tough times.",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800"
-    },
-  ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
+const messages = [
+  {
+    name: "Er. Pankaj Jalan",
+    position: "Chairman",
+    institution: "LBEF Group Of Institutions",
+    message:
+      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
+    image: "/path-to-pankaj-jalan.jpg", // Replace with actual image
+  },
+  {
+    name: "Er. Pankaj Jalan",
+    position: "Chairman",
+    institution: "LBEF Group Of Institutions",
+    message:
+      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
+    image: "/path-to-pankaj-jalan.jpg",
+  },
+  {
+  
+    name: "Er. Pankaj Jalan",
+    position: "Chairman",
+    institution: "LBEF Group Of Institutions",
+    message:
+      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
+    image: "/path-to-pankaj-jalan.jpg",
+  },
+  {
 
-  const nextTestimonial = () => {
-    setActiveIndex((prev) => (prev + 1) % messages.length);
+    name: "Er. Pankaj Jalan",
+    position: "Chairman",
+    institution: "LBEF Group Of Institutions",
+    message:
+      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
+    image: "/path-to-pankaj-jalan.jpg",
+  },
+  {
+
+    name: "Er. Pankaj Jalan",
+    position: "Chairman",
+    institution: "LBEF Group Of Institutions",
+    message:
+      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
+    image: "/path-to-pankaj-jalan.jpg",
+  },
+  // Add more if needed
+];
+
+export default function OurCore() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollability = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
   };
 
-  const prevTestimonial = () => {
-    setActiveIndex((prev) => (prev - 1 + messages.length) % messages.length);
+  const getScrollAmount = () => {
+    if (!scrollContainerRef.current) return 300;
+    return window.innerWidth >= 1024 ? 380 : window.innerWidth >= 768 ? 320 : 280;
   };
 
-  const activeTestimonial = messages[activeIndex];
+  const scrollLeft = () => {
+    scrollContainerRef.current?.scrollBy({
+      left: -getScrollAmount(),
+      behavior: 'smooth',
+    });
+  };
+
+  const scrollRight = () => {
+    scrollContainerRef.current?.scrollBy({
+      left: getScrollAmount(),
+      behavior: 'smooth',
+    });
+  };
+
+  // Drag to scroll
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrollContainerRef.current) return;
+    const startX = e.pageX;
+    const scrollLeftStart = scrollContainerRef.current.scrollLeft;
+    let isDragging = true;
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      const x = e.pageX;
+      const walk = (x - startX) * 2; // Multiply by 2 for faster scroll
+      scrollContainerRef.current!.scrollLeft = scrollLeftStart - walk;
+    };
+
+    const onMouseUp = () => {
+      isDragging = false;
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    checkScrollability();
+    container.addEventListener('scroll', checkScrollability);
+    window.addEventListener('resize', checkScrollability);
+
+    return () => {
+      container.removeEventListener('scroll', checkScrollability);
+      window.removeEventListener('resize', checkScrollability);
+    };
+  }, []);
 
   return (
-    <section className="py-20 px-6 lg:px-20 bg-gray-50">
+    <section className="bg-gray-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-15">
-          <p className='mb-4 text-[#3040E5]'>Message From Our Heads</p>
-          <h3 className="text-3xl md:text-5xl font-bold text-gray-900">
+        {/* Title */}
+        <div className="text-center mb-12">
+          <p className="text-blue-600 text-lg font-medium mb-2">Meet Our Leads</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            Messages from{' '}
             <span className="relative inline-block">
-              Our Core
+              Our Leads
               <img
                 src={decoration}
                 alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 mt-2 w-full h-3"
+                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
-            </span>
-          </h3>
+            </span>{' '}
+          </h2>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-10 items-center">
-          {/* Left: Thumbnail Gallery - Hidden on mobile/tablet, shown only on laptop+ (lg) */}
-          <div className="hidden lg:block lg:col-span-4 space-y-6 order-2 lg:order-1">
-            {messages.map((t, index) => (
-              <motion.div
-                key={t.id}
-                onClick={() => setActiveIndex(index)}
-                className={`cursor-pointer transition-all duration-300 ${activeIndex === index ? 'opacity-100 scale-105' : 'opacity-40 hover:opacity-70'
-                  }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+        {/* Carousel Container */}
+        <div className="relative">
+          {/* Left Arrow */}
+          <button
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all ${canScrollLeft
+                ? 'opacity-100 cursor-pointer hover:bg-gray-100'
+                : 'opacity-0 cursor-default'
+              }`}
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-8 h-8 text-gray-700" />
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all ${canScrollRight
+                ? 'opacity-100 cursor-pointer hover:bg-gray-100'
+                : 'opacity-0 cursor-default'
+              }`}
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-8 h-8 text-gray-700" />
+          </button>
+
+          {/* Scrollable Cards */}
+          <div
+            ref={scrollContainerRef}
+            onMouseDown={handleMouseDown}
+            className="flex gap-15 overflow-x-auto  scrollbar-hide scroll-smooth px-4"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {messages.map((lead, index) => (
+              <div
+                key={index}
+                className="shrink-0 pl-10 w-80 relative md:w-96 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
               >
-                <div className="bg-white rounded-2xl shadow-md overflow-hidden border-4 border-white">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="w-full h-48 object-cover"
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Right: Active Testimonial Card */}
-          <div className="lg:col-span-8 order-1 lg:order-2">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={activeIndex}
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{ duration: 0.1, type: "spring", stiffness: 100 }}
-                className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10 relative overflow-hidden"
-              >
-                {/* Quote Icon */}
-                <div className="absolute top-8 left-8 text-9xl text-gray-100 font-bold leading-none select-none">
-                  “
-                </div>
-
-                {/* Mobile/Tablet: Show large image above content */}
-                <div className="lg:hidden mb-8">
-                  <img
-                    src={activeTestimonial.image}
-                    alt={activeTestimonial.name}
-                    className="w-full h-80 object-cover rounded-2xl mx-auto"
-                  />
-                </div>
-
-                <div className="flex gap-10">
-                  {/* Desktop/Laptop: Large image on the left */}
-                  <div className="hidden lg:block shrink-0">
+                <div className="flex items-center gap-4 p-6">
+                  <div className="w-16 h-16 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-purple-600">
                     <img
-                      src={activeTestimonial.image}
-                      alt={activeTestimonial.name}
-                      className="w-[20vw] h-[50vh] object-cover rounded-2xl"
+                      src={lead.image}
+                      alt={lead.name}
+                      className="w-full h-full object-cover"
                     />
                   </div>
-
-                  {/* Content */}
-                  <div className="relative z-10 mt-8 lg:mt-0">
-                    <h3 className="text-2xl md:text-3xl font-medium text-gray-900 leading-tight mb-6">
-                      “{activeTestimonial.quote}”
-                    </h3>
-                    <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-                      {activeTestimonial.details}
-                    </p>
-
-                    {/* Student Info */}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-2xl font-bold text-gray-900">
-                          {activeTestimonial.name}
-                        </h4>
-                        <p className="text-blue-600 font-medium">
-                          {activeTestimonial.batch}
-                        </p>
-                      </div>
-
-                      {/* Navigation Arrows */}
-                      <div className="flex items-center gap-3">
-                        <button
-                          onClick={prevTestimonial}
-                          className="w-12 h-12 rounded-full border-2 border-gray-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center"
-                        >
-                          <ChevronLeft className="w-6 h-6" />
-                        </button>
-                        <button
-                          onClick={nextTestimonial}
-                          className="w-12 h-12 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all flex items-center justify-center"
-                        >
-                          <ChevronRight className="w-6 h-6" />
-                        </button>
-                      </div>
-                    </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-gray-900">{lead.name}</h3>
+                    <p className="text-sm text-gray-600">{lead.position}</p>
+                    <p className="text-xs text-gray-500">{lead.institution}</p>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+                <div className="p-6 text-gray-700 leading-relaxed whitespace-pre-line">
+                  {lead.message}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
