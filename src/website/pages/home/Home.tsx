@@ -1,7 +1,6 @@
 import { University } from "./components/University";
 import { ApplyNow } from "./components/ApplyNow";
 import { HeroSection } from "./components/HeroSection";
-import { NavBar } from "./components/NavBar";
 import { OurCourses } from "./components/OurCourses";
 import { VideoSection } from "./components/VideoSection";
 import { WhyChooseLBEF } from "./components/WhyChooseLBEF";
@@ -10,6 +9,8 @@ import { Testimonial } from "./alumnis/Testimonial";
 import { LatestInslight } from "./components/LatestInslight";
 import { EmailSubscribe } from "./components/EmailSubscribe";
 import { OurPartners } from "./components/OurPartners";
+import BlogSection from "./components/BlogSection";
+import Events from "./components/EventSection";
 
 export function HomePage() {
   return (
@@ -22,9 +23,12 @@ export function HomePage() {
       <WhyChooseLBEF />
       <JoinStudents />
       <Testimonial />
-      <LatestInslight />
+      {/* <LatestInslight /> */}
+      {/* <OurPartners /> */}
+      <BlogSection />
+      <Events />
       <EmailSubscribe />
-      <OurPartners />
+
     </>
   )
 }

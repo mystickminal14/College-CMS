@@ -1,61 +1,61 @@
 import { Award, Briefcase, GraduationCap, Users } from "lucide-react";
-import arrow_down from "../../../../assets/arrow_down.png"
-import arrow_up from "../../../../assets/arrow_top.png"
+// import arrow_down from "../../../../assets/arrow_down.png"
+// import arrow_up from "../../../../assets/arrow_top.png"
 import lbef_bufferfly from "../../../../assets/pcpsLogo.png"
 import decoration from '../../../../assets/decoration.png';
 
 export function WhyChooseLBEF() {
-  const images = [
-    {
-      id: 1,
-      src: arrow_up,
-      position: "top-left",
-      height: "70px",
-      width: "105px"
+  // const images = [
+  //   {
+  //     id: 1,
+  //     src: arrow_up,
+  //     position: "top-left",
+  //     height: "70px",
+  //     width: "105px"
 
-    },
-    {
-      id: 2,
-      src: arrow_up,
-      position: "left",
-      width: "70px",
-      height: "50px",
+  //   },
+  //   {
+  //     id: 2,
+  //     src: arrow_up,
+  //     position: "left",
+  //     width: "70px",
+  //     height: "50px",
 
-    }, {
-      id: 3,
-      src: arrow_down,
-      position: "bottom-left",
-      width: "95px",
-      height: "65px",
+  //   }, {
+  //     id: 3,
+  //     src: arrow_down,
+  //     position: "bottom-left",
+  //     width: "95px",
+  //     height: "65px",
 
-    }
-    , {
-      id: 4,
-      src: arrow_up,
-      position: "top-right",
-      height: "70px",
-      width: "105px",
-      flip: "horizontal"
+  //   }
+  //   , {
+  //     id: 4,
+  //     src: arrow_up,
+  //     position: "top-right",
+  //     height: "70px",
+  //     width: "105px",
+  //     flip: "horizontal"
 
 
-    }
-    , {
-      id: 5,
-      src: arrow_up,
-      position: "right",
-      width: "70px",
-      height: "50px",
-      flip: "horizontal"
-    }
-    , {
-      id: 6,
-      src: arrow_down,
-      position: "bottom-right",
-      width: "95px",
-      height: "65px",
-      rotate: "-40deg"
-    }
-  ]
+  //   }
+  //   , {
+  //     id: 5,
+  //     src: arrow_up,
+  //     position: "right",
+  //     width: "70px",
+  //     height: "50px",
+  //     flip: "horizontal"
+  //   }
+  //   , {
+  //     id: 6,
+  //     src: arrow_down,
+  //     position: "bottom-right",
+  //     width: "95px",
+  //     height: "65px",
+  //     rotate: "-40deg"
+  //   }
+  // ]
   const features = [
     {
       icon: <Briefcase className="w-6 h-6" />,
@@ -205,7 +205,7 @@ export function WhyChooseLBEF() {
               />
             </div>
 
-            {images.map((feature, index) => {
+            {/* {images.map((feature, index) => {
               const positions = {
                 "top-left": "top-10 left-10 md:top-30 md:left-80",
                 "top-right": "top-10 right-10 md:top-30 md:right-80",
@@ -220,7 +220,6 @@ export function WhyChooseLBEF() {
                   key={index}
                   className={`absolute ${positions[feature.position as keyof typeof positions]}`}
                 >
-                  {/* Feature Image With Dynamic Size */}
                   <img
                     src={feature.src}
                     alt=""
@@ -237,7 +236,7 @@ export function WhyChooseLBEF() {
                   />
                 </div>
               );
-            })}
+            })} */}
 
 
             {/* Feature Cards with Curved Arrows */}
