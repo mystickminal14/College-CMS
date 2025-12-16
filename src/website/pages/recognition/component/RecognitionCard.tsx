@@ -16,11 +16,11 @@ const RecognitionsCardView: React.FC<Props> = ({
 }) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="flex flex-wrap justify-center gap-6">
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow animate-pulse"
+            className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow animate-pulse w-full sm:w-[340px]"
           >
             <div className="h-80 bg-gray-200 dark:bg-gray-700 rounded-xl mb-4" />
             <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
@@ -62,27 +62,29 @@ const RecognitionsCardView: React.FC<Props> = ({
   if (!recognitions.length) {
     return (
       <div className="col-span-3 text-center py-12">
-                                    <div className="w-full flex justify-center items-center">
-                                        <div className="text-center">
-                                            <h3 className="text-xl font-semibold text-gray-700">No recognition available right now</h3>
-                                            <p className="text-gray-500 mt-2">
-                                                Please check back later. New courses will be added soon.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+        <div className="w-full flex justify-center items-center">
+          <div className="text-center">
+            <h3 className="text-xl font-semibold text-gray-700">
+              No recognition available right now
+            </h3>
+            <p className="text-gray-500 mt-2">
+              Please check back later. New courses will be added soon.
+            </p>
+          </div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="flex flex-wrap justify-center gap-8">
       {recognitions.map((item, idx) => (
         <div
           key={item.id || idx}
-          className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+          className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-shadow duration-300 w-full sm:w-[340px]"
         >
           {/* IMAGE */}
-          <div className="relative h-72 md:h-80  w-full overflow-hidden">
+          <div className="relative h-72 md:h-80 w-full overflow-hidden">
             {item.image && (
               <a
                 href={`${IMAGE_URL}${item.image}`}
@@ -113,24 +115,23 @@ const RecognitionsCardView: React.FC<Props> = ({
           </div>
 
           {/* CONTENT */}
-          {/* CONTENT */}
-<div className="p-5">
-  <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
-    {item?.name
-      ? item.name.charAt(0).toUpperCase() + item.name.slice(1)
-      : "Recognition"}
-  </h2>
-  <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-5">
-    {item?.description
-      ? item.description.charAt(0).toUpperCase() + item.description.slice(1)
-      : ""}
-  </p>
-</div>
-
+          <div className="p-5">
+            <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
+              {item?.name
+                ? item.name.charAt(0).toUpperCase() + item.name.slice(1)
+                : "Recognition"}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-5">
+              {item?.description
+                ? item.description.charAt(0).toUpperCase() + item.description.slice(1)
+                : ""}
+            </p>
+          </div>
         </div>
       ))}
     </div>
   );
 };
+
 
 export default RecognitionsCardView;

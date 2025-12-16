@@ -119,9 +119,7 @@ export function OurCourses() {
           </button>
         </div>
 
-        {/* Carousel or No Courses */}
         {isLoading ? (
-          // Loading skeletons
           <div className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4">
             {Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="flex-none w-full max-w-sm">

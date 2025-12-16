@@ -46,6 +46,7 @@ export const websiteRoutes = [
     children: [
       { path: "", element: <PlaceholderPage pageName="Students" /> },
       { path: "programs", element: <CourseProgram /> },
+      { path: ":name/:id", element: <CourseDetails /> },
       { path: "campus-life", element: <PlaceholderPage pageName="Campus Life" /> },
       { path: "student-support", element: <PlaceholderPage pageName="Student Support" /> },
       { path: "career-services", element: <PlaceholderPage pageName="Career Services" /> },

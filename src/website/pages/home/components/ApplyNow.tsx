@@ -11,7 +11,7 @@ export function ApplyNow() {
             alt="Curved Dotted Arrow"
             className="hidden lg:block lg:w-[30vw]"
           />
-
+   
         </div>
 
         {/* Right: Text + Buttons */}

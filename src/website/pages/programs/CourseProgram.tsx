@@ -59,7 +59,7 @@ const CourseProgram = () => {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 sm:px-6  py-6">
+            <div className="container mx-auto px-6  py-6">
                 {isError ? (
                     <div className="text-center py-12">
                         <div className="text-red-500 text-lg font-semibold">
@@ -74,7 +74,8 @@ const CourseProgram = () => {
                     </div>
                 ) : (
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl justify-items-center mx-auto">
+
                             {isLoading ? (
                                 Array.from({ length: 3 }).map((_, index) => (
                                     <div key={`skeleton-${index}`} className="flex-none w-full max-w-sm">
