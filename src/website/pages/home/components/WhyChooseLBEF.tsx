@@ -205,7 +205,7 @@ export function WhyChooseLBEF() {
               />
             </div>
 
-            {images.map((feature, index) => {
+            {/* {images.map((feature, index) => {
               const positions = {
                 "top-left": "top-10 left-10 md:top-30 md:left-80",
                 "top-right": "top-10 right-10 md:top-30 md:right-80",
@@ -220,7 +220,6 @@ export function WhyChooseLBEF() {
                   key={index}
                   className={`absolute ${positions[feature.position as keyof typeof positions]}`}
                 >
-                  {/* Feature Image With Dynamic Size */}
                   <img
                     src={feature.src}
                     alt=""
@@ -237,7 +236,7 @@ export function WhyChooseLBEF() {
                   />
                 </div>
               );
-            })}
+            })} */}
 
 
             {/* Feature Cards with Curved Arrows */}

@@ -17,6 +17,7 @@ import NoticesPage from "../pages/notices/NoticesPage";
 import { HomePage } from "../website/pages/home/Home";
 import { WebsiteLayout } from "../website/WebLayout";
 import CoursePage from "../pages/courses/CousePage";
+import { AboutPage } from "../website/pages/about/About.";
 
 // Create placeholder components for all website pages
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PlaceholderPage pageName="About" />,
+            element: <AboutPage />,
           },
           {
             path: "about-us",

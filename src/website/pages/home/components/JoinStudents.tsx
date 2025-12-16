@@ -5,7 +5,7 @@ import decoration from '../../../../assets/decoration.png';
 
 export function JoinStudents() {
   return (
-    <section className="py-20 px-6 lg:px-20 bg-[#0066FF0A]">
+    <section className="py-20 px-6 lg:px-20 bg-[#0066ff09]">
       <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 items-center gap-screen">
 
