@@ -126,18 +126,16 @@ const AppLayout: React.FC = () => {
             </div>
           )}
 
-          {/* ================= Page Content ================= */}
           <main
             className={`flex-1 overflow-y-auto bg-transparent p-4 transition-all duration-300
                         ${mobileMenuOpen && isMobile ? "opacity-30" : "opacity-100"}`}
           >
-            {isOnline ? <Outlet /> : <OfflinePage />}
+            {/* {isOnline? <Outlet/>:<OfflinePage/>} */}
+            <Outlet /> 
           </main>
         </div>
       </div>
 
-      {/* ================= Floating Theme Toggle (Desktop) ================= */}
-    {/* ================= Floating Theme Toggle (Desktop) ================= */}
 {!isMobile && (
   <button
     onClick={toggleTheme}

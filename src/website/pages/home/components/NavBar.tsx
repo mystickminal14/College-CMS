@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FaUniversity, FaCertificate, FaUsers, FaClipboardList, FaRegCalendarAlt, FaBook, FaGraduationCap, FaPhone } from "react-icons/fa";
 import logo from "../../../../assets/lbef_white.png";
 
 export function NavBar() {
@@ -8,109 +9,94 @@ export function NavBar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const location = useLocation();
-
-  const toggleDropdown = (menu: string) => {
-    setDropdownOpen((prev) => ({ ...prev, [menu]: !prev[menu] }));
-  };
-
-  const handleMouseEnter = (menu: string) => {
-    setActiveDropdown(menu);
-  };
-
-  const handleMouseLeave = () => {
-    setTimeout(() => {
-      setActiveDropdown(null);
-    }, 200);
-  };
-
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       Object.keys(dropdownRefs.current).forEach((key) => {
-        if (
-          dropdownRefs.current[key] &&
-          !dropdownRefs.current[key]?.contains(event.target as Node)
-        ) {
+        if (dropdownRefs.current[key] && !dropdownRefs.current[key]?.contains(event.target as Node)) {
           setDropdownOpen((prev) => ({ ...prev, [key]: false }));
         }
       });
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setMobileOpen(false);
     setDropdownOpen({});
   }, [location.pathname]);
 
+  const toggleDropdown = (menu: string) => setDropdownOpen((prev) => ({ ...prev, [menu]: !prev[menu] }));
+  const handleMouseEnter = (menu: string) => setActiveDropdown(menu);
+  const handleMouseLeave = () => setTimeout(() => setActiveDropdown(null), 200);
+
+  const isActive = (path: string) => path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+
   const menuItems = [
     { name: "Home", link: "/" },
     {
-      name: "ABOUT",
+      name: "About",
+      icon: <FaUniversity />,
       dropdown: [
-        { name: "About Us", link: "/about/about-us", icon: "🏢" },
-        { name: "Our Team", link: "/about/our-team", icon: "👥" },
-        { name: "Appreciation Letter", link: "/about/appreciation-letter", icon: "📜" },
-        { name: "Testimonial", link: "/about/testimonial", icon: "⭐" },
+        { name: "About LBEF", link: "/about/about-lbef", icon: <FaUniversity /> },
+        { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
+        { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
+        { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
+        { name: "Training & Placement", link: "/about/training-placement", icon: <FaGraduationCap /> },
+        { name: "Administrative Holidays", link: "/about/administrative-holidays", icon: <FaRegCalendarAlt /> },
       ],
     },
     {
-      name: "STUDENTS",
+      name: "Courses",
+      icon: <FaBook />,
       dropdown: [
-        { name: "Programs", link: "/students/programs", icon: "🎓" },
-        { name: "Campus Life", link: "/students/campus-life", icon: "🏫" },
-        { name: "Student Support", link: "/students/student-support", icon: "🤝" },
-        { name: "Career Services", link: "/students/career-services", icon: "💼" },
+        { name: "MSc IR", link: "/courses/msc-ir", icon: <FaBook /> },
+        { name: "BSc IT", link: "/courses/bsci-it", icon: <FaBook /> },
       ],
     },
     {
-      name: "ADMISSIONS",
+      name: "Students",
+      icon: <FaUsers />,
       dropdown: [
-        { name: "Apply Now", link: "/admissions/apply-now", icon: "📝" },
-        { name: "Admission Process", link: "/admissions/admission-process", icon: "📋" },
-        { name: "Tuition & Fees", link: "/admissions/tuition-fees", icon: "💰" },
-        { name: "Scholarships", link: "/admissions/scholarships", icon: "🎯" },
+        { name: "Programs", link: "/students/programs", icon: <FaGraduationCap /> },
+        { name: "Campus Life", link: "/students/campus-life", icon: <FaUniversity /> },
+        { name: "Student Support", link: "/students/student-support", icon: <FaUsers /> },
+        { name: "Career Services", link: "/students/career-services", icon: <FaClipboardList /> },
       ],
     },
     {
-      name: "MEDIA",
+      name: "Admissions",
+      icon: <FaClipboardList />,
       dropdown: [
-        { name: "Photo Gallery", link: "/media/photo-gallery", icon: "📷" },
-        { name: "Video Library", link: "/media/video-library", icon: "🎥" },
-        { name: "News & Events", link: "/media/news-events", icon: "📰" },
+        { name: "Apply Now", link: "/admissions/apply-now", icon: <FaClipboardList /> },
+        { name: "Admission Process", link: "/admissions/admission-process", icon: <FaClipboardList /> },
+        { name: "Tuition & Fees", link: "/admissions/tuition-fees", icon: <FaClipboardList /> },
+        { name: "Scholarships", link: "/admissions/scholarships", icon: <FaCertificate /> },
       ],
     },
-    { name: "BLOGS", link: "/blogs" },
-    { name: "UGC", link: "/ugc" },
+    {
+      name: "Media",
+      icon: <FaBook />,
+      dropdown: [
+        { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
+        { name: "Video Library", link: "/media/video-library", icon: <FaBook /> },
+        { name: "News & Events", link: "/media/news-events", icon: <FaBook /> },
+      ],
+    },
+    { name: "Blogs", link: "/blogs", icon: <FaBook /> },
+    { name: "UGC", link: "/ugc", icon: <FaBook /> },
   ];
 
-  const isActive = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/";
-    }
-    return location.pathname.startsWith(path);
-  };
-
   return (
-    <header
-      className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${
-        scrolled ? "shadow-md" : "shadow-none"
-      }`}
-    >
+    <header className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-none"}`}>
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3">
         {/* Logo */}
         <div className="w-32 md:w-36">
@@ -128,51 +114,26 @@ export function NavBar() {
                 className="relative"
                 onMouseEnter={() => handleMouseEnter(item.name)}
                 onMouseLeave={handleMouseLeave}
-                ref={(el) => {
-                  dropdownRefs.current[item.name] = el;
-                }}
+                ref={(el) => { dropdownRefs.current[item.name] = el; }}
               >
                 <button className="flex items-center gap-1.5 px-4 py-3 text-[#050038] hover:text-[#3040E5] transition-colors duration-200 font-medium text-sm uppercase group">
-                  <span className="relative">
-                    {item.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#3040E5] transition-all duration-300 group-hover:w-full"></span>
-                  </span>
+                  <span className="relative">{item.name}</span>
                   <i className="fa-solid fa-angle-down text-[0.65rem] transition-transform duration-300 group-hover:rotate-180"></i>
                 </button>
-
-                {/* Modern Dropdown */}
-                <div
-                  className={`absolute left-0 top-full pt-2 transition-all duration-300 transform origin-top ${
-                    activeDropdown === item.name
-                      ? "opacity-100 scale-y-100 translate-y-0"
-                      : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
-                  }`}
-                >
+                <div className={`absolute left-0 top-full pt-2 transition-all duration-300 transform origin-top ${activeDropdown === item.name ? "opacity-100 scale-y-100 translate-y-0" : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"}`}>
                   <div className="bg-white rounded-xl shadow-2xl border border-gray-100 min-w-[220px] overflow-hidden">
                     <div className="p-1">
                       {item.dropdown.map((sub, index) => (
                         <Link
                           key={sub.name}
                           to={sub.link}
-                          className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-[#3040E5] hover:bg-blue-50 rounded-lg transition-all duration-200 group/sub"
-                          style={{ animationDelay: `${index * 50}ms` }}
+                          className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-[#3040E5] hover:bg-blue-50 rounded-lg transition-all duration-200"
                           onClick={() => setActiveDropdown(null)}
                         >
                           <span className="text-lg">{sub.icon}</span>
                           <span className="font-medium text-sm">{sub.name}</span>
-                          <i className="fa-solid fa-arrow-right text-xs ml-auto opacity-0 -translate-x-2 group-hover/sub:opacity-100 group-hover/sub:translate-x-0 transition-all duration-300"></i>
                         </Link>
                       ))}
-                    </div>
-                    <div className="border-t border-gray-100 p-3 bg-linear-to-r from-blue-50/50 to-white">
-                      <Link
-                        to={item.dropdown[0].link.replace(/\/[^/]+$/, "")}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-[#3040E5] hover:text-blue-700 transition-colors"
-                        onClick={() => setActiveDropdown(null)}
-                      >
-                        <i className="fa-solid fa-circle-info"></i>
-                        View all {item.name.toLowerCase()} pages
-                      </Link>
                     </div>
                   </div>
                 </div>
@@ -181,18 +142,9 @@ export function NavBar() {
               <Link
                 key={item.name}
                 to={item.link}
-                className={`relative px-4 py-3 transition-colors duration-200 font-medium text-sm uppercase group ${
-                  isActive(item.link)
-                    ? "text-[#3040E5]"
-                    : "text-[#050038] hover:text-[#3040E5]"
-                }`}
+                className={`relative px-4 py-3 transition-colors duration-200 font-medium text-sm uppercase ${isActive(item.link) ? "text-[#3040E5]" : "text-[#050038] hover:text-[#3040E5]"}`}
               >
                 {item.name}
-                <span
-                  className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-0.5 bg-[#3040E5] transition-all duration-300 ${
-                    isActive(item.link) ? "w-3/4" : "w-0 group-hover:w-3/4"
-                  }`}
-                ></span>
               </Link>
             )
           )}
@@ -200,42 +152,25 @@ export function NavBar() {
 
         {/* Enroll Button */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link
-            to="/contact"
-            className="text-[#050038] hover:text-[#3040E5] font-medium text-sm transition-colors"
-          >
-            <i className="fa-solid fa-phone mr-2"></i>
+          <Link to="/contact" className="text-[#050038] hover:text-[#3040E5] font-medium text-sm transition-colors">
+            <FaPhone className="inline mr-2" />
             Contact
           </Link>
-          <Link
-            to="/enroll"
-            className="bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105"
-          >
+          <Link to="/enroll" className="bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105">
             Enroll Now
           </Link>
         </div>
 
         {/* Mobile Hamburger */}
         <div className="lg:hidden">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <i
-              className={`fa-solid ${
-                mobileOpen ? "fa-xmark" : "fa-bars"
-              } text-xl text-[#050038]`}
-            ></i>
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+            <i className={`fa-solid ${mobileOpen ? "fa-xmark" : "fa-bars"} text-xl text-[#050038]`}></i>
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`lg:hidden bg-white border-t border-gray-100 transition-all duration-500 ease-in-out overflow-hidden ${
-          mobileOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
+      <div className={`lg:hidden bg-white border-t border-gray-100 transition-all duration-500 ease-in-out overflow-hidden ${mobileOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}>
         <div className="px-4 py-3">
           <ul className="flex flex-col gap-1">
             {menuItems.map((item) => (
@@ -247,17 +182,9 @@ export function NavBar() {
                       className="flex justify-between items-center w-full py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#3040E5] transition-colors"
                     >
                       <span>{item.name}</span>
-                      <i
-                        className={`fa-solid fa-angle-down transition-transform duration-300 ${
-                          dropdownOpen[item.name] ? "rotate-180" : ""
-                        }`}
-                      ></i>
+                      <i className={`fa-solid fa-angle-down transition-transform duration-300 ${dropdownOpen[item.name] ? "rotate-180" : ""}`}></i>
                     </button>
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                        dropdownOpen[item.name] ? "max-h-96" : "max-h-0"
-                      }`}
-                    >
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${dropdownOpen[item.name] ? "max-h-96" : "max-h-0"}`}>
                       <div className="pl-4 pb-3">
                         <div className="bg-gray-50 rounded-lg p-3">
                           {item.dropdown.map((sub) => (
@@ -291,21 +218,13 @@ export function NavBar() {
             ))}
           </ul>
 
-          <div className="mt-4 pt-4 border-t border-gray-200">
-            <Link
-              to="/enroll"
-              className="flex items-center justify-center gap-2 bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 mb-3"
-              onClick={() => setMobileOpen(false)}
-            >
-              <i className="fa-solid fa-graduation-cap"></i>
+          <div className="mt-4 pt-4 border-t border-gray-200 flex flex-col gap-2">
+            <Link to="/enroll" className="flex items-center justify-center gap-2 bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg transition-all duration-300">
+              <FaGraduationCap />
               Enroll Now
             </Link>
-            <Link
-              to="/contact"
-              className="flex items-center justify-center gap-2 text-[#050038] hover:text-[#3040E5] font-medium py-2"
-              onClick={() => setMobileOpen(false)}
-            >
-              <i className="fa-solid fa-phone"></i>
+            <Link to="/contact" className="flex items-center justify-center gap-2 text-[#050038] hover:text-[#3040E5] font-medium py-2">
+              <FaPhone />
               Contact Admissions
             </Link>
           </div>

@@ -10,7 +10,7 @@ interface MiniCardProps {
   enrolled?: number;
   capacity?: number;
   status?: string;
-  color?: string;
+  
   duration?: string;
 }
 
@@ -23,7 +23,6 @@ const CourseMiniCard = ({
   capacity,
   status,
   duration,
-  color = "#3B82F6"
 }: MiniCardProps) => {
   const getStatusColor = () => {
     switch (status) {
@@ -59,7 +58,7 @@ const CourseMiniCard = ({
           rounded-xl 
           relative 
           overflow-hidden
-          flex-shrink-0
+          shrink-0
         "
         style={{
           backgroundImage: `url(${headerBg})`,

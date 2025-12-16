@@ -6,7 +6,7 @@ import { OurCourses } from "./components/OurCourses";
 import { VideoSection } from "./components/VideoSection";
 import { WhyChooseLBEF } from "./components/WhyChooseLBEF";
 import { JoinStudents } from "./components/JoinStudents";
-import { Testimonial } from "./components/Testimonial";
+import { Testimonial } from "./alumnis/Testimonial";
 import { LatestInslight } from "./components/LatestInslight";
 import { EmailSubscribe } from "./components/EmailSubscribe";
 import { OurPartners } from "./components/OurPartners";

@@ -9,12 +9,7 @@ export function WebsiteLayout() {
       <main>
         <Outlet />
       </main>
-      {/* Add your footer here */}
-      <footer className="bg-gray-900 text-white p-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Footer content */}
-        </div>
-      </footer>
+      
     </div>
   );
 }
