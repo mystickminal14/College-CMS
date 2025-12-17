@@ -67,7 +67,7 @@ const RecognitionsPage = () => {
                     <button
                         onClick={() => setViewMode("table")}
                         className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
-                            ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                            ? "bg-[#1a7cd3] text-white"
                             : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                             }`}
                     >
@@ -77,7 +77,7 @@ const RecognitionsPage = () => {
                     <button
                         onClick={() => setViewMode("card")}
                         className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
-                            ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                            ? "bg-[#1a7cd3] text-white"
                             : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                             }`}
                     >

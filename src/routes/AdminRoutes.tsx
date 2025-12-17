@@ -15,6 +15,8 @@ import EditCourseDetailsPage from "../pages/add-course/EditCourseDetailsPage";
 import NoticesPage from "../pages/notices/NoticesPage";
 import NotFoundPage from "../components/NoRouteFound";
 import type { ReactNode } from "react";
+import IntakePage from "../pages/intake-calender/IntakePage";
+import PlannersPage from "../pages/academic-planner/AcademicPlanner";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -42,14 +44,20 @@ export const adminRoutes = [
       { path: "course-details/:id", element: <CourseDetails /> },
       { path: "course-details/add/:id", element: <AddCourseDetailsPage /> },
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
-      { path: "notice", element: <NoticesPage /> },
+      { path: "administation/notice", element: <NoticesPage /> },
+      
+      { path: "students/planner", element: <PlannersPage /> },
+      { path: "students/downloads", element: <DownloadsPage /> },
+
       { path: "user", element: <UserPage /> },
       { path: "alumni", element: <AlumniPage /> },
-      { path: "news", element: <NewsPage /> },
-      { path: "recognition", element: <RecognitionsPage /> },
+      
+      { path: "media/news", element: <NewsPage /> },
+      { path: "administation/recognition", element: <RecognitionsPage /> },
       { path: "teams", element: <TeamsPage /> },
-      { path: "downloads", element: <DownloadsPage /> },
-      { path: "holiday", element: <HolidaysPage /> },
+      { path: "administation/holiday", element: <HolidaysPage /> },
+      { path: "admission/intake", element: <IntakePage /> },
+
     ],
   },
   { path: "*", element: <NotFoundPage /> },

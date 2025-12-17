@@ -28,7 +28,7 @@ export const useUploadRecognitionsImage = () => {
       const formData = new FormData();
       formData.append("image", compressedImage);
 
-      const apiClient = new APIClient<Recognitions>(`/recognition/upload/${id}`);
+      const apiClient = new APIClient<Recognitions>(`/recognition/update-image/${id}`);
       return apiClient.postImage(formData);
     },
 

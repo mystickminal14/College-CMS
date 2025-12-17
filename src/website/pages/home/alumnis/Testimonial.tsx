@@ -91,11 +91,11 @@ export function Testimonial() {
                 <motion.div
                   key={a.id}
                   onClick={() => setActiveIndex(index)}
-                  className={`cursor-pointer transition-all duration-300 ${
-                    activeIndex === index
-                      ? "opacity-100 scale-105"
+                  className={`cursor-pointer transition-all duration-300 ${activeIndex === index
+                      ? "opacity-100 "
                       : "opacity-40 hover:opacity-70"
-                  }`}
+                    }`}
+
                   style={{ height: CARD_HEIGHT }}
                 >
                   <div className="bg-white rounded-xl shadow-md overflow-hidden h-full">
@@ -135,7 +135,7 @@ export function Testimonial() {
                   </div>
 
                   <div className="flex flex-col w-full flex-1 min-h-0">
-                    <div 
+                    <div
                       ref={storyRef}
                       className="relative text-gray-700 mb-4 flex-1 overflow-hidden"
                     >
@@ -143,7 +143,7 @@ export function Testimonial() {
                         &ldquo;
                       </span>
 
-                      <div 
+                      <div
                         className="h-full overflow-y-auto scrollbar-hide pl-4 pr-2 sm:pr-4"
                         style={{
                           maxHeight: window.innerWidth < 1024 ? '200px' : 'none'
@@ -211,11 +211,10 @@ export function Testimonial() {
                     <button
                       key={a.id}
                       onClick={() => setActiveIndex(index)}
-                      className={`w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 transition-all ${
-                        activeIndex === index
+                      className={`w-12 h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
                           ? "ring-2 ring-blue-600 ring-offset-2"
                           : "opacity-50"
-                      }`}
+                        }`}
                     >
                       <img
                         src={a.image ? IMAGE_URL + a.image : ""}

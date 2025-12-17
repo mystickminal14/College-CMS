@@ -72,7 +72,7 @@ const NoticesPage = () => {
   ];
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-2 md:p-4">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox title="Our Notices" subtitle="Manage your notices" />
 
       {/* Controls: View + Filter + Add */}
@@ -82,7 +82,7 @@ const NoticesPage = () => {
             onClick={() => setViewMode("table")}
             className={`px-4 py-2 flex items-center space-x-1 rounded transition-colors ${
               viewMode === "table"
-                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                ? "bg-[#1a7cd3] text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
@@ -93,7 +93,7 @@ const NoticesPage = () => {
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 flex items-center space-x-1 rounded transition-colors ${
               viewMode === "card"
-                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                ? "bg-[#1a7cd3] text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
