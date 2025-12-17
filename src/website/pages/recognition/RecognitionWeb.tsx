@@ -29,24 +29,22 @@ const RecognitionPageWeb = () => {
               Discover Our Achievements
             </span>
           </div>
- <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-                        <span className="text-gray-900">Our College </span>
-                        <span className="relative inline-block">
-                            <span className="text-blue-600 relative z-10"> Recognitions</span>
-                            <img
-                                src={decoration}
-                                alt="Decoration"
-                                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3"
-                            />
-                        </span>{" "}
-                        <br />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+            <span className="text-gray-900">Our College </span>
+            <span className="relative inline-block">
+              <span className="text-blue-600 relative z-10"> Recognitions</span>
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3"
+              />
+            </span>{" "}
+            <br />
+            <span className="text-blue-600 ">Over </span>
+            <span className="text-gray-900 relative z-10"> The Years </span>
 
-                        <span className="text-blue-600 ">Over </span>
-                        <span className="text-gray-900 relative z-10"> The Years </span>
+          </h1>
 
-
-                    </h1>
-       
 
         </div>
       </div>

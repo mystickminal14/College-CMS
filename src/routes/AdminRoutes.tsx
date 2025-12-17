@@ -43,6 +43,8 @@ export const adminRoutes = [
       { path: "course", element: <CoursePage /> },
       { path: "course-details/:id", element: <CourseDetails /> },
       { path: "course-details/add/:id", element: <AddCourseDetailsPage /> },
+      { path: "course-details/:key/add/:id", element: <AddCourseDetailsPage /> },
+
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
       { path: "administation/notice", element: <NoticesPage /> },
       { path: "students/planner", element: <PlannersPage /> },

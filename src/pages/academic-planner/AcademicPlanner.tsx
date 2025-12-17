@@ -50,7 +50,6 @@ const PlannersPage = () => {
     setShowViewChildrenModal(true);
   };
 
-  // ---------------- Table Actions ----------------
   const tableActions = [
     {
       icon: <Eye className="w-5 h-5" />,

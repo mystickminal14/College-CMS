@@ -5,6 +5,7 @@ import CourseDetails from "../pages/courses/CourseDetails";
 import { HomePage } from "../website/pages/home/Home";
 import { WebsiteLayout } from "../website/WebLayout";
 import AcademicWebPlanner from "../website/pages/academic-planner-web/AcademicWebPlanner";
+import StudentHandbook from "../website/pages/handbook/Handbook";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -51,6 +52,9 @@ export const websiteRoutes = [
           { path: ":name/:id", element: <CourseDetails /> },
           {
             path: "academic-planner", element: <AcademicWebPlanner />
+          },
+           {
+            path: "downloads", element: <StudentHandbook />
           },
           { path: "student-support", element: <PlaceholderPage pageName="Student Support" /> },
           { path: "career-services", element: <PlaceholderPage pageName="Career Services" /> },

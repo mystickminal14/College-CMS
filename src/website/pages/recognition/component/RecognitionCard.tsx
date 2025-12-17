@@ -12,7 +12,6 @@ interface Props {
 const RecognitionsCardView: React.FC<Props> = ({
   recognitions,
   isLoading,
-  isError,
 }) => {
   if (isLoading) {
     return (
@@ -31,33 +30,7 @@ const RecognitionsCardView: React.FC<Props> = ({
     );
   }
 
-  if (isError) {
-    return (
-      <div className="text-center py-12">
-        <div className="mx-auto w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-4">
-          <svg
-            className="w-8 h-8 text-red-600 dark:text-red-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-        <p className="text-red-600 dark:text-red-400 text-lg font-medium mb-2">
-          Failed to load Recognitions
-        </p>
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
-          Please try again later
-        </p>
-      </div>
-    );
-  }
+
 
   if (!recognitions.length) {
     return (
@@ -68,7 +41,7 @@ const RecognitionsCardView: React.FC<Props> = ({
               No recognition available right now
             </h3>
             <p className="text-gray-500 mt-2">
-              Please check back later. New courses will be added soon.
+              Please check back later. New Recognitions will be added soon.
             </p>
           </div>
         </div>
@@ -78,7 +51,7 @@ const RecognitionsCardView: React.FC<Props> = ({
 
   return (
     <div className="flex flex-wrap justify-center gap-8">
-      {recognitions.map((item, idx) => (
+       {recognitions.map((item, idx) => (
         <div
           key={item.id || idx}
           className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-shadow duration-300 w-full sm:w-[340px]"

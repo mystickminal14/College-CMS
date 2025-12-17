@@ -23,9 +23,7 @@ const CourseDetails = () => {
   const blocks = data?.data ?? [];
   const tocItems = buildToc(blocks);
 
-  /* ===============================
-     Scroll Spy
-  =============================== */
+  
   useEffect(() => {
     if (!blocks.length) return;
 
@@ -100,13 +98,10 @@ const CourseDetails = () => {
         </div>
       )}
 
-      {/* ===============================
-          DATA EXISTS → SHOW DETAILS
-      =============================== */}
+     
       {!isLoading && blocks.length > 0 && (
         <div className="max-w-7xl mx-auto flex">
           
-          {/* TOC */}
           <aside className="hidden lg:block w-1/4 sticky top-0 h-screen">
             <div className="bg-white border-r border-gray-200 h-full overflow-y-auto py-8">
               <div className="px-8">
@@ -140,7 +135,6 @@ const CourseDetails = () => {
             </div>
           </aside>
 
-          {/* CONTENT */}
           <main className="flex-1 bg-white min-h-screen">
             <div className="py-8 px-4 md:px-8 lg:px-12">
               <CourseDetailRenderer

@@ -87,7 +87,7 @@ const handleDeleteBlock = (block: CourseDetailBlock) => {
  
   const handleAddBlock = () => {
     if (!id) return;
-    navigate(`/app/course-details/add/${id}`, { state: { course } });
+    navigate(`/app/course-details/key/add/${id}`, { state: { course } });
   };
 
   if (isLoading) {
