@@ -66,8 +66,8 @@ export function NavBar() {
       name: "Students",
       icon: <FaUsers />,
       dropdown: [
-        { name: "Programs", link: "/students/programs", icon: <FaGraduationCap /> },
-        { name: "Campus Life", link: "/students/campus-life", icon: <FaUniversity /> },
+        { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
+        { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
         { name: "Student Support", link: "/students/student-support", icon: <FaUsers /> },
         { name: "Career Services", link: "/students/career-services", icon: <FaClipboardList /> },
       ],

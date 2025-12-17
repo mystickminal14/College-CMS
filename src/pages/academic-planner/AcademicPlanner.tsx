@@ -23,6 +23,7 @@ const PlannersPage = () => {
   const { data, isLoading, isError } = useGetPlannerParents();
   const planners = data?.data ?? [];
 
+  // ---------------- Handlers ----------------
   const handleAddParent = () => {
     setPlannersToEdit(null);
     setShowParentModal(true);
@@ -44,15 +45,16 @@ const PlannersPage = () => {
   };
 
   const handleViewChildren = (planner: Planners) => {
-    if (planner.id === undefined || planner.id === null) return;
-    setSelectedParentId(Number(planner.id));
+    if (!planner.id) return;
+    setSelectedParentId(planner.id);
     setShowViewChildrenModal(true);
   };
 
+  // ---------------- Table Actions ----------------
   const tableActions = [
     {
       icon: <Eye className="w-5 h-5" />,
-      tooltip: "View / Add Children",
+      tooltip: "Add Academic Planner",
       onClick: handleAddChildren,
       color: "text-green-600 hover:bg-green-600 hover:text-white",
     },
@@ -70,7 +72,7 @@ const PlannersPage = () => {
     },
   ];
 
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  // ---------------- Table Columns ----------------
   const columns = [
     { label: "Session", accessor: "session" },
     {
@@ -87,32 +89,41 @@ const PlannersPage = () => {
     },
   ];
 
+  // ---------------- View Mode ----------------
+  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox title="Planners Management" subtitle="Manage application planners" />
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
-       <div className="flex gap-2">
-                 <button
-                   onClick={() => setViewMode("table")}
-                   className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
-                     ? "bg-[#1a7cd3] text-white"
-                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                     }`}
-                 >
-                   <FaTable className="w-4 h-4" />
-                   <span>Table</span>
-                 </button>
-                 <button
-                   onClick={() => setViewMode("card")}
-                   className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
-                     ? "bg-[#1a7cd3] text-white"
-                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                     }`}
-                 >
-                   <FaThLarge className="w-4 h-4" />
-                   <span>Cards</span>
-                 </button>
-               </div>
+
+      {/* Header Buttons */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setViewMode("table")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
+              viewMode === "table"
+                ? "bg-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+          >
+            <FaTable className="w-4 h-4" />
+            <span>Table</span>
+          </button>
+
+          <button
+            onClick={() => setViewMode("card")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
+              viewMode === "card"
+                ? "bg-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+          >
+            <FaThLarge className="w-4 h-4" />
+            <span>Cards</span>
+          </button>
+        </div>
+
         <button
           onClick={handleAddParent}
           className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] 
@@ -136,26 +147,25 @@ const PlannersPage = () => {
           <span>Add Intakes</span>
         </button>
       </div>
-   
-{viewMode === "table" ? (
-           <EnhancedTable
-        data={planners}
-        columns={columns}
-        actions={tableActions}
-        loading={isLoading}
-        emptyMessage={isError ? "Failed to load planners" : "No planners found"}
-      />
-        ) : (
+
+      {/* Planners List */}
+      {viewMode === "table" ? (
+        <EnhancedTable
+          data={planners}
+          columns={columns}
+          actions={tableActions}
+          loading={isLoading}
+          emptyMessage={isError ? "Failed to load planners" : "No planners found"}
+        />
+      ) : (
         <CardView
-    planners={planners}
-    onEdit={handleEditParent}
-    onDelete={handleDelete}
-    onAddMultiple={handleAddChildren}
-    onViewChildren={handleViewChildren}
-  />
-        )}
-      {/* Planners Table */}
-     
+          planners={planners}
+          onEdit={handleEditParent}
+          onDelete={handleDelete}
+          onAddMultiple={handleAddChildren}
+          onViewChildren={handleViewChildren}
+        />
+      )}
 
       {/* Modals */}
       <CreateEditSessionModal
@@ -165,30 +175,24 @@ const PlannersPage = () => {
         sessionId={plannersToEdit?.id}
       />
 
-      {plannersToEdit?.id && (
-        <CreateMultipleFilesModal
-          isOpen={showChildrenModal}
-          onClose={() => setShowChildrenModal(false)}
-          parentId={plannersToEdit.id}
-        />
-      )}
+      <CreateMultipleFilesModal
+        isOpen={showChildrenModal}
+        onClose={() => setShowChildrenModal(false)}
+        parentId={plannersToEdit?.id ?? 0}
+      />
 
-      {plannersToEdit && (
-        <DeletePlannerModal
-          isOpen={showDeleteModal}
-          onClose={() => setShowDeleteModal(false)}
-          planner={plannersToEdit}
-          type="PARENT"
-        />
-      )}
+      <DeletePlannerModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        planner={plannersToEdit}
+        type="PARENT"
+      />
 
-      {selectedParentId !== null && (
-        <ViewChildrenModal
-          isOpen={showViewChildrenModal}
-          onClose={() => setShowViewChildrenModal(false)}
-          parentId={selectedParentId}
-        />
-      )}
+      <ViewChildrenModal
+        isOpen={showViewChildrenModal}
+        onClose={() => setShowViewChildrenModal(false)}
+        parentId={selectedParentId ?? 0}
+      />
     </div>
   );
 };

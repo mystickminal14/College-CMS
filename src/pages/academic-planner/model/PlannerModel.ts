@@ -18,6 +18,7 @@ export interface Planners {
   intake?: string;
   session?: string;
   file?: string;
+  children?: Planners[];
 }
 
 export interface BulkChildPayload {

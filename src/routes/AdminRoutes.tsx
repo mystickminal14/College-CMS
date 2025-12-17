@@ -45,13 +45,12 @@ export const adminRoutes = [
       { path: "course-details/add/:id", element: <AddCourseDetailsPage /> },
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
       { path: "administation/notice", element: <NoticesPage /> },
-      
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
 
       { path: "user", element: <UserPage /> },
       { path: "alumni", element: <AlumniPage /> },
-      
+
       { path: "media/news", element: <NewsPage /> },
       { path: "administation/recognition", element: <RecognitionsPage /> },
       { path: "teams", element: <TeamsPage /> },
