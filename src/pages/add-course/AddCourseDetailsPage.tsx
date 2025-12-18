@@ -9,11 +9,13 @@ import { buildToc } from "../courses/utils/CourseToc";
 import CourseHeader from "../courses/components/CourseDetailHeader";
 import CourseDetailRenderer from "../courses/components/CourseDetailRender";
 import BlockEditor from "./components/BlockEditor";
+import {  useQueryClient } from "@tanstack/react-query";
+import { COURSE_CACHE_KEY } from "../../constants";
 
 const AddCourseDetailsPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id ,key} = useParams<{ id: string }>();
   const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
   const course = location.state?.course as Courses;
 
   const [blocks, setBlocks] = useState<CourseDetailBlock[]>([]);
@@ -48,11 +50,24 @@ const AddCourseDetailsPage = () => {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+const queryClient = useQueryClient();
 
-  const handleSave = () => {
-    if (!id) return;
-    addDetailsMutation.mutate({ courseId: Number(id), blocks }, { onSuccess: () => navigate(-1) });
-  };
+const handleSave = () => {
+  if (!id) return;
+
+  addDetailsMutation.mutate(
+    { courseId: Number(id), blocks },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [COURSE_CACHE_KEY, id, "details"],
+        });
+           if(key) navigate(`/app/course-details/edit/$${id}`);
+        navigate(-1); 
+      },
+    }
+  );
+};
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -68,11 +83,10 @@ const AddCourseDetailsPage = () => {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`w-full text-left px-3 py-2 rounded-lg flex justify-between items-center transition ${
-                      activeSection === item.id
+                    className={`w-full text-left px-3 py-2 rounded-lg flex justify-between items-center transition ${activeSection === item.id
                         ? "bg-blue-50 text-blue-700 font-medium border-l-4 border-blue-600"
                         : "text-gray-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     {item.label}
                     {activeSection === item.id && <ChevronRight className="w-4 h-4" />}

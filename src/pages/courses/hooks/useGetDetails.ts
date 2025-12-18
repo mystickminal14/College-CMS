@@ -17,7 +17,6 @@ const useGetCourseDetails = ({ courseId }: UseGetCourseDetailsProps) => {
       );
       return apiClient.get();
     },
-    enabled: !!courseId,
   });
 };
 

@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import type { Courses } from "../model/CourseModel";
 import { IMAGE_URL } from "../../../constants";
-
+import decoration from '../../../assets/decoration.png'
 interface CourseHeaderProps {
     course: Courses;
 }
@@ -25,8 +25,15 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
                                 {course.degree.toUpperCase()}'S DEGREE              </div>
 
                             <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-snug text-center md:text-left">
-                                <span className="text-blue-700">{course.prefix}.</span>{" "}
-                                <span className="text-gray-800">{course.title}</span>
+                                  <span className="relative inline-block ml-2">
+              <span className="text-blue-600 relative z-10"> {course.prefix} </span>
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3"
+              />
+            </span>
+                                <span className="text-gray-800"> {course.title}</span>
                             </h1>
 
                             <div className="w-24 h-1 bg-linear-to-r from-blue-600 to-indigo-600 mt-6 rounded-full" />

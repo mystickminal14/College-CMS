@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { CourseSkeleton } from "./comp/CourseSkeleton";
 
 const CourseProgram = () => {
-    const { data, isLoading, isError } = useGetAll();
+    const { data, isLoading,  } = useGetAll();
 
     const courses = data?.data || [];
 
@@ -17,7 +17,7 @@ const CourseProgram = () => {
     const navigate = useNavigate()
     const handleView = (course: Courses) => {
         const title = course.title.replace(/ /g, "-");
-        navigate(`/students/${title}/${course.id}`, { state: { course } });
+        navigate(`/students-life/${title}/${course.id}`, { state: { course } });
     };
     return (
         <div className="min-h-screen bg-gray-50">
@@ -60,20 +60,6 @@ const CourseProgram = () => {
             </div>
 
             <div className="container mx-auto px-6  py-6">
-                {isError ? (
-                    <div className="text-center py-12">
-                        <div className="text-red-500 text-lg font-semibold">
-                            Failed to load courses. Please try again.
-                        </div>
-                        <button
-                            onClick={() => window.location.reload()}
-                            className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                        >
-                            Retry
-                        </button>
-                    </div>
-                ) : (
-                    <>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl justify-items-center mx-auto">
 
                             {isLoading ? (
@@ -108,8 +94,6 @@ const CourseProgram = () => {
                                 </div>
                             )}
                         </div>
-                    </>
-                )}
             </div>
         </div>
     );

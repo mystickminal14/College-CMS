@@ -12,7 +12,6 @@ interface Props {
 const RecognitionsCardView: React.FC<Props> = ({
   recognitions,
   isLoading,
-  isError,
 }) => {
   if (isLoading) {
     return (
@@ -20,41 +19,14 @@ const RecognitionsCardView: React.FC<Props> = ({
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow animate-pulse w-full sm:w-[340px]"
+            className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow animate-pulse w-full sm:w-[300px]"
           >
-            <div className="h-80 bg-gray-200 dark:bg-gray-700 rounded-xl mb-4" />
+            <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-xl mb-4" />
             <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2" />
+            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
           </div>
         ))}
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="text-center py-12">
-        <div className="mx-auto w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-4">
-          <svg
-            className="w-8 h-8 text-red-600 dark:text-red-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-        <p className="text-red-600 dark:text-red-400 text-lg font-medium mb-2">
-          Failed to load Recognitions
-        </p>
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
-          Please try again later
-        </p>
       </div>
     );
   }
@@ -68,7 +40,7 @@ const RecognitionsCardView: React.FC<Props> = ({
               No recognition available right now
             </h3>
             <p className="text-gray-500 mt-2">
-              Please check back later. New courses will be added soon.
+              Please check back later. New Recognitions will be added soon.
             </p>
           </div>
         </div>
@@ -77,14 +49,14 @@ const RecognitionsCardView: React.FC<Props> = ({
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-8">
+    <div className="flex flex-wrap justify-center gap-6">
       {recognitions.map((item, idx) => (
         <div
           key={item.id || idx}
-          className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-shadow duration-300 w-full sm:w-[340px]"
+          className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 w-full sm:w-[300px] hover:-translate-y-1"
         >
-          {/* IMAGE */}
-          <div className="relative h-72 md:h-80 w-full overflow-hidden">
+          {/* IMAGE CONTAINER - Reduced height */}
+          <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
             {item.image && (
               <a
                 href={`${IMAGE_URL}${item.image}`}
@@ -95,18 +67,19 @@ const RecognitionsCardView: React.FC<Props> = ({
                 <img
                   src={`${IMAGE_URL}${item.image}`}
                   alt={item.name}
-                  className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
                 />
               </a>
             )}
 
-            {/* VIEW BUTTON */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {/* VIEW OVERLAY - Always visible but subtle */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
               <a
                 href={`${IMAGE_URL}${item.image}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2 shadow-lg"
+                className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2 shadow-lg transform -translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105"
               >
                 <Eye className="w-4 h-4" />
                 View Image
@@ -114,24 +87,30 @@ const RecognitionsCardView: React.FC<Props> = ({
             </div>
           </div>
 
-          {/* CONTENT */}
-          <div className="p-5">
-            <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
-              {item?.name
-                ? item.name.charAt(0).toUpperCase() + item.name.slice(1)
-                : "Recognition"}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-5">
+          {/* CONTENT - Improved spacing and typography */}
+          <div className="p-3">
+            <div className="mb-1">
+              <h2 className="font-bold text-gray-900 dark:text-white text-md mb-2 line-clamp-3">
+                {item?.name
+                  ? item.name.charAt(0).toUpperCase() + item.name.slice(1)
+                  : "Recognition"}
+              </h2>
+              <div className="h-1 w-12 bg-blue-500 rounded-full"></div>
+            </div>
+            
+            <p className="text-gray-600 dark:text-gray-300 text-xs leading-relaxed line-clamp-8">
               {item?.description
-                ? item.description.charAt(0).toUpperCase() + item.description.slice(1)
-                : ""}
+                ? item.description.charAt(0).toUpperCase() +
+                  item.description.slice(1)
+                : "No description available"}
             </p>
+            
+           
           </div>
         </div>
       ))}
     </div>
   );
 };
-
 
 export default RecognitionsCardView;

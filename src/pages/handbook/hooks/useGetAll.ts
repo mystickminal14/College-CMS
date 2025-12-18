@@ -6,16 +6,17 @@ import DownloadsApi from "../services/HandBookService";
 
 
 interface DownloadsQueryProps {
+  search?:string;
   page?: number;
   limit?: number;
 }
 
-const useGetDownloads = ({ page = 1, limit = 10 }: DownloadsQueryProps) => {
+const useGetDownloads = ({ page = 1, search= "",limit = 10 }: DownloadsQueryProps) => {
   return useQuery<ApiResponse<Downloads[]>, ApiErrorResponse>({
-    queryKey: [DOWNLOAD_CACHE_KEY, page, limit],
+    queryKey: [DOWNLOAD_CACHE_KEY,search, page, limit],
     queryFn: () =>
       DownloadsApi.getAll(
-        `?&page=${page}&limit=${limit}`
+        `?search=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
       ),
   });
 };

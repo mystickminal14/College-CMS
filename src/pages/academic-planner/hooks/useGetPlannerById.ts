@@ -1,13 +1,13 @@
-// hooks/useGetParentWithChildren.ts
 import { useQuery } from "@tanstack/react-query";
-import { PLANNEER_CACHE_KEY, PLANNEER_CHILD_CACHE_KEY } from "../../../constants";
+import { PLANNEER_CACHE_KEY } from "../../../constants";
 import plannerApi from "../services/PlannerService";
+import type { ApiResponse, ApiErrorResponse } from "../../../services/apiTypes";
+import type { Planners } from "../model/PlannerModel";
 
-const useGetParentWithChildren = (id: number) => {
-  return useQuery({
-    queryKey: [PLANNEER_CHILD_CACHE_KEY,id,PLANNEER_CACHE_KEY],
-    queryFn: () => plannerApi.get(id),
-    enabled: !!id,
+const useGetParentWithChildren = () => {
+  return useQuery<ApiResponse<Planners[]>, ApiErrorResponse>({
+    queryKey: [PLANNEER_CACHE_KEY],
+    queryFn: () => plannerApi.getAll(), 
   });
 };
 

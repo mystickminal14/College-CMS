@@ -51,7 +51,7 @@ export function NavBar() {
         { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
         { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
         { name: "Training & Placement", link: "/about/training-placement", icon: <FaGraduationCap /> },
-        { name: "Administrative Holidays", link: "/about/administrative-holidays", icon: <FaRegCalendarAlt /> },
+        { name: "Holidays", link: "/about/holidays", icon: <FaRegCalendarAlt /> },
       ],
     },
     {
@@ -66,9 +66,9 @@ export function NavBar() {
       name: "Students",
       icon: <FaUsers />,
       dropdown: [
-        { name: "Programs", link: "/students/programs", icon: <FaGraduationCap /> },
-        { name: "Campus Life", link: "/students/campus-life", icon: <FaUniversity /> },
-        { name: "Student Support", link: "/students/student-support", icon: <FaUsers /> },
+        { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
+        { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
+        { name: "Downloads", link: "/students-life/downloads", icon: <FaUsers /> },
         { name: "Career Services", link: "/students/career-services", icon: <FaClipboardList /> },
       ],
     },
@@ -123,7 +123,7 @@ export function NavBar() {
                 <div className={`absolute left-0 top-full pt-2 transition-all duration-300 transform origin-top ${activeDropdown === item.name ? "opacity-100 scale-y-100 translate-y-0" : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"}`}>
                   <div className="bg-white rounded-xl shadow-2xl border border-gray-100 min-w-[220px] overflow-hidden">
                     <div className="p-1">
-                      {item.dropdown.map((sub, index) => (
+                      {item.dropdown.map((sub, ) => (
                         <Link
                           key={sub.name}
                           to={sub.link}
