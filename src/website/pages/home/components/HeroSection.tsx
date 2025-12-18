@@ -39,7 +39,7 @@ export function HeroSection() {
               padding: "0 8px sm:0 12px",
             }}
           >
-            <span className="absolute h-[2vh] w-[2vw] left-[7vw] top-[1vw]">
+            <span className="absolute h-[2vh] w-[2vw] left-[8.5vw] top-[1.5vw]">
               <img src={butterfiles} alt="Butterflies" />
             </span>
             LBEF

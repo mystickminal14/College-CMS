@@ -68,7 +68,7 @@ export function Testimonial() {
               <img
                 src={decoration}
                 alt=""
-                className="absolute left-1/2 -translate-x-1/2 mt-1 w-full h-2 md:h-3"
+                className="absolute left-1/2 -translate-x-1/2 mt-0 sm:mt-1 w-full h-2 md:h-3"
               />
             </span>{" "}
             Say?
@@ -92,8 +92,8 @@ export function Testimonial() {
                   key={a.id}
                   onClick={() => setActiveIndex(index)}
                   className={`cursor-pointer transition-all duration-300 ${activeIndex === index
-                      ? "opacity-100 "
-                      : "opacity-40 hover:opacity-70"
+                    ? "opacity-100 "
+                    : "opacity-40 hover:opacity-70"
                     }`}
 
                   style={{ height: CARD_HEIGHT }}
@@ -125,11 +125,11 @@ export function Testimonial() {
                   }}
                 >
                   <div className="flex justify-center lg:justify-start shrink-0">
-                    <div className="w-full max-w-[280px] sm:max-w-[320px] lg:w-80 lg:h-full mx-auto lg:mx-0">
+                    <div className="w-full lg:w-80 lg:h-full mx-auto lg:mx-0">
                       <img
                         src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
                         alt={activeAlumni?.name ?? ""}
-                        className="rounded-2xl object-cover w-full h-48 sm:h-60 lg:h-full"
+                        className="rounded-2xl object-cover w-full h-70 sm:h-90 lg:h-full"
                       />
                     </div>
                   </div>
@@ -212,8 +212,8 @@ export function Testimonial() {
                       key={a.id}
                       onClick={() => setActiveIndex(index)}
                       className={`w-12 h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
-                          ? "ring-2 ring-blue-600 ring-offset-2"
-                          : "opacity-50"
+                        ? "ring-2 ring-blue-600 ring-offset-2"
+                        : "opacity-50"
                         }`}
                     >
                       <img
