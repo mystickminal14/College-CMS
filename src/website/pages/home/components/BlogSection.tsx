@@ -1,7 +1,7 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import decoration from '../../../../assets/decoration.png';
-import Blog_Image_One from '../../../../assets/blog_images.jpg';
-import Blog_Image_Two from '../../../../assets/blog_images_two.jpg';
+import decoration from "../../../../assets/decoration.png";
+import Blog_Image_One from "../../../../assets/blog_images.jpg";
+import Blog_Image_Two from "../../../../assets/blog_images_two.jpg";
 
 export default function Index() {
   const blogPosts = [
@@ -13,8 +13,7 @@ export default function Index() {
       readTime: "2 min read",
       description:
         "At LBEF, learning is not just about completing courses—it's about transforming lives, careers, and futures.",
-      image:
-        Blog_Image_One,
+      image: Blog_Image_One,
     },
     {
       id: 2,
@@ -24,64 +23,56 @@ export default function Index() {
       readTime: "2 min read",
       description:
         "Online learning offers flexibility, access to world-class educators, and the ability to learn at your own pace.",
-      image:
-        Blog_Image_Two
+      image: Blog_Image_Two,
     },
   ];
 
   return (
-    <div className=" bg-[#0066FF0A]">
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-16 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left Section */}
-          <div className="flex flex-col justify-start md:mt-20">
-            {/* Label */}
-            <div className="mb-6">
-              <span className="text-sm font-medium text-blue-600">
-                Our Blog
-              </span>
-            </div>
+    <section className="bg-[#0066FF0A]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            {/* Main Heading */}
-            <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6 md:w-140">
-              Insights & Ideas From <span className="relative inline-block">
+          {/* LEFT SECTION */}
+          <div className="flex flex-col gap-6 lg:pt-16">
+            <span className="text-sm font-medium text-blue-600">
+              Our Blog
+            </span>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+              Insights & Ideas From{" "}
+              <span className="relative inline-block">
                 The World
                 <img
                   src={decoration}
-                  alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 w-full h-3 "
+                  alt=""
+                  className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-2 sm:h-3"
                 />
-              </span>{" "}Of{" "}
-              Learning
+              </span>{" "}
+              Of Learning
             </h1>
 
-            {/* Description */}
-            <p className="text-gray-600 text-base leading-relaxed mb-8 max-w-md">
-              Stay informed, inspired, and ahead of the curve with
-              expert articles, study tips, industry updates, and real
-              success stories.
+            <p className="text-gray-600 text-base sm:text-lg max-w-lg">
+              Stay informed, inspired, and ahead of the curve with expert
+              articles, study tips, industry updates, and real success stories.
             </p>
 
-            {/* CTA Button */}
             <div>
-              <button className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+              <button className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition">
                 View All Insights
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          {/* Right Section - Blog Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-y-10">
-
+          {/* RIGHT SECTION */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
             {blogPosts.map((post) => (
               <article
                 key={post.id}
-                className={`group cursor-pointer h-full flex flex-col `}
+                className="group cursor-pointer flex flex-col h-full"
               >
-                {/* Image Container */}
-                <div className="relative overflow-hidden rounded-xl mb-4 bg-gray-200 h-48 md:h-86">
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-xl bg-gray-200 h-44 sm:h-48 md:h-52 lg:h-56">
                   <img
                     src={post.image}
                     alt={post.title}
@@ -89,39 +80,37 @@ export default function Index() {
                   />
                 </div>
 
-                {/* Category Badge */}
-                <div className="mb-3">
-                  <span className="text-xs font-medium text-blue-600">
+                {/* Content */}
+                <div className="mt-4 flex flex-col flex-1">
+                  <span className="text-xs font-medium text-blue-600 mb-2">
                     {post.category}
                   </span>
-                </div>
 
-                {/* Title */}
-                <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors">
-                  {post.title}
-                </h3>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition">
+                    {post.title}
+                  </h3>
 
-                {/* Meta Info */}
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{post.date}</span>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-3">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      {post.date}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-4 h-4" />
+                      {post.readTime}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.readTime}</span>
-                  </div>
-                </div>
 
-                {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {post.description}
-                </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {post.description}
+                  </p>
+                </div>
               </article>
             ))}
           </div>
+
         </div>
       </div>
-    </div>
+    </section>
   );
 }

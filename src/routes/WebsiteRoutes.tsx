@@ -8,6 +8,7 @@ import AcademicWebPlanner from "../website/pages/academic-planner-web/AcademicWe
 import StudentHandbook from "../website/pages/handbook/Handbook";
 import HolidayWebPlanner from "../website/pages/holidays/Holiday";
 import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
+import { AboutPage } from "../website/pages/about/About.";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -28,7 +29,7 @@ export const websiteRoutes = [
       {
         path: "about",
         children: [
-          { path: "", element: <PlaceholderPage pageName="About" /> },
+          { path: "", element: <AboutPage/> },
           { path: "about-lbef", element: <PlaceholderPage pageName="About LBEF" /> },
           { path: "about-university", element: <PlaceholderPage pageName="About University" /> },
           { path: "recognition", element: <RecognitionPageWeb /> },

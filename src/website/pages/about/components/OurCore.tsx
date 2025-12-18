@@ -20,15 +20,6 @@ const messages = [
     image: "/path-to-pankaj-jalan.jpg",
   },
   {
-  
-    name: "Er. Pankaj Jalan",
-    position: "Chairman",
-    institution: "LBEF Group Of Institutions",
-    message:
-      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
-    image: "/path-to-pankaj-jalan.jpg",
-  },
-  {
 
     name: "Er. Pankaj Jalan",
     position: "Chairman",
@@ -144,8 +135,8 @@ export default function OurCore() {
             onClick={scrollLeft}
             disabled={!canScrollLeft}
             className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all ${canScrollLeft
-                ? 'opacity-100 cursor-pointer hover:bg-gray-100'
-                : 'opacity-0 cursor-default'
+              ? 'opacity-100 cursor-pointer hover:bg-gray-100'
+              : 'opacity-0 cursor-default'
               }`}
             aria-label="Scroll left"
           >
@@ -157,8 +148,8 @@ export default function OurCore() {
             onClick={scrollRight}
             disabled={!canScrollRight}
             className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg transition-all ${canScrollRight
-                ? 'opacity-100 cursor-pointer hover:bg-gray-100'
-                : 'opacity-0 cursor-default'
+              ? 'opacity-100 cursor-pointer hover:bg-gray-100'
+              : 'opacity-0 cursor-default'
               }`}
             aria-label="Scroll right"
           >
@@ -169,7 +160,7 @@ export default function OurCore() {
           <div
             ref={scrollContainerRef}
             onMouseDown={handleMouseDown}
-            className="flex gap-15 overflow-x-auto  scrollbar-hide scroll-smooth px-4"
+            className="flex gap-12 overflow-x-auto   scrollbar-hide scroll-smooth p-8"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {messages.map((lead, index) => (
@@ -177,8 +168,8 @@ export default function OurCore() {
                 key={index}
                 className="shrink-0 pl-10 w-80 relative md:w-96 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
               >
-                <div className="flex items-center gap-4 p-6">
-                  <div className="w-16 h-16 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-purple-600">
+                <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
+                  <div className="w-20 h-20 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-purple-600">
                     <img
                       src={lead.image}
                       alt={lead.name}
@@ -187,11 +178,11 @@ export default function OurCore() {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg text-gray-900">{lead.name}</h3>
-                    <p className="text-sm text-gray-600">{lead.position}</p>
-                    <p className="text-xs text-gray-500">{lead.institution}</p>
+                    <p className="text-lg text-gray-600">{lead.position}</p>
+                    <p className="text-sm text-gray-500">{lead.institution}</p>
                   </div>
                 </div>
-                <div className="p-6 text-gray-700 leading-relaxed whitespace-pre-line">
+                <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700  whitespace-pre-line">
                   {lead.message}
                 </div>
               </div>

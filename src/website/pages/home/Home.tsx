@@ -11,6 +11,7 @@ import { EmailSubscribe } from "./components/EmailSubscribe";
 import { OurPartners } from "./components/OurPartners";
 import BlogSection from "./components/BlogSection";
 import Events from "./components/EventSection";
+import RecentNews from "./components/RecentNews";
 
 export function HomePage() {
   return (
@@ -27,6 +28,7 @@ export function HomePage() {
       {/* <OurPartners /> */}
       <BlogSection />
       <Events />
+      <RecentNews />
       <EmailSubscribe />
 
     </>
