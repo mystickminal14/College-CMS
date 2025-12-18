@@ -103,10 +103,10 @@ const CourseDetails = () => {
       <CourseHeader course={course} />
 
       {!isLoading && blocks.length > 0 && (
-        <div className="max-full mx-auto px-4 sm:px-6 lg:px-30 py-8">
+        <div className="max-full mx-auto px-4 sm:px-6 lg:px-15 py-8">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* TOC */}
-            <aside className="lg:w-1/4">
+           
+            <aside className="lg:w-1/3">
               <div
                 ref={tocRef}
                 className="bg-white rounded-xl shadow-sm border border-gray-200 sticky top-6 overflow-hidden"

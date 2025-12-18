@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaUniversity, FaCertificate, FaUsers, FaClipboardList, FaRegCalendarAlt, FaBook, FaGraduationCap, FaPhone } from "react-icons/fa";
 import logo from "../../../../assets/lbef_white.png";
+import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 
 export function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -33,7 +34,8 @@ export function NavBar() {
     setMobileOpen(false);
     setDropdownOpen({});
   }, [location.pathname]);
-
+  const { data } = useGetNameAll();
+  const courseNames = data?.data ?? []
   const toggleDropdown = (menu: string) => setDropdownOpen((prev) => ({ ...prev, [menu]: !prev[menu] }));
   const handleMouseEnter = (menu: string) => setActiveDropdown(menu);
   const handleMouseLeave = () => setTimeout(() => setActiveDropdown(null), 200);
@@ -50,18 +52,28 @@ export function NavBar() {
         { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
         { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
         { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
-        { name: "Training & Placement", link: "/about/training-placement", icon: <FaGraduationCap /> },
         { name: "Holidays", link: "/about/holidays", icon: <FaRegCalendarAlt /> },
       ],
     },
     {
       name: "Courses",
       icon: <FaBook />,
-      dropdown: [
-        { name: "MSc IR", link: "/courses/msc-ir", icon: <FaBook /> },
-        { name: "BSc IT", link: "/courses/bsci-it", icon: <FaBook /> },
-      ],
-    },
+      dropdown: courseNames && courseNames.length > 0
+        ? courseNames.map((course) => ({
+          name: `${course.prefix} ${course.title}`,
+          link: `/courses/${course.title}`,
+          icon: <FaBook />,
+        }))
+        : [
+          {
+            name: "No courses",
+            link: "#",
+            icon: <FaBook />,
+            disabled: true,
+          },
+        ],
+    }
+    ,
     {
       name: "Students",
       icon: <FaUsers />,
@@ -70,16 +82,16 @@ export function NavBar() {
         { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
         { name: "Downloads", link: "/students-life/downloads", icon: <FaUsers /> },
         { name: "Contact List", link: "/students-life/student-support", icon: <FaClipboardList /> },
+
       ],
     },
     {
       name: "Admissions",
       icon: <FaClipboardList />,
       dropdown: [
-        { name: "Apply Now", link: "/admissions/apply-now", icon: <FaClipboardList /> },
         { name: "Admission Process", link: "/admissions/admission-process", icon: <FaClipboardList /> },
-        { name: "Tuition & Fees", link: "/admissions/tuition-fees", icon: <FaClipboardList /> },
-        { name: "Scholarships", link: "/admissions/scholarships", icon: <FaCertificate /> },
+        { name: "Code of Conduct", link: "/students-life/student-code-of-conduct", icon: <FaClipboardList /> },
+
       ],
     },
     {
@@ -123,7 +135,7 @@ export function NavBar() {
                 <div className={`absolute left-0 top-full pt-2 transition-all duration-300 transform origin-top ${activeDropdown === item.name ? "opacity-100 scale-y-100 translate-y-0" : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"}`}>
                   <div className="bg-white rounded-xl shadow-2xl border border-gray-100 min-w-[220px] overflow-hidden">
                     <div className="p-1">
-                      {item.dropdown.map((sub, ) => (
+                      {item.dropdown.map((sub,) => (
                         <Link
                           key={sub.name}
                           to={sub.link}

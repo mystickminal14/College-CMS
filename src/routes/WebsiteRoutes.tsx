@@ -10,6 +10,7 @@ import HolidayWebPlanner from "../website/pages/holidays/Holiday";
 import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
 import { AboutPage } from "../website/pages/about/About.";
 import ContactListPage from "../website/pages/contact-list/ContactListingPage";
+import CodeOfConduct from "../website/pages/CodeOfConduct";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -53,7 +54,9 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <PlaceholderPage pageName="Students" /> },
           { path: "programs", element: <CourseProgram /> },
+          { path: "student-code-of-conduct", element: <CodeOfConduct /> },
           { path: ":name/:id", element: <CourseDetails /> },
+
           {
             path: "academic-planner", element: <AcademicWebPlanner />
           },
@@ -70,10 +73,8 @@ export const websiteRoutes = [
         path: "admissions",
         children: [
           { path: "", element: <PlaceholderPage pageName="Admissions" /> },
-          { path: "apply-now", element: <AdmissionProcedure/>},
-          { path: "admission-process", element: <PlaceholderPage pageName="Admission Process" /> },
-          { path: "tuition-fees", element: <PlaceholderPage pageName="Tuition & Fees" /> },
-          { path: "scholarships", element: <PlaceholderPage pageName="Scholarships" /> },
+          { path: "admission-process", element: <AdmissionProcedure/>},
+        
         ],
       },
       {
