@@ -14,6 +14,7 @@ import DocumentsRequired from "./components/DocumentRequired";
 import FeePolicy from "./components/Feepolicy";
 import ImportantNotice from "./components/ImportantNotice";
 import ScholarshipSection from "./components/ScholarShip";
+import FAQSection from "./components/Faq";
 
 interface TocItem {
     id: string;
@@ -44,6 +45,8 @@ const AdmissionProcedure = () => {
         { id: "scholarship", label: "Scholarship", level: 1 },
 
         { id: "fee-policy", label: "Fee Policy", level: 1 },
+        { id: "faq", label: "Frequently Asked Questions", level: 1 },
+    
     ];
 
     // Set  active section
@@ -243,7 +246,15 @@ const AdmissionProcedure = () => {
                             <FeePolicy />
                         </section>
 
-
+ <section
+                            id="faq"
+                            ref={(el) => {
+                                sectionRefs.current["fee-policy"] = el;
+                            }}
+                            className="scroll-mt-24"
+                        >
+                            <FAQSection />
+                        </section>
 
                     </main>
                 </div>

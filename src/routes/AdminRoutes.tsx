@@ -17,6 +17,7 @@ import NotFoundPage from "../components/NoRouteFound";
 import type { ReactNode } from "react";
 import IntakePage from "../pages/intake-calender/IntakePage";
 import PlannersPage from "../pages/academic-planner/AcademicPlanner";
+import ContactPage from "../pages/contact/ContactTable";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -47,6 +48,7 @@ export const adminRoutes = [
 
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
       { path: "administation/notice", element: <NoticesPage /> },
+        { path: "administation/contact", element: <ContactPage /> },
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
 

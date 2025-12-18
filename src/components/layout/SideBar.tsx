@@ -6,7 +6,8 @@ import {
   MdPeople, MdSchool, MdBusinessCenter, MdArticle,
   MdWorkspacePremium, MdGroups, MdDownload, MdEvent,
   MdNotificationsActive,
-  MdHowToReg
+  MdHowToReg,
+  MdContactMail
 } from 'react-icons/md';
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -58,6 +59,7 @@ const menuItems: MenuItem[] = [
   {
     id: "administation", icon: MdBusinessCenter, label: "Academic", subMenus: [
       { id: "notice", label: "Notice Board", icon: MdNotificationsActive },
+      { id: "contact", label: "Contact List", icon: MdContactMail },
       { id: "holiday", label: "Holiday", icon: MdEvent },
       { id: "recognition", label: "Recognitions", icon: MdWorkspacePremium },
     ]

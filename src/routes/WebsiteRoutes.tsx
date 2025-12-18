@@ -9,6 +9,7 @@ import StudentHandbook from "../website/pages/handbook/Handbook";
 import HolidayWebPlanner from "../website/pages/holidays/Holiday";
 import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
 import { AboutPage } from "../website/pages/about/About.";
+import ContactListPage from "../website/pages/contact-list/ContactListingPage";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -30,7 +31,7 @@ export const websiteRoutes = [
         path: "about",
         children: [
           { path: "", element: <AboutPage/> },
-          { path: "about-lbef", element: <PlaceholderPage pageName="About LBEF" /> },
+          { path: "about-lbef", element: <AboutPage/> },
           { path: "about-university", element: <PlaceholderPage pageName="About University" /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
           { path: "our-team", element: <OurTeamWeb /> },
@@ -59,7 +60,9 @@ export const websiteRoutes = [
            {
             path: "downloads", element: <StudentHandbook />
           },
-          { path: "student-support", element: <PlaceholderPage pageName="Student Support" /> },
+           {
+            path: "student-support", element: <ContactListPage />
+          },
           { path: "career-services", element: <PlaceholderPage pageName="Career Services" /> },
         ],
       },

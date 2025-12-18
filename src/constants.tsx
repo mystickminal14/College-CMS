@@ -7,6 +7,7 @@ export const ALUMNI_CACHE_KEY = 'alumni';
 export const INTAKE_CACHE_KEY = 'intake';
 export const PLANNEER_CACHE_KEY = 'planner';
 export const PLANNEER_CHILD_CACHE_KEY = 'child';
+export const CONTACT_CACHE_KEY = 'contact';
 
 export const RECOGNITION_CACHE_KEY = 'recognition';
 export const DOWNLOAD_CACHE_KEY = 'downloads';
