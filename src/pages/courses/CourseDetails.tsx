@@ -68,9 +68,6 @@ const CourseDetails = () => {
       {/* Header always visible */}
       <CourseHeader course={course} />
 
-      {/* ===============================
-          LOADING → SKELETON
-      =============================== */}
       {isLoading && (
         <div className="max-w-7xl mx-auto flex">
           {/* TOC Skeleton */}

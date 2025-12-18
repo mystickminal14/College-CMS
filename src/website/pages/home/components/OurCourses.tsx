@@ -55,7 +55,7 @@ export function OurCourses() {
 
   const handleView = (course: Courses) => {
     const title = course.title.replace(/ /g, '-');
-    navigate(`/students/${title}/${course.id}`, { state: { course } });
+    navigate(`/students-life/${title}/${course.id}`, { state: { course } });
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {

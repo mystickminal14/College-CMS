@@ -17,7 +17,7 @@ const CourseProgram = () => {
     const navigate = useNavigate()
     const handleView = (course: Courses) => {
         const title = course.title.replace(/ /g, "-");
-        navigate(`/students/${title}/${course.id}`, { state: { course } });
+        navigate(`/students-life/${title}/${course.id}`, { state: { course } });
     };
     return (
         <div className="min-h-screen bg-gray-50">

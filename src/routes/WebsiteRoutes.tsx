@@ -6,6 +6,7 @@ import { HomePage } from "../website/pages/home/Home";
 import { WebsiteLayout } from "../website/WebLayout";
 import AcademicWebPlanner from "../website/pages/academic-planner-web/AcademicWebPlanner";
 import StudentHandbook from "../website/pages/handbook/Handbook";
+import HolidayWebPlanner from "../website/pages/holidays/Holiday";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -32,7 +33,7 @@ export const websiteRoutes = [
           { path: "recognition", element: <RecognitionPageWeb /> },
           { path: "our-team", element: <OurTeamWeb /> },
           { path: "training-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
-          { path: "administrative-holidays", element: <PlaceholderPage pageName="Administrative Holidays" /> },
+          { path: "holidays", element: <HolidayWebPlanner/> },
         ],
       },
       {

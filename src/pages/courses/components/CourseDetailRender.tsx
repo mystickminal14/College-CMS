@@ -26,7 +26,7 @@ const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
                   }}
                   className="mb-12 scroll-mt-24"
                 >
-                  <h2 className="text-2xl md:text-3xl font-bold bg-blue-100 text-blue-900 px-4 py-3 rounded-lg mb-6">
+                  <h2 className="text-2xl md:text-3xl font-bold bg-blue-100 text-blue-600 px-4 py-3 rounded-lg mb-6">
                     {block.title}
                   </h2>
 

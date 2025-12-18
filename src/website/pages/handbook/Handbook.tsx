@@ -126,13 +126,13 @@ const StudentHandbook = () => {
                   key={download.id}
                   className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer transform hover:-translate-y-1"
                 >
-                  <div className="relative h-34 overflow-hidden">
+                  <div className="relative h-32 overflow-hidden">
                     <img
                       src={image}
                       alt={download.name}
-                      className="absolute inset-0 w-full h-34 "
+                      className="absolute inset-0 w-full h-32 "
                     />
-                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute inset-0 bg-black/10" />
 
                     <div className="absolute inset-0 flex items-center justify-center z-10">
                       <div className="bg-blue-100 p-5 rounded-2xl group-hover:scale-110 transition">

@@ -44,12 +44,17 @@ const RecognitionPageWeb = () => {
             <span className="text-gray-900 relative z-10"> The Years </span>
 
           </h1>
+          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Celebrating excellence, dedication, and success. Explore the academic and
+            institutional recognitions and achievements that reflect our commitment to
+            growth and distinction.
+          </p>
 
 
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-5">
         <RecognitionsCardView
           recognitions={recognitions}
           isLoading={isLoading}
