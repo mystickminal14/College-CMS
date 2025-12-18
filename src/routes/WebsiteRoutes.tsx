@@ -7,6 +7,7 @@ import { WebsiteLayout } from "../website/WebLayout";
 import AcademicWebPlanner from "../website/pages/academic-planner-web/AcademicWebPlanner";
 import StudentHandbook from "../website/pages/handbook/Handbook";
 import HolidayWebPlanner from "../website/pages/holidays/Holiday";
+import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -65,7 +66,7 @@ export const websiteRoutes = [
         path: "admissions",
         children: [
           { path: "", element: <PlaceholderPage pageName="Admissions" /> },
-          { path: "apply-now", element: <PlaceholderPage pageName="Apply Now" /> },
+          { path: "apply-now", element: <AdmissionProcedure/>},
           { path: "admission-process", element: <PlaceholderPage pageName="Admission Process" /> },
           { path: "tuition-fees", element: <PlaceholderPage pageName="Tuition & Fees" /> },
           { path: "scholarships", element: <PlaceholderPage pageName="Scholarships" /> },
