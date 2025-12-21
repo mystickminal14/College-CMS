@@ -1,13 +1,20 @@
-import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaAward, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useContext } from "react";
 import appLogo from "../../assets/butterfiles.png";
 import pcpsLogo from "../../assets/pcpsLogo.png";
 import {
   MdPeople, MdSchool, MdBusinessCenter, MdArticle,
-  MdWorkspacePremium, MdGroups, MdDownload, MdEvent,
+  MdWorkspacePremium, MdGroups,  MdEvent,
   MdNotificationsActive,
   MdHowToReg,
-  MdContactMail
+  MdContactMail,
+  MdCalendarToday,
+  MdEmail,
+  MdSms,
+  MdMenuBook,
+  MdAssignment,
+  MdAttachMoney,
+  MdPhoto
 } from 'react-icons/md';
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -40,39 +47,49 @@ const menuItems: MenuItem[] = [
   { id: "user", icon: MdPeople, label: "Users", badge: "New" },
   { id: "course", icon: MdSchool, label: "Courses", badge: "New" },
   { id: "teams", icon: MdGroups, label: "Our Teams", badge: "New" },
-{
-    id: "students", icon: MdBusinessCenter, label: "Students", subMenus: [
-      { id: "planner", label: "Academic Planner", icon: MdNotificationsActive },
-      { id: "downloads", label: "Student Handbook", icon: MdDownload },
-     
+  {
+    id: "students", 
+    icon: MdBusinessCenter, 
+    label: "Students", 
+    subMenus: [
+      { id: "planner", label: "Academic Planner", icon: MdAssignment },
+      { id: "fee-planner", label: "Fee Planner", icon: MdAttachMoney },
+      { id: "downloads", label: "Student Handbook", icon: MdMenuBook },
     ]
   },
   { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
   {
-    id: "media", icon: MdArticle, label: "Lbef Publication", subMenus: [
+    id: "media", 
+    icon: MdArticle, 
+    label: "Lbef Publication", 
+    subMenus: [
       { id: "news", label: "News", icon: MdArticle },
-      { id: "connect", label: "LBEF Connect", icon: MdArticle },
-      { id: "journal", label: "LBEF Journal", icon: MdArticle },
+      { id: "connect", label: "LBEF Connect", icon: MdGroups },
+      { id: "gallery", label: "Photo Gallery", icon: MdPhoto },
+
     ],
   },
-   
   {
-    id: "administation", icon: MdBusinessCenter, label: "Academic", subMenus: [
+    id: "administation", 
+    icon: MdBusinessCenter, 
+    label: "Academic", 
+    subMenus: [
       { id: "notice", label: "Notice Board", icon: MdNotificationsActive },
       { id: "contact", label: "Contact List", icon: MdContactMail },
       { id: "holiday", label: "Holiday", icon: MdEvent },
       { id: "recognition", label: "Recognitions", icon: MdWorkspacePremium },
+      { id: "achievement", label: "Achievements", icon: FaAward },
+
     ]
   },
-
   {
     id: "admission",
-    icon: MdHowToReg ,
+    icon: MdHowToReg,
     label: "Admission",
     subMenus: [
-      { id: "intake", label: "Intake Calender", icon: MdEvent },
-      { id: "email", label: "E-mail", icon: MdArticle },
-      { id: "sms", label: "SMS", icon: MdArticle },
+      { id: "intake", label: "Intake Calender", icon: MdCalendarToday },
+      { id: "email", label: "E-mail", icon: MdEmail },
+      { id: "sms", label: "SMS", icon: MdSms },
     ],
   },
 ];
@@ -101,10 +118,19 @@ const SideBar: React.FC<SideBarProps> = ({
   };
 
   const toggleSubmenu = (itemId: string) => {
-    const newExpanded = new Set(expandedItems);
-    if (newExpanded.has(itemId)) newExpanded.delete(itemId);
-    else newExpanded.add(itemId);
-    setExpandedItems(newExpanded);
+    setExpandedItems(prev => {
+      const newExpanded = new Set<string>();
+      
+      // Close all other submenus and only open the clicked one
+      if (prev.has(itemId)) {
+        // If already expanded, close it (newExpanded is empty)
+        return newExpanded;
+      } else {
+        // If not expanded, open it and close others
+        newExpanded.add(itemId);
+        return newExpanded;
+      }
+    });
   };
 
   const handleMenuClick = (item: MenuItem, subMenuId?: string) => {
@@ -141,7 +167,7 @@ const SideBar: React.FC<SideBarProps> = ({
         {mobileOpen && (
           <div
             onClick={onCloseMobile}
-            className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 transition-opacity duration-300"
+            className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 transition-opacity duration-300 cursor-pointer"
           />
         )}
         <div
@@ -155,9 +181,9 @@ const SideBar: React.FC<SideBarProps> = ({
         >
           <div className="p-3 border-b border-slate-200/50 dark:border-slate-700/50 flex justify-center">
             {collapsed ? (
-              <img src={appLogo} alt="Collapsed Logo" className="w-12 h-12 object-cover rounded-xl shadow-lg" />
+              <img src={appLogo} alt="Collapsed Logo" className="w-12 h-12 object-cover rounded-xl shadow-lg cursor-pointer" />
             ) : (
-              <img src={pcpsLogo} alt="Expanded Logo" className="w-full h-auto object-contain rounded-xl" />
+              <img src={pcpsLogo} alt="Expanded Logo" className="w-full h-auto object-contain rounded-xl cursor-pointer" />
             )}
           </div>
 
@@ -169,8 +195,8 @@ const SideBar: React.FC<SideBarProps> = ({
               return (
                 <div key={item.id}>
                   <button
-                    className={`w-full flex cursor-pointer items-center justify-between p-3 rounded-xl 
-                      transition-all duration-200
+                    className={`w-full flex items-center justify-between p-3 rounded-xl 
+                      transition-all duration-200 cursor-pointer
                       ${isActive
                         ? "bg-[#125DAA] text-white shadow-lg shadow-blue-500/25"
                         : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/50"
@@ -239,7 +265,7 @@ const SideBar: React.FC<SideBarProps> = ({
           <>
             <div
               onClick={() => setSubmenuOpen(false)}
-              className="fixed inset-0 bg-black/40 dark:bg-black/50 z-50"
+              className="fixed inset-0 bg-black/40 dark:bg-black/50 z-50 cursor-pointer"
             />
             <div
               className={`fixed inset-y-0 right-0 w-64 shadow-xl transform transition-transform duration-300 ease-in-out z-50
@@ -252,7 +278,7 @@ const SideBar: React.FC<SideBarProps> = ({
                 </h2>
                 <button
                   onClick={() => setSubmenuOpen(false)}
-                  className="text-lg font-bold text-slate-500 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100"
+                  className="text-lg font-bold text-slate-500 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100 cursor-pointer"
                 >
                   ✕
                 </button>
@@ -261,7 +287,7 @@ const SideBar: React.FC<SideBarProps> = ({
                 {activeMobileItem.subMenus?.map((menu) => (
                   <button
                     key={menu.id}
-                    className={` w-full text-left p-2 rounded-lg transition-all flex items-center space-x-2 cursor-pointer
+                    className={`w-full text-left p-2 rounded-lg transition-all flex items-center space-x-2 cursor-pointer
                       ${isSubMenuActive(activeMobileItem, menu.id)
                         ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
                         : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
@@ -295,7 +321,7 @@ const SideBar: React.FC<SideBarProps> = ({
       {!isMobile && onCollapse && (
         <button
           onClick={onCollapse}
-          className="absolute cursor-pointer -right-3 top-10 z-20 w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 flex items-center justify-center shadow-md hover:shadow-lg transition-all hover:scale-110"
+          className="absolute -right-3 top-10 z-20 w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 flex items-center justify-center shadow-md hover:shadow-lg transition-all hover:scale-110 cursor-pointer"
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? (
@@ -308,9 +334,9 @@ const SideBar: React.FC<SideBarProps> = ({
 
       <div className="p-3 border-b border-slate-200/50 dark:border-slate-700/50 flex justify-center">
         {collapsed ? (
-          <img src={appLogo} alt="Collapsed Logo" className="w-12 h-12 object-cover rounded-xl shadow-lg" />
+          <img src={appLogo} alt="Collapsed Logo" className="w-12 h-12 object-cover rounded-xl shadow-lg cursor-pointer" />
         ) : (
-          <img src={pcpsLogo} alt="Expanded Logo" className="w-full h-auto object-contain rounded-xl" />
+          <img src={pcpsLogo} alt="Expanded Logo" className="w-full h-auto object-contain rounded-xl cursor-pointer" />
         )}
       </div>
 
@@ -322,8 +348,8 @@ const SideBar: React.FC<SideBarProps> = ({
           return (
             <div key={item.id}>
               <button
-                className={`w-full flex cursor-pointer items-center justify-between p-3 rounded-xl 
-                          transition-all duration-200
+                className={`w-full flex items-center justify-between p-3 rounded-xl 
+                          transition-all duration-200 cursor-pointer
                           ${isActive
                     ? "bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25"
                     : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800/50"

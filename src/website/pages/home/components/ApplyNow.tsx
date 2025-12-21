@@ -15,8 +15,8 @@ export function ApplyNow() {
         </div>
 
         {/* Right: Text + Buttons */}
-        <div className="text-center lg:text-left flex-1 relative">
-          <p className="text-[12px] sm:text-[16px] md:text-[20px] text-center lg:text-xl text-[#19213DB2] leading-relaxed max-w-1xl">
+        <div className="text-center  lg:text-left flex-1 relative">
+          <p className="text-xs sm:text-[16px] p-1 md:text-[20px] text-center lg:text-xl text-[#19213DB2] leading-relaxed max-w-1xl">
             Together with our top-notch faculty, we  provide a nurturing environment to help students evolve into{" "}
             leaders who think boldly, make effective choices and are well-equipped with{" "}
             futuristic mindset and skills.

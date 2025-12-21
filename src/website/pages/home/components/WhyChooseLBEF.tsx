@@ -5,57 +5,7 @@ import lbef_bufferfly from "../../../../assets/pcpsLogo.png"
 import decoration from '../../../../assets/decoration.png';
 
 export function WhyChooseLBEF() {
-  // const images = [
-  //   {
-  //     id: 1,
-  //     src: arrow_up,
-  //     position: "top-left",
-  //     height: "70px",
-  //     width: "105px"
 
-  //   },
-  //   {
-  //     id: 2,
-  //     src: arrow_up,
-  //     position: "left",
-  //     width: "70px",
-  //     height: "50px",
-
-  //   }, {
-  //     id: 3,
-  //     src: arrow_down,
-  //     position: "bottom-left",
-  //     width: "95px",
-  //     height: "65px",
-
-  //   }
-  //   , {
-  //     id: 4,
-  //     src: arrow_up,
-  //     position: "top-right",
-  //     height: "70px",
-  //     width: "105px",
-  //     flip: "horizontal"
-
-
-  //   }
-  //   , {
-  //     id: 5,
-  //     src: arrow_up,
-  //     position: "right",
-  //     width: "70px",
-  //     height: "50px",
-  //     flip: "horizontal"
-  //   }
-  //   , {
-  //     id: 6,
-  //     src: arrow_down,
-  //     position: "bottom-right",
-  //     width: "95px",
-  //     height: "65px",
-  //     rotate: "-40deg"
-  //   }
-  // ]
   const features = [
     {
       icon: <Briefcase className="w-6 h-6" />,
@@ -97,13 +47,12 @@ export function WhyChooseLBEF() {
   ];
   return (
     <>
-      <section className="hidden lg:block py-20 px-6 bg-linear-to-br from-blue-50 via-white to-purple-50">
+      <section className="hidden lg:block py-5 sm:py-20 px-2 md:px-6 bg-linear-to-br from-blue-50 via-white to-purple-50">
 
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="w-full sm:max-w-7xl mx-auto text-center">
 
-          {/* Heading */}
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-            Why <span className="relative inline-block">
+            Why <span className="relative text-blue-500 inline-block">
               Choose
               <img
                 src={decoration}
@@ -274,12 +223,12 @@ export function WhyChooseLBEF() {
         </div>
       </section>
 
-      <section className="block lg:hidden py-16 px-4 bg-linear-to-br from-blue-50 via-white to-purple-50">
+      <section className="block lg:hidden py-4 mt-4 px-2 bg-linear-to-br from-blue-50 via-white to-purple-50">
         <div className="max-w-md mx-auto text-center">
 
           {/* Heading */}
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            Why <span className="relative inline-block">
+          <h2 className="text-3xl font-bold text-gray-900 mb-5">
+            Why <span className="relative text-blue-500 inline-block">
               Choose
               <img
                 src={decoration}
@@ -288,8 +237,8 @@ export function WhyChooseLBEF() {
               />
             </span>{" "}  LBEF ?
           </h2>
-          <p className="text-sm text-gray-600 mb-10">
-            Unlock your true potential and discover a world of opportunities<br />
+          <p className="text-sm  text-gray-600 mb-5">
+            Unlock your true potential and discover a world of opportunities
             that align with your skills, interests, and aspirations
           </p>
 

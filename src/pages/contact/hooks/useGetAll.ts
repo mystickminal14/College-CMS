@@ -7,7 +7,7 @@ import contactApi from "../services/UserService";
 const useGetContactsAll = () => {
   return useQuery<ApiResponse<Contact[]>, ApiErrorResponse>({
     queryKey: [CONTACT_CACHE_KEY],
-    queryFn: () => contactApi.getAll(),
+    queryFn: () => contactApi.getAll('all'),
   });
 };
 

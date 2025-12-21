@@ -18,6 +18,9 @@ import type { ReactNode } from "react";
 import IntakePage from "../pages/intake-calender/IntakePage";
 import PlannersPage from "../pages/academic-planner/AcademicPlanner";
 import ContactPage from "../pages/contact/ContactTable";
+import FeePlannersPage from "../pages/fee-planner/FeePlanner";
+import AchievementPage from "../pages/achivement/Achivement";
+import ConnectsPage from "../pages/lbef-connect/LbefConnect";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -45,17 +48,18 @@ export const adminRoutes = [
       { path: "course-details/:id", element: <CourseDetails /> },
       { path: "course-details/add/:id", element: <AddCourseDetailsPage /> },
       { path: "course-details/:key/add/:id", element: <AddCourseDetailsPage /> },
-
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
       { path: "administation/notice", element: <NoticesPage /> },
         { path: "administation/contact", element: <ContactPage /> },
       { path: "students/planner", element: <PlannersPage /> },
+      { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
-
       { path: "user", element: <UserPage /> },
       { path: "alumni", element: <AlumniPage /> },
-
+      { path: "administation/achievement", element: <AchievementPage /> },
       { path: "media/news", element: <NewsPage /> },
+      { path: "media/connect", element: <ConnectsPage /> },
+
       { path: "administation/recognition", element: <RecognitionsPage /> },
       { path: "teams", element: <TeamsPage /> },
       { path: "administation/holiday", element: <HolidaysPage /> },

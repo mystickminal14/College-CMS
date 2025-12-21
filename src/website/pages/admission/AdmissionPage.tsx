@@ -2,9 +2,7 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 import CustomBreadcrumb from "../../comp/bread-crump";
 import bgImage from "../../../assets/OurTeam.jpg";
 import decoration from "../../../assets/decoration.png";
-
 import useGetIntakes from "../../../pages/intake-calender/hooks/useGetAllIntakr";
-
 import AdmissionTOC from "./components/AdmissionToc";
 import IntakeCardsSection from "./components/IntakeCardSection";
 import ApplicationProcess from "./components/ApplicationProcess";
@@ -144,11 +142,14 @@ const AdmissionProcedure = () => {
                                 alt="Decoration"
                                 className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3"
                             />
-                        </span>
+                        </span> for 
+                        <br />
+                        <span className="text-gray-900">New Applicant </span>
+
                     </h1>
 
                     <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                        A clear guide to the admission process, eligibility and timelines.
+            A clear guide to the admission process, eligibility and timelines to help you plan and apply with confidence.
 
                     </p>
                 </div>

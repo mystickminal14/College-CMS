@@ -35,19 +35,23 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
   const mutation = useUpdateMultipleChildren();
 
   const resetAll = () => {
+    console.log("Resetting modal state for parentId:", parentId);
     setRecords([]);
     setCurrent({ course: "", semester: "", intake: "", file: null });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  // Reset when modal opens with new parentId
   useEffect(() => {
-    if (!isOpen) {
+    if (isOpen) {
+      console.log("Modal opened for parentId:", parentId);
       resetAll();
     }
-  }, [isOpen]);
+  }, [isOpen, parentId]); // Reset when parentId changes
 
   useEffect(() => {
     if (mutation.isSuccess) {
+      console.log("Mutation successful, closing modal");
       resetAll();
       onSuccess?.();
       onClose();
@@ -62,7 +66,15 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
   };
 
   const addRecord = () => {
-    if (!current.course || !current.semester || !current.intake || !current.file) return;
+    if (!current.course || !current.semester || !current.intake || !current.file) {
+      console.log("Missing fields:", {
+        course: current.course,
+        semester: current.semester,
+        intake: current.intake,
+        file: current.file
+      });
+      return;
+    }
     setRecords([...records, current]);
     setCurrent({ course: "", semester: "", intake: "", file: null });
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -73,7 +85,13 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
   };
 
   const handleSaveAll = () => {
-    if (records.length === 0) return;
+    if (records.length === 0) {
+      console.log("No records to save");
+      return;
+    }
+
+    console.log("Saving records:", records);
+    console.log("Parent ID:", parentId);
 
     mutation.mutate({
       parentId,
@@ -94,7 +112,10 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
         {/* Header */}
         <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between items-center">
           <h2 className="text-xl font-bold text-white">Add Multiple Files</h2>
-          <button onClick={onClose}>
+          <button 
+            onClick={onClose}
+            className="hover:bg-white/10 p-1 rounded transition-colors"
+          >
             <X className="text-white w-6 h-6" />
           </button>
         </div>
@@ -127,7 +148,7 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
               className="input w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#135EAB] focus:outline-none"
             />
             <div
-              className="w-full h-20 border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 cursor-pointer"
+              className="w-full h-20 border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               onClick={triggerFileInput}
             >
               {current.file ? (
@@ -199,6 +220,13 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
               <div className="mt-3 text-sm text-gray-500 dark:text-gray-400">
                 Total: {records.length} record{records.length !== 1 ? 's' : ''} added
               </div>
+            </div>
+          )}
+
+          {/* Show error if mutation fails */}
+          {mutation.isError && (
+            <div className="p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg">
+              Error saving files: {mutation.error?.message || "Unknown error"}
             </div>
           )}
 

@@ -65,8 +65,8 @@ const ContactListPage = () => {
       </div>
 
       {/* Content */}
-      <div className="container px-4 md:px-30 pb-20">
-        {/* Loading State */}
+     <div className="container mx-auto flex flex-col px-4 md:px-20 pb-20">
+
         {isLoading && (
           <div className="space-y-4">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -77,7 +77,6 @@ const ContactListPage = () => {
           </div>
         )}
 
-        {/* No Contacts */}
         {!isLoading && contacts.length === 0 && (
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700">
@@ -89,7 +88,6 @@ const ContactListPage = () => {
           </div>
         )}
 
-        {/* Table View for Multiple Emails */}
         {!isLoading && regularContacts.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center justify-start mb-8">
@@ -111,9 +109,8 @@ const ContactListPage = () => {
               </div>
             </div>
 
-            {/* Desktop Table View */}
-            <div className="hidden lg:block bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto">
+          <div className="hidden lg:block bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mx-auto">
+  <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-linear-to-r from-gray-50 to-gray-100">
                     <tr>

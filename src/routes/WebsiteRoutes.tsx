@@ -11,6 +11,10 @@ import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
 import { AboutPage } from "../website/pages/about/About.";
 import ContactListPage from "../website/pages/contact-list/ContactListingPage";
 import CodeOfConduct from "../website/pages/CodeOfConduct";
+import FeePlannersWeb from "../website/pages/fee-planner-web/FeePlannerWeb";
+import AchievementWeb from "../website/pages/achievement/AchivementWeb";
+import NoticeWeb from "../website/pages/notice/NoticeWeb";
+import Gallery from "../website/pages/gallery/Gallery";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -35,6 +39,8 @@ export const websiteRoutes = [
           { path: "about-lbef", element: <AboutPage/> },
           { path: "about-university", element: <PlaceholderPage pageName="About University" /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
+          { path: "achivement", element: <AchievementWeb /> },
+
           { path: "our-team", element: <OurTeamWeb /> },
           { path: "training-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
           { path: "holidays", element: <HolidayWebPlanner/> },
@@ -56,7 +62,9 @@ export const websiteRoutes = [
           { path: "programs", element: <CourseProgram /> },
           { path: "student-code-of-conduct", element: <CodeOfConduct /> },
           { path: ":name/:id", element: <CourseDetails /> },
-
+ {
+            path: "fee-planner", element: <FeePlannersWeb />
+          },
           {
             path: "academic-planner", element: <AcademicWebPlanner />
           },
@@ -66,7 +74,7 @@ export const websiteRoutes = [
            {
             path: "student-support", element: <ContactListPage />
           },
-          { path: "career-services", element: <PlaceholderPage pageName="Career Services" /> },
+          { path: "notices", element: <NoticeWeb /> },
         ],
       },
       {
@@ -81,7 +89,7 @@ export const websiteRoutes = [
         path: "media",
         children: [
           { path: "", element: <PlaceholderPage pageName="Media" /> },
-          { path: "photo-gallery", element: <PlaceholderPage pageName="Photo Gallery" /> },
+          { path: "photo-gallery", element: <Gallery/> },
           { path: "video-library", element: <PlaceholderPage pageName="Video Library" /> },
           { path: "news-events", element: <PlaceholderPage pageName="News & Events" /> },
         ],

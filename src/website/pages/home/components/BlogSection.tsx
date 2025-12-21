@@ -29,8 +29,8 @@ export default function Index() {
 
   return (
     <section className="bg-[#0066FF0A]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <div className="container mx-auto px-8 sm:px-24  py-10 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-6  items-center">
 
           {/* LEFT SECTION */}
           <div className="flex flex-col gap-6 lg:pt-16">
@@ -40,7 +40,7 @@ export default function Index() {
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               Insights & Ideas From{" "}
-              <span className="relative inline-block">
+              <span className="relative text-blue-500 inline-block">
                 The World
                 <img
                   src={decoration}

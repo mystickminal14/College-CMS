@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import TitleBox from "../../components/layout/TitleBox";
 import EnhancedTable from "../../template/EnhancedTable";
 import { Edit, Trash2, Eye } from "lucide-react";
@@ -35,6 +35,7 @@ const PlannersPage = () => {
   };
 
   const handleAddChildren = (planner: Planners) => {
+    console.log("Opening children modal for planner ID:", planner.id);
     setPlannersToEdit(planner);
     setShowChildrenModal(true);
   };
@@ -93,7 +94,7 @@ const PlannersPage = () => {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
-      <TitleBox title="Planners Management" subtitle="Manage application planners" />
+      <TitleBox title="Academic Planners Management" subtitle="Manage application planners" />
 
       {/* Header Buttons */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
@@ -174,11 +175,19 @@ const PlannersPage = () => {
         sessionId={plannersToEdit?.id}
       />
 
-      <CreateMultipleFilesModal
-        isOpen={showChildrenModal}
-        onClose={() => setShowChildrenModal(false)}
-        parentId={plannersToEdit?.id ?? 0}
-      />
+      {/* Add key prop to force re-render when parentId changes */}
+      {showChildrenModal && (
+        <CreateMultipleFilesModal
+          key={`multiple-modal-${plannersToEdit?.id || 'new'}`}
+          isOpen={showChildrenModal}
+          onClose={() => setShowChildrenModal(false)}
+          parentId={plannersToEdit?.id ?? 0}
+          onSuccess={() => {
+            // You might want to refresh the data here
+            console.log("Multiple files added successfully");
+          }}
+        />
+      )}
 
       <DeletePlannerModal
         isOpen={showDeleteModal}

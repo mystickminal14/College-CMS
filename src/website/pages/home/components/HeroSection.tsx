@@ -21,7 +21,7 @@ export function HeroSection() {
         >
           <div className="inline-block">
             <span className="relative inline-block">
-              <span className="lg:text-[6vw]">Welcome</span>
+              <span className="text-md sm:lg:text-[6vw]">Welcome</span>
               <span className="absolute text-[6px] md:text-[1vw] left-0 font-normal">The First IT College of Nepal</span>
             </span>
           </div>
