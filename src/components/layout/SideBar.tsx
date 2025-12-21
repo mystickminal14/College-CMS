@@ -9,8 +9,7 @@ import {
   MdHowToReg,
   MdContactMail,
   MdCalendarToday,
-  MdEmail,
-  MdSms,
+
   MdMenuBook,
   MdAssignment,
   MdAttachMoney,
@@ -88,8 +87,7 @@ const menuItems: MenuItem[] = [
     label: "Admission",
     subMenus: [
       { id: "intake", label: "Intake Calender", icon: MdCalendarToday },
-      { id: "email", label: "E-mail", icon: MdEmail },
-      { id: "sms", label: "SMS", icon: MdSms },
+    
     ],
   },
 ];

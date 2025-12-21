@@ -145,7 +145,7 @@ export function NavBar() {
       icon: <FaBook />,
       dropdown: [
         { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
-        { name: "Video Library", link: "/media/video-library", icon: <FaBook /> },
+        { name: "Lbef Connect", link: "/media/connect", icon: <FaBook /> },
         { name: "News & Events", link: "/media/news-events", icon: <FaBook /> },
       ],
     },

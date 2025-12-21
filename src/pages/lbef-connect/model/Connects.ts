@@ -4,4 +4,5 @@ export interface Connects {
   duration: string;
   volume:string;
   file: string;
+  image?:string;
 }

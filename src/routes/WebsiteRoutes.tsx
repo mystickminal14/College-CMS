@@ -15,6 +15,7 @@ import FeePlannersWeb from "../website/pages/fee-planner-web/FeePlannerWeb";
 import AchievementWeb from "../website/pages/achievement/AchivementWeb";
 import NoticeWeb from "../website/pages/notice/NoticeWeb";
 import Gallery from "../website/pages/gallery/Gallery";
+import LBEFConnectWeb from "../website/pages/lbef-connect-web/lbef-connect-web";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -90,7 +91,7 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <PlaceholderPage pageName="Media" /> },
           { path: "photo-gallery", element: <Gallery/> },
-          { path: "video-library", element: <PlaceholderPage pageName="Video Library" /> },
+          { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <PlaceholderPage pageName="News & Events" /> },
         ],
       },
