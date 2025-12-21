@@ -45,7 +45,7 @@ export default function AboutSection() {
             {/* Main Heading */}
             <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
               One Platform. Infinite{" "}
-              <span className="relative inline-block">
+              <span className="relative inline-block text-[#474AFF]">
                 Learning
                 <img
                   src={decoration}

@@ -27,7 +27,7 @@ export function VideoSection() {
             <span className="block mt-2">LBEE Campus</span>
           </h1>
 
-          <div className="w-full sm:w-[250px] group relative px-6 sm:px-10 py-3 sm:py-5 bg-[#3040E5] hover:bg-[#3040E5] text-white font-medium text-lg rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center justify-between cursor-pointer">
+          <div className="w-full sm:w-[250px] group relative px-6 sm:px-10 py-3 sm:py-5 bg-[#474AFF] hover:bg-[#474AFF] text-white font-medium text-lg rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center justify-between cursor-pointer">
             Join With Us
             <i className="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform text-[18px] sm:text-[20px]"></i>
           </div>
@@ -46,7 +46,7 @@ export function VideoSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 ml-1" fill="currentColor" />
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-[#474AFF] ml-1" fill="currentColor" />
                 </a>
               </div>
             </div>

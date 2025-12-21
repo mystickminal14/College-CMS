@@ -117,7 +117,7 @@ export default function OurCore() {
           <p className="text-blue-600 text-lg font-medium mb-2">Meet Our Leads</p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
             Messages from{' '}
-            <span className="relative inline-block">
+            <span className="relative inline-block text-[#474AFF] ">
               Our Leads
               <img
                 src={decoration}

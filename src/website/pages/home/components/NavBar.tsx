@@ -116,18 +116,18 @@ export function NavBar() {
                 onMouseLeave={handleMouseLeave}
                 ref={(el) => { dropdownRefs.current[item.name] = el; }}
               >
-                <button className="flex items-center gap-1.5 px-4 py-3 text-[#050038] hover:text-[#3040E5] transition-colors duration-200 font-medium text-sm uppercase group">
+                <button className="flex items-center gap-1.5 px-4 py-3 text-[#050038] hover:text-[#474AFF] transition-colors duration-200 font-medium text-sm uppercase group">
                   <span className="relative">{item.name}</span>
                   <i className="fa-solid fa-angle-down text-[0.65rem] transition-transform duration-300 group-hover:rotate-180"></i>
                 </button>
                 <div className={`absolute left-0 top-full pt-2 transition-all duration-300 transform origin-top ${activeDropdown === item.name ? "opacity-100 scale-y-100 translate-y-0" : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"}`}>
                   <div className="bg-white rounded-xl shadow-2xl border border-gray-100 min-w-[220px] overflow-hidden">
                     <div className="p-1">
-                      {item.dropdown.map((sub, ) => (
+                      {item.dropdown.map((sub,) => (
                         <Link
                           key={sub.name}
                           to={sub.link}
-                          className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-[#3040E5] hover:bg-blue-50 rounded-lg transition-all duration-200"
+                          className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-[#474AFF] hover:bg-blue-50 rounded-lg transition-all duration-200"
                           onClick={() => setActiveDropdown(null)}
                         >
                           <span className="text-lg">{sub.icon}</span>
@@ -142,7 +142,7 @@ export function NavBar() {
               <Link
                 key={item.name}
                 to={item.link}
-                className={`relative px-4 py-3 transition-colors duration-200 font-medium text-sm uppercase ${isActive(item.link) ? "text-[#3040E5]" : "text-[#050038] hover:text-[#3040E5]"}`}
+                className={`relative px-4 py-3 transition-colors duration-200 font-medium text-sm uppercase ${isActive(item.link) ? "text-[#474AFF]" : "text-[#050038] hover:text-[#474AFF]"}`}
               >
                 {item.name}
               </Link>
@@ -152,11 +152,11 @@ export function NavBar() {
 
         {/* Enroll Button */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link to="/contact" className="text-[#050038] hover:text-[#3040E5] font-medium text-sm transition-colors">
+          <Link to="/contact" className="text-[#050038] hover:text-[#474AFF] font-medium text-sm transition-colors">
             <FaPhone className="inline mr-2" />
             Contact
           </Link>
-          <Link to="/enroll" className="bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105">
+          <Link to="/enroll" className="bg-linear-to-r from-[#474AFF] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105">
             Enroll Now
           </Link>
         </div>
@@ -179,7 +179,7 @@ export function NavBar() {
                   <>
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex justify-between items-center w-full py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#3040E5] transition-colors"
+                      className="flex justify-between items-center w-full py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#474AFF] transition-colors"
                     >
                       <span>{item.name}</span>
                       <i className={`fa-solid fa-angle-down transition-transform duration-300 ${dropdownOpen[item.name] ? "rotate-180" : ""}`}></i>
@@ -191,7 +191,7 @@ export function NavBar() {
                             <Link
                               key={sub.name}
                               to={sub.link}
-                              className="flex items-center gap-3 py-2.5 px-3 text-gray-700 hover:text-[#3040E5] hover:bg-white rounded-md transition-colors"
+                              className="flex items-center gap-3 py-2.5 px-3 text-gray-700 hover:text-[#474AFF] hover:bg-white rounded-md transition-colors"
                               onClick={() => {
                                 setMobileOpen(false);
                                 setDropdownOpen({});
@@ -208,7 +208,7 @@ export function NavBar() {
                 ) : (
                   <Link
                     to={item.link}
-                    className="flex items-center py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#3040E5] transition-colors"
+                    className="flex items-center py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#474AFF] transition-colors"
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.name}
@@ -219,11 +219,11 @@ export function NavBar() {
           </ul>
 
           <div className="mt-4 pt-4 border-t border-gray-200 flex flex-col gap-2">
-            <Link to="/enroll" className="flex items-center justify-center gap-2 bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg transition-all duration-300">
+            <Link to="/enroll" className="flex items-center justify-center gap-2 bg-linear-to-r from-[#474AFF] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg transition-all duration-300">
               <FaGraduationCap />
               Enroll Now
             </Link>
-            <Link to="/contact" className="flex items-center justify-center gap-2 text-[#050038] hover:text-[#3040E5] font-medium py-2">
+            <Link to="/contact" className="flex items-center justify-center gap-2 text-[#050038] hover:text-[#474AFF] font-medium py-2">
               <FaPhone />
               Contact Admissions
             </Link>

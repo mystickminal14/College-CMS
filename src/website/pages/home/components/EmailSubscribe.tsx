@@ -8,7 +8,7 @@ export function EmailSubscribe() {
     <section className="py-20 px-6 lg:px-40">
       <div className="max-w-8xl mx-auto">
         {/* Main CTA Card */}
-        <div className="relative bg-[#3040E5] rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative bg-[#474AFF] rounded-3xl overflow-hidden shadow-2xl">
           {/* Background Students - Hidden below 1300px */}
           <div className="absolute inset-0 flex justify-between items-center pointer-events-none max-[1299px]:hidden">
             {/* Left Student */}
@@ -53,7 +53,7 @@ export function EmailSubscribe() {
 
               <button
                 type="submit"
-                className="px-15 py-5 bg-white text-[#3040E5] font-bold text-lg rounded-full hover:bg-gray-100 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                className="px-15 py-5 bg-white text-[#474AFF] font-bold text-lg rounded-full hover:bg-gray-100 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               >
                 Submit
               </button>

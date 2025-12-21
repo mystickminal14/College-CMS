@@ -2,6 +2,8 @@ import half_diamond from '../../../../assets/half_diamond.png'
 import top_mission from '../../../../assets/top_mission.jpg'
 import midddle_mission from '../../../../assets/middle_mission.jpg'
 import bottom_mission from '../../../../assets/bottom_mission.jpg'
+import decoration from '../../../../assets/decoration.png';
+
 const MissionSection = () => {
   return (
     <section className="py-16 bg-white md:py-24">
@@ -11,7 +13,14 @@ const MissionSection = () => {
           <div className="space-y-12">
             <div className="mb-20 text-center">
               <div className="flex items-center justify-center gap-4">
-                <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">Our Mission</h2>
+                <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">Our <span className="relative inline-block text-[#474AFF]">
+                  Missions
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+                  />
+                </span>{" "}</h2>
               </div>
             </div>
             <div className="flex gap-6">

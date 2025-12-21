@@ -35,8 +35,8 @@ export default function Events() {
     <div className=" bg-white">
       <div className="container mx-auto px-4 py-16 lg:py-24">
         {/* Page Title */}
-        <h1 className="text-4xl lg:text-5xl font-bold text-center mb-16 text-gray-900">
-          Upcoming <span className="relative inline-block">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+          Upcoming <span className="relative inline-block text-[#474AFF]">
             Events
             <img
               src={decoration}
@@ -84,14 +84,14 @@ export default function Events() {
                     {event.description}
                   </p>
                 </div>
-              </div> 
+              </div>
             </div>
           ))}
         </div>
 
         {/* Load More Button */}
         <div className="flex justify-center">
-          <button className="px-8 py-3 border-2 border-[#3040E5] text-[#3040E5] font-semibold rounded-full cursor-pointer transition-colors duration-200">
+          <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full cursor-pointer transition-colors duration-200">
             Load More
           </button>
         </div>

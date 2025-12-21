@@ -69,13 +69,13 @@ export function JoinStudents() {
           {/* Right Side - Content */}
           <div className="text-center lg:text-left">
             {/* Badge */}
-            <span className="inline-block px-6 py-2 bg-[#F5F2FF] text-[#3040E5] text-sm font-semibold rounded-full mb-6">
+            <span className="inline-block px-6 py-2 bg-[#F5F2FF] text-[#474AFF] text-sm font-semibold rounded-full mb-6">
               Join LBEF
             </span>
 
             {/* Main Heading - Responsive sizing */}
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-              Join as a <span className="relative inline-block">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+              Join as a <span className="relative inline-block text-[#474AFF]">
                 Students
                 <img
                   src={decoration}
@@ -103,7 +103,7 @@ export function JoinStudents() {
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-4 text-gray-700">
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircle className="w-5 h-5 text-blue-600" strokeWidth={3} />
+                      <CheckCircle className="w-5 h-5 text-[#474AFF]" strokeWidth={3} />
                     </div>
                     <span className="text-lg">{item}</span>
                   </div>
@@ -117,7 +117,7 @@ export function JoinStudents() {
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-4 text-gray-700">
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircle className="w-5 h-5 text-blue-600" strokeWidth={3} />
+                      <CheckCircle className="w-5 h-5 text-[#474AFF]" strokeWidth={3} />
                     </div>
                     <span className="text-lg">{item}</span>
                   </div>
@@ -127,7 +127,7 @@ export function JoinStudents() {
 
             {/* CTA Button - Centered on mobile, left on laptop */}
             <div className="flex justify-center lg:justify-start">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-10 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <button className="bg-[#474AFF] hover:bg-blue-700 text-white font-bold text-lg px-10 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                 Join as Student
               </button>
             </div>

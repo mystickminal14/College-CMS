@@ -82,7 +82,7 @@ const RecentNews = () => {
         {/* Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12">
           Recent{" "}
-          <span className="relative inline-block">
+          <span className="relative inline-block text-[#474AFF]">
             News
             <img
               src={decoration}
@@ -172,7 +172,7 @@ const RecentNews = () => {
 
         {/* Read More */}
         <div className="flex justify-center mt-12">
-          <button className="px-8 py-3 border-2 border-[#3040E5] text-[#3040E5] font-semibold rounded-full hover:bg-[#3040E5] hover:text-white transition">
+          <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full hover:bg-[#474AFF] hover:text-white transition">
             Read More
           </button>
         </div>
