@@ -7,7 +7,7 @@ const GalleryHeader = () => {
   return (
     <>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12  text-center">
         <div className="max-w-8xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-linear-to-r from-blue-50 to-purple-50 border border-blue-100">
             <FaImages className="text-blue-500" />

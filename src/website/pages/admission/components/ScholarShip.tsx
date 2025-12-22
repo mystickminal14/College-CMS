@@ -14,10 +14,10 @@ const ScholarshipSection = () => {
           <Info className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
           <div>
             <p className="text-gray-700 mb-3">
-              We offer several scholarships to assist you in funding your studies. The College provides financial aid for students who demonstrate academic excellence and have financial challenges, bringing support to those throughout their academic journey. Scholarships are applied to better lives.
+              We offer several scholarships to assist you in funding your studies. The College provides financial aid for students who demonstrate academic excellence and have financial challenges, bringing support to those throughout their academic journey. Scholarships are applied to tution fees.
             </p>
             <p className="text-gray-700">
-              Scholarships are awarded by the College's Scholarship Committee. To apply and determine eligibility, please fill out a scholarship application form or contact our Scholarship Administrator Officer at the College.
+              Scholarships are awarded to 10% of the annual intake of students, following government directives. To apply and determine eligibility, please fill out a scholarship and funding application form and submit it to the Administrative Office at the College.
             </p>
           </div>
         </div>
@@ -32,8 +32,7 @@ const ScholarshipSection = () => {
               National ICT Scholarship
             </h3>
             <p className="text-gray-700 mb-6">
-              The scholarships include successful candidates in the field of Information Technology. Students who have completed their 10+2 or equivalent are eligible to apply. This scholarship supports students pursuing IT-related courses and provides special benefits for academic excellence.
-            </p>
+The scholarships will be awarded to study B.Sc.(Hons.) in Information Technology at LBEF CAMPUS. Students who have completed 10+2 or equivalent from recognized board or Diploma in Computer Engineering from CTVET will be benefited with this scheme. Students who have appeared for 10+2 or equivalent examination can also apply. Girl students will be most benefited by this scheme and the reason to do so is to further the educational opportunities of young women of future generations.            </p>
           </div>
 
           {/* Types of Scholarships */}
@@ -48,87 +47,119 @@ const ScholarshipSection = () => {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Date</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Number of Scholarships</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Name of Scholarships</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Scheme</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Toal Course Fee</th>
                       <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Amount</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Student Course Fee</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Delivered</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Post-pilot Date</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Amount</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Fee to be paid</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No of Scholarship</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Scholarship amount</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Standard</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Saraswati</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100%</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,990,000</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,990,000</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">0</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹49,500,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">69,93,000</td>
+
                     </tr>
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Leaver</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% (No Year in Time)</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Laxmi</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% in Tution & Lab fees</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,990,000</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹4,220,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹3,720,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹29,500,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹5,77,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">29,54,000</td>
+
                     </tr>
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">3</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Dump</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% (No Year in Time)</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,990,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹3,000,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹4,990,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹42,000,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Durga</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% in Tution fee</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,99,000</td>
+
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹3,00,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹6,99,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">14</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹42,00,000</td>
+                    </tr>
+                      <tr>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,41,47,000/-</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <p className="text-sm text-gray-600 mt-3 italic">Prior Scholarship (Type I)</p>
             </div>
 
             {/* Second Table */}
             <div className="mb-6">
-              <h5 className="text-md font-medium text-gray-700 mb-3">ICT Total Scholarships (Type II - 81)</h5>
+              <h5 className="text-md font-medium text-gray-700 mb-3">ICT Merit Scholarships(Open to all)</h5>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Date</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Number of Scholarships</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Name of Scholarships</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Scheme</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Toal Course Fee</th>
                       <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Amount</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Student Course Fee</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Delivered</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Post-pilot Date</th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Amount</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Fee to be paid</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No of Scholarship</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Scholarship amount</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Shield</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% (No Thriller A Late Time)</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Shakti</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% in Tution & Lab fees</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,990,000</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹4,220,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹3,720,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹29,500,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹5,77,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7</td>
+
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹29,54,000</td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Smith</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% (No Thriller B Late Time)</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Sathi</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100% in Tution fee</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹9,990,000</td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹3,000,000</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹4,990,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹6,990,000</td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">14</td>
+
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">₹42,000,000</td>
+                    </tr>
+                     <tr>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">71,54,000/-</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <p className="text-sm text-gray-600 mt-3 italic">Other Scholarship (Type III)</p>
             </div>
 
             <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mt-6">
@@ -139,15 +170,18 @@ const ScholarshipSection = () => {
                   <p className="text-sm text-gray-700 mb-2">
                     Contact the Scholarship Office or visit our administration building for detailed information about eligibility criteria, application process, and deadlines.
                   </p>
-                  <a 
-                    href="/scholarships/ict" 
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-                  >
-                    Learn More
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
+                 <a
+  href="/gyandeep-scholarship"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
+>
+  Learn More
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+</a>
+
                 </div>
               </div>
             </div>
@@ -162,42 +196,41 @@ const ScholarshipSection = () => {
               Gyandeep Scholarship
             </h3>
             <p className="text-gray-700 mb-6">
-              This Scholarship is awarded to students with outstanding academic performance without any geographical restriction. This scholarship is only awarded in the following two categories.
-            </p>
+This Scholarship is awarded based on the percentage achieved in the High-School Board examinations or equivalent examination. This scholarship is only awarded in the <strong>tuition fee category</strong>. The scholarship privileges provided in this category are as follows:            </p>
           </div>
 
           <div className="overflow-x-auto mb-6">
             <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
               <thead className="bg-green-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Selected Subjects</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Subject Course</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">% of Students</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">S.No</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">% marks in highschool</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No of Students</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">All Subjects</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Above 90%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">2</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Science Only</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">20%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">80%-90%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">3</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Commerce Only</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">20%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">70%-80%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">25%</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">4</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Arts Only</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Above 60%</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10%</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">20</td>
                 </tr>
@@ -211,7 +244,18 @@ const ScholarshipSection = () => {
               <div>
                 <h5 className="text-md font-semibold text-green-800 mb-2">To Know more about Gyandeep Scholarship</h5>
                 <p className="text-sm text-gray-700">
-                  For detailed information about the Gyandeep Scholarship criteria and application process, please visit the scholarship office.
+                  For detailed information about the Gyandeep Scholarship criteria and application process, please visit the scholarship office. <br /> <a
+  href="/gyandeep-scholarship"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex mt-2 items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
+>
+  Learn More
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+</a>
+
                 </p>
               </div>
             </div>
@@ -226,49 +270,48 @@ const ScholarshipSection = () => {
               Merit Scholarship
             </h3>
             <p className="text-gray-700 mb-6">
-              Merit Scholarship is awarded to students based on their academic performance in the previous examination. This scholarship recognizes and rewards academic excellence and is only awarded in the following categories.
-            </p>
+Merit Scholarship is awarded on the basis of academic performance in the  conducted by LBEF Campus, internal examinations/evaluations and the End Semester examinations of the University. This scholarship is only awarded in the <strong>tuition fee category</strong> . The scholarship privileges provided in this category are as follows:            </p>
           </div>
 
           <div className="overflow-x-auto mb-6">
             <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
               <thead className="bg-amber-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Achievement (%)</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Amount</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">S.No</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">% Obtained</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Scholarship Awarded</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">95% and above</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100%</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">90% to 94%</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">80%</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">3</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">85% to 89%</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">75%</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">4</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">80% to 84%</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">60%</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">5</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">75% to 79%</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">6</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">70% to 74%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">91% to 95%</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">40%</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">3</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">86% to 90%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">30%</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">4</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">81% to 85%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">25%</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">5</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">76% to 80%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">20%</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">6</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">71% to 75%</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10%</td>
                 </tr>
               </tbody>
             </table>
@@ -279,8 +322,19 @@ const ScholarshipSection = () => {
               <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm text-gray-700">
-                  <strong>Note:</strong> Merit scholarships are automatically considered based on your previous academic results. No separate application is required for these scholarships.
-                </p>
+                  <strong>Note:</strong> Merit scholarships are automatically considered based on your previous academic results. No separate application is required for these scholarships. <br />
+          <a
+  href="/merit-scholarship"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex mt-2 items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
+>
+  Learn More
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+</a>
+   </p>
               </div>
             </div>
           </div>

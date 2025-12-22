@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 import TitleBox from "../../components/layout/TitleBox";
 import EnhancedTable from "../../template/EnhancedTable";
 import Pagination from "../../utils/Pagination";
-import SearchBox from "./utils/SearchBox";
+import SearchBox from "../courses/utils/SearchBox";
 
 import DeleteTeamsModal from "./components/DeleteModel";
 import AddEditCoursesWizardModal from "./components/Wizard";
@@ -17,7 +17,7 @@ import useCreateCourse from "./hooks/useCreateCourses";
 import useEditCourses from "./hooks/useEditCourse";
 import { useUploadCourseImage } from "./hooks/useUploadImage";
 import { useUpdateImage } from "./hooks/useUpdateImage";
-import { CoursesColumns } from "./utils/columns";
+import { CoursesColumns } from "../courses/utils/columns";
 
 import type { Courses } from "./model/CourseModel";
 import CoursesCardView from "./CourseCardView";

@@ -86,7 +86,7 @@ export function NavBar() {
       icon: <FaUniversity />,
       dropdown: [
         { name: "About LBEF", link: "/about/about-lbef", icon: <FaUniversity /> },
-        { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
+        { name: "About University", link: "https://www.apu.edu.my/about-apu/", icon: <FaUniversity /> },
         { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
         { name: "Achivement", link: "/about/achivement", icon: <FaCertificate /> },
 
@@ -149,7 +149,6 @@ export function NavBar() {
         { name: "News & Events", link: "/media/news-events", icon: <FaBook /> },
       ],
     },
-    { name: "Blogs", link: "/blogs", icon: <FaBook /> },
     { name: "UGC", link: "/ugc", icon: <FaBook /> },
   ];
 

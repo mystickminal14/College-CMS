@@ -4,8 +4,8 @@ import { useLocation, useParams } from "react-router-dom";
 import type { Courses } from "./model/CourseModel";
 import CourseHeader from "./components/CourseDetailHeader";
 import useGetCourseDetails from "./hooks/useGetDetails";
-import { buildToc } from "./utils/CourseToc";
 import CourseDetailRenderer from "./components/CourseDetailRender";
+import { buildToc } from "../add-course/EditToc";
 
 const CourseDetails = () => {
   const { id } = useParams<{ id: string }>();

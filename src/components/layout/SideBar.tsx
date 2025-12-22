@@ -9,11 +9,11 @@ import {
   MdHowToReg,
   MdContactMail,
   MdCalendarToday,
-
   MdMenuBook,
   MdAssignment,
   MdAttachMoney,
-  MdPhoto
+  MdPhoto,
+  MdDocumentScanner
 } from 'react-icons/md';
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -87,7 +87,7 @@ const menuItems: MenuItem[] = [
     label: "Admission",
     subMenus: [
       { id: "intake", label: "Intake Calender", icon: MdCalendarToday },
-    
+         { id: "docs", label: "Document Required", icon: MdDocumentScanner },
     ],
   },
 ];

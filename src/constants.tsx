@@ -17,6 +17,8 @@ export const HOLIDAY_CACHE_KEY = 'holiday';
 export const GALLERY_CACHE_KEY = 'gallery';
 export const CONNECT_CACHE_KEY = 'connect';
 export const COURSE_CACHE_KEY = 'courses';
+export const DOCUMENT_CACHE_KEY = 'docs';
+
 export const COURSE_NAME_CACHE_KEY = 'courses';
 export const TEAM_CACHE_KEY = 'team';
 export const DEPT_TEAM_CACHE_KEY = 'team';

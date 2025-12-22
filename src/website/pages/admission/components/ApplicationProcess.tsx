@@ -1,15 +1,29 @@
+import type { Intakes } from "../../../../pages/intake-calender/model/IntakeModel";
 
-const ApplicationProcess = () => {
+interface IntakeCardsSectionProps {
+  intakes: Intakes[];
+  isLoading: boolean;
+  isError: boolean;
+}
+
+const ApplicationProcess = ({ intakes, isLoading }: IntakeCardsSectionProps) => {
+  // Create the first step description dynamically
+  const intakeList = isLoading
+    ? "Loading intakes..."
+    : intakes && intakes.length > 0
+    ? intakes.map((i) => i.intake).join(", ")
+    : "No intakes available";
+
   const steps = [
     {
       title: "Online Application",
-      description:
-        "Admissions are done three times a year - Spring intake (Jan/Feb), Summer intake (June/July), and Fall intake (Aug/Sep).",
+      description: `Admissions are done for the following intakes: ${intakeList}.`,
     },
     {
       title: "Document Submission",
       description:
         "To begin the process, applicants are required to fill out and submit the online application form available at our portal.",
+      link: "https://apply.lbef.org/",
     },
     {
       title: "In-Person Submission",
@@ -37,9 +51,20 @@ const ApplicationProcess = () => {
               <h3 className="text-sm sm:text-lg font-semibold text-gray-800 mb-1 sm:mb-2">
                 {step.title}
               </h3>
-              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed mb-2">
                 {step.description}
               </p>
+
+              {step.link && (
+                <a
+                  href={step.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded hover:bg-blue-700 transition"
+                >
+                  Apply Now
+                </a>
+              )}
             </div>
           </div>
         ))}
@@ -47,7 +72,5 @@ const ApplicationProcess = () => {
     </div>
   );
 };
-
-
 
 export default ApplicationProcess;

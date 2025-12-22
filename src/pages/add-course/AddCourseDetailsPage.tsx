@@ -5,12 +5,12 @@ import { ChevronRight } from "lucide-react";
 import type { CourseDetailBlock } from "../courses/model/CourseDetailModel";
 import type { Courses } from "../courses/model/CourseModel";
 import useAddCourseDetails from "../courses/hooks/useAddCourseDetails";
-import { buildToc } from "../courses/utils/CourseToc";
 import CourseHeader from "../courses/components/CourseDetailHeader";
 import CourseDetailRenderer from "../courses/components/CourseDetailRender";
 import BlockEditor from "./components/BlockEditor";
 import {  useQueryClient } from "@tanstack/react-query";
 import { COURSE_CACHE_KEY } from "../../constants";
+import { buildToc } from "./EditToc";
 
 const AddCourseDetailsPage = () => {
   const { id ,key} = useParams<{ id: string }>();

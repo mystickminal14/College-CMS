@@ -42,7 +42,7 @@ const AdmissionProcedure = () => {
         { id: "class-timing", label: "Class Timing", level: 1 },
         { id: "scholarship", label: "Scholarship", level: 1 },
 
-        { id: "fee-policy", label: "Fee Policy", level: 1 },
+        { id: "fee-policy", label: "Fee Refund Policy", level: 1 },
         { id: "faq", label: "Frequently Asked Questions", level: 1 },
     
     ];
@@ -187,7 +187,9 @@ const AdmissionProcedure = () => {
                             }}
                             className="scroll-mt-24"
                         >
-                            <ApplicationProcess />
+                            <ApplicationProcess  intakes={intakes}
+                                isLoading={isLoading}
+                                isError={isError}/>
                         </section>
 
                         <section

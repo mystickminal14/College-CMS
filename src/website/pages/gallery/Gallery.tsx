@@ -4,6 +4,7 @@ import type { Gallerys } from "../../../pages/gallery/model/GallModel";
 import ImageModal from "./components/ImageModel";
 import GalleryHeader from "./components/Head";
 import GalleryGrid from "./components/GalleryGrid";
+import ImageHero from "./components/ImageHero";
 
 const PAGE_LIMIT = 12;
 
@@ -67,7 +68,7 @@ const Gallery = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isModalOpen) return;
-      
+
       if (e.key === 'Escape') {
         handleCloseModal();
       } else if (e.key === 'ArrowRight') {
@@ -84,7 +85,7 @@ const Gallery = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100">
       <GalleryHeader />
-
+      <ImageHero galleryImages={galleryImages} />
       <div className="container mx-auto px-4 pb-20">
         <GalleryGrid
           images={galleryImages}
@@ -106,23 +107,7 @@ const Gallery = () => {
         onPrev={handlePrevImage}
       />
 
-      {/* Add custom animations */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes scaleIn {
-          from { transform: scale(0.95); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-        .animate-scaleIn {
-          animation: scaleIn 0.3s ease-out;
-        }
-      `}</style>
+
     </div>
   );
 };

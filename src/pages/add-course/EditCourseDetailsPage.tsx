@@ -4,12 +4,12 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronRight,  X,  } from "lucide-react";
 import type { CourseDetailBlock, UpdateBlockData,  } from "../courses/model/CourseDetailModel";
 import type { Courses } from "../courses/model/CourseModel";
-import { buildToc } from "../courses/utils/CourseToc";
 import CourseHeader from "../courses/components/CourseDetailHeader";
 import useGetCourseDetails from "../courses/hooks/useGetDetails";
 import { EditableBlock } from "./EditableBlock";
 import useUpdateCourseBlock from "../courses/hooks/useUpdateCoruseBlock";
 import DeleteBlockModal from "./DeleteBlock";
+import { buildToc } from "./EditToc";
 
 const EditCourseDetailsPage = () => {
   const { id } = useParams<{ id: string }>();

@@ -22,6 +22,7 @@ import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 import AchievementPage from "../pages/achivement/Achivement";
 import ConnectsPage from "../pages/lbef-connect/LbefConnect";
 import GallerysPage from "../pages/gallery/GalleryPage";
+import DocumentPage from "../pages/docs-required/DocsPage";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -66,6 +67,7 @@ export const adminRoutes = [
       { path: "teams", element: <TeamsPage /> },
       { path: "administation/holiday", element: <HolidaysPage /> },
       { path: "admission/intake", element: <IntakePage /> },
+      { path: "admission/docs", element: <DocumentPage /> },
 
     ],
   },
