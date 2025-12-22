@@ -58,6 +58,7 @@ export function OurCourses() {
     navigate(`/students-life/${title}/${course.id}`, { state: { course } });
   };
 
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollContainerRef.current) return;
     const startX = e.pageX;
@@ -113,7 +114,7 @@ export function OurCourses() {
             <span className="mt-1 block md:inline">Join With Us.</span>
           </h2>
 
-          <button className="flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:bg-gray-100 transition mt-4 md:mt-0">
+          <button className="flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:bg-gray-100 transition mt-4 md:mt-0" onClick={()=>{navigate('students-life/programs')}}>
             Learn About Course
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -132,9 +133,8 @@ export function OurCourses() {
             {/* Left Arrow */}
             <button
               onClick={scrollLeftFn}
-              className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-                !canScrollLeft ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
-              }`}
+              className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canScrollLeft ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
+                }`}
               disabled={!canScrollLeft}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -143,9 +143,8 @@ export function OurCourses() {
             {/* Right Arrow */}
             <button
               onClick={scrollRightFn}
-              className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-                !canScrollRight ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
-              }`}
+              className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canScrollRight ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
+                }`}
               disabled={!canScrollRight}
             >
               <ChevronRight className="w-6 h-6" />
@@ -182,11 +181,10 @@ export function OurCourses() {
                     const amount = getCardWidth() * getCardsPerPage() * page;
                     scrollContainerRef.current?.scrollTo({ left: amount, behavior: 'smooth' });
                   }}
-                  className={`transition-all duration-300 cursor-pointer ${
-                    activePage === page
+                  className={`transition-all duration-300 cursor-pointer ${activePage === page
                       ? 'w-10 h-2 bg-blue-600 rounded-full'
                       : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'
-                  }`}
+                    }`}
                 />
               ))}
             </div>

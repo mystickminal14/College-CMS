@@ -52,12 +52,12 @@ const StartJourney = () => {
         <p className="mt-8 text-lg md:text-xl lg:text-2xl opacity-90 max-w-2xl">
           Enroll now and learn from certified industry experts.
         </p>
-        <button className="mt-12 px-8 py-4 bg-white text-indigo-700 font-semibold text-lg rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300 flex items-center gap-2">
+        <a className="mt-12 px-8 py-4 bg-white text-indigo-700 font-semibold text-lg rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300 flex items-center gap-2" href='https://apply.lbef.org/' target='_blank' >
           Get Started Now
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </button>
+        </a>
       </div>
     </div>
   );
