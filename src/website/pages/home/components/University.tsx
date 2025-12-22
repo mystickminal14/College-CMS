@@ -7,9 +7,19 @@ import campus_inside from '../../../../assets/campus_inside.jpg'
 export function University() {
   return (
     <section className="relative py-16 px-4 sm:px-6 lg:px-20 bg-white overflow-hidden">
-      {/* Background Decorative Shapes */}
-      <div className="absolute top-[5vh] left-[10vw] w-56 h-72 bg-gray-200 rounded-3xl -rotate-15 opacity-70 hidden lg:block"></div>
-      <div className="absolute bottom-[10vh] right-[6vw] w-56 h-72 bg-gray-200 rounded-3xl rotate-15 opacity-60 hidden lg:block"></div>
+      <div
+        className="absolute top-[5vh] left-[10vw] w-56 h-72 rounded-3xl -rotate-15  hidden lg:block bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${campus})`,
+        }}
+      ></div>
+
+      <div
+        className="absolute bottom-[10vh] right-[6vw] w-56 h-72 rounded-3xl rotate-15 hidden lg:block bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${campus_inside})`,
+        }}
+      ></div>
 
       <div className="w-full sm:max-w-7xl mx-auto relative z-10">
         {/* Badge */}
