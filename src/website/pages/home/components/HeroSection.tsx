@@ -1,5 +1,5 @@
 import butterfiles from "../../../../assets/butterfiles.png"
-import graduation from "../../../../assets/graduations.jpg"
+import graduation from "../../../../assets/heroSection.jpg"
 export function HeroSection() {
   return (
     <>
@@ -63,7 +63,7 @@ export function HeroSection() {
         <img
           src={graduation}
           alt="Graduation"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-top"
         />
       </section>
     </>

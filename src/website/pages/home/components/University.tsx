@@ -1,6 +1,8 @@
 import apu from "../../../../assets/apu_logo.png";
 import ranking from "../../../../assets/university_ranking.png";
 import decoration from '../../../../assets/decoration.png';
+import campus from '../../../../assets/campus.png'
+import campus_inside from '../../../../assets/campus_inside.jpg'
 
 export function University() {
   return (
