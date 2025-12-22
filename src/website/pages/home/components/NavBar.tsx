@@ -97,7 +97,7 @@ export function NavBar() {
 
   return (
     <header className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-none"}`}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3">
+      <div className="max-w-8xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3">
         {/* Logo */}
         <div className="w-32 md:w-36">
           <Link to="/">
@@ -148,18 +148,18 @@ export function NavBar() {
               </Link>
             )
           )}
+          <div className="hidden lg:flex items-center gap-4">
+            <Link to="/contact" className="px-4 py-3 text-[#050038] hover:text-[#474AFF] transition-colors duration-200 font-medium text-sm uppercase group">
+              Contact Us
+            </Link>
+            <Link to="/enroll" className="bg-linear-to-r from-[#474AFF] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105">
+              Enroll Now
+            </Link>
+          </div>
         </nav>
 
         {/* Enroll Button */}
-        <div className="hidden lg:flex items-center gap-4">
-          <Link to="/contact" className="text-[#050038] hover:text-[#474AFF] font-medium text-sm transition-colors">
-            <FaPhone className="inline mr-2" />
-            Contact
-          </Link>
-          <Link to="/enroll" className="bg-linear-to-r from-[#474AFF] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105">
-            Enroll Now
-          </Link>
-        </div>
+
 
         {/* Mobile Hamburger */}
         <div className="lg:hidden">
