@@ -1,7 +1,7 @@
 import half_diamond from '../../../../assets/half_diamond.png'
 import top_mission from '../../../../assets/top_mission.jpg'
 import midddle_mission from '../../../../assets/middle_mission.jpg'
-import bottom_mission from '../../../../assets/bottom_mission.jpg'
+import bottom_mission from '../../../../assets/mission/bottom_mission.jpg'
 import decoration from '../../../../assets/decoration.png';
 
 const MissionSection = () => {

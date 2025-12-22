@@ -1,7 +1,7 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import decoration from "../../../../assets/decoration.png";
-import Blog_Image_One from "../../../../assets/blog_images.jpg";
-import Blog_Image_Two from "../../../../assets/blog_images_two.jpg";
+import Blog_Image_One from "../../../../assets/blog/blog_images.jpg";
+import Blog_Image_Two from "../../../../assets/blog/blog_images_two.jpg";
 
 export default function Index() {
   const blogPosts = [

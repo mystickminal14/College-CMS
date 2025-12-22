@@ -32,8 +32,8 @@ export default function Events() {
   ];
 
   return (
-    <div className=" bg-white">
-      <div className="container mx-auto px-4 py-16 lg:py-24">
+    <div className="max-w-7xl mx-auto bg-white">
+      <div className="container mx-auto px-4  py-16 lg:py-18">
         {/* Page Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
           Upcoming <span className="relative inline-block text-[#474AFF]">

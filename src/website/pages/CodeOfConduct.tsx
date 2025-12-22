@@ -1,55 +1,43 @@
 import { FaExclamationTriangle } from "react-icons/fa";
-import bgImage from "../../assets/OurTeam.jpg";
 import decoration from "../../assets/decoration.png";
-import CustomBreadcrumb from "../comp/bread-crump";
 
 const CodeOfConduct = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <CustomBreadcrumb
-        bgImage={bgImage}
-        title="Student Code of Conduct"
-        objectPosition="50%_40%"
-        breadcrumbs={[
-          { label: "Home" },
-          { label: "Students" },
-          { label: "Code of Conduct" },
-        ]}
-      />
+
 
       <div className="container mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-12">
         <div className="max-w-6xl mx-auto">
-          
-       <div className="container mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-14 text-center">
-        <div className="max-w-8xl mx-auto">
-          <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-blue-600 font-medium text-sm">                Student Code of Conduct
-</span>
+
+          <div className="container mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-14 text-center">
+            <div className="max-w-8xl mx-auto">
+              <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
+                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                <span className="text-blue-600 font-medium text-sm">                Student Code of Conduct
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+                <span className="text-gray-900">Student Code </span>
+                <span className="relative inline-block ml-2">
+                  <span className="text-blue-600 relative z-10"> of Conduct</span>
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 -bottom-2 sm:bottom-0 w-full h-3"
+                  />
+                </span>
+              </h1>
+
+              <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Guidelines and expectations for student behavior to maintain a respectful and productive learning environment.
+
+              </p>
+            </div>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Student Code </span>
-            <span className="relative inline-block ml-2">
-              <span className="text-blue-600 relative z-10"> of Conduct</span>
-              <img
-                src={decoration}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-2 sm:bottom-0 w-full h-3"
-              />
-            </span>
-          </h1>
-
-          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                         Guidelines and expectations for student behavior to maintain a respectful and productive learning environment.
-
-          </p>
-        </div>
-      </div>
-   
           <div className="bg-white rounded-xl shadow-lg p-3 md:p-8">
-            
+
             <div className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Policy Overview</h2>
               <div className="space-y-3 text-gray-700">

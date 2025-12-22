@@ -1,15 +1,4 @@
-import decoration from '../../../assets/decoration.png';
-import useGetAll from "./hook/useGetRecognitionAll";
-import RecognitionsCardView from "./component/RecognitionCard";
-
-const RecognitionPageWeb = () => {
-  const { data, isLoading, isError } = useGetAll();
-  const recognitions = data?.data || [];
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-
-      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+ <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <div className="max-w-4xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
@@ -40,16 +29,3 @@ const RecognitionPageWeb = () => {
 
         </div>
       </div>
-
-      <div className="container mx-auto px-4 sm:px-6 py-5">
-        <RecognitionsCardView
-          recognitions={recognitions}
-          isLoading={isLoading}
-          isError={isError}
-        />
-      </div>
-    </div>
-  );
-};
-
-export default RecognitionPageWeb;

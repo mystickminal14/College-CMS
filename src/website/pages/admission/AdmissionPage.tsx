@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
-import CustomBreadcrumb from "../../comp/bread-crump";
-import bgImage from "../../../assets/OurTeam.jpg";
 import decoration from "../../../assets/decoration.png";
 import useGetIntakes from "../../../pages/intake-calender/hooks/useGetAllIntakr";
 import AdmissionTOC from "./components/AdmissionToc";
@@ -116,31 +114,22 @@ const AdmissionProcedure = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <CustomBreadcrumb
-                bgImage={bgImage}
-                title="Admission Process"
-                objectPosition="50%_40%"
-                breadcrumbs={[
-                    { label: "Home" },
-                    { label: "Students" },
-                    { label: "Academic Planner" },
-                ]}
-            />
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14 text-center">
-                <div className="max-w-8xl mx-auto">
+          
+ <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+        <div className="max-w-4xl mx-auto">
                     <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
                         <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
                         <span className="text-blue-600 font-medium text-sm">Prospective</span>
                     </div>
 
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
                         <span className="text-gray-900">Admission </span>
                         <span className="relative inline-block ml-2">
                             <span className="text-blue-600 relative z-10"> Procedure</span>
                             <img
                                 src={decoration}
                                 alt="Decoration"
-                                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3"
+                className="absolute left-1/2 -translate-x-1/2  -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
                             />
                         </span> for 
                         <br />
@@ -148,7 +137,7 @@ const AdmissionProcedure = () => {
 
                     </h1>
 
-                    <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             A clear guide to the admission process, eligibility and timelines to help you plan and apply with confidence.
 
                     </p>

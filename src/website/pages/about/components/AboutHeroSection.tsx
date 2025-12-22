@@ -1,4 +1,4 @@
-import HeroImages from '../../../../assets/AboutHero.jpg'
+import HeroImages from '../../../../assets/decoration/AboutHero.jpg'
 const ABoutHeroSection = () => {
   return (
     <section className="py-10 bg-white md:py-15">

@@ -1,6 +1,4 @@
-import bgImage from '../../../assets/OurTeam.jpg';
 import decoration from '../../../assets/decoration.png';
-import CustomBreadcrumb from '../../comp/bread-crump';
 import Inspiration from './component/inspiration';
 import TeamCard from './component/team-card';
 import TeamCardSkeleton from './component/team-skeleton';
@@ -16,18 +14,7 @@ const OurTeamWeb = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <CustomBreadcrumb
-                bgImage={bgImage}
-                title="Our Team"
-                objectPosition="50%_40%"
-                breadcrumbs={[
-                    { label: "Home" },
-                    { label: "About" },
-                    { label: "Our Team" },
-                ]}
-            />
-
-
+           
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
                 <div className="max-w-8xl mx-auto text-center">
                     <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
@@ -42,7 +29,7 @@ const OurTeamWeb = () => {
                             <img
                                 src={decoration}
                                 alt="Decoration"
-                                className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3"
+                                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
                             />
                         </span>{" "}
                         <br />

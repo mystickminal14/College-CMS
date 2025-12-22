@@ -1,6 +1,6 @@
 import { ArrowRight, Users2 } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import about from '../../../../assets/about.jpg'
+import about from '../../../../assets/decoration/about.jpg'
 export default function AboutSection() {
   return (
     <div className=" bg-linear-to-br from-blue-50 to-white">

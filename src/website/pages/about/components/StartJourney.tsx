@@ -1,5 +1,5 @@
 import journey_background from '../../../../assets/journey_background.jpg'
-import about_decoration from '../../../../assets/about_decoration.png'
+import about_decoration from '../../../../assets/decoration/about_decoration.png'
 import decoration from '../../../../assets/decoration.png';
 
 const StartJourney = () => {
