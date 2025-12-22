@@ -23,16 +23,20 @@ import AchievementPage from "../pages/achivement/Achivement";
 import ConnectsPage from "../pages/lbef-connect/LbefConnect";
 import GallerysPage from "../pages/gallery/GalleryPage";
 import DocumentPage from "../pages/docs-required/DocsPage";
+import useMe from "../login/hooks/useMe";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const token = localStorage.getItem("token");
-  if (!token) return <Navigate to="/admin/auth" replace />;
+  const { isError } = useMe();
+
+  if (isError) return <Navigate to="/admin/auth" replace />;
+
   return children;
 };
 
 const LoginRoute = () => {
-  const token = localStorage.getItem("token");
-  if (token) return <Navigate to="/app/course" replace />;
+  const { data } = useMe();
+
+  if (data) return <Navigate to="/app/course" replace />;
   return <LoginPage />;
 };
 
