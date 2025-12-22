@@ -1,7 +1,8 @@
 import ABoutHeroSection from "./components/AboutHeroSection";
 import AboutSection from "./components/AboutSection";
+import CollegeAppSection from "./components/CollegeApp";
 import FAQSection from "./components/FAQSection";
-import  Employability  from "./components/LearningEmployability";
+import Employability from "./components/LearningEmployability";
 import MissionSection from "./components/MissionSection";
 import OurCore from "./components/OurCore";
 import PartnerSection from "./components/OurPartner";
@@ -20,6 +21,7 @@ export function AboutPage() {
       <StartJourney />
       <Employability />
       <FAQSection />
+      <CollegeAppSection />
     </>
 
   );

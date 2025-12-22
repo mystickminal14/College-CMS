@@ -17,7 +17,7 @@ const PartnerSection = () => {
     <section className="py-16 bg-white">
       <div className="text-center mb-10">
         <p className="text-blue-600 text-sm mb-2">Partner Institution</p>
-        <h2 className="text-4xl font-bold text-gray-900 mb-2">
+        <h2 className="text-4xl md:text-5xl  font-bold text-gray-900 mb-2">
           LBEF Group <span className="relative inline-block text-[#474AFF]">
             Of Institutions
             <img
