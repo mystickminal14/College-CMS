@@ -155,7 +155,12 @@ export function NavBar() {
                       : "opacity-0 invisible -translate-y-2"
                   }`}
                 >
-                  <div className="bg-white shadow-xl rounded-xl min-w-[220px] p-1">
+                <div
+  className={`bg-white shadow-xl rounded-xl p-1 ${
+    item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"
+  }`}
+>
+
                     {item.dropdown.map((sub) =>
                       "onClick" in sub ? (
                         <button
