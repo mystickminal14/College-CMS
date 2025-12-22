@@ -6,12 +6,11 @@ import { VideoSection } from "./components/VideoSection";
 import { WhyChooseLBEF } from "./components/WhyChooseLBEF";
 import { JoinStudents } from "./components/JoinStudents";
 import { Testimonial } from "./alumnis/Testimonial";
-import { LatestInslight } from "./components/LatestInslight";
 import { EmailSubscribe } from "./components/EmailSubscribe";
-import { OurPartners } from "./components/OurPartners";
 import BlogSection from "./components/BlogSection";
 import Events from "./components/EventSection";
 import RecentNews from "./components/RecentNews";
+import SubFooter from "./components/SubFooter";
 
 export function HomePage() {
   return (
@@ -30,6 +29,7 @@ export function HomePage() {
       <Events />
       <RecentNews />
       <EmailSubscribe />
+      <SubFooter/>
 
     </>
   )
