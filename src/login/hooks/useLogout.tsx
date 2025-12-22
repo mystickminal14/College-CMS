@@ -10,10 +10,10 @@ const useLogout = () => {
   return useMutation({
     mutationFn: () => api.delete(),
 
-    onSuccess:  () => {
-       queryClient.removeQueries({ queryKey: ["me"] });
-queryClient.clear();
-     
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ["me"] });
+      queryClient.clear();
+
     },
   });
 };
