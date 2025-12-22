@@ -18,7 +18,7 @@ import {
 import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
-import { useQueryClient } from "@tanstack/react-query";
+import useLogout from "../../login/hooks/useLogout";
 
 interface SubMenuItem {
   id: string;
@@ -102,16 +102,14 @@ const SideBar: React.FC<SideBarProps> = ({
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [activeMobileItem, setActiveMobileItem] = useState<MenuItem | null>(null);
   const [submenuOpen, setSubmenuOpen] = useState(false);
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
-
+const { mutate:logout}=useLogout()
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    queryClient.clear();
+      logout();
     navigate("/");
   };
 
