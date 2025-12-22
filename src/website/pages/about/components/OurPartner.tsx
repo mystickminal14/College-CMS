@@ -1,8 +1,8 @@
 // Example images (replace with your actual imports)
-import Logo1 from "../../../../assets/lbef_black.jpeg";
-import Logo2 from "../../../../assets/lbef_black.jpeg";
-import Logo3 from "../../../../assets/lbef_black.jpeg";
-import Logo4 from "../../../../assets/lbef_black.jpeg";
+import Logo1 from "../../../../assets/partners/aakshar.png";
+import Logo2 from "../../../../assets/partners/guru.png";
+import Logo3 from "../../../../assets/partners/lbef.png";
+import Logo4 from "../../../../assets/partners/pcps.jpg";
 import decoration from '../../../../assets/decoration.png';
 
 const partners = [
@@ -18,7 +18,7 @@ const PartnerSection = () => {
       <div className="text-center mb-10">
         <p className="text-blue-600 text-sm mb-2">Partner Institution</p>
         <h2 className="text-4xl font-bold text-gray-900 mb-2">
-          LBEF Group <span className="relative inline-block">
+          LBEF Group <span className="relative inline-block text-[#474AFF]">
             Of Institutions
             <img
               src={decoration}
@@ -39,7 +39,7 @@ const PartnerSection = () => {
             <img
               src={partner.image}
               alt={partner.name}
-              className="max-h-24 object-contain"
+              className={` h-50 object-contain`}
             />
           </div>
         ))}

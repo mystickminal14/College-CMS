@@ -154,8 +154,9 @@ export function NavBar() {
 
   return (
     <header className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-none"}`}>
-      <div className="max-full mx-auto flex items-center px-4 sm:px-6 py-3">
-        <div className="w-32 md:w-36 shrink-0">
+      <div className="max-w-8xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3">
+        {/* Logo */}
+        <div className="w-32 md:w-36">
           <NavLink to="/">
             <img src={logo} alt="LBEF Logo" className="w-full h-auto object-contain" />
           </NavLink>
@@ -260,7 +261,7 @@ export function NavBar() {
                   <>
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex justify-between items-center w-full py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#3040E5] transition-colors"
+                      className="flex justify-between items-center w-full py-4 text-[#050038] font-medium uppercase text-sm hover:text-[#474AFF] transition-colors"
                     >
                       <span>{item.name}</span>
                       <i className={`fa-solid fa-angle-down transition-transform duration-300 ${dropdownOpen[item.name] ? "rotate-180" : ""}`}></i>

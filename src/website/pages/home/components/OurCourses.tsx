@@ -98,7 +98,7 @@ export function OurCourses() {
             </span>
 
             World Class Course{' '}
-            <span className="relative text-blue-600 inline-block">
+            <span className="relative text-[#474AFF] inline-block">
               Student
               <img
                 src={decoration}

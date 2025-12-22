@@ -34,13 +34,13 @@ export default function Index() {
 
           {/* LEFT SECTION */}
           <div className="flex flex-col gap-6 lg:pt-16">
-            <span className="text-sm font-medium text-blue-600">
+            <span className="text-sm font-medium text-[#474AFF]">
               Our Blog
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
               Insights & Ideas From{" "}
-              <span className="relative text-blue-500 inline-block">
+              <span className="relative inline-block text-[#474AFF]">
                 The World
                 <img
                   src={decoration}
@@ -57,7 +57,7 @@ export default function Index() {
             </p>
 
             <div>
-              <button className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition">
+              <button className="inline-flex items-center gap-2 bg-[#474AFF] hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition">
                 View All Insights
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -82,11 +82,11 @@ export default function Index() {
 
                 {/* Content */}
                 <div className="mt-4 flex flex-col flex-1">
-                  <span className="text-xs font-medium text-blue-600 mb-2">
+                  <span className="text-xs font-medium text-[#474AFF] mb-2">
                     {post.category}
                   </span>
 
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 group-hover:text-[#474AFF] transition">
                     {post.title}
                   </h3>
 

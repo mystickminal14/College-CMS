@@ -1,6 +1,6 @@
 import { ArrowRight, Users2 } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-
+import about from '../../../../assets/about.jpg'
 export default function AboutSection() {
   return (
     <div className=" bg-linear-to-br from-blue-50 to-white">
@@ -11,7 +11,7 @@ export default function AboutSection() {
             {/* Main Image */}
             <div className="relative rounded-3xl overflow-hidden w-full h-full md:h-150 aspect-square max-w-md">
               <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop"
+                src={about}
                 alt="LBEF Community"
                 className="w-full h-full object-cover"
               />
@@ -45,7 +45,7 @@ export default function AboutSection() {
             {/* Main Heading */}
             <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
               One Platform. Infinite{" "}
-              <span className="relative inline-block">
+              <span className="relative inline-block text-[#474AFF]">
                 Learning
                 <img
                   src={decoration}

@@ -4,20 +4,20 @@ import decoration from '../../../../assets/decoration.png';
 
 const faqs = [
   {
-    question: "How do I enroll in a course on LBEF?",
-    answer: 'Simply browse our course catalog, select a course that fits your goals, and click "Enroll Now." You\'ll be guided through a quick and secure checkout process.'
+    question: "What is your intake timings?",
+    answer: 'Admissions are conducted three times a year in the months of February, July, and August.'
   },
   {
-    question: "Are the courses self-paced or scheduled?",
-    answer: "Our courses are designed to be flexible and self-paced, allowing you to learn at your own convenience."
+    question: "Are the degrees recognized?",
+    answer: "Yes, LBEF has been permitted by the Ministry of Education, Nepal Government to run courses from APU, Malaysia. These courses are recognized by Tribhuvan University, Nepal."
   },
   {
-    question: "Will I receive a certificate after completing a course?",
-    answer: "Yes, upon successful completion of the course and assessments, you will receive a digital certificate."
+    question: "Do you provide support after the course?",
+    answer: "Yes, we have a dedicated Training & Placement cell that assists students with placements. We also conduct career counseling sessions after course completion for higher studies."
   },
   {
-    question: "Can I access LBEF courses on mobile devices?",
-    answer: "Yes, all courses are fully responsive and accessible on mobile phones, tablets, and desktops."
+    question: "Mode of Study: Full Time or Part Time? ",
+    answer: "All courses from APU are offered in full-time regular mode. Each course is developed with employability in mind and includes input from leading employers, ensuring relevance to students’ future careers."
   }
 ];
 
@@ -47,7 +47,7 @@ export default function FAQSection() {
             <p className="text-center lg:text-left text-gray-600 text-lg mb-8">FAQ's</p>
 
             <h2 className="text-4xl font-bold text-gray-900 mb-10 ">
-              Everything You Need to <span className="relative inline-block">
+              Everything You Need to <span className="relative inline-block text-[#474AFF]">
                 Know About
                 <img
                   src={decoration}
@@ -70,7 +70,7 @@ export default function FAQSection() {
                       onClick={() => toggleFAQ(index)}
                       className={`w-full px-6 py-4 flex justify-between items-center text-left font-medium text-lg transition-all duration-200 ${isOpen
                         ? 'bg-[#474AFF] text-white'
-                          : ''
+                        : ''
                         }`}
                     >
                       <span>{faq.question}</span>

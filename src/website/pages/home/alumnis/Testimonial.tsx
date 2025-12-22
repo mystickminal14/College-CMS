@@ -61,9 +61,9 @@ export function Testimonial() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
             What Our{" "}
-            <span className="relative text-blue-500 inline-block">
+            <span className="relative text-[#474AFF] inline-block">
               Students
               <img
                 src={decoration}
@@ -72,7 +72,7 @@ export function Testimonial() {
               />
             </span>{" "}
             Say?
-          </h2>
+          </h1>
         </div>
 
         {isLoading ? (
@@ -184,7 +184,7 @@ export function Testimonial() {
                         <div className="flex items-center gap-3">
                           <button
                             onClick={prev}
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center"
+                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 hover:border-[#474AFF] hover:bg-[#474AFF] hover:text-white transition-all flex items-center justify-center"
                             aria-label="Previous testimonial"
                           >
                             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -192,7 +192,7 @@ export function Testimonial() {
 
                           <button
                             onClick={next}
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all flex items-center justify-center"
+                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#474AFF] text-white hover:bg-blue-700 transition-all flex items-center justify-center"
                             aria-label="Next testimonial"
                           >
                             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -212,7 +212,7 @@ export function Testimonial() {
                       key={a.id}
                       onClick={() => setActiveIndex(index)}
                       className={`w-12 h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
-                        ? "ring-2 ring-blue-600 ring-offset-2"
+                        ? "ring-2 ring-[#474AFF] ring-offset-2"
                         : "opacity-50"
                         }`}
                     >

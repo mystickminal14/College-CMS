@@ -33,7 +33,7 @@ export function HeroSection() {
           <span
             className="text-white pl-2 pr-2 sm:pl-3 sm:pr-3 inline-block relative mx-1 sm:mx-2"
             style={{
-              backgroundColor: "#3040E5",
+              backgroundColor: "#474AFF",
               borderTopRightRadius: "50px",
               borderBottomLeftRadius: "50px",
               padding: "0 8px sm:0 12px",

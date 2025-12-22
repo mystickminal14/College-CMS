@@ -51,8 +51,9 @@ export function WhyChooseLBEF() {
 
         <div className="w-full sm:max-w-7xl mx-auto text-center">
 
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-            Why <span className="relative text-blue-500 inline-block">
+          {/* Heading */}
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Why <span className="relative inline-block text-[#474AFF]">
               Choose
               <img
                 src={decoration}
@@ -114,7 +115,7 @@ export function WhyChooseLBEF() {
               }}
             >
               {/* Small Circle / Planet */}
-              <div className="w-6 h-6 bg-blue-300 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xl"></div>
+              <div className="w-6 h-6 bg-[#474AFF] rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xl"></div>
             </div>
             <div
               className="absolute w-[600px] h-[600px]"
@@ -123,7 +124,7 @@ export function WhyChooseLBEF() {
               }}
             >
               {/* Small Circle / Planet */}
-              <div className="w-6 h-6 bg-blue-300 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xl"></div>
+              <div className="w-6 h-6 bg-[#474AFF] rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xl"></div>
             </div>
             <div
               className="absolute w-[500px] h-[500px]"
@@ -132,7 +133,7 @@ export function WhyChooseLBEF() {
               }}
             >
               {/* Small Circle / Planet */}
-              <div className="w-6 h-6 bg-blue-300 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xl"></div>
+              <div className="w-6 h-6 bg-[#474AFF] rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xl"></div>
             </div>
 
 
@@ -207,7 +208,7 @@ export function WhyChooseLBEF() {
                   {/* Feature Card */}
                   <div className="bg-white rounded-3xl flex items-center  gap-3 shadow-xl border border-gray-200 px-6 py-4 min-w-48 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300">
                     <div className="flex justify-center mb-3">
-                      <div className="p-3 bg-blue-100 rounded-full text-blue-600">
+                      <div className="p-3 bg-blue-100 rounded-full text-[#474AFF]">
                         {feature.icon}
                       </div>
                     </div>
@@ -274,7 +275,7 @@ function MobileFeatureCard({ className, icon, topTitle, title }: { className: st
     <div
       className={`absolute flex items-center gap-2 px-3 py-2 bg-white rounded-xl shadow-md ${className}`}
     >
-      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600">
+      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-[#474AFF]">
         {icon}
       </div>
 
