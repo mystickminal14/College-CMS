@@ -1,4 +1,4 @@
-import employment from '../../../../assets/Learning Emplyability.png'
+import employment from '../../../../assets/Learning Emplyability.jpg'
 import decoration from '../../../../assets/decoration.png';
 
 export default function Employability() {

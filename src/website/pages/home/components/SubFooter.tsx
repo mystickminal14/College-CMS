@@ -6,7 +6,7 @@ export default function SubFooter() {
     <div className="w-full bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="w-full text-center">
-          <div className="w-full inline-block">
+          <div className="w-full inline-block mb-10">
             <img
               src={subfootertwo}
               alt="Illustration part two"
