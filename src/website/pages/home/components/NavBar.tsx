@@ -10,9 +10,9 @@ type DropdownItem = {
   icon: React.ReactNode;
   disabled?: boolean;
 } & (
-  | { link: string; onClick?: never }
-  | { link?: never; onClick: () => void }
-);
+    | { link: string; onClick?: never }
+    | { link?: never; onClick: () => void }
+  );
 
 type MenuItem = {
   name: string;
@@ -47,23 +47,23 @@ export function NavBar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  
+
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     setMobileOpen(false);
     setDropdownOpen({});
     setActiveDropdown(null);
   }, [location.pathname]);
-  
+
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
-  
+
   const toggleDropdown = (menu: string) => {
     setDropdownOpen((prev) => ({ ...prev, [menu]: !prev[menu] }));
     setActiveDropdown(prev => prev === menu ? null : menu);
   };
-  
+
   const handleMouseEnter = (menu: string) => {
     setActiveDropdown(menu);
     Object.keys(dropdownOpen).forEach(key => {
@@ -72,7 +72,7 @@ export function NavBar() {
       }
     });
   };
-  
+
   const handleMouseLeave = () => {
     setTimeout(() => {
       setActiveDropdown(null);
@@ -99,26 +99,26 @@ export function NavBar() {
       icon: <FaBook />,
       dropdown: courseNames && courseNames.length > 0
         ? courseNames.map((course) => {
-            const titleSlug = course.title.replace(/ /g, "-");
-            return {
-              name: `${course.prefix} ${course.title}`,
-              icon: <FaBook />,
-              onClick: () => {
-                navigate(`/students-life/${titleSlug}/${course.id}`, {
-                  state: { course },
-                });
-                setActiveDropdown(null);
-              },
-            };
-          })
-        : [
-            {
-              name: "No courses available",
-              icon: <FaBook />,
-              disabled: true,
-              link: "#",
+          const titleSlug = course.title.replace(/ /g, "-");
+          return {
+            name: `${course.prefix} ${course.title}`,
+            icon: <FaBook />,
+            onClick: () => {
+              navigate(`/students-life/${titleSlug}/${course.id}`, {
+                state: { course },
+              });
+              setActiveDropdown(null);
             },
-          ],
+          };
+        })
+        : [
+          {
+            name: "No courses available",
+            icon: <FaBook />,
+            disabled: true,
+            link: "#",
+          },
+        ],
     },
     {
       name: "Students",
@@ -150,6 +150,8 @@ export function NavBar() {
       ],
     },
     { name: "UGC", link: "/ugc", icon: <FaBook /> },
+    { name: "Contact", link: "/contact", icon: <FaBook /> },
+
   ];
 
   return (
@@ -162,7 +164,7 @@ export function NavBar() {
           </NavLink>
         </div>
 
-        <nav className="hidden lg:flex items-center justify-center flex-1">
+        <nav className="hidden lg:flex items-center justify-center">
           <div className="flex items-center gap-1">
             {menuItems.map((item) =>
               item.dropdown ? (
@@ -177,7 +179,7 @@ export function NavBar() {
                     <span className="relative">{item.name}</span>
                     <i className="fa-solid fa-angle-down text-[0.65rem] transition-transform duration-300 group-hover:rotate-180"></i>
                   </button>
-                  
+
                   {/* Dropdown - Wider for Courses */}
                   <div className={`absolute left-1/2 transform -translate-x-1/2 top-full pt-2 transition-all duration-300 origin-top z-50 ${activeDropdown === item.name ? "opacity-100 scale-y-100 translate-y-0 visible" : "opacity-0 scale-y-95 -translate-y-2 invisible"}`}>
                     <div className={`bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden ${item.name === "Courses" ? "min-w-[280px]" : "min-w-[220px]"}`}>
@@ -196,7 +198,7 @@ export function NavBar() {
                             <NavLink
                               key={sub.name}
                               to={sub.disabled ? "#" : sub.link}
-                              className={({ isActive }) => 
+                              className={({ isActive }) =>
                                 `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 w-full ${sub.disabled ? "text-gray-400 cursor-not-allowed" : isActive ? "text-[#3040E5] bg-blue-50" : "text-gray-700 hover:text-[#3040E5] hover:bg-blue-50"}`
                               }
                               onClick={(e) => {
@@ -225,24 +227,24 @@ export function NavBar() {
                 </NavLink>
               )
             )}
-             <NavLink 
-            to="/enroll" 
-            className={({ isActive }) =>
-              `bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105 whitespace-nowrap ${isActive ? "ring-2 ring-blue-300" : ""}`
-            }
-          >
-            Enroll Now
-          </NavLink>
+            <NavLink
+              to="/enroll"
+              className={({ isActive }) =>
+                `bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold uppercase hover:shadow-lg transition-all duration-300 hover:scale-105 whitespace-nowrap ${isActive ? "ring-2 ring-blue-300" : ""}`
+              }
+            >
+              Enroll Now
+            </NavLink>
           </div>
-          
+
         </nav>
 
-        
+
 
         {/* Mobile Hamburger - Right side */}
         <div className="lg:hidden shrink-0 ml-auto">
-          <button 
-            onClick={() => setMobileOpen(!mobileOpen)} 
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="Toggle menu"
           >
@@ -321,8 +323,8 @@ export function NavBar() {
           </ul>
 
           <div className="mt-4 pt-4 border-t border-gray-200 flex flex-col gap-2">
-            <NavLink 
-              to="/enroll" 
+            <NavLink
+              to="/enroll"
               className={({ isActive }) =>
                 `flex items-center justify-center gap-2 bg-linear-to-r from-[#3040E5] to-blue-600 text-white px-6 py-3 rounded-full font-semibold uppercase text-sm hover:shadow-lg transition-all duration-300 ${isActive ? "ring-2 ring-blue-300" : ""}`
               }
@@ -331,8 +333,8 @@ export function NavBar() {
               <FaGraduationCap />
               Enroll Now
             </NavLink>
-            <NavLink 
-              to="/contact" 
+            <NavLink
+              to="/contact"
               className={({ isActive }) =>
                 `flex items-center justify-center gap-2 font-medium py-2 ${isActive ? "text-[#3040E5]" : "text-[#050038] hover:text-[#3040E5]"}`
               }
