@@ -1,4 +1,3 @@
-// src/add-course/BlockEditor.tsx
 import { BlockType, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
 import BlockItem from "./BlockItem";
 
@@ -6,25 +5,31 @@ interface Props {
   blocks: CourseDetailBlock[];
   onChange: (blocks: CourseDetailBlock[]) => void;
   root?: boolean; // if true, only Heading allowed
+  allowSubheading?: boolean;
 }
 
-const BlockEditor = ({ blocks, onChange, root = true }: Props) => {
+const BlockEditor = ({ blocks, onChange, root = true, allowSubheading = true }: Props) => {
   const addBlock = (type: BlockType) => {
-    onChange([
-      ...blocks,
-      {
-        type,
-        order: blocks.length,
-        title: type !== BlockType.PARAGRAPH && type !== BlockType.LIST ? "" : undefined,
-        content: type === BlockType.LIST ? [] : "",
-        children: [],
-      } as CourseDetailBlock,
-    ]);
+    const id = Date.now() + Math.floor(Math.random() * 1000);
+    const order = blocks.length;
+
+    let newBlock: CourseDetailBlock;
+    if (type === BlockType.HEADING || type === BlockType.SUBHEADING) {
+      newBlock = { id, type, order, title: "", children: [] };
+    } else if (type === BlockType.PARAGRAPH) {
+      newBlock = { id, type, order, content: "" };
+    } else {
+      newBlock = { id, type, order, content: [] };
+    }
+
+    onChange([...blocks, newBlock]);
   };
 
   const availableBlocks = root
     ? [BlockType.HEADING]
-    : [BlockType.SUBHEADING, BlockType.PARAGRAPH, BlockType.LIST];
+    : allowSubheading
+      ? [BlockType.SUBHEADING, BlockType.PARAGRAPH, BlockType.LIST]
+      : [BlockType.PARAGRAPH, BlockType.LIST];
 
   return (
     <div className="space-y-4">

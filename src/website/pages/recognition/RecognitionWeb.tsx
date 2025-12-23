@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion';
 import decoration from '../../../assets/decoration.png';
 import useGetAll from "./hook/useGetRecognitionAll";
 import RecognitionsCardView from "./component/RecognitionCard";
+import { fadeUp, staggerContainer } from '../../comp/animation';
 
 const RecognitionPageWeb = () => {
   const { data, isLoading, isError } = useGetAll();
@@ -9,14 +11,22 @@ const RecognitionPageWeb = () => {
   return (
     <div className="min-h-screen bg-gray-50">
 
+      {/* ================= HERO ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
-        <div className="max-w-4xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto"
+        >
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
             <span className="text-blue-600 font-medium text-sm">
               Discover Our Achievements
             </span>
           </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Our College </span>
             <span className="relative inline-block">
@@ -24,30 +34,36 @@ const RecognitionPageWeb = () => {
               <img
                 src={decoration}
                 alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2  -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
               />
-            </span>{" "}
+            </span>
             <br />
-            <span className="text-blue-600 ">Over </span>
+            <span className="text-blue-600">Over </span>
             <span className="text-gray-900 relative z-10"> The Years </span>
-
           </h1>
+
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Celebrating excellence, dedication, and success. Explore the academic and
             institutional recognitions and achievements that reflect our commitment to
             growth and distinction.
           </p>
-
-        </div>
+        </motion.div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-5">
+      {/* ================= CONTENT ================= */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="container mx-auto px-4 sm:px-6 py-5"
+      >
         <RecognitionsCardView
           recognitions={recognitions}
           isLoading={isLoading}
           isError={isError}
         />
-      </div>
+      </motion.div>
     </div>
   );
 };

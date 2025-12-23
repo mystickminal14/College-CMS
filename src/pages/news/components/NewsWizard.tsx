@@ -7,16 +7,16 @@ import { IMAGE_URL } from "../../../constants";
 import NewsBasicInfoForm from "./NewsBasicForm";
 import NewsImageUploadForm from "./NewsImageUpload";
 import type { NewsModel } from "../model/NewsModel";
-
+import { adDateToBsString } from "../../../utils/bs-converter";
 
 interface AddEditNewsWizardModalProps {
   isOpen: boolean;
   onClose: () => void;
-  newsToEdit?: NewsModel|null ;
-    createMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, NewsModel>;
-    editMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, Partial<NewsModel>>;
-    uploadImageMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, { id: number; image: File }>;
-    updateImageMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, { id: number; image: File }>;
+  newsToEdit?: NewsModel | null;
+  createMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, NewsModel>;
+  editMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, Partial<NewsModel>>;
+  uploadImageMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, { id: number; image: File }>;
+  updateImageMutation?: UseMutationResult<ApiResponse<NewsModel>, ApiErrorResponse, { id: number; image: File }>;
 }
 
 const AddEditNewsWizardModal: React.FC<AddEditNewsWizardModalProps> = ({
@@ -44,24 +44,24 @@ const AddEditNewsWizardModal: React.FC<AddEditNewsWizardModalProps> = ({
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [newsId, setNewsId] = useState<number | null>(null);
 
-  // Prefill form in edit mode
+  // Prefill form when editing
   useEffect(() => {
-    if (isOpen) {
-      if (newsToEdit) {
-        setFormData({
-          title: newsToEdit.title || "",
-          content: newsToEdit.content || "",
-          link: newsToEdit.link || "",
-          source: newsToEdit.source || "",
-          publishedOn: newsToEdit.publishedOn || "",
-          publishedOnBS: newsToEdit.publishedOnBS || "",
-        });
-        setNewsId(newsToEdit.id ?? null);
-        setImagePreview(newsToEdit.image ? `${IMAGE_URL}${newsToEdit.image}` : null);
-        setStep(1);
-      } else {
-        resetForm();
-      }
+    if (!isOpen) return;
+
+    if (newsToEdit) {
+      setFormData({
+        title: newsToEdit.title || "",
+        content: newsToEdit.content || "",
+        link: newsToEdit.link || "",
+        source: newsToEdit.source || "",
+        publishedOn: newsToEdit.publishedOn || "",
+        publishedOnBS: newsToEdit.publishedOnBS || "",
+      });
+      setNewsId(newsToEdit.id ?? null);
+      setImagePreview(newsToEdit.image ? `${IMAGE_URL}${newsToEdit.image}` : null);
+      setStep(1);
+    } else {
+      resetForm();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, newsToEdit]);
@@ -81,8 +81,19 @@ const AddEditNewsWizardModal: React.FC<AddEditNewsWizardModalProps> = ({
     setStep(1);
   };
 
-  const handleFormChange = (field: string, value: string) =>
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  // ✅ Handle form field changes (AD → BS auto conversion)
+  const handleFormChange = (field: string, value: string) => {
+    setFormData((prev) => {
+      const newData = { ...prev, [field]: value };
+
+      // Auto-convert AD → BS when publishedOn changes
+      if (field === "publishedOn") {
+        newData.publishedOnBS = adDateToBsString(value);
+      }
+
+      return newData;
+    });
+  };
 
   const handleImageChange = (file: File) => {
     setImageFile(file);
@@ -96,7 +107,7 @@ const AddEditNewsWizardModal: React.FC<AddEditNewsWizardModalProps> = ({
     setImagePreview(null);
   };
 
-  // validation same as your original logic (adapted for fields)
+  // Validate step 1 fields
   const validateStep1 = () => {
     if (!formData.title.trim()) return appContext?.showToast("Title is required", "warn");
     if (!formData.source.trim()) return appContext?.showToast("Source is required", "warn");
@@ -117,41 +128,25 @@ const AddEditNewsWizardModal: React.FC<AddEditNewsWizardModalProps> = ({
           const newId = res.data?.id ?? (res as any)?.id;
           if (newId) {
             setNewsId(newId);
-            setStep(2);
+            setStep(2); // move to step 2 (image upload)
           } else appContext?.showToast("Failed to create news. No ID returned.", "error");
-        }
+        },
       });
     }
   };
-  // Step 2 submission
+
+  // Step 2 submission (image upload)
   const handleSubmitStep2 = () => {
     if (!newsId || !imageFile) {
-      // No image provided — finish
       resetForm();
       onClose();
       return;
     }
 
     if (isEditMode && updateImageMutation) {
-      updateImageMutation.mutate(
-        { id: newsId, image: imageFile },
-        {
-          onSuccess: () => {
-            resetForm();
-            onClose();
-          },
-        }
-      );
+      updateImageMutation.mutate({ id: newsId, image: imageFile }, { onSuccess: () => { resetForm(); onClose(); } });
     } else if (!isEditMode && uploadImageMutation) {
-      uploadImageMutation.mutate(
-        { id: newsId, image: imageFile },
-        {
-          onSuccess: () => {
-            resetForm();
-            onClose();
-          },
-        }
-      );
+      uploadImageMutation.mutate({ id: newsId, image: imageFile }, { onSuccess: () => { resetForm(); onClose(); } });
     }
   };
 
@@ -160,7 +155,7 @@ const AddEditNewsWizardModal: React.FC<AddEditNewsWizardModalProps> = ({
     onClose();
   };
 
-  // Close guard: disable close while any mutation pending
+  // Disable close while mutation is pending
   const isAnyPending =
     !!createMutation?.isPending ||
     !!editMutation?.isPending ||

@@ -29,17 +29,14 @@ const useAddCourseDetails = () => {
     AddCourseDetailsPayload
   >({
     mutationFn: async ({ courseId, blocks }) => {
-      // Directly create APIClient for CourseDetailBlock[]
       const apiClient = new APIClient<CourseDetailBlock[]>(`/courses/${courseId}/details`);
-
-      // POST the blocks
       const response = await apiClient.post(blocks);
       return response;
     },
 
     onSuccess: (res) => {
          showToast(res.message || "Course updated successfully!", "success");
-      queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY,"details"] });
+     queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY] });
       
     },
 

@@ -11,6 +11,8 @@ import FeePolicy from "./components/Feepolicy";
 import ImportantNotice from "./components/ImportantNotice";
 import ScholarshipSection from "./components/ScholarShip";
 import FAQSection from "./components/Faq";
+import { fadeUp } from "../../comp/animation";
+import { motion } from 'framer-motion';
 
 interface TocItem {
     id: string;
@@ -115,34 +117,44 @@ const AdmissionProcedure = () => {
     return (
         <div className="min-h-screen bg-gray-50">
           
- <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
-        <div className="max-w-4xl mx-auto">
-                    <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                        <span className="text-blue-600 font-medium text-sm">Prospective</span>
-                    </div>
+   <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
+            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+            <span className="text-blue-600 font-medium text-sm">
+              Prospective
+            </span>
+          </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-                        <span className="text-gray-900">Admission </span>
-                        <span className="relative inline-block ml-2">
-                            <span className="text-blue-600 relative z-10"> Procedure</span>
-                            <img
-                                src={decoration}
-                                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2  -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
-                            />
-                        </span> for 
-                        <br />
-                        <span className="text-gray-900">New Applicant </span>
-
-                    </h1>
+            <span className="text-gray-900">Admission </span>
+            <span className="relative inline-block ml-2">
+              <span className="text-blue-600 relative z-10">
+                Procedure
+              </span>
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
+              />
+            </span>{" "}
+            for
+            <br />
+            <span className="text-gray-900">New Applicant</span>
+          </h1>
 
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            A clear guide to the admission process, eligibility and timelines to help you plan and apply with confidence.
-
-                    </p>
-                </div>
-            </div>
+            A clear guide to the admission process, eligibility and timelines
+            to help you plan and apply with confidence.
+          </p>
+        </motion.div>
+      </div>
 
 
             <div className="container mx-auto px-4 pb-20">
@@ -205,6 +217,7 @@ const AdmissionProcedure = () => {
                             ref={(el) => {
                                 sectionRefs.current["important-notice"] = el;
                             }}
+
                             className="scroll-mt-24"
                         >
                             <ImportantNotice />

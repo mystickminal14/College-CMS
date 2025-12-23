@@ -110,10 +110,10 @@ export default function OurCore() {
   }, []);
 
   return (
-    <section className="bg-gray-50 py-16 px-4">
+    <section className="bg-gray-50 py-2 md:py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-6">
           <p className="text-blue-600 text-lg font-medium mb-2">Meet Our Leads</p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
             Messages from{' '}

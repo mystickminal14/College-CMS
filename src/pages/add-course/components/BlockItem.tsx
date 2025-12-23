@@ -15,6 +15,8 @@ const BlockItem = ({ block, onUpdate, onDelete }: Props) => {
 
   const isHeading = block.type === BlockType.HEADING || block.type === BlockType.SUBHEADING;
 
+  const allowSubheadingInChild = block.type === BlockType.HEADING;
+
   return (
     <div className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition">
       <div className="flex justify-between items-center mb-3">
@@ -79,7 +81,8 @@ const BlockItem = ({ block, onUpdate, onDelete }: Props) => {
               <BlockEditor
                 blocks={block.children}
                 onChange={(children) => onUpdate({ ...block, children })}
-                root={false} // inside heading, user can only add sub/para/list
+                root={false}
+                allowSubheading={allowSubheadingInChild}
               />
             </div>
           )}
@@ -89,4 +92,4 @@ const BlockItem = ({ block, onUpdate, onDelete }: Props) => {
   );
 };
 
-export default BlockItem;
+export default BlockItem

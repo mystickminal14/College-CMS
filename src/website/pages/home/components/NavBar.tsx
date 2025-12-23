@@ -10,7 +10,7 @@ import {
   FaGraduationCap,
   FaChevronDown,
 } from "react-icons/fa";
-import logo from "../../../../assets/lbef_white.png";
+import logo from "../../../../assets/lbefHd.jpg";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 
 type DropdownItem = {

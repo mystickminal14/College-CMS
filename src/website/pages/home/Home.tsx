@@ -10,6 +10,7 @@ import { EmailSubscribe } from "./components/EmailSubscribe";
 import BlogSection from "./components/BlogSection";
 import Events from "./components/EventSection";
 import RecentNews from "./components/RecentNews";
+import SubFooter from "./components/SubFooter";
 
 export function HomePage() {
   return (
@@ -28,6 +29,7 @@ export function HomePage() {
       <Events />
       <RecentNews />
       <EmailSubscribe />
+        <SubFooter/>
      
 
     </>

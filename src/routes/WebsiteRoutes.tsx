@@ -8,7 +8,7 @@ import AcademicWebPlanner from "../website/pages/academic-planner-web/AcademicWe
 import StudentHandbook from "../website/pages/handbook/Handbook";
 import HolidayWebPlanner from "../website/pages/holidays/Holiday";
 import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
-import { AboutPage } from "../website/pages/about/About.";
+import { AboutPage } from "../website/pages/about/About";
 import ContactListPage from "../website/pages/contact-list/ContactListingPage";
 import CodeOfConduct from "../website/pages/CodeOfConduct";
 import FeePlannersWeb from "../website/pages/fee-planner-web/FeePlannerWeb";

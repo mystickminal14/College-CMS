@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { FaFilePdf } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 import image from "../../../assets/pcpsLogo.png";
 import decoration from "../../../assets/decoration.png";
@@ -9,10 +9,9 @@ import { IMAGE_URL } from "../../../constants";
 import useGetDownloads from "../../../pages/handbook/hooks/useGetAll";
 import type { Downloads } from "../../../pages/handbook/model/handbookModel";
 import SkeletonCard from "./SkeletonCard";
+import { fadeUp } from "../../comp/animation";
 
 const PAGE_LIMIT = 15;
-
-
 
 const StudentHandbook = () => {
   const [page, setPage] = useState(1);
@@ -35,7 +34,7 @@ const StudentHandbook = () => {
     setHasMore(Boolean(data.pagination?.hasNextPage));
   }, [data, page]);
 
-  const fetchNextPage = () => {
+  const handleLoadMore = () => {
     if (!isLoading && hasMore) {
       setPage(prev => prev + 1);
     }
@@ -43,22 +42,30 @@ const StudentHandbook = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-   <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+      {/* Header */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center"
+      >
         <div className="max-w-4xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
             <span className="text-blue-600 font-medium text-sm">
-             Academic Programs & Curriculum
+              Academic Programs & Curriculum
             </span>
           </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Student </span>
             <span className="relative inline-block ml-2">
-              <span className="text-blue-600 relative z-10"> Handbook</span>
+              <span className="text-blue-600 relative z-10">Handbook</span>
               <img
                 src={decoration}
                 alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2  -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2 md:h-3"
               />
             </span>
           </h1>
@@ -67,7 +74,7 @@ const StudentHandbook = () => {
             Download essential academic documents, handbooks, and resources to help you navigate your studies efficiently.
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div className="container mx-auto px-4 pb-20">
@@ -94,35 +101,23 @@ const StudentHandbook = () => {
 
         {/* Data */}
         {downloads.length > 0 && (
-          <InfiniteScroll
-            dataLength={downloads.length}
-            next={fetchNextPage}
-            hasMore={hasMore}
-            loader={
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <SkeletonCard key={i} />
-                ))}
-              </div>
-            }
-
-          >
+          <>
             <div className="grid px-1 md:px-14 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {downloads.map(download => (
                 <div
                   key={download.id}
-                  className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer transform hover:-translate-y-1"
+                  className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer"
                 >
                   <div className="relative h-32 overflow-hidden">
                     <img
                       src={image}
                       alt={download.name}
-                      className="absolute inset-0 w-full h-32 "
+                      className="absolute inset-0 w-full h-32"
                     />
                     <div className="absolute inset-0 bg-black/10" />
 
                     <div className="absolute inset-0 flex items-center justify-center z-10">
-                      <div className="bg-blue-100 p-5 rounded-2xl group-hover:scale-110 transition">
+                      <div className="bg-blue-100 p-5 rounded-2xl">
                         <FaFilePdf className="w-14 h-14 text-red-600" />
                       </div>
                     </div>
@@ -154,7 +149,29 @@ const StudentHandbook = () => {
                 </div>
               ))}
             </div>
-          </InfiniteScroll>
+
+            {/* Load More */}
+            {hasMore && (
+              <div className="flex justify-center mt-12">
+                <button
+                  onClick={handleLoadMore}
+                  disabled={isLoading}
+                  className="px-8 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                >
+                  {isLoading ? "Loading..." : "Load More"}
+                </button>
+              </div>
+            )}
+
+            {/* Next Page Skeleton */}
+            {isLoading && page > 1 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

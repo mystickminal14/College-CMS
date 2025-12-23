@@ -1,22 +1,21 @@
+import { motion } from 'framer-motion';
 
 import decoration from '../../../assets/decoration.png';
-import useGetAchivementsAll from "../../../pages/achivement/hooks/useGetAll";
+import useGetAchivementsAll from '../../../pages/achivement/hooks/useGetAll';
+import { fadeUp } from '../../comp/animation';
 
 const AchievementWeb = () => {
   const { data, isLoading } = useGetAchivementsAll();
-  const achievements = data?.data || [];
+  const achievements = data?.data ?? [];
 
-  // Skeleton loader component
+  // Skeleton loader
   const SkeletonLoader = () => (
     <div className="max-w-4xl mx-auto space-y-4">
       {[...Array(8)].map((_, index) => (
-        <div 
-          key={index} 
-          className="bg-white p-4 animate-pulse"
-        >
+        <div key={index} className="bg-white p-4 animate-pulse">
           <div className="flex items-center gap-3">
-            <div className="w-3 h-3 bg-gray-200 rounded-full"></div>
-            <div className="h-4 bg-gray-200 rounded w-full max-w-md"></div>
+            <div className="w-3 h-3 bg-gray-200 rounded-full" />
+            <div className="h-4 bg-gray-200 rounded w-full max-w-md" />
           </div>
         </div>
       ))}
@@ -25,15 +24,22 @@ const AchievementWeb = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
- <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
-        <div className="max-w-4xl mx-auto">
+      {/* ================= HERO / HEADING (ANIMATED) ================= */}
+      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto"
+        >
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
             <span className="text-blue-600 font-medium text-sm">
               Discover Our Achievements
             </span>
           </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Our </span>
             <span className="relative inline-block">
@@ -41,49 +47,49 @@ const AchievementWeb = () => {
               <img
                 src={decoration}
                 alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2  -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
               />
-            </span>{" "}
-            <span className="text-gray-900">Over </span><br/>
-            <span className="text-gray-900 relative z-10"> The Years </span>
+            </span>{' '}
+            <span className="text-gray-900">Over </span>
+            <br />
+            <span className="text-gray-900"> The Years </span>
           </h1>
+
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            From its humble beginnings, the College has made steady progress and today stands as one of the leading colleges in Nepal
+            From its humble beginnings, the College has made steady progress and
+            today stands as one of the leading colleges in Nepal.
           </p>
-        </div>
+        </motion.div>
       </div>
 
-  <div className="container mx-auto px-2 sm:px-4">
+      {/* ================= ACHIEVEMENTS LIST (NO ANIMATION) ================= */}
+      <div className="container mx-auto px-2 sm:px-4">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow border border-gray-100 p-4 md:p-6">
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold text-gray-800">Achievements List</h2>
-          </div>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Achievements List
+          </h2>
 
           {isLoading ? (
             <SkeletonLoader />
           ) : achievements.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="text-gray-500">No achievements found</div>
+            <div className="text-center py-8 text-gray-500">
+              No achievements found
             </div>
           ) : (
             <div className="space-y-1">
               {achievements.map((achievement, index) => (
-                <div 
-                  key={achievement.id || index} 
+                <div
+                  key={achievement.id ?? index}
                   className="flex items-start gap-2 p-3 hover:bg-gray-50 rounded"
                 >
-                  <div className="shrink-0 w-1.5 h-1.5 mt-2 bg-blue-500 rounded-full"></div>
-                  <div>
-                    <p className="text-gray-700">
-                      {achievement.achivement || "No description available"}
-                    </p>
-                  </div>
+                  <div className="shrink-0 w-1.5 h-1.5 mt-2 bg-blue-500 rounded-full" />
+                  <p className="text-gray-700">
+                    {achievement.achivement || 'No description available'}
+                  </p>
                 </div>
               ))}
             </div>
           )}
-          
-         
         </div>
       </div>
     </div>

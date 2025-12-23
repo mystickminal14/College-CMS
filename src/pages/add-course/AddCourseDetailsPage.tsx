@@ -1,4 +1,3 @@
-// src/pages/AddCourseDetailsPage.tsx
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
@@ -13,7 +12,7 @@ import { COURSE_CACHE_KEY } from "../../constants";
 import { buildToc } from "./EditToc";
 
 const AddCourseDetailsPage = () => {
-  const { id ,key} = useParams<{ id: string }>();
+  const { id ,key} = useParams<{ id: string ,key:string}>();
   const navigate = useNavigate();
   const location = useLocation();
   const course = location.state?.course as Courses;

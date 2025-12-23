@@ -1,5 +1,6 @@
 import decoration from '../../../assets/decoration.png';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
+import SubFooter from '../home/components/SubFooter';
 
 const GyandeepScholasrhip = () => {
   return (
@@ -156,6 +157,7 @@ const GyandeepScholasrhip = () => {
           </div>
         </div>
       </div>
+        <SubFooter/>
     </div>
   );
 };

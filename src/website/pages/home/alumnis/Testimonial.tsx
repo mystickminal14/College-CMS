@@ -121,7 +121,7 @@ export function Testimonial() {
                   className="bg-white rounded-3xl shadow-2xl p-2 sm:p-6  flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8"
                   style={{
                     height: window.innerWidth >= 1024 ? dynamicHeight : 'auto',
-                    minHeight: '400px'
+                    minHeight: '450px'
                   }}
                 >
                   <div className="flex justify-center lg:justify-start shrink-0">

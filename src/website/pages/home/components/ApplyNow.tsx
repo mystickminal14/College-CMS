@@ -2,7 +2,7 @@ import arrow from "../../../../assets/arrow.png"
 
 export function ApplyNow() {
   return (
-    <section className="bg-white py-5 ms:py-10 md:py-16 lg:px-20 flex relative">
+    <section className="bg-white py-4 ms:py-10 md:py-8 lg:px-20 flex relative">
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-12 ">
         {/* Left: Curved Dotted Arrow */}
         <div className="absolute left-[-5vw]">
@@ -18,7 +18,8 @@ export function ApplyNow() {
         <div className="text-center  lg:text-left flex-1 relative">
           <p className="text-xs sm:text-[16px] p-1 md:text-[20px] text-center lg:text-xl text-[#19213DB2] leading-relaxed max-w-1xl">
             Together with our top-notch faculty, we  provide a nurturing environment to help students evolve into{" "}
-            leaders who think boldly, make effective choices and are well-equipped with{" "}
+            <br />
+            leaders who think boldly, make effective choices and are well-equipped with{" "} <br />
             futuristic mindset and skills.
           </p>
 

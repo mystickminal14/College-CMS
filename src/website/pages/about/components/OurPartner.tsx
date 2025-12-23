@@ -14,10 +14,10 @@ const partners = [
 
 const PartnerSection = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py:8 md:py-12 bg-white">
       <div className="text-center mb-10">
         <p className="text-blue-600 text-sm mb-2">Partner Institution</p>
-        <h2 className="text-4xl md:text-5xl  font-bold text-gray-900 mb-2">
+        <h2 className="text-4xl md:text-5xl  font-bold line-height-1 text-gray-900 mb-3">
           LBEF Group <span className="relative inline-block text-[#474AFF]">
             Of Institutions
             <img
@@ -30,20 +30,20 @@ const PartnerSection = () => {
         <p className="text-gray-500">Our college Partner organizations.</p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 p-3 sm:p-6 md:p-0">
-        {partners.map((partner) => (
-          <div
-            key={partner.id}
-            className="border border-gray-200 p-6 rounded-lg flex items-center justify-center hover:shadow-lg transition-shadow duration-300"
-          >
-            <img
-              src={partner.image}
-              alt={partner.name}
-              className={` h-50 object-contain`}
-            />
-          </div>
-        ))}
-      </div>
+    <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">
+  {partners.map((partner) => (
+    <div
+      key={partner.id}
+      className="border border-gray-200 p-4 sm:p-6 rounded-lg flex items-center justify-center hover:shadow-lg transition-shadow duration-300 bg-white"
+    >
+      <img
+        src={partner.image}
+        alt={partner.name}
+        className="w-full max-w-[180px] h-auto md:w-[200px] md:h-20 object-contain"
+      />
+    </div>
+  ))}
+</div>
     </section>
   );
 };

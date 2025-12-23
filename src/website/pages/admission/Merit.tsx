@@ -1,5 +1,6 @@
 import decoration from '../../../assets/decoration.png';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
+import SubFooter from '../home/components/SubFooter';
 
 const MeritScholarship = () => {
   const eligibilityCriteria = [
@@ -131,6 +132,7 @@ const MeritScholarship = () => {
           </div>
         </div>
       </div>
+        <SubFooter/>
     </div>
   );
 };

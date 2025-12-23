@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { NavBar } from "./pages/home/components/NavBar";
 import { ScrollToTop } from "../Scrolltop";
 import Footer from "./pages/home/components/Footer";
-import SubFooter from "./pages/home/components/SubFooter";
 
 export function WebsiteLayout() {
   return (
@@ -13,7 +12,7 @@ export function WebsiteLayout() {
       <main>
         <Outlet />
       </main>
-       <SubFooter/>
+     
       <Footer />
     </div>
   );

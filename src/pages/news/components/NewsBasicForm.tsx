@@ -1,14 +1,6 @@
-import React, { useEffect } from "react";
-import {
-  Newspaper,
-  Link as LinkIcon,
-  User,
-  Calendar,
-  FileText,
-} from "lucide-react";
-import { adDateToBsString } from "../../../utils/bs-converter";
+import React from "react";
+import { Newspaper, Link as LinkIcon, User, Calendar, FileText } from "lucide-react";
 import InputField from "./InputField";
-
 
 interface NewsFormShape {
   title: string;
@@ -30,17 +22,6 @@ const NewsBasicInfoForm: React.FC<NewsBasicInfoFormProps> = ({
   onChange,
   isSubmitting = false,
 }) => {
-  // Whenever AD date changes, auto convert and set BS
-  useEffect(() => {
-    if (formData.publishedOn) {
-      const bs = adDateToBsString(formData.publishedOn);
-      onChange("publishedOnBS", bs);
-    } else {
-      onChange("publishedOnBS", "");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData.publishedOn]);
-
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -62,8 +43,8 @@ const NewsBasicInfoForm: React.FC<NewsBasicInfoFormProps> = ({
           field="link"
           onChange={onChange}
           placeholder="https://example.com/news"
-          isSubmitting={isSubmitting}
           type="url"
+          isSubmitting={isSubmitting}
         />
 
         <InputField
@@ -77,6 +58,7 @@ const NewsBasicInfoForm: React.FC<NewsBasicInfoFormProps> = ({
           isSubmitting={isSubmitting}
         />
 
+        {/* Published On AD */}
         <InputField
           icon={<Calendar className="w-5 h-5" />}
           label="Published On (AD)"
@@ -85,10 +67,11 @@ const NewsBasicInfoForm: React.FC<NewsBasicInfoFormProps> = ({
           onChange={onChange}
           placeholder="Select AD date"
           required
-          isSubmitting={isSubmitting}
           type="date"
+          isSubmitting={isSubmitting}
         />
 
+        {/* Published On BS */}
         <InputField
           icon={<Calendar className="w-5 h-5" />}
           label="Published On (BS)"
@@ -101,12 +84,12 @@ const NewsBasicInfoForm: React.FC<NewsBasicInfoFormProps> = ({
         />
       </div>
 
+      {/* Content */}
       <div className="space-y-3">
         <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
           <FileText className="w-5 h-5 text-[#135EAB]" />
           <span>Content</span>
         </label>
-
         <textarea
           value={formData.content}
           onChange={(e) => onChange("content", e.target.value)}

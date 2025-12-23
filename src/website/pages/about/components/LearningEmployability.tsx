@@ -9,7 +9,7 @@ export default function Employability() {
         <div className="max-w-7xl mx-auto text-center mb-16 lg:mb-24">
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Learning for <span className="relative inline-block text-[#474AFF]">
-              Of Institutions
+              Employability
               <img
                 src={decoration}
                 alt="Decoration"

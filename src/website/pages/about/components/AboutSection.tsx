@@ -4,8 +4,8 @@ import about from '../../../../assets/decoration/about.jpg'
 export default function AboutSection() {
   return (
     <div className=" bg-linear-to-br from-blue-50 to-white">
-      <div className="container mx-auto px-4 py-16 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="container mx-auto px-4 py-8 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-8 lg:gap-16 items-center">
           {/* Left Side - Image with Overlaid Stats */}
           <div className="relative flex items-center justify-center">
             {/* Main Image */}

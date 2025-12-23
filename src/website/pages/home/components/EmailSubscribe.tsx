@@ -7,18 +7,14 @@ export function EmailSubscribe() {
   return (
     <section className="py-20 px-6 lg:px-40">
       <div className="max-w-8xl mx-auto">
-        {/* Main CTA Card */}
         <div className="relative bg-[#474AFF] rounded-3xl overflow-hidden shadow-2xl">
           {/* Background Students - Hidden below 1300px */}
           <div className="absolute inset-0 flex justify-between items-center pointer-events-none max-[1299px]:hidden">
-            {/* Left Student */}
             <img
               src={leftSideGirl}
               alt="Happy student"
               className="-ml-50 w-150 h-full left-0 object-cover object-center"
             />
-
-            {/* Right Student */}
             <img
               src={rightSideGirl}
               alt="Confident student"
@@ -26,15 +22,12 @@ export function EmailSubscribe() {
             />
           </div>
 
-          {/* Content */}
           <div className="relative z-10 py-16 lg:py-24 px-8 lg:px-16 text-center">
-            {/* Heading */}
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Join us now with great<br />
-              lorem ipsum
+              Join us now <br />
+              Evolve with Us
             </h2>
 
-            {/* Subheading */}
             <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Stay informed with the latest news, insights, and updates<br />
               delivered straight to your inbox
