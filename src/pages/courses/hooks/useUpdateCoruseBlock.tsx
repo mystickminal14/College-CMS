@@ -5,6 +5,7 @@ import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import type { UpdateBlockData } from "../model/CourseDetailModel";
+import { COURSE_CACHE_KEY } from "../../../constants";
 
 const useUpdateCourseBlock = () => {
   const appContext = useContext(AppContext);
@@ -27,9 +28,8 @@ const useUpdateCourseBlock = () => {
       showToast(res.message || "Block updated successfully!", "success");
       
       // Invalidate the course details query
-      queryClient.invalidateQueries({ 
-        queryKey: ["courses", "details"] 
-      });
+                 queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY, 'details'],   refetchType: 'all' });
+
     },
 
     onError: (err) => {

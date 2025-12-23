@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
+import { COURSE_CACHE_KEY } from "../../../constants";
 
 interface DeleteCourseBlockPayload {
   id: number;
@@ -29,9 +30,8 @@ const useDeleteCourseBlock = () => {
       showToast(res.message || "Block deleted successfully!", "success");
       
       // Invalidate the course details query
-      queryClient.invalidateQueries({ 
-        queryKey: ["courses", "details"] 
-      });
+                queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY, 'details'],   refetchType: 'all' });
+
     },
 
     onError: (err) => {

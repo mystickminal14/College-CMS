@@ -1,3 +1,4 @@
+// src/pages/AddCourseDetailsPage.tsx
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";

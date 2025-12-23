@@ -36,7 +36,7 @@ const useAddCourseDetails = () => {
 
     onSuccess: (res) => {
          showToast(res.message || "Course updated successfully!", "success");
-     queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY] });
+     queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY],   refetchType: 'all' });
       
     },
 
