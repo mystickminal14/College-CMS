@@ -18,9 +18,9 @@ type DropdownItem = {
   icon: React.ReactNode;
   disabled?: boolean;
 } & (
-  | { link: string; onClick?: never }
-  | { link?: never; onClick: () => void }
-);
+    | { link: string; onClick?: never }
+    | { link?: never; onClick: () => void }
+  );
 
 type MenuItem = {
   name: string;
@@ -80,16 +80,16 @@ export function NavBar() {
       dropdown:
         courseNames.length > 0
           ? courseNames.map((course) => ({
-              name: `${course.prefix} ${course.title}`,
-              icon: <FaBook />,
-              onClick: () => {
-                navigate(
-                  `/students-life/${course.title.replace(/ /g, "-")}/${course.id}`,
-                  { state: { course } }
-                );
-                setActiveDropdown(null);
-              },
-            }))
+            name: `${course.prefix} ${course.title}`,
+            icon: <FaBook />,
+            onClick: () => {
+              navigate(
+                `/students-life/${course.title.replace(/ /g, "-")}/${course.id}`,
+                { state: { course } }
+              );
+              setActiveDropdown(null);
+            },
+          }))
           : [{ name: "No courses available", icon: <FaBook />, disabled: true, link: "#" }],
     },
     {
@@ -119,7 +119,7 @@ export function NavBar() {
       ],
     },
     { name: "UGC", link: "/ugc" },
-   
+
   ];
 
   return (
@@ -142,24 +142,21 @@ export function NavBar() {
                 <button className="flex items-center gap-1 px-4 py-3 cursor-pointer uppercase text-sm font-medium hover:text-[#3040E5]">
                   <span>{item.name}</span>
                   <FaChevronDown
-                    className={`text-xs transition-transform ${
-                      activeDropdown === item.name ? "rotate-180" : ""
-                    }`}
+                    className={`text-xs transition-transform ${activeDropdown === item.name ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${
-                    activeDropdown === item.name
+                  className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${activeDropdown === item.name
                       ? "opacity-100 visible translate-y-0"
                       : "opacity-0 invisible -translate-y-2"
-                  }`}
+                    }`}
                 >
-                <div
-  className={`bg-white shadow-xl rounded-xl p-1 ${
-    item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"
-  }`}
->
+                  <div
+                    className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"
+                      }`}
+                  >
 
                     {item.dropdown.map((sub) =>
                       "onClick" in sub ? (
@@ -212,7 +209,7 @@ export function NavBar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t px-4 py-3">
+        <div className="lg:hidden bg-white px-4 py-3">
           {menuItems.map((item) =>
             item.dropdown ? (
               <div key={item.name}>
@@ -222,12 +219,10 @@ export function NavBar() {
                 >
                   <span>{item.name}</span>
                   <FaChevronDown
-                    className={`transition-transform ${
-                      dropdownOpen[item.name] ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${dropdownOpen[item.name] ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
-
                 {dropdownOpen[item.name] &&
                   item.dropdown.map((sub) =>
                     "onClick" in sub ? (
@@ -242,7 +237,7 @@ export function NavBar() {
                   )}
               </div>
             ) : (
-              <NavLink key={item.name} to={item.link!} className="block py-3">
+              <NavLink key={item.name} to={item.link!} className="block py-3 uppercase">
                 {item.name}
               </NavLink>
             )
