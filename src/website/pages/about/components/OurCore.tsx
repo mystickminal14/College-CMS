@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import decoration from '../../../../assets/decoration.png';
+import imageone from '../../../../assets/core/pankag.png'
+import imagetwo from '../../../../assets/core/prakash.png'
+import imagethree from '../../../../assets/core/Datuk Paramjeet Singh.png'
+import imagefour from '../../../../assets/core/Prof. Dr. Ho Chin Kuan.png'
+
+
+
 
 const messages = [
   {
@@ -8,34 +15,34 @@ const messages = [
     position: "Chairman",
     institution: "LBEF Group Of Institutions",
     message:
-      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
-    image: "/path-to-pankaj-jalan.jpg", // Replace with actual image
+      "Dear Students,\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you are a large and diverse group. reflecting our wonderful regional character and diversity.",
+    image: imageone, // Replace with actual image
   },
   {
-    name: "Er. Pankaj Jalan",
-    position: "Chairman",
-    institution: "LBEF Group Of Institutions",
+    name: "Er. Prakash Kumar Kejriwal",
+    position: "Executive Director",
+    institution: "LBEF Group of Institutions",
     message:
-      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
-    image: "/path-to-pankaj-jalan.jpg",
-  },
-  {
-
-    name: "Er. Pankaj Jalan",
-    position: "Chairman",
-    institution: "LBEF Group Of Institutions",
-    message:
-      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
-    image: "/path-to-pankaj-jalan.jpg",
+      "Dear Students,\nWelcome to LBEF College -  the First IT College of Nepal!. We are excited about your interest in joining our esteemed institution. At LBEF, we are dedicated to offering an exceptional educational experience that prepares you for ...",
+    image: imagetwo,
   },
   {
 
-    name: "Er. Pankaj Jalan",
-    position: "Chairman",
-    institution: "LBEF Group Of Institutions",
+    name: "Datuk Paramjeet Singh",
+    position: "CO-FOUNDER & CEO",
+    institution: "APIIT Education Group",
     message:
-      "Dear Students,\n\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you will engage in a vibrant group, reflecting our wonderful regional character and diversity.",
-    image: "/path-to-pankaj-jalan.jpg",
+      "Dear Students,\nWe welcome LBEF to the international community of the Asia Pacific University of Technology & Innovation (APU). Parents, prospective & current students will be pleased to note that over 11,000 students including international students from over 120 countries are currently....",
+    image: imagethree,
+  },
+  {
+
+    name: "Prof. Dr. Ho Chin Kuan",
+    position: "VICE CHANCELLOR",
+    institution: "Asia Pacific University",
+    message:
+      "Dear Students,\nI would like to extend a warm welcome to students who are part of the APU – LBEF academic partnership. The APU – LBEF partnership which started in 2016 has produced around 300 graduates. Student centricity and uncompromising quality are at the heart...",
+    image: imagefour,
   },
   // Add more if needed
 ];
@@ -169,7 +176,7 @@ export default function OurCore() {
                 className="shrink-0 pl-10 w-80 relative md:w-96 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
               >
                 <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
-                  <div className="w-20 h-20 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-purple-600">
+                  <div className="w-20 h-20 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-[#474AFF]">
                     <img
                       src={lead.image}
                       alt={lead.name}

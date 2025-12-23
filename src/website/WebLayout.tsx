@@ -12,7 +12,6 @@ export function WebsiteLayout() {
       <main>
         <Outlet />
       </main>
-     
       <Footer />
     </div>
   );

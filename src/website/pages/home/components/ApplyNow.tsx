@@ -31,7 +31,7 @@ export function ApplyNow() {
               Contact Us
             </a>
             <a
-              href="#"
+              href="https://apply.lbef.org/" target="_blank"
               className="inline-flex items-center uppercase justify-center text-[12px] sm:text-[18px] rounded-full border-2 border-[#00000057] bg-white  px-5 sm:px-12 py-4 text-[#050038] font-medium transition hover:bg-[#474AFF] hover:text-white hover:ease-in-out"
             >
               Apply Now

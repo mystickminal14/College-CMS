@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import decoration from '../../../../assets/decoration.png';
+
 export default function Events() {
   const events = [
     {
@@ -30,6 +32,7 @@ export default function Events() {
 
     },
   ];
+  const navigate = useNavigate()
 
   return (
     <div className="max-w-7xl mx-auto bg-white">
@@ -91,7 +94,8 @@ export default function Events() {
 
         {/* Load More Button */}
         <div className="flex justify-center">
-          <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full cursor-pointer transition-colors duration-200">
+          <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full cursor-pointer transition-colors duration-200"
+            onClick={() => navigate('media/news-events')}>
             Load More
           </button>
         </div>

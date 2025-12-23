@@ -131,9 +131,9 @@ export function JoinStudents() {
             </div>
 
             <div className="flex justify-center lg:justify-start">
-              <button className="bg-[#474AFF] hover:bg-blue-700 text-white font-bold text-lg px-10 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <a className="bg-[#474AFF] hover:bg-blue-700 text-white font-bold text-lg px-10 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" href="https://apply.lbef.org/" target="_blank">
                 Join as Student
-              </button>
+              </a>
             </div>
           </div>
 

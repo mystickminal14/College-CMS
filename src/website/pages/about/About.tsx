@@ -1,3 +1,4 @@
+import SubFooter from "../home/components/SubFooter";
 import ABoutHeroSection from "./components/AboutHeroSection";
 import AboutSection from "./components/AboutSection";
 import CollegeAppSection from "./components/CollegeApp";
@@ -21,8 +22,10 @@ export function AboutPage() {
       <PartnerSection />
       <StartJourney />
       <Employability />
-      <FAQSection />
       <CollegeAppSection />
+      <SubFooter />
+      <FAQSection />
+
     </>
 
   );

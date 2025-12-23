@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import decoration from "../../../../assets/decoration.png";
 import { IMAGE_URL } from "../../../../constants";
 import useGetNews from "../../../../pages/news/hooks/useGetAllNews";
+import { useNavigate } from 'react-router-dom';
 
 const RecentNews = () => {
   const { data, isLoading, isError } = useGetNews({
@@ -27,6 +28,7 @@ const RecentNews = () => {
     if (window.innerWidth >= 768) return 2;
     return 1;
   };
+  const navigate = useNavigate()
 
   const checkScroll = () => {
     if (!scrollRef.current) return;
@@ -172,7 +174,8 @@ const RecentNews = () => {
 
         {/* Read More */}
         <div className="flex justify-center mt-12">
-          <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full hover:bg-[#474AFF] hover:text-white transition">
+          <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full hover:bg-[#474AFF] hover:text-white transition"
+            onClick={() => navigate('media/news-events')}>
             Read More
           </button>
         </div>
