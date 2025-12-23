@@ -7,7 +7,7 @@ import type { Alumni } from "../../../../pages/alumni/model/AlumniModel";
 import { IMAGE_URL } from "../../../../constants";
 
 const MAX_WORDS = 300; // max words to display
-const CARD_HEIGHT = 200;
+const CARD_HEIGHT = 160;
 const GAP = 24;
 const VISIBLE_CARDS = 3;
 const RIGHT_CARD_HEIGHT = CARD_HEIGHT * VISIBLE_CARDS + GAP * (VISIBLE_CARDS - 1);
@@ -110,7 +110,7 @@ export function Testimonial() {
             </div>
 
             {/* Right main card */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-9">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}

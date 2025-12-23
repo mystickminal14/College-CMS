@@ -1,4 +1,5 @@
 import SubFooter from "../home/components/SubFooter";
+import { VideoSection } from "../home/components/VideoSection";
 import ABoutHeroSection from "./components/AboutHeroSection";
 import AboutSection from "./components/AboutSection";
 import CollegeAppSection from "./components/CollegeApp";
@@ -16,6 +17,7 @@ export function AboutPage() {
     <>
       <ABoutHeroSection />
       <MissionSection />
+       <VideoSection />
       <StatusSection />
       <AboutSection />
       <OurCore />
