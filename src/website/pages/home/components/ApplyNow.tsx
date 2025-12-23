@@ -5,11 +5,11 @@ export function ApplyNow() {
     <section className="bg-white py-4 ms:py-10 md:py-8 lg:px-20 flex relative">
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-12 ">
         {/* Left: Curved Dotted Arrow */}
-        <div className="absolute left-[-5vw]">
+        <div className="absolute left-[-5vw] -top-5">
           <img
             src={arrow}
             alt="Curved Dotted Arrow"
-            className="hidden lg:block lg:w-[30vw]"
+            className="hidden lg:block lg:w-[25vw]"
           />
 
         </div>
