@@ -84,8 +84,8 @@ export function Testimonial() {
             {/* Left thumbnail list - Desktop only */}
             <div
               ref={listRef}
-              className="hidden lg:block lg:col-span-4 space-y-6 overflow-y-auto pr-2 scrollbar-hide"
-              style={{ maxHeight: RIGHT_CARD_HEIGHT }}
+              className="hidden lg:block lg:col-span-3 space-y-6 overflow-y-auto pr-2 scrollbar-hide"
+              style={{ maxHeight: RIGHT_CARD_HEIGHT  }}
             >
               {alumni.map((a, index) => (
                 <motion.div
