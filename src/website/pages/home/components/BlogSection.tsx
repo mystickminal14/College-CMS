@@ -3,6 +3,8 @@ import decoration from "../../../../assets/decoration.png";
 import Blog_Image_One from "../../../../assets/blog/blog_images.jpg";
 import Blog_Image_Two from "../../../../assets/blog/blog_images_two.jpg";
 
+import bg1 from '../../../../assets/demo.jpg';
+
 export default function Index() {
   const blogPosts = [
     {
@@ -28,7 +30,7 @@ export default function Index() {
   ];
 
   return (
-    <section className="bg-[#0066FF0A]">
+    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="container mx-auto px-8 sm:px-24  py-10 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-6  items-center">
 

@@ -57,7 +57,7 @@ export function Testimonial() {
   const prev = () => setActiveIndex((i) => (i - 1 + alumni.length) % alumni.length);
 
   return (
-    <section className="py-8 px-4 lg:px-20 bg-gray-50">
+    <section className="py-12 px-4 lg:px-20 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-8 sm:mb-12">

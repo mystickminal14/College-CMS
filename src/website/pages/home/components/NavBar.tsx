@@ -11,6 +11,8 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 import logo from "../../../../assets/lbefHd.jpg";
+import apuLogo from "../../../../assets/apu_logo.png";
+
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 
 type DropdownItem = {
@@ -123,12 +125,16 @@ export function NavBar() {
   ];
 
   return (
-    <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
-      <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-3">
-        <NavLink to="/" className="w-32 cursor-pointer">
+    <header className={`sticky top-0 z-50 bg-white ${scrolled ?? ""}`}>
+      <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
+       <div className="flex gap-2">
+         <NavLink to="/" className="w-20 cursor-pointer">
           <img src={logo} alt="LBEF Logo" />
         </NavLink>
-
+<NavLink to="/" className="w-40 cursor-pointer">
+          <img src={apuLogo} alt="LBEF Logo" className=" " />
+        </NavLink>
+       </div>
         {/* Desktop Menu */}
         <nav className="hidden lg:flex items-center gap-1">
           {menuItems.map((item) =>

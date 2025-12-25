@@ -1,6 +1,8 @@
 import { Award, Briefcase, GraduationCap, Users } from "lucide-react";
 import lbef_bufferfly from "../../../../assets/pcpsLogo.png";
 import decoration from "../../../../assets/decoration.png";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function WhyChooseLBEF() {
   const desktopFeatures = [
@@ -37,16 +39,17 @@ export function WhyChooseLBEF() {
     {
       icon: <Briefcase className="w-6 h-6" />,
       topTitle: "100%",
-      title: "Internship Assured",
+      title: "Internship EAssured",
       position: "left",
     },
   ];
 
   return (
     <>
+    
       {/* ================= DESKTOP (UNCHANGED) ================= */}
       <section className="hidden lg:block py-20 bg-linear-to-br from-blue-50 via-white to-purple-50">
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-10">
             Why{" "}
             <span className="relative text-[#474AFF] inline-block">
@@ -56,7 +59,7 @@ export function WhyChooseLBEF() {
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
             </span>{" "}
-            LBEF ?
+            LBEF College?
           </h2>
 
           <p className="text-lg text-gray-600 max-w-2xl  mx-auto">
@@ -73,7 +76,7 @@ export function WhyChooseLBEF() {
             <Orbit size={500} duration="10s" />
             <Orbit size={620} duration="14s" />
 
-            <div className="z-20 w-40 h-40 bg-white rounded-full shadow-2xl flex items-center justify-center">
+            <div className="z-20 w-70 h-70 bg-white rounded-full shadow-2xl flex items-center justify-center">
               <img src={lbef_bufferfly} className="w-full h-full object-contain" />
             </div>
 
@@ -103,23 +106,23 @@ export function WhyChooseLBEF() {
             Unlock your true potential and discover a world of opportunities.
           </p>
 
-          <div className="flex flex-col items-center gap-6">
-            {/* Top two cards */}
-            <div className="flex gap-4">
-              <MobileCard icon={<Briefcase />} title="Internship" />
-              <MobileCard icon={<GraduationCap />} title="Degree" />
+          <div className="flex flex-col items-center gap-8">
+            {/* Top cycling card */}
+            <MobileCyclingCard features={desktopFeatures.slice(0, 2)} />
+
+            {/* Center logo with orbit */}
+            <div className="relative flex items-center justify-center w-[200px] h-[200px]">
+              <div className="absolute w-[150px] h-[150px] rounded-full border-4 border-blue-100 opacity-30" />
+              <div className="absolute w-[250px] h-[250px] rounded-full border-4 border-blue-100 opacity-20" />
+              <Orbit size={150} duration="6s" />
+              <Orbit size={250} duration="10s" />
+              <div className="z-20 w-[110px] h-[110px] bg-white rounded-full shadow-xl flex items-center justify-center">
+                <img src={lbef_bufferfly} className="w-full h-full object-contain" />
+              </div>
             </div>
 
-            {/* Center logo */}
-            <div className="w-[110px] h-[110px] bg-white rounded-full shadow-xl flex items-center justify-center">
-              <img src={lbef_bufferfly} className="object-contain" />
-            </div>
-
-            {/* Bottom two cards */}
-            <div className="flex gap-4">
-              <MobileCard icon={<Award />} title="Scholarship" />
-              <MobileCard icon={<Users />} title="Employment" />
-            </div>
+            {/* Bottom cycling card */}
+            <MobileCyclingCard features={desktopFeatures.slice(2, 4)} />
           </div>
         </div>
       </section>
@@ -127,16 +130,16 @@ export function WhyChooseLBEF() {
   );
 }
 
-/* ================= COMPONENTS ================= */
+
 
 function DesktopCard({ icon, topTitle, title, position }: any) {
   const map: any = {
-    "top-left": "top-[70px] left-[70px]",
+    "top-left": "top-[70px] left-[65px]",
     "top-right": "top-[70px] right-[70px]",
     right: "right-[20px] top-[280px]",
     "bottom-right": "bottom-[70px] right-[70px]",
     "bottom-left": "bottom-[70px] left-[70px]",
-    left: "left-[20px] top-[280px]",
+    left: "-left-[10px] top-[280px]",
   };
 
   return (
@@ -154,14 +157,41 @@ function DesktopCard({ icon, topTitle, title, position }: any) {
   );
 }
 
-function MobileCard({ icon, title }: any) {
+function MobileCard({ icon, topTitle, title }: any) {
   return (
     <div className="flex items-center gap-2 bg-white px-4 py-3 rounded-xl shadow-md">
       <div className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-[#474AFF]">
         {icon}
       </div>
-      <p className="text-sm font-bold whitespace-nowrap">{title}</p>
+      <div className="font-bold text-gray-800 whitespace-nowrap text-sm">
+        <p>{topTitle}</p>
+        <p>{title}</p>
+      </div>
     </div>
+  );
+}
+
+function MobileCyclingCard({ features }: { features: any[] }) {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [features.length]);
+
+  const f = features[current];
+
+  return (
+    <motion.div
+      key={current}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <MobileCard icon={f.icon} topTitle={f.topTitle} title={f.title} />
+    </motion.div>
   );
 }
 

@@ -2,10 +2,11 @@ import girlWithCup from "../../../../assets/gril_with_cup.png"
 import girlwithThinking from "../../../../assets/girl_with_thinking.png"
 import { CheckCircle, Users, Video } from "lucide-react"
 import decoration from '../../../../assets/decoration.png';
+import bg1 from '../../../../assets/demo.jpg';
 
 export function JoinStudents() {
   return (
-    <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-20 bg-[#0066ff09]">
+    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
 

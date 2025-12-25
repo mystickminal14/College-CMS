@@ -8,14 +8,14 @@ export function University() {
   return (
     <section className="relative py-16 px-4 sm:px-6 lg:px-20 bg-white overflow-hidden">
       <div
-        className="absolute top-[5vh] left-[10vw] w-56 h-72 rounded-3xl -rotate-15  hidden lg:block bg-cover bg-center"
+        className="absolute top-[5vh] left-[10vw] w-44 h-60 rounded-3xl -rotate-15  hidden lg:block bg-cover bg-center"
         style={{
           backgroundImage: `url(${campus})`,
         }}
       ></div>
 
       <div
-        className="absolute bottom-[10vh] right-[6vw] w-56 h-72 rounded-3xl rotate-15 hidden lg:block bg-cover bg-center"
+        className="absolute bottom-[10vh] right-[6vw] w-44 h-60 rounded-3xl rotate-15 hidden lg:block bg-cover bg-center"
         style={{
           backgroundImage: `url(${campus_inside})`,
         }}

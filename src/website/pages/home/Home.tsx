@@ -11,27 +11,93 @@ import BlogSection from "./components/BlogSection";
 import Events from "./components/EventSection";
 import RecentNews from "./components/RecentNews";
 import SubFooter from "./components/SubFooter";
-
+import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 export function HomePage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  const { scrollY } = useScroll();
+
+
+  /* Content slides upward */
+  const contentY = useTransform(scrollY, [0, 400], [100, 0]);
+
   return (
     <>
-      <HeroSection />
-      <ApplyNow />
-      <OurCourses />
-      <University />
-      <VideoSection />
-      <WhyChooseLBEF />
-      <JoinStudents />
-      <Testimonial />
-      {/* <LatestInslight /> */}
-      {/* <OurPartners /> */}
-      <BlogSection />
-      <Events />
-      <RecentNews />
-      <EmailSubscribe />
-        <SubFooter/>
-     
+      {!isMobile ? (
+        <div className="relative">
+          <HeroSection />
+          {/* ================= HERO ================= */}
+          <motion.div
+            className="sticky top-0 z-10 bg-white"
+          >
+            <ApplyNow />
 
+          </motion.div>
+
+
+
+          <motion.div
+            style={{ y: contentY }}
+            className="relative z-20 bg-white"
+          >
+            <OurCourses />
+            <University />
+            <motion.div
+              className="sticky top-0 z-10 bg-white"
+            >
+              <VideoSection />
+
+            </motion.div>
+            <motion.div
+              style={{ y: contentY }}
+              className="relative z-20 bg-white"
+            ><WhyChooseLBEF />
+              <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <JoinStudents />
+
+              </motion.div>
+              <motion.div
+                style={{ y: contentY }}
+                className="relative z-20 bg-white"
+              >
+                <Testimonial />
+                <BlogSection />
+                <Events />
+                <RecentNews />
+                <EmailSubscribe />
+                <SubFooter /></motion.div></motion.div>
+
+          </motion.div>
+        </div>
+      ) : (
+        <><HeroSection />
+          <ApplyNow />
+          <OurCourses />
+          <University />
+          <VideoSection />
+          <WhyChooseLBEF />
+          <JoinStudents />
+          <Testimonial />
+          {/* <LatestInslight /> */}
+          {/* <OurPartners /> */}
+          <BlogSection />
+          <Events />
+          <RecentNews />
+          <EmailSubscribe />
+          <SubFooter /></>
+      )
+
+
+      }
     </>
   )
 }

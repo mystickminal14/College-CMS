@@ -10,7 +10,6 @@ export function HeroSection() {
           <div className="h-0.5 bg-[#0F183F] w-[10vw]"></div>
         </div>
 
-        {/* Main content */}
         <div
           className="
           font-bold
@@ -27,7 +26,7 @@ export function HeroSection() {
           </div>
 
           <span className="relative"><span className="lg:text-[6vw]"> to {""}</span>
-            <span className="absolute text-[5px] md:text-[1vw] left-0 top-[0.5vw] font-normal">Your Future</span>
+            <span className="absolute text-[5px] md:text-[1vw] left-0 top-[0.5vw] font-normal">Evolve Beyond</span>
           </span>
 
           <span
@@ -49,7 +48,7 @@ export function HeroSection() {
 
           <span className="relative ">
             <span className="md:text-[5vw]">College</span>
-            <span className="absolute text-[1vw] left-0 top-[7vw] font-normal">in IT</span>
+            <span className="absolute text-[1vw] left-0 top-[7vw] font-normal">Limits</span>
           </span>
         </div>
 
