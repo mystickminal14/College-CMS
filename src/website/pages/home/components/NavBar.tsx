@@ -128,10 +128,10 @@ export function NavBar() {
     <header className={`sticky top-0 z-50 bg-white ${scrolled ?? ""}`}>
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
        <div className="flex gap-2">
-         <NavLink to="/" className="w-20 cursor-pointer">
+         <NavLink to="/" className="w-20 md:w-24 cursor-pointer">
           <img src={logo} alt="LBEF Logo" />
         </NavLink>
-<NavLink to="/" className="w-40 cursor-pointer">
+<NavLink to="/" className="w-40  md:w-44 cursor-pointer">
           <img src={apuLogo} alt="LBEF Logo" className=" " />
         </NavLink>
        </div>

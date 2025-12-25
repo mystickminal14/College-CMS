@@ -4,7 +4,7 @@ import { IMAGE_URL } from "../../../constants";
 import useGetHolidays from '../../../pages/holiday/hooks/useGetAll';
 import type { HolidayType } from '../../../pages/holiday/model/HolidayModel';
 import decoration from '../../../assets/decoration.png';
-import { fadeUp, staggerContainer } from '../../comp/animation';
+import { fadeUp,  } from '../../comp/animation';
 
 const HolidayWebPlanner = () => {
   const { data, isLoading } = useGetHolidays();
@@ -115,74 +115,63 @@ const HolidayWebPlanner = () => {
       </motion.div>
 
       {/* ================= CONTENT ================= */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="container mx-auto px-4 sm:px-16 lg:px-16 pb-12 md:pb-20"
-      >
-        {isLoading ? (
-          <SkeletonLoader />
-        ) : currentHoliday ? (
-          <div className="space-y-12">
+     <div className="container mx-auto px-4 sm:px-16 lg:px-16 pb-12 md:pb-20">
+                {isLoading ? (
+                    <SkeletonLoader />
+                ) : currentHoliday ? (
+                    <div className="space-y-12">
+                        {/* IMAGE FIXED HERE */}
+                        <div className="flex justify-center">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 w-full max-w-3xl">
+                                <div className="bg-gray-100 w-full">
+                                    <img
+                                        src={IMAGE_URL + currentHoliday.image}
+                                        alt="Holiday Schedule"
+                                        className="
+                                            w-full
+                                            h-auto
+                                            object-contain
+                                            rounded-lg
+                                            block
+                                            sm:max-w-3xl
+                                            sm:mx-auto
+                                        "
+                                    />
+                                </div>
 
-            {/* IMAGE */}
-            <motion.div variants={fadeUp} className="flex justify-center">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 w-full max-w-3xl">
-                <div className="bg-gray-100 w-full">
-                  <img
-                    src={IMAGE_URL + currentHoliday.image}
-                    alt="Holiday Schedule"
-                    className="
-                      w-full
-                      h-auto
-                      object-contain
-                      rounded-lg
-                      block
-                      sm:max-w-3xl
-                      sm:mx-auto
-                    "
-                  />
-                </div>
-
-                <div className="absolute inset-x-0 bottom-0 p-6 bg-linear-to-t from-black/80 to-transparent">
+                              <div className="absolute inset-x-0 bottom-0 p-6 bg-linear-to-t from-black/80 to-transparent">
                   <div className="flex justify-between items-center">
                     <span className="px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold">
                       {currentHoliday.type}
                     </span>
+                  
                   </div>
                 </div>
-              </div>
-            </motion.div>
+                            </div>
+                        </div>
 
-            {/* BUTTON */}
-            <motion.div variants={fadeUp} className="text-center">
-              <button
-                onClick={() =>
-                  window.open(
-                    IMAGE_URL + currentHoliday.image,
-                    "_blank"
-                  )
-                }
-                className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
-              >
-                View Full Schedule
-              </button>
-            </motion.div>
-
-          </div>
-        ) : (
-          <motion.div
-            variants={fadeUp}
-            className="text-center py-20"
-          >
-            <h3 className="text-2xl font-semibold text-gray-700">
-              No holiday available
-            </h3>
-          </motion.div>
-        )}
-      </motion.div>
+                        <div className="text-center">
+                            <button
+                                onClick={() =>
+                                    window.open(
+                                        IMAGE_URL + currentHoliday.image,
+                                        "_blank"
+                                    )
+                                }
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
+                            >
+                                View Full Schedule
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="text-center py-20">
+                        <h3 className="text-2xl font-semibold text-gray-700">
+                            No holiday available
+                        </h3>
+                    </div>
+                )}
+            </div>
     </div>
   );
 };

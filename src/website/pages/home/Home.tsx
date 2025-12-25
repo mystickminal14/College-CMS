@@ -8,7 +8,6 @@ import { JoinStudents } from "./components/JoinStudents";
 import { Testimonial } from "./alumnis/Testimonial";
 import { EmailSubscribe } from "./components/EmailSubscribe";
 import BlogSection from "./components/BlogSection";
-import Events from "./components/EventSection";
 import RecentNews from "./components/RecentNews";
 import SubFooter from "./components/SubFooter";
 import { useEffect, useState } from "react";
