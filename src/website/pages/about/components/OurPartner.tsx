@@ -14,7 +14,7 @@ const partners = [
 
 const PartnerSection = () => {
   return (
-    <section className="py:8 md:py-12 bg-white">
+    <section className="py:12 md:py-12 bg-white">
       <div className="text-center mb-10">
         <p className="text-blue-600 text-sm mb-2">Partner Institution</p>
         <h2 className="text-4xl md:text-5xl  font-bold line-height-1 text-gray-900 mb-3">
@@ -39,7 +39,7 @@ const PartnerSection = () => {
       <img
         src={partner.image}
         alt={partner.name}
-        className="w-full max-w-[180px] h-auto md:w-[200px] md:h-20 object-contain"
+        className="w-full max-w-[180px] h-auto md:w-[200px]  object-cover"
       />
     </div>
   ))}

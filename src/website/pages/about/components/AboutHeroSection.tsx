@@ -1,5 +1,6 @@
 import HeroImages from '../../../../assets/decoration/AboutHero.jpg'
 import butterfiles from '../../../../assets/butterfiles.png'
+import { FlipText } from '../../home/utils/FlipText';
 
 const ABoutHeroSection = () => {
   return (
@@ -10,20 +11,31 @@ const ABoutHeroSection = () => {
           <span className="ml-3 uppercase">About Us</span>
         </div>
 
-        <h1 className="mb-10 text-3xl font-bold text-gray-800 uppercase md:text-4xl">
-          Leading, Boldness, Effectiveness,   <span
-            className=" relative text-blue-600"
-          >
-            <span className="absolute h-[2vh] w-[2vw] left-[-1vw] -top-[1vw]">
-              <img src={butterfiles} alt="Butterflies" />
+        <h1 className="
+  mb-6 sm:mb-8 md:mb-10
+  text-2xl  md:text-4xl
+  font-bold text-gray-800 uppercase
+  leading-tight sm:leading-snug md:leading-tight
+  flex flex-wrap items-center gap-x-2 gap-y-1
+">
+          <FlipText text="Leading, " />
+          <FlipText text="Boldness, " />
+          <FlipText text="Effectiveness, " />
+
+          <span className="relative text-blue-600 inline-flex items-center">
+            <span className="absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8">
+              <img src={butterfiles} alt="Butterflies" className="w-full h-full" />
             </span>
-            Futuristic
-          </span> Thinking
+            <FlipText text="Futuristic, " />
+          </span>
+
+          <FlipText text="Thinking" />
         </h1>
+
 
         {/* Image Container with Rounded Left Corner */}
         <div className=" mb-5 overflow-hidden " style={{
-          borderTopLeftRadius:'96px'
+          borderTopLeftRadius: '96px'
         }}>
           <img
             src={HeroImages} // Replace with your actual image URL

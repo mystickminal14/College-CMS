@@ -1,15 +1,29 @@
 import { ArrowRight, Users2 } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import about from '../../../../assets/decoration/about.jpg'
+import about from '../../../../assets/decoration/about.jpg';
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
 export default function AboutSection() {
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
   return (
-    <div className=" bg-linear-to-br from-blue-50 to-white">
-      <div className="container mx-auto px-4 py-8 lg:py-24">
+    <div className="bg-linear-to-br from-blue-50 to-white overflow-x-hidden"> {/* ← Only this class added */}
+      <div className="container mx-auto px-4 py-8 lg:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-8 lg:gap-16 items-center">
           {/* Left Side - Image with Overlaid Stats */}
-          <div className="relative flex items-center justify-center">
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative flex items-center justify-center"
+          >
             {/* Main Image */}
-            <div className="relative rounded-3xl overflow-hidden w-full h-full md:h-150 aspect-square max-w-md">
+            <div className="relative rounded-3xl overflow-hidden w-full h-full md:h-140 aspect-square max-w-md">
               <img
                 src={about}
                 alt="LBEF Community"
@@ -17,33 +31,58 @@ export default function AboutSection() {
               />
             </div>
 
-            <div className=" absolute top-[1vw] right-[4vw] hidden 2xl:flex flex-col gap-4 px-6 translate-y-1/2 flex-1 bg-white rounded-2xl p-6 shadow-lg">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="absolute top-[1vw] right-[4vw] hidden 2xl:flex flex-col gap-4 px-6 translate-y-1/2 flex-1 bg-white rounded-2xl p-6 shadow-lg"
+            >
               <div className="flex items-center gap-3 mb-3">
                 <Users2 />
               </div>
               <div className="text-gray-600 text-2xl">25+ Years</div>
               <div className="font-bold text-gray-900">Excellence</div>
-            </div>
+            </motion.div>
 
             {/* Success Stories Card */}
-            <div className="absolute bottom-[10vw] left-[4vw] hidden 2xl:flex flex-col gap-4 px-6 translate-y-1/2 flex-1 bg-blue-600 text-white rounded-2xl p-6 shadow-lg">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              className="absolute bottom-[10vw] left-[4vw] hidden 2xl:flex flex-col gap-4 px-6 translate-y-1/2 flex-1 bg-blue-600 text-white rounded-2xl p-6 shadow-lg"
+            >
               <div className="flex items-center gap-3 mb-3">
                 <Users2 />
               </div>
               <div className="text-blue-100 text-2xl">15000+</div>
               <div className="font-bold">Success Stories</div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Side - Content */}
-          <div className="mt-24 lg:mt-0">
+          <motion.div
+            initial={{ opacity: 0, x: 80 }}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 80 }}
+            transition={{ duration: 0.9, ease: "easeOut", staggerChildren: 0.2 }}
+            className="mt-24 lg:mt-0"
+          >
             {/* Label */}
-            <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="mb-6"
+            >
               <span className="text-sm font-medium text-blue-600">About LBEF</span>
-            </div>
+            </motion.div>
 
             {/* Main Heading */}
-            <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
+            <motion.h1
+              initial={{ opacity: 0, x: 60 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+              className="text-4xl lg:text-5xl font-bold leading-tight mb-6"
+            >
               One Platform. Infinite{" "}
               <span className="relative inline-block text-[#474AFF]">
                 Learning
@@ -55,35 +94,55 @@ export default function AboutSection() {
               </span>
               <br />
               Possibilities.
-            </h1>
+            </motion.h1>
 
-            {/* Description */}
-            <p className="text-gray-600 text-base leading-relaxed mb-4">
+            {/* Description Paragraphs */}
+            <motion.p
+              initial={{ opacity: 0, x: 40 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+              className="text-gray-600 text-base leading-relaxed mb-4"
+            >
               At LBEF, we believe quality education should be accessible, engaging,
               and empowering for everyone, everywhere.
-            </p>
+            </motion.p>
 
-            <p className="text-gray-600 text-base leading-relaxed mb-8">
+            <motion.p
+              initial={{ opacity: 0, x: 40 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              className="text-gray-600 text-base leading-relaxed mb-8"
+            >
               Lord Buddha Education Foundation (LBEF) College, established in Midhevel,
               Kathmandu, is a non-governmental, non-profit institution within the LBEF
               Group of Institutions. Since its founding, LBEF has grown steadily, educating
               thousands of students, with over 13,000 graduates to date.
-            </p>
+            </motion.p>
 
-            <p className="text-gray-600 text-base leading-relaxed mb-8">
+            <motion.p
+              initial={{ opacity: 0, x: 40 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
+              className="text-gray-600 text-base leading-relaxed mb-8"
+            >
               Through a proud alliance with the Asia Pacific University of Technology &
               Innovation (APU), and approval from Nepal's Ministry of Education and
               recognition by Tribhuvan University, LBEF offers diverse Bachelor and
               Master-level programs. Our wide-ranging academic disciplines inspire
               students and entrepreneurs alike.
-            </p>
+            </motion.p>
 
             {/* CTA Button */}
-            <button className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+            <motion.button
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200"
+            >
               Learn More About Us
               <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       </div>
     </div>
