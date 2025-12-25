@@ -105,7 +105,7 @@ export function MissionSection() {
           initial={{ opacity: 0, scale: 0.7, x: 100, rotate: 60 }}
           animate={inView ? { opacity: 1, scale: 1, x: 0, rotate: 45 } : { opacity: 0, scale: 0.7, x: 100, rotate: 60 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="absolute -rotate-45  top-[8%] right-[35%] 2xl:top-[23%]"
+          className="absolute -rotate-45  top-[8%] right-[35%] [@media(min-width:1600px)]:top-[23%]"
         >
           <Diamond src={top_mission} />
         </motion.div>
@@ -114,7 +114,7 @@ export function MissionSection() {
           initial={{ opacity: 0, scale: 0.7, x: 100, rotate: 60 }}
           animate={inView ? { opacity: 1, scale: 1, x: 0, rotate: 45 } : { opacity: 0, scale: 0.7, x: 100, rotate: 60 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="absolute -rotate-45  top-[34%] right-[60%] 2xl:top-[40%]"
+          className="absolute -rotate-45  top-[34%] right-[60%] [@media(min-width:1600px)]:top-[40%]"
         >
           <Diamond src={middle_mission} />
         </motion.div>
@@ -123,7 +123,7 @@ export function MissionSection() {
           initial={{ opacity: 0, scale: 0.7, x: 100, rotate: 60 }}
           animate={inView ? { opacity: 1, scale: 1, x: 0, rotate: 45 } : { opacity: 0, scale: 0.7, x: 100, rotate: 60 }}
           transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
-          className="absolute -rotate-45 top-[60%] right-[35%] 2xl:top-[58%]"
+          className="absolute -rotate-45 top-[60%] right-[35%] [@media(min-width:1600px)]:top-[58%]"
         >
           <Diamond src={bottom_mission} />
         </motion.div>
@@ -135,7 +135,7 @@ export function MissionSection() {
           animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
           transition={{ duration: 1.2, delay: 0.9, ease: "easeOut" }}
           className="absolute right-0 top-1/2 -translate-y-1/2
-                     w-40 md:w-[220px] lg:w-[280px]"
+                     w-40 md:w-[220px] lg:w-[280px] [@media(min-width:1600px)]:top-[52%]"
         />
       </div>
     </section>
