@@ -173,12 +173,12 @@ const RecentNews = () => {
         )}
 
         {/* Read More */}
-        <div className="flex justify-center mt-12">
+        {/* <div className="flex justify-center mt-12">
           <button className="px-8 py-3 border-2 border-[#474AFF] text-[#474AFF] font-semibold rounded-full hover:bg-[#474AFF] hover:text-white transition"
             onClick={() => navigate('media/news-events')}>
             Read More
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Hide scrollbar */}
