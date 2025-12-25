@@ -194,7 +194,7 @@ const HorizontalScrollCarousel = ({ courses, onView }: { courses: Courses[]; onV
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
 
-  const cardWidth = 384;
+  const cardWidth = 380;
   const gap = 24;
   const totalWidth = courses.length * (cardWidth + gap) - gap;
   const viewportWidth = window.innerWidth;
@@ -202,7 +202,7 @@ const HorizontalScrollCarousel = ({ courses, onView }: { courses: Courses[]; onV
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ['0%', `-${totalWidth - viewportWidth + 200}px`]
+    ['0%', `-${totalWidth - viewportWidth + 240}px`]
   );
 
   return (

@@ -5,17 +5,14 @@ const ABoutHeroSection = () => {
   return (
     <section className="py-10 bg-white md:py-15">
       <div className="max-w-8xl px-4 md:px-15 md:pl-18 mx-auto">
-        {/* Breadcrumb / Section Label */}
         <div className="flex items-center mb-4 text-sm text-gray-600">
           <span className="w-12 border-t border-gray-400"></span>
           <span className="ml-3 uppercase">About Us</span>
         </div>
 
-        {/* Main Heading */}
         <h1 className="mb-10 text-3xl font-bold text-gray-800 uppercase md:text-4xl">
           Leading, Boldness, Effectiveness,   <span
             className=" relative text-blue-600"
-            
           >
             <span className="absolute h-[2vh] w-[2vw] left-[-1vw] -top-[1vw]">
               <img src={butterfiles} alt="Butterflies" />
