@@ -6,7 +6,7 @@ import bg1 from '../../../../assets/demo.jpg';
 
 export function JoinStudents() {
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
 
@@ -41,7 +41,7 @@ export function JoinStudents() {
             </div>
 
             {/* Bottom Image Container */}
-            <div className="absolute -bottom-28 sm:-bottom-40 left-1/3 sm:left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-60">
+            <div className="absolute -bottom-16 left-1/3 sm:left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-60">
               <div
                 className="w-36 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-80 lg:h-105 rounded-3xl overflow-hidden shadow-2xl"
                 style={{
