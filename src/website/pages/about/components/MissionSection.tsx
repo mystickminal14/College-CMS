@@ -97,7 +97,7 @@ export function MissionSection() {
         className="
           hidden lg:block
           absolute right-0 top-1/2 -translate-y-1/2
-          w-[42vw] max-w-[560px] h-[85vh]
+          w-[42vw] max-w-[560px] h-[85vh] [@media(min-width:1600px)]: max-w-[700px]
           overflow-hidden pointer-events-none
         "
       >
