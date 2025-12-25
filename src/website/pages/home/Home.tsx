@@ -71,7 +71,7 @@ export function HomePage() {
               >
                 <Testimonial />
                 <BlogSection />
-                <Events />
+                {/* <Events /> */}
                 <RecentNews />
                 <EmailSubscribe />
                 <SubFooter /></motion.div></motion.div>
@@ -90,7 +90,7 @@ export function HomePage() {
           {/* <LatestInslight /> */}
           {/* <OurPartners /> */}
           <BlogSection />
-          <Events />
+          {/* <Events /> */}
           <RecentNews />
           <EmailSubscribe />
           <SubFooter /></>
