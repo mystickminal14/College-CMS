@@ -1,3 +1,4 @@
+import React from "react";
 import { BlockType, type CourseDetailBlock } from "../model/CourseDetailModel";
 
 interface Props {
@@ -5,16 +6,26 @@ interface Props {
   sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>>;
 }
 
+/* 🎨 Alternating background colors for HEADING sections */
+const headingBgColors = [
+  "bg-blue-50",
+  "bg-green-50",
+  "bg-purple-50",
+];
+
 const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
   return (
     <div className="space-y-8">
       {blocks
         ?.slice()
         .sort((a, b) => a.order - b.order)
-        .map(block => {
+        .map((block, index) => {
           switch (block.type) {
             /* ================= HEADING ================= */
-            case BlockType.HEADING:
+            case BlockType.HEADING: {
+              const bgColor =
+                headingBgColors[index % headingBgColors.length];
+
               return (
                 <section
                   key={block.id}
@@ -22,12 +33,12 @@ const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
                   ref={el => {
                     sectionRefs.current[`heading-${block.id}`] = el;
                   }}
-                  className="mb-10 scroll-mt-24 pt-4"
+                  className={`mb-12 scroll-mt-24 pt-6 px-6 rounded-2xl ${bgColor}`}
                 >
                   <div className="relative">
                     {/* Left accent line */}
                     <div className="absolute -left-4 top-0 bottom-0 w-1 bg-linear-to-b from-blue-500 to-blue-400 rounded-full" />
-                    
+
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 ml-3 mb-6">
                       <span className="bg-linear-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
                         {block.title}
@@ -45,6 +56,7 @@ const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
                   )}
                 </section>
               );
+            }
 
             /* ================= SUBHEADING ================= */
             case BlockType.SUBHEADING:
@@ -55,7 +67,7 @@ const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
                   ref={el => {
                     sectionRefs.current[`subheading-${block.id}`] = el;
                   }}
-                  className="mb-4 scroll-mt-24 pt-2"
+                  className="mb-6 scroll-mt-24 pt-2"
                 >
                   <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
                     <span className="text-blue-600 mr-2">#</span>
@@ -82,7 +94,7 @@ const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
               return (
                 <p
                   key={block.id}
-                  className="text-gray-700 mb-3 leading-relaxed text-base md:text-lg"
+                  className="text-gray-700 mb-4 leading-relaxed text-base md:text-lg"
                 >
                   {content}
                 </p>
@@ -94,7 +106,7 @@ const CourseDetailRenderer = ({ blocks, sectionRefs }: Props) => {
               return (
                 <ul
                   key={block.id}
-                  className="space-y-3 mb-3 text-gray-700"
+                  className="space-y-3 mb-4 text-gray-700"
                 >
                   {(block.content ?? []).map((item, idx) => (
                     <li key={idx} className="flex items-start">

@@ -127,14 +127,14 @@ export function NavBar() {
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ?? ""}`}>
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
-       <div className="flex gap-2">
-         <NavLink to="/" className="w-20 md:w-24 cursor-pointer">
-          <img src={logo} alt="LBEF Logo" />
-        </NavLink>
-<NavLink to="/" className="w-40  md:w-44 cursor-pointer">
-          <img src={apuLogo} alt="LBEF Logo" className=" " />
-        </NavLink>
-       </div>
+        <div className="flex gap-2">
+          <NavLink to="/" className="w-20 md:w-24 cursor-pointer">
+            <img src={logo} alt="LBEF Logo" />
+          </NavLink>
+          <NavLink to="/" className="w-40  md:w-44 cursor-pointer">
+            <img src={apuLogo} alt="LBEF Logo" className=" " />
+          </NavLink>
+        </div>
         {/* Desktop Menu */}
         <nav className="hidden lg:flex items-center gap-1">
           {menuItems.map((item) =>
@@ -155,8 +155,8 @@ export function NavBar() {
 
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${activeDropdown === item.name
-                      ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-2"
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2"
                     }`}
                 >
                   <div

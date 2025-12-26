@@ -1,12 +1,12 @@
 import { IMAGE_URL } from "../../../constants";
-import type { Recognitions } from "../model/HolidayModel";
+import type { Holidays } from "../model/HolidayModel";
 import img from "../../../assets/applogo.png";
 
-export const RecognitionsColumns = [
+export const HolidaysColumns = [
   {
     label: "Image",
-    accessor: "image" as keyof Recognitions,
-    render: (row: Recognitions) => {
+    accessor: "image" as keyof Holidays,
+    render: (row: Holidays) => {
       const defaultAvatar = img;
 
       const hasImage = row.image && row.image !== "";

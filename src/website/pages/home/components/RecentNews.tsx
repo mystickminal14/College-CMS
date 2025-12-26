@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import decoration from "../../../../assets/decoration.png";
 import { IMAGE_URL } from "../../../../constants";
 import useGetNews from "../../../../pages/news/hooks/useGetAllNews";
-import { useNavigate } from 'react-router-dom';
 
 const RecentNews = () => {
   const { data, isLoading, isError } = useGetNews({
@@ -28,7 +27,6 @@ const RecentNews = () => {
     if (window.innerWidth >= 768) return 2;
     return 1;
   };
-  const navigate = useNavigate()
 
   const checkScroll = () => {
     if (!scrollRef.current) return;
