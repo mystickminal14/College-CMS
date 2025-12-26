@@ -4,7 +4,6 @@ import { MdMenu, MdClose } from "react-icons/md";
 import { IoMoon, IoSunny } from "react-icons/io5";
 
 import SideBar from "./SideBar";
-import OfflinePage from "../OfflineOverlay";
 import { AppContext } from "../../context/ContextApp";
 
 import appLogo from "../../assets/butterfiles.png";
@@ -12,7 +11,6 @@ const AppLayout: React.FC = () => {
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
 
-  const { isOnline } = appContext;
 
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
