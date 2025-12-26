@@ -1,5 +1,5 @@
-import { Play } from "lucide-react";
 import image from '../../../../assets/youtube_background.png'
+import VideoPopup from "./VideoPopup";
 export function VideoSection() {
   return (
     <section className="relative h-[45vh] sm:h-[60vh] flex items-center justify-center overflow-hidden">
@@ -33,29 +33,9 @@ export function VideoSection() {
               <i className="fa-solid fa-arrow-right transition-transform group-hover:translate-x-2" />
             </button> */}
           </div>
+          <VideoPopup />
 
-          {/* Right Content */}
-          <div className="flex flex-col items-center justify-center gap-3 md:gap-6 md:w-[40%]">
-            <a
-              href="https://www.youtube.com/watch?v=eibpVkSHOqU"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center"
-            >
-              <div className="relative flex items-center justify-center">
-                {/* Ripple */}
-                <span className="absolute w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-white opacity-40 animate-[ripple_1.2s_ease-out_infinite]" />
-
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
-                  <Play className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600 ml-1" fill="currentColor" />
-                </div>
-              </div>
-            </a>
-
-            <span className="text-sm md:top-20 sm:text-lg font-medium">
-              Watch Now
-            </span>
-          </div>
+          
         </div>
       </div>
     </section>
