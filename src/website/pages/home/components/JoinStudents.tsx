@@ -2,11 +2,14 @@ import girlWithCup from "../../../../assets/gril_with_cup.png"
 import girlwithThinking from "../../../../assets/girl_with_thinking.png"
 import { CheckCircle, Users, Video } from "lucide-react"
 import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/demo.jpg';
+import bg1 from '../../../../assets/decoration/background.png';
 
 export function JoinStudents() {
   return (
-    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-4 px-4 sm:px-6 lg:px-20 " style={{
+      backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`
+      , backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed'
+    }}>
       <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
 
@@ -43,7 +46,7 @@ export function JoinStudents() {
             {/* Bottom Image Container */}
             <div className="absolute -bottom-16 left-1/3 sm:left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-60">
               <div
-                className="w-36 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-80 lg:h-105 rounded-3xl overflow-hidden shadow-2xl"
+                className="w-36 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-80 lg:h-105 rounded-3xl overflow-hidden shadow-2xl border-8 border-white"
                 style={{
                   borderTopLeftRadius: "180px",
                   borderBottomRightRadius: "200px",
@@ -94,7 +97,7 @@ export function JoinStudents() {
               Journey Today!
             </h2>
 
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto lg:mx-0">
+            <p className="text-sm sm:text-base md:text-lg text-black mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto lg:mx-0">
               Become a part of our vibrant learning community and grow your skills
               with expert-led courses. As a student, you'll access interactive
               lessons, connect with global learners, and build knowledge that
@@ -107,7 +110,7 @@ export function JoinStudents() {
                   "Flexible Learning Schedule",
                   "Access to Expert Instructors",
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-gray-700">
+                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-black">
                     <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
                       <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#474AFF]" strokeWidth={3} />
                     </div>
@@ -121,7 +124,7 @@ export function JoinStudents() {
                   "Career-Focused Courses",
                   "Competitive Environment",
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-gray-700">
+                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-black">
                     <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
                       <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#474AFF]" strokeWidth={3} />
                     </div>
@@ -132,9 +135,9 @@ export function JoinStudents() {
             </div>
 
             <div className="flex justify-center lg:justify-start">
-              <a 
-                className="bg-[#474AFF] hover:bg-blue-700 text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" 
-                href="https://apply.lbef.org/" 
+              <a
+                className="bg-[#474AFF] hover:bg-blue-700 text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                href="https://apply.lbef.org/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -24,13 +24,11 @@ export function EmailSubscribe() {
 
           <div className="relative z-10 py-16 lg:py-24 px-8 lg:px-16 text-center">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Join us now <br />
-              Evolve with Us
+              Join Our Academic  <br />Community
             </h2>
 
             <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-              Stay informed with the latest news, insights, and updates<br />
-              delivered straight to your inbox
+              Have questions about courses, eligibility, or admission process? Enquire now and our team will assist you.
             </p>
 
             {/* Email Form */}

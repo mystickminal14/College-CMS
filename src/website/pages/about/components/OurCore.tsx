@@ -5,7 +5,7 @@ import imageone from '../../../../assets/core/pankag.png'
 import imagetwo from '../../../../assets/core/prakash.png'
 import imagethree from '../../../../assets/core/Datuk Paramjeet Singh.png'
 import imagefour from '../../../../assets/core/Prof. Dr. Ho Chin Kuan.png'
-import bg1 from '../../../../assets/demo.jpg';
+import bg1 from '../../../../assets/decoration/background.png';
 
 
 
@@ -116,7 +116,7 @@ export default function OurCore() {
   }, []);
 
   return (
-    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <div className="text-center mb-6">

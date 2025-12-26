@@ -2,11 +2,11 @@ import appMockup from '../../../../assets/mobileapp.png';
 import decoration from '../../../../assets/decoration.png';
 import playstore from '../../../../assets/playstore.png'
 import apple from '../../../../assets/apple.png'
-import bg1 from '../../../../assets/demo.jpg';
+import bg1 from '../../../../assets/decoration/background.png';
 
 export default function CollegeAppSection() {
   return (
-    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* TOP: Title + Paragraph */}

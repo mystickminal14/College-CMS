@@ -12,6 +12,7 @@ import PartnerSection from "./components/OurPartner";
 import StartJourney from "./components/StartJourney";
 import StatusSection from "./components/StatusSection";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Inspiration from "../our-team/component/inspiration";
 
 
 export function AboutPage() {
@@ -34,6 +35,8 @@ export function AboutPage() {
       {!isMobile ? (
         <div className="relative">
           <ABoutHeroSection />
+          <Inspiration />
+
           <MissionSection />
           <VideoSection />
           <StatusSection />
@@ -75,6 +78,8 @@ export function AboutPage() {
         </div>
       ) : (
         <> <ABoutHeroSection />
+          <Inspiration />
+
           <MissionSection />
           <VideoSection />
           <StatusSection />

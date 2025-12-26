@@ -3,7 +3,7 @@ import decoration from "../../../../assets/decoration.png";
 import Blog_Image_One from "../../../../assets/blog/blog_images.jpg";
 import Blog_Image_Two from "../../../../assets/blog/blog_images_two.jpg";
 
-import bg1 from '../../../../assets/demo.jpg';
+import bg1 from '../../../../assets/decoration/background.png';
 
 export default function Index() {
   const blogPosts = [
@@ -30,7 +30,7 @@ export default function Index() {
   ];
 
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(#EDEEFF94, #EDEEFF94), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="container mx-auto px-8 sm:px-24  py-10 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-6  items-center">
 
@@ -53,7 +53,7 @@ export default function Index() {
               Of Learning
             </h1>
 
-            <p className="text-gray-600 text-base sm:text-lg max-w-lg">
+            <p className="text-black text-base sm:text-lg max-w-lg">
               Stay informed, inspired, and ahead of the curve with expert
               articles, study tips, industry updates, and real success stories.
             </p>
@@ -92,7 +92,7 @@ export default function Index() {
                     {post.title}
                   </h3>
 
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-3">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-black mb-3">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {post.date}
@@ -103,7 +103,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-sm text-black leading-relaxed">
                     {post.description}
                   </p>
                 </div>

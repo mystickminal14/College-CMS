@@ -20,7 +20,7 @@ export function VideoSection() {
           {/* Left Content */}
           <div className="flex flex-col text-center md:text-left md:w-[55%]">
             <p className="text-xs sm:text-sm md:text-base font-medium mb-2 tracking-wider opacity-90">
-              Join Our New Session
+              The First IT College of Nepal
             </p>
 
             <h1 className="text-2xl sm:text-3xl md:text-[55px] font-bold leading-snug md:leading-tight mb-4">
@@ -28,10 +28,10 @@ export function VideoSection() {
               <span className="block mt-1 sm:mt-2">LBEE Campus</span>
             </h1>
 
-            <button className="mx-auto md:mx-0 w-fit px-6 sm:px-10 py-3 sm:py-5 bg-[#3040E5] text-white font-medium text-sm sm:text-lg rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center gap-3">
-              Join With Us
+            {/* <button className="mx-auto md:mx-0 w-fit px-6 sm:px-10 py-3 sm:py-5 bg-[#3040E5] text-white font-medium text-sm sm:text-lg rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center gap-3">
+              Watch Now
               <i className="fa-solid fa-arrow-right transition-transform group-hover:translate-x-2" />
-            </button>
+            </button> */}
           </div>
 
           {/* Right Content */}

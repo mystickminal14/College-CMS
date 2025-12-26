@@ -3,13 +3,13 @@ import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 import logo from '../../../../assets/pcpsLogo.png';
 import useGetNameAll from '../../../../pages/courses/hooks/useGetCourseName';
 import { NavLink } from 'react-router-dom';
-
+import bg1 from '../../../../assets/decoration/footer_background.png'
 const Footer = () => {
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
 
   return (
-    <footer className="bg-[#FCFCFF] text-black w-full shadow-[#00000033]">
+    <footer className="bg-[#FCFCFF] text-black w-full shadow-[#00000033]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'bottom'}}>
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-8 sm:py-10 lg:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 max-w-full">
           
