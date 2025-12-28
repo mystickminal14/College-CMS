@@ -6,14 +6,27 @@ import bg1 from '../../../../assets/decoration/background.png';
 
 export default function CollegeAppSection() {
   return (
-    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-4 px-4 sm:px-6 lg:px-20" style={{
+      backgroundImage: `
+          linear-gradient(
+            to right,
+            rgba(0, 102, 255, 0.8),
+            rgba(0, 102, 255, 0.8)
+          ),
+          url(${bg1})
+        `,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed',
+    }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* TOP: Title + Paragraph */}
         <div className="text-center max-w-5xl mx-auto mb-5 ">
-          <h1 className="text-3xl sm:text-5xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-5xl font-bold text-white mb-6">
             Our College{" "}
-            <span className="relative inline-block text-[#474AFF]">
+            <span className="relative inline-block text-white">
               Apps
               <img
                 src={decoration}
@@ -23,7 +36,7 @@ export default function CollegeAppSection() {
             </span>
           </h1>
 
-          <p className="text-gray-600 text-base leading-relaxed">
+          <p className="text-white text-base leading-relaxed">
             LBEF Evolve is built to simplify student life. From college updates and academic resources to important notifications, everything you need is just a tap away. Stay connected, stay informed, and evolve with LBEF.
           </p>
         </div>
@@ -42,11 +55,11 @@ export default function CollegeAppSection() {
 
           {/* RIGHT: Download Section */}
           <div className="space-y-6 text-center lg:text-left">
-            <h3 className="text-2xl font-bold text-[#474AFF]">
+            <h3 className="text-2xl font-bold text-white">
               LBEF EVOLVE
             </h3>
 
-            <p className="text-xl font-semibold text-gray-900">
+            <p className="text-xl font-semibold text-white">
               DOWNLOAD APP NOW
             </p>
 

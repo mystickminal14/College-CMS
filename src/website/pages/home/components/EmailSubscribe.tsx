@@ -1,15 +1,14 @@
 import { Mail } from 'lucide-react';
-
-import leftSideGirl from "../../../../assets/girl_left_side.png"
-import rightSideGirl from "../../../../assets/right_side_girl.png"
-
+import  background from '../../../../assets/decoration/AboutHero.jpg';
 export function EmailSubscribe() {
   return (
-    <section className="py-20 px-6 lg:px-40">
-      <div className="max-w-8xl mx-auto">
-        <div className="relative bg-[#474AFF] rounded-3xl overflow-hidden shadow-2xl">
+    <section className="py-20">
+      <div className="max-w-8xl mx-auto bg-[#474AFF]">
+        <div className="relative   overflow-hidden shadow-2xl bg-cover bg-center bg-no-repeat" style={{
+          backgroundImage: `url(${background})`,
+        }}>
           {/* Background Students - Hidden below 1300px */}
-          <div className="absolute inset-0 flex justify-between items-center pointer-events-none max-[1299px]:hidden">
+          {/* <div className="absolute inset-0 flex justify-between items-center pointer-events-none max-[1299px]:hidden">
             <img
               src={leftSideGirl}
               alt="Happy student"
@@ -20,9 +19,12 @@ export function EmailSubscribe() {
               alt="Confident student"
               className="-mr-20 w-150 h-full object-cover object-center"
             />
-          </div>
+          </div> */}
 
-          <div className="relative z-10 py-16 lg:py-24 px-8 lg:px-16 text-center">
+          <div className="relative z-10 py-16 lg:py-24 px-8 lg:px-16 text-center opacity-80" style={{
+            backgroundColor: "#474AFF", // deep blue
+
+          }}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Join Our Academic  <br />Community
             </h2>
