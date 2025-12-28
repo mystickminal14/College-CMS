@@ -81,30 +81,21 @@ export default function OurCore() {
   }, []);
 
   return (
-    <section
-      className="py-4 px-4 sm:px-6 lg:px-20"
-      style={{
-        backgroundImage: `
-          linear-gradient(
-            to right,
-            rgba(0, 102, 255, 0.8),
-            rgba(0, 102, 255, 0.8)
-          ),
-          url(${bg1})
-        `,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
-    >
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
+      {/* Background Image with overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+        style={{ backgroundImage: `url(${bg1})` }}
+      />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
+
+      <div className="relative max-w-7xl mx-auto">
         {/* Title */}
         <div className="text-center mb-6">
           <p className="text-white text-lg font-medium mb-2">
             Meet Our Leads
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-[white]">
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
             Messages from{' '}
             <span className="relative inline-block text-white">
               Our Leads
@@ -123,8 +114,7 @@ export default function OurCore() {
           {canScrollLeft && (
             <button
               onClick={() => scrollByAmount('left')}
-              className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10
-                bg-white rounded-full p-3 shadow-lg"
+              className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg"
             >
               <ChevronLeft className="w-8 h-8 text-gray-700" />
             </button>
@@ -134,8 +124,7 @@ export default function OurCore() {
           {canScrollRight && (
             <button
               onClick={() => scrollByAmount('right')}
-              className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 z-10
-                bg-white rounded-full p-3 shadow-lg"
+              className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg"
             >
               <ChevronRight className="w-8 h-8 text-gray-700" />
             </button>
@@ -159,30 +148,24 @@ export default function OurCore() {
                 className="
                   shrink-0 relative pl-10
                   w-80 md:w-96
-                  bg-white rounded-2xl shadow-md
+                  bg-white rounded-2xl shadow-lg
                   transition-transform hover:scale-105
                 "
               >
-                <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
-                  <div className="w-20 h-20 rounded-full absolute top-5 -left-5 z-20
-                    overflow-hidden border-4 border-[#474AFF]"
-                  >
+                <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6 relative">
+                  <div className="w-20 h-20 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-[#474AFF]">
                     <img
                       src={lead.image}
                       alt={lead.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div>
+                  <div className="ml-24">
                     <h3 className="font-bold text-lg text-gray-900">
                       {lead.name}
                     </h3>
-                    <p className="text-lg text-gray-600">
-                      {lead.position}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {lead.institution}
-                    </p>
+                    <p className="text-lg text-gray-600">{lead.position}</p>
+                    <p className="text-sm text-gray-500">{lead.institution}</p>
                   </div>
                 </div>
 
