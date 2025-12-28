@@ -1,5 +1,5 @@
-export const BASE_URL = 'http://localhost:8000/api';
-export const IMAGE_URL = 'http://localhost:8000';
+export const BASE_URL = 'https://evolve.mssn.org.np/api';
+export const IMAGE_URL = 'https://evolve.mssn.org.np';
 export const PAGE_LIMIT = 10;
 export const LOGIN_CACHE_KEY = 'login';
 export const USER_CACHE_KEY = 'users';
