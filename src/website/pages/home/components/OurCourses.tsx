@@ -10,7 +10,6 @@ import CourseMiniCard from '../../programs/comp/CourseCard';
 import { FlipText } from '../utils/FlipText';
 import { motion, useTransform, useScroll } from "framer-motion";
 
-
 export function OurCourses() {
   const { data, isLoading } = useGetAll();
   const courses = data?.data || [];
@@ -32,7 +31,10 @@ export function OurCourses() {
   };
 
   return (
-    <section className="py-10 px-4 sm:px-6 lg:px-20 bg-[#0066FF0A]">
+    <section className="py-10 px-4 sm:px-6 lg:px-20 bg-[#0066FF0A] bg-cover bg-no-repeat bg-center" style={{
+      // backgroundImage: `url(${course_background})`,
+
+    }}>
       <div className="max-w-8xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0E2A46] leading-tight mb-6 md:mb-0 text-center md:text-left">

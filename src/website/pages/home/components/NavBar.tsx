@@ -204,7 +204,7 @@ export function NavBar() {
             to="/enroll"
             className="ml-3 bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold"
           >
-            Enroll Now
+            Enquiry Now
           </NavLink>
         </nav>
 

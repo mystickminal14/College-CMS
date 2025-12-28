@@ -3,16 +3,16 @@ import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 import logo from '../../../../assets/pcpsLogo.png';
 import useGetNameAll from '../../../../pages/courses/hooks/useGetCourseName';
 import { NavLink } from 'react-router-dom';
-
+import bg1 from '../../../../assets/decoration/footer_background.png'
 const Footer = () => {
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
 
   return (
-    <footer className="bg-[#FCFCFF] text-black w-full shadow-[#00000033]">
+    <footer className="bg-[#FCFCFF] text-black w-full shadow-[#00000033]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'bottom' }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-8 sm:py-10 lg:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 max-w-full">
-          
+
           {/* Logo and Contact Info - Takes 3 columns on desktop */}
           <div className="lg:col-span-3 space-y-6">
             <img src={logo} alt="LBEF Logo" className="w-40 sm:w-48 h-16 sm:h-20" />
@@ -22,8 +22,8 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <MdEmail className="w-5 h-5 text-blue-500" />
-                <a 
-                  href="mailto:support@lbef.com" 
+                <a
+                  href="mailto:support@lbef.com"
                   className="hover:text-blue-500 transition-colors text-sm wrap-break-word"
                 >
                   support@lbef.com
@@ -31,8 +31,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <MdPhone className="w-5 h-5 text-blue-500" />
-                <a 
-                  href="tel:+1800123567" 
+                <a
+                  href="tel:+1800123567"
                   className="hover:text-blue-500 transition-colors text-sm"
                 >
                   +1 (800) 123-4567
@@ -59,16 +59,16 @@ const Footer = () => {
             <div className="space-y-4">
               <h3 className="text-black text-lg sm:text-xl font-semibold">Follow Us</h3>
               <div className="flex gap-3 sm:gap-4">
-                <a href="#" className="text-blue-600 hover:text-blue-500 transition-colors">
+                <a href="https://www.facebook.com/lbefcampus" target='_blank' className="text-blue-600 hover:text-blue-500 transition-colors">
                   <FaFacebook className="w-5 h-5 sm:w-6 sm:h-6" />
                 </a>
-                <a href="#" className="text-blue-400 hover:text-blue-500 transition-colors">
+                <a href="https://x.com/LBEF" target='_blank' className="text-blue-400 hover:text-blue-500 transition-colors">
                   <FaTwitter className="w-5 h-5 sm:w-6 sm:h-6" />
                 </a>
-                <a href="#" className="text-pink-500 hover:text-pink-400 transition-colors">
+                <a href="https://www.instagram.com/lbefcollege/" target='_blank' className="text-pink-500 hover:text-pink-400 transition-colors">
                   <FaInstagram className="w-5 h-5 sm:w-6 sm:h-6" />
                 </a>
-                <a href="#" className="text-blue-700 hover:text-blue-600 transition-colors">
+                <a href="https://www.linkedin.com/company/lbefcampus/posts/?feedView=all" target='_blank' className="text-blue-700 hover:text-blue-600 transition-colors">
                   <FaLinkedin className="w-5 h-5 sm:w-6 sm:h-6" />
                 </a>
               </div>
@@ -85,10 +85,10 @@ const Footer = () => {
                     key={course.id}
                     to={`/students-life/${course.title.replace(/ /g, "-")}/${course.id}`}
                     state={{ course }}
-                    className="hover:text-blue-500 block text-sm sm:text-base truncate"
+                    className="hover:text-blue-500 block text-sm sm:text-base "
                     title={`${course.prefix} ${course.title}`}
                   >
-                    <span className="truncate block">{course.prefix} {course.title}</span>
+                    <span className=" block">{course.prefix} {course.title}</span>
                   </NavLink>
                 ))
               ) : (

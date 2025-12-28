@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 
 import decoration from '../../../assets/decoration.png';
-import Inspiration from './component/inspiration';
 import TeamCard from './component/team-card';
 import TeamCardSkeleton from './component/team-skeleton';
 import useGetTeamsByDept from './hook/useGetDepartment';
@@ -11,7 +10,7 @@ import { fadeUp, staggerContainer } from '../../comp/animation';
 
 const OurTeamWeb = () => {
 
-     const { data, isLoading } = useGetTeamsByDept();
+    const { data, isLoading } = useGetTeamsByDept();
     const teamData = data?.data;
     const managementTeam = teamData?.MANAGEMENT || [];
     const administrationTeam = teamData?.ADMINISTRATION || [];
@@ -46,7 +45,7 @@ const OurTeamWeb = () => {
             </span>
             <br />
             <span className="text-gray-900">Behind</span>
-            <span className="text-blue-600"> Academic </span>
+            <span className="text-blue-600">Academic</span>
             <span className="text-gray-900">Excellence</span>
           </h1>
 
@@ -58,7 +57,6 @@ const OurTeamWeb = () => {
         </motion.div>
       </div>
 
-      <Inspiration />
 
       {/* ================= TEAM SECTIONS ================= */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
