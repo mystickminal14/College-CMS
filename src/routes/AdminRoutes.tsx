@@ -24,6 +24,9 @@ import ConnectsPage from "../pages/lbef-connect/LbefConnect";
 import GallerysPage from "../pages/gallery/GalleryPage";
 import DocumentPage from "../pages/docs-required/DocsPage";
 import useMe from "../login/hooks/useMe";
+import JournalsPage from "../pages/journal/JournalPage";
+import JournalDetails from "../pages/journal/JournalDetails";
+import EditorialPage from "../pages/editorial-board/EditorialBoard";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isError } = useMe();
@@ -56,7 +59,7 @@ export const adminRoutes = [
       { path: "course-details/:key/add/:id", element: <AddCourseDetailsPage /> },
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
       { path: "administation/notice", element: <NoticesPage /> },
-        { path: "administation/contact", element: <ContactPage /> },
+      { path: "administation/contact", element: <ContactPage /> },
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
@@ -66,12 +69,15 @@ export const adminRoutes = [
       { path: "media/news", element: <NewsPage /> },
       { path: "media/connect", element: <ConnectsPage /> },
       { path: "media/gallery", element: <GallerysPage /> },
-
       { path: "administation/recognition", element: <RecognitionsPage /> },
       { path: "teams", element: <TeamsPage /> },
       { path: "administation/holiday", element: <HolidaysPage /> },
       { path: "admission/intake", element: <IntakePage /> },
       { path: "admission/docs", element: <DocumentPage /> },
+       { path: "media/journals", element: <JournalsPage /> },
+      { path: "media/journals/:id", element: <JournalDetails /> },
+      { path: "media/editorial-board", element: <EditorialPage /> },
+
 
     ],
   },

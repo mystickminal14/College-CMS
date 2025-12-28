@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://evolve.mssn.org.np/api';
-export const IMAGE_URL = 'https://evolve.mssn.org.np';
+export const BASE_URL = 'http://localhost:8000/api';
+export const IMAGE_URL = 'http://localhost:8000';
 export const PAGE_LIMIT = 10;
 export const LOGIN_CACHE_KEY = 'login';
 export const USER_CACHE_KEY = 'users';
@@ -18,6 +18,10 @@ export const GALLERY_CACHE_KEY = 'gallery';
 export const CONNECT_CACHE_KEY = 'connect';
 export const COURSE_CACHE_KEY = 'courses';
 export const DOCUMENT_CACHE_KEY = 'docs';
+export const JOURNAL_CACHE_KEY = 'journal';
+export const JOURNAL_ISSUE_CACHE_KEY = 'j_isue';
+export const JOURNAL_DETIALS_CACHE_KEY = 'journal_details';
+export const EDITORIAL_CACHE_KEY = 'editorial';
 
 export const COURSE_NAME_CACHE_KEY = 'courses';
 export const TEAM_CACHE_KEY = 'team';

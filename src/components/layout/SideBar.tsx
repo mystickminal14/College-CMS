@@ -56,6 +56,7 @@ const menuItems: MenuItem[] = [
       { id: "downloads", label: "Student Handbook", icon: MdMenuBook },
     ]
   },
+  // 
   { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
   {
     id: "media", 
@@ -63,6 +64,9 @@ const menuItems: MenuItem[] = [
     label: "Lbef Publication", 
     subMenus: [
       { id: "news", label: "News", icon: MdArticle },
+      { id: "journals", label: "Journal", icon: MdArticle },
+      { id: "editorial-board", label: "Editorial Board", icon: MdArticle },
+
       { id: "connect", label: "LBEF Connect", icon: MdGroups },
       { id: "gallery", label: "Photo Gallery", icon: MdPhoto },
 

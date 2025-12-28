@@ -78,7 +78,6 @@ const TeamsPage = () => {
       <TitleBox title="Our Teams" subtitle="Manage your team members" />
 
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
-
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("table")}

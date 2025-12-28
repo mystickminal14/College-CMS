@@ -24,7 +24,6 @@ const LBEFConnectWeb = () => {
     limit: PAGE_LIMIT,
   });
 
-  /* Merge paginated data */
   useEffect(() => {
     if (!data?.data) return;
 

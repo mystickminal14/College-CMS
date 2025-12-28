@@ -12,7 +12,6 @@ import {
 } from "react-icons/fa";
 import logo from "../../../../assets/lbefHd.jpg";
 import apuLogo from "../../../../assets/apu_logo.png";
-
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 
 type DropdownItem = {
@@ -113,10 +112,12 @@ export function NavBar() {
       ],
     },
     {
-      name: "Media",
+      name: "LBEF Publications",
       dropdown: [
         { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
         { name: "Lbef Connect", link: "/media/connect", icon: <FaBook /> },
+        { name: "Journal", link: "/media/journal", icon: <FaBook /> },
+
         { name: "News & Events", link: "/media/news-events", icon: <FaBook /> },
       ],
     },

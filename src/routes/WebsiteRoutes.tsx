@@ -18,6 +18,7 @@ import Gallery from "../website/pages/gallery/Gallery";
 import LBEFConnectWeb from "../website/pages/lbef-connect-web/lbef-connect-web";
 import GyandeepScholasrhip from "../website/pages/admission/Gyandeep";
 import MeritScholarship from "../website/pages/admission/Merit";
+import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -95,6 +96,10 @@ export const websiteRoutes = [
           { path: "photo-gallery", element: <Gallery/> },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <PlaceholderPage pageName="News & Events" /> },
+          { path: "journal", element: <JournalPageWeb /> },
+          { path: "journal/:id", element: <JournalPageWeb /> },
+          { path: "journal/:id/abstract", element: <JournalPageWeb /> },
+
         ],
       },
        {
