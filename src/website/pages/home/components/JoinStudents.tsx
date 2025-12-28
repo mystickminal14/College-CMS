@@ -6,10 +6,25 @@ import bg1 from '../../../../assets/decoration/background.png';
 
 export function JoinStudents() {
   return (
-    <section className="py-4 px-4 sm:px-6 lg:px-20 " style={{
-      backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`
-      , backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed'
-    }}>
+    <section
+      className="py-4 px-4 sm:px-6 lg:px-20"
+      style={{
+        backgroundImage: `
+      linear-gradient(
+        to right,
+        rgba(0, 102, 255, 0.8),
+        rgba(0, 102, 255, 0.8)
+      ),
+      url(${bg1})
+    `,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
+
+
       <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
 
@@ -33,8 +48,8 @@ export function JoinStudents() {
 
               {/* Video Badge */}
               <div className="absolute -bottom-8 sm:-bottom-16 left-1/1 md:left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:-right-10 bg-white rounded-full shadow-xl px-3 sm:px-4 md:px-8 py-2 sm:py-3 md:py-4 flex items-center gap-2 sm:gap-3 md:gap-5 border border-purple-100">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Video className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" />
+                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#474AFF] rounded-full flex items-center justify-center">
+                  <Video className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-white" />
                 </div>
                 <div>
                   <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gray-800">BEST</p>
@@ -61,8 +76,8 @@ export function JoinStudents() {
 
               {/* Students Badge */}
               <div className="absolute -top-12 sm:-top-16 md:-top-20 lg:-top-35 left-5 md:left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 bg-white rounded-full shadow-xl px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 flex items-center gap-2 sm:gap-3 md:gap-5 border border-blue-100">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" />
+                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#474AFF] rounded-full flex items-center justify-center">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-white " />
                 </div>
                 <div>
                   <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gray-800">BEST</p>
@@ -78,13 +93,13 @@ export function JoinStudents() {
           {/* RIGHT SIDE – CONTENT */}
           <div className="text-center mt-10 lg:text-left">
             {/* Badge */}
-            <span className="inline-block px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 bg-[#F5F2FF] text-[#474AFF] text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
+            <span className="inline-block px-4 sm:px-5 md:px-6 py-1.5 sm:py-2  text-white text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
               Join LBEF
             </span>
 
             {/* Main Heading */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4 sm:mb-6">
-              Join as a <span className="relative inline-block text-[#474AFF]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6">
+              Join as a <span className="relative inline-block text-white">
                 Students
                 <img
                   src={decoration}
@@ -97,7 +112,7 @@ export function JoinStudents() {
               Journey Today!
             </h2>
 
-            <p className="text-sm sm:text-base md:text-lg text-black mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto lg:mx-0">
+            <p className="text-sm sm:text-base md:text-lg text-white mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto lg:mx-0">
               Become a part of our vibrant learning community and grow your skills
               with expert-led courses. As a student, you'll access interactive
               lessons, connect with global learners, and build knowledge that
@@ -110,9 +125,9 @@ export function JoinStudents() {
                   "Flexible Learning Schedule",
                   "Access to Expert Instructors",
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-black">
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#474AFF]" strokeWidth={3} />
+                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-white">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8  rounded-full flex items-center justify-center shrink-0">
+                      <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" strokeWidth={3} />
                     </div>
                     <span className="text-sm sm:text-base md:text-lg">{item}</span>
                   </div>
@@ -124,9 +139,9 @@ export function JoinStudents() {
                   "Career-Focused Courses",
                   "Competitive Environment",
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-black">
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#474AFF]" strokeWidth={3} />
+                  <div key={index} className="flex items-center gap-3 sm:gap-4 text-white">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8  rounded-full flex items-center justify-center shrink-0">
+                      <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" strokeWidth={3} />
                     </div>
                     <span className="text-sm sm:text-base md:text-lg">{item}</span>
                   </div>
@@ -136,7 +151,7 @@ export function JoinStudents() {
 
             <div className="flex justify-center lg:justify-start">
               <a
-                className="bg-[#474AFF] hover:bg-blue-700 text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                className="bg-white text-[#474AFF] font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
                 href="https://apply.lbef.org/"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -30,19 +30,32 @@ export default function Index() {
   ];
 
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${bg1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <section className="py-8 px-4 sm:px-6 lg:px-20" style={{
+      backgroundImage: `
+      linear-gradient(
+        to right,
+        rgba(0, 102, 255, 0.8),
+        rgba(0, 102, 255, 0.8)
+      ),
+      url(${bg1})
+    `,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed",
+    }}>
       <div className="container mx-auto px-8 sm:px-24  py-10 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-6  items-center">
 
           {/* LEFT SECTION */}
           <div className="flex flex-col gap-6 lg:pt-16">
-            <span className="text-sm font-medium text-[#474AFF]">
+            <span className="text-sm font-medium text-white">
               Our Blog
             </span>
 
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-5xl text-white font-bold leading-tight">
               Insights & Ideas From{" "}
-              <span className="relative inline-block text-[#474AFF]">
+              <span className="relative inline-block text-white">
                 The World
                 <img
                   src={decoration}
@@ -53,13 +66,13 @@ export default function Index() {
               Of Learning
             </h1>
 
-            <p className="text-black text-base sm:text-lg max-w-lg">
+            <p className="text-white text-base sm:text-lg max-w-lg">
               Stay informed, inspired, and ahead of the curve with expert
               articles, study tips, industry updates, and real success stories.
             </p>
 
             <div>
-              <button className="inline-flex items-center gap-2 bg-[#474AFF] hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition">
+              <button className="inline-flex items-center gap-2 bg-white text-[#474AFF] cursor-pointer font-semibold px-6 py-3 rounded-lg transition">
                 View All Insights
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -84,15 +97,15 @@ export default function Index() {
 
                 {/* Content */}
                 <div className="mt-4 flex flex-col flex-1">
-                  <span className="text-xs font-medium text-[#474AFF] mb-2">
+                  <span className="text-xs font-medium text-white mb-2">
                     {post.category}
                   </span>
 
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 group-hover:text-[#474AFF] transition">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-3 group-hover:text-white transition">
                     {post.title}
                   </h3>
 
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-black mb-3">
+                  <div className="flex flex-wrap items-center gap-4 sm:text-lg max-w-lg text-white mb-3">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {post.date}
@@ -103,7 +116,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <p className="text-sm text-black leading-relaxed">
+                  <p className="sm:text-lg max-w-lg text-white leading-relaxed">
                     {post.description}
                   </p>
                 </div>
