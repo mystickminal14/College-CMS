@@ -1,29 +1,29 @@
-import girlWithCup from "../../../../assets/gril_with_cup.png"
-import girlwithThinking from "../../../../assets/girl_with_thinking.png"
-import { CheckCircle, Users, Video } from "lucide-react"
+import girlWithCup from "../../../../assets/gril_with_cup.png";
+import girlwithThinking from "../../../../assets/girl_with_thinking.png";
+import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/decoration/background.png';
+import bg1 from '../../../../assets/decoration/WhatsApp Image 2025-12-29 at 10.59.58 AM.jpeg';
 
 export function JoinStudents() {
   return (
-    <section
-      className="py-4 px-4 sm:px-6 lg:px-20"
-    >
+    <section className="relative py-4 px-4 sm:px-6 lg:px-20">
+      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
+      {/* Overlay color palette */}
+      <div className="absolute inset-0 bg-[#222222] opacity-65 mix-blend-multiply" />
 
-      <div className=" relative z-10 max-w-8xl mx-auto">
+      <div className="relative max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
 
           {/* LEFT SIDE – IMAGES */}
-          <div className="relative  flex md:hidden lg:flex justify-center lg:justify-end">
+          <div className="relative flex md:hidden lg:flex justify-center lg:justify-end">
             {/* Top Image Container */}
             <div className="relative pl-16 sm:pl-20 md:pl-16 lg:pl-0 z-10">
               <div
-                className="w-36 h-60 lg:w-70 lg:h-115 overflow-hidden shadow-2xl border-4 sm:border-8 border-white"
+                className="w-36 h-60 lg:w-70 lg:h-110 overflow-hidden shadow-2xl border-4 sm:border-8 border-white"
                 style={{
                   borderTopLeftRadius: "180px",
                   borderBottomRightRadius: "180px",
