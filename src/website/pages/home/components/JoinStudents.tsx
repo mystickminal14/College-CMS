@@ -16,7 +16,7 @@ export function JoinStudents() {
       />
       <div className="absolute inset-0 bg-[#474AFF] opacity-65 mix-blend-multiply" />
 
-      <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
+      <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
 
         <div className="flex justify-center gap-4">
           <div className="p-4 flex flex-col mt-10 lg:mt-20 items-center gap-10 lg:gap-0">
@@ -77,13 +77,12 @@ export function JoinStudents() {
           </div>
         </div>
 
-        {/* RIGHT SIDE – CONTENT */}
-        <div className="text-center lg:text-left mt-10">
-          <span className="inline-block px-6 py-2 text-white text-sm sm:text-base font-semibold rounded-full mb-6">
+        <div className="text-center lg:text-left mt-2">
+          <span className="inline-block px-6 py-2 text-white text-sm sm:text-base font-semibold rounded-full mb-3">
             Join LBEF
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
             Join as a{" "}
             <span className="relative inline-block text-white">
               Students
@@ -98,13 +97,13 @@ export function JoinStudents() {
             Journey Today!
           </h2>
 
-          <p className="text-white/90 text-lg max-w-3xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+          <p className="text-white/90 text-lg max-w-3xl mx-auto lg:mx-0 mb-4 leading-relaxed">
             Become a part of our vibrant learning community and grow your skills
             with expert-led courses. Access interactive lessons, connect with global learners, and build knowledge for academic and professional success.
           </p>
 
           {/* Features */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-10 max-w-4xl mx-auto lg:mx-0">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-6 max-w-4xl mx-auto lg:mx-0">
             {[
               ["Flexible Learning Schedule", "Access to Expert Instructors"],
               ["Career-Focused Courses", "Competitive Environment"],
