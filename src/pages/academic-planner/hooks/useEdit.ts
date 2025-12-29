@@ -8,6 +8,7 @@ import { PLANNEER_CACHE_KEY } from "../../../constants";
 interface EditSessionPayload {
   id: number;
   session: string;
+  year:string;
 }
 
 const useEditSession = () => {
@@ -15,8 +16,8 @@ const useEditSession = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, session }: EditSessionPayload) =>
-      plannerApi.put({ session }, id),
+    mutationFn: ({ id, session,year }: EditSessionPayload) =>
+      plannerApi.put({ session,year }, id),
 
     onSuccess: (res) => {
       showToast(res.message, "success");

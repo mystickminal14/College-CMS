@@ -31,7 +31,7 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
   const isEditMode = !!alumniToEdit;
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [formData, setFormData] = useState({ name: "", position: "", batch: "", course: "", story: "" });
+  const [formData, setFormData] = useState({ name: "", position: "", batch: "", course: "", story: "",link:"" });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [alumniId, setAlumniId] = useState<number | null>(null);
@@ -44,6 +44,8 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
           name: alumniToEdit.name || "",
           position: alumniToEdit.position || "",
           batch: alumniToEdit.batch || "",
+          link: alumniToEdit.link || "",
+
           course: alumniToEdit.course || "",
           story: alumniToEdit.story || "",
         });
@@ -57,7 +59,7 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
   }, [isOpen, alumniToEdit]);
 
   const resetForm = () => {
-    setFormData({ name: "", position: "", batch: "", course: "", story: "" });
+    setFormData({ name: "", position: "", batch: "", course: "", story: "" ,link:''});
     setImageFile(null);
     setImagePreview(null);
     setAlumniId(null);
@@ -78,6 +80,7 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
     if (!formData.position.trim()) return appContext?.showToast("Position is required", "warn");
     if (!formData.batch.trim()) return appContext?.showToast("Batch is required", "warn");
     if (!formData.course.trim()) return appContext?.showToast("Course is required", "warn");
+
     return true;
   };
 

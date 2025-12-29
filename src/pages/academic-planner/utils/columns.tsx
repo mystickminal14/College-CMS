@@ -3,6 +3,8 @@ import type { Planners } from "../model/PlannerModel";
 export const PlannersColumns = [
 
   { label: "Session", accessor: "session" },
+  { label: "Year", accessor: "year" },
+
   {
     label: "View Files",
     accessor: "actions" as keyof Planners,

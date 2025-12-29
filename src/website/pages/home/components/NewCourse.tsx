@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronRight, Monitor } from 'lucide-react'; // You can install lucide-react for icons: npm i lucide-react
 import bg from '../../../../assets/decoration/black_and white_bg.jpg'
 import { FlipText } from '../utils/FlipText';
@@ -98,7 +97,7 @@ export default function NewCourse() {
                   </div>
 
                   <h3 className="text-lg sm:text-2xl font-bold text-gray-900 leading-snug group-hover:text-white transition-colors">
-                    B.sc(Hons)Information Technology
+                    B.sc(Hons) Information Technology with Specialisation in Cybersecurity
                   </h3>
                 </div>
 
@@ -185,9 +184,16 @@ export default function NewCourse() {
               <div className="p-6 sm:p-8 flex flex-col h-full lg:h-100">
 
                 {/* Bachelor */}
-                <p className="text-xs tracking-widest uppercase text-blue-600 font-semibold mb-4 group-hover:text-white/80 transition-colors">
+                <div className='flex justify-between'>
+                  <p className="text-xs tracking-widest uppercase text-blue-600 font-semibold mb-4 group-hover:text-white/80 transition-colors">
                   Bachelor
+
                 </p>
+             <p className="text-xs tracking-widest uppercase text-blue-600 font-semibold mb-4 group-hover:text-white/80 transition-colors">
+                  4 years
+
+                </p>
+                </div>
                 <div className="flex-1" />
 
                 {/* Icon + Title */}
@@ -252,8 +258,6 @@ export default function NewCourse() {
 
 
 
-            {/* Add more identical cards here to match the screenshot (total around 6-7) */}
-            {/* For brevity, I've shown only 2 - copy-paste the div for more */}
 
           </div>
         </div>

@@ -5,6 +5,7 @@ export interface Alumni {
   batch?:string;
   course?: string;
   story?: string;
+  link?: string;
   image?: string;
 
 }

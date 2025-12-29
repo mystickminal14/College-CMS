@@ -1,9 +1,10 @@
 import React from "react";
 import { User, Briefcase, Calendar, GraduationCap, FileText } from "lucide-react";
 import InputField from "../../../utils/InputField";
+import { FaViadeo } from "react-icons/fa";
 
 interface AlumniBasicInfoFormProps {
-  formData: { name: string; position: string; batch: string; course: string; story: string };
+  formData: { name: string; position: string; batch: string; course: string;link:string, story: string };
   onChange: (field: string, value: string) => void;
   isSubmitting?: boolean;
 }
@@ -16,6 +17,8 @@ const AlumniBasicInfoForm: React.FC<AlumniBasicInfoFormProps> = ({ formData, onC
         <InputField icon={<Briefcase className="w-5 h-5" />} label="Position" value={formData.position} field="position" onChange={onChange} placeholder="Software Engineer" required isSubmitting={isSubmitting} />
         <InputField icon={<Calendar className="w-5 h-5" />} label="Batch" value={formData.batch} field="batch" onChange={onChange} placeholder="2020" required isSubmitting={isSubmitting} />
         <InputField icon={<GraduationCap className="w-5 h-5" />} label="Course" value={formData.course} field="course" onChange={onChange} placeholder="Computer Science" required isSubmitting={isSubmitting} />
+        <InputField icon={<FaViadeo className="w-5 h-5" />} label="Video Link" value={formData.link} field="link" onChange={onChange} placeholder="https://video.com" required isSubmitting={isSubmitting} />
+     
       </div>
 
       <div className="space-y-3">

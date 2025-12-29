@@ -18,6 +18,7 @@ interface CoursesBasicFormProps {
     credit: string;
     duration: string;
     category: string;
+    details: string;
     semester: string;
     shift: EShift;
   };
@@ -90,7 +91,16 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
           required
           isSubmitting={isSubmitting}
         />
-
+<InputField
+          icon={<BookOpen className="w-5 h-5" />}
+          label="Course Caption"
+          value={formData.details}
+          field="details"
+          onChange={onChange}
+          placeholder="Detailed Description about course...."
+          required
+          isSubmitting={isSubmitting}
+        />
         {/* Duration */}
         <InputField
           icon={<Clock className="w-5 h-5" />}

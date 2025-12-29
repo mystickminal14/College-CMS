@@ -8,6 +8,7 @@ export interface Courses {
   semester: string;
   prefix: string;
   degree: string;
+  details?: string;
 
   image?: string;
   hasDetails?:boolean;

@@ -1,5 +1,6 @@
 export interface CreateParentPayload {
   session: string;
+  year:string;
 }
 
 export interface CreateChildPayload {
@@ -12,6 +13,7 @@ export interface CreateChildPayload {
 export interface Planners {
   id?: number;
   parentId?: number;
+  year?:string;
   semester?: string;
   course?: string;
   session?: string;

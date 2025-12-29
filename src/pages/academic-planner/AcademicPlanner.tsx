@@ -75,6 +75,8 @@ const PlannersPage = () => {
   // ---------------- Table Columns ----------------
   const columns = [
     { label: "Session", accessor: "session" },
+    { label: "Year", accessor: "year" },
+
     {
       label: "View Children",
       accessor: "actions" as keyof Planners,
@@ -172,6 +174,8 @@ const PlannersPage = () => {
         isOpen={showParentModal}
         onClose={() => setShowParentModal(false)}
         initialSession={plannersToEdit?.session}
+        initialYear={plannersToEdit?.year}
+        
         sessionId={plannersToEdit?.id}
       />
 

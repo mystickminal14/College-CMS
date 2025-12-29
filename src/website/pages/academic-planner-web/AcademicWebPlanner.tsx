@@ -23,7 +23,6 @@ const AcademicWebPlanner = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ================= HERO (ANIMATED) ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
           variants={fadeUp}
@@ -68,9 +67,7 @@ const AcademicWebPlanner = () => {
           </div>
         ) : data?.data && data.data.length > 0 ? (
           data.data.map((parent) => {
-            const words = parent.session?.split(' ') || [];
-            const lastWord = words.at(-1) || '';
-            const otherWords = words.slice(0, -1).join(' ');
+            
 
             return (
               <div key={parent.id} className="mb-16">
@@ -82,19 +79,18 @@ const AcademicWebPlanner = () => {
                   viewport={{ once: true }}
                   className="mb-10 text-center md:text-left"
                 >
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                    {otherWords}{' '}
-                    <span className="relative inline-block">
-                      <span className="text-blue-600 relative z-10">
-                        {lastWord}
-                      </span>
-                      <img
-                        src={decoration}
-                        alt="Decoration"
-                        className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-                      />
-                    </span>
-                  </h3>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center justify-center md:justify-start">
+  <span>{parent.session}</span>
+  <span className="ml-2 relative inline-block">
+    <span className="text-blue-600 relative z-10">{parent.year}</span>
+    <img
+      src={decoration}
+      alt="Decoration"
+      className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+    />
+  </span>
+</h3>
+
 
                   <p className="text-gray-600 mt-2 max-w-3xl mx-auto md:mx-0">
                     Academic plans and curriculum for{' '}

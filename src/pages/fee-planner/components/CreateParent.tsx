@@ -6,7 +6,9 @@ import useEditSession from "../hooks/useEdit";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  initialSession?: string; // prefilled for edit
+  initialSession?: string;
+  initialYear?: string; // prefilled for edit
+   // prefilled for edit
   sessionId?: number; // if present, edit mode
 }
 
@@ -14,9 +16,13 @@ const CreateEditSessionModal: React.FC<Props> = ({
   isOpen,
   onClose,
   initialSession = "",
+  initialYear = "",
+
   sessionId,
 }) => {
   const [session, setSession] = useState(initialSession);
+  const [year, setYear] = useState(initialYear);
+
   const [error, setError] = useState("");
 
   const createMutation = useCreateParent();
@@ -24,8 +30,10 @@ const CreateEditSessionModal: React.FC<Props> = ({
 
   useEffect(() => {
     setSession(initialSession);
+    setYear(initialYear);
+
     setError("");
-  }, [initialSession, isOpen]);
+  }, [initialSession, isOpen,initialYear]);
 
   if (!isOpen) return null;
 
@@ -41,7 +49,7 @@ const CreateEditSessionModal: React.FC<Props> = ({
     if (sessionId) {
       // EDIT
       editMutation.mutate(
-        { id: sessionId, session },
+        { id: sessionId, session ,year},
         {
           onSuccess: () => onClose(),
         }
@@ -49,7 +57,7 @@ const CreateEditSessionModal: React.FC<Props> = ({
     } else {
       // CREATE
       createMutation.mutate(
-        { session },
+        { session,year },
         {
           onSuccess: () => onClose(),
         }
@@ -86,11 +94,22 @@ const CreateEditSessionModal: React.FC<Props> = ({
                 type="text"
                 value={session}
                 onChange={(e) => setSession(e.target.value)}
-                placeholder="eg: Dec Session 2025"
+                placeholder="eg: Dec Session "
                 className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1a7cd3] focus:border-transparent"
               />
             </div>
-
+ <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Year *
+              </label>
+              <input
+                type="text"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                placeholder="eg:  2025"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1a7cd3] focus:border-transparent"
+              />
+            </div>
             {error && (
               <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                 <p className="text-sm text-red-600 dark:text-red-400">{error}</p>

@@ -128,7 +128,8 @@ const HolidayWebPlanner: React.FC = () => {
   const getDayClass = (day: Date, isCurrentMonth: boolean, isSelected: boolean, isTodayDate: boolean) => {
     const baseClasses = `
       relative w-full aspect-square flex flex-col items-center justify-center
-      rounded-lg transition-all duration-200 cursor-pointer border
+      rounded-lg transition-all duration-200 cursor-pointer border text-sm
+      sm:text-base
     `;
 
     if (isSelected) {
@@ -148,13 +149,13 @@ const HolidayWebPlanner: React.FC = () => {
 
   /* ===================== CALENDAR HEADER ===================== */
   const CalendarHeader = () => (
-    <div className="flex items-center justify-between mb-6">
-      <h2 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
+      <h2 className={`text-lg sm:text-xl md:text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
         {format(currentMonth, "MMMM yyyy")}
       </h2>
       
-      <div className="flex items-center gap-3">
-        <div className="flex gap-1">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+        <div className="flex gap-1 order-2 sm:order-1">
           <button
             onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
             className={`p-2 rounded-lg transition-colors border ${
@@ -163,14 +164,14 @@ const HolidayWebPlanner: React.FC = () => {
                 : "hover:bg-gray-200 text-gray-600 border-gray-300"
             }`}
           >
-            <FaChevronLeft size={14} />
+            <FaChevronLeft size={12} className="sm:size-14]" />
           </button>
           <button
             onClick={() => {
               setCurrentMonth(new Date());
               setSelectedDate(new Date());
             }}
-            className={`px-3 py-1 text-sm rounded-lg transition-colors border ${
+            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-colors border ${
               theme === "dark" 
                 ? "bg-gray-800 hover:bg-gray-700 text-gray-300 border-gray-700" 
                 : "bg-gray-200 hover:bg-gray-300 text-gray-700 border-gray-300"
@@ -186,13 +187,13 @@ const HolidayWebPlanner: React.FC = () => {
                 : "hover:bg-gray-200 text-gray-600 border-gray-300"
             }`}
           >
-            <FaChevronRight size={14} />
+            <FaChevronRight size={12} className="sm:size-14]" />
           </button>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 order-1 sm:order-2">
           <button
             onClick={() => setViewMode("month")}
-            className={`px-3 py-1 text-sm rounded-lg transition-colors border ${
+            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-colors border ${
               viewMode === "month"
                 ? theme === "dark"
                   ? "bg-blue-600 text-white border-blue-700"
@@ -206,7 +207,7 @@ const HolidayWebPlanner: React.FC = () => {
           </button>
           <button
             onClick={() => setViewMode("week")}
-            className={`px-3 py-1 text-sm rounded-lg transition-colors border ${
+            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-colors border ${
               viewMode === "week"
                 ? theme === "dark"
                   ? "bg-blue-600 text-white border-blue-700"
@@ -225,11 +226,11 @@ const HolidayWebPlanner: React.FC = () => {
 
   /* ===================== DAYS HEADER ===================== */
   const DaysHeader = () => (
-    <div className="grid grid-cols-7 mb-2">
+    <div className="grid grid-cols-7 mb-1 sm:mb-2">
       {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
         <div
           key={index}
-          className={`text-center text-xs font-medium py-2 ${
+          className={`text-center text-[10px] xs:text-xs sm:text-sm font-medium py-1 sm:py-2 ${
             theme === "dark" ? "text-gray-500" : "text-gray-600"
           }`}
         >
@@ -268,14 +269,14 @@ const HolidayWebPlanner: React.FC = () => {
             }}
             className={getDayClass(cloneDay, isCurrentMonth, isSelected, isTodayDate)}
           >
-            <span className={`text-sm font-medium ${isSelected ? "text-white" : ""}`}>
+            <span className={`font-medium ${isSelected ? "text-white" : ""}`}>
               {format(day, "d")}
             </span>
             {isTodayDate && !isSelected && (
-              <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-green-500 rounded-full" />
+              <span className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 w-1.5 h-1.5 bg-green-500 rounded-full" />
             )}
             {dayEvents.length > 0 && (
-              <div className="absolute bottom-1 flex gap-0.5">
+              <div className="absolute bottom-0.5 sm:bottom-1 flex gap-0.5">
                 {dayEvents.slice(0, 3).map((event, idx) => (
                   <div
                     key={idx}
@@ -290,7 +291,7 @@ const HolidayWebPlanner: React.FC = () => {
         day = addDays(day, 1);
       }
       rows.push(
-        <div key={day.toString()} className="grid grid-cols-7 gap-1 mb-1">
+        <div key={day.toString()} className="grid grid-cols-7 gap-0.5 sm:gap-1 mb-0.5 sm:mb-1">
           {days}
         </div>
       );
@@ -298,14 +299,14 @@ const HolidayWebPlanner: React.FC = () => {
     }
 
     return (
-      <div className="relative min-h-[400px]">
-        {/* Calendar Background Image */}
+      <div className="relative min-h-[300px] sm:min-h-[350px] md:min-h-[400px]">
+        {/* Calendar Background Image - Hidden on mobile, shown on tablet+ */}
         <img
           src={calendarBg}
           alt="Calendar background"
-          className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none rounded-lg"
+          className="hidden sm:block absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none rounded-lg"
         />
-        <div className="relative z-10 p-1">{rows}</div>
+        <div className="relative z-10 p-0.5 sm:p-1">{rows}</div>
       </div>
     );
   };
@@ -320,7 +321,7 @@ const HolidayWebPlanner: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`rounded-lg p-3 mb-2 border-l-4 border ${
+        className={`rounded-lg p-2 sm:p-3 mb-2 border-l-4 border ${
           theme === "dark" ? "bg-gray-800/30 border-gray-700" : "bg-gray-50 border-gray-200"
         } ${isPast ? "opacity-75" : ""}`}
         style={{ borderLeftColor: event.colorCode || "#3B82F6" }}
@@ -329,38 +330,38 @@ const HolidayWebPlanner: React.FC = () => {
           className="flex items-start justify-between cursor-pointer"
           onClick={() => setExpandedId(expanded ? null : event.id)}
         >
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 mb-1 flex-wrap">
               <div 
-                className="w-2 h-2 rounded-full"
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full flex-shrink-0"
                 style={{ backgroundColor: event.colorCode || "#3B82F6" }}
               />
-              <h3 className={`font-medium text-sm truncate ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`font-medium text-xs sm:text-sm truncate ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                 {event.title}
               </h3>
-              <span className={`px-1.5 py-0.5 rounded text-xs border ${
+              <span className={`px-1 sm:px-1.5 py-0.5 rounded text-[10px] sm:text-xs border flex-shrink-0 ${
                 theme === "dark" ? "bg-gray-700 text-gray-300 border-gray-600" : "bg-gray-200 text-gray-600 border-gray-300"
               }`}>
                 {event.type}
               </span>
             </div>
-            <div className="flex items-center gap-3 text-xs">
+            <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 sm:gap-3 text-[10px] sm:text-xs">
               <div className={`flex items-center gap-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                <FaClock size={10} />
+                <FaClock size={8} className="sm:size-10]" />
                 <span>{format(eventDate, "h:mm a")}</span>
               </div>
               {event.location && (
                 <div className={`flex items-center gap-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                  <FaMapMarkerAlt size={10} />
+                  <FaMapMarkerAlt size={8} className="sm:size-10]" />
                   <span className="truncate">{event.location}</span>
                 </div>
               )}
             </div>
           </div>
-          <button className={`ml-2 p-1 rounded border ${
+          <button className={`ml-1 sm:ml-2 p-0.5 sm:p-1 rounded border flex-shrink-0 ${
             theme === "dark" ? "border-gray-700 hover:bg-gray-800" : "border-gray-300 hover:bg-gray-200"
           }`}>
-            {expanded ? <FaChevronUp size={12} /> : <FaChevronDown size={12} />}
+            {expanded ? <FaChevronUp size={10} className="sm:size-12]" /> : <FaChevronDown size={10} className="sm:size-12]" />}
           </button>
         </div>
         
@@ -370,13 +371,13 @@ const HolidayWebPlanner: React.FC = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700"
+              className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200 dark:border-gray-700"
             >
-              <p className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+              <p className={`text-xs sm:text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
                 {event.description}
               </p>
               {event.endDate && (
-                <div className="mt-2 text-xs text-gray-500">
+                <div className="mt-1 sm:mt-2 text-[10px] sm:text-xs text-gray-500">
                   Ends: {format(new Date(event.endDate), "MMM d, h:mm a")}
                 </div>
               )}
@@ -396,33 +397,31 @@ const HolidayWebPlanner: React.FC = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto sm:px-6 lg:px-8 py-8 text-center"
+        className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-10 text-center"
       >
         <div className="max-w-8xl mx-auto">
-          <div className="inline-flex items-center justify-center gap-2 mb-6 px-0 sm:px-4 py-2 rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-blue-600 dark:text-blue-400 font-medium text-sm">
+          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full animate-pulse"></span>
+            <span className="text-blue-600 dark:text-blue-400 font-medium text-xs sm:text-sm">
               Holiday Planner
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
             <span className="text-gray-900 dark:text-white">Institutional </span>
             <span className="relative inline-block sm:ml-2">
               <span className="text-blue-600 dark:text-blue-500 relative z-10">
-                 Calender
+                Calendar
               </span>
               <img
                 src={decoration}
                 alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 sm:-bottom-1 w-full h-2 sm:h-3"
               />
             </span>
-            <br />
-            <span className="text-gray-900 dark:text-white"></span>
           </h1>
 
-          <p className="text-sm md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
             Plan your academic year with our comprehensive holiday schedule. 
             Stay updated with all administrative and academic holidays.
           </p>
@@ -430,10 +429,10 @@ const HolidayWebPlanner: React.FC = () => {
       </motion.div>
 
       {/* CONTENT SECTION */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 md:pb-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="container mx-auto px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 pb-6 sm:pb-8 md:pb-10 lg:pb-12 xl:pb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {/* CALENDAR SECTION */}
-          <div className={`lg:col-span-2 rounded-xl p-5 border ${
+          <div className={`lg:col-span-2 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 border ${
             theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
           }`}>
             <CalendarHeader />
@@ -442,25 +441,25 @@ const HolidayWebPlanner: React.FC = () => {
           </div>
 
           {/* EVENTS SECTION */}
-          <div className={`rounded-xl p-5 border ${theme === "dark" ? "bg-gray-800/50 border-gray-700" : "bg-white border-gray-200"}`}>
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg border ${
+          <div className={`rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 border ${theme === "dark" ? "bg-gray-800/50 border-gray-700" : "bg-white border-gray-200"}`}>
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className={`p-1.5 sm:p-2 rounded-lg border ${
                   theme === "dark" ? "bg-blue-900/30 border-blue-800" : "bg-blue-50 border-blue-200"
                 }`}>
-                  <FaCalendarAlt className="text-blue-500" />
+                  <FaCalendarAlt className="text-blue-500 text-sm sm:text-base" />
                 </div>
                 <div>
-                  <h3 className={`font-bold text-lg ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`font-bold text-base sm:text-lg md:text-xl ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                     {format(selectedDate, "EEEE")}
                   </h3>
-                  <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+                  <p className={`text-xs sm:text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
                     {format(selectedDate, "MMMM d, yyyy")}
                   </p>
                 </div>
               </div>
               {isSameDay(selectedDate, new Date()) && (
-                <span className={`px-2 py-1 rounded-full text-xs font-medium border ${
+                <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium border ${
                   theme === "dark" 
                     ? "bg-green-900/30 text-green-400 border-green-800" 
                     : "bg-green-100 text-green-700 border-green-200"
@@ -470,29 +469,28 @@ const HolidayWebPlanner: React.FC = () => {
               )}
             </div>
 
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className={`font-semibold ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+            <div className="mb-4 sm:mb-6">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <h4 className={`font-semibold text-sm sm:text-base ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                   Events
-                  <span className={`ml-2 text-sm ${
+                  <span className={`ml-1 sm:ml-2 text-xs sm:text-sm ${
                     theme === "dark" ? "text-gray-500" : "text-gray-400"
                   }`}>
                     ({selectedEvents.length})
                   </span>
                 </h4>
-                
               </div>
 
-              <div className="max-h-[300px] overflow-y-auto pr-2">
+              <div className="max-h-[250px] sm:max-h-[300px] md:max-h-[350px] overflow-y-auto pr-1 sm:pr-2">
                 {selectedEvents.length === 0 ? (
-                  <div className={`text-center py-8 rounded-lg border ${
+                  <div className={`text-center py-6 sm:py-8 rounded-lg border ${
                     theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"
                   }`}>
-                    <div className="text-3xl mb-3">📅</div>
-                    <p className={`font-medium ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+                    <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">📅</div>
+                    <p className={`font-medium text-sm sm:text-base ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
                       No events scheduled
                     </p>
-                    <p className={`text-xs mt-1 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
+                    <p className={`text-[10px] sm:text-xs mt-0.5 sm:mt-1 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
                       Add events to stay organized
                     </p>
                   </div>
@@ -503,8 +501,6 @@ const HolidayWebPlanner: React.FC = () => {
                 )}
               </div>
             </div>
-
-           
           </div>
         </div>
       </div>
