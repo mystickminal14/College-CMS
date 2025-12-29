@@ -2,7 +2,7 @@ import girlWithCup from "../../../../assets/gril_with_cup.png";
 import girlWithThinking from "../../../../assets/girl_with_thinking.png";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/decoration/background.png';
+import bg1 from '../../../../assets/decoration/WhatsApp Image 2025-12-29 at 10.59.58 AM.jpeg';
 
 
 
@@ -11,10 +11,10 @@ export function JoinStudents() {
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden bg-[#474AFF]">
       {/* Background Image with overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat "
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-65 mix-blend-multiply" />
 
       <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
 

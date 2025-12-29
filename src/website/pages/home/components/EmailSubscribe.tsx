@@ -1,6 +1,5 @@
 import { Mail } from 'lucide-react';
 import background from '../../../../assets/decoration/AboutHero.jpg';
-import about_decoration from '../../../../assets/decoration/about_decoration.png';
 
 export function EmailSubscribe() {
   return (
@@ -14,15 +13,6 @@ export function EmailSubscribe() {
       {/* Deep blue overlay */}
       <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
 
-      {/* Left decorative element */}
-      <div className="absolute left-20 top-20 lg:w-[200px] lg:h-[200px]">
-        <img src={about_decoration} alt="Decoration" />
-      </div>
-
-      {/* Right decorative element */}
-      <div className="absolute right-20 bottom-20 lg:w-[200px] lg:h-[200px]">
-        <img src={about_decoration} alt="Decoration" />
-      </div>
 
       {/* Content */}
       <div className="relative z-10 px-6 text-center text-white">
