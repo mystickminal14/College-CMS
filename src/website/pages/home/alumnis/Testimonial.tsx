@@ -84,8 +84,8 @@ export function Testimonial() {
             {/* Left thumbnail list - Desktop only */}
             <div
               ref={listRef}
-              className="hidden lg:block lg:col-span-3 space-y-6 overflow-y-auto pr-2 scrollbar-hide"
-              style={{ maxHeight: RIGHT_CARD_HEIGHT  }}
+              className="hidden lg:block lg:col-span-2 space-y-6 overflow-y-auto pr-2 scrollbar-hide"
+              style={{ maxHeight: RIGHT_CARD_HEIGHT }}
             >
               {alumni.map((a, index) => (
                 <motion.div
@@ -110,7 +110,7 @@ export function Testimonial() {
             </div>
 
             {/* Right main card */}
-            <div className="lg:col-span-9">
+            <div className="lg:col-span-10">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -118,21 +118,42 @@ export function Testimonial() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -80 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white rounded-3xl shadow-2xl p-2 sm:p-6  flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8"
+                  className="bg-white rounded-3xl shadow-2xl p-4 flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8"
                   style={{
                     height: window.innerWidth >= 1024 ? dynamicHeight : 'auto',
-                    minHeight: '450px'
+                    minHeight: '550px'
                   }}
                 >
-                  <div className="flex justify-center lg:justify-start shrink-0">
-                    <div className="w-full lg:w-80 lg:h-full mx-auto lg:mx-0">
-                      <img
-                        src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
-                        alt={activeAlumni?.name ?? ""}
-                        className="rounded-2xl object-cover w-full h-70 sm:h-90 lg:h-full"
-                      />
+                  <div className="flex flex-col items-center lg:items-start gap-5">
+                    {/* Top Video */}
+                    <div className="w-full lg:w-90 mx-auto lg:mx-0 " >
+                      <iframe
+                        src={
+                          activeAlumni?.link
+                            ? activeAlumni.link
+                              .replace("watch?v=", "embed/")
+                              .replace("youtu.be/", "www.youtube.com/embed/")
+                              .split("?")[0] // removes extra params that break iframe
+                            : "https://www.youtube.com/embed/eibpVkSHOqU"
+                        }
+                        title={activeAlumni?.name ?? "Alumni Video"}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="rounded-2xl w-full h-60 sm:h-80 lg:h-130"
+                      ></iframe>
                     </div>
+
+                    {/* Bottom Image */}
+                    {/* <div className="w-full lg:w-90 mx-auto lg:mx-0">
+                          <img
+                            src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
+                            alt={activeAlumni?.name ?? ""}
+                            className="rounded-2xl object-cover w-full h-70 sm:h-90 lg:h-70"
+                          />
+                        </div> */}
                   </div>
+
 
                   <div className="flex flex-col w-full flex-1 min-h-0">
                     <div
@@ -144,7 +165,7 @@ export function Testimonial() {
                       </span>
 
                       <div
-                        className="h-full overflow-y-auto scrollbar-hide pl-4 pr-2 sm:pr-4"
+                        className="h-full overflow-y-auto scrollbar-hide pl-4 pr-2 sm:pr-4 pt-10"
                         style={{
                           maxHeight: window.innerWidth < 1024 ? '200px' : 'none'
                         }}
@@ -159,44 +180,55 @@ export function Testimonial() {
                       </span>
                     </div>
 
-                    <div className="mt-auto pt-4 border-t border-gray-100">
-                      <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
-                        {activeAlumni?.name ?? ""}
-                      </h4>
+                    <div className=" pt-4 px-1 sm:px-2 border-t border-gray-100">
+                      <div className=" flex justify-between">
+                        <div>
+                          <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
+                            {activeAlumni?.name ?? ""}
+                          </h4>
 
-                      <p className="text-sm sm:text-base font-medium text-black mt-1">
-                        Position: {activeAlumni?.position ?? ""}
-                      </p>
+                          <p className="text-sm sm:text-base font-medium text-black mt-1">
+                            Position: {activeAlumni?.position ?? ""}
+                          </p>
 
-                      <p className="text-xs sm:text-sm text-gray-600 mt-1">
-                        {activeAlumni?.course ?? ""} | Batch {activeAlumni?.batch ?? ""}
-                      </p>
+                          <p className="text-xs sm:text-sm text-gray-600 mt-1">
+                            {activeAlumni?.course ?? ""} | Batch {activeAlumni?.batch ?? ""}
+                          </p>
 
-                      {/* Navigation - Always visible */}
-                      <div className="flex items-center justify-between mt-4 sm:mt-6">
-                        {/* Mobile indicators */}
-                        <div className="lg:hidden flex items-center gap-2">
-                          <span className="text-sm text-gray-600">
-                            {activeIndex + 1} / {alumni.length}
-                          </span>
+                          {/* Navigation - Always visible */}
+                          <div className="flex items-center justify-between mt-4 sm:mt-6">
+                            {/* Mobile indicators */}
+                            <div className="lg:hidden flex items-center gap-2">
+                              <span className="text-sm text-gray-600">
+                                {activeIndex + 1} / {alumni.length}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                              <button
+                                onClick={prev}
+                                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 hover:border-[#474AFF] hover:bg-[#474AFF] hover:text-white transition-all flex items-center justify-center"
+                                aria-label="Previous testimonial"
+                              >
+                                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                              </button>
+
+                              <button
+                                onClick={next}
+                                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#474AFF] text-white hover:bg-blue-700 transition-all flex items-center justify-center"
+                                aria-label="Next testimonial"
+                              >
+                                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
-
-                        <div className="flex items-center gap-3">
-                          <button
-                            onClick={prev}
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 hover:border-[#474AFF] hover:bg-[#474AFF] hover:text-white transition-all flex items-center justify-center"
-                            aria-label="Previous testimonial"
-                          >
-                            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-                          </button>
-
-                          <button
-                            onClick={next}
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#474AFF] text-white hover:bg-blue-700 transition-all flex items-center justify-center"
-                            aria-label="Next testimonial"
-                          >
-                            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                          </button>
+                        <div className="w-28 h-28 sm:w-36 sm:h-36">
+                          <img
+                            src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
+                            alt={activeAlumni?.name ?? ""}
+                                className="rounded-2xl object-cover w-28 h-28 sm:w-36 sm:h-36"
+                          />
                         </div>
                       </div>
                     </div>

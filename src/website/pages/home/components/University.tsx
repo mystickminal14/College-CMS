@@ -52,26 +52,26 @@ export function University() {
           </p>
         </div>
 
-       {/* Logos & Rankings */}
-<div className="flex items-center justify-center gap-6 sm:gap-10 mt-10 sm:mt-16">
-  
-  {/* APU Logo */}
-  <img
-    src={apu}
-    alt="APU Logo"
-    className="h-12 sm:h-16 md:h-20 w-auto"
-  />
+        {/* Logos & Rankings */}
+        <div className="flex items-center flex-wrap justify-center gap-6 sm:gap-10 mt-10 sm:mt-16">
 
-  {/* Divider */}
-  <div className="w-px h-12 sm:h-16 md:h-20 bg-gray-300" />
+          {/* APU Logo */}
+          <img
+            src={apu}
+            alt="APU Logo"
+            className="h-12 sm:h-16 md:h-20 w-auto"
+          />
 
-  {/* Ranking Logo */}
-  <img
-    src={ranking}
-    alt="QS 5 Star Rating"
-    className="h-10 sm:h-14 md:h-16 w-auto"
-  />
-</div>
+          {/* Divider */}
+          <div className="w-px h-12 sm:h-16 md:h-20 bg-gray-300" />
+
+          {/* Ranking Logo */}
+          <img
+            src={ranking}
+            alt="QS 5 Star Rating"
+            className="h-10 sm:h-14 md:h-16 w-auto"
+          />
+        </div>
 
       </div>
     </section>
