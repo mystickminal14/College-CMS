@@ -20,6 +20,7 @@ import GyandeepScholasrhip from "../website/pages/admission/Gyandeep";
 import MeritScholarship from "../website/pages/admission/Merit";
 import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
 import NewCourse from "../website/pages/home/components/NewCourse";
+import { DemoPage } from "../website/pages/home/Demo";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -40,15 +41,15 @@ export const websiteRoutes = [
       {
         path: "about",
         children: [
-          { path: "", element: <AboutPage/> },
-          { path: "about-lbef", element: <AboutPage/> },
+          { path: "", element: <AboutPage /> },
+          { path: "about-lbef", element: <AboutPage /> },
           { path: "about-university", element: <PlaceholderPage pageName="About University" /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
           { path: "achivement", element: <AchievementWeb /> },
 
           { path: "our-team", element: <OurTeamWeb /> },
           { path: "training-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
-          { path: "holidays", element: <HolidayWebPlanner/> },
+          { path: "holidays", element: <HolidayWebPlanner /> },
         ],
       },
       {
@@ -67,16 +68,16 @@ export const websiteRoutes = [
           { path: "programs", element: <CourseProgram /> },
           { path: "student-code-of-conduct", element: <CodeOfConduct /> },
           { path: ":name/:id", element: <CourseDetails /> },
- {
+          {
             path: "fee-planner", element: <FeePlannersWeb />
           },
           {
             path: "academic-planner", element: <AcademicWebPlanner />
           },
-           {
+          {
             path: "downloads", element: <StudentHandbook />
           },
-           {
+          {
             path: "student-support", element: <ContactListPage />
           },
           { path: "notices", element: <NoticeWeb /> },
@@ -86,15 +87,15 @@ export const websiteRoutes = [
         path: "admissions",
         children: [
           { path: "", element: <PlaceholderPage pageName="Admissions" /> },
-          { path: "admission-process", element: <AdmissionProcedure/>},
-        
+          { path: "admission-process", element: <AdmissionProcedure /> },
+
         ],
       },
       {
         path: "media",
         children: [
           { path: "", element: <PlaceholderPage pageName="Media" /> },
-          { path: "photo-gallery", element: <Gallery/> },
+          { path: "photo-gallery", element: <Gallery /> },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <PlaceholderPage pageName="News & Events" /> },
           { path: "journal", element: <JournalPageWeb /> },
@@ -103,7 +104,7 @@ export const websiteRoutes = [
 
         ],
       },
-       {
+      {
         path: "gyandeep-scholarship",
         element: <GyandeepScholasrhip />,
       },
@@ -129,7 +130,7 @@ export const websiteRoutes = [
       },
       {
         path: "new",
-        element: <NewCourse/>,
+        element: <DemoPage />,
       },
     ]
   }
