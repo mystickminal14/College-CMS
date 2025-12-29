@@ -5,10 +5,11 @@ import {
   FaCertificate,
   FaUsers,
   FaClipboardList,
-  FaRegCalendarAlt,
+
   FaBook,
   FaGraduationCap,
   FaChevronDown,
+  FaCalendar,
 } from "react-icons/fa";
 import logo from "../../../../assets/lbefHd.jpg";
 import apuLogo from "../../../../assets/apu_logo.png";
@@ -73,7 +74,7 @@ export function NavBar() {
         { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
         { name: "Achivement", link: "/about/achivement", icon: <FaCertificate /> },
         { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
-        { name: "Holidays", link: "/about/holidays", icon: <FaRegCalendarAlt /> },
+        { name: "Holidays", link: "/about/holidays", icon: <FaCalendar /> },
       ],
     },
     {

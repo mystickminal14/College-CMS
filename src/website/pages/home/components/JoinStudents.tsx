@@ -1,8 +1,10 @@
 import girlWithCup from "../../../../assets/gril_with_cup.png";
-import girlwithThinking from "../../../../assets/girl_with_thinking.png";
+import girlWithThinking from "../../../../assets/girl_with_thinking.png";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
 import bg1 from '../../../../assets/decoration/background.png';
+
+
 
 export function JoinStudents() {
   return (
@@ -15,12 +17,39 @@ export function JoinStudents() {
       <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
 
       <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-40 items-center">
-        {/* LEFT SIDE – IMAGES */}
-        <div className="relative hidden md:flex justify-center lg:justify-end">
-          {/* Top Image */}
-          <div className="relative z-10">
+
+        <div className="flex justify-center gap-4">
+          <div className="p-4 flex flex-col mt-10 lg:mt-20 items-center gap-10 lg:gap-0">
+            <div className="inline-flex items-center gap-5 -ml-10 lg:-ml-55 bg-white rounded-full shadow-xl px-4 lg:px-6 py-2 lg:py-4 border border-purple-100">
+              <div className="w-6 h-6 lg:w-15 lg:h-15 bg-[#474AFF] rounded-full flex items-center justify-center">
+                <Users className="w-4 h-4 lg:w-8 lg:h-8 text-white" />
+              </div>
+              <div className="leading-tight">
+                <p className="text-xs lg:text-xl font-bold text-gray-800">
+                  BEST
+                </p>
+                <p className="text-xs lg:text-xl text-gray-600">
+                  Students
+                </p>
+              </div>
+            </div>
             <div
-              className="w-36 h-60 lg:w-70 lg:h-115 overflow-hidden shadow-2xl border-4 sm:border-8 border-white"
+              className="w-36 h-70 lg:w-60 lg:h-105 overflow-hidden shadow-2xl border-4 sm:border-8 border-white"
+              style={{
+                borderTopLeftRadius: "180px",
+                borderBottomRightRadius: "180px",
+              }}
+            >
+              <img
+                src={girlWithThinking}
+                alt="Student learning"
+                className="w-full h-full object-cover object-top scale-125 sm:scale-135"
+              />
+            </div>
+          </div>
+          <div className="p-4 flex flex-col items-center -ml-20 lg:-ml-40 z-1 gap-10">
+            <div
+              className="w-36 h-70 lg:w-60 lg:h-105 overflow-hidden shadow-2xl border-4 sm:border-8 border-white"
               style={{
                 borderTopLeftRadius: "180px",
                 borderBottomRightRadius: "180px",
@@ -32,49 +61,20 @@ export function JoinStudents() {
                 className="w-full h-full object-cover object-top scale-125 sm:scale-135"
               />
             </div>
-
-            {/* Video Badge */}
-            <div className="absolute -bottom-8 sm:-bottom-16 left-1/2 -translate-x-1/2 lg:left-auto lg:-right-10 bg-white rounded-full shadow-xl px-4 py-2 flex items-center gap-3 border border-purple-100">
-              <div className="w-12 h-12 lg:w-20 lg:h-20 bg-[#474AFF] rounded-full flex items-center justify-center">
-                <Video className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+            <div className="inline-flex items-center gap-5 -ml-10 lg:ml-40 bg-white rounded-full shadow-xl px-4 lg:px-6 py-2 lg:py-4 border border-purple-100">
+              <div className="w-6 h-6 lg:w-15 lg:h-15 bg-[#474AFF] rounded-full flex items-center justify-center">
+                <Video className="w-4 h-4 lg:w-8 lg:h-8 text-white" />
               </div>
-              <div>
-                <p className="text-xs lg:text-2xl font-bold text-gray-800">BEST</p>
-                <p className="text-xs lg:text-2xl text-gray-600">Learning</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Image */}
-          <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 lg:left-auto lg:right-60">
-            <div
-              className="w-36 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-80 lg:h-105 rounded-3xl overflow-hidden shadow-2xl border-8 border-white"
-              style={{
-                borderTopLeftRadius: "180px",
-                borderBottomRightRadius: "200px",
-              }}
-            >
-              <img
-                src={girlwithThinking}
-                alt="Happy student"
-                className="w-full h-full object-cover scale-110 sm:scale-125"
-              />
-            </div>
-
-            {/* Students Badge */}
-            <div className="absolute -top-12 lg:-top-35 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 bg-white rounded-full shadow-xl px-4 py-2 flex items-center gap-3 border border-blue-100">
-              <div className="w-12 h-12 lg:w-20 lg:h-20 bg-[#474AFF] rounded-full flex items-center justify-center">
-                <Users className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-              </div>
-              <div>
-                <p className="text-xs lg:text-2xl font-bold text-gray-800">BEST</p>
-                <p className="text-xs lg:text-2xl text-gray-600">Students</p>
+              <div className="leading-tight">
+                <p className="text-xs lg:text-xl font-bold text-gray-800">
+                  BEST
+                </p>
+                <p className="text-xs lg:text-xl text-gray-600">
+                  Learning
+                </p>
               </div>
             </div>
           </div>
-
-          {/* Decorative Background Blur */}
-          <div className="absolute top-10 sm:top-20 -left-10 sm:-left-20 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-purple-100 rounded-full opacity-30 blur-2xl md:blur-3xl -z-10"></div>
         </div>
 
         {/* RIGHT SIDE – CONTENT */}
