@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronRight, Monitor } from 'lucide-react'; // You can install lucide-react for icons: npm i lucide-react
-import bg from '../../../../assets/decoration/0486986455ec0f16fba7c8910dd7158f8879713e.jpg'
+import bg from '../../../../assets/decoration/black_and white_bg.jpg'
 import { FlipText } from '../utils/FlipText';
 import decoration from '../../../../assets/decoration.png';
 import { useNavigate } from 'react-router-dom';

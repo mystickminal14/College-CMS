@@ -2,7 +2,7 @@ import girlWithCup from "../../../../assets/gril_with_cup.png";
 import girlWithThinking from "../../../../assets/girl_with_thinking.png";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/decoration/WhatsApp Image 2025-12-29 at 10.59.58 AM.jpeg';
+import bg1 from '../../../../assets/decoration/buddha_with_evolve.jpeg';
 
 
 
