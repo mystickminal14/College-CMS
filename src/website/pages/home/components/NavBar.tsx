@@ -70,7 +70,7 @@ export function NavBar() {
       name: "About",
       dropdown: [
         { name: "About LBEF", link: "/about/about-lbef", icon: <FaUniversity /> },
-        { name: "About University", link: "https://www.apu.edu.my/about-apu/", icon: <FaUniversity /> },
+        { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
         { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
         { name: "Achivement", link: "/about/achivement", icon: <FaCertificate /> },
         { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
@@ -138,7 +138,7 @@ export function NavBar() {
           </NavLink>
         </div>
         {/* Desktop Menu */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center flex-wrap gap-1">
           {menuItems.map((item) =>
             item.dropdown ? (
               <div
@@ -203,7 +203,7 @@ export function NavBar() {
 
           <NavLink
             to="/enroll"
-            className="ml-3 bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold"
+            className="ml-3 bg-blue-600 text-white px-2 2xl:px-6 py-2 rounded-full text-sm font-semibold"
           >
             Enquiry Now
           </NavLink>
