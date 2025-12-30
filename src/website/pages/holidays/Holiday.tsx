@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, JSX } from "react";
+import React, { useState, useEffect } from "react";
 import {
   format,
   startOfMonth,
@@ -16,236 +16,98 @@ import {
 import {
   FaChevronLeft,
   FaChevronRight,
-  FaCalendarAlt,
   FaClock,
   FaMapMarkerAlt,
   FaChevronDown,
   FaChevronUp,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { AppContext } from "../../../context/ContextApp";
+import type { JSX } from "react/jsx-runtime";
+
+import { useGetCalender } from "./hook/useGetCalender";
+import type { EventModel } from "./model/CalenderModel";
+import { fadeUp } from "../../comp/animation";
 
 import decoration from "../../../assets/decoration.png";
 import calendarBg from "../../../assets/butterfiles.png";
 
-interface EventModel {
-  id: string;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate?: string;
-  location?: string;
-  colorCode?: string;
-  type?: string;
-}
-
-const EVENTS: EventModel[] = [
-  {
-    id: "1",
-    title: "Spring Break",
-    description: "Academic holiday for spring semester break. All classes suspended.",
-    startDate: new Date().toISOString(),
-    endDate: addDays(new Date(), 7).toISOString(),
-    location: "Campus Wide",
-    colorCode: "#3B82F6",
-    type: "Holiday",
-  },
-  {
-    id: "2",
-    title: "Mid-Term Examinations",
-    description: "Mid-term exams for all departments. Library open 24/7.",
-    startDate: addDays(new Date(), 3).toISOString(),
-    endDate: addDays(new Date(), 10).toISOString(),
-    location: "Examination Halls",
-    colorCode: "#EF4444",
-    type: "Exam",
-  },
-  {
-    id: "3",
-    title: "Faculty Development Program",
-    description: "Workshop on innovative teaching methodologies.",
-    startDate: addDays(new Date(), 5).toISOString(),
-    location: "Conference Center",
-    colorCode: "#10B981",
-    type: "Workshop",
-  },
-  {
-    id: "4",
-    title: "Sports Day",
-    description: "Annual inter-department sports competition.",
-    startDate: addDays(new Date(), 8).toISOString(),
-    endDate: addDays(new Date(), 9).toISOString(),
-    location: "University Stadium",
-    colorCode: "#8B5CF6",
-    type: "Event",
-  },
-  {
-    id: "5",
-    title: "Research Paper Submission Deadline",
-    description: "Final date for research paper submissions for international conference.",
-    startDate: addDays(new Date(), 12).toISOString(),
-    location: "Online Portal",
-    colorCode: "#F59E0B",
-    type: "Deadline",
-  },
-  {
-    id: "6",
-    title: "Convocation Ceremony",
-    description: "Annual convocation ceremony for graduating students.",
-    startDate: addDays(new Date(), 15).toISOString(),
-    location: "Main Auditorium",
-    colorCode: "#EC4899",
-    type: "Ceremony",
-  },
-];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6 }
-  }
-};
-
 const HolidayWebPlanner: React.FC = () => {
-  const { theme } = useContext(AppContext)!;
-
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedEvents, setSelectedEvents] = useState<EventModel[]>([]);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<"month" | "week">("month");
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
-  /* ===================== HELPERS ===================== */
+  const { data: events = [], isLoading } = useGetCalender({
+    p1: "monthly",
+    p2: format(currentMonth, "yyyy-MM"),
+    p3: null,
+  });
+
   const getEventsForDay = (day: Date) =>
-    EVENTS.filter((e) => isSameDay(new Date(e.startDate), day));
+    events.filter((event) => {
+      if (!event.startDate) return false;
+
+      const start = new Date(event.startDate);
+      const end = event.endDate ? new Date(event.endDate) : start;
+
+      const dayOnly = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+      const startOnly = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      const endOnly = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+
+      return (
+        dayOnly.getTime() === startOnly.getTime() ||
+        dayOnly.getTime() === endOnly.getTime() ||
+        (dayOnly > startOnly && dayOnly < endOnly)
+      );
+    });
 
   useEffect(() => {
     setSelectedEvents(getEventsForDay(selectedDate));
-  }, [selectedDate]);
+  }, [selectedDate, events]);
 
-  const getDayClass = (day: Date, isCurrentMonth: boolean, isSelected: boolean, isTodayDate: boolean) => {
-    const baseClasses = `
-      relative w-full aspect-square flex flex-col items-center justify-center
-      rounded-lg transition-all duration-200 cursor-pointer border text-sm
-      sm:text-base
-    `;
-
-    if (isSelected) {
-      return `${baseClasses} bg-blue-500 text-white border-blue-600`;
-    }
-
-    if (isTodayDate) {
-      return `${baseClasses} ${theme === "dark" ? "bg-blue-900/30 border-blue-700" : "bg-blue-50 border-blue-200"} text-blue-600`;
-    }
-
-    if (!isCurrentMonth) {
-      return `${baseClasses} ${theme === "dark" ? "text-gray-700 border-gray-800" : "text-gray-400 border-gray-200"}`;
-    }
-
-    return `${baseClasses} ${theme === "dark" ? "hover:bg-gray-800/50 text-gray-200 border-gray-700" : "hover:bg-gray-100 text-gray-800 border-gray-200"}`;
-  };
-
-  /* ===================== CALENDAR HEADER ===================== */
+  /* ================= IMPROVED HEADER ================= */
   const CalendarHeader = () => (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
-      <h2 className={`text-lg sm:text-xl md:text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-        {format(currentMonth, "MMMM yyyy")}
-      </h2>
-      
-      <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
-        <div className="flex gap-1 order-2 sm:order-1">
-          <button
-            onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-            className={`p-2 rounded-lg transition-colors border ${
-              theme === "dark" 
-                ? "hover:bg-gray-800 text-gray-400 border-gray-700" 
-                : "hover:bg-gray-200 text-gray-600 border-gray-300"
-            }`}
-          >
-            <FaChevronLeft size={12} className="sm:size-14]" />
-          </button>
-          <button
-            onClick={() => {
-              setCurrentMonth(new Date());
-              setSelectedDate(new Date());
-            }}
-            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-colors border ${
-              theme === "dark" 
-                ? "bg-gray-800 hover:bg-gray-700 text-gray-300 border-gray-700" 
-                : "bg-gray-200 hover:bg-gray-300 text-gray-700 border-gray-300"
-            }`}
-          >
-            Today
-          </button>
-          <button
-            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
-            className={`p-2 rounded-lg transition-colors border ${
-              theme === "dark" 
-                ? "hover:bg-gray-800 text-gray-400 border-gray-700" 
-                : "hover:bg-gray-200 text-gray-600 border-gray-300"
-            }`}
-          >
-            <FaChevronRight size={12} className="sm:size-14]" />
-          </button>
-        </div>
-        <div className="flex items-center gap-2 order-1 sm:order-2">
-          <button
-            onClick={() => setViewMode("month")}
-            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-colors border ${
-              viewMode === "month"
-                ? theme === "dark"
-                  ? "bg-blue-600 text-white border-blue-700"
-                  : "bg-blue-500 text-white border-blue-600"
-                : theme === "dark"
-                ? "text-gray-400 hover:bg-gray-800 border-gray-700"
-                : "text-gray-600 hover:bg-gray-200 border-gray-300"
-            }`}
-          >
-            Month
-          </button>
-          <button
-            onClick={() => setViewMode("week")}
-            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-colors border ${
-              viewMode === "week"
-                ? theme === "dark"
-                  ? "bg-blue-600 text-white border-blue-700"
-                  : "bg-blue-500 text-white border-blue-600"
-                : theme === "dark"
-                ? "text-gray-400 hover:bg-gray-800 border-gray-700"
-                : "text-gray-600 hover:bg-gray-200 border-gray-300"
-            }`}
-          >
-            Week
-          </button>
-        </div>
+    <div className="flex justify-between items-center mb-6">
+      <button 
+        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} 
+        className="p-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
+      >
+        <FaChevronLeft className="text-gray-600" />
+      </button>
+
+      <div className="flex items-center gap-2">
+        <FaCalendarAlt className="text-blue-500" />
+        <h2 className="text-xl font-bold text-gray-800">{format(currentMonth, "MMMM yyyy")}</h2>
       </div>
+
+      <button 
+        onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} 
+        className="p-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
+      >
+        <FaChevronRight className="text-gray-600" />
+      </button>
     </div>
   );
 
-  /* ===================== DAYS HEADER ===================== */
+  /* ================= IMPROVED DAYS HEADER ================= */
   const DaysHeader = () => (
-    <div className="grid grid-cols-7 mb-1 sm:mb-2">
-      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
-        <div
-          key={index}
-          className={`text-center text-[10px] xs:text-xs sm:text-sm font-medium py-1 sm:py-2 ${
-            theme === "dark" ? "text-gray-500" : "text-gray-600"
-          }`}
-        >
-          {day}
+    <div className="grid grid-cols-7 gap-1 mb-3 bg-gray-50 rounded-lg py-3">
+      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+        <div key={d} className="text-center text-sm font-medium text-gray-600">
+          {d}
         </div>
       ))}
     </div>
   );
 
-  /* ===================== CALENDAR GRID ===================== */
+  /* ================= IMPROVED CALENDAR GRID ================= */
   const CalendarGrid = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
+
     const rows: JSX.Element[] = [];
     let days: JSX.Element[] = [];
     let day = startDate;
@@ -254,44 +116,54 @@ const HolidayWebPlanner: React.FC = () => {
       for (let i = 0; i < 7; i++) {
         const cloneDay = day;
         const dayEvents = getEventsForDay(cloneDay);
-        const isTodayDate = isToday(cloneDay);
+        const isCurrentMonth = isSameMonth(cloneDay, monthStart);
         const isSelected = isSameDay(cloneDay, selectedDate);
-        const isCurrentMonth = isSameMonth(day, monthStart);
-        
+        const isTodayDate = isToday(cloneDay);
+
         days.push(
           <motion.button
-            key={day.toString()}
+            key={cloneDay.toString()}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              setSelectedDate(cloneDay);
-              setSelectedEvents(getEventsForDay(cloneDay));
-            }}
-            className={getDayClass(cloneDay, isCurrentMonth, isSelected, isTodayDate)}
+            onClick={() => setSelectedDate(cloneDay)}
+            className={`
+              relative aspect-square rounded-xl flex flex-col items-center justify-center text-sm
+              transition-all duration-200
+              ${!isCurrentMonth ? "text-gray-400" : "text-gray-800"}
+              ${isSelected ? "bg-blue-500 text-white shadow-md" : "hover:bg-gray-100"}
+              ${isTodayDate && !isSelected ? "bg-blue-50 border border-blue-200" : ""}
+              ${isSelected && isTodayDate ? "ring-2 ring-blue-300" : ""}
+            `}
           >
             <span className={`font-medium ${isSelected ? "text-white" : ""}`}>
-              {format(day, "d")}
+              {format(cloneDay, "d")}
             </span>
-            {isTodayDate && !isSelected && (
-              <span className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 w-1.5 h-1.5 bg-green-500 rounded-full" />
-            )}
+
             {dayEvents.length > 0 && (
-              <div className="absolute bottom-0.5 sm:bottom-1 flex gap-0.5">
+              <div className="absolute bottom-2 flex gap-1">
                 {dayEvents.slice(0, 3).map((event, idx) => (
-                  <div
+                  <span
                     key={idx}
-                    className="w-1 h-1 rounded-full"
-                    style={{ backgroundColor: event.colorCode || "#6B7280" }}
+                    className="w-2 h-2 rounded-full"
+                    style={{ 
+                      backgroundColor: isSelected ? "#ffffff" : (event.colorCode || "#6B7280"),
+                      opacity: isSelected ? 0.9 : 1
+                    }}
                   />
                 ))}
               </div>
+            )}
+
+            {isTodayDate && !isSelected && (
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-blue-500" />
             )}
           </motion.button>
         );
         day = addDays(day, 1);
       }
+
       rows.push(
-        <div key={day.toString()} className="grid grid-cols-7 gap-0.5 sm:gap-1 mb-0.5 sm:mb-1">
+        <div key={day.toString()} className="grid grid-cols-7 gap-2 mb-2">
           {days}
         </div>
       );
@@ -299,118 +171,97 @@ const HolidayWebPlanner: React.FC = () => {
     }
 
     return (
-      <div className="relative min-h-[300px] sm:min-h-[350px] md:min-h-[400px]">
-        {/* Calendar Background Image - Hidden on mobile, shown on tablet+ */}
+      <div className="relative rounded-2xl overflow-hidden bg-linear-to-br from-white to-gray-50/50 border border-gray-200 p-4">
         <img
           src={calendarBg}
           alt="Calendar background"
-          className="hidden sm:block absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none rounded-lg"
+          className="absolute inset-0 w-full h-full object-cover opacity-5 pointer-events-none"
         />
-        <div className="relative z-10 p-0.5 sm:p-1">{rows}</div>
+        <div className="relative z-10">{rows}</div>
       </div>
     );
   };
 
-  /* ===================== EVENT ITEM ===================== */
-  const EventItem = ({ event }: { event: EventModel }) => {
-    const expanded = expandedId === event.id;
-    const eventDate = new Date(event.startDate);
-    const isPast = isBefore(eventDate, new Date());
+ const EventItem = ({ event }: { event: EventModel }) => {
+    const expanded = expandedId === event.eventId;
+    const eventDate = event.startDate ? new Date(event.startDate) : null;
+    const isPast = eventDate ? isBefore(eventDate, new Date()) : false;
 
     return (
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className={`rounded-lg p-2 sm:p-3 mb-2 border-l-4 border ${
-          theme === "dark" ? "bg-gray-800/30 border-gray-700" : "bg-gray-50 border-gray-200"
-        } ${isPast ? "opacity-75" : ""}`}
+        layout
+        className={`rounded-lg p-4 mb-3 border-l-4 shadow-sm cursor-pointer ${isPast ? "opacity-70" : ""}`}
         style={{ borderLeftColor: event.colorCode || "#3B82F6" }}
+        onClick={() => setExpandedId(expanded ? null : event.eventId || null)}
       >
-        <div 
-          className="flex items-start justify-between cursor-pointer"
-          onClick={() => setExpandedId(expanded ? null : event.id)}
-        >
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5 sm:gap-2 mb-1 flex-wrap">
-              <div 
-                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full flex-shrink-0"
+        <div className="flex justify-between">
+          <div>
+            <h3 className="font-semibold">{event.eventName}</h3>
+
+            {event.eventType && (
+              <span
+                className="inline-block text-xs mt-1 px-2 py-0.5 rounded-full text-white"
                 style={{ backgroundColor: event.colorCode || "#3B82F6" }}
-              />
-              <h3 className={`font-medium text-xs sm:text-sm truncate ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                {event.title}
-              </h3>
-              <span className={`px-1 sm:px-1.5 py-0.5 rounded text-[10px] sm:text-xs border flex-shrink-0 ${
-                theme === "dark" ? "bg-gray-700 text-gray-300 border-gray-600" : "bg-gray-200 text-gray-600 border-gray-300"
-              }`}>
-                {event.type}
+              >
+                {event.eventType}
               </span>
-            </div>
-            <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 sm:gap-3 text-[10px] sm:text-xs">
-              <div className={`flex items-center gap-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                <FaClock size={8} className="sm:size-10]" />
-                <span>{format(eventDate, "h:mm a")}</span>
+            )}
+
+            {eventDate && (
+              <div className="flex items-center gap-2 text-xs text-gray-500 mt-2">
+                <FaClock />
+                {format(eventDate, "MMM d, yyyy")} {event.startTime}
               </div>
-              {event.location && (
-                <div className={`flex items-center gap-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                  <FaMapMarkerAlt size={8} className="sm:size-10]" />
-                  <span className="truncate">{event.location}</span>
-                </div>
-              )}
-            </div>
+            )}
+
+            {event.location && (
+              <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                <FaMapMarkerAlt />
+                {event.location}
+              </div>
+            )}
           </div>
-          <button className={`ml-1 sm:ml-2 p-0.5 sm:p-1 rounded border flex-shrink-0 ${
-            theme === "dark" ? "border-gray-700 hover:bg-gray-800" : "border-gray-300 hover:bg-gray-200"
-          }`}>
-            {expanded ? <FaChevronUp size={10} className="sm:size-12]" /> : <FaChevronDown size={10} className="sm:size-12]" />}
-          </button>
+
+          {expanded ? <FaChevronUp /> : <FaChevronDown />}
         </div>
-        
+
         <AnimatePresence>
           {expanded && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200 dark:border-gray-700"
+              className="mt-3 text-sm text-gray-600"
             >
-              <p className={`text-xs sm:text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
-                {event.description}
-              </p>
-              {event.endDate && (
-                <div className="mt-1 sm:mt-2 text-[10px] sm:text-xs text-gray-500">
-                  Ends: {format(new Date(event.endDate), "MMM d, h:mm a")}
-                </div>
-              )}
+              {event.description}
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
     );
   };
-
-  /* ===================== RENDER ===================== */
   return (
-    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900" : "bg-gray-50"}`}>
-      {/* HERO SECTION */}
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
+      {/* HERO - Unchanged */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-10 text-center"
+        className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
       >
         <div className="max-w-8xl mx-auto">
-          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800">
+          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-50 border border-blue-100">
             <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-blue-600 dark:text-blue-400 font-medium text-xs sm:text-sm">
+            <span className="text-blue-600 font-medium text-xs sm:text-sm">
               Holiday Planner
             </span>
           </div>
 
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
-            <span className="text-gray-900 dark:text-white">Institutional </span>
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
+            <span className="text-gray-900">Institutional </span>
             <span className="relative inline-block sm:ml-2">
-              <span className="text-blue-600 dark:text-blue-500 relative z-10">
+              <span className="text-blue-600 relative z-10">
                 Calendar
               </span>
               <img
@@ -421,82 +272,66 @@ const HolidayWebPlanner: React.FC = () => {
             </span>
           </h1>
 
-          <p className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
+          <p className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
             Plan your academic year with our comprehensive holiday schedule. 
             Stay updated with all administrative and academic holidays.
           </p>
         </div>
       </motion.div>
 
-      {/* CONTENT SECTION */}
-      <div className="container mx-auto px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 pb-6 sm:pb-8 md:pb-10 lg:pb-12 xl:pb-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-          {/* CALENDAR SECTION */}
-          <div className={`lg:col-span-2 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 border ${
-            theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
-          }`}>
-            <CalendarHeader />
-            <DaysHeader />
-            <CalendarGrid />
-          </div>
-
-          {/* EVENTS SECTION */}
-          <div className={`rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 border ${theme === "dark" ? "bg-gray-800/50 border-gray-700" : "bg-white border-gray-200"}`}>
-            <div className="flex items-center justify-between mb-4 sm:mb-6">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <div className={`p-1.5 sm:p-2 rounded-lg border ${
-                  theme === "dark" ? "bg-blue-900/30 border-blue-800" : "bg-blue-50 border-blue-200"
-                }`}>
-                  <FaCalendarAlt className="text-blue-500 text-sm sm:text-base" />
+      <div className="max-w-7xl mx-auto px-1 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-200">
+              <CalendarHeader />
+              <DaysHeader />
+              {isLoading ? (
+                <div className="h-[420px] flex flex-col items-center justify-center">
+                  <div className="relative">
+                    <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <FaCalendarAlt className="text-blue-500 text-xl" />
+                    </div>
+                  </div>
+                  <p className="mt-4 text-gray-600 font-medium">Loading calendar...</p>
                 </div>
-                <div>
-                  <h3 className={`font-bold text-base sm:text-lg md:text-xl ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                    {format(selectedDate, "EEEE")}
-                  </h3>
-                  <p className={`text-xs sm:text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                    {format(selectedDate, "MMMM d, yyyy")}
-                  </p>
-                </div>
-              </div>
-              {isSameDay(selectedDate, new Date()) && (
-                <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium border ${
-                  theme === "dark" 
-                    ? "bg-green-900/30 text-green-400 border-green-800" 
-                    : "bg-green-100 text-green-700 border-green-200"
-                }`}>
-                  Today
-                </span>
+              ) : (
+                <CalendarGrid />
               )}
             </div>
+          </div>
 
-            <div className="mb-4 sm:mb-6">
-              <div className="flex items-center justify-between mb-2 sm:mb-3">
-                <h4 className={`font-semibold text-sm sm:text-base ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
-                  Events
-                  <span className={`ml-1 sm:ml-2 text-xs sm:text-sm ${
-                    theme === "dark" ? "text-gray-500" : "text-gray-400"
-                  }`}>
-                    ({selectedEvents.length})
+          {/* Events Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 sticky top-6">
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-bold text-lg text-gray-900">
+                    {format(selectedDate, "EEEE")}
+                  </h3>
+                  <span className="text-sm font-medium text-gray-500">
+                    {format(selectedDate, "MMM d, yyyy")}
                   </span>
-                </h4>
+                </div>
+                <div className="text-sm text-gray-600">
+                  {selectedEvents.length} event{selectedEvents.length !== 1 ? 's' : ''}
+                </div>
               </div>
 
-              <div className="max-h-[250px] sm:max-h-[300px] md:max-h-[350px] overflow-y-auto pr-1 sm:pr-2">
+              <div className="h-[500px] overflow-y-auto pr-2">
                 {selectedEvents.length === 0 ? (
-                  <div className={`text-center py-6 sm:py-8 rounded-lg border ${
-                    theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"
-                  }`}>
-                    <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">📅</div>
-                    <p className={`font-medium text-sm sm:text-base ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
-                      No events scheduled
-                    </p>
-                    <p className={`text-[10px] sm:text-xs mt-0.5 sm:mt-1 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
-                      Add events to stay organized
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+                      <FaCalendarAlt className="text-gray-400 text-xl" />
+                    </div>
+                    <p className="text-gray-500 font-medium">No events scheduled</p>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Select another date to view events
                     </p>
                   </div>
                 ) : (
                   selectedEvents.map((event) => (
-                    <EventItem key={event.id} event={event} />
+                    <EventItem key={event.eventId} event={event} />
                   ))
                 )}
               </div>

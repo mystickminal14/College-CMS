@@ -1,48 +1,48 @@
-import { Award, Briefcase, GraduationCap, Users } from "lucide-react";
+import { Award, BookOpen, Briefcase, GraduationCap, TrendingUp, Users } from "lucide-react";
 import lbef_bufferfly from "../../../../assets/pcpsLogo.png";
 import decoration from "../../../../assets/decoration.png";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export function WhyChooseLBEF() {
-  const desktopFeatures = [
-    {
-      icon: <Briefcase className="w-6 h-6" />,
-      topTitle: "100%",
-      title: "Internship Assured",
-      position: "top-left",
-    },
-    {
-      icon: <GraduationCap className="w-6 h-6" />,
-      topTitle: "World Class",
-      title: "Degree",
-      position: "top-right",
-    },
-    {
-      icon: <Users className="w-6 h-6" />,
-      topTitle: "Employment",
-      title: "Opportunities",
-      position: "right",
-    },
-    {
-      icon: <Award className="w-6 h-6" />,
-      topTitle: "100%",
-      title: "Up to Scholarship",
-      position: "bottom-right",
-    },
-    {
-      icon: <Award className="w-6 h-6" />,
-      topTitle: "100%",
-      title: "Up to Scholarship",
-      position: "bottom-left",
-    },
-    {
-      icon: <Briefcase className="w-6 h-6" />,
-      topTitle: "100%",
-      title: "Internship EAssured",
-      position: "left",
-    },
-  ];
+const desktopFeatures = [
+  {
+    icon: <Briefcase className="w-6 h-6" />,
+    topTitle: "100%",
+    title: "Internship Assured",
+    position: "top-left",
+  },
+  {
+    icon: <GraduationCap className="w-6 h-6" />,
+    topTitle: "World Class",
+    title: "Degree",
+    position: "top-right",
+  },
+  {
+    icon: <Users className="w-6 h-6" />,
+    topTitle: "Employment",
+    title: "Opportunities",
+    position: "right",
+  },
+  {
+    icon: <Award className="w-6 h-6" />,
+    topTitle: "Up to",
+    title: "100% Scholarship",
+    position: "bottom-right",
+  },
+  {
+    icon: <BookOpen className="w-6 h-6" />,
+    topTitle: "Industry",
+    title: "Focused Curriculum",
+    position: "bottom-left",
+  },
+  {
+    icon: <TrendingUp className="w-6 h-6" />,
+    topTitle: "Career",
+    title: "Growth Support",
+    position: "left",
+  },
+];
 
   return (
     <>

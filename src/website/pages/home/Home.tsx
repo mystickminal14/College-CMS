@@ -1,7 +1,6 @@
 import { University } from "./components/University";
 import { ApplyNow } from "./components/ApplyNow";
 import { HeroSection } from "./components/HeroSection";
-import { OurCourses } from "./components/OurCourses";
 import { VideoSection } from "./components/VideoSection";
 import { WhyChooseLBEF } from "./components/WhyChooseLBEF";
 import { JoinStudents } from "./components/JoinStudents";
@@ -12,6 +11,7 @@ import RecentNews from "./components/RecentNews";
 import SubFooter from "./components/SubFooter";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import NewCourse from "./components/NewCourse";
 export function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -32,27 +32,21 @@ export function HomePage() {
       {!isMobile ? (
         <div className="relative">
           <HeroSection />
-          {/* ================= HERO ================= */}
           <motion.div
             className="sticky top-0 z-10 bg-white"
           >
             <ApplyNow />
-
           </motion.div>
-
-
-
           <motion.div
             style={{ y: contentY }}
             className="relative z-20 bg-white"
           >
-            <OurCourses />
+            <NewCourse />
             <University />
             <motion.div
               className="sticky top-0 z-10 bg-white"
             >
               <VideoSection />
-
             </motion.div>
             <motion.div
               style={{ y: contentY }}
@@ -62,7 +56,6 @@ export function HomePage() {
                 className="sticky top-0 z-10 bg-white"
               >
                 <JoinStudents />
-
               </motion.div>
               <motion.div
                 style={{ y: contentY }}
@@ -80,7 +73,7 @@ export function HomePage() {
       ) : (
         <><HeroSection />
           <ApplyNow />
-          <OurCourses />
+          <NewCourse />
           <University />
           <VideoSection />
           <WhyChooseLBEF />
