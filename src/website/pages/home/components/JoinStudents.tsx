@@ -2,19 +2,19 @@ import girlWithCup from "../../../../assets/gril_with_cup.png";
 import girlWithThinking from "../../../../assets/girl_with_thinking.png";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/decoration/buddha_with_evolve.jpeg';
+import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 
 
 
 export function JoinStudents() {
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden bg-[#474AFF]">
+    <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
       {/* Background Image with overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat "
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-65 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-80 " />
 
       <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
 

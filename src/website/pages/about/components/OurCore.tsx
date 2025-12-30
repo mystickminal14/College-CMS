@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/pankag.png';
 import imagetwo from '../../../../assets/core/prakash.png';
-import bg1 from '../../../../assets/decoration/background.png';
+import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 
 const messages = [
   {
@@ -88,7 +88,7 @@ export default function OurCore() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-80" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Title */}
@@ -135,47 +135,35 @@ export default function OurCore() {
           <div
             ref={scrollContainerRef}
             onMouseDown={handleMouseDown}
-            className="
-              flex gap-12 p-8
-              overflow-x-auto lg:overflow-x-hidden
-              scrollbar-hide scroll-smooth
-              lg:justify-center
-            "
+            className="    flex gap-12 p-8 overflow-x-auto scroll-smooth scrollbar-hide lg:overflow-x-visible lg:justify-center"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {messages.map((lead, index) => (
               <div
                 key={index}
-                className="
-                  shrink-0 relative pl-10
-                  w-80 md:w-96
-                  bg-white rounded-2xl shadow-lg
-                  transition-transform hover:scale-105
-                "
+                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
               >
-                <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6 relative">
-                  <div className="w-20 h-20 rounded-full absolute top-5 -left-5 z-20 overflow-hidden border-4 border-[#474AFF]">
+                <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
+                  <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
                     <img
                       src={lead.image}
                       alt={lead.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="ml-24">
-                    <h3 className="font-bold text-lg text-gray-900">
-                      {lead.name}
-                    </h3>
+                  <div>
+                    <h3 className="font-bold text-lg text-gray-900">{lead.name}</h3>
                     <p className="text-lg text-gray-600">{lead.position}</p>
                     <p className="text-sm text-gray-500">{lead.institution}</p>
                   </div>
                 </div>
-
-                <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700 whitespace-pre-line">
+                <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700  whitespace-pre-line">
                   {lead.message}
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>

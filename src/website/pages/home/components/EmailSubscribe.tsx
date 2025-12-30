@@ -3,15 +3,15 @@ import background from '../../../../assets/decoration/AboutHero.jpg';
 
 export function EmailSubscribe() {
   return (
-    <section className="relative py-20 bg-[#474AFF] overflow-hidden">
+    <section className="relative py-20 overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat "
         style={{ backgroundImage: `url(${background})` }}
       />
 
       {/* Deep blue overlay */}
-      <div className="absolute inset-0 bg-[#474AFF] opacity-65 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-80" />
 
 
       {/* Content */}
