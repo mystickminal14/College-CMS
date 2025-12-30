@@ -21,6 +21,7 @@ import MeritScholarship from "../website/pages/admission/Merit";
 import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
 import NewCourse from "../website/pages/home/components/NewCourse";
 import { DemoPage } from "../website/pages/home/Demo";
+import { AboutUniversity } from "../website/pages/About University/AboutUniversity";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -43,7 +44,7 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <AboutPage /> },
           { path: "about-lbef", element: <AboutPage /> },
-          { path: "about-university", element: <PlaceholderPage pageName="About University" /> },
+          { path: "about-university", element: <AboutUniversity /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
           { path: "achivement", element: <AchievementWeb /> },
 
