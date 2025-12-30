@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Monitor } from "lucide-react";
-import bg from "../../../../assets/evolve-b.png";
+import bg from "../../../../assets/courses_bg.jpg";
 import decoration from "../../../../assets/decoration.png";
 import { useNavigate } from "react-router-dom";
 import useGetAll from "../../programs/hook/useGetCourses";
@@ -75,10 +75,13 @@ export default function NewCourse() {
       </div>
 
       <div
-        className="relative min-h-screen bg-gray-100 py-12 px-4 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${bg})` }}
+        className="relative  bg-gray-100 py-20 px-4"
       >
-        <div className="absolute inset-0 bg-white/20 pointer-events-none" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-[5px]"
+          style={{ backgroundImage: `url(${bg})` }}
+        />
+        <div className="absolute inset-0 bg-[#474AFF] opacity-50 -mt-[5px]" />
 
         <div className="relative max-w-7xl mx-auto">
           {/* ================= WEB / MOBILE ================= */}
@@ -122,7 +125,7 @@ export default function NewCourse() {
                       {/* DETAILS (ALWAYS BELOW TITLE) */}
                       <div className="hover-reveal mt-4">
                         <p className="text-sm text-white/90">
-                          {truncateWords(course.details??"", 30)}
+                          {truncateWords(course.details ?? "", 30)}
                         </p>
 
                         <span
@@ -212,9 +215,8 @@ const MobileCarousel = ({
           scrollRef.current?.scrollBy({ left: -CARD_WIDTH, behavior: "smooth" })
         }
         disabled={!canLeft}
-        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-          !canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-        }`}
+        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
+          }`}
       >
         <ChevronLeft className="w-6 h-6 text-blue-600" />
       </button>
@@ -225,9 +227,8 @@ const MobileCarousel = ({
           scrollRef.current?.scrollBy({ left: CARD_WIDTH, behavior: "smooth" })
         }
         disabled={!canRight}
-        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-          !canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-        }`}
+        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
+          }`}
       >
         <ChevronRight className="w-6 h-6 text-blue-600" />
       </button>
@@ -246,7 +247,7 @@ const MobileCarousel = ({
               </div>
 
               <h3 className="mt-4 text-lg font-bold">{course.title}</h3>
-              <p className="mt-2 text-sm flex-1">{truncateWords(course.details??"", 30)}</p>
+              <p className="mt-2 text-sm flex-1">{truncateWords(course.details ?? "", 30)}</p>
 
               <span
                 className="mt-4 text-sm font-semibold underline underline-offset-8 cursor-pointer"
@@ -265,11 +266,10 @@ const MobileCarousel = ({
           <span
             key={i}
             onClick={() => scrollToPage(i)}
-            className={`transition-all cursor-pointer ${
-              activePage === i
-                ? "w-8 h-2 bg-blue-500 rounded-full"
-                : "w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400"
-            }`}
+            className={`transition-all cursor-pointer ${activePage === i
+              ? "w-8 h-2 bg-blue-500 rounded-full"
+              : "w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400"
+              }`}
           />
         ))}
       </div>
