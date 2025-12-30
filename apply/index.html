@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LBEF College - Apply Now</title>
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    /* Container */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .main-content{
+      width: 1400px;
+    }
+
+    .sidebar {
+      padding: 20px;
+    }
+
+    /* Desktop: two columns */
+    @media (min-width: 1024px) {
+      .container {
+        grid-template-columns: 2fr 1fr;
+        /* Left 66%, Right 33% */
+      }
+    }
+
+    /* Left Column - Normal Scroll */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(to right, #7c3aed, #3b82f6);
+      border-radius: 24px;
+      padding: 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      background: white;
+      color: #2563eb;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .hero-image {
+      /* position: absolute;
+      right: 40px;
+      top: 50%; */
+      /* transform: translateY(-50%) rotate(6deg); */
+      width: 500px;
+      border-radius: 16px;
+    }
+
+    /* Form Card */
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* News Card */
+    .news-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .news-body {
+      padding: 20px;
+    }
+
+    .news-date {
+      color: #2563eb;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .news-title {
+      font-size: 1.3rem;
+      margin: 10px 0;
+    }
+
+    .read-more {
+      color: #2563eb;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="main-content">
+      <section class="hero">
+        <div>
+          <p>Welcome to LBEF College</p>
+          <h1>The First IT College of Nepal</h1>
+          <p>
+            Together with our top-notch faculty, we provide a nurturing environment to help students evolve into leaders
+            who think boldly, make effective choices and are well-equipped with futuristic mindset and skills.
+          </p>
+          <button class="btn">Get Started</button>
+        </div>
+        <img src="./images/iPad.png" alt="Students" class="hero-image">
+      </section>
+
+    </div>
+
+    <!-- RIGHT: Sticky Sidebar -->
+    <aside class="sidebar">
+
+      <!-- Enquiry Form -->
+      <div class="card">
+        <h3>Enquiry Form</h3>
+        <form>
+          <div class="form-group"><input type="text" placeholder="Name" /></div>
+          <div class="form-group"><input type="email" placeholder="Email" /></div>
+          <div class="form-group"><input type="tel" placeholder="Phone No." /></div>
+          <div class="form-group">
+            <select>
+              <option>Course Interested</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+      </div>
+
+    </aside>
+
+  </div>
+
+</body>
+
+</html>
