@@ -12,7 +12,7 @@ export default function AboutSection() {
 
   return (
     <div className="bg-linear-to-br from-blue-50 to-white overflow-x-hidden"> {/* ← Only this class added */}
-      <div className="container mx-auto px-4 py-8 lg:py-10">
+      <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-8 lg:gap-16 items-center">
           {/* Left Side - Image with Overlaid Stats */}
           <motion.div

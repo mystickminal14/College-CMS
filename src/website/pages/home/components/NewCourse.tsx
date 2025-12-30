@@ -1,4 +1,4 @@
-import {  ChevronLeft, ChevronRight, Monitor } from "lucide-react";
+import { ChevronLeft, ChevronRight, Monitor } from "lucide-react";
 import bg from "../../../../assets/courses_bg.jpg";
 import decoration from "../../../../assets/decoration.png";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import useGetAll from "../../programs/hook/useGetCourses";
 import type { Courses } from "../../../../pages/courses/model/CourseModel";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "../../../comp/animation";
-import { useEffect,  useRef,  useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const truncateWords = (text: string, wordLimit: number) => {
   const words = text.split(" ");
@@ -83,27 +83,29 @@ export default function NewCourse() {
         <div className="absolute inset-0 bg-[#474AFF] opacity-50" />
 
         <div className="relative max-w-7xl mx-auto">
-          {isMobile ? (
-            <MobileCarousel courses={courses.slice(0, 6)} onView={handleView} />
-          ) : (
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.25 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {!isLoading &&
-                courses.slice(0, 6).map((course) => (
+          {/* 🔑 FIX: wait until loading finishes */}
+          {!isLoading && courses.length > 0 && (
+            isMobile ? (
+              <MobileCarousel
+                courses={courses.slice(0, 6)}
+                onView={handleView}
+              />
+            ) : (
+              <motion.div
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
+                {courses.slice(0, 6).map((course) => (
                   <motion.div
                     key={course.id}
                     variants={fadeUp}
                     className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
                   >
-                    {/* 🔵 ANIMATED BACKGROUND */}
                     <div className="card-bg absolute inset-0 bg-blue-600" />
 
-                    {/* CONTENT */}
                     <div className="relative z-10 p-6 flex flex-col h-full">
                       <div className="flex justify-between">
                         <p className="text-xs uppercase text-blue-600 group-hover:text-white">
@@ -129,7 +131,7 @@ export default function NewCourse() {
                           {truncateWords(course.details ?? "", 30)}
                         </p>
                         <span
-                          className="mt-6 block  text-white  font-semibold  cursor-pointer"
+                          className="mt-6 block text-white font-semibold cursor-pointer"
                           onClick={() => handleView(course)}
                         >
                           READ MORE
@@ -138,11 +140,11 @@ export default function NewCourse() {
                     </div>
                   </motion.div>
                 ))}
-            </motion.div>
+              </motion.div>
+            )
           )}
         </div>
 
-        {/* ================= CSS FIX ================= */}
         <style>{`
           .card-bg {
             transform: scaleY(0);
@@ -175,7 +177,8 @@ export default function NewCourse() {
     </div>
   );
 }
-/* ================= MOBILE CAROUSEL ================= */
+
+
 
 const MobileCarousel = ({
   courses,
