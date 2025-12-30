@@ -17,7 +17,7 @@ const StartJourney = () => {
 
         {/* Blue-enhancing overlay */}
         <div
-          className="absolute inset-0 opacity-80"
+          className="absolute inset-0 opacity-65"
           style={{
             backgroundColor: "#474AFF", // deep blue
 

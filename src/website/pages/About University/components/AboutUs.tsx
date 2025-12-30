@@ -1,16 +1,25 @@
 import graduations from '../../../../assets/apu-second.jpg'
 import ring from '../../../../assets/ring.png'
+import decoration from '../../../../assets/decoration.png';
+
 export default function AboutUsSection() {
   return (
     <>
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white"id='about'>
         <div className="max-w-7xl mx-auto px-6 ">
           <div className="text-center mb-12 relative">
             <div className="relative max-w-6xl mx-auto pt-10">
               <div className="absolute hidden lg:block top-15 left-0 w-50 2xl:-left-20 2xl:w-150 h-30 border-t-2 border-l-2 border-black rounded-tl-2xl"></div>
               <div className="absolute hidden lg:block top-15 right-0 w-50 2xl:-right-20 2xl:w-150 h-30 border-t-2 border-r-2 border-black rounded-tr-2xl"></div>
               <h2 className="inline-block px-8 bg-white text-4xl md:text-5xl font-bold text-blue-600 relative z-10">
-                About Us
+                About <span className="relative inline-block ">
+                  Us
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 w-full h-2 sm:h-3"
+                  />
+                </span>{" "}
               </h2>
             </div>
             <p className="mt-6 text-gray-600 text-lg max-w-4xl mx-auto">

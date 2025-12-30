@@ -38,7 +38,7 @@ export function OurCourses() {
       <div className="max-w-8xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0E2A46] leading-tight mb-6 md:mb-0 text-center md:text-left">
-            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-80">
+            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-65">
               Our Courses
             </span>
 
@@ -71,32 +71,32 @@ export function OurCourses() {
 
         <div className="h-10" />
 
-     {isLoading ? (
-  <div className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4">
-    {Array.from({ length: 3 }).map((_, index) => (
-      <div key={index} className="flex-none w-full max-w-sm">
-        <CourseSkeleton />
-      </div>
-    ))}
-  </div>
-) : hasCourses ? (
-  isMobile ? (
-    <MobileCarousel courses={courses} onView={handleView} />
-  ) : (
-    <HorizontalScrollCarousel courses={courses} onView={handleView} />
-  )
-) : (
-  <div className="w-full flex justify-center items-center py-16">
-    <div className="text-center">
-      <h3 className="text-xl font-semibold text-gray-700">
-        No courses available right now
-      </h3>
-      <p className="text-gray-500 mt-2">
-        Please check back later. New courses will be added soon.
-      </p>
-    </div>
-  </div>
-)}
+        {isLoading ? (
+          <div className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="flex-none w-full max-w-sm">
+                <CourseSkeleton />
+              </div>
+            ))}
+          </div>
+        ) : hasCourses ? (
+          isMobile ? (
+            <MobileCarousel courses={courses} onView={handleView} />
+          ) : (
+            <HorizontalScrollCarousel courses={courses} onView={handleView} />
+          )
+        ) : (
+          <div className="w-full flex justify-center items-center py-16">
+            <div className="text-center">
+              <h3 className="text-xl font-semibold text-gray-700">
+                No courses available right now
+              </h3>
+              <p className="text-gray-500 mt-2">
+                Please check back later. New courses will be added soon.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       <style>{`
@@ -178,11 +178,10 @@ const MobileCarousel = ({ courses, onView }: { courses: Courses[]; onView: (c: C
               const amount = getCardWidth() * getCardsPerPage() * page;
               scrollRef.current?.scrollTo({ left: amount, behavior: 'smooth' });
             }}
-            className={`transition-all duration-300 cursor-pointer ${
-              activePage === page
+            className={`transition-all duration-300 cursor-pointer ${activePage === page
                 ? 'w-10 h-2 bg-blue-600 rounded-full'
                 : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'
-            }`}
+              }`}
           />
         ))}
       </div>

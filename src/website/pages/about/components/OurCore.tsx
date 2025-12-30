@@ -88,7 +88,7 @@ export default function OurCore() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-80" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-65" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Title */}

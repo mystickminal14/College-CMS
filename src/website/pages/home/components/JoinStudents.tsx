@@ -14,7 +14,7 @@ export function JoinStudents() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-80 " />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-65 " />
 
       <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
 

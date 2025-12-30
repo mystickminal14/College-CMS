@@ -35,7 +35,7 @@ export default function Index() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-80 " />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-65 " />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 sm:px-24 py-10 lg:py-16">

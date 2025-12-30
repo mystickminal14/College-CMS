@@ -32,12 +32,12 @@ const CustomBreadcrumb = ({
       <img
         src={ring}
         alt="Decorative circle"
-        className="hidden md:block absolute left-40 top-1/2 -translate-y-1/2 w-32 lg:w-42 opacity-80"
+        className="hidden md:block absolute left-40 top-1/2 -translate-y-1/2 w-32 lg:w-42 opacity-65"
       />
       <img
         src={ring}
         alt="Decorative circle"
-        className="hidden md:block absolute right-40 top-1/2 -translate-y-1/2 w-32 lg:w-42 opacity-80"
+        className="hidden md:block absolute right-40 top-1/2 -translate-y-1/2 w-32 lg:w-42 opacity-65"
       />
 
       {/* Content */}
