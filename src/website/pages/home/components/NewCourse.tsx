@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Monitor } from "lucide-react";
+import {  ChevronLeft, ChevronRight, Monitor } from "lucide-react";
 import bg from "../../../../assets/courses_bg.jpg";
 import decoration from "../../../../assets/decoration.png";
 import { useNavigate } from "react-router-dom";
@@ -6,14 +6,13 @@ import useGetAll from "../../programs/hook/useGetCourses";
 import type { Courses } from "../../../../pages/courses/model/CourseModel";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "../../../comp/animation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect,  useRef,  useState } from "react";
 
 const truncateWords = (text: string, wordLimit: number) => {
   const words = text.split(" ");
   if (words.length <= wordLimit) return text;
   return words.slice(0, wordLimit).join(" ") + "...";
 };
-
 
 export default function NewCourse() {
   const { data, isLoading } = useGetAll();
@@ -38,6 +37,7 @@ export default function NewCourse() {
 
   return (
     <div>
+      {/* ================= HEADER ================= */}
       <div className="max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -74,17 +74,15 @@ export default function NewCourse() {
         </motion.div>
       </div>
 
-      <div
-        className="relative  bg-gray-100 py-20 px-4"
-      >
+      {/* ================= CARDS ================= */}
+      <div className="relative bg-gray-100 py-20 px-4">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-[5px]"
+          className="absolute inset-0 bg-cover bg-center blur-[5px]"
           style={{ backgroundImage: `url(${bg})` }}
         />
-        <div className="absolute inset-0 bg-[#474AFF] opacity-50 -mt-[5px]" />
+        <div className="absolute inset-0 bg-[#474AFF] opacity-50" />
 
         <div className="relative max-w-7xl mx-auto">
-          {/* ================= WEB / MOBILE ================= */}
           {isMobile ? (
             <MobileCarousel courses={courses.slice(0, 6)} onView={handleView} />
           ) : (
@@ -100,36 +98,38 @@ export default function NewCourse() {
                   <motion.div
                     key={course.id}
                     variants={fadeUp}
-                    className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md transition-all duration-500 hover:bg-blue-600 hover:shadow-2xl h-[360px]"
+                    className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
                   >
-                    <div className="relative p-6 sm:p-8 flex flex-col h-full">
+                    {/* 🔵 ANIMATED BACKGROUND */}
+                    <div className="card-bg absolute inset-0 bg-blue-600" />
+
+                    {/* CONTENT */}
+                    <div className="relative z-10 p-6 flex flex-col h-full">
                       <div className="flex justify-between">
-                        <p className="text-xs uppercase text-blue-600 font-semibold group-hover:text-white/80">
+                        <p className="text-xs uppercase text-blue-600 group-hover:text-white">
                           {course.degree}
                         </p>
-                        <p className="text-xs uppercase text-blue-600 font-semibold group-hover:text-white/80">
+                        <p className="text-xs uppercase text-blue-600 group-hover:text-white">
                           {course.duration}
                         </p>
                       </div>
 
-                      <div className="mt-auto transition-transform duration-500 ">
-                        <div className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-blue-100 group-hover:hidden">
+                      <div className="mt-auto">
+                        <div className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-blue-100 group-hover:opacity-0 transition">
                           <Monitor className="w-7 h-7 text-blue-600" />
                         </div>
 
-                        <h3 className="text-lg sm:text-2xl font-bold text-gray-900 group-hover:text-white">
+                        <h3 className="text-xl font-bold group-hover:text-white">
                           {course.title}
                         </h3>
                       </div>
 
-                      {/* DETAILS (ALWAYS BELOW TITLE) */}
                       <div className="hover-reveal mt-4">
-                        <p className="text-sm text-white/90">
+                        <p className="text-sm text-white">
                           {truncateWords(course.details ?? "", 30)}
                         </p>
-
                         <span
-                          className="mt-6 block text-sm font-semibold text-white underline underline-offset-8 cursor-pointer"
+                          className="mt-6 block  text-white  font-semibold  cursor-pointer"
                           onClick={() => handleView(course)}
                         >
                           READ MORE
@@ -142,26 +142,39 @@ export default function NewCourse() {
           )}
         </div>
 
-        {/* ================= HOVER FIX ================= */}
+        {/* ================= CSS FIX ================= */}
         <style>{`
+          .card-bg {
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s ease;
+          }
+
+          .group:hover .card-bg {
+            transform: scaleY(1);
+          }
+
           .hover-reveal {
+            max-height: 0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.35s ease, transform 0.45s ease;
-            pointer-events: none;
+            transform: translateY(24px);
+            overflow: hidden;
+            transition:
+              max-height 0.5s ease,
+              opacity 0.4s ease,
+              transform 0.5s ease;
           }
 
           .group:hover .hover-reveal {
+            max-height: 200px;
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
           }
         `}</style>
       </div>
     </div>
   );
 }
-
 /* ================= MOBILE CAROUSEL ================= */
 
 const MobileCarousel = ({
@@ -250,7 +263,7 @@ const MobileCarousel = ({
               <p className="mt-2 text-sm flex-1">{truncateWords(course.details ?? "", 30)}</p>
 
               <span
-                className="mt-4 text-sm font-semibold underline underline-offset-8 cursor-pointer"
+                className="mt-4 text-sm font-semibold  text-white  cursor-pointer"
                 onClick={() => onView(course)}
               >
                 READ MORE

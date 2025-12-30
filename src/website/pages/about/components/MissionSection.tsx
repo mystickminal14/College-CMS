@@ -3,7 +3,6 @@ import top_mission from "../../../../assets/top_mission.jpg";
 import middle_mission from "../../../../assets/middle_mission.jpg";
 import bottom_mission from "../../../../assets/mission/bottom_mission.jpg";
 import half_diamond from "../../../../assets/half_diamond.png";
-
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -97,7 +96,7 @@ export function MissionSection() {
         className="
           hidden lg:block
           absolute right-0 top-1/2 -translate-y-1/2
-          w-[42vw] max-w-[560px] h-[85vh] [@media(min-width:1600px)]: max-w-[700px]
+          w-[42vw]  h-[85vh] [@media(min-width:1600px)]: max-w-[700px]
           overflow-hidden pointer-events-none
         "
       >
