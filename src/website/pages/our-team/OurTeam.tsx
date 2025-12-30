@@ -10,11 +10,11 @@ import { fadeUp, staggerContainer } from '../../comp/animation';
 
 const OurTeamWeb = () => {
 
-    const { data, isLoading } = useGetTeamsByDept();
-    const teamData = data?.data;
-    const managementTeam = teamData?.MANAGEMENT || [];
-    const administrationTeam = teamData?.ADMINISTRATION || [];
-    const computingTeam = teamData?.COMPUTING || [];
+  const { data, isLoading } = useGetTeamsByDept();
+  const teamData = data?.data;
+  const managementTeam = teamData?.MANAGEMENT || [];
+  const administrationTeam = teamData?.ADMINISTRATION || [];
+  const computingTeam = teamData?.COMPUTING || [];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -44,9 +44,9 @@ const OurTeamWeb = () => {
               />
             </span>
             <br />
-            <span className="text-gray-900">Behind</span>
-            <span className="text-blue-600">Academic</span>
-            <span className="text-gray-900">Excellence</span>
+            <span className="text-gray-900"> Behind</span>
+            <span className="text-blue-600"> Academic</span>
+            <span className="text-gray-900"> Excellence</span>
           </h1>
 
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -58,11 +58,9 @@ const OurTeamWeb = () => {
       </div>
 
 
-      {/* ================= TEAM SECTIONS ================= */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 ">
         <div className="max-w-7xl mx-auto">
 
-          {/* ================= MANAGEMENT ================= */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -71,8 +69,20 @@ const OurTeamWeb = () => {
             className="mb-20"
           >
             <div className="mb-8">
+              <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-blue-100 border border-blue-200">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="text-blue-700 font-medium">Leadership Team</span>
+              </div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Management Division
+                Management
+                <span className="relative inline-block ml-2">
+                  <span className="text-blue-600 relative z-10">Division</span>
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                  />
+                </span>
               </h3>
               <p className="text-gray-600 mt-2">
                 Strategic leadership and institutional governance
@@ -88,17 +98,17 @@ const OurTeamWeb = () => {
             >
               {isLoading
                 ? Array.from({ length: 3 }).map((_, i) => (
-                    <TeamCardSkeleton key={i} />
-                  ))
+                  <TeamCardSkeleton key={i} />
+                ))
                 : managementTeam.map((member: TeamMember) => (
-                    <motion.div
-                      key={member.id}
-                      variants={fadeUp}
-                      whileHover={{ y: -6 }}
-                    >
-                      <TeamCard member={member} />
-                    </motion.div>
-                  ))}
+                  <motion.div
+                    key={member.id}
+                    variants={fadeUp}
+                    whileHover={{ y: -6 }}
+                  >
+                    <TeamCard member={member} />
+                  </motion.div>
+                ))}
             </motion.div>
           </motion.div>
 
@@ -111,12 +121,24 @@ const OurTeamWeb = () => {
             className="mb-20"
           >
             <div className="mb-8">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Department of Computing
-              </h3>
-              <p className="text-gray-600 mt-2">
-                Technology education, research, and innovation
-              </p>
+             <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-green-100 border border-green-200">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span className="text-green-700 font-medium">Technology & Research</span>
+                                </div>
+                                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                                    Department of
+                                    <span className="relative inline-block ml-2">
+                                        <span className="text-blue-600 relative z-10">Computing</span>
+                                        <img
+                                            src={decoration}
+                                            alt="Decoration"
+                                            className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                                        />
+                                    </span>
+                                </h3>
+
+                                <p className="text-gray-600 mt-2">Technology education, research, and innovation</p>
+                           
             </div>
 
             <motion.div
@@ -128,17 +150,17 @@ const OurTeamWeb = () => {
             >
               {isLoading
                 ? Array.from({ length: 3 }).map((_, i) => (
-                    <TeamCardSkeleton key={i} />
-                  ))
+                  <TeamCardSkeleton key={i} />
+                ))
                 : computingTeam.map((member: TeamMember) => (
-                    <motion.div
-                      key={member.id}
-                      variants={fadeUp}
-                      whileHover={{ y: -6 }}
-                    >
-                      <TeamCard member={member} />
-                    </motion.div>
-                  ))}
+                  <motion.div
+                    key={member.id}
+                    variants={fadeUp}
+                    whileHover={{ y: -6 }}
+                  >
+                    <TeamCard member={member} />
+                  </motion.div>
+                ))}
             </motion.div>
           </motion.div>
 
@@ -150,12 +172,24 @@ const OurTeamWeb = () => {
             viewport={{ once: true }}
           >
             <div className="mb-8">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Department of Administration
-              </h3>
-              <p className="text-gray-600 mt-2">
-                Support services and operational excellence
-              </p>
+         <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-purple-100 border border-purple-200">
+                                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                    <span className="text-purple-700 font-medium">Support & Operations</span>
+                                </div>
+                                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                                    Department of
+                                    <span className="relative inline-block ml-2">
+                                        <span className="text-blue-600 relative z-10">Administration</span>
+                                        <img
+                                            src={decoration}
+                                            alt="Decoration"
+                                            className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                                        />
+                                    </span>
+                                </h3>
+
+                                <p className="text-gray-600 mt-2">Comprehensive support services and operational excellence</p>
+                            
             </div>
 
             <motion.div
@@ -167,17 +201,17 @@ const OurTeamWeb = () => {
             >
               {isLoading
                 ? Array.from({ length: 3 }).map((_, i) => (
-                    <TeamCardSkeleton key={i} />
-                  ))
+                  <TeamCardSkeleton key={i} />
+                ))
                 : administrationTeam.map((member: TeamMember) => (
-                    <motion.div
-                      key={member.id}
-                      variants={fadeUp}
-                      whileHover={{ y: -6 }}
-                    >
-                      <TeamCard member={member} />
-                    </motion.div>
-                  ))}
+                  <motion.div
+                    key={member.id}
+                    variants={fadeUp}
+                    whileHover={{ y: -6 }}
+                  >
+                    <TeamCard member={member} />
+                  </motion.div>
+                ))}
             </motion.div>
           </motion.div>
         </div>

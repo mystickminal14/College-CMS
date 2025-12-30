@@ -22,6 +22,7 @@ import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
 import NewCourse from "../website/pages/home/components/NewCourse";
 import { DemoPage } from "../website/pages/home/Demo";
 import { AboutUniversity } from "../website/pages/About University/AboutUniversity";
+import NewsPageWeb from "../website/pages/news/News";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -98,7 +99,7 @@ export const websiteRoutes = [
           { path: "", element: <PlaceholderPage pageName="Media" /> },
           { path: "photo-gallery", element: <Gallery /> },
           { path: "connect", element: <LBEFConnectWeb /> },
-          { path: "news-events", element: <PlaceholderPage pageName="News & Events" /> },
+          { path: "news-events", element: <NewsPageWeb/> },
           { path: "journal", element: <JournalPageWeb /> },
           { path: "journal/:id", element: <JournalPageWeb /> },
           { path: "journal/:id/abstract", element: <JournalPageWeb /> },
@@ -129,10 +130,7 @@ export const websiteRoutes = [
         path: "enroll",
         element: <PlaceholderPage pageName="Enroll Now" />,
       },
-      {
-        path: "new",
-        element: <DemoPage />,
-      },
+      
     ]
   }
 ];

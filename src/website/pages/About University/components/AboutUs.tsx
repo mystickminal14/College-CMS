@@ -1,26 +1,18 @@
-import graduations from '../../../../assets/graduations.jpg'
+import graduations from '../../../../assets/apu-second.jpg'
 import ring from '../../../../assets/ring.png'
 export default function AboutUsSection() {
   return (
     <>
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 ">
-          {/* Section Header */}
           <div className="text-center mb-12 relative">
-            {/* Border frame */}
             <div className="relative max-w-6xl mx-auto pt-10">
-              {/* Left top border */}
               <div className="absolute hidden lg:block top-15 left-0 w-50 2xl:-left-20 2xl:w-150 h-30 border-t-2 border-l-2 border-black rounded-tl-2xl"></div>
-
-              {/* Right top border */}
               <div className="absolute hidden lg:block top-15 right-0 w-50 2xl:-right-20 2xl:w-150 h-30 border-t-2 border-r-2 border-black rounded-tr-2xl"></div>
-
-              {/* Heading */}
               <h2 className="inline-block px-8 bg-white text-4xl md:text-5xl font-bold text-blue-600 relative z-10">
                 About Us
               </h2>
             </div>
-            {/* Description */}
             <p className="mt-6 text-gray-600 text-lg max-w-4xl mx-auto">
               APU is one of Malaysia's premier private universities, where students are
               transformed into highly skilled, employable, and future-proof professionals
@@ -31,7 +23,6 @@ export default function AboutUsSection() {
 
           {/* Main Content - Image Left, Text Right */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-30 items-center">
-            {/* Left: Image with decorative circles */}
             <div className="relative">
               {/* Black circle - behind everything */}
               <div className="absolute hidden lg:block top-0 -left-15 w-32 h-32 rounded-full  ">
