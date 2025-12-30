@@ -95,26 +95,26 @@ export function OurCourses() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12">
           <h2 className="text-4xl sm:text-4xl md:text-5xl font-bold text-[#0E2A46] leading-tight mb-6 md:mb-0 text-center md:text-left">
-            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-80">
+            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-65">
               Our Courses
             </span>
-            <FlipText text="World Class Course"/>{' '}
+            <FlipText text="World Class Course" />{' '}
 
             <span className="relative text-[#474AFF] inline-block">
-            <FlipText text="Students"/>
+              <FlipText text="Students" />
               <img
                 src={decoration}
                 alt="Decoration"
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
             </span>{' '}
-                        <FlipText text="Can"/>{' '}
+            <FlipText text="Can" />{' '}
 
-            
+
 
             <br className="hidden md:block" />
 
-            <span className="mt-1 block md:inline"><FlipText text="Join With Us"/></span>
+            <span className="mt-1 block md:inline"><FlipText text="Join With Us" /></span>
           </h2>
 
           <button className="flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:bg-gray-100 transition mt-4 md:mt-0" onClick={() => { navigate('students-life/programs') }}>

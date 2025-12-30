@@ -3,7 +3,7 @@ export default function HeroSection() {
   return (
     <>
       <div className="mb-8 text-left text-black px-20 pt-8 ">
-        <p className="text-sm md:text-base opacity-80">
+        <p className="text-sm md:text-base opacity-65">
           <span className="inline-block w-4 h-px bg-black align-middle mr-2"></span>
           Our University
         </p>
@@ -32,12 +32,12 @@ export default function HeroSection() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300 shadow-lg text-lg">
+            <a href="#about" className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300 shadow-lg text-lg">
               EXPLORE
-            </button>
-            <button className="px-8 py-4 bg-transparent text-white font-semibold rounded-full border-2 border-white hover:bg-white hover:text-gray-900 transition duration-300 text-lg">
+            </a>
+            <a href="https://www.apu.edu.my/about-apu/" target="_blank" className="px-8 py-4 bg-transparent text-white font-semibold rounded-full border-2 border-white hover:bg-white hover:text-gray-900 transition duration-300 text-lg">
               VISIT OFFICIAL WEBSITE
-            </button>
+            </a>
           </div>
         </div>
       </div>

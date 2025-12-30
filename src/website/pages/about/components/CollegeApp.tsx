@@ -2,7 +2,7 @@ import appMockup from '../../../../assets/mobileapp.png';
 import decoration from '../../../../assets/decoration.png';
 import playstore from '../../../../assets/playstore.png';
 import apple from '../../../../assets/apple.png';
-import bg1 from '../../../../assets/decoration/background.png';
+import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 
 export default function CollegeAppSection() {
   return (
@@ -12,7 +12,7 @@ export default function CollegeAppSection() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-80" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-65" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* TOP: Title + Paragraph */}

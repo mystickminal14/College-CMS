@@ -1,4 +1,6 @@
 import career from "../../../../assets/career_image.jpg";
+import decoration from '../../../../assets/decoration.png';
+
 export default function CareersSection() {
   return (
     <>
@@ -11,7 +13,14 @@ export default function CareersSection() {
                 Careers
               </p>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-                Careers at APU
+                Careers at <span className="relative inline-block ">
+                  APU
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 w-full h-2 sm:h-3"
+                  />
+                </span>{" "}
               </h2>
               <p className="text-gray-700 text-lg leading-relaxed mb-10">
                 APU is one of Malaysia's premier private universities, where students are transformed into highly skilled, employable, and future-proof professionals via a unique blend of technology, innovation, and creativity.

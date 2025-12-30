@@ -47,7 +47,7 @@ export default function NewCourse() {
           className="flex flex-col md:flex-row justify-between items-start mb-10"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black leading-tight mb-6 md:mb-0 text-center md:text-left">
-            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-80">
+            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-65">
               Our Courses
             </span>
             World Class Course

@@ -11,7 +11,7 @@ export function EmailSubscribe() {
       />
 
       {/* Deep blue overlay */}
-      <div className="absolute inset-0 bg-[#474AFF] opacity-80" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-65" />
 
 
       {/* Content */}

@@ -1,5 +1,7 @@
 import Mission from "../../../../assets/mission_vission.jpg";
 import arrow from '../../../../assets/mission_arrow.png'
+import decoration from '../../../../assets/decoration.png';
+
 export default function MissionVisionSection() {
   return (
     <>
@@ -20,7 +22,14 @@ export default function MissionVisionSection() {
 
           {/* Section Title */}
           <h2 className="text-center text-4xl md:text-5xl lg:text-6xl font-bold mb-20">
-            Mission & Vision
+            Mission & <span className="relative inline-block ">
+              Vision
+              <img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 w-full h-2 sm:h-3"
+              />
+            </span>{" "}
           </h2>
 
           <div className="relative grid grid-cols-1 gap-28">
