@@ -9,10 +9,10 @@ export default function CollegeAppSection() {
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
       {/* Background Image + Overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-80" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* TOP: Title + Paragraph */}

@@ -4,12 +4,12 @@ import decoration from '../../../../assets/decoration.png';
 
 const StartJourney = () => {
   return (
-    <div className="relative h-150  bg-[#474AFF] overflow-hidden">
+    <div className="relative h-150 overflow-hidden">
       {/* Background image (blurred graduates) */}
       <div className="absolute inset-0">
         {/* Original background image */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat "
           style={{
             backgroundImage: `url(${journey_background})`,
           }}
@@ -17,7 +17,7 @@ const StartJourney = () => {
 
         {/* Blue-enhancing overlay */}
         <div
-          className="absolute inset-0 opacity-90 mix-blend-multiply"
+          className="absolute inset-0 opacity-80"
           style={{
             backgroundColor: "#474AFF", // deep blue
 

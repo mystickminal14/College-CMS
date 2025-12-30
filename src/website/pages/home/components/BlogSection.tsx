@@ -2,7 +2,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import decoration from "../../../../assets/decoration.png";
 import Blog_Image_One from "../../../../assets/blog/blog_images.jpg";
 import Blog_Image_Two from "../../../../assets/blog/blog_images_two.jpg";
-import bg1 from '../../../../assets/decoration/background.png';
+import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 
 export default function Index() {
   const blogPosts = [
@@ -32,10 +32,10 @@ export default function Index() {
     <section className="relative py-20 overflow-hidden">
       {/* Background image with overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-90 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[#474AFF] opacity-80 " />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 sm:px-24 py-10 lg:py-16">
