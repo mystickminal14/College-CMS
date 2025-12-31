@@ -19,10 +19,9 @@ import LBEFConnectWeb from "../website/pages/lbef-connect-web/lbef-connect-web";
 import GyandeepScholasrhip from "../website/pages/admission/Gyandeep";
 import MeritScholarship from "../website/pages/admission/Merit";
 import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
-import NewCourse from "../website/pages/home/components/NewCourse";
-import { DemoPage } from "../website/pages/home/Demo";
 import { AboutUniversity } from "../website/pages/About University/AboutUniversity";
 import NewsPageWeb from "../website/pages/news/News";
+import ICTScholarship from "../website/pages/admission/IctScholarship";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -57,16 +56,14 @@ export const websiteRoutes = [
       {
         path: "courses",
         children: [
-          { path: "", element: <PlaceholderPage pageName="Courses" /> },
-          { path: "msc-ir", element: <PlaceholderPage pageName="MSc IR" /> },
-          { path: "bsci-it", element: <PlaceholderPage pageName="BSc IT" /> },
+          { path: "", element: <CourseProgram /> },
           { path: ":name/:id", element: <CourseDetails /> },
         ],
       },
       {
         path: "students-life",
         children: [
-          { path: "", element: <PlaceholderPage pageName="Students" /> },
+          { path: "", element: <CourseProgram /> },
           { path: "programs", element: <CourseProgram /> },
           { path: "student-code-of-conduct", element: <CodeOfConduct /> },
           { path: ":name/:id", element: <CourseDetails /> },
@@ -88,7 +85,7 @@ export const websiteRoutes = [
       {
         path: "admissions",
         children: [
-          { path: "", element: <PlaceholderPage pageName="Admissions" /> },
+          { path: "", element: <AdmissionProcedure /> },
           { path: "admission-process", element: <AdmissionProcedure /> },
 
         ],
@@ -96,7 +93,7 @@ export const websiteRoutes = [
       {
         path: "media",
         children: [
-          { path: "", element: <PlaceholderPage pageName="Media" /> },
+          { path: "", element: <Gallery/> },
           { path: "photo-gallery", element: <Gallery /> },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <NewsPageWeb/> },
@@ -109,6 +106,10 @@ export const websiteRoutes = [
       {
         path: "gyandeep-scholarship",
         element: <GyandeepScholasrhip />,
+      },
+            {
+        path: "ict-scholarship",
+        element: <ICTScholarship />,
       },
       {
         path: "merit-scholarship",

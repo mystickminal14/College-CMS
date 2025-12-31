@@ -43,6 +43,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     credit: "",
     duration: "",
     semester: "",
+    details:'',
     shift: "" as EShift,
   });
 
@@ -58,6 +59,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
         title: courseToEdit.title ?? "",
         category: courseToEdit.category ?? "",
         degree: courseToEdit.degree ?? "",
+        details: courseToEdit.details ?? "",
 
         prefix: courseToEdit.prefix ?? "",
 
@@ -84,6 +86,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
       credit: "",
       duration: "",
       semester: "",
+      details:"",
       shift: "" as EShift,
     });
     setImageFile(null);
@@ -92,7 +95,6 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     setStep(1);
   };
 
-  /* ---------------- HANDLERS ---------------- */
   const handleChange = (field: string, value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 

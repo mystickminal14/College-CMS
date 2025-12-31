@@ -171,12 +171,12 @@ The scholarships will be awarded to study B.Sc.(Hons.) in Information Technology
                     Contact the Scholarship Office or visit our administration building for detailed information about eligibility criteria, application process, and deadlines.
                   </p>
                  <a
-  href="/gyandeep-scholarship"
+  href="/ict-scholarship"
   target="_blank"
   rel="noopener noreferrer"
   className="inline-flex items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
 >
-  Learn More
+  Register Now
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
   </svg>

@@ -1,17 +1,17 @@
 import decoration from '../../../assets/decoration.png';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
-import SubFooter from '../home/components/SubFooter';
+import subfooterone from '../../../assets/six_path.png';
 
 const GyandeepScholasrhip = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-    
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
         <div className="max-w-8xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
             <span className="text-blue-600 font-medium text-sm">
-           Scholarship
+              Scholarship
             </span>
           </div>
 
@@ -29,9 +29,9 @@ const GyandeepScholasrhip = () => {
             </span>
           </h1>
 
-         <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-  Unlock your academic potential with the Gyandeep Scholarship, rewarding excellence in high-school performance.
-</p>
+          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Unlock your academic potential with the Gyandeep Scholarship, rewarding excellence in high-school performance.
+          </p>
 
         </div>
       </div>
@@ -157,7 +157,29 @@ const GyandeepScholasrhip = () => {
           </div>
         </div>
       </div>
-        <SubFooter/>
+      <div className="w-full bg-gray-50 mt-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full text-center">
+
+            <div className="w-full inline-block">
+              <img
+                src={subfooterone}
+                alt="Illustration part one"
+                className="
+                w-full
+                max-w-7xl
+                h-auto
+                object-contain
+                mx-auto
+                block
+                rounded-xl
+      
+              "
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

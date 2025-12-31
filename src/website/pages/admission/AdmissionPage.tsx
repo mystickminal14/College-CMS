@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { motion, type Variants } from "framer-motion";
 import decoration from "../../../assets/decoration.png";
-
 import useGetIntakes from "../../../pages/intake-calender/hooks/useGetAllIntakr";
 import AdmissionTOC from "./components/AdmissionToc";
 import IntakeCardsSection from "./components/IntakeCardSection";
@@ -65,7 +64,6 @@ const AdmissionProcedure = () => {
     { id: "faq", label: "Frequently Asked Questions", level: 1 },
   ];
 
-  /* ================= DEFAULT ACTIVE ================= */
 
   useEffect(() => {
     if (!activeSection && tocItems.length) {
@@ -73,7 +71,6 @@ const AdmissionProcedure = () => {
     }
   }, [activeSection, tocItems]);
 
-  /* ================= INTERSECTION OBSERVER ================= */
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -101,7 +98,6 @@ const AdmissionProcedure = () => {
     return () => observer.disconnect();
   }, []);
 
-  /* ================= SCROLL HANDLER ================= */
 
   const scrollToSection = (id: string) => {
     const section = sectionRefs.current[id];
@@ -124,11 +120,9 @@ const AdmissionProcedure = () => {
     }, 800);
   };
 
-  /* ================= RENDER ================= */
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ================= HERO ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
           variants={fadeUp}
@@ -164,7 +158,6 @@ const AdmissionProcedure = () => {
         </motion.div>
       </div>
 
-      {/* ================= CONTENT ================= */}
       <div className="container mx-auto px-4 pb-20">
         <div className="flex flex-col lg:flex-row gap-8">
           <AdmissionTOC
