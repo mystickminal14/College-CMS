@@ -5,181 +5,630 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LBEF College - Apply Now</title>
-  <style>
-    /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://kit.fontawesome.com/49b6b027f2.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css">
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-    }
-
-    /* Container */
-    .container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    .main-content{
-      width: 1400px;
-    }
-
-    .sidebar {
-      padding: 20px;
-    }
-
-    /* Desktop: two columns */
-    @media (min-width: 1024px) {
-      .container {
-        grid-template-columns: 2fr 1fr;
-        /* Left 66%, Right 33% */
-      }
-    }
-
-    /* Left Column - Normal Scroll */
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      gap: 100px;
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(to right, #7c3aed, #3b82f6);
-      border-radius: 24px;
-      padding: 60px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 40px;
-    }
-
-    .btn {
-      padding: 14px 32px;
-      background: white;
-      color: #2563eb;
-      border: none;
-      border-radius: 50px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 1.1rem;
-    }
-
-    .hero-image {
-      /* position: absolute;
-      right: 40px;
-      top: 50%; */
-      /* transform: translateY(-50%) rotate(6deg); */
-      width: 500px;
-      border-radius: 16px;
-    }
-
-    /* Form Card */
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* News Card */
-    .news-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 12px 12px 0 0;
-    }
-
-    .news-body {
-      padding: 20px;
-    }
-
-    .news-date {
-      color: #2563eb;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    .news-title {
-      font-size: 1.3rem;
-      margin: 10px 0;
-    }
-
-    .read-more {
-      color: #2563eb;
-      font-weight: bold;
-      text-decoration: none;
-    }
-  </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="main-container">
     <div class="main-content">
-      <section class="hero">
-        <div>
-          <p>Welcome to LBEF College</p>
-          <h1>The First IT College of Nepal</h1>
-          <p>
-            Together with our top-notch faculty, we provide a nurturing environment to help students evolve into leaders
-            who think boldly, make effective choices and are well-equipped with futuristic mindset and skills.
-          </p>
-          <button class="btn">Get Started</button>
+      <section class="forbg">
+        <nav class="navbar">
+          <img src="./images/lbefLogo.png" alt="" class="logo" height="60" width="140">
+          <li><a href="">About</a></li>
+          <li><a href="">Courses</a></li>
+          <li><a href="">Admission</a></li>
+          <li><a href="">Contact</a></li>
+        </nav>
+        <section class="hero">
+          <div style="padding: 20px;">
+            <p style="color: #F5FFCC; font-size: 20px; font-weight: bold">Welcome to LBEF College</p>
+            <h1>The First IT College of Nepal</h1>
+            <p style="color: #FFFFFF; font-weight: 400;line-height: 183%;">
+              Together with our top-notch faculty, we provide a nurturing environment to help students evolve into
+              leaders who think
+              boldly, make effective choices and are well-equipped with futuristic mindset and skills.
+            </p>
+            <button class="btn">Get Started</button>
+          </div>
+          <img src="./images/iPad.png" alt="Students" class="hero-image">
+        </section>
+      </section>
+      <section class="about-section" id="about">
+        <div class="about-left">
+          <h4 class="about-label">ABOUT LBEF</h4>
+          <h1 class="about-heading">THE FIRST IT COLLEGE OF NEPAL</h1>
+          <div class="about-lines">
+            <p>At LBEF College, we are dedicated to nurturing a culture of innovation, creativity ,and excellence .With
+              a rich history
+              and a commitment to forward-thinking education, we empower students and future leaders to achieve their
+              dreams and make
+              a difference.
+            </p>
+          </div>
+          <section class="stats-section">
+            <div class="stat-box">
+              <h2>3500+</h2>
+              <p>STUDENTS</p>
+            </div>
+
+            <div class="stat-box">
+              <h2>3500+</h2>
+              <p>ALUMINI</p>
+            </div>
+
+            <div class="stat-box">
+              <h2>3500+</h2>
+              <p>EXCELLENCE</p>
+            </div>
+
+            <div class="stat-box">
+              <h2>3500+</h2>
+              <p>CLASSROOM</p>
+            </div>
+          </section>
         </div>
-        <img src="./images/iPad.png" alt="Students" class="hero-image">
+
+        <div class="about-right">
+          <div class="about-images">
+            <div class="images">
+              <img src="./images/about/laptop.jpg" alt="top view" class="img-top" />
+              <img src="./images/about/students.jpg" alt="students" class="img-middle" />
+            </div>
+            <img src="./images/about/graduate.jpg" alt="graduation" class="img-right" />
+          </div>
+        </div>
+      </section>
+      <section class="courses-section">
+        <div class="container">
+
+          <!-- Heading -->
+          <div class="section-header">
+            <p class="subtitle">Our Programs</p>
+            <h1 class="title">
+              EXPLORE OUR WORLD <br />
+              CLASS COURSES
+            </h1>
+          </div>
+
+          <!-- Cards -->
+          <div class="course-grid">
+
+            <!-- Card -->
+            <div class="course-card">
+              <div class="card-inner">
+
+                <p class="tag">Bachelor</p>
+
+                <div class="spacer"></div>
+
+                <div class="icon-title">
+                  <div class="icon-circle">
+                    <!-- Monitor Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+
+                  <h3>B.Sc (Hons) Information Technology</h3>
+                </div>
+
+                <p class="hover-reveal">
+                  Discover the richness of literary exploration, where classic texts and
+                  contemporary voices intersect in a critical way.
+                </p>
+
+                <span class="hover-reveal read-more">READ MORE</span>
+
+              </div>
+            </div>
+
+            <!-- Duplicate card (copy for more) -->
+            <div class="course-card">
+              <div class="card-inner">
+                <p class="tag">Bachelor</p>
+                <div class="spacer"></div>
+
+                <div class="icon-title">
+                  <div class="icon-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <h3>B.Sc (Hons) Information Technology</h3>
+                </div>
+
+                <p class="hover-reveal">
+                  Discover the richness of literary exploration, where classic texts and
+                  contemporary voices intersect in a critical way.
+                </p>
+
+                <span class="hover-reveal read-more">READ MORE</span>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="card-inner">
+                <p class="tag">Bachelor</p>
+                <div class="spacer"></div>
+
+                <div class="icon-title">
+                  <div class="icon-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <h3>B.Sc (Hons) Information Technology</h3>
+                </div>
+
+                <p class="hover-reveal">
+                  Discover the richness of literary exploration, where classic texts and
+                  contemporary voices intersect in a critical way.
+                </p>
+
+                <span class="hover-reveal read-more">READ MORE</span>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="card-inner">
+                <p class="tag">Bachelor</p>
+                <div class="spacer"></div>
+
+                <div class="icon-title">
+                  <div class="icon-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <h3>B.Sc (Hons) Information Technology</h3>
+                </div>
+
+                <p class="hover-reveal">
+                  Discover the richness of literary exploration, where classic texts and
+                  contemporary voices intersect in a critical way.
+                </p>
+
+                <span class="hover-reveal read-more">READ MORE</span>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="card-inner">
+                <p class="tag">Bachelor</p>
+                <div class="spacer"></div>
+
+                <div class="icon-title">
+                  <div class="icon-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <h3>B.Sc (Hons) Information Technology</h3>
+                </div>
+
+                <p class="hover-reveal">
+                  Discover the richness of literary exploration, where classic texts and
+                  contemporary voices intersect in a critical way.
+                </p>
+
+                <span class="hover-reveal read-more">READ MORE</span>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="card-inner">
+                <p class="tag">Bachelor</p>
+                <div class="spacer"></div>
+
+                <div class="icon-title">
+                  <div class="icon-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <h3>B.Sc (Hons) Information Technology</h3>
+                </div>
+
+                <p class="hover-reveal">
+                  Discover the richness of literary exploration, where classic texts and
+                  contemporary voices intersect in a critical way.
+                </p>
+
+                <span class="hover-reveal read-more">READ MORE</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <section class="about-section-univerity" id="about">
+        <div class="container">
+
+          <!-- Heading -->
+          <div class="section-header">
+            <div class="heading-wrapper">
+
+              <h4 style="text-transform: uppercase; letter-spacing: 10px;">
+                Our
+                <span class="decorated">
+                  University
+                </span>
+              </h4>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="content-grid">
+
+            <!-- Image -->
+            <div class="image-wrapper">
+              <img src="./images/Vector.png" class="ring ring-left" alt="">
+              <img src="./images/down_arrow.png" class="ring ring-right" alt="">
+
+              <div class="main-image">
+                <img src="./images/univerity_image.png" alt="APU graduates">
+              </div>
+            </div>
+
+            <!-- Text -->
+            <div class="text-content">
+              <h3>Asia Pacific University of Technology & Innovation (APU)</h3>
+              <p>
+                From day one, Utility4Business has been laser-focused on truly understanding the pain points and
+                challenges businesses
+                like yours face in procuring and managing utilities. We see ourselves as an extension of your team! Our
+                utility advisors
+                take the time to deeply understand your unique needs and deliver personalised advice to offer solutions
+                that drive
+                efficiency and savings.
+
+                Our behind-the-scenes utility management services like proactive rate monitoring and supplier switching
+                ensure you are
+                always on the most cost-effective plans from dependable partners. Avoiding service interruptions is
+                critical, so you can
+                count on us to keep your utilities running smoothly.
+              </p>
+
+              <button class="btn">
+                Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <section class="video-section">
+
+        <!-- Background -->
+        <div class="video-bg">
+          <div class="overlay"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="video-content">
+          <div class="video-wrapper">
+
+            <!-- Left -->
+            <div class="video-left">
+              <p class="subtitle">Join Our New Session</p>
+
+              <h1>
+                <span>25+ Years of Excellence</span>
+                <span class="second-line">LBEE Campus</span>
+              </h1>
+
+              <button class="cta-btn">
+                Join With Us
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor">
+                  <path
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Right -->
+            <div class="video-right">
+              <a href="https://www.youtube.com/watch?v=eibpVkSHOqU" target="_blank">
+                <div class="play-wrapper">
+
+                  <span class="ripple"></span>
+
+                  <div class="play-btn">
+                    <!-- Play Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="6,4 20,12 6,20"></polygon>
+                    </svg>
+                  </div>
+                </div>
+              </a>
+
+              <span class="watch-text">Watch Now</span>
+            </div>
+
+          </div>
+        </div>
       </section>
 
+      <section class="values-section">
+        <div class="container">
+
+          <!-- Header -->
+          <div class="section-header">
+            <span class="small-title">OUR VALUES</span>
+            <h2>THE CORE VALUES THAT SHAPE US</h2>
+          </div>
+
+          <!-- Grid -->
+          <div class="values-grid">
+
+            <!-- Item 1 -->
+            <div class="value-item left">
+              <span class="number">01</span>
+              <h3>Our Vision</h3>
+              <p>
+                Donec Cras Lacus, Quis Nunc Urna. Feugiat Neque, Non, Mi Erat
+                Ultricies Morbi. Habitsasse Iaculis Sed Morbi Natoque, Acus.
+              </p>
+            </div>
+
+            <div class="value-image right">
+              <img src="./images/boy_with_glass.jpg" alt="Vision">
+            </div>
+
+            <!-- Item 2 -->
+            <div class="value-image left">
+              <img src="./images/world.jpg" alt="Mission">
+            </div>
+
+            <div class="value-item right">
+              <span class="number">02</span>
+              <h3>Our Mission</h3>
+              <p>
+                Donec Cras Lacus, Quis Nunc Urna. Feugiat Neque, Non, Mi Erat
+                Ultricies Morbi. Habitsasse Iaculis Sed Morbi Natoque, Acus.
+              </p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="value-item left">
+              <span class="number">03</span>
+              <h3>Our Promise</h3>
+              <p>
+                Donec Cras Lacus, Quis Nunc Urna. Feugiat Neque, Non, Mi Erat
+                Ultricies Morbi. Habitsasse Iaculis Sed Morbi Natoque, Acus.
+              </p>
+            </div>
+
+            <div class="value-image right">
+              <img src="./images/handsake.jpg" alt="Promise">
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <section class="admission">
+
+        <div class="container">
+          <span class="subtitle">ADMISSION</span>
+          <h2 class="title">ADMISSION PROCEDURE</h2>
+          <p class="description">
+            We offer several scholarships to assist you in funding your studies.
+            The College provides financial aid for students who demonstrate academic excellence.
+          </p>
+
+          <div class="steps">
+
+            <!-- Step 01 -->
+            <div class="step step-1">
+              <div class="step-card">
+                <div class="icon">📅</div>
+                <div>
+                  <h4>Choose The Service That Meets Your Needs</h4>
+                  <p>
+                    Select the service that suits your needs. Fill in the required
+                    fields and check your email for the next steps.
+                  </p>
+                </div>
+              </div>
+              <span class="step-label">Step 01.</span>
+
+            </div>
+
+            <!-- Step 02 -->
+            <div class="step step-2">
+              <span class="step-label">Step 02.</span>
+              <div class="step-card">
+                <div class="icon">✉️</div>
+                <div>
+                  <h4>Choose The Service That Meets Your Needs</h4>
+                  <p>
+                    Select the service that suits your needs. Fill in the required
+                    fields and check your email for the next steps.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 03 -->
+            <div class="step step-3">
+              <div class="step-card">
+                <div class="icon">☁️</div>
+                <div>
+                  <h4>Choose The Service That Meets Your Needs</h4>
+                  <p>
+                    Select the service that suits your needs. Fill in the required
+                    fields and check your email for the next steps.
+                  </p>
+                </div>
+              </div>
+              <span class="step-label">Step 03.</span>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="document-section">
+        <div class="document-container">
+          <div class="document-header">
+            <span class="document-blue-text">DOCUMENTS</span>
+            <h1>DOCUMENTS REQUIRED</h1>
+            <p class="document-subtitle">
+              After Completing the online application process, applicants are required to submit<br>
+              the following documents to the Admission Office
+            </p>
+          </div>
+          <div class="documents-list">
+            <div class="document-item">Attested photocopy of SLC marks sheet and character certificate</div>
+            <div class="document-item">
+              Attested photocopy of 10+2 marks sheet or equivalent academic transcript, character certificate,
+              provisional
+              pass, certificate and migration certificate.
+            </div>
+            <div class="document-item">Original migration certificate</div>
+            <div class="document-item">
+              Attested photocopies of Bachelor Level marks sheet, provisional pass certificate, degree certificate
+              (Applicable
+              only for Master's Level applicants).
+              <span class="note">(Applicable only for Master's Level applicants).</span>
+            </div>
+            <div class="document-item">Attested photocopies of experience certificate (if applicable)</div>
+            <div class="document-item">Attested photocopy of proof of nationality</div>
+          </div>
+        </div>
+      </section>
+      <section class="scholarship">
+        <div class="scholarship-container">
+
+          <span class="section-tag">SCHOLARSHIP</span>
+          <h2 class="section-title">NATIONAL ICT SCHOLARSHIP</h2>
+          <p class="section-desc">
+            We offer several scholarships to assist you in funding your studies.
+            The College provides financial aid for students who demonstrate academic
+            excellence but face financial challenges, aiming to support them
+            throughout their academic journey.
+          </p>
+
+          <div class="card-wrapper">
+
+            <!-- Yellow Card -->
+            <div class="scholarship-card yellow">
+              <div class="icon"><img src="./images/card.png" alt="" height="50px"></div>
+              <h3>Gyan Deep Scholarship</h3>
+              <p>
+                This Scholarship is awarded based on the percentage achieved in the
+                High-School Board examinations or equivalent examination. This
+                scholarship is only awarded in the tuition fee category.
+              </p>
+              <a href="#">Learn more →</a>
+            </div>
+
+            <!-- White Card -->
+            <div class="scholarship-card white">
+              <div class="icon"><img src="./images/card.png" alt="" height="50px"></div>
+              <h3>Gyan Deep Scholarship</h3>
+              <p>
+                This Scholarship is awarded based on the percentage achieved in the
+                High-School Board examinations or equivalent examination. This
+                scholarship is only awarded in the tuition fee category.
+              </p>
+              <a href="#">Learn more →</a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <section class="why-lbef">
+        <div class="container">
+
+          <div class="section-header">
+            <span class="tag">WHY LBEF</span>
+            <h2>WHY CHOOSE LBEF</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              In urna, non nisl tincidunt ut elementum turpis.
+            </p>
+          </div>
+
+          <div class="content">
+
+            <!-- Left Image -->
+            <div class="image-box">
+              <img src="./images/Group.png" alt="Student">
+            </div>
+
+            <!-- Right Features -->
+            <div class="features">
+
+              <div class="feature-card">
+                <i class="fa-regular fa-circle-check icon"></i>
+                <div>
+                  <h4>High Quality Books</h4>
+                  <p>Lorem ipsum dolor sit amet,</p>
+                </div>
+              </div>
+
+              <div class="feature-card" style="margin-left: 50px;">
+                <i class="fa-regular fa-circle-check icon"></i>
+                <div>
+                  <h4>Proofreading And Editing</h4>
+                  <p>Lorem ipsum dolor sit amet,</p>
+                </div>
+              </div>
+
+              <div class="feature-card">
+                <i class="fa-regular fa-circle-check icon"></i>
+                <div>
+                  <h4>Proofreading And Editing</h4>
+                  <p>Lorem ipsum dolor sit amet,</p>
+                </div>
+              </div>
+
+              <div class="feature-card" style="margin-left: 50px;">
+                <i class="fa-regular fa-circle-check icon"></i>
+                <div>
+                  <h4>Proofreading and Editing</h4>
+                  <p>Lorem ipsum dolor sit amet,</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <section class="six-section">
+        <div class="six-path">
+          <img src="./images/six_path.png" alt="Six Path Diagram">
+        </div>
+      </section>
     </div>
 
-    <!-- RIGHT: Sticky Sidebar -->
     <aside class="sidebar">
 
-      <!-- Enquiry Form -->
       <div class="card">
         <h3>Enquiry Form</h3>
         <form>
