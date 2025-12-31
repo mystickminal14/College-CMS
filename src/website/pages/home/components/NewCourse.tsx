@@ -34,7 +34,49 @@ export default function NewCourse() {
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
+  const CourseSkeleton = () => {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-[360px] rounded-lg bg-white shadow-md overflow-hidden animate-pulse"
+          >
+            <div className="h-full p-6 flex flex-col">
+              <div className="flex justify-between">
+                <div className="h-3 w-20 bg-gray-200 rounded" />
+                <div className="h-3 w-16 bg-gray-200 rounded" />
+              </div>
 
+              <div className="mt-auto">
+                <div className="w-14 h-14 mb-4 rounded-full bg-gray-200" />
+                <div className="h-5 w-3/4 bg-gray-200 rounded" />
+              </div>
+
+              <div className="mt-4 space-y-2">
+                <div className="h-3 w-full bg-gray-200 rounded" />
+                <div className="h-3 w-5/6 bg-gray-200 rounded" />
+                <div className="h-3 w-4/6 bg-gray-200 rounded" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const EmptyCourses = () => (
+    <div className="w-full flex justify-center items-center py-8">
+      <div className="text-center">
+        <h3 className="text-xl font-semibold text-gray-700">
+          No courses available right now
+        </h3>
+        <p className="text-gray-500 mt-2">
+          Please check back later. New courses will be added soon.
+        </p>
+      </div>
+    </div>
+  );
   return (
     <div>
       {/* ================= HEADER ================= */}
@@ -47,7 +89,7 @@ export default function NewCourse() {
           className="flex flex-col md:flex-row justify-between items-start mb-10"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black leading-tight mb-6 md:mb-0 text-center md:text-left">
-            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-65">
+            <span className="block text-[12px] sm:text-[14px] mb-4 font-normal uppercase tracking-wider opacity-80">
               Our Courses
             </span>
             World Class Course
@@ -73,9 +115,22 @@ export default function NewCourse() {
           </button>
         </motion.div>
       </div>
+ {isLoading && (
+  <div className="relative bg-gray-100 py-20 px-4">
+    <div
+      className="absolute inset-0 bg-cover bg-center blur-[5px]"
+      style={{ backgroundImage: `url(${bg})` }}
+    />
+    <div className="absolute inset-0 bg-[#474AFF] opacity-50" />
+    <div className="relative max-w-7xl mx-auto">
+      <CourseSkeleton />
+    </div>
+  </div>
+)}
 
-      {/* ================= CARDS ================= */}
-      <div className="relative bg-gray-100 py-20 px-4">
+      {!isLoading && courses.length === 0 && <EmptyCourses />}
+{!isLoading && courses.length > 0 && (<>
+<div className="relative bg-gray-100 py-20 px-4">
         <div
           className="absolute inset-0 bg-cover bg-center blur-[5px]"
           style={{ backgroundImage: `url(${bg})` }}
@@ -84,8 +139,7 @@ export default function NewCourse() {
 
         <div className="relative max-w-7xl mx-auto">
           {/* 🔑 FIX: wait until loading finishes */}
-          {!isLoading && courses.length > 0 && (
-            isMobile ? (
+{            isMobile ? (
               <MobileCarousel
                 courses={courses.slice(0, 6)}
                 onView={handleView}
@@ -142,7 +196,7 @@ export default function NewCourse() {
                 ))}
               </motion.div>
             )
-          )}
+          }
         </div>
 
         <style>{`
@@ -173,7 +227,9 @@ export default function NewCourse() {
             transform: translateY(0);
           }
         `}</style>
-      </div>
+      </div></>)}
+      {/* ================= CARDS ================= */}
+   
     </div>
   );
 }

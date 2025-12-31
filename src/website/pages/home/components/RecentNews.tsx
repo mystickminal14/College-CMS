@@ -96,9 +96,17 @@ const RecentNews = () => {
           <p className="text-center text-gray-500">Loading news...</p>
         )}
 
-        {isError && (
-          <p className="text-center text-red-500">Failed to load news</p>
-        )}
+ {!isLoading && newsList?.length === 0 && (
+  <div className="text-center">
+    <h3 className="text-xl font-semibold text-gray-700">
+      No News available right now
+    </h3>
+    <p className="text-gray-500 mt-2">
+      Please check back later. New News will be added soon.
+    </p>
+  </div>
+)}
+
 
         {!isLoading && !isError && newsList.length > 0 && (
           <div className="relative">

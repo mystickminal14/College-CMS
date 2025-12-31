@@ -76,10 +76,78 @@ export function Testimonial() {
         </div>
 
         {isLoading ? (
-          <p className="text-center text-gray-500">Loading...</p>
-        ) : alumni.length === 0 ? (
-          <p className="text-center text-gray-500">No alumni available</p>
-        ) : (
+          <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center animate-pulse">
+
+            {/* Left thumbnail skeleton (desktop only) */}
+            <div className="hidden lg:block lg:col-span-2 space-y-6">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-[120px] rounded-xl bg-gray-200"
+                />
+              ))}
+            </div>
+
+            {/* Right main card skeleton */}
+            <div className="lg:col-span-10">
+              <div className="bg-white rounded-3xl shadow-2xl p-4 flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 min-h-[550px]">
+
+                {/* Left video skeleton */}
+                <div className="flex flex-col items-center lg:items-start gap-5 w-full lg:w-1/2">
+                  <div className="w-full h-60 sm:h-80 lg:h-[520px] rounded-2xl bg-gray-200" />
+                </div>
+
+                {/* Right content skeleton */}
+                <div className="flex flex-col w-full flex-1 justify-between">
+
+                  {/* Story skeleton */}
+                  <div className="space-y-3 mt-6">
+                    <div className="h-4 w-full bg-gray-200 rounded" />
+                    <div className="h-4 w-11/12 bg-gray-200 rounded" />
+                    <div className="h-4 w-10/12 bg-gray-200 rounded" />
+                    <div className="h-4 w-9/12 bg-gray-200 rounded" />
+                    <div className="h-4 w-8/12 bg-gray-200 rounded" />
+                  </div>
+
+                  {/* Footer skeleton */}
+                  <div className="pt-6 border-t border-gray-100 flex justify-between items-end">
+                    <div className="space-y-2">
+                      <div className="h-5 w-40 bg-gray-200 rounded" />
+                      <div className="h-4 w-32 bg-gray-200 rounded" />
+                      <div className="h-3 w-48 bg-gray-200 rounded" />
+
+                      {/* Buttons */}
+                      <div className="flex gap-3 mt-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-200" />
+                        <div className="w-12 h-12 rounded-full bg-gray-200" />
+                      </div>
+                    </div>
+
+                    {/* Profile image */}
+                    <div className="w-28 h-28 sm:w-36 sm:h-36 bg-gray-200 rounded-2xl" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile indicators skeleton */}
+              <div className="lg:hidden mt-4 flex justify-center gap-3">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-12 h-12 bg-gray-200 rounded-lg"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>) : alumni.length === 0 ? (
+            <div className="text-center">
+              <h3 className="text-xl font-semibold text-gray-700">
+                No Alumni available right now
+              </h3>
+              <p className="text-gray-500 mt-2">
+                Please check back later. New Alumni will be added soon.
+              </p>
+            </div>) : (
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left thumbnail list - Desktop only */}
             <div
@@ -227,7 +295,7 @@ export function Testimonial() {
                           <img
                             src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
                             alt={activeAlumni?.name ?? ""}
-                                className="rounded-2xl object-cover w-28 h-28 sm:w-36 sm:h-36"
+                            className="rounded-2xl object-cover w-28 h-28 sm:w-36 sm:h-36"
                           />
                         </div>
                       </div>

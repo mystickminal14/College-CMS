@@ -6,7 +6,6 @@ import decoration from '../../../assets/decoration.png';
 import useGetAll from './hook/useGetCourses';
 
 import type { Courses } from '../../../pages/courses/model/CourseModel';
-import { CourseSkeleton } from './comp/CourseSkeleton';
 
 import { fadeUp, staggerContainer } from '../../comp/animation';
 
@@ -25,11 +24,53 @@ const CourseProgram = () => {
     const title = course.title.replace(/ /g, '-');
     navigate(`/students-life/${title}/${course.id}`, { state: { course } });
   };
+  const CourseSkeleton = () => {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-[360px] rounded-lg bg-white shadow-md overflow-hidden animate-pulse"
+          >
+            <div className="h-full p-6 flex flex-col">
+              <div className="flex justify-between">
+                <div className="h-3 w-20 bg-gray-200 rounded" />
+                <div className="h-3 w-16 bg-gray-200 rounded" />
+              </div>
+
+              <div className="mt-auto">
+                <div className="w-14 h-14 mb-4 rounded-full bg-gray-200" />
+                <div className="h-5 w-3/4 bg-gray-200 rounded" />
+              </div>
+
+              <div className="mt-4 space-y-2">
+                <div className="h-3 w-full bg-gray-200 rounded" />
+                <div className="h-3 w-5/6 bg-gray-200 rounded" />
+                <div className="h-3 w-4/6 bg-gray-200 rounded" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const EmptyCourses = () => (
+    <div className="w-full flex justify-center items-center py-8">
+      <div className="text-center">
+        <h3 className="text-xl font-semibold text-gray-700">
+          No courses available right now
+        </h3>
+        <p className="text-gray-500 mt-2">
+          Please check back later. New courses will be added soon.
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ================= HERO SECTION (UNCHANGED) ================= */}
-      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -66,7 +107,17 @@ const CourseProgram = () => {
         </motion.div>
       </div>
 
-      {/* ================= COURSES GRID ================= */}
+      {isLoading && (
+        <div className="relative bg-gray-100 py-10 px-4">
+          <div className="relative max-w-7xl mx-auto">
+            <CourseSkeleton />
+          </div>
+        </div>
+      )}
+
+      {!isLoading && courses.length === 0 && <EmptyCourses />}
+
+
       <div className="container mx-auto px-6 py-10">
         <motion.div
           variants={staggerContainer}
@@ -75,30 +126,8 @@ const CourseProgram = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
-          {/* ================= LOADING ================= */}
-          {isLoading &&
-            Array.from({ length: 3 }).map((_, index) => (
-              <motion.div key={index} variants={fadeUp}>
-                <CourseSkeleton />
-              </motion.div>
-            ))}
-
-          {/* ================= EMPTY STATE ================= */}
-          {!isLoading && courses.length === 0 && (
-            <motion.div
-              variants={fadeUp}
-              className="lg:col-span-3 text-center py-16"
-            >
-              <h3 className="text-xl font-semibold text-gray-700">
-                No courses available right now
-              </h3>
-              <p className="text-gray-500 mt-2">
-                Please check back later. New courses will be added soon.
-              </p>
-            </motion.div>
-          )}
-
-          {/* ================= DATA ================= */}
+        
+       
           {!isLoading &&
             courses.length > 0 &&
             courses.map((course) => (
@@ -126,7 +155,7 @@ const CourseProgram = () => {
                     </div>
 
                     <h3 className="text-xl font-bold group-hover:text-white">
-                      {course.title}
+                     {course.prefix} {course.title}
                     </h3>
                   </div>
 
