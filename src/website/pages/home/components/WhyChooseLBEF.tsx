@@ -47,7 +47,6 @@ const desktopFeatures = [
   return (
     <>
     
-      {/* ================= DESKTOP (UNCHANGED) ================= */}
       <section className="hidden lg:block py-20 bg-linear-to-br from-blue-50 via-white to-purple-50">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-10">
@@ -159,7 +158,7 @@ function DesktopCard({ icon, topTitle, title, position }: any) {
 
 function MobileCard({ icon, topTitle, title }: any) {
   return (
-    <div className="flex items-center gap-2 bg-white px-4 py-3 rounded-xl shadow-md">
+    <div className="flex items-center gap-2 bg-white px-1 py-3 rounded-xl shadow-md">
       <div className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-[#474AFF]">
         {icon}
       </div>

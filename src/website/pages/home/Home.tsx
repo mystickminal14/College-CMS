@@ -85,7 +85,9 @@ export function HomePage() {
           {/* <Events /> */}
           <RecentNews />
           <EmailSubscribe />
-          <SubFooter /></>
+          <SubFooter />
+          
+          </>
       )
 
 

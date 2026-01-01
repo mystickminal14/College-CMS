@@ -41,8 +41,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links and Social - Takes 3 columns on desktop */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             <div className="space-y-6">
               <h3 className="text-black font-semibold text-lg sm:text-xl">Quick Links</h3>
               <ul className="space-y-2">
@@ -76,7 +75,7 @@ const Footer = () => {
           </div>
 
           {/* Courses List - Takes 3 columns on desktop */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-4 space-y-6">
             <h3 className="text-black text-lg sm:text-xl font-semibold">Our Courses</h3>
             <div className="max-h-60 sm:max-h-72 overflow-y-auto space-y-2 sm:space-y-3 pr-3 sm:pr-4">
               {courseNames.length > 0 ? (
