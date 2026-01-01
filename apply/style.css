@@ -197,13 +197,13 @@ body {
 }
 
 /* Navbar */
+
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 20px 40px;
   max-width: 1200px;
-  margin: 0 auto;
 }
 
 .navbar li {
@@ -216,7 +216,6 @@ body {
 
 .navbar li a {
   text-decoration: none;
-  color: white;
   padding: 8px 16px;
   border-radius: 8px;
   transition: all 0.3s ease;
