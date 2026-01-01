@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { fadeUp, staggerContainer } from '../../../comp/animation';
+
 import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/Datuk Paramjeet Singh.png';
 import imagetwo from '../../../../assets/core/Prof. Dr. Ho Chin Kuan.png';
@@ -7,7 +10,6 @@ import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 
 const messages = [
   {
-
     name: "Datuk Paramjeet Singh",
     position: "CO-FOUNDER & CEO",
     institution: "APIIT Education Group",
@@ -16,7 +18,6 @@ const messages = [
     image: imageone,
   },
   {
-
     name: "Prof. Dr. Ho Chin Kuan",
     position: "VICE CHANCELLOR",
     institution: "Asia Pacific University",
@@ -25,7 +26,6 @@ const messages = [
     image: imagetwo,
   },
 ];
-
 
 export default function OurCore() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -94,10 +94,14 @@ export default function OurCore() {
 
       <div className="relative max-w-7xl mx-auto">
         {/* Title */}
-        <div className="text-center mb-6">
-          <p className="text-white text-lg font-medium mb-2">
-            Meet Our Leads
-          </p>
+        <motion.div
+          className="text-center mb-6"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <p className="text-white text-lg font-medium mb-2">Meet Our Leads</p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Messages from{' '}
             <span className="relative inline-block text-white">
@@ -109,7 +113,7 @@ export default function OurCore() {
               />
             </span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Carousel */}
         <div className="relative">
@@ -134,16 +138,21 @@ export default function OurCore() {
           )}
 
           {/* Cards */}
-          <div
+          <motion.div
             ref={scrollContainerRef}
             onMouseDown={handleMouseDown}
-            className="    flex gap-12 p-8 overflow-x-auto scroll-smooth scrollbar-hide lg:overflow-x-visible lg:justify-center"
+            className="flex gap-12 p-8 overflow-x-auto scroll-smooth scrollbar-hide lg:overflow-x-visible lg:justify-center"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
           >
             {messages.map((lead, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
+                variants={fadeUp}
               >
                 <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
                   <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
@@ -159,13 +168,12 @@ export default function OurCore() {
                     <p className="text-sm text-gray-500">{lead.institution}</p>
                   </div>
                 </div>
-                <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700  whitespace-pre-line">
+                <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700 whitespace-pre-line">
                   {lead.message}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-
+          </motion.div>
         </div>
       </div>
     </section>
