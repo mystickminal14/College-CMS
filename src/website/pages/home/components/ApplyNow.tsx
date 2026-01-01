@@ -6,7 +6,7 @@ export function ApplyNow() {
 
   // Close on ESC key
   useEffect(() => {
-    const handleEsc = (e) => e.key === "Escape" && setOpen(false);
+    const handleEsc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
