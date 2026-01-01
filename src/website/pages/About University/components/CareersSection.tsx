@@ -1,7 +1,22 @@
-import { motion } from 'framer-motion';
-import { fadeUp, staggerContainer } from '../../../comp/animation';
+import { motion, type Variants } from 'framer-motion';
 import career from "../../../../assets/career_image.jpg";
 import decoration from '../../../../assets/decoration.png';
+
+// Custom fade-in animations
+const fadeLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.3 } },
+};
 
 export default function CareersSection() {
   return (
@@ -16,7 +31,7 @@ export default function CareersSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Left Side - Text Content */}
-          <motion.div className="order-2 lg:order-1 space-y-6" variants={fadeUp}>
+          <motion.div className="order-2 lg:order-1 space-y-6" variants={fadeLeft}>
             <p className="text-blue-600 font-semibold text-sm md:text-base uppercase tracking-wider mb-4">
               Careers
             </p>
@@ -40,7 +55,7 @@ export default function CareersSection() {
           </motion.div>
 
           {/* Right Side - Image */}
-          <motion.div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl" variants={fadeUp}>
+          <motion.div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl" variants={fadeRight}>
             <img
               src={career}
               alt="Students enjoying campus life at APU"

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
 import Mission from "../../../../assets/mission_vission.jpg";
-import arrow from '../../../../assets/mission_arrow.png';
+import arrow from '../../../../assets/mission_arrow.png'
 import decoration from '../../../../assets/decoration.png';
 
 export default function MissionVisionSection() {
@@ -12,7 +12,7 @@ export default function MissionVisionSection() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url("${Mission}")` }}
       >
-        <div className="absolute inset-0 bg-black/50"></div> {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
       {/* Animated Content */}
@@ -27,6 +27,7 @@ export default function MissionVisionSection() {
         <motion.h2
           className="text-center text-4xl md:text-5xl lg:text-6xl font-bold mb-20"
           variants={fadeUp}
+          transition={{ duration: 1.2 }}
         >
           Mission &{' '}
           <span className="relative inline-block">
@@ -44,6 +45,8 @@ export default function MissionVisionSection() {
           <motion.div
             className="max-w-2xl space-y-6 text-left"
             variants={fadeUp}
+            transition={{ duration: 1, delay: 0.2 }}
+            whileHover={{ y: -5 }}
           >
             <h3 className="text-3xl md:text-4xl font-bold">Our Mission</h3>
             <p className="text-lg md:text-xl leading-relaxed text-gray-200">
@@ -57,8 +60,8 @@ export default function MissionVisionSection() {
           {/* Curved Arrow */}
           <motion.div
             className="hidden lg:flex absolute rotate-45 top-55 -left-125 inset-0 justify-center items-center pointer-events-none"
-            variants={fadeUp}
-            transition={{ delay: 0.1 }}
+            animate={{ rotate: [0, 5, -5, 0] }} // gentle sway animation
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
           >
             <img
               src={arrow}
@@ -71,7 +74,8 @@ export default function MissionVisionSection() {
           <motion.div
             className="max-w-2xl space-y-6 text-left ml-auto"
             variants={fadeUp}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            whileHover={{ y: -5 }}
           >
             <h3 className="text-3xl md:text-4xl font-bold">Our Vision</h3>
             <p className="text-lg md:text-xl leading-relaxed text-gray-200">

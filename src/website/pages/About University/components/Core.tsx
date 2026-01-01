@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { fadeUp, staggerContainer } from '../../../comp/animation';
+import { motion, type Variants } from 'framer-motion';
 
 import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/Datuk Paramjeet Singh.png';
@@ -14,7 +13,7 @@ const messages = [
     position: "CO-FOUNDER & CEO",
     institution: "APIIT Education Group",
     message:
-      "Dear Students,\nWe welcome LBEF to the international community of the Asia Pacific University of Technology & Innovation (APU). Parents, prospective & current students will be pleased to note that over 11,000 students including international students from over 120 countries are currently....",
+      "Dear Students,\nWe welcome LBEF to the international community of the Asia Pacific University of Technology & Innovation (APU)...",
     image: imageone,
   },
   {
@@ -22,10 +21,21 @@ const messages = [
     position: "VICE CHANCELLOR",
     institution: "Asia Pacific University",
     message:
-      "Dear Students,\nI would like to extend a warm welcome to students who are part of the APU – LBEF academic partnership. The APU – LBEF partnership which started in 2016 has produced around 300 graduates. Student centricity and uncompromising quality are at the heart...",
+      "Dear Students,\nI would like to extend a warm welcome to students who are part of the APU – LBEF academic partnership...",
     image: imagetwo,
   },
 ];
+
+// Animation Variants
+const fadeLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
+};
 
 export default function OurCore() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -47,26 +57,6 @@ export default function OurCore() {
       left: dir === 'left' ? -300 : 300,
       behavior: 'smooth',
     });
-  };
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isMobile() || !scrollContainerRef.current) return;
-
-    const startX = e.pageX;
-    const startScroll = scrollContainerRef.current.scrollLeft;
-
-    const onMove = (ev: MouseEvent) => {
-      scrollContainerRef.current!.scrollLeft =
-        startScroll - (ev.pageX - startX) * 2;
-    };
-
-    const onUp = () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-    };
-
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
   };
 
   useEffect(() => {
@@ -95,10 +85,10 @@ export default function OurCore() {
       <div className="relative max-w-7xl mx-auto">
         {/* Title */}
         <motion.div
-          className="text-center mb-6"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true, amount: 0.3 }}
         >
           <p className="text-white text-lg font-medium mb-2">Meet Our Leads</p>
@@ -117,50 +107,46 @@ export default function OurCore() {
 
         {/* Carousel */}
         <div className="relative">
-          {/* Left Arrow (Mobile only) */}
+          {/* Left Arrow */}
           {canScrollLeft && (
-            <button
+            <motion.button
               onClick={() => scrollByAmount('left')}
-              className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg"
+              className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-transform"
             >
               <ChevronLeft className="w-8 h-8 text-gray-700" />
-            </button>
+            </motion.button>
           )}
 
-          {/* Right Arrow (Mobile only) */}
+          {/* Right Arrow */}
           {canScrollRight && (
-            <button
+            <motion.button
               onClick={() => scrollByAmount('right')}
-              className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg"
+              className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-transform"
             >
               <ChevronRight className="w-8 h-8 text-gray-700" />
-            </button>
+            </motion.button>
           )}
 
-          {/* Cards */}
           <motion.div
             ref={scrollContainerRef}
-            onMouseDown={handleMouseDown}
             className="flex gap-12 p-8 overflow-x-auto scroll-smooth scrollbar-hide lg:overflow-x-visible lg:justify-center"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
           >
             {messages.map((lead, index) => (
               <motion.div
                 key={index}
-                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
-                variants={fadeUp}
+                className={`shrink-0 w-80 md:w-130 relative bg-white rounded-2xl shadow-xl hover:scale-105 transition-transform`}
+                variants={index % 2 === 0 ? fadeLeft : fadeRight}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{ scale: 1.07 }}
+                drag={isMobile() ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
               >
                 <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
                   <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
-                    <img
-                      src={lead.image}
-                      alt={lead.name}
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={lead.image} alt={lead.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h3 className="font-bold text-lg text-gray-900">{lead.name}</h3>

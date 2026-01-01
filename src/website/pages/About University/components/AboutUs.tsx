@@ -40,37 +40,38 @@ export default function AboutUsSection() {
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-30 items-center">
-          {/* Left: Image with rings */}
+          {/* Left: Image with animated rings */}
           <motion.div className="relative" variants={fadeUp}>
-            {/* Top-left Ring */}
+            {/* Top-left Ring with rotation */}
             <motion.div
               className="absolute hidden lg:block top-0 -left-15 w-32 h-32 rounded-full"
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
+              initial={{ y: 50, opacity: 0, rotate: 0 }}
+              whileInView={{ y: 0, opacity: 1, rotate: 15 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 1.2, ease: 'easeOut' }}
+              transition={{ duration: 1.5, ease: 'easeOut', repeat: Infinity, repeatType: "mirror" }}
             >
               <img src={ring} alt="decorative ring" className="h-40 w-40 object-contain" />
             </motion.div>
 
-            {/* Bottom-right Ring */}
+            {/* Bottom-right Ring with gentle bounce */}
             <motion.div
               className="absolute hidden lg:block bottom-0 -right-15 w-40 h-40 pointer-events-none"
               initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
+              whileInView={{ y: [0, -5, 0], opacity: 1 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
+              transition={{ duration: 2, ease: 'easeInOut', repeat: Infinity }}
             >
               <img src={ring} alt="decorative ring" className="h-40 w-40 object-contain" />
             </motion.div>
 
-            {/* Main Image */}
+            {/* Main Image with subtle parallax */}
             <motion.div
               className="relative rounded-2xl overflow-hidden shadow-2xl"
               initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+              whileHover={{ scale: 1.02 }}
             >
               <img
                 src={graduations}
@@ -80,12 +81,12 @@ export default function AboutUsSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Text */}
+          {/* Right: Text with staggered fade */}
           <motion.div className="space-y-8" variants={fadeUp}>
-            <motion.h3 variants={fadeUp}>
+            <motion.h3 variants={fadeUp} initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
               Asia Pacific University of Technology & Innovation (APU)
             </motion.h3>
-            <motion.p variants={fadeUp} transition={{ delay: 0.1 }}>
+            <motion.p variants={fadeUp} initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.2 }}>
               The Asia Pacific University of Technology & Innovation (APU) is amongst Malaysia's
               Premier Private Universities, and is where a unique fusion of technology,
               innovation and creativity works effectively towards transforming students into highly
@@ -95,8 +96,10 @@ export default function AboutUsSection() {
             </motion.p>
             <motion.button
               className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition duration-300 shadow-lg inline-flex items-center gap-3 text-lg"
-              variants={fadeUp}
-              transition={{ delay: 0.2 }}
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              whileHover={{ scale: 1.05 }}
             >
               Learn More
               <svg
