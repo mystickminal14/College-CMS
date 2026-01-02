@@ -26,21 +26,41 @@ const OurTeamWeb = () => {
           viewport={{ once: true }}
           className="max-w-8xl mx-auto text-center"
         >
-          <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+       <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+          >
+            <motion.span 
+              className="w-2 h-2 bg-blue-500 rounded-full"
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [1, 0.7, 1]
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 2,
+                ease: "easeInOut" as const
+              }}
+            />
             <span className="text-blue-600 font-medium text-sm">
-              Academic Excellence Team
+             Academic Excellence Team
             </span>
-          </div>
+          </motion.div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Meet The </span>
             <span className="relative inline-block">
               <span className="text-blue-600 relative z-10"> Minds</span>
-              <img
+               <motion.img
+               initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
                 src={decoration}
                 alt="Decoration"
                 className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
+                
               />
             </span>
             <br />
@@ -49,11 +69,15 @@ const OurTeamWeb = () => {
             <span className="text-gray-900"> Excellence</span>
           </h1>
 
-          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Meet the dedicated educators, administrators, and visionaries who
-            transform our institution into a beacon of quality education in
-            Nepal.
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            Access comprehensive academic databases, digital libraries, and learning platforms 
+            to support your research and studies at LBEF through APU's partnership.
+          </motion.p>
         </motion.div>
       </div>
 

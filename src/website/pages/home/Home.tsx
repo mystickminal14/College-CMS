@@ -6,12 +6,12 @@ import { WhyChooseLBEF } from "./components/WhyChooseLBEF";
 import { JoinStudents } from "./components/JoinStudents";
 import { Testimonial } from "./alumnis/Testimonial";
 import { EmailSubscribe } from "./components/EmailSubscribe";
-import BlogSection from "./components/BlogSection";
 import RecentNews from "./components/RecentNews";
 import SubFooter from "./components/SubFooter";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import NewCourse from "./components/NewCourse";
+import GalleryGrid from "./components/GalleryGrid";
 export function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -24,7 +24,6 @@ export function HomePage() {
   const { scrollY } = useScroll();
 
 
-  /* Content slides upward */
   const contentY = useTransform(scrollY, [0, 400], [100, 0]);
 
   return (
@@ -62,8 +61,9 @@ export function HomePage() {
                 className="relative z-20 bg-white"
               >
                 <Testimonial />
-                <BlogSection />
-                {/* <Events /> */}
+                
+                <GalleryGrid />
+               
                 <RecentNews />
                 <EmailSubscribe />
                 <SubFooter /></motion.div></motion.div>
@@ -81,13 +81,13 @@ export function HomePage() {
           <Testimonial />
           {/* <LatestInslight /> */}
           {/* <OurPartners /> */}
-          <BlogSection />
+          <GalleryGrid />
           {/* <Events /> */}
           <RecentNews />
           <EmailSubscribe />
           <SubFooter />
-          
-          </>
+
+        </>
       )
 
 

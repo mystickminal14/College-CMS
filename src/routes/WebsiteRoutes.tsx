@@ -22,6 +22,9 @@ import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
 import { AboutUniversity } from "../website/pages/About University/AboutUniversity";
 import NewsPageWeb from "../website/pages/news/News";
 import ICTScholarship from "../website/pages/admission/IctScholarship";
+import PaymentModes from "../website/pages/payment-modes/PaymentModes";
+import AlumniSpeaks from "../website/pages/alumni-speaks/AlumniSpeaks";
+import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -75,6 +78,15 @@ export const websiteRoutes = [
           },
           {
             path: "downloads", element: <StudentHandbook />
+          },
+          {
+            path: "payment-modes", element: <PaymentModes />
+          },
+          {
+            path: "alumni-speaks", element: <AlumniSpeaks />
+          },
+           {
+            path: "student-access", element: <StudentAccess  />
           },
           {
             path: "student-support", element: <ContactListPage />

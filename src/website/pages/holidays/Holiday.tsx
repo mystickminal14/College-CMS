@@ -251,12 +251,28 @@ const HolidayWebPlanner: React.FC = () => {
         className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
       >
         <div className="max-w-8xl mx-auto">
-          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-50 border border-blue-100">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-blue-600 font-medium text-xs sm:text-sm">
-              Holiday Planner
+             <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+          >
+            <motion.span 
+              className="w-2 h-2 bg-blue-500 rounded-full"
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [1, 0.7, 1]
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 2,
+                ease: "easeInOut" as const
+              }}
+            />
+            <span className="text-blue-600 font-medium text-sm">
+             Holiday Planner
             </span>
-          </div>
+          </motion.div>
 
           <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
             <span className="text-gray-900">Institutional </span>
@@ -264,18 +280,25 @@ const HolidayWebPlanner: React.FC = () => {
               <span className="text-blue-600 relative z-10">
                 Calendar
               </span>
-              <img
+              <motion.img
+               initial={{ scaleX: 0 }}
                 src={decoration}
+
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
                 alt="Decoration"
                 className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 sm:-bottom-1 w-full h-2 sm:h-3"
               />
             </span>
           </h1>
 
-          <p className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }} className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
             Plan your academic year with our comprehensive holiday schedule. 
             Stay updated with all administrative and academic holidays.
-          </p>
+          </motion.p>
         </div>
       </motion.div>
 
