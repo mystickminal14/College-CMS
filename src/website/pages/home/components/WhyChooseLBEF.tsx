@@ -49,17 +49,34 @@ const desktopFeatures = [
     
       <section className="hidden lg:block py-20 bg-linear-to-br from-blue-50 via-white to-purple-50">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-10">
-            Why{" "}
-            <span className="relative text-[#474AFF] inline-block">
-              Choose
-              <img
-                src={decoration}
-                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
-              />
-            </span>{" "}
-            LBEF College?
-          </h2>
+      <motion.h2
+  initial={{ opacity: 0, y: 100 }} // start below
+  whileInView={{ opacity: 1, y: 0 }} // animate to position
+  viewport={{ once: true, amount: 0.3 }} // trigger once when in view
+  transition={{ type: "spring", stiffness: 120, damping: 15 }} // spring effect
+  className="text-5xl font-bold mb-10"
+>
+  Why{" "}
+  <motion.span
+    className="relative text-[#474AFF] inline-block"
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 15 }}
+  >
+    Choose
+    <motion.img
+      src={decoration}
+      initial={{ scaleX: 0 }}
+      whileInView={{ scaleX: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.4, duration: 0.4, type: "spring", stiffness: 120 }}
+      className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+    />
+  </motion.span>{" "}
+  LBEF College?
+</motion.h2>
+
 
           <p className="text-lg text-gray-600 max-w-2xl  mx-auto">
             Unlock your true potential and discover a world of opportunities

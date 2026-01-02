@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import decoration from "../../../../assets/decoration.png";
 import { IMAGE_URL } from "../../../../constants";
 import useGetNews from "../../../../pages/news/hooks/useGetAllNews";
+import { motion } from 'framer-motion';
 
 const RecentNews = () => {
   const { data, isLoading, isError } = useGetNews({
@@ -80,17 +81,26 @@ const RecentNews = () => {
     <section className="bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12">
+        <motion.h1  initial={{ opacity: 0, y: 100 }} // start from below
+    whileInView={{ opacity: 1, y: 0 }} // animate to position
+    viewport={{ once: true, amount: 0.3 }} // trigger once when in view
+    transition={{ type: "spring", stiffness: 120, damping: 15 }}
+  className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12">
           Recent{" "}
           <span className="relative inline-block text-[#474AFF]">
             News
-            <img
+            <motion.img
+             initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
+       
               src={decoration}
               alt="Decoration"
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
             />
           </span>
-        </h1>
+        </motion.h1>
 
         {isLoading && (
           <p className="text-center text-gray-500">Loading news...</p>

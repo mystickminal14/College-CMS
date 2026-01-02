@@ -1,5 +1,7 @@
 import butterfiles from "../../../../assets/butterfiles.png"
+import { motion } from "framer-motion";
 import graduation from "../../../../assets/heroSection.jpg"
+
 export function HeroSection() {
   return (
     <>
@@ -20,14 +22,42 @@ export function HeroSection() {
         >
           <div className="inline-block">
             <span className="relative inline-block">
-              <span className="text-md sm:lg:text-[6vw]">Welcome</span>
-              <span className="absolute text-[6px] md:text-[1vw] left-0 font-normal">The First IT College of Nepal</span>
+              <motion.span
+                initial={{ opacity: 0, x: -300 }} // come from left
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
+                className="text-md sm:text-lg lg:text-[6vw]"
+              >
+                Welcome
+              </motion.span>
+
+              <motion.span
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.3 }}
+                className="absolute text-[6px] md:text-[1vw] left-0 font-normal"
+              >
+                The First IT College of Nepal
+              </motion.span>
             </span>
           </div>
 
-          <span className="relative"><span className="lg:text-[6vw]"> to {""}</span>
-            <span className="absolute text-[5px] md:text-[1vw] left-0 top-[0.5vw] font-normal">Evolve With</span>
-          </span>
+          <motion.span
+            initial={{ opacity: 0, x: -300 }} // come from left
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
+            className="relative"
+          >
+            <span className="lg:text-[6vw]"> to {""}</span>
+            <motion.span
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.4 }}
+              className="absolute text-[5px] md:text-[1vw] left-0 top-[0.5vw] font-normal"
+            >
+              Evolve With
+            </motion.span>
+          </motion.span>
 
           <span
             className="text-white pl-2 pr-2 sm:pl-3 sm:pr-3 inline-block relative mx-1 sm:mx-2"
@@ -38,17 +68,34 @@ export function HeroSection() {
               padding: "0 8px sm:0 12px",
             }}
           >
-            <span className="absolute h-[2vh] w-[2vw] left-[8.5vw] top-[1.5vw]">
+            <motion.span
+              className="absolute h-[2vh] w-[2vw] left-[8.5vw] top-[1.5vw]"
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.5 }}
+            >
               <img src={butterfiles} alt="Butterflies" />
-            </span>
-            LBEF
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, x: -300 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
+            >
+              LBEF
+            </motion.span>
           </span>
 
           <span className="inline-block ml-1 sm:ml-2">{" "}</span>
 
           <span className="relative ">
-            <span className="md:text-[5vw]">College</span>
-            {/* <span className="absolute text-[1vw] left-0 top-[7vw] font-normal">Limits</span> */}
+            <motion.span
+              initial={{ opacity: 0, x: 300 }} // come from right
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.4 }}
+              className="md:text-[5vw]"
+            >
+              College
+            </motion.span>
           </span>
         </div>
 
@@ -58,6 +105,7 @@ export function HeroSection() {
           <div className="w-3 h-3 bg-[#0F183F] rotate-45"></div>
         </div>
       </section>
+
       <section className="w-90vw h-[40vw] md:h-[22vw] relative overflow-hidden">
         <img
           src={graduation}

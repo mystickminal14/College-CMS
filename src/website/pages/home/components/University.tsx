@@ -1,79 +1,113 @@
+import { motion } from "framer-motion";
 import apu from "../../../../assets/apu_logo.png";
 import ranking from "../../../../assets/university_ranking.png";
 import decoration from '../../../../assets/decoration.png';
-import campus from '../../../../assets/campus.png'
-import campus_inside from '../../../../assets/campus_inside.jpg'
+import campus from '../../../../assets/campus.png';
+import campus_inside from '../../../../assets/campus_inside.jpg';
+import { fadeUp, staggerContainer } from "../../../comp/animation";
 
 export function University() {
   return (
-    <section className="relative py-16 px-4 sm:px-6 lg:px-20 bg-white overflow-hidden">
-      <div
-        className="absolute top-[5vh] left-[10vw] w-44 h-60 rounded-3xl -rotate-15  hidden lg:block bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${campus})`,
-        }}
-      ></div>
+    <section className="relative py-20 px-4 sm:px-6 lg:px-20 bg-white overflow-hidden">
 
-      <div
+      {/* Background images */}
+      <motion.div
+        className="absolute top-[5vh] left-[10vw] w-44 h-60 rounded-3xl -rotate-15 hidden lg:block bg-cover bg-center"
+        style={{ backgroundImage: `url(${campus})` }}
+        initial={{ scale: 0.8, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 100, damping: 12 }}
+      />
+
+      <motion.div
         className="absolute bottom-[10vh] right-[6vw] w-44 h-60 rounded-3xl rotate-15 hidden lg:block bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${campus_inside})`,
-        }}
-      ></div>
+        style={{ backgroundImage: `url(${campus_inside})` }}
+        initial={{ scale: 0.8, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.1 }}
+      />
 
-      <div className="w-full sm:max-w-7xl mx-auto relative z-10">
+      <motion.div
+        className="w-full sm:max-w-7xl mx-auto relative z-10"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {/* Badge */}
-        <div className="text-center mb-4 sm:mb-6">
+        <motion.div
+          className="text-center mb-4 sm:mb-6"
+          variants={fadeUp}
+        >
           <span className="inline-block px-6 py-2 text-[20px] sm:text-[25px] bg-[#474AFF] text-white font-bold rounded-full">
             Our University
           </span>
-        </div>
+        </motion.div>
 
         {/* Main Title */}
-        <h1 className="text-center text-4xl md:text-5xl font-bold leading-tight mb-6 sm:mb-10">
-          <span >Gateway </span>To <span className="relative inline-block text-[#474AFF]">
+        <motion.h1
+          className="text-center text-4xl md:text-5xl font-bold leading-tight mb-6 sm:mb-10"
+          variants={staggerContainer}
+        >
+          <motion.span variants={fadeUp}>Gateway </motion.span>
+          To{" "}
+          <motion.span className="relative inline-block text-[#474AFF]" variants={fadeUp}>
             Personal
-            <img
+            <motion.img
               src={decoration}
               alt="Decoration"
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
-            />
-          </span>{" "}
+               initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.4 }}  />
+          </motion.span>{" "}
           <br />
-          <span className="text-gray-900">
+          <motion.span className="text-gray-900" variants={fadeUp}>
             And Professional Growth
-          </span>
-        </h1>
+          </motion.span>
+        </motion.h1>
 
         {/* Description */}
-        <div className="w-full sm:max-w-6xl mx-auto text-center">
+        <motion.div
+          className="w-full sm:max-w-6xl mx-auto text-center"
+          variants={fadeUp}
+        >
           <p className="text-xs sm:text-lg md:text-xl text-[#4D5756] leading-relaxed mb-8 sm:mb-12">
             The Asia Pacific University of Technology & Innovation (APU) is amongst Malaysia’s Premier Private Universities, and is where a unique fusion of technology, innovation and creativity works effectively towards transforming students into highly competent, employable and future-proof professionals. APU has earned an enviable reputation as an award-winning University through its achievements in winning a host of <span className="underline">over 400 prestigious awards at local and international levels.</span>
           </p>
-        </div>
+        </motion.div>
 
         {/* Logos & Rankings */}
-        <div className="flex items-center flex-wrap justify-center gap-6 sm:gap-10 mt-10 sm:mt-16">
-
+        <motion.div
+          className="flex items-center flex-wrap justify-center gap-6 sm:gap-10 mt-10 sm:mt-16"
+          variants={staggerContainer}
+        >
           {/* APU Logo */}
-          <img
+          <motion.img
             src={apu}
             alt="APU Logo"
             className="h-12 sm:h-16 md:h-20 w-auto"
+            variants={fadeUp}
           />
 
           {/* Divider */}
-          <div className="w-px h-12 sm:h-16 md:h-20 bg-gray-300" />
+          <motion.div
+            className="w-px h-12 sm:h-16 md:h-20 bg-gray-300"
+            variants={fadeUp}
+          />
 
           {/* Ranking Logo */}
-          <img
+          <motion.img
             src={ranking}
             alt="QS 5 Star Rating"
             className="h-10 sm:h-14 md:h-16 w-auto"
+            variants={fadeUp}
           />
-        </div>
-
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

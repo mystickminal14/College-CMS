@@ -41,7 +41,12 @@ export function HomePage() {
             className="relative z-20 bg-white"
           >
             <NewCourse />
-            <University />
+            <motion.div
+              className="sticky top-0 z-10 bg-white"
+            >
+                          <University />
+
+            </motion.div>
             <motion.div
               className="sticky top-0 z-10 bg-white"
             >

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Monitor } from 'lucide-react';
+import image from "../../../assets/butterfiles.png";
 
 import decoration from '../../../assets/decoration.png';
 import useGetAll from './hook/useGetCourses';
@@ -151,48 +152,78 @@ const CourseProgram = () => {
           {!isLoading &&
             courses.length > 0 &&
             courses.map((course) => (
-              <motion.div
-                key={course.id}
-                variants={fadeUp}
-                className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
-              >
-                {/* Hover background */}
-                <div className="card-bg absolute inset-0 bg-blue-600" />
-
-                <div className="relative z-10 p-6 flex flex-col h-full">
-                  <div className="flex justify-between">
-                    <p className="text-xs uppercase text-blue-600 group-hover:text-white">
-                      {course.degree}
-                    </p>
-                    <p className="text-xs uppercase text-blue-600 group-hover:text-white">
-                      {course.duration}
-                    </p>
-                  </div>
-
-                  <div className="mt-auto">
-                    <div className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-blue-100 group-hover:opacity-0 transition">
-                      <Monitor className="w-7 h-7 text-blue-600" />
-                    </div>
-
-                    <h3 className="text-xl font-bold group-hover:text-white">
-                     {course.prefix} {course.title}
-                    </h3>
-                  </div>
-
-                  <div className="hover-reveal mt-4">
-                    <p className="text-sm text-white">
-                      {truncateWords(course.details ?? '', 30)}
-                    </p>
-
-                    <span
-                      className="mt-6 block text-white font-semibold cursor-pointer"
-                      onClick={() => handleView(course)}
+                  <motion.div
+                      key={course.id}
+                      variants={fadeUp}
+                      className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
                     >
-                      READ MORE
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
+                      {/* BACKGROUND IMAGE WITH SPRING */}
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                        className="absolute inset-x-0 top-0 bottom-10 bg-no-repeat bg-center bg-size-[50%_50%]"
+                        style={{
+                          backgroundImage: `url(${image})`,
+                        }}
+                      />
+
+                      {/* BLUE OVERLAY */}
+                      <div className="card-bg absolute inset-0 bg-blue-600" />
+
+                      {/* CARD CONTENT */}
+                      <div className="relative z-10 p-6 flex flex-col h-full">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ type: "spring", stiffness: 120, damping: 15 }}
+                          className="flex justify-between"
+                        >
+                          <p className="text-xs uppercase text-blue-600 group-hover:text-white">
+                            {course.degree}
+                          </p>
+                          <p className="text-xs uppercase text-blue-600 group-hover:text-white">
+                            {course.duration}
+                          </p>
+                        </motion.div>
+
+                        <div className="mt-auto">
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
+                            className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-blue-100 group-hover:opacity-0 transition"
+                          >
+                            <Monitor className="w-7 h-7 text-blue-600" />
+                          </motion.div>
+
+                          <motion.h3
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
+                            className="text-xl font-bold group-hover:text-white"
+                          >
+                            {course.title}
+                          </motion.h3>
+                        </div>
+
+                        <div className="hover-reveal mt-4">
+                          <p className="text-sm text-white">
+                            {truncateWords(course.details ?? "", 30)}
+                          </p>
+                          <span
+                            className="mt-6 block text-white font-semibold cursor-pointer"
+                            onClick={() => handleView(course)}
+                          >
+                            READ MORE
+                          </span>
+                        </div>
+                      </div>
+                    </motion.div>
             ))}
         </motion.div>
 

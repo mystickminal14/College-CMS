@@ -60,20 +60,32 @@ export function Testimonial() {
     <section className="py-12 px-4 lg:px-20 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-            What Our{" "}
-            <span className="relative text-[#474AFF] inline-block">
-              Students
-              <img
-                src={decoration}
-                alt=""
-                className="absolute left-1/2 -translate-x-1/2 mt-0 sm:mt-1 w-full h-2 md:h-3"
-              />
-            </span>{" "}
-            Say?
-          </h1>
-        </div>
+        {/* Heading */}
+<div className="text-center mb-8 sm:mb-12">
+  <motion.h1
+    className="text-4xl md:text-5xl font-bold text-gray-900"
+    initial={{ opacity: 0, y: 100 }} // start from below
+    whileInView={{ opacity: 1, y: 0 }} // animate to position
+    viewport={{ once: true, amount: 0.3 }} // trigger once when in view
+    transition={{ type: "spring", stiffness: 120, damping: 15 }}
+  >
+    What Our{" "}
+    <motion.span className="relative text-[#474AFF] inline-block">
+      Students
+      <motion.img
+        src={decoration}
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
+        alt="decoration"
+        className="absolute left-1/2 -translate-x-1/2 mt-0 sm:mt-1 w-full h-2 md:h-3"
+      />
+    </motion.span>{" "}
+    Say?
+  </motion.h1>
+</div>
+
 
         {isLoading ? (
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center animate-pulse">

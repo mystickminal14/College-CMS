@@ -124,11 +124,12 @@ const StudentAccess = () => {
               <span className="text-blue-600 relative z-10"> Digital</span>
                <motion.img
                 src={decoration}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
-                initial={{ scaleX: 0 }}
+                  initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
+              
               />
             </span>
             <br />
