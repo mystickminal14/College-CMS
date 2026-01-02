@@ -30,7 +30,7 @@ const PaymentModes = () => {
     { name: "Khalti", color: "from-purple-500 to-pink-500", search: "College for Professional Studies, Maitidevi" }
   ];
 
-  const contactNumber = "+977-1-1234567";
+  const contactNumber = "9801110200";
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-blue-50/30">

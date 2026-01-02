@@ -119,6 +119,7 @@ export const websiteRoutes = [
         path: "gyandeep-scholarship",
         element: <GyandeepScholasrhip />,
       },
+      
             {
         path: "ict-scholarship",
         element: <ICTScholarship />,

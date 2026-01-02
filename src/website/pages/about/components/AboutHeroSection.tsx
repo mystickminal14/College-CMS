@@ -1,6 +1,5 @@
 import HeroImages from '../../../../assets/decoration/AboutHero.jpg'
 import butterfiles from '../../../../assets/butterfiles.png'
-import { FlipText } from '../../home/utils/FlipText';
 
 const ABoutHeroSection = () => {
   return (
@@ -18,18 +17,15 @@ const ABoutHeroSection = () => {
   leading-tight sm:leading-snug md:leading-tight
   flex flex-wrap items-center gap-x-2 gap-y-1
 ">
-          <FlipText text="Leading, " />
-          <FlipText text="Boldness, " />
-          <FlipText text="Effectiveness, " />
+          Leading, Boldness, Effectiveness,
 
           <span className="relative text-blue-600 inline-flex items-center">
             <span className="absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8">
               <img src={butterfiles} alt="Butterflies" className="w-full h-full" />
             </span>
-            <FlipText text="Futuristic, " />
+            Futuristic
           </span>
-
-          <FlipText text="Thinking" />
+Thinking
         </h1>
 
 

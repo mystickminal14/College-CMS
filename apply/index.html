@@ -18,11 +18,23 @@
 <body>
   <nav class="navbar">
     <img src="./images/lbefLogo.png" alt="" class="logo" height="60" width="140">
-    <li><a href="">About</a></li>
-    <li><a href="">Courses</a></li>
-    <li><a href="">Admission</a></li>
-    <li><a href="">Contact</a></li>
-  </nav>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <ul>
+        <li><a href="" target="_blank" class="active">Home</a></li>
+        <li><a href="" target="_blank" >About LBEF</a></li>
+
+        <li><a href="" target="_blank" >About APU</a></li>
+        <li><a href="">Courses</a></li>
+        <li><a href="">Admission</a></li>
+        <li><a href="">Explore</a></li>
+    </ul>
+</nav>
   <div class="main-container">
     <div class="main-content">
       <section class="forbg fade-up">
@@ -670,8 +682,8 @@
         </div>
       </section>
     </div>
-    <aside class="sidebar">
-      <div class="card">
+    <aside class="sidebar" >
+      <div class="card" style="padding-top: 20px;">
         <h3>Enquiry Form</h3>
         <form>
           <div class="form-group"><input type="text" placeholder="Name" /></div>
@@ -703,6 +715,53 @@
     document.querySelectorAll(
       ".fade-up, .slide-left, .slide-right"
     ).forEach(el => observer.observe(el));
+    // Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navbarUl = document.querySelector('.navbar ul');
+
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navbarUl.classList.toggle('active');
+        mobileMenuBtn.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.navbar a').forEach(link => {
+        link.addEventListener('click', () => {
+            navbarUl.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+        });
+    });
+}
+
+// Add active class to current page link
+const currentPage = window.location.pathname;
+document.querySelectorAll('.navbar a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+    }
+});
+
+// Add hover effect for all links
+document.querySelectorAll('.navbar a').forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)';
+    });
+    
+    link.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
   </script>
 </body>
 
