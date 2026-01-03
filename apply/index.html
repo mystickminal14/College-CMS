@@ -18,23 +18,23 @@
 <body>
   <nav class="navbar">
     <img src="./images/lbefLogo.png" alt="" class="logo" height="60" width="140">
-    
-    <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    
-    <ul>
-        <li><a href="" target="_blank" class="active">Home</a></li>
-        <li><a href="" target="_blank" >About LBEF</a></li>
 
-        <li><a href="" target="_blank" >About APU</a></li>
-        <li><a href="">Courses</a></li>
-        <li><a href="">Admission</a></li>
-        <li><a href="">Explore</a></li>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul>
+      <li><a href="" target="_blank" class="active">Home</a></li>
+      <li><a href="#about">About LBEF</a></li>
+
+      <li><a href="#about-apu">About APU</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#admission">Admission</a></li>
+      <li><a href="http://www.lbef.org/" target="_blank">Explore</a></li>
     </ul>
-</nav>
+  </nav>
   <div class="main-container">
     <div class="main-content">
       <section class="forbg fade-up">
@@ -125,7 +125,7 @@
         </div>
       </section>
 
-      <section class="courses-section">
+      <section class="courses-section" id="courses">
         <div class="container">
 
           <div class="section-header fade-up">
@@ -306,7 +306,7 @@
         </div>
       </section>
       <!-- problems from here -->
-      <section class="about-section-univerity fade-up" id="about">
+      <section class="about-section-univerity fade-up" id="about-apu">
         <div class="container">
           <!-- Header -->
           <div class="section-header fade-up">
@@ -447,7 +447,7 @@
         </div>
       </section>
 
-      <section class="admission fade-up">
+      <section class="admission fade-up" id="admission">
         <div class="container">
           <span class="subtitle fade-up delay-1">ADMISSION</span>
           <h2 class="title fade-up delay-2">ADMISSION PROCEDURE</h2>
@@ -682,7 +682,7 @@
         </div>
       </section>
     </div>
-    <aside class="sidebar" >
+    <aside class="sidebar">
       <div class="card" style="padding-top: 20px;">
         <h3>Enquiry Form</h3>
         <form>
@@ -716,52 +716,52 @@
       ".fade-up, .slide-left, .slide-right"
     ).forEach(el => observer.observe(el));
     // Navbar scroll effect
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
-    } else {
+      } else {
         navbar.classList.remove('scrolled');
-    }
-});
+      }
+    });
 
-// Mobile menu toggle
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navbarUl = document.querySelector('.navbar ul');
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navbarUl = document.querySelector('.navbar ul');
 
-if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
         navbarUl.classList.toggle('active');
         mobileMenuBtn.classList.toggle('active');
-    });
+      });
 
-    // Close menu when clicking a link
-    document.querySelectorAll('.navbar a').forEach(link => {
+      // Close menu when clicking a link
+      document.querySelectorAll('.navbar a').forEach(link => {
         link.addEventListener('click', () => {
-            navbarUl.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
+          navbarUl.classList.remove('active');
+          mobileMenuBtn.classList.remove('active');
         });
-    });
-}
-
-// Add active class to current page link
-const currentPage = window.location.pathname;
-document.querySelectorAll('.navbar a').forEach(link => {
-    if (link.getAttribute('href') === currentPage) {
-        link.classList.add('active');
+      });
     }
-});
 
-// Add hover effect for all links
-document.querySelectorAll('.navbar a').forEach(link => {
-    link.addEventListener('mouseenter', function() {
+    // Add active class to current page link
+    const currentPage = window.location.pathname;
+    document.querySelectorAll('.navbar a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+
+    // Add hover effect for all links
+    document.querySelectorAll('.navbar a').forEach(link => {
+      link.addEventListener('mouseenter', function () {
         this.style.transform = 'translateY(-2px)';
-    });
-    
-    link.addEventListener('mouseleave', function() {
+      });
+
+      link.addEventListener('mouseleave', function () {
         this.style.transform = 'translateY(0)';
+      });
     });
-});
   </script>
 </body>
 
