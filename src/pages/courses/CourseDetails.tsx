@@ -21,6 +21,9 @@ import {
 import CourseDetailRenderer from "./CourseDetailRender";
 
 /* ================= ANIMATION VARIANTS ================= */
+import { useEnquiry } from "../../context/EnquiryContext";
+
+
 const asideItemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
@@ -56,7 +59,7 @@ const fadeItem: Variants = {
   },
 };
 const mainSectionContainerVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: 60,
     scale: 0.95,
@@ -92,6 +95,8 @@ const mainSectionContainerVariants: Variants = {
 const CourseDetails = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const { open } = useEnquiry();
+
   const course = location.state?.course as Courses;
 
   const { data } = useGetCourseDetails({
@@ -105,7 +110,7 @@ const CourseDetails = () => {
       <div className="container max-w-7xl mx-auto px-4 pb-20">
         <div className="flex flex-col-reverse sm:felx-col lg:flex-row gap-8">
           <main className="lg:w-2/3 space-y-12">
-        {data?.data?.length === 0 && (
+            {data?.data?.length === 0 && (
               <motion.section
                 variants={mainSectionContainerVariants}
                 initial="offscreen"
@@ -128,7 +133,7 @@ const CourseDetails = () => {
                   >
                     <BookOpen className="w-10 h-10 text-blue-600" />
                   </motion.div>
-                  
+
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -137,7 +142,7 @@ const CourseDetails = () => {
                   >
                     Course details are being updated
                   </motion.h3>
-                  
+
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -148,7 +153,7 @@ const CourseDetails = () => {
                     program are currently under preparation. Our academic team is updating
                     the content to ensure accuracy and clarity.
                   </motion.p>
-                  
+
                   <motion.div
                     className="flex flex-wrap gap-3 justify-center"
                     initial="hidden"
@@ -171,7 +176,7 @@ const CourseDetails = () => {
                       </motion.span>
                     ))}
                   </motion.div>
-                  
+
                   <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -188,7 +193,7 @@ const CourseDetails = () => {
             {data?.data
               ?.filter((block) => block.type === BlockType.HEADING)
               .sort((a, b) => a.order - b.order)
-              .map((heading,index) => (
+              .map((heading, index) => (
                 <motion.section
                   key={heading.id}
                   variants={sectionVariants}
@@ -197,60 +202,60 @@ const CourseDetails = () => {
                   viewport={{ once: true, margin: "-80px" }}
                   className="bg-white rounded-xl border border-gray-200 shadow-sm p-3 sm:p-6"
                 >
-                    <motion.div 
+                  <motion.div
                     className="p-6 border-b border-gray-100 bg-linear-to-r from-gray-50/50 to-white relative overflow-hidden"
                     animate={
-                       `linear-linear(to right, #f8fafc, #f1f5f9)`
+                      `linear-linear(to right, #f8fafc, #f1f5f9)`
                     }
                   >
-                    <motion.div 
+                    <motion.div
                       className="absolute top-0 left-0 w-1 h-full bg-linear-to-b from-blue-500 to-indigo-500"
-                      animate={{ 
-                        scaleY:1 ,
-                        opacity:1  
+                      animate={{
+                        scaleY: 1,
+                        opacity: 1
                       }}
                     />
-                    
+
                     <div className="flex items-center gap-4">
-                      <motion.div 
+                      <motion.div
                         className="relative"
                         animate={
-                         ` [0, 10, -10, 0] `
+                          ` [0, 10, -10, 0] `
                         }
                         transition={{ duration: 0.5 }}
                       >
                         <div className="w-14 h-14 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
                           <span className="text-white text-lg font-bold">{index + 1}</span>
                         </div>
-                        <motion.div 
+                        <motion.div
                           className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center"
-                    animate={
-                         ` [1, 1.2, 1] `
-                        }
-                         
+                          animate={
+                            ` [1, 1.2, 1] `
+                          }
+
                           transition={{ duration: 2, repeat: Infinity }}
                         >
                           <Zap className="w-3 h-3 text-white" />
                         </motion.div>
                       </motion.div>
-                      
+
                       <div className="flex-1">
-                        <motion.h2 
+                        <motion.h2
                           className="text-xl font-bold text-gray-900 mb-1"
                           animate=
-                             "#1e40af"
+                          "#1e40af"
                         >
                           {heading.title}
                         </motion.h2>
                         <div className="flex items-center gap-4">
-                          <motion.span 
+                          <motion.span
                             className="text-xs font-medium text-gray-500 flex items-center gap-1"
                             whileHover={{ color: "#3b82f6" }}
                           >
                             <BookOpen className="w-3 h-3" />
                             Detailed Content
                           </motion.span>
-                          <motion.span 
+                          <motion.span
                             className="text-xs font-medium text-gray-500 flex items-center gap-1"
                             whileHover={{ color: "#10b981" }}
                           >
@@ -259,26 +264,26 @@ const CourseDetails = () => {
                           </motion.span>
                         </div>
                       </div>
-                      
+
                       <motion.div
                         animate='45'
                         className="text-gray-300 group-hover:text-blue-400"
                       >
-                        <ChevronRight  className="w-6 h-6" />
+                        <ChevronRight className="w-6 h-6" />
                       </motion.div>
                     </div>
                   </motion.div>
-                  
+
                   {/* Section Content */}
-                  <motion.div 
+                  <motion.div
                     className="p-6"
                     initial={false}
-                  animate="#f8fafc"
+                    animate="#f8fafc"
                   >
                     <CourseDetailRenderer blocks={heading.children} />
                   </motion.div>
-                  
-                
+
+
 
                 </motion.section>
               ))}
@@ -399,11 +404,11 @@ const CourseDetails = () => {
                 </motion.div>
 
                 {/* SCHOLARSHIP */}
-                  <motion.div
+                <motion.div
                   variants={asideItemVariants}
                   custom={7}
                   className="mt-4 bg-linear-to-r from-indigo-600 to-blue-600 rounded-lg p-4 text-white relative overflow-hidden"
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.02,
                     transition: { type: "spring", stiffness: 250 }
                   }}
@@ -423,9 +428,10 @@ const CourseDetails = () => {
                     <p className="text-xs text-indigo-100 mb-3">
                       Limited seats available for eligible students
                     </p>
-                    <motion.button 
+                    <motion.button
                       whileTap={{ scale: 0.95 }}
                       className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
+                      onClick={() => open}
                     >
                       Apply Now
                       <ArrowRight className="w-3 h-3" />

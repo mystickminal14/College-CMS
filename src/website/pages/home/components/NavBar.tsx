@@ -16,6 +16,7 @@ import {
 import logo from "../../../../assets/lbefHd.jpg";
 import apuLogo from "../../../../assets/apu_logo.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
+import { useEnquiry } from "../../../../context/EnquiryContext";
 
 type DropdownItem = {
   name: string;
@@ -23,10 +24,10 @@ type DropdownItem = {
   disabled?: boolean;
   dropdown?: DropdownItem[];
 } & (
-  | { link: string; onClick?: never }
-  | { link?: never; onClick: () => void }
-  | { link?: never; onClick?: never }
-);
+    | { link: string; onClick?: never }
+    | { link?: never; onClick: () => void }
+    | { link?: never; onClick?: never }
+  );
 
 type MenuItem = {
   name: string;
@@ -61,6 +62,7 @@ export function NavBar() {
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
 
+  const { open } = useEnquiry();
   /* Desktop hover */
   const onEnter = (menu: string) => setActiveDropdown(menu);
   const onLeave = () => {
@@ -96,16 +98,16 @@ export function NavBar() {
       dropdown:
         courseNames.length > 0
           ? courseNames.map((course) => ({
-              name: `${course.prefix} ${course.title}`,
-              icon: <FaBook />,
-              onClick: () => {
-                navigate(
-                  `/students-life/${course.title.replace(/ /g, "-")}/${course.id}`,
-                  { state: { course } }
-                );
-                setActiveDropdown(null);
-              },
-            }))
+            name: `${course.prefix} ${course.title}`,
+            icon: <FaBook />,
+            onClick: () => {
+              navigate(
+                `/students-life/${course.title.replace(/ /g, "-")}/${course.id}`,
+                { state: { course } }
+              );
+              setActiveDropdown(null);
+            },
+          }))
           : [{ name: "No courses available", icon: <FaBook />, disabled: true, link: "#" }],
     },
     {
@@ -116,7 +118,7 @@ export function NavBar() {
         { name: "Fee Planner", link: "/students-life/fee-planner", icon: <FaUniversity /> },
         { name: "Notice Board", link: "/students-life/notices", icon: <FaUniversity /> },
         { name: "Payment Modes", link: "/students-life/payment-modes", icon: <FaUniversity /> },
-          { name: "Student Access", link: "/students-life/student-access", icon: <FaUniversity /> },
+        { name: "Student Access", link: "/students-life/student-access", icon: <FaUniversity /> },
         { name: "Contact List", link: "/students-life/student-support", icon: <FaClipboardList /> },
         {
           name: "Alumni",
@@ -171,23 +173,20 @@ export function NavBar() {
                 <button className="flex items-center gap-1 px-4 py-3 cursor-pointer uppercase text-sm font-medium hover:text-[#3040E5]">
                   <span>{item.name}</span>
                   <FaChevronDown
-                    className={`text-xs transition-transform ${
-                      activeDropdown === item.name ? "rotate-180" : ""
-                    }`}
+                    className={`text-xs transition-transform ${activeDropdown === item.name ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${
-                    activeDropdown === item.name
-                      ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-2"
-                  }`}
+                  className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${activeDropdown === item.name
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2"
+                    }`}
                 >
                   <div
-                    className={`bg-white shadow-xl rounded-xl p-1 ${
-                      item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"
-                    }`}
+                    className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"
+                      }`}
                   >
                     {item.dropdown.map((sub) => {
                       if (sub.dropdown) {
@@ -202,9 +201,8 @@ export function NavBar() {
                               {sub.icon}
                               <span>{sub.name}</span>
                               <FaChevronDown
-                                className={`text-xs ml-auto transition-transform ${
-                                  activeNestedDropdown === sub.name ? "rotate-180" : ""
-                                }`}
+                                className={`text-xs ml-auto transition-transform ${activeNestedDropdown === sub.name ? "rotate-180" : ""
+                                  }`}
                               />
                             </div>
                             {activeNestedDropdown === sub.name && (
@@ -269,14 +267,14 @@ export function NavBar() {
             )
           )}
 
-           <NavLink
-            to="/enroll"
-            className=" bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
-            onClick={() => setMobileOpen(false)}
+          <button
+            onClick={() => open()}
+            className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
           >
             <FaUserGraduate />
             Enquire Now
-          </NavLink>
+          </button>
+
         </nav>
 
         {/* Mobile Toggle */}
@@ -297,9 +295,8 @@ export function NavBar() {
                 >
                   <span>{item.name}</span>
                   <FaChevronDown
-                    className={`transition-transform ${
-                      dropdownOpen[item.name] ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${dropdownOpen[item.name] ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
                 {dropdownOpen[item.name] &&
@@ -317,9 +314,8 @@ export function NavBar() {
                               {sub.name}
                             </span>
                             <FaChevronDown
-                              className={`transition-transform ${
-                                dropdownOpen[nestedKey] ? "rotate-180" : ""
-                              }`}
+                              className={`transition-transform ${dropdownOpen[nestedKey] ? "rotate-180" : ""
+                                }`}
                             />
                           </button>
                           {dropdownOpen[nestedKey] &&
@@ -378,15 +374,18 @@ export function NavBar() {
               </NavLink>
             )
           )}
-          
-           <NavLink
-            to="/enroll"
+
+          <button
+            onClick={() => {
+              open();
+              setMobileOpen(false);
+            }}
             className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
-            onClick={() => setMobileOpen(false)}
           >
             <FaUserGraduate />
             Enquiry Now
-          </NavLink>
+          </button>
+
         </div>
       )}
     </header>

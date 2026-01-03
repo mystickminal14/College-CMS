@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import App from "./App.tsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { EnquiryProvider } from "./context/EnquiryContext.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -23,10 +24,12 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     {" "}
-   
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <EnquiryProvider>
         <App />
-      </QueryClientProvider>
+      </EnquiryProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

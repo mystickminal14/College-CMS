@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
 import arrow from "../../../../assets/arrow.png";
+import { useEnquiry } from "../../../../context/EnquiryContext";
 
 export function ApplyNow() {
-  const [open, setOpen] = useState(false);
 
-  // Close on ESC key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
+    const { open } = useEnquiry();
+  
 
   return (
     <>
@@ -38,7 +33,7 @@ export function ApplyNow() {
             {/* Buttons */}
             <div className="mt-10 flex gap-4 justify-center">
               <button
-                onClick={() => setOpen(true)}
+                onClick={() => open()}
                 className="uppercase text-[12px] sm:text-[18px] rounded-full bg-[#474AFF] px-5 sm:px-12 py-4 text-white font-medium hover:bg-[#2535c7] shadow-lg"
               >
                 Enquiry Now
@@ -56,40 +51,6 @@ export function ApplyNow() {
           </div>
         </div>
       </section>
-
-      {/* POPUP MODAL */}
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-
-          {/* Overlay */}
-          <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setOpen(false)}
-          />
-
-          {/* Modal */}
-          <div className="relative bg-white w-[90%] max-w-md rounded-2xl shadow-2xl p-8 animate-scaleIn">
-
-            {/* Close */}
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
-            >
-              ✕
-            </button>
-
-            <h2 className="text-2xl font-bold text-[#050038] mb-2">
-              Enquiry Form
-            </h2>
-            <p className="text-sm text-gray-500 mb-6">
-              Fill in your details and we’ll contact you shortly.
-            </p>
-
-
-          </div>
-        </div>
-      )}
-
       {/* Animation */}
       <style>
         {`
