@@ -3,7 +3,6 @@ export interface Alumni {
   name?: string;
   position?: string;
   batch?: string;
-  link?: string;
   course?: string;
   story?: string;
   link?: string;

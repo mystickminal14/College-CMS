@@ -16,7 +16,6 @@ import {
 import logo from "../../../../assets/lbefhd.jpg";
 import apuLogo from "../../../../assets/apu_logo.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
-import { useEnquiry } from "../../../../context/EnquiryContext";
 
 type DropdownItem = {
   name: string;
@@ -53,6 +52,7 @@ export function NavBar() {
 
   /* Close menus on route change */
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileOpen(false);
     setDropdownOpen({});
     setActiveDropdown(null);
@@ -62,7 +62,6 @@ export function NavBar() {
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
 
-  const { open } = useEnquiry();
   /* Desktop hover */
   const onEnter = (menu: string) => setActiveDropdown(menu);
   const onLeave = () => {
