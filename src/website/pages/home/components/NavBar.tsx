@@ -146,7 +146,7 @@ export function NavBar() {
         { name: "Latest News", link: "/media/news-events", icon: <FaBook /> },
       ],
     },
-    { name: "UGC", link: "/ugc" },
+    { name: "UGC", link: "https://lbef.org/ugc/login.php" },
   ];
 
   return (
