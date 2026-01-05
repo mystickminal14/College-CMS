@@ -1,8 +1,8 @@
 // src/pages/NotFoundPage.tsx
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../context/ContextApp"; 
-import collegeLogo from "../assets/pcpsLogo.png"; 
+import { AppContext } from "../context/ContextApp";
+import collegeLogo from "../assets/pcpslogo.png";
 
 const NotFoundPage: React.FC = () => {
   const appContext = useContext(AppContext);
@@ -13,11 +13,10 @@ const NotFoundPage: React.FC = () => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center min-h-screen px-4 transition-all duration-500 ${
-        theme === "dark"
+      className={`flex flex-col items-center justify-center min-h-screen px-4 transition-all duration-500 ${theme === "dark"
           ? "bg-gray-900 text-gray-200"
           : "bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 text-gray-800"
-      }`}
+        }`}
     >
       <img
         src={collegeLogo}
@@ -33,11 +32,10 @@ const NotFoundPage: React.FC = () => {
 
       <button
         onClick={() => navigate("/app/dashboard")}
-        className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-          theme === "dark"
+        className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${theme === "dark"
             ? "bg-blue-600 text-white hover:bg-blue-700"
             : "bg-blue-500 text-white hover:bg-blue-600"
-        }`}
+          }`}
       >
         Go to Dashboard
       </button>

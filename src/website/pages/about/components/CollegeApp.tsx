@@ -2,7 +2,7 @@ import appMockup from '../../../../assets/mobileapp.png';
 import decoration from '../../../../assets/decoration.png';
 import playstore from '../../../../assets/playstore.png';
 import apple from '../../../../assets/apple.png';
-import bg1 from '../../../../assets/pcpsLogo.png';
+import bg1 from '../../../../assets/pcpslogo.png';
 
 export default function CollegeAppSection() {
   return (

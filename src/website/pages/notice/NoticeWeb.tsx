@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import decoration from '../../../assets/decoration.png';
 import { FileText, Calendar, Eye, Bell, Filter, ChevronDown } from 'lucide-react';
-import lbefLogo from '../../../assets/pcpsLogo.png';
+import lbefLogo from '../../../assets/pcpslogo.png';
 import { IMAGE_URL } from "../../../constants";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from '../../comp/animation';
-import type {  ENotice, Notices } from '../../../pages/notices/model/NoticeModel';
+import type { ENotice, Notices } from '../../../pages/notices/model/NoticeModel';
 import useGetNotices from "../../../pages/notices/hooks/useGetAll";
 const PAGE_LIMIT = 10;
 
@@ -14,9 +14,9 @@ const NoticeWeb = () => {
   const [department, setDepartment] = useState<ENotice | "">("");
   const [notices, setNotices] = useState<Notices[]>([]);
   const [hasMore, setHasMore] = useState(true);
- 
+
   const { data, isLoading, isFetching: isQueryFetching } = useGetNotices({
-    department:department,
+    department: department,
     page,
     limit: PAGE_LIMIT,
   });
@@ -30,7 +30,7 @@ const NoticeWeb = () => {
   useEffect(() => {
     if (!data?.data) return;
     const newNotices = data.data ?? [];
-   
+
     if (page === 1) {
       setNotices(newNotices);
     } else {
@@ -160,35 +160,35 @@ const NoticeWeb = () => {
         animate="visible"
       >
         <div className="max-w-4xl mx-auto">
-           <motion.div
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-           Latest Updates & Announcements
+              Latest Updates & Announcements
             </span>
           </motion.div>
-    
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Notice </span>
             <span className="relative inline-block">
               <span className="text-blue-600 relative z-10"> Board</span>
               <motion.img
-               initial={{ scaleX: 0 }}
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
                 src={decoration}
@@ -197,7 +197,7 @@ const NoticeWeb = () => {
               />
             </span>
           </h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -207,7 +207,7 @@ const NoticeWeb = () => {
       </motion.div>
       {/* CONTENT */}
       <div className="container mx-auto px-3 sm:px-6 lg:px-8 pb-12">
-       
+
         {/* Department Filter */}
         <motion.div
           className="max-w-6xl mx-auto mb-6"
@@ -221,24 +221,23 @@ const NoticeWeb = () => {
                 <Filter className="w-5 h-5 text-blue-600" />
                 <h3 className="text-lg font-semibold text-gray-800">Filter by Department</h3>
               </div>
-             
+
               <div className="flex flex-wrap gap-2">
                 {departmentOptions.map((option) => (
                   <button
                     key={option.value}
                     onClick={() => handleDepartmentChange(option.value as ENotice)}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${
-                      department === option.value
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${department === option.value
                         ? 'bg-blue-600 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                      }`}
                   >
                     {option.label}
                   </button>
                 ))}
               </div>
             </div>
-           
+
             {department && (
               <div className="mt-3 pt-3 border-t border-gray-100">
                 <p className="text-sm text-gray-600">
@@ -326,11 +325,10 @@ const NoticeWeb = () => {
                           <div className="flex flex-col h-full">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
                               <span
-                                className={`px-3 py-1 rounded-full text-xs font-bold ${
-                                  notice.type === 'ACADEMIC'
+                                className={`px-3 py-1 rounded-full text-xs font-bold ${notice.type === 'ACADEMIC'
                                     ? 'bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
                                     : 'bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200'
-                                }`}
+                                  }`}
                               >
                                 {notice.type}
                               </span>

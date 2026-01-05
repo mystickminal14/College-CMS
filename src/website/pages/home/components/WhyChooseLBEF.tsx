@@ -1,81 +1,81 @@
 import { Award, BookOpen, Briefcase, GraduationCap, TrendingUp, Users } from "lucide-react";
-import lbef_bufferfly from "../../../../assets/pcpsLogo.png";
+import lbef_bufferfly from "../../../../assets/pcpslogo.png";
 import decoration from "../../../../assets/decoration.png";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export function WhyChooseLBEF() {
-const desktopFeatures = [
-  {
-    icon: <Briefcase className="w-6 h-6" />,
-    topTitle: "100%",
-    title: "Internship Assured",
-    position: "top-left",
-  },
-  {
-    icon: <GraduationCap className="w-6 h-6" />,
-    topTitle: "World Class",
-    title: "Degree",
-    position: "top-right",
-  },
-  {
-    icon: <Users className="w-6 h-6" />,
-    topTitle: "Employment",
-    title: "Opportunities",
-    position: "right",
-  },
-  {
-    icon: <Award className="w-6 h-6" />,
-    topTitle: "Up to",
-    title: "100% Scholarship",
-    position: "bottom-right",
-  },
-  {
-    icon: <BookOpen className="w-6 h-6" />,
-    topTitle: "Industry",
-    title: "Focused Curriculum",
-    position: "bottom-left",
-  },
-  {
-    icon: <TrendingUp className="w-6 h-6" />,
-    topTitle: "Career",
-    title: "Growth Support",
-    position: "left",
-  },
-];
+  const desktopFeatures = [
+    {
+      icon: <Briefcase className="w-6 h-6" />,
+      topTitle: "100%",
+      title: "Internship Assured",
+      position: "top-left",
+    },
+    {
+      icon: <GraduationCap className="w-6 h-6" />,
+      topTitle: "World Class",
+      title: "Degree",
+      position: "top-right",
+    },
+    {
+      icon: <Users className="w-6 h-6" />,
+      topTitle: "Employment",
+      title: "Opportunities",
+      position: "right",
+    },
+    {
+      icon: <Award className="w-6 h-6" />,
+      topTitle: "Up to",
+      title: "100% Scholarship",
+      position: "bottom-right",
+    },
+    {
+      icon: <BookOpen className="w-6 h-6" />,
+      topTitle: "Industry",
+      title: "Focused Curriculum",
+      position: "bottom-left",
+    },
+    {
+      icon: <TrendingUp className="w-6 h-6" />,
+      topTitle: "Career",
+      title: "Growth Support",
+      position: "left",
+    },
+  ];
 
   return (
     <>
-    
+
       <section className="hidden lg:block py-20 bg-linear-to-br from-blue-50 via-white to-purple-50">
         <div className="max-w-6xl mx-auto text-center">
-      <motion.h2
-  initial={{ opacity: 0, y: 100 }} // start below
-  whileInView={{ opacity: 1, y: 0 }} // animate to position
-  viewport={{ once: true, amount: 0.3 }} // trigger once when in view
-  transition={{ type: "spring", stiffness: 120, damping: 15 }} // spring effect
-  className="text-5xl font-bold mb-10"
->
-  Why{" "}
-  <motion.span
-    className="relative text-[#474AFF] inline-block"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-    transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 15 }}
-  >
-    Choose
-    <motion.img
-      src={decoration}
-      initial={{ scaleX: 0 }}
-      whileInView={{ scaleX: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.4, duration: 0.4, type: "spring", stiffness: 120 }}
-      className="absolute left-1/2 -translate-x-1/2 w-full h-3"
-    />
-  </motion.span>{" "}
-  LBEF College?
-</motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 100 }} // start below
+            whileInView={{ opacity: 1, y: 0 }} // animate to position
+            viewport={{ once: true, amount: 0.3 }} // trigger once when in view
+            transition={{ type: "spring", stiffness: 120, damping: 15 }} // spring effect
+            className="text-5xl font-bold mb-10"
+          >
+            Why{" "}
+            <motion.span
+              className="relative text-[#474AFF] inline-block"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 15 }}
+            >
+              Choose
+              <motion.img
+                src={decoration}
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.4, type: "spring", stiffness: 120 }}
+                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+              />
+            </motion.span>{" "}
+            LBEF College?
+          </motion.h2>
 
 
           <p className="text-lg text-gray-600 max-w-2xl  mx-auto">

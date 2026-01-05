@@ -13,7 +13,7 @@ import {
   FaComment,
 
 } from "react-icons/fa";
-import logo from "../../../../assets/lbefHd.jpg";
+import logo from "../../../../assets/lbefhd.jpg";
 import apuLogo from "../../../../assets/apu_logo.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 import { useEnquiry } from "../../../../context/EnquiryContext";

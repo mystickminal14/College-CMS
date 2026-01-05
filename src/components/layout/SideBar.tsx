@@ -1,10 +1,10 @@
 import { FaAward, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useContext } from "react";
 import appLogo from "../../assets/butterfiles.png";
-import pcpsLogo from "../../assets/pcpsLogo.png";
+import pcpsLogo from "../../assets/pcpslogo.png";
 import {
   MdPeople, MdSchool, MdBusinessCenter, MdArticle,
-  MdWorkspacePremium, MdGroups,  MdEvent,
+  MdWorkspacePremium, MdGroups, MdEvent,
   MdNotificationsActive,
   MdHowToReg,
   MdContactMail,
@@ -47,9 +47,9 @@ const menuItems: MenuItem[] = [
   { id: "course", icon: MdSchool, label: "Courses", badge: "New" },
   { id: "teams", icon: MdGroups, label: "Our Teams", badge: "New" },
   {
-    id: "students", 
-    icon: MdBusinessCenter, 
-    label: "Students", 
+    id: "students",
+    icon: MdBusinessCenter,
+    label: "Students",
     subMenus: [
       { id: "planner", label: "Academic Planner", icon: MdAssignment },
       { id: "fee-planner", label: "Fee Planner", icon: MdAttachMoney },
@@ -59,9 +59,9 @@ const menuItems: MenuItem[] = [
   // 
   { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
   {
-    id: "media", 
-    icon: MdArticle, 
-    label: "Lbef Publication", 
+    id: "media",
+    icon: MdArticle,
+    label: "Lbef Publication",
     subMenus: [
       { id: "news", label: "News", icon: MdArticle },
       { id: "journals", label: "Journal", icon: MdArticle },
@@ -73,9 +73,9 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    id: "administation", 
-    icon: MdBusinessCenter, 
-    label: "Academic", 
+    id: "administation",
+    icon: MdBusinessCenter,
+    label: "Academic",
     subMenus: [
       { id: "notice", label: "Notice Board", icon: MdNotificationsActive },
       { id: "contact", label: "Contact List", icon: MdContactMail },
@@ -91,7 +91,7 @@ const menuItems: MenuItem[] = [
     label: "Admission",
     subMenus: [
       { id: "intake", label: "Intake Calender", icon: MdCalendarToday },
-         { id: "docs", label: "Document Required", icon: MdDocumentScanner },
+      { id: "docs", label: "Document Required", icon: MdDocumentScanner },
     ],
   },
 ];
@@ -111,16 +111,16 @@ const SideBar: React.FC<SideBarProps> = ({
 
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
-const { mutate:logout}=useLogout()
+  const { mutate: logout } = useLogout()
   const handleLogout = () => {
-      logout();
+    logout();
     navigate("/");
   };
 
   const toggleSubmenu = (itemId: string) => {
     setExpandedItems(prev => {
       const newExpanded = new Set<string>();
-      
+
       // Close all other submenus and only open the clicked one
       if (prev.has(itemId)) {
         // If already expanded, close it (newExpanded is empty)
@@ -226,9 +226,9 @@ const { mutate:logout}=useLogout()
                           key={menu.id}
                           className={`w-full text-left p-2 text-sm rounded-lg transition-all flex items-center space-x-2 cursor-pointer
                           ${isSubMenuActive(item, menu.id)
-                            ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
-                            : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
-                          }`}
+                              ? "text-blue-600 bg-blue-50 dark:text-blue-600 dark:bg-blue-900/20 font-medium"
+                              : "text-slate-600 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800/50"
+                            }`}
                           onClick={() => handleMenuClick(item, menu.id)}
                         >
                           {menu.icon && <menu.icon className="w-4 h-4" />}

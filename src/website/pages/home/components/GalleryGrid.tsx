@@ -7,7 +7,7 @@ import img4 from '../../../../assets/images/image-11.jpeg'
 import img5 from '../../../../assets/images/image10.jpeg'
 import img6 from '../../../../assets/eating.jpg'
 import img7 from '../../../../assets/images/home8.jpg'
-import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import bg1 from '../../../../assets/decoration/abouthero.jpg';
 import decoration from "../../../../assets/decoration.png";
 import { useNavigate } from "react-router-dom";
 

@@ -19,7 +19,7 @@ import LBEFConnectWeb from "../website/pages/lbef-connect-web/lbef-connect-web";
 import GyandeepScholasrhip from "../website/pages/admission/Gyandeep";
 import MeritScholarship from "../website/pages/admission/Merit";
 import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
-import { AboutUniversity } from "../website/pages/About University/AboutUniversity";
+import { AboutUniversity } from "../website/pages/about-university/AboutUniversity";
 import NewsPageWeb from "../website/pages/news/News";
 import ICTScholarship from "../website/pages/admission/IctScholarship";
 import PaymentModes from "../website/pages/payment-modes/PaymentModes";

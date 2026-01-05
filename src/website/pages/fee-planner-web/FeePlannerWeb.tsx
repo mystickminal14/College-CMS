@@ -1,6 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 
-import image from "../../../assets/lbefHd.jpg";
+import image from "../../../assets/lbefhd.jpg";
 import decoration from "../../../assets/decoration.png";
 import useGetPlannerParents from "../../../pages/fee-planner/hooks/useGetPlannerParents";
 import { IMAGE_URL } from "../../../constants";
@@ -71,7 +71,7 @@ const FeePlannersWeb = () => {
     <div className="min-h-screen bg-gray-50">
 
       {/* ================= HERO ================= */}
-       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -79,27 +79,27 @@ const FeePlannersWeb = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          
-<motion.div
+
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-               Fee Programs
+              Fee Programs
             </span>
           </motion.div>
 
@@ -108,7 +108,7 @@ const FeePlannersWeb = () => {
             <span className="relative inline-block ml-2">
               <span className="text-blue-600 relative z-10"> Fee </span>
               <motion.img
-               initial={{ scaleX: 0 }}
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 src={decoration}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -119,7 +119,7 @@ const FeePlannersWeb = () => {
             Planner
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">

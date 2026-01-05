@@ -1,4 +1,4 @@
-import HeroImages from '../../../../assets/decoration/AboutHero.jpg'
+import HeroImages from '../../../../assets/decoration/abouthero.jpg'
 import butterfiles from '../../../../assets/butterfiles.png'
 
 const ABoutHeroSection = () => {

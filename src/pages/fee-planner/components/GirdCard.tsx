@@ -2,7 +2,7 @@ import React from "react";
 import { Edit, Trash2, Eye, Calendar } from "lucide-react";
 import { FaPlus } from "react-icons/fa";
 import type { Planners } from "../model/PlannerModel";
-import image from '../../../assets/pcpsLogo.png'
+import image from '../../../assets/pcpslogo.png'
 
 interface CardViewProps {
   planners: Planners[];
@@ -42,8 +42,8 @@ const CardView: React.FC<CardViewProps> = ({
               <span className="text-sm">{planner.session ?? "No Date"}</span>
             </div>
 
-           
-         
+
+
           </div>
 
           {/* Action Buttons */}
