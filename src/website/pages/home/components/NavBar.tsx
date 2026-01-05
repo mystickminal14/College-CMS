@@ -146,7 +146,7 @@ export function NavBar() {
         { name: "Latest News", link: "/media/news-events", icon: <FaBook /> },
       ],
     },
-    { name: "UGC", link: "/ugc" },
+    { name: "UGC", link: "https://lbef.org/ugc/login.php" },
   ];
 
   return (
@@ -267,13 +267,14 @@ export function NavBar() {
             )
           )}
 
-          <button
-            onClick={() => open()}
+          <NavLink
+            to="https://enquiry.lbef.org/enquirenow.html"
+            target="_blank"
             className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
           >
             <FaUserGraduate />
             Enquire Now
-          </button>
+          </NavLink>
 
         </nav>
 
@@ -375,16 +376,17 @@ export function NavBar() {
             )
           )}
 
-          <button
+          <NavLink
+            to="https://enquiry.lbef.org/enquirenow.html"
+            target="_blank"
             onClick={() => {
-              open();
               setMobileOpen(false);
             }}
             className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
           >
             <FaUserGraduate />
             Enquiry Now
-          </button>
+          </NavLink>
 
         </div>
       )}

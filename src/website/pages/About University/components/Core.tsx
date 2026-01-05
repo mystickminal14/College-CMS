@@ -1,41 +1,32 @@
 import  { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
-
 import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/drparam.webp';
 import imagetwo from '../../../../assets/core/prof.jpg';
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const messages = [
   {
+    id:3,
     name: "Datuk Paramjeet Singh",
     position: "CO-FOUNDER & CEO",
     institution: "APIIT Education Group",
     message:
-      "Dear Students,\nWe welcome LBEF to the international community of the Asia Pacific University of Technology & Innovation (APU)...",
+      "Dear Students,\nWe welcome LBEF to the international community of the Asia Pacific University of Technology & Innovation (APU). Parents, prospective & current students will be pleased to note that over 11,000 students including international students from over 120 countries are currently....",
     image: imageone,
   },
   {
+    id:4,
     name: "Prof. Dr. Ho Chin Kuan",
     position: "VICE CHANCELLOR",
     institution: "Asia Pacific University",
     message:
-      "Dear Students,\nI would like to extend a warm welcome to students who are part of the APU – LBEF academic partnership...",
+      "Dear Students,\nI would like to extend a warm welcome to students who are part of the APU – LBEF academic partnership. The APU – LBEF partnership which started in 2016 has produced around 300 graduates. Student centricity and uncompromising quality are at the heart...",
     image: imagetwo,
   },
 ];
-
-// Animation Variants
-const fadeLeft: Variants = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
-};
-
-const fadeRight: Variants = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
-};
 
 export default function OurCore() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -58,6 +49,16 @@ export default function OurCore() {
       behavior: 'smooth',
     });
   };
+  const fadeLeft: Variants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
+  };
+
+  const fadeRight: Variants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
+  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -107,7 +108,7 @@ export default function OurCore() {
 
         {/* Carousel */}
         <div className="relative">
-          {/* Left Arrow */}
+          {/* Left Arrow (Mobile only) */}
           {canScrollLeft && (
             <motion.button
               onClick={() => scrollByAmount('left')}
@@ -117,7 +118,7 @@ export default function OurCore() {
             </motion.button>
           )}
 
-          {/* Right Arrow */}
+          {/* Right Arrow (Mobile only) */}
           {canScrollRight && (
             <motion.button
               onClick={() => scrollByAmount('right')}
@@ -127,6 +128,7 @@ export default function OurCore() {
             </motion.button>
           )}
 
+          {/* Cards */}
           <motion.div
             ref={scrollContainerRef}
             className="flex gap-12 p-8 overflow-x-auto scroll-smooth scrollbar-hide lg:overflow-x-visible lg:justify-center"
@@ -134,8 +136,9 @@ export default function OurCore() {
           >
             {messages.map((lead, index) => (
               <motion.div
+                onClick={() => navigate(`/messages/${lead.id}`)}
                 key={index}
-                className={`shrink-0 w-80 md:w-130 relative bg-white rounded-2xl shadow-xl hover:scale-105 transition-transform`}
+                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
                 variants={index % 2 === 0 ? fadeLeft : fadeRight}
                 initial="hidden"
                 whileInView="visible"
@@ -146,7 +149,11 @@ export default function OurCore() {
               >
                 <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
                   <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
-                    <img src={lead.image} alt={lead.name} className="w-full h-full object-cover" />
+                    <img
+                      src={lead.image}
+                      alt={lead.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="font-bold text-lg text-gray-900">{lead.name}</h3>

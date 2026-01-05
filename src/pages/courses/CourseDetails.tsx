@@ -430,8 +430,8 @@ const CourseDetails = () => {
                     </p>
                     <motion.button
                       whileTap={{ scale: 0.95 }}
-                      className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
-                      onClick={() => open}
+                      className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2 npfWidgetButton npfWidget-37b0a5e5264dcf9f208d052c97b65286"
+                      onClick={() => open()}
                     >
                       Apply Now
                       <ArrowRight className="w-3 h-3" />

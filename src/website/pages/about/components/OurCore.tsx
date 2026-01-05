@@ -4,9 +4,10 @@ import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/jalan.jpeg';
 import imagetwo from '../../../../assets/core/prakash.png';
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const messages = [
-  {
+  {id:1,
     name: "Er. Pankaj Jalan",
     position: "Chairman",
     institution: "LBEF Group Of Institutions",
@@ -15,6 +16,7 @@ const messages = [
     image: imageone,
   },
   {
+    id:2,
     name: "Er. Prakash Kumar Kejriwal",
     position: "Executive Director",
     institution: "LBEF Group of Institutions",
@@ -46,6 +48,7 @@ export default function OurCore() {
       behavior: 'smooth',
     });
   };
+  const navigate = useNavigate();
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isMobile() || !scrollContainerRef.current) return;
@@ -141,7 +144,8 @@ export default function OurCore() {
             {messages.map((lead, index) => (
               <div
                 key={index}
-                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
+                onClick={()=> navigate(`/messages/${lead.id}`)}
+                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
               >
                 <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
                   <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
