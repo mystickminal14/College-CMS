@@ -1,4 +1,4 @@
-import girlWithCup from "../../../../assets/gril_with_cup.png";
+import girlWithCup from "../../../../assets/images/image_mac.JPG";
 import girlWithThinking from "../../../../assets/girl_with_thinking.png";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';

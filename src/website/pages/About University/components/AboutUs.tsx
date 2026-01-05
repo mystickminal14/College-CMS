@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
-import graduations from '../../../../assets/apu-second.jpg';
+import graduations from '../../../../assets/apu-about.jpg';
 import ring from '../../../../assets/ring.png';
 import decoration from '../../../../assets/decoration.png';
 

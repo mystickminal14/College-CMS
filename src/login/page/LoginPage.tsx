@@ -1,6 +1,6 @@
 import { useState } from "react";
 import appLogo from "../../assets/applogo.png";
-import minal from "../../assets/pcps_bg.png";
+import minal from "../../assets/full_form_lbef.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useLogin from "../hooks/useLogin";
 import type { LoginUser } from "../model/LoginModel";

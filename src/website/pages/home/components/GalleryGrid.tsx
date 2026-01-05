@@ -5,7 +5,7 @@ import img2 from '../../../../assets/images/home1.jpg'
 import img3 from '../../../../assets/images/home3.jpg'
 import img4 from '../../../../assets/images/image-11.jpeg'
 import img5 from '../../../../assets/images/image10.jpeg'
-import img6 from '../../../../assets/images/image_mac.JPG'
+import img6 from '../../../../assets/eating.jpg'
 import img7 from '../../../../assets/images/home8.jpg'
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 import decoration from "../../../../assets/decoration.png";
@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const GalleryGrid = () => {
   const images = [img, img2, img3, img4, img5, img6, img7];
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const icons = [
     <Mountain size={24} />,
     <Globe size={24} />,
@@ -32,7 +32,7 @@ const navigate=useNavigate()
         style={{ backgroundImage: `url(${bg1})` }}
       />
       <div className="absolute inset-0 bg-[#474AFF] opacity-65" />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title section */}
         <motion.div
@@ -42,29 +42,29 @@ const navigate=useNavigate()
           transition={{ duration: 0.6 }}
           className="text-center mb-10 md:mb-14"
         >
-         <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-<span>                Student </span>
-                <span className="relative inline-block">
-                  <span className="text-white relative z-10"> Life </span>
-                  <motion.img
-                    src={decoration}
-                    alt="Decoration"
-                    className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.4 }}
-                  />
-                </span>
-              </h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <span>                Student </span>
+            <span className="relative inline-block">
+              <span className="text-white relative z-10"> Life </span>
+              <motion.img
+                src={decoration}
+                alt="Decoration"
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+              />
+            </span>
+          </h2>
           <p className="text-gray-200 text-xs sm:text-md md:text-lg max-w-2xl mx-auto">
-           The roots of education are bitter, but the fruit is sweet.
+            The roots of education are bitter, but the fruit is sweet.
           </p>
-          <button onClick={()=>{
+          <button onClick={() => {
             navigate("/media/photo-gallery")
           }} className="bg-white mt-2 cursor-pointer text-indigo-600 text-xs sm:text-md lg:text-lg font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition">
-                      Open Gallery
-                    </button>
+            Open Gallery
+          </button>
         </motion.div>
 
         {/* Gallery Grid Container - Centered with max-w-6xl */}
@@ -79,15 +79,14 @@ const navigate=useNavigate()
                 whileHover={{ scale: 1.05, rotateZ: 1 }}
                 whileTap={{ scale: 0.95 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  type: "spring" as const, 
-                  stiffness: 100, 
-                  damping: 15, 
-                  delay: index * 0.15 
+                transition={{
+                  type: "spring" as const,
+                  stiffness: 100,
+                  damping: 15,
+                  delay: index * 0.15
                 }}
-                className={`w-full overflow-hidden rounded-xl shadow-2xl relative group ${
-                  index === 0 ? 'h-40 sm:h-48 md:h-58 ' : 'h-60 sm:h-72 md:h-110 '
-                }`}
+                className={`w-full overflow-hidden rounded-xl shadow-2xl relative group ${index === 0 ? 'h-40 sm:h-48 md:h-58 ' : 'h-60 sm:h-72 md:h-110 '
+                  }`}
               >
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <img
@@ -110,11 +109,11 @@ const navigate=useNavigate()
               whileHover={{ scale: 1.05, rotateZ: 1 }}
               whileTap={{ scale: 0.95 }}
               viewport={{ once: true }}
-              transition={{ 
-                type: "spring" as const, 
-                stiffness: 100, 
-                damping: 15, 
-                delay: 0.3 
+              transition={{
+                type: "spring" as const,
+                stiffness: 100,
+                damping: 15,
+                delay: 0.3
               }}
               className="w-full h-60 sm:h-72 md:h-80 lg:h-96 overflow-hidden rounded-xl shadow-2xl relative group"
             >
@@ -138,11 +137,11 @@ const navigate=useNavigate()
                   whileHover={{ scale: 1.05, rotateZ: 1 }}
                   whileTap={{ scale: 0.95 }}
                   viewport={{ once: true }}
-                  transition={{ 
-                    type: "spring" as const, 
-                    stiffness: 100, 
-                    damping: 15, 
-                    delay: 0.45 + i * 0.15 
+                  transition={{
+                    type: "spring" as const,
+                    stiffness: 100,
+                    damping: 15,
+                    delay: 0.45 + i * 0.15
                   }}
                   className="w-1/2 h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden rounded-xl shadow-2xl relative group"
                 >
@@ -170,15 +169,14 @@ const navigate=useNavigate()
                 whileHover={{ scale: 1.05, rotateZ: 1 }}
                 whileTap={{ scale: 0.95 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  type: "spring" as const, 
-                  stiffness: 100, 
-                  damping: 15, 
-                  delay: 0.75 + (index - 5) * 0.15 
+                transition={{
+                  type: "spring" as const,
+                  stiffness: 100,
+                  damping: 15,
+                  delay: 0.75 + (index - 5) * 0.15
                 }}
-                className={`w-full overflow-hidden rounded-xl shadow-2xl relative group ${
-                  index === 5 ? 'h-60 sm:h-72 md:h-110' : 'h-40 sm:h-48 md:h-58'
-                }`}
+                className={`w-full overflow-hidden rounded-xl shadow-2xl relative group ${index === 5 ? 'h-60 sm:h-72 md:h-110' : 'h-40 sm:h-48 md:h-58'
+                  }`}
               >
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <img

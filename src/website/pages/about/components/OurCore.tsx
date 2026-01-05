@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
 import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/jalan.jpeg';
 import imagetwo from '../../../../assets/core/prakash.png';
-import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import bg1 from '../../../../assets/white_bg.jpg';
 import { useNavigate } from 'react-router-dom';
 
 const messages = [
-  {id:1,
+  {
+    id: 1,
     name: "Er. Pankaj Jalan",
     position: "Chairman",
     institution: "LBEF Group Of Institutions",
@@ -16,7 +16,7 @@ const messages = [
     image: imageone,
   },
   {
-    id:2,
+    id: 2,
     name: "Er. Prakash Kumar Kejriwal",
     position: "Executive Director",
     institution: "LBEF Group of Institutions",
@@ -26,67 +26,12 @@ const messages = [
   },
 ];
 
-
 export default function OurCore() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const isMobile = () => window.innerWidth < 1024;
-
-  const checkScrollability = () => {
-    if (!scrollContainerRef.current || !isMobile()) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  };
-
-  const scrollByAmount = (dir: 'left' | 'right') => {
-    if (!scrollContainerRef.current) return;
-    scrollContainerRef.current.scrollBy({
-      left: dir === 'left' ? -300 : 300,
-      behavior: 'smooth',
-    });
-  };
   const navigate = useNavigate();
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isMobile() || !scrollContainerRef.current) return;
-
-    const startX = e.pageX;
-    const startScroll = scrollContainerRef.current.scrollLeft;
-
-    const onMove = (ev: MouseEvent) => {
-      scrollContainerRef.current!.scrollLeft =
-        startScroll - (ev.pageX - startX) * 2;
-    };
-
-    const onUp = () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-    };
-
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-  };
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || !isMobile()) return;
-
-    checkScrollability();
-    container.addEventListener('scroll', checkScrollability);
-    window.addEventListener('resize', checkScrollability);
-
-    return () => {
-      container.removeEventListener('scroll', checkScrollability);
-      window.removeEventListener('resize', checkScrollability);
-    };
-  }, []);
 
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
-      {/* Background Image with overlay */}
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{ backgroundImage: `url(${bg1})` }}
@@ -112,63 +57,42 @@ export default function OurCore() {
           </h2>
         </div>
 
-        {/* Carousel */}
-        <div className="relative">
-          {/* Left Arrow (Mobile only) */}
-          {canScrollLeft && (
-            <button
-              onClick={() => scrollByAmount('left')}
-              className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg"
+        {/* Cards – Responsive (NO SCROLL) */}
+        <div className="flex flex-col lg:flex-row gap-12 justify-center items-center p-8">
+          {messages.map((lead) => (
+            <div
+              key={lead.id}
+              onClick={() => navigate(`/messages/${lead.id}`)}
+              className="pl-10 w-full sm:w-[520px] relative bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
             >
-              <ChevronLeft className="w-8 h-8 text-gray-700" />
-            </button>
-          )}
-
-          {/* Right Arrow (Mobile only) */}
-          {canScrollRight && (
-            <button
-              onClick={() => scrollByAmount('right')}
-              className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg"
-            >
-              <ChevronRight className="w-8 h-8 text-gray-700" />
-            </button>
-          )}
-
-          {/* Cards */}
-          <div
-            ref={scrollContainerRef}
-            onMouseDown={handleMouseDown}
-            className="    flex gap-12 p-8 overflow-x-auto scroll-smooth scrollbar-hide lg:overflow-x-visible lg:justify-center"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {messages.map((lead, index) => (
-              <div
-                key={index}
-                onClick={()=> navigate(`/messages/${lead.id}`)}
-                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
-              >
-                <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
-                  <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
-                    <img
-                      src={lead.image}
-                      alt={lead.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900">{lead.name}</h3>
-                    <p className="text-lg text-gray-600">{lead.position}</p>
-                    <p className="text-sm text-gray-500">{lead.institution}</p>
-                  </div>
+              <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
+                <div className="w-20 h-20 rounded-full absolute top-5 -left-10 z-20 overflow-hidden border-4 border-[#474AFF]">
+                  <img
+                    src={lead.image}
+                    alt={lead.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700  whitespace-pre-line">
-                  {lead.message}
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">
+                    {lead.name}
+                  </h3>
+                  <p className="text-lg text-gray-600">
+                    {lead.position}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {lead.institution}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
 
+              <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700 whitespace-pre-line">
+                {lead.message}
+              </div>
+            </div>
+          ))}
         </div>
+
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import { Mail } from 'lucide-react';
-import background from '../../../../assets/decoration/AboutHero.jpg';
+import background from '../../../../assets/white_bg.jpg';
 
 export function EmailSubscribe() {
   return (

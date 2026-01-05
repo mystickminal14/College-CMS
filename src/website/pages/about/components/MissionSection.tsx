@@ -1,6 +1,6 @@
 import decoration from "../../../../assets/decoration.png";
 import top_mission from "../../../../assets/top_mission.jpg";
-import middle_mission from "../../../../assets/middle_mission.jpg";
+import middle_mission from "../../../../assets/journey_background.jpg";
 import bottom_mission from "../../../../assets/mission/bottom_mission.jpg";
 import half_diamond from "../../../../assets/half_diamond.png";
 import { motion } from "framer-motion";
