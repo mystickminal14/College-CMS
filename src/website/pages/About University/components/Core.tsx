@@ -5,9 +5,11 @@ import decoration from '../../../../assets/decoration.png';
 import imageone from '../../../../assets/core/Datuk Paramjeet Singh.png';
 import imagetwo from '../../../../assets/core/Prof. Dr. Ho Chin Kuan.png';
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const messages = [
   {
+    id:3,
     name: "Datuk Paramjeet Singh",
     position: "CO-FOUNDER & CEO",
     institution: "APIIT Education Group",
@@ -16,6 +18,7 @@ const messages = [
     image: imageone,
   },
   {
+    id:4,
     name: "Prof. Dr. Ho Chin Kuan",
     position: "VICE CHANCELLOR",
     institution: "Asia Pacific University",
@@ -55,7 +58,7 @@ export default function OurCore() {
     hidden: { opacity: 0, x: 50 },
     visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
   };
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -133,8 +136,9 @@ export default function OurCore() {
           >
             {messages.map((lead, index) => (
               <motion.div
+                onClick={() => navigate(`/messages/${lead.id}`)}
                 key={index}
-                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105"
+                className="shrink-0 pl-10 w-80 relative md:w-130 bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
                 variants={index % 2 === 0 ? fadeLeft : fadeRight}
                 initial="hidden"
                 whileInView="visible"
