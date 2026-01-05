@@ -44,7 +44,7 @@ export function HomePage() {
             <motion.div
               className="sticky top-0 z-10 bg-white"
             >
-                          <University />
+              <University />
 
             </motion.div>
             <motion.div
@@ -66,9 +66,9 @@ export function HomePage() {
                 className="relative z-20 bg-white"
               >
                 <Testimonial />
-                
+
                 <GalleryGrid />
-               
+
                 <RecentNews />
                 <EmailSubscribe />
                 <SubFooter /></motion.div></motion.div>
@@ -76,7 +76,8 @@ export function HomePage() {
           </motion.div>
         </div>
       ) : (
-        <><HeroSection />
+        <>
+          <HeroSection />
           <ApplyNow />
           <NewCourse />
           <University />
@@ -84,10 +85,7 @@ export function HomePage() {
           <WhyChooseLBEF />
           <JoinStudents />
           <Testimonial />
-          {/* <LatestInslight /> */}
-          {/* <OurPartners /> */}
           <GalleryGrid />
-          {/* <Events /> */}
           <RecentNews />
           <EmailSubscribe />
           <SubFooter />

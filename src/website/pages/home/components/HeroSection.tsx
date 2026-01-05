@@ -1,6 +1,6 @@
 import butterfiles from "../../../../assets/butterfiles.png"
 import { motion } from "framer-motion";
-import graduation from "../../../../assets/heroSection.jpg"
+import graduation from "../../../../assets/images/home5.jpg"
 
 export function HeroSection() {
   return (
@@ -110,7 +110,7 @@ export function HeroSection() {
         <img
           src={graduation}
           alt="Graduation"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-[50%_35%]"
         />
       </section>
     </>

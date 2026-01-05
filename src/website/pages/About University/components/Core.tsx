@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import  { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
 
 import decoration from '../../../../assets/decoration.png';
-import imageone from '../../../../assets/core/Datuk Paramjeet Singh.png';
-import imagetwo from '../../../../assets/core/Prof. Dr. Ho Chin Kuan.png';
+import imageone from '../../../../assets/core/drparam.webp';
+import imagetwo from '../../../../assets/core/prof.jpg';
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 
 const messages = [

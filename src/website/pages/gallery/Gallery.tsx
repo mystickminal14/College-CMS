@@ -6,7 +6,7 @@ import GalleryHeader from "./components/Head";
 import GalleryGrid from "./components/GalleryGrid";
 import ImageHero from "./components/ImageHero";
 
-const PAGE_LIMIT = 12;
+const PAGE_LIMIT = 15;
 
 const Gallery = () => {
   const [page, setPage] = useState(1);

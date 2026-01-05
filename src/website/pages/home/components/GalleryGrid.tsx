@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Mountain, Sunrise, Droplet, Sunset, MapPin, Globe, TreeDeciduous } from "lucide-react";
-import img from '../../../../assets/mountain.jpg'
-import img2 from '../../../../assets/gril_with_cup.png'
-import img3 from '../../../../assets/inslightRight.png'
-import img4 from '../../../../assets/campus_inside.jpg'
-import img5 from '../../../../assets/career_image.jpg'
-import img6 from '../../../../assets/graduations.jpg'
-import img7 from '../../../../assets/campus_inside.jpg'
+import img from '../../../../assets/images/home2.jpg'
+import img2 from '../../../../assets/images/home1.jpg'
+import img3 from '../../../../assets/images/home3.jpg'
+import img4 from '../../../../assets/images/image-11.jpeg'
+import img5 from '../../../../assets/images/image10.jpeg'
+import img6 from '../../../../assets/images/image_mac.JPG'
+import img7 from '../../../../assets/images/home8.jpg'
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 import decoration from "../../../../assets/decoration.png";
 import { useNavigate } from "react-router-dom";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import decoration from '../../../../assets/decoration.png';
-import imageone from '../../../../assets/core/pankag.png';
+import imageone from '../../../../assets/core/jalan.jpeg';
 import imagetwo from '../../../../assets/core/prakash.png';
 import bg1 from '../../../../assets/decoration/AboutHero.jpg';
 

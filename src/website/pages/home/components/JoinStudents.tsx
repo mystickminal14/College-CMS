@@ -2,7 +2,7 @@ import girlWithCup from "../../../../assets/gril_with_cup.png";
 import girlWithThinking from "../../../../assets/girl_with_thinking.png";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import bg1 from '../../../../assets/images/home3.jpg';
 
 
 
