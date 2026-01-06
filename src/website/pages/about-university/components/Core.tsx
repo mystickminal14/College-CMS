@@ -41,7 +41,6 @@ export default function OurCore() {
 
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
-      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{ backgroundImage: `url(${bg1})` }}
@@ -58,12 +57,12 @@ export default function OurCore() {
           viewport={{ once: true }}
         >
           <p className="text-white text-lg font-medium mb-2">
-            Meet Our Leads
+            Meet Our Leaders
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Messages from{' '}
             <span className="relative inline-block text-white">
-              Our Leads
+              Our Leaders
               <img
                 src={decoration}
                 alt=""

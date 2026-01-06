@@ -119,6 +119,7 @@ const navigate=useNavigate();
             ? {  year: journalsToEdit.year ?? "" ,issue: journalsToEdit.issue ?? "", volume: journalsToEdit.volume ?? "", month: journalsToEdit.month ?? "" }
             : undefined
         }
+        journalId={journalsToEdit?.id}
       />
 
       <DeleteJournalModal

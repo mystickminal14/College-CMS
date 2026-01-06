@@ -146,7 +146,7 @@ const HolidayWebPlanner: React.FC = () => {
                     key={idx}
                     className="w-2 h-2 rounded-full"
                     style={{
-                      backgroundColor: isSelected ? "#ffffff" : (event.colorCode || "#6B7280"),
+                      backgroundColor: isSelected ? "#ffffff" : (event.colorCode==="Yellow"? "#FF8C00"  : event.colorCode || "#6B7280"),
                       opacity: isSelected ? 0.9 : 1
                     }}
                   />
@@ -191,7 +191,7 @@ const HolidayWebPlanner: React.FC = () => {
       <motion.div
         layout
         className={`rounded-lg p-4 mb-3 border-l-4 shadow-sm cursor-pointer ${isPast ? "opacity-70" : ""}`}
-        style={{ borderLeftColor: event.colorCode || "#3B82F6" }}
+        style={{ borderLeftColor: event.colorCode==="Yellow"?"#FF8C00" : event.colorCode || "#3B82F6" }}
         onClick={() => setExpandedId(expanded ? null : event.eventId || null)}
       >
         <div className="flex justify-between">
@@ -201,7 +201,7 @@ const HolidayWebPlanner: React.FC = () => {
             {event.eventType && (
               <span
                 className="inline-block text-xs mt-1 px-2 py-0.5 rounded-full text-white"
-                style={{ backgroundColor: event.colorCode || "#3B82F6" }}
+                style={{ backgroundColor: event.colorCode ==="Yellow"? "#FF8C00" : event.colorCode || "#3B82F6" }}
               >
                 {event.eventType}
               </span>
@@ -270,7 +270,7 @@ const HolidayWebPlanner: React.FC = () => {
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-              Holiday Planner
+              Events & Holidays
             </span>
           </motion.div>
 

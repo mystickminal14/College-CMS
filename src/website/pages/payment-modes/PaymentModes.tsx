@@ -82,14 +82,14 @@ const PaymentModes = () => {
       </div> */}
 
       <div className="container mx-auto px-4 pb-20">
-        <div className="max-w-8xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="hidden lg:flex justify-center mb-12">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px 0px" }}
-              className="bg-white rounded-3xl p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 max-w-3xl w-full"
+              className="bg-white rounded-3xl p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 max-w-7xl w-full mx-auto"
             >
               <ProgramCard
                 type="IT"
@@ -424,7 +424,6 @@ const ProgramCard = ({
                 </div>
               ))}
 
-              {/* IPS Connect for MBA */}
               <div className={`bg-linear-to-r from-emerald-50/50 to-green-50/50 ${accountPadding} rounded-2xl border border-emerald-200 group-hover:border-emerald-300 transition-colors`}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-3">

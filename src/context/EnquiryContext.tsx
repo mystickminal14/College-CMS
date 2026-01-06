@@ -1,56 +1,41 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
+import { useMeritto } from "./useMertito";
 
 type EnquiryContextType = {
   open: () => void;
-  close: () => void;
 };
 
 const EnquiryContext = createContext<EnquiryContextType | null>(null);
 
 export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => {
-  const [openPopup, setOpenPopup] = useState(false);
+  const widgetId = "37b0a5e5264dcf9f208d052c97b65286";
+
+  useMeritto(widgetId);
+
+  const openPopup = () => {
+    const btn = document.querySelector(
+      `.npfWidget-${widgetId}`
+    ) as HTMLButtonElement;
+
+    btn?.click(); // programmatically trigger Meritto popup
+  };
 
   return (
-    <EnquiryContext.Provider
-      value={{
-        open: () => setOpenPopup(true),
-        close: () => setOpenPopup(false),
-      }}
-    >
+    <EnquiryContext.Provider value={{ open: openPopup }}>
       {children}
 
-      {/* GLOBAL POPUP */}
-      {openPopup && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl w-[90%] max-w-md p-6 relative animate-scaleIn">
-            <button
-              onClick={() => setOpenPopup(false)}
-              className="absolute top-3 right-3 text-xl"
-            >
-              ✕
-            </button>
-
-            <h3 className="text-xl font-semibold mb-4 text-center">
-              Enquiry Form
-            </h3>
-
-            <form className="space-y-4">
-              <input className="w-full border rounded-lg px-4 py-2" placeholder="Full Name" />
-              <input className="w-full border rounded-lg px-4 py-2" placeholder="Email" />
-              <input className="w-full border rounded-lg px-4 py-2" placeholder="Phone" />
-
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">
-                Submit Enquiry
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Hidden Meritto Button */}
+      <button
+        className={`npfWidgetButton npfWidget-${widgetId} hidden`}
+        type="button"
+      >
+        Enquire Now
+      </button>
     </EnquiryContext.Provider>
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+// Hook
 export const useEnquiry = () => {
   const ctx = useContext(EnquiryContext);
   if (!ctx) throw new Error("useEnquiry must be used inside EnquiryProvider");
