@@ -41,12 +41,12 @@ export default function OurCore() {
         {/* Title */}
         <div className="text-center mb-6">
           <p className="text-white text-lg font-medium mb-2">
-            Meet Our Leads
+            Meet Our Leaders
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Messages from{' '}
             <span className="relative inline-block text-white">
-              Our Leads
+              Our Leaders
               <img
                 src={decoration}
                 alt=""

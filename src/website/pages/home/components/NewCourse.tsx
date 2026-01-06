@@ -309,7 +309,6 @@ export default function NewCourse() {
   );
 }
 
-// ================= MOBILE CAROUSEL =================
 const MobileCarousel = ({
   courses,
   onView,
@@ -318,123 +317,78 @@ const MobileCarousel = ({
   onView: (c: Courses) => void;
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canLeft, setCanLeft] = useState(false);
-  const [canRight, setCanRight] = useState(true);
-  const [activePage, setActivePage] = useState(0);
+  const [active, setActive] = useState(0);
 
-  const CARD_WIDTH = 340;
-  const CARDS_PER_PAGE = 1;
+  const CARD_WIDTH =
+    typeof window !== "undefined"
+      ? Math.min(window.innerWidth - 32, 420)
+      : 360;
 
-  const truncateWords = (text: string, wordLimit: number) => {
-    const words = text.split(" ");
-    if (words.length <= wordLimit) return text;
-    return words.slice(0, wordLimit).join(" ") + "...";
-  };
-
-  const check = () => {
+  const onScroll = () => {
     if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanLeft(scrollLeft > 10);
-    setCanRight(scrollLeft < scrollWidth - clientWidth - 10);
-    setActivePage(Math.round(scrollLeft / (CARD_WIDTH * CARDS_PER_PAGE)));
+    setActive(Math.round(scrollRef.current.scrollLeft / CARD_WIDTH));
   };
 
-  useEffect(() => {
-    check();
-  }, []);
-
-  const scrollToPage = (page: number) => {
-    scrollRef.current?.scrollTo({
-      left: CARD_WIDTH * CARDS_PER_PAGE * page,
+  const scrollBy = (dir: number) => {
+    scrollRef.current?.scrollBy({
+      left: CARD_WIDTH * dir,
       behavior: "smooth",
     });
   };
 
   return (
     <div className="relative">
+      {/* buttons */}
       <button
-        onClick={() =>
-          scrollRef.current?.scrollBy({ left: -CARD_WIDTH, behavior: "smooth" })
-        }
-        disabled={!canLeft}
-        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-          }`}
+        onClick={() => scrollBy(-1)}
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow z-10"
       >
-        <ChevronLeft className="w-6 h-6 text-blue-600" />
+        <ChevronLeft />
       </button>
 
       <button
-        onClick={() =>
-          scrollRef.current?.scrollBy({ left: CARD_WIDTH, behavior: "smooth" })
-        }
-        disabled={!canRight}
-        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-          }`}
+        onClick={() => scrollBy(1)}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow z-10"
       >
-        <ChevronRight className="w-6 h-6 text-blue-600" />
+        <ChevronRight />
       </button>
 
+      {/* carousel */}
       <div
         ref={scrollRef}
-        onScroll={check}
-        className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
+        onScroll={onScroll}
+        className="flex overflow-hidden touch-none"
       >
         {courses.map((course) => (
-          <motion.div
-            onClick={() => onView(course)}
-
+          <div
             key={course.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 120, damping: 15 }}
-            className="flex-none w-full max-w-sm"
+            style={{ width: CARD_WIDTH }}
+            className="flex-none px-4"
+            onClick={() => onView(course)}
           >
-            <div className="bg-blue-600 text-white rounded-lg shadow-md h-[360px] flex flex-col p-6 justify-between">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 120, damping: 15 }}
-                className="flex justify-between"
-              >
-                <p className="text-xs uppercase font-semibold">{course.degree}</p>
-                <p className="text-xs uppercase font-semibold">{course.duration}</p>
-              </motion.div>
-
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
-                className="mt-4 text-lg font-bold"
-              >
+            <div className="bg-blue-600 text-white h-[360px] rounded-lg p-6 flex flex-col">
+              <div className="flex justify-between text-xs">
+                <span>{course.degree}</span>
+                <span>{course.duration}</span>
+              </div>
+              <h3 className="mt-4 font-bold">
                 {course.prefix} {course.title}
-              </motion.h3>
-
-              <p className="mt-2 text-sm flex-1">
+              </h3>
+              <p className="mt-3 text-sm flex-1">
                 {truncateWords(course.details ?? "", 28)}
               </p>
-
-              <span
-                className="mt-4 text-sm font-semibold text-white cursor-pointer"
-                onClick={() => onView(course)}
-              >
-                READ MORE
-              </span>
+              <span className="font-semibold">READ MORE</span>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
-      <div className="flex justify-center gap-2 mt-6 md:hidden">
+      {/* dots */}
+      <div className="flex justify-center gap-2 mt-4">
         {courses.map((_, i) => (
           <span
             key={i}
-            onClick={() => scrollToPage(i)}
-            className={`transition-all cursor-pointer ${activePage === i
-                ? "w-8 h-2 bg-blue-500 rounded-full"
-                : "w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400"
+            className={`h-2 rounded-full transition-all cursor-pointer ${active === i ? "w-8 bg-blue-500" : "w-2 bg-gray-300"
               }`}
           />
         ))}

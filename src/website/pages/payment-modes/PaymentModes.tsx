@@ -4,7 +4,6 @@ import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 
 const PaymentModes = () => {
-  const [activeTab, setActiveTab] = useState("IT");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const handleCopy = (text: string, index: number) => {
@@ -16,18 +15,6 @@ const PaymentModes = () => {
   const ITBankAccounts = [
     { bank: "Prabhu Bank Ltd., Babarmahal", account: "0010154212400017", holder: "LBEF Vidyapeeth Pvt. Ltd." },
     { bank: "NMB Bank, Babarmahal", account: "0010016840500011", holder: "LBEF Vidyapeeth" }
-  ];
-
-  const MBABankAccounts = [
-    { bank: "Nabil Bank, Maitidevi", account: "3601017500705", holder: "College for Professional Studies Pvt. Ltd." },
-    { bank: "Prabhu Bank Ltd., Babarmahal", account: "3517087016900028", holder: "College for Professional Studies Pvt. Ltd." },
-    { bank: "Nepal SBI Bank, Teku", account: "19225240200025", holder: "College for Professional Studies Pvt. Ltd." },
-    { bank: "Sunrise Bank, Gairidhara", account: "00210341247017", holder: "College for Professional Studies Pvt. Ltd." }
-  ];
-
-  const MobileWalletsMBA = [
-    { name: "ESewa", color: "from-emerald-500 to-green-500", search: "College for Professional Studies, Maitidevi" },
-    { name: "Khalti", color: "from-purple-500 to-pink-500", search: "College for Professional Studies, Maitidevi" }
   ];
 
   const contactNumber = "9801110200";
@@ -80,7 +67,7 @@ const PaymentModes = () => {
         </div>
       </motion.div>
 
-      <div className="container mx-auto px-4 mb-8 lg:hidden">
+      {/* <div className="container mx-auto px-4 mb-8 lg:hidden">
         <div className="flex rounded-2xl bg-white p-1 shadow-lg border border-gray-200 max-w-md mx-auto">
           <button
             onClick={() => setActiveTab("IT")}
@@ -91,27 +78,18 @@ const PaymentModes = () => {
           >
             IT Programs
           </button>
-          <button
-            onClick={() => setActiveTab("MBA")}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === "MBA"
-              ? "bg-linear-to-r from-emerald-500 to-green-500 text-white shadow-lg"
-              : "text-gray-600 hover:text-gray-900"
-              }`}
-          >
-            MBA Program
-          </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="container mx-auto px-4 pb-20">
         <div className="max-w-8xl mx-auto">
-          <div className="hidden lg:grid grid-cols-2 gap-8 mb-12 items-start">
+          <div className="hidden lg:flex justify-center mb-12">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px 0px" }}
-              className="bg-white rounded-3xl  p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 "
+              className="bg-white rounded-3xl p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 max-w-3xl w-full"
             >
               <ProgramCard
                 type="IT"
@@ -120,59 +98,25 @@ const PaymentModes = () => {
                 copiedIndex={copiedIndex}
               />
             </motion.div>
-
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px 0px" }}
-              className="bg-white rounded-3xl  p-8 border border-emerald-100 hover:shadow-3xl transition-shadow duration-300 "
-            >
-              <ProgramCard
-                type="MBA"
-                accounts={MBABankAccounts}
-                onCopy={handleCopy}
-                copiedIndex={copiedIndex}
-                mobileWallets={MobileWalletsMBA}
-              />
-            </motion.div>
           </div>
 
+
           <div className="lg:hidden space-y-6">
-            {activeTab === "IT" ? (
-              <motion.div
-                key="IT"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="bg-white rounded-3xl shadow-2xl p-6 border border-blue-100"
-              >
-                <ProgramCard
-                  type="IT"
-                  accounts={ITBankAccounts}
-                  onCopy={handleCopy}
-                  copiedIndex={copiedIndex}
-                  isMobile={true}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="MBA"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="bg-white rounded-3xl shadow-2xl p-6 border border-emerald-100"
-              >
-                <ProgramCard
-                  type="MBA"
-                  accounts={MBABankAccounts}
-                  onCopy={handleCopy}
-                  copiedIndex={copiedIndex}
-                  mobileWallets={MobileWalletsMBA}
-                  isMobile={true}
-                />
-              </motion.div>
-            )}
+            <motion.div
+              key="IT"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="bg-white rounded-3xl shadow-2xl p-6 border border-blue-100"
+            >
+              <ProgramCard
+                type="IT"
+                accounts={ITBankAccounts}
+                onCopy={handleCopy}
+                copiedIndex={copiedIndex}
+                isMobile={true}
+              />
+            </motion.div>
           </div>
 
           <motion.div
@@ -256,7 +200,7 @@ const ProgramCard = ({
   const textColor = isIT ? "text-blue-700" : "text-emerald-700";
   const iconColor = isIT ? "text-blue-600" : "text-emerald-600";
   const iconBg = isIT ? "from-blue-100 to-indigo-100" : "from-emerald-100 to-green-100";
-  const title = isIT ? "For Students of B.Sc.(IT), BBM and M.Sc.(ITM)" : "For Students of MBA";
+  const title = isIT ? "For Students" : "For Students of MBA";
   const payableTo = isIT ? "LBEF Vidyapeeth Pvt. Ltd." : "College for Professional Studies Pvt. Ltd.";
   const mobileWalletSearch = isIT ? "LBEF Vidyapeeth, Maitidevi" : "College for Professional Studies, Maitidevi";
   const eSewaColor = isIT ? "from-blue-500 to-indigo-500" : "from-emerald-500 to-green-500";

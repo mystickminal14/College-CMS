@@ -116,7 +116,7 @@ const Footer = () => {
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent flex items-end p-3 sm:p-4">
                 <div className="flex items-center gap-2 text-white">
                   <MdLocationOn className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="text-xs sm:text-sm">LBEF CAMPUS, 1st IT College of Nepal</span>
+                  <span className="text-xs sm:text-sm">LBEF College, 1st IT College of Nepal</span>
                 </div>
               </div>
             </a>

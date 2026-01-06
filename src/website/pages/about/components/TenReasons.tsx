@@ -117,7 +117,7 @@ export function TenReasons() {
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
                 alt=""
               />
-            </motion.span> {""} Campus
+            </motion.span> {""} College
 
           </motion.h2>
 

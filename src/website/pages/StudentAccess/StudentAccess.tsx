@@ -319,7 +319,7 @@ const StudentAccess = () => {
           className="bg-linear-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-10 mb-12"
         >
           <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            How to Access E-Libraries
+            How to Access E-Libraries of APU
           </h3>
 
           {/* MAIN TWO COLUMN LAYOUT */}

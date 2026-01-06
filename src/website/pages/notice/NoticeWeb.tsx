@@ -201,7 +201,7 @@ const NoticeWeb = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Stay informed with the latest announcements, exam schedules, and important updates from LBEF Campus
+            Stay informed with the latest announcements, exam schedules, and important updates from LBEF College
           </motion.p>
         </div>
       </motion.div>
