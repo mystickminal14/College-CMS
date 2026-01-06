@@ -1,9 +1,42 @@
-// JournalHomeContent.tsx
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 import { useNavigate } from 'react-router-dom';
 import decoration from "../../../assets/decoration.webp";
 import useGetJournalsGroupedByYear from '../../../pages/journal/hooks/details/useGetJournalGroupedByYear';
+
+// ✅ Month index map (supports Jan + January both)
+const MONTH_INDEX_MAP: Record<string, number> = {
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  sept: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11,
+};
+
+// ✅ Safe month index resolver
+const getMonthIndex = (month?: string) => {
+  if (!month) return 99; // unknown months go last
+  return MONTH_INDEX_MAP[month.toLowerCase()] ?? 99;
+};
 
 const SkeletonCard = () => (
   <div
@@ -27,13 +60,12 @@ const SkeletonCard = () => (
 
 const JournalHomeContent = () => {
   const { data, isLoading } = useGetJournalsGroupedByYear();
-  const journalsGrouped = data?.data ?? {}; // this is { "2019": [...], "2022": [...] }
+  const journalsGrouped = data?.data ?? {};
   const navigate = useNavigate();
 
   if (isLoading) {
     return (
       <div>
-        {/* Header Skeleton */}
         <div className="mb-8">
           <div className="h-8 bg-gray-300 rounded w-1/3 mb-4 animate-pulse"></div>
           <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
@@ -48,7 +80,9 @@ const JournalHomeContent = () => {
     );
   }
 
-  const yearKeys = Object.keys(journalsGrouped).sort((a, b) => Number(b) - Number(a));
+  const yearKeys = Object.keys(journalsGrouped).sort(
+    (a, b) => Number(b) - Number(a)
+  );
 
   if (yearKeys.length === 0) {
     return (
@@ -78,7 +112,7 @@ const JournalHomeContent = () => {
             <img
               src={decoration}
               alt="Decoration"
-              className="absolute left-1/2 -translate-x-1/2 -bottom-1  w-full h-2"
+              className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
             />
           </span>
         </h2>
@@ -89,6 +123,12 @@ const JournalHomeContent = () => {
 
       {yearKeys.map((year) => {
         const issues = journalsGrouped[year];
+
+        // ✅ FIXED: Sort issues by month (Jan → Dec)
+        const sortedIssues = [...issues].sort(
+          (a, b) => getMonthIndex(a.month) - getMonthIndex(b.month)
+        );
+
         return (
           <motion.div
             key={year}
@@ -98,7 +138,6 @@ const JournalHomeContent = () => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            {/* Group Header */}
             <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">
               <span>{year} </span>
               <span className="relative inline-block">
@@ -106,15 +145,14 @@ const JournalHomeContent = () => {
                 <img
                   src={decoration}
                   alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-1  w-full h-2"
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
                 />
               </span>
             </h3>
 
-            {/* Cards */}
-            {issues.length > 0 ? (
+            {sortedIssues.length > 0 ? (
               <div className="flex flex-wrap">
-                {issues.map((issue, idx) => (
+                {sortedIssues.map((issue, idx) => (
                   <motion.div
                     key={issue.id ?? idx}
                     variants={fadeUp}
@@ -140,47 +178,17 @@ const JournalHomeContent = () => {
                     "
                   >
                     <div className="grow">
-                      <h4
-                        className="
-                          text-xl
-                          font-bold
-                          text-gray-800
-                          mb-3
-                          transition-transform
-                          duration-300
-                          group-hover:-translate-y-1
-                        "
-                      >
+                      <h4 className="text-xl font-bold text-gray-800 mb-3">
                         {issue.volume} {issue.issue && `- ${issue.issue}`}
                       </h4>
 
-                      <div
-                        className="
-                          inline-flex
-                          items-center
-                          px-3
-                          py-1
-                          rounded
-                          bg-neutral-800
-                          mb-4
-                          transition-transform
-                          duration-300
-                          group-hover:-translate-y-1
-                        "
-                      >
+                      <div className="inline-flex items-center px-3 py-1 rounded bg-neutral-800 mb-4">
                         <span className="text-sm font-medium text-neutral-300">
                           {issue.month || 'ISSUE'}
                         </span>
                       </div>
 
-                      <div
-                        className="
-                          mt-6
-                          transition-transform
-                          duration-300
-                          group-hover:-translate-y-1
-                        "
-                      >
+                      <div className="mt-6">
                         <button
                           onClick={() => navigate(`/media/journal/${issue.id}`)}
                           className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition"
