@@ -1,9 +1,9 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
-import logo from '../../../../assets/pcpslogo.png';
+import logo from '../../../../assets/pcpslogo.webp';
 import useGetNameAll from '../../../../pages/courses/hooks/useGetCourseName';
 import { NavLink } from 'react-router-dom';
-import bg1 from '../../../../assets/decoration/footer_background.png'
+import bg1 from '../../../../assets/decoration/footer_background.webp'
 const Footer = () => {
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
@@ -32,10 +32,10 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <MdPhone className="w-5 h-5 text-blue-500" />
                 <a
-                  href="tel:+1800123567"
+                  href="tel:01-4544356"
                   className="hover:text-blue-500 transition-colors text-sm"
                 >
-                  +1 (800) 123-4567
+                  01-4544356
                 </a>
               </div>
             </div>

@@ -1,7 +1,7 @@
 // MessagesList.jsx
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import decoration from "../../../assets/decoration.png";
+import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 import { getAllMessages } from "./messagesData";
 
@@ -24,14 +24,14 @@ const MessagesList = () => {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut"
               }}
@@ -81,7 +81,7 @@ const MessagesList = () => {
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-linear-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold">
@@ -92,13 +92,13 @@ const MessagesList = () => {
                       <p className="text-gray-600 text-sm">{message.institution}</p>
                     </div>
                   </div>
-                  
+
                   <h5 className="font-semibold text-lg text-gray-800 mb-3">{message.title}</h5>
-                  
+
                   <p className="text-gray-600 mb-4 line-clamp-3">
                     {message.message.substring(0, 150)}...
                   </p>
-                  
+
                   <div className="text-blue-600 font-medium flex items-center gap-2">
                     Read Full Message
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

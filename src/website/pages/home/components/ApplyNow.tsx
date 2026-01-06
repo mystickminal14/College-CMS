@@ -1,10 +1,10 @@
-import arrow from "../../../../assets/arrow.png";
+import arrow from "../../../../assets/arrow.webp";
 import { useEnquiry } from "../../../../context/EnquiryContext";
 
 export function ApplyNow() {
 
-    const { open } = useEnquiry();
-  
+  const { open } = useEnquiry();
+
 
   return (
     <>

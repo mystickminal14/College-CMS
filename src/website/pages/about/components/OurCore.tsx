@@ -1,7 +1,7 @@
-import decoration from '../../../../assets/decoration.png';
-import imageone from '../../../../assets/core/jalan.jpeg';
-import imagetwo from '../../../../assets/core/prakash.png';
-import bg1 from '../../../../assets/white_bg.jpg';
+import decoration from '../../../../assets/decoration.webp';
+import imageone from '../../../../assets/core/jalan.webp';
+import imagetwo from '../../../../assets/core/prakash.webp';
+import bg1 from '../../../../assets/white_bg.webp';
 import { useNavigate } from 'react-router-dom';
 
 const messages = [
@@ -69,7 +69,7 @@ export default function OurCore() {
                   <img
                     src={lead.image}
                     alt={lead.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
                 <div>

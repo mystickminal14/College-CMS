@@ -1,7 +1,7 @@
 
-import inslightOne from "../../../../assets/inslightOne.png"
-import inslightTwo from "../../../../assets/inslightTwo.png"
-import inslightThree from "../../../../assets/inslightRight.png"
+import inslightOne from "../../../../assets/inslightOne.webp"
+import inslightTwo from "../../../../assets/inslightTwo.webp"
+import inslightThree from "../../../../assets/inslightRight.webp"
 import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

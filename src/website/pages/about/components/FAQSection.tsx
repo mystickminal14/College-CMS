@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import full_from from "../../../../assets/full_form_lbef.png";
-import decoration from '../../../../assets/decoration.png';
+import full_from from "../../../../assets/full_form_lbef.webp";
+import decoration from '../../../../assets/decoration.webp';
 
 const faqs = [
   {

@@ -1,6 +1,6 @@
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
-import subfooterone from '../../../assets/six_path.png';
+import subfooterone from '../../../assets/six_path.webp';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 
@@ -221,15 +221,15 @@ const ICTScholarship = () => {
 
             </motion.div>
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" className="mt-3 max-w-6xl mx-auto">
-                 <h3 className="text-2xl  font-bold text-gray-900 flex items-center justify-center md:justify-start mb-4">
-                            <span>   National ICT Scholarship </span>
-                            <span className="ml-2 relative inline-block"><span className="text-blue-600 relative z-10">   2081 schedule<img
-                                src={decoration}
-                                alt="Decoration"
-                                className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-                            /></span></span>
+                <h3 className="text-2xl  font-bold text-gray-900 flex items-center justify-center md:justify-start mb-4">
+                    <span>   National ICT Scholarship </span>
+                    <span className="ml-2 relative inline-block"><span className="text-blue-600 relative z-10">   2081 schedule<img
+                        src={decoration}
+                        alt="Decoration"
+                        className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                    /></span></span>
 
-                        </h3>
+                </h3>
 
                 <motion.div variants={fadeUp} initial="hidden" whileInView="visible" className="overflow-hidden border border-gray-200 rounded-xl bg-white">
                     <table className="w-full border-collapse">

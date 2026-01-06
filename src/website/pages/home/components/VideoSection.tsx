@@ -1,4 +1,4 @@
-import image from '../../../../assets/youtube_background.png'
+import image from '../../../../assets/youtube_background.webp'
 import VideoPopup from "./VideoPopup";
 export function VideoSection() {
   return (
@@ -35,7 +35,7 @@ export function VideoSection() {
           </div>
           <VideoPopup />
 
-          
+
         </div>
       </div>
     </section>

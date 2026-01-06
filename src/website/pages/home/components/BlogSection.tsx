@@ -1,8 +1,8 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import decoration from "../../../../assets/decoration.png";
-import Blog_Image_One from "../../../../assets/blog/blog_images.jpg";
-import Blog_Image_Two from "../../../../assets/blog/blog_images_two.jpg";
-import bg1 from '../../../../assets/decoration/AboutHero.jpg';
+import decoration from "../../../../assets/decoration.webp";
+import Blog_Image_One from "../../../../assets/blog/blog_images.webp";
+import Blog_Image_Two from "../../../../assets/blog/blog_images_two.webp";
+import bg1 from '../../../../assets/decoration/AboutHero.webp';
 
 export default function Index() {
   const blogPosts = [

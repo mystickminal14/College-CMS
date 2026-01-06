@@ -1,6 +1,6 @@
 import { IMAGE_URL } from "../../../../constants";
 import type { TeamMember } from "../model/team-model";
-import img from "../../../../assets/pcpslogo.png";
+import img from "../../../../assets/pcpslogo.webp";
 
 const TeamCard = ({ member }: { member: TeamMember }) => {
     const imageSrc = member.image

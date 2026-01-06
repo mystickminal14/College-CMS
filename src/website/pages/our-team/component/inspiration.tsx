@@ -1,5 +1,5 @@
-import bgImage from '../../../../assets/inspiration/sir.png';
-import decoration from '../../../../assets/decoration.png';
+import bgImage from '../../../../assets/inspiration/sir.webp';
+import decoration from '../../../../assets/decoration.webp';
 
 const Inspiration = () => {
   return (

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import { FileText, Calendar, Eye, Bell, Filter, ChevronDown } from 'lucide-react';
-import lbefLogo from '../../../assets/pcpslogo.png';
+import lbefLogo from '../../../assets/pcpslogo.webp';
 import { IMAGE_URL } from "../../../constants";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from '../../comp/animation';
@@ -228,8 +228,8 @@ const NoticeWeb = () => {
                     key={option.value}
                     onClick={() => handleDepartmentChange(option.value as ENotice)}
                     className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${department === option.value
-                        ? 'bg-blue-600 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                   >
                     {option.label}
@@ -326,8 +326,8 @@ const NoticeWeb = () => {
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
                               <span
                                 className={`px-3 py-1 rounded-full text-xs font-bold ${notice.type === 'ACADEMIC'
-                                    ? 'bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
-                                    : 'bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200'
+                                  ? 'bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
+                                  : 'bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200'
                                   }`}
                               >
                                 {notice.type}

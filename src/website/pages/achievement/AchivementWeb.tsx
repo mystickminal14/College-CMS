@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import useGetAchivementsAll from '../../../pages/achivement/hooks/useGetAll';
 import { fadeUp } from '../../comp/animation';
 
@@ -33,21 +33,21 @@ const AchievementWeb = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          
-     <motion.div
+
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
@@ -61,7 +61,7 @@ const AchievementWeb = () => {
             <span className="relative inline-block">
               <span className="text-blue-600 relative z-10"> Achievements</span>
               <motion.img
-               initial={{ scaleX: 0 }}
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
                 src={decoration}
@@ -74,10 +74,10 @@ const AchievementWeb = () => {
             <span className="text-gray-900"> The Years </span>
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}  className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             From its humble beginnings, the College has made steady progress and
             today stands as one of the leading colleges in Nepal.
           </motion.p>

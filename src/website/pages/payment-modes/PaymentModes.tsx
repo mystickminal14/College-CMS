@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import decoration from "../../../assets/decoration.png";
+import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 
 const PaymentModes = () => {
@@ -43,7 +43,7 @@ const PaymentModes = () => {
       >
         <div className="max-w-4xl mx-auto">
           <motion.div
-             initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-6 py-3 rounded-full bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 shadow-sm"
@@ -61,7 +61,7 @@ const PaymentModes = () => {
                 Modes
               </span>
               <motion.img
-               initial={{ scaleX: 0 }}
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
                 src={decoration}
@@ -71,11 +71,11 @@ const PaymentModes = () => {
             </span>
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choose your convenient payment method from the options below. 
+            Choose your convenient payment method from the options below.
           </motion.p>
         </div>
       </motion.div>
@@ -84,21 +84,19 @@ const PaymentModes = () => {
         <div className="flex rounded-2xl bg-white p-1 shadow-lg border border-gray-200 max-w-md mx-auto">
           <button
             onClick={() => setActiveTab("IT")}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${
-              activeTab === "IT"
-                ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
+            className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === "IT"
+              ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
+              : "text-gray-600 hover:text-gray-900"
+              }`}
           >
             IT Programs
           </button>
           <button
             onClick={() => setActiveTab("MBA")}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${
-              activeTab === "MBA"
-                ? "bg-linear-to-r from-emerald-500 to-green-500 text-white shadow-lg"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
+            className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === "MBA"
+              ? "bg-linear-to-r from-emerald-500 to-green-500 text-white shadow-lg"
+              : "text-gray-600 hover:text-gray-900"
+              }`}
           >
             MBA Program
           </button>
@@ -106,19 +104,19 @@ const PaymentModes = () => {
       </div>
 
       <div className="container mx-auto px-4 pb-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="hidden lg:grid grid-cols-2 gap-8 mb-12">
+        <div className="max-w-8xl mx-auto">
+          <div className="hidden lg:grid grid-cols-2 gap-8 mb-12 items-start">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px 0px" }}
-              className="bg-white rounded-3xl shadow-2xl p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 h-auto"
+              className="bg-white rounded-3xl  p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 "
             >
-              <ProgramCard 
-                type="IT" 
-                accounts={ITBankAccounts} 
-                onCopy={handleCopy} 
+              <ProgramCard
+                type="IT"
+                accounts={ITBankAccounts}
+                onCopy={handleCopy}
                 copiedIndex={copiedIndex}
               />
             </motion.div>
@@ -128,12 +126,12 @@ const PaymentModes = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px 0px" }}
-              className="bg-white rounded-3xl shadow-2xl p-8 border border-emerald-100 hover:shadow-3xl transition-shadow duration-300 h-auto"
+              className="bg-white rounded-3xl  p-8 border border-emerald-100 hover:shadow-3xl transition-shadow duration-300 "
             >
-              <ProgramCard 
-                type="MBA" 
-                accounts={MBABankAccounts} 
-                onCopy={handleCopy} 
+              <ProgramCard
+                type="MBA"
+                accounts={MBABankAccounts}
+                onCopy={handleCopy}
                 copiedIndex={copiedIndex}
                 mobileWallets={MobileWalletsMBA}
               />
@@ -149,10 +147,10 @@ const PaymentModes = () => {
                 exit={{ opacity: 0, y: -20 }}
                 className="bg-white rounded-3xl shadow-2xl p-6 border border-blue-100"
               >
-                <ProgramCard 
-                  type="IT" 
-                  accounts={ITBankAccounts} 
-                  onCopy={handleCopy} 
+                <ProgramCard
+                  type="IT"
+                  accounts={ITBankAccounts}
+                  onCopy={handleCopy}
                   copiedIndex={copiedIndex}
                   isMobile={true}
                 />
@@ -165,10 +163,10 @@ const PaymentModes = () => {
                 exit={{ opacity: 0, y: -20 }}
                 className="bg-white rounded-3xl shadow-2xl p-6 border border-emerald-100"
               >
-                <ProgramCard 
-                  type="MBA" 
-                  accounts={MBABankAccounts} 
-                  onCopy={handleCopy} 
+                <ProgramCard
+                  type="MBA"
+                  accounts={MBABankAccounts}
+                  onCopy={handleCopy}
                   copiedIndex={copiedIndex}
                   mobileWallets={MobileWalletsMBA}
                   isMobile={true}
@@ -234,13 +232,13 @@ const PaymentModes = () => {
   );
 };
 
-const ProgramCard = ({ 
-  type, 
-  accounts, 
-  onCopy, 
-  copiedIndex, 
+const ProgramCard = ({
+  type,
+  accounts,
+  onCopy,
+  copiedIndex,
   mobileWallets = [],
-  isMobile = false 
+  isMobile = false
 }: {
   type: string;
   accounts: Array<{ bank: string; account: string; holder?: string }>;
@@ -290,7 +288,7 @@ const ProgramCard = ({
           {title}
         </h2>
       </div>
-      
+
       <div className={spaceClass}>
         {/* Cash Payment */}
         <div className="group">
@@ -307,7 +305,7 @@ const ProgramCard = ({
             </p>
           </div>
         </div>
-        
+
         {/* Cheques */}
         <div className="group">
           <div className="flex items-center gap-2 mb-3">
@@ -336,7 +334,7 @@ const ProgramCard = ({
             </div>
           </div>
         </div>
-        
+
         {/* Bank Accounts */}
         <div className="group">
           <div className="flex items-center gap-2 mb-3">
@@ -357,7 +355,7 @@ const ProgramCard = ({
                     </svg>
                     {account.bank}
                   </p>
-                  
+
                   {/* Account Number */}
                   <div className={`mt-2 ${textSize}`}>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
@@ -383,7 +381,7 @@ const ProgramCard = ({
                       </button>
                     )}
                   </div>
-                  
+
                   {/* Account Holder */}
                   {account.holder && (
                     <div className={`mt-3 ${textSize}`}>
@@ -416,7 +414,7 @@ const ProgramCard = ({
             ))}
           </div>
         </div>
-        
+
         {/* Mobile Wallet */}
         <div className="group">
           <div className="flex items-center gap-2 mb-3">
@@ -447,7 +445,7 @@ const ProgramCard = ({
             </div>
           </div>
         </div>
-        
+
         {/* Additional Mobile Wallets for MBA */}
         {!isIT && mobileWallets.length > 0 && (
           <div className="group">
@@ -481,7 +479,7 @@ const ProgramCard = ({
                   </div>
                 </div>
               ))}
-              
+
               {/* IPS Connect for MBA */}
               <div className={`bg-linear-to-r from-emerald-50/50 to-green-50/50 ${accountPadding} rounded-2xl border border-emerald-200 group-hover:border-emerald-300 transition-colors`}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">

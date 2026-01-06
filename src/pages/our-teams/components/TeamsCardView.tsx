@@ -1,7 +1,7 @@
 import React from "react";
 import { Edit, Trash2 } from "lucide-react";
 import type { Teams } from "../model/TeamsModel";
-import img from "../../../assets/applogo.png";
+import img from "../../../assets/applogo.webp";
 import { IMAGE_URL } from "../../../constants";
 
 interface TeamsCardViewProps {

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
-import Mission from "../../../../assets/mission_vission.jpg";
-import arrow from '../../../../assets/mission_arrow.png'
-import decoration from '../../../../assets/decoration.png';
+import Mission from "../../../../assets/mission_vission.webp";
+import arrow from '../../../../assets/mission_arrow.webp'
+import decoration from '../../../../assets/decoration.webp';
 
 export default function MissionVisionSection() {
   return (

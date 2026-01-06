@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { Mountain, Sunrise, Droplet, Sunset, MapPin, Globe, TreeDeciduous } from "lucide-react";
-import img from '../../../../assets/images/home2.jpg'
-import img2 from '../../../../assets/images/home1.jpg'
-import img3 from '../../../../assets/images/home3.jpg'
-import img4 from '../../../../assets/images/image-11.jpeg'
-import img5 from '../../../../assets/images/image10.jpeg'
-import img6 from '../../../../assets/eating.jpg'
-import img7 from '../../../../assets/images/home8.jpg'
-import bg1 from '../../../../assets/decoration/abouthero.jpg';
-import decoration from "../../../../assets/decoration.png";
+import img from '../../../../assets/images/home2.webp'
+import img2 from '../../../../assets/images/home1.webp'
+import img3 from '../../../../assets/images/home3.webp'
+import img4 from '../../../../assets/images/image-11.webp'
+import img5 from '../../../../assets/images/image10.webp'
+import img6 from '../../../../assets/eating.webp'
+import img7 from '../../../../assets/images/home8.webp'
+import bg1 from '../../../../assets/decoration/abouthero.webp';
+import decoration from "../../../../assets/decoration.webp";
 import { useNavigate } from "react-router-dom";
 
 const GalleryGrid = () => {

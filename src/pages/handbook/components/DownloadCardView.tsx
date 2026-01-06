@@ -3,7 +3,7 @@ import { Trash2 } from "lucide-react";
 import type { Downloads } from "../model/handbookModel";
 import { IMAGE_URL } from "../../../constants";
 import { FaFilePdf } from "react-icons/fa";
-import image from "../../../assets/pcpslogo.png";
+import image from "../../../assets/pcpslogo.webp";
 
 interface Props {
   downloads: Downloads[];

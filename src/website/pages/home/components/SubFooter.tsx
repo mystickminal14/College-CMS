@@ -1,5 +1,5 @@
-import subfooterone from '../../../../assets/six_path.png';
-import subfootertwo from '../../../../assets/subfootertwo.png';
+import subfooterone from '../../../../assets/six_path.webp';
+import subfootertwo from '../../../../assets/subfootertwo.webp';
 
 export default function SubFooter() {
   return (

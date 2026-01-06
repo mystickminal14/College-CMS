@@ -7,7 +7,7 @@ export function VideoSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('src/assets/youtube_background.png')`,
+          backgroundImage: `url('src/assets/youtube_background.webp')`,
         }}
       >
         <div className="absolute inset-0 bg-[#000538AB]" />
@@ -16,7 +16,7 @@ export function VideoSection() {
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl px-4 sm:px-6 text-white">
         <div className="flex flex-col md:flex-row items-center  justify-between gap-10">
-          
+
           {/* Left Content */}
           <div className="flex flex-col text-center md:text-left md:w-[55%]">
             <p className="text-xs sm:text-sm md:text-base font-medium mb-2 tracking-wider opacity-90">
@@ -45,7 +45,7 @@ export function VideoSection() {
               <div className="relative flex items-center justify-center">
                 {/* Ripple */}
                 <span className="absolute w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-white opacity-40 animate-[ripple_1.2s_ease-out_infinite]" />
-                
+
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
                   <Play className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600 ml-1" fill="currentColor" />
                 </div>

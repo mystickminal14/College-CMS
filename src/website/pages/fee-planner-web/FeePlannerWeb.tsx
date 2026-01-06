@@ -1,7 +1,7 @@
 import { motion, type Variants } from "framer-motion";
 
-import image from "../../../assets/lbefhd.jpg";
-import decoration from "../../../assets/decoration.png";
+import image from "../../../assets/lbefhd.webp";
+import decoration from "../../../assets/decoration.webp";
 import useGetPlannerParents from "../../../pages/fee-planner/hooks/useGetPlannerParents";
 import { IMAGE_URL } from "../../../constants";
 import { fadeUp, staggerContainer } from "../../comp/animation";

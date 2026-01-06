@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import TeamCard from './component/team-card';
 import TeamCardSkeleton from './component/team-skeleton';
 import useGetTeamsByDept from './hook/useGetDepartment';
@@ -26,26 +26,26 @@ const OurTeamWeb = () => {
           viewport={{ once: true }}
           className="max-w-8xl mx-auto text-center"
         >
-       <motion.div
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-             Academic Excellence Team
+              Academic Excellence Team
             </span>
           </motion.div>
 
@@ -53,14 +53,14 @@ const OurTeamWeb = () => {
             <span className="text-gray-900">Meet The </span>
             <span className="relative inline-block">
               <span className="text-blue-600 relative z-10"> Minds</span>
-               <motion.img
-               initial={{ scaleX: 0 }}
+              <motion.img
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
                 src={decoration}
                 alt="Decoration"
                 className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
-                
+
               />
             </span>
             <br />
@@ -69,13 +69,13 @@ const OurTeamWeb = () => {
             <span className="text-gray-900"> Excellence</span>
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Access comprehensive academic databases, digital libraries, and learning platforms 
+            Access comprehensive academic databases, digital libraries, and learning platforms
             to support your research and studies at LBEF through APU's partnership.
           </motion.p>
         </motion.div>
@@ -145,24 +145,24 @@ const OurTeamWeb = () => {
             className="mb-20"
           >
             <div className="mb-8">
-             <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-green-100 border border-green-200">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                    <span className="text-green-700 font-medium">Technology & Research</span>
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                                    Department of
-                                    <span className="relative inline-block ml-2">
-                                        <span className="text-blue-600 relative z-10">Computing</span>
-                                        <img
-                                            src={decoration}
-                                            alt="Decoration"
-                                            className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-                                        />
-                                    </span>
-                                </h3>
+              <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-green-100 border border-green-200">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-green-700 font-medium">Technology & Research</span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                Department of
+                <span className="relative inline-block ml-2">
+                  <span className="text-blue-600 relative z-10">Computing</span>
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                  />
+                </span>
+              </h3>
 
-                                <p className="text-gray-600 mt-2">Technology education, research, and innovation</p>
-                           
+              <p className="text-gray-600 mt-2">Technology education, research, and innovation</p>
+
             </div>
 
             <motion.div
@@ -196,24 +196,24 @@ const OurTeamWeb = () => {
             viewport={{ once: true }}
           >
             <div className="mb-8">
-         <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-purple-100 border border-purple-200">
-                                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                                    <span className="text-purple-700 font-medium">Support & Operations</span>
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                                    Department of
-                                    <span className="relative inline-block ml-2">
-                                        <span className="text-blue-600 relative z-10">Administration</span>
-                                        <img
-                                            src={decoration}
-                                            alt="Decoration"
-                                            className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-                                        />
-                                    </span>
-                                </h3>
+              <div className="inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-purple-100 border border-purple-200">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span className="text-purple-700 font-medium">Support & Operations</span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                Department of
+                <span className="relative inline-block ml-2">
+                  <span className="text-blue-600 relative z-10">Administration</span>
+                  <img
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                  />
+                </span>
+              </h3>
 
-                                <p className="text-gray-600 mt-2">Comprehensive support services and operational excellence</p>
-                            
+              <p className="text-gray-600 mt-2">Comprehensive support services and operational excellence</p>
+
             </div>
 
             <motion.div

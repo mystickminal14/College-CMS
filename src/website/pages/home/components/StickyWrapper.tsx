@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import decoration from '../../../../assets/decoration.png';
+import decoration from '../../../../assets/decoration.webp';
 import { CourseSkeleton } from '../../programs/comp/CourseSkeleton';
 import type { Courses } from '../../../../pages/courses/model/CourseModel';
 import { IMAGE_URL } from '../../../../constants';

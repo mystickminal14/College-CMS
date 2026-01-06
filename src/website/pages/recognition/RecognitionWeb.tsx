@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import useGetAll from "./hook/useGetRecognitionAll";
 import RecognitionsCardView from "./component/RecognitionCard";
 import { fadeUp, staggerContainer } from '../../comp/animation';
@@ -26,20 +26,20 @@ const RecognitionPageWeb = () => {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-             Discover Our Achievements
+              Discover Our Achievements
             </span>
           </motion.div>
 
@@ -62,7 +62,7 @@ const RecognitionPageWeb = () => {
             <span className="text-gray-900 relative z-10"> The Years </span>
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">

@@ -1,6 +1,6 @@
-import journey_background from '../../../../assets/journey_background.jpg'
-import about_decoration from '../../../../assets/decoration/about_decoration.png'
-import decoration from '../../../../assets/decoration.png';
+import journey_background from '../../../../assets/journey_background.webp'
+import about_decoration from '../../../../assets/decoration/about_decoration.webp'
+import decoration from '../../../../assets/decoration.webp';
 
 const StartJourney = () => {
   return (

@@ -101,7 +101,7 @@ body {
       rgba(255, 255, 255, 0.8), /* White overlay with 80% opacity */
       rgba(255, 255, 255, 0.8)
     ),
-    url('./images/hackx.jpg'); /* Your background image */
+    url('./images/hackx.webp'); /* Your background image */
   background-size: cover;
   background-position: center;
   border-radius: 0 0 24px 24px;
@@ -173,7 +173,7 @@ body {
   font-size: 1.3rem;
 }
 
-.hero-content img[src="./images/gov.png"] {
+.hero-content img[src="./images/gov.webp"] {
   width: 300px;
   height: auto;
 }
@@ -486,7 +486,7 @@ body {
     max-width: 100%;
   }
   
-  .hero-content img[src="./images/gov.png"] {
+  .hero-content img[src="./images/gov.webp"] {
     width: 80px;
   }
   
@@ -857,7 +857,7 @@ body {
 .courses-section {
   min-height: 100vh;
   padding: 80px 20px;
-  background: url("./images/course_bg.jpg") center/cover no-repeat;
+  background: url("./images/course_bg.webp") center/cover no-repeat;
   position: relative;
 }
 
@@ -1172,7 +1172,7 @@ body {
 .video-bg {
   position: absolute;
   inset: 0;
-  background: url("./images/video_section.png") center/cover no-repeat;
+  background: url("./images/video_section.webp") center/cover no-repeat;
 }
 
 .overlay {
@@ -1551,7 +1551,7 @@ body {
 /* // ----------- admission producer (UPDATED FOR RESPONSIVENESS) ----------- */
 .admission {
   padding: 80px 20px;
-  background-image: url('./images/admission.png');
+  background-image: url('./images/admission.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1868,7 +1868,7 @@ color: #3d5afe;
 .scholarship {
   padding: 90px 20px;
   background: linear-gradient(to right, #131F34B2),
-              url("./images/scholarship.jpg") center/cover no-repeat;
+              url("./images/scholarship.webp") center/cover no-repeat;
   color: #fff;
 }
 
@@ -1901,7 +1901,7 @@ color: #3d5afe;
 .scholarship {
   padding: 90px 20px;
   background: linear-gradient(to right, #131F34B2),
-              url("./images/scholarship.jpg") center/cover no-repeat;
+              url("./images/scholarship.webp") center/cover no-repeat;
   color: #fff;
 }
 

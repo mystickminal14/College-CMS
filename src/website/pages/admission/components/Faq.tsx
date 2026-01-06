@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import decoration from '../../../../assets/decoration.png';
+import decoration from '../../../../assets/decoration.webp';
 
 const faqs = [
   {
@@ -36,13 +36,13 @@ export default function FAQSection() {
 
         <h2 className="text-4xl font-bold text-gray-900 mb-10 text-center lg:text-left">
           Everything You Need to Know About <span className="text-blue-600 relative inline-block">
-         LBEF
+            LBEF
             <img
               src={decoration}
               alt="Decoration"
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
             />
-          </span>{' '} 
+          </span>{' '}
         </h2>
 
         {/* FAQ Items */}
@@ -55,9 +55,8 @@ export default function FAQSection() {
                 {/* Question Button */}
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className={`w-full px-6 py-4 flex justify-between items-center text-left font-medium text-lg transition-all duration-200 ${
-                    isOpen ? 'bg-[#474AFF] text-white' : 'bg-white text-gray-900'
-                  }`}
+                  className={`w-full px-6 py-4 flex justify-between items-center text-left font-medium text-lg transition-all duration-200 ${isOpen ? 'bg-[#474AFF] text-white' : 'bg-white text-gray-900'
+                    }`}
                 >
                   <span>{faq.question}</span>
                   <span className="text-2xl font-bold">{isOpen ? '−' : '+'}</span>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { motion, type Variants } from "framer-motion";
-import decoration from "../../../assets/decoration.png";
+import decoration from "../../../assets/decoration.webp";
 import useGetIntakes from "../../../pages/intake-calender/hooks/useGetAllIntakr";
 import AdmissionTOC from "./components/AdmissionToc";
 import IntakeCardsSection from "./components/IntakeCardSection";

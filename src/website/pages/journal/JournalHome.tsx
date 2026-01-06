@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 import { useNavigate } from 'react-router-dom';
-import decoration from "../../../assets/decoration.png";
+import decoration from "../../../assets/decoration.webp";
 import useGetJournalsGroupedByYear from '../../../pages/journal/hooks/details/useGetJournalGroupedByYear';
 
 const SkeletonCard = () => (

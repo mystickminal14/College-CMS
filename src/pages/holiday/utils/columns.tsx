@@ -1,6 +1,6 @@
 import { IMAGE_URL } from "../../../constants";
 import type { Holidays } from "../model/HolidayModel";
-import img from "../../../assets/applogo.png";
+import img from "../../../assets/applogo.webp";
 
 export const HolidaysColumns = [
   {
@@ -22,5 +22,5 @@ export const HolidaysColumns = [
   },
 
   { label: "Name", accessor: "name" },
-  
+
 ];

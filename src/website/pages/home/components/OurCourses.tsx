@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, Monitor } from "lucide-react";
-import bg from "../../../../assets/courses_bg.jpg";
-import decoration from "../../../../assets/decoration.png";
+import bg from "../../../../assets/courses_bg.webp";
+import decoration from "../../../../assets/decoration.webp";
 import { useNavigate } from "react-router-dom";
 import useGetAll from "../../programs/hook/useGetCourses";
 import type { Courses } from "../../../../pages/courses/model/CourseModel";
@@ -271,9 +271,8 @@ const MobileCarousel = ({
           scrollRef.current?.scrollBy({ left: -CARD_WIDTH, behavior: "smooth" })
         }
         disabled={!canLeft}
-        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-          !canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-        }`}
+        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
+          }`}
       >
         <ChevronLeft className="w-6 h-6 text-blue-600" />
       </button>
@@ -283,9 +282,8 @@ const MobileCarousel = ({
           scrollRef.current?.scrollBy({ left: CARD_WIDTH, behavior: "smooth" })
         }
         disabled={!canRight}
-        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-          !canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-        }`}
+        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
+          }`}
       >
         <ChevronRight className="w-6 h-6 text-blue-600" />
       </button>
@@ -324,11 +322,10 @@ const MobileCarousel = ({
           <span
             key={i}
             onClick={() => scrollToPage(i)}
-            className={`transition-all cursor-pointer ${
-              activePage === i
-                ? "w-8 h-2 bg-blue-500 rounded-full"
-                : "w-2 h-2 bg-gray-300 rounded-full"
-            }`}
+            className={`transition-all cursor-pointer ${activePage === i
+              ? "w-8 h-2 bg-blue-500 rounded-full"
+              : "w-2 h-2 bg-gray-300 rounded-full"
+              }`}
           />
         ))}
       </div>

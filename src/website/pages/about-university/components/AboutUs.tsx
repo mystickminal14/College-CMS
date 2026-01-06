@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
-import graduations from '../../../../assets/apu-about.jpg';
-import ring from '../../../../assets/ring.png';
-import decoration from '../../../../assets/decoration.png';
+import graduations from '../../../../assets/apu-about.webp';
+import ring from '../../../../assets/ring.webp';
+import decoration from '../../../../assets/decoration.webp';
 
 export default function AboutUsSection() {
   return (

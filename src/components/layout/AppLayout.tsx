@@ -6,7 +6,7 @@ import { IoMoon, IoSunny } from "react-icons/io5";
 import SideBar from "./SideBar";
 import { AppContext } from "../../context/ContextApp";
 
-import appLogo from "../../assets/butterfiles.png";
+import appLogo from "../../assets/butterfiles.webp";
 const AppLayout: React.FC = () => {
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
@@ -68,7 +68,7 @@ const AppLayout: React.FC = () => {
 
         {/* ================= Main ================= */}
         <div className="flex-1 flex flex-col overflow-hidden w-full relative">
-          
+
           {/* ================= Mobile Header ================= */}
           {isMobile && (
             <div
@@ -84,7 +84,7 @@ const AppLayout: React.FC = () => {
                   alt="Evolve"
                   className="w-12 h-10 rounded-lg object-cover"
                 />
-               
+
               </div>
 
               {/* Actions */}
@@ -129,31 +129,31 @@ const AppLayout: React.FC = () => {
                         ${mobileMenuOpen && isMobile ? "opacity-30" : "opacity-100"}`}
           >
             {/* {isOnline? <Outlet/>:<OfflinePage/>} */}
-            <Outlet /> 
+            <Outlet />
           </main>
         </div>
       </div>
 
-{!isMobile && (
-  <button
-    onClick={toggleTheme}
-    className="fixed right-0 top-1/2 cursor-pointer -translate-y-1/2 z-50
+      {!isMobile && (
+        <button
+          onClick={toggleTheme}
+          className="fixed right-0 top-1/2 cursor-pointer -translate-y-1/2 z-50
                p-3 rounded-l-2xl
                bg-indigo-600 dark:bg-yellow-400
                text-white dark:text-slate-900
                shadow-xl
                hover:brightness-110
                transition-all duration-300"
-    aria-label="Toggle theme"
-    title="Toggle theme"
-  >
-    {isDark ? (
-      <IoSunny className="w-6 h-6" />
-    ) : (
-      <IoMoon className="w-6 h-6" />
-    )}
-  </button>
-)}
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          {isDark ? (
+            <IoSunny className="w-6 h-6" />
+          ) : (
+            <IoMoon className="w-6 h-6" />
+          )}
+        </button>
+      )}
 
     </div>
   );

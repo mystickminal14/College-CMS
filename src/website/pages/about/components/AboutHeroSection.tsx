@@ -1,5 +1,5 @@
-import HeroImages from '../../../../assets/decoration/abouthero.jpg'
-import butterfiles from '../../../../assets/butterfiles.png'
+import HeroImages from '../../../../assets/decoration/abouthero.webp'
+import butterfiles from '../../../../assets/butterfiles.webp'
 
 const ABoutHeroSection = () => {
   return (
@@ -25,7 +25,7 @@ const ABoutHeroSection = () => {
             </span>
             Futuristic
           </span>
-Thinking
+          Thinking
         </h1>
 
 

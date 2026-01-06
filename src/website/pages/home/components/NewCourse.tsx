@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Monitor } from "lucide-react";
-import bg from "../../../../assets/courses_bg.jpg";
-import image from "../../../../assets/butterfiles.png";
-import decoration from "../../../../assets/decoration.png";
+import bg from "../../../../assets/courses_bg.webp";
+import image from "../../../../assets/butterfiles.webp";
+import decoration from "../../../../assets/decoration.webp";
 
 import { useNavigate } from "react-router-dom";
 import useGetAll from "../../programs/hook/useGetCourses";
@@ -15,6 +15,60 @@ const truncateWords = (text: string, wordLimit: number) => {
   if (words.length <= wordLimit) return text;
   return words.slice(0, wordLimit).join(" ") + "...";
 };
+const CourseSkeleton = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 120, damping: 15, delay: i * 0.1 }}
+          className="h-[360px] rounded-lg bg-white shadow-md overflow-hidden animate-pulse"
+        >
+          <div className="h-full p-6 flex flex-col">
+            <div className="flex justify-between">
+              <div className="h-3 w-20 bg-gray-200 rounded" />
+              <div className="h-3 w-16 bg-gray-200 rounded" />
+            </div>
+
+            <div className="mt-auto">
+              <div className="w-14 h-14 mb-4 rounded-full bg-gray-200" />
+              <div className="h-5 w-3/4 bg-gray-200 rounded" />
+            </div>
+
+            <div className="mt-4 space-y-2">
+              <div className="h-3 w-full bg-gray-200 rounded" />
+              <div className="h-3 w-5/6 bg-gray-200 rounded" />
+              <div className="h-3 w-4/6 bg-gray-200 rounded" />
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+const EmptyCourses = () => (
+  <motion.div
+    className="w-full flex justify-center items-center py-8"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ type: "spring", stiffness: 100, damping: 15 }}
+  >
+    <div className="text-center">
+      <h3 className="text-xl font-semibold text-gray-700">
+        No courses available right now
+      </h3>
+      <p className="text-gray-500 mt-2">
+        Please check back later. New courses will be added soon.
+      </p>
+    </div>
+  </motion.div>
+);
+
 
 export default function NewCourse() {
   const { data, isLoading } = useGetAll();
@@ -37,59 +91,6 @@ export default function NewCourse() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const CourseSkeleton = () => {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 120, damping: 15, delay: i * 0.1 }}
-            className="h-[360px] rounded-lg bg-white shadow-md overflow-hidden animate-pulse"
-          >
-            <div className="h-full p-6 flex flex-col">
-              <div className="flex justify-between">
-                <div className="h-3 w-20 bg-gray-200 rounded" />
-                <div className="h-3 w-16 bg-gray-200 rounded" />
-              </div>
-
-              <div className="mt-auto">
-                <div className="w-14 h-14 mb-4 rounded-full bg-gray-200" />
-                <div className="h-5 w-3/4 bg-gray-200 rounded" />
-              </div>
-
-              <div className="mt-4 space-y-2">
-                <div className="h-3 w-full bg-gray-200 rounded" />
-                <div className="h-3 w-5/6 bg-gray-200 rounded" />
-                <div className="h-3 w-4/6 bg-gray-200 rounded" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    );
-  };
-
-  const EmptyCourses = () => (
-    <motion.div
-      className="w-full flex justify-center items-center py-8"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 100, damping: 15 }}
-    >
-      <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-700">
-          No courses available right now
-        </h3>
-        <p className="text-gray-500 mt-2">
-          Please check back later. New courses will be added soon.
-        </p>
-      </div>
-    </motion.div>
-  );
 
   return (
     <div>
@@ -196,7 +197,7 @@ export default function NewCourse() {
                   {courses.slice(0, 6).map((course) => (
                     <motion.div
                       key={course.id}
-                                                  onClick={() => handleView(course)}
+                      onClick={() => handleView(course)}
 
                       variants={fadeUp}
                       className="group relative cursor-pointer overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
@@ -251,7 +252,7 @@ export default function NewCourse() {
                             transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
                             className="text-xl font-bold group-hover:text-white"
                           >
-                           {course.prefix} {course.title}
+                            {course.prefix} {course.title}
                           </motion.h3>
                         </div>
 
@@ -356,9 +357,8 @@ const MobileCarousel = ({
           scrollRef.current?.scrollBy({ left: -CARD_WIDTH, behavior: "smooth" })
         }
         disabled={!canLeft}
-        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-          !canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-        }`}
+        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canLeft ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
+          }`}
       >
         <ChevronLeft className="w-6 h-6 text-blue-600" />
       </button>
@@ -368,9 +368,8 @@ const MobileCarousel = ({
           scrollRef.current?.scrollBy({ left: CARD_WIDTH, behavior: "smooth" })
         }
         disabled={!canRight}
-        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${
-          !canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
-        }`}
+        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 transition-all ${!canRight ? "opacity-30 cursor-not-allowed" : "hover:scale-110"
+          }`}
       >
         <ChevronRight className="w-6 h-6 text-blue-600" />
       </button>
@@ -382,7 +381,7 @@ const MobileCarousel = ({
       >
         {courses.map((course) => (
           <motion.div
-                onClick={() => onView(course)}
+            onClick={() => onView(course)}
 
             key={course.id}
             initial={{ opacity: 0, y: 20 }}
@@ -410,11 +409,11 @@ const MobileCarousel = ({
                 transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
                 className="mt-4 text-lg font-bold"
               >
-               {course.prefix} {course.title}
+                {course.prefix} {course.title}
               </motion.h3>
 
               <p className="mt-2 text-sm flex-1">
-                {truncateWords(course.details ?? "", 35)}
+                {truncateWords(course.details ?? "", 28)}
               </p>
 
               <span
@@ -433,11 +432,10 @@ const MobileCarousel = ({
           <span
             key={i}
             onClick={() => scrollToPage(i)}
-            className={`transition-all cursor-pointer ${
-              activePage === i
+            className={`transition-all cursor-pointer ${activePage === i
                 ? "w-8 h-2 bg-blue-500 rounded-full"
                 : "w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400"
-            }`}
+              }`}
           />
         ))}
       </div>

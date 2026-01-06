@@ -1,6 +1,6 @@
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
-import subfooterone from '../../../assets/six_path.png';
+import subfooterone from '../../../assets/six_path.webp';
 
 const MeritScholarship = () => {
   const eligibilityCriteria = [
@@ -132,7 +132,7 @@ const MeritScholarship = () => {
           </div>
         </div>
       </div>
-   <div className="w-full bg-gray-50 mt-10 overflow-hidden">
+      <div className="w-full bg-gray-50 mt-10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="w-full text-center">
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Edit, Trash2, Eye, Calendar } from "lucide-react";
 import { FaPlus } from "react-icons/fa";
 import type { Planners } from "../model/PlannerModel";
-import image from '../../../assets/pcpslogo.png'
+import image from '../../../assets/pcpslogo.webp'
 
 interface CardViewProps {
   planners: Planners[];

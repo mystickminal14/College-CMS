@@ -1,6 +1,6 @@
-import decoration from '../../../assets/decoration.png';
+import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
-import subfooterone from '../../../assets/six_path.png';
+import subfooterone from '../../../assets/six_path.webp';
 
 const GyandeepScholasrhip = () => {
   return (

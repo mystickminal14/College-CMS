@@ -1,6 +1,6 @@
 import { FaEnvelope, FaUser } from "react-icons/fa";
 
-import decoration from "../../../assets/decoration.png";
+import decoration from "../../../assets/decoration.webp";
 import useGetContactsAll from "../../../pages/contact/hooks/useGetAll";
 import { motion } from 'framer-motion';
 import { fadeUp } from "../../comp/animation";
@@ -25,8 +25,8 @@ const ContactListPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-     
-  <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+
+      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -34,27 +34,27 @@ const ContactListPage = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-     
-  <motion.div
+
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-            Contact Directory
+              Contact Directory
             </span>
           </motion.div>
 
@@ -62,10 +62,10 @@ const ContactListPage = () => {
             <span className="text-gray-900">Staff </span>
             <span className="relative inline-block ml-2">
               <span className="text-blue-600 relative z-10">
-               Contact List
+                Contact List
               </span>
               <motion.img
-               initial={{ scaleX: 0 }}
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
                 src={decoration}
@@ -73,20 +73,20 @@ const ContactListPage = () => {
                 className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
               />
             </span>{" "}
-           
+
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-        Find the right contact for academic matters, IT support, exams,
+            Find the right contact for academic matters, IT support, exams,
             registration, accounts, and other student services.
           </motion.p>
         </motion.div>
       </div>
- 
-     <div className="container mx-auto flex flex-col px-4 md:px-20 pb-20">
+
+      <div className="container mx-auto flex flex-col px-4 md:px-20 pb-20">
 
         {isLoading && (
           <div className="space-y-4">
@@ -130,8 +130,8 @@ const ContactListPage = () => {
               </div>
             </div>
 
-          <div className="hidden lg:block bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mx-auto">
-  <div className="overflow-x-auto">
+            <div className="hidden lg:block bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mx-auto">
+              <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-linear-to-r from-gray-50 to-gray-100">
                     <tr>
@@ -169,7 +169,7 @@ const ContactListPage = () => {
                             </div>
                           </div>
                         </td>
-                            <td className="px-8 py-6">
+                        <td className="px-8 py-6">
                           <div className="max-w-xs">
                             <div className="text-gray-700 bg-gray-50 p-3 rounded-lg text-sm wrap-break-word">
                               {contact.department || "Staff"}

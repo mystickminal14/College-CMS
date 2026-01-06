@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import decoration from "../../../../assets/decoration.png";
+import decoration from "../../../../assets/decoration.webp";
 import { IMAGE_URL } from "../../../../constants";
 import useGetNews from "../../../../pages/news/hooks/useGetAllNews";
 import { motion } from 'framer-motion';
@@ -81,20 +81,20 @@ const RecentNews = () => {
     <section className="bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <motion.h1  initial={{ opacity: 0, y: 100 }} // start from below
-    whileInView={{ opacity: 1, y: 0 }} // animate to position
-    viewport={{ once: true, amount: 0.3 }} // trigger once when in view
-    transition={{ type: "spring", stiffness: 120, damping: 15 }}
-  className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12">
+        <motion.h1 initial={{ opacity: 0, y: 100 }} // start from below
+          whileInView={{ opacity: 1, y: 0 }} // animate to position
+          viewport={{ once: true, amount: 0.3 }} // trigger once when in view
+          transition={{ type: "spring", stiffness: 120, damping: 15 }}
+          className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12">
           Recent{" "}
           <span className="relative inline-block text-[#474AFF]">
             News
             <motion.img
-             initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
-       
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
+
               src={decoration}
               alt="Decoration"
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
@@ -106,16 +106,16 @@ const RecentNews = () => {
           <p className="text-center text-gray-500">Loading news...</p>
         )}
 
- {!isLoading && newsList?.length === 0 && (
-  <div className="text-center">
-    <h3 className="text-xl font-semibold text-gray-700">
-      No News available right now
-    </h3>
-    <p className="text-gray-500 mt-2">
-      Please check back later. New News will be added soon.
-    </p>
-  </div>
-)}
+        {!isLoading && newsList?.length === 0 && (
+          <div className="text-center">
+            <h3 className="text-xl font-semibold text-gray-700">
+              No News available right now
+            </h3>
+            <p className="text-gray-500 mt-2">
+              Please check back later. New News will be added soon.
+            </p>
+          </div>
+        )}
 
 
         {!isLoading && !isError && newsList.length > 0 && (

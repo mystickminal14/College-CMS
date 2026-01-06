@@ -1,4 +1,4 @@
-import ring from '../../assets/ring.png';
+import ring from '../../assets/ring.webp';
 interface BreadcrumbItem {
   label: string;
 }

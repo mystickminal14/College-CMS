@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import decoration from "../../../../assets/decoration.png";
+import decoration from "../../../../assets/decoration.webp";
 import useGetAll from "./hooks/useGetAlumni";
 import type { Alumni } from "../../../../pages/alumni/model/AlumniModel";
 import { IMAGE_URL } from "../../../../constants";
@@ -61,30 +61,30 @@ export function Testimonial() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         {/* Heading */}
-<div className="text-center mb-8 sm:mb-12">
-  <motion.h1
-    className="text-4xl md:text-5xl font-bold text-gray-900"
-    initial={{ opacity: 0, y: 100 }} // start from below
-    whileInView={{ opacity: 1, y: 0 }} // animate to position
-    viewport={{ once: true, amount: 0.3 }} // trigger once when in view
-    transition={{ type: "spring", stiffness: 120, damping: 15 }}
-  >
-    What Our{" "}
-    <motion.span className="relative text-[#474AFF] inline-block">
-      Students
-      <motion.img
-        src={decoration}
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
-        alt="decoration"
-        className="absolute left-1/2 -translate-x-1/2 mt-0 sm:mt-1 w-full h-2 md:h-3"
-      />
-    </motion.span>{" "}
-    Say?
-  </motion.h1>
-</div>
+        <div className="text-center mb-8 sm:mb-12">
+          <motion.h1
+            className="text-4xl md:text-5xl font-bold text-gray-900"
+            initial={{ opacity: 0, y: 100 }} // start from below
+            whileInView={{ opacity: 1, y: 0 }} // animate to position
+            viewport={{ once: true, amount: 0.3 }} // trigger once when in view
+            transition={{ type: "spring", stiffness: 120, damping: 15 }}
+          >
+            What Our{" "}
+            <motion.span className="relative text-[#474AFF] inline-block">
+              Students
+              <motion.img
+                src={decoration}
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
+                alt="decoration"
+                className="absolute left-1/2 -translate-x-1/2 mt-0 sm:mt-1 w-full h-2 md:h-3"
+              />
+            </motion.span>{" "}
+            Say?
+          </motion.h1>
+        </div>
 
 
         {isLoading ? (

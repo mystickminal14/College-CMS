@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { FaFilePdf } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-import image from "../../../assets/pcpslogo.png";
-import decoration from "../../../assets/decoration.png";
+import image from "../../../assets/pcpslogo.webp";
+import decoration from "../../../assets/decoration.webp";
 
 import { IMAGE_URL } from "../../../constants";
 import useGetDownloads from "../../../pages/handbook/hooks/useGetAll";

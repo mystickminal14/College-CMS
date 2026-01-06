@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import apu from "../../../../assets/apu_logo.png";
-import ranking from "../../../../assets/university_ranking.png";
-import decoration from '../../../../assets/decoration.png';
-import campus from '../../../../assets/campus.png';
-import campus_inside from '../../../../assets/campus_inside.jpg';
+import apu from "../../../../assets/apu_logo.webp";
+import ranking from "../../../../assets/university_ranking.webp";
+import decoration from '../../../../assets/decoration.webp';
+import campus from '../../../../assets/campus.webp';
+import campus_inside from '../../../../assets/campus_inside.webp';
 import { fadeUp, staggerContainer } from "../../../comp/animation";
 
 export function University() {
@@ -12,7 +12,7 @@ export function University() {
 
       {/* Background images */}
       <motion.div
-        className="absolute top-[5vh] left-[10vw] w-44 h-60 rounded-3xl -rotate-15 hidden lg:block bg-cover bg-center"
+        className="absolute top-[5vh] left-[10vw] w-34 h-45 rounded-3xl -rotate-15 hidden lg:block bg-cover bg-center"
         style={{ backgroundImage: `url(${campus})` }}
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
@@ -21,7 +21,7 @@ export function University() {
       />
 
       <motion.div
-        className="absolute bottom-[10vh] right-[6vw] w-44 h-60 rounded-3xl rotate-15 hidden lg:block bg-cover bg-center"
+        className="absolute bottom-[6vh] right-[6vw] w-34 h-45 rounded-3xl rotate-15 hidden lg:block bg-cover bg-center"
         style={{ backgroundImage: `url(${campus_inside})` }}
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
@@ -59,10 +59,10 @@ export function University() {
               src={decoration}
               alt="Decoration"
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
-               initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.4 }}  />
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.4 }} />
           </motion.span>{" "}
           <br />
           <motion.span className="text-gray-900" variants={fadeUp}>

@@ -13,8 +13,8 @@ import {
   FaComment,
 
 } from "react-icons/fa";
-import logo from "../../../../assets/lbefhd.jpg";
-import apuLogo from "../../../../assets/apu_logo.png";
+import logo from "../../../../assets/lbef_five.webp";
+import apuLogo from "../../../../assets/apu.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 
 type DropdownItem = {
@@ -152,10 +152,10 @@ export function NavBar() {
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
         <div className="flex gap-2">
-          <NavLink to="/" className="w-20 md:w-24 cursor-pointer">
+          <NavLink to="/" className="w-40 cursor-pointer">
             <img src={logo} alt="LBEF Logo" />
           </NavLink>
-          <NavLink to="/" className="w-40 md:w-44 cursor-pointer">
+          <NavLink to="/" className="w-14 cursor-pointer">
             <img src={apuLogo} alt="APU Logo" className="" />
           </NavLink>
         </div>

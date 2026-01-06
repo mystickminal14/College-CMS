@@ -1,5 +1,5 @@
-// import girlWithCup from "../../../assets/girl_with_cup.png";
-// import girlWithThinking from "../../assets/girl_with_thinking.png";
+// import girlWithCup from "../../../assets/girl_with_cup.webp";
+// import girlWithThinking from "../../assets/girl_with_thinking.webp";
 
 // import { Video, Users } from "lucide-react";
 

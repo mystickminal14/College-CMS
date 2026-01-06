@@ -1,6 +1,6 @@
 import { IMAGE_URL } from "../../../constants";
 import type { NewsModel } from "../model/NewsModel";
-import img from "../../../assets/applogo.png";
+import img from "../../../assets/applogo.webp";
 
 export const NewsModelColumns = [
   {
@@ -12,16 +12,16 @@ export const NewsModelColumns = [
       const hasImage = row.image && row.image !== "";
       const imageUrl = hasImage ? `${IMAGE_URL}${row.image}` : defaultAvatar;
       return (
-       <a
+        <a
           href={imageUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-        <img
-          src={imageUrl}
-          alt="User"
-          className="w-18 h-18 rounded-md object-cover border shadow-sm" // ← updated
-        /></a>
+          <img
+            src={imageUrl}
+            alt="User"
+            className="w-18 h-18 rounded-md object-cover border shadow-sm" // ← updated
+          /></a>
       );
     },
   },

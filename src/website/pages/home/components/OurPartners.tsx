@@ -1,4 +1,4 @@
-import Image from "../../../../assets/girl_left_side.png";
+import Image from "../../../../assets/girl_left_side.webp";
 const partners = [
   { id: 1, name: "Academic Academy", image: Image },
   { id: 2, name: "University 1890", image: Image },

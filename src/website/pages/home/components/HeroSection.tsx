@@ -1,6 +1,6 @@
-import butterfiles from "../../../../assets/butterfiles.png"
+import butterfiles from "../../../../assets/butterfiles.webp"
 import { motion } from "framer-motion";
-import graduation from "../../../../assets/images/home5.jpg"
+import graduation from "../../../../assets/images/home5.webp"
 
 export function HeroSection() {
   return (
@@ -43,7 +43,7 @@ export function HeroSection() {
           </div>
 
           <motion.span
-            initial={{ opacity: 0,}} // come from left
+            initial={{ opacity: 0, }} // come from left
             animate={{ opacity: 1, }}
             transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
             className="relative"
@@ -89,7 +89,7 @@ export function HeroSection() {
 
           <span className="relative ">
             <motion.span
-              initial={{ opacity: 0}} // come from right
+              initial={{ opacity: 0 }} // come from right
               animate={{ opacity: 1 }}
               transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.4 }}
               className="md:text-[5vw]"

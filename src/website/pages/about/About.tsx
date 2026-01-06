@@ -13,6 +13,7 @@ import StartJourney from "./components/StartJourney";
 import StatusSection from "./components/StatusSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Inspiration from "../our-team/component/inspiration";
+import { TenReasons } from "./components/TenReasons";
 
 
 export function AboutPage() {
@@ -37,9 +38,7 @@ export function AboutPage() {
           <ABoutHeroSection />
           <Inspiration />
 
-          <MissionSection />
-          <VideoSection />
-          <StatusSection />
+
 
           {/* ================= HERO ================= */}
           <motion.div
@@ -55,25 +54,37 @@ export function AboutPage() {
             style={{ y: contentY }}
             className="relative z-20 bg-white"
           >
-            <OurCore />
+            <StatusSection />
+            <TenReasons />
             <motion.div
               className="sticky top-0 z-10 bg-white"
             >
-              <PartnerSection />
-
-
+              <VideoSection />
             </motion.div>
+
             <motion.div
               style={{ y: contentY }}
               className="relative z-20 bg-white"
             >
-              <StartJourney />
-              <Employability />
-              <CollegeAppSection />
-              <SubFooter />
-              <FAQSection />
-            </motion.div>
+              <MissionSection />
 
+              <OurCore />
+              <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <PartnerSection />
+              </motion.div>
+              <motion.div
+                style={{ y: contentY }}
+                className="relative z-20 bg-white"
+              >
+                <StartJourney />
+                <Employability />
+                <CollegeAppSection />
+                <SubFooter />
+                <FAQSection />
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       ) : (
@@ -84,6 +95,7 @@ export function AboutPage() {
           <VideoSection />
           <StatusSection />
           <AboutSection />
+          <TenReasons />
           <OurCore />
           <PartnerSection />
           <StartJourney />

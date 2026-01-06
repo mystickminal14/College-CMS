@@ -1,8 +1,8 @@
-import pankaj from '../../../assets/core/jalan.jpeg'
-import prakash from '../../../assets/core/prakash.png'
+import pankaj from '../../../assets/core/jalan.webp'
+import prakash from '../../../assets/core/prakash.webp'
 
 import paramjeet from '../../../assets/core/drparam.webp'
-import hockuan from '../../../assets/core/prof.jpg'
+import hockuan from '../../../assets/core/prof.webp'
 
 export interface Message {
   id: number;

@@ -1,6 +1,6 @@
 import { IMAGE_URL } from "../../../constants";
 import type { Teams } from "../model/TeamsModel";
-import img from "../../../assets/applogo.png";
+import img from "../../../assets/applogo.webp";
 
 export const TeamsColumns = [
   {
@@ -17,17 +17,17 @@ export const TeamsColumns = [
           target="_blank"
           rel="noopener noreferrer"
         >
-        <img
-          src={imageUrl}
-          alt="User"
-          className="w-18 cursor-pointer h-18 rounded-md object-cover border shadow-sm" // ← updated
-        /></a>
+          <img
+            src={imageUrl}
+            alt="User"
+            className="w-18 cursor-pointer h-18 rounded-md object-cover border shadow-sm" // ← updated
+          /></a>
       );
     },
   },
 
   { label: "Name", accessor: "name" },
   { label: "Position", accessor: "position" },
-  { label: "Department", accessor: "department",render: (row: Teams) => `${row.department.toLowerCase()} ` },
-  
+  { label: "Department", accessor: "department", render: (row: Teams) => `${row.department.toLowerCase()} ` },
+
 ];

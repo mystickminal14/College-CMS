@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import decoration from '../../../../assets/decoration.png';
+import decoration from '../../../../assets/decoration.webp';
 
 export default function Events() {
   const events = [

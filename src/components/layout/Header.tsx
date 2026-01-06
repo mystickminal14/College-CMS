@@ -4,7 +4,7 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { AppContext } from "../../context/ContextApp";
 import { useNavigate } from "react-router-dom";
 import type { ProfileModel } from "../model/ProfileModel";
-import appLogo from "../../assets/applogo.png";
+import appLogo from "../../assets/applogo.webp";
 import { IMAGE_URL } from "../../constants";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -17,12 +17,12 @@ interface HeaderProps {
   onMobileMenuToggle: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ 
-  onToggle, 
-  profile, 
-  isLoading, 
+const Header: React.FC<HeaderProps> = ({
+  onToggle,
+  profile,
+  isLoading,
   isMobile,
-  onMobileMenuToggle 
+  onMobileMenuToggle
 }) => {
   const appContext = useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
@@ -95,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({
               Welcome to PCPS Life 👋
             </h1>
           </div>
-          
+
           {/* Mobile title */}
           <div className="md:hidden">
             <h1 className="text-lg font-bold 
@@ -193,9 +193,9 @@ const Header: React.FC<HeaderProps> = ({
               className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg border z-50
                         transform transition-all duration-200 ease-in-out 
                         ${dropdownOpen
-                          ? "scale-100 opacity-100"
-                          : "scale-95 opacity-0 pointer-events-none"
-                        } 
+                  ? "scale-100 opacity-100"
+                  : "scale-95 opacity-0 pointer-events-none"
+                } 
                         bg-white dark:bg-slate-800 
                         border-slate-200 dark:border-slate-700`}
             >

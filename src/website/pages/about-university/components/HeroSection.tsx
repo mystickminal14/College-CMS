@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
-import university_image from "../../../../assets/university_image.jpg";
+import university_image from "../../../../assets/university.webp";
 
 export default function HeroSection() {
   return (

@@ -1,6 +1,6 @@
 import { IMAGE_URL } from "../../../constants";
 import type { Courses } from "../model/CourseModel";
-import img from "../../../assets/applogo.png";
+import img from "../../../assets/applogo.webp";
 
 export const CoursesColumns = [
   {
@@ -31,7 +31,7 @@ export const CoursesColumns = [
     render: (row: Courses) => `${row.prefix} ${row.title}`
   },
   { label: "Duration", accessor: "duration" },
-  { label: "Shift", accessor: "shift" ,  render: (row: Courses) => `${row.shift==='BOTH'?"Morning/Evening":row.shift.toLowerCase()} `},
+  { label: "Shift", accessor: "shift", render: (row: Courses) => `${row.shift === 'BOTH' ? "Morning/Evening" : row.shift.toLowerCase()} ` },
   { label: "Credits", accessor: "credit" },
 
 

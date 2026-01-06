@@ -1,8 +1,8 @@
-import girlWithCup from "../../../../assets/images/image_mac.jpg";
-import girlWithThinking from "../../../../assets/girl_with_thinking.png";
+import girlWithCup from "../../../../assets/images/image_mac.webp";
+import girlWithThinking from "../../../../assets/girl_with_thinking.webp";
 import { CheckCircle, Users, Video } from "lucide-react";
-import decoration from '../../../../assets/decoration.png';
-import bg1 from '../../../../assets/images/home3.jpg';
+import decoration from '../../../../assets/decoration.webp';
+import bg1 from '../../../../assets/images/home3.webp';
 
 
 
@@ -78,8 +78,8 @@ export function JoinStudents() {
         </div>
 
         <div className="text-center lg:text-left mt-2">
-          <span className="inline-block px-6 py-2 text-white text-sm sm:text-base font-semibold rounded-full mb-3">
-            Join LBEF
+          <span className="inline-block px-2 py-2 text-white text-sm sm:text-base font-semibold rounded-full mb-3">
+          EVOLVE WITH US
           </span>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">

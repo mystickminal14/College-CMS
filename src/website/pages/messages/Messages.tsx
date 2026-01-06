@@ -1,19 +1,19 @@
 // MessageDetail.tsx
 import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
-import decoration from "../../../assets/decoration.png";
-import pankajImage from "../../../assets/core/jalan.jpeg";
-import prakashImage from "../../../assets/core/prakash.png";
+import decoration from "../../../assets/decoration.webp";
+import pankajImage from "../../../assets/core/jalan.webp";
+import prakashImage from "../../../assets/core/prakash.webp";
 import paramjeetImage from '../../../assets/core/drparam.webp'
-import hockuanImage from '../../../assets/core/prof.jpg'
+import hockuanImage from '../../../assets/core/prof.webp'
 
 import { fadeUp } from "../../comp/animation";
-import {  getMessageById } from "./messagesData";
+import { getMessageById } from "./messagesData";
 
 const MessageDetail = () => {
   const { id } = useParams<{ id: string }>();
   const message = id ? getMessageById(id) : undefined;
-  
+
   if (!message) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -61,14 +61,14 @@ const MessageDetail = () => {
               transition={{ delay: 0.2 }}
               className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
             >
-              <motion.span 
+              <motion.span
                 className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{ 
+                animate={{
                   scale: [1, 1.2, 1],
                   opacity: [1, 0.7, 1]
                 }}
-                transition={{ 
-                  repeat: Infinity, 
+                transition={{
+                  repeat: Infinity,
                   duration: 2,
                   ease: "easeInOut"
                 }}
@@ -92,7 +92,7 @@ const MessageDetail = () => {
             </h1>
           </div>
 
-  
+
         </motion.div>
       </div>
 
@@ -144,13 +144,13 @@ const MessageDetail = () => {
                   <p className="text-lg font-semibold text-blue-700 mb-2">
                     {message.greeting}
                   </p>
-                  
+
                   {message.message.split('\n\n').map((paragraph, index) => (
                     <p key={index} className="leading-relaxed">
                       {paragraph}
                     </p>
                   ))}
-                  
+
                   {message.quote && (
                     <div className="bg-blue-50 p-5 rounded-lg mt-6 border-l-4 border-blue-500">
                       <p className="font-semibold text-gray-800 italic">
@@ -158,7 +158,7 @@ const MessageDetail = () => {
                       </p>
                     </div>
                   )}
-                  
+
                   <div className="pt-6 mt-6 border-t border-gray-200">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
@@ -168,10 +168,10 @@ const MessageDetail = () => {
                         </p>
                       </div>
                       <div className="text-gray-500 text-sm">
-                        {new Date().toLocaleDateString('en-US', { 
-                          month: 'short', 
-                          day: 'numeric', 
-                          year: 'numeric' 
+                        {new Date().toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
                         })}
                       </div>
                     </div>

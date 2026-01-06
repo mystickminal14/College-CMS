@@ -1,6 +1,6 @@
 // CourseMiniCard.tsx
 import { FaUser, FaBookmark, FaClock } from "react-icons/fa";
-import headerBg from "../../assets/mountain.jpg";
+import headerBg from "../../assets/mountain.webp";
 
 interface MiniCardProps {
   title?: string;
@@ -10,7 +10,7 @@ interface MiniCardProps {
   enrolled?: number;
   capacity?: number;
   status?: string;
-  
+
   duration?: string;
 }
 

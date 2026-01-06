@@ -1,6 +1,6 @@
 import { Award, BookOpen, Briefcase, GraduationCap, TrendingUp, Users } from "lucide-react";
-import lbef_bufferfly from "../../../../assets/pcpslogo.png";
-import decoration from "../../../../assets/decoration.png";
+import lbef_bufferfly from "../../../../assets/pcpslogo.webp";
+import decoration from "../../../../assets/decoration.webp";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 

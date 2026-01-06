@@ -1,7 +1,7 @@
 import { FaAward, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useContext } from "react";
-import appLogo from "../../assets/butterfiles.png";
-import pcpsLogo from "../../assets/pcpslogo.png";
+import appLogo from "../../assets/butterfiles.webp";
+import pcpsLogo from "../../assets/pcpslogo.webp";
 import {
   MdPeople, MdSchool, MdBusinessCenter, MdArticle,
   MdWorkspacePremium, MdGroups, MdEvent,

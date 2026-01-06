@@ -1,15 +1,15 @@
-import appMockup from '../../../../assets/mobileapp.png';
-import decoration from '../../../../assets/decoration.png';
-import playstore from '../../../../assets/playstore.png';
-import apple from '../../../../assets/apple.png';
-import bg1 from '../../../../assets/pcpslogo.png';
+import appMockup from '../../../../assets/mobileapp.webp';
+import decoration from '../../../../assets/decoration.webp';
+import playstore from '../../../../assets/playstore.webp';
+import apple from '../../../../assets/apple.webp';
+import bg1 from '../../../../assets/pcpslogo.webp';
 
 export default function CollegeAppSection() {
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
       {/* Background Image + Overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
       <div className="absolute inset-0 bg-[#474AFF] opacity-65" />

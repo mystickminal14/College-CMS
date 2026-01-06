@@ -1,5 +1,5 @@
-import employment from '../../../../assets/learning_emplyability.jpg'
-import decoration from '../../../../assets/decoration.png';
+import employment from '../../../../assets/learning_emplyability.webp'
+import decoration from '../../../../assets/decoration.webp';
 
 export default function Employability() {
   return (

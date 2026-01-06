@@ -1,8 +1,8 @@
-import decoration from "../../../../assets/decoration.png";
-import top_mission from "../../../../assets/top_mission.jpg";
-import middle_mission from "../../../../assets/journey_background.jpg";
-import bottom_mission from "../../../../assets/mission/bottom_mission.jpg";
-import half_diamond from "../../../../assets/half_diamond.png";
+import decoration from "../../../../assets/decoration.webp";
+import top_mission from "../../../../assets/top_mission.webp";
+import middle_mission from "../../../../assets/journey_background.webp";
+import bottom_mission from "../../../../assets/mission/bottom_mission.webp";
+import half_diamond from "../../../../assets/half_diamond.webp";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -50,6 +50,7 @@ export function MissionSection() {
               title="Vision"
               iconPath="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             >
+              
               Our vision is to be the leading educational institution that creates an
               environment that fosters creativity, critical thinking, and innovation
               to produce leaders who are equipped to tackle future challenges.

@@ -1,6 +1,6 @@
 import { motion, type Variants } from 'framer-motion';
-import career from "../../../../assets/career_image.jpg";
-import decoration from '../../../../assets/decoration.png';
+import career from "../../../../assets/career_image.webp";
+import decoration from '../../../../assets/decoration.webp';
 
 // Custom fade-in animations
 const fadeLeft: Variants = {

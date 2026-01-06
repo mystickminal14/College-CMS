@@ -1,6 +1,6 @@
 import { ArrowRight, Users2 } from "lucide-react";
-import decoration from '../../../../assets/decoration.png';
-import about from '../../../../assets/decoration/about.jpg';
+import decoration from '../../../../assets/decoration.webp';
+import about from '../../../../assets/decoration/about.webp';
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 

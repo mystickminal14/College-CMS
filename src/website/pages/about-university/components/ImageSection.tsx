@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
-import image from "../../../../assets/university_image.png";
+import image from "../../../../assets/university_image.webp";
 
 export function ImageSection() {
   return (

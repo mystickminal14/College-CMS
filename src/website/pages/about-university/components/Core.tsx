@@ -1,8 +1,8 @@
 import { motion, type Variants } from 'framer-motion';
-import decoration from '../../../../assets/decoration.png';
+import decoration from '../../../../assets/decoration.webp';
 import imageone from '../../../../assets/core/drparam.webp';
-import imagetwo from '../../../../assets/core/prof.jpg';
-import bg1 from '../../../../assets/apu-bg.jpg';
+import imagetwo from '../../../../assets/core/prof.webp';
+import bg1 from '../../../../assets/apu-bg.webp';
 import { useNavigate } from 'react-router-dom';
 
 const messages = [

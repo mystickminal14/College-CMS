@@ -29,8 +29,8 @@ import { useGetCalender } from "./hook/useGetCalender";
 import type { EventModel } from "./model/CalenderModel";
 import { fadeUp } from "../../comp/animation";
 
-import decoration from "../../../assets/decoration.png";
-import calendarBg from "../../../assets/butterfiles.png";
+import decoration from "../../../assets/decoration.webp";
+import calendarBg from "../../../assets/butterfiles.webp";
 
 const HolidayWebPlanner: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -69,8 +69,8 @@ const HolidayWebPlanner: React.FC = () => {
   /* ================= IMPROVED HEADER ================= */
   const CalendarHeader = () => (
     <div className="flex justify-between items-center mb-6">
-      <button 
-        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} 
+      <button
+        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
         className="p-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
       >
         <FaChevronLeft className="text-gray-600" />
@@ -81,8 +81,8 @@ const HolidayWebPlanner: React.FC = () => {
         <h2 className="text-xl font-bold text-gray-800">{format(currentMonth, "MMMM yyyy")}</h2>
       </div>
 
-      <button 
-        onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} 
+      <button
+        onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
         className="p-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
       >
         <FaChevronRight className="text-gray-600" />
@@ -145,7 +145,7 @@ const HolidayWebPlanner: React.FC = () => {
                   <span
                     key={idx}
                     className="w-2 h-2 rounded-full"
-                    style={{ 
+                    style={{
                       backgroundColor: isSelected ? "#ffffff" : (event.colorCode || "#6B7280"),
                       opacity: isSelected ? 0.9 : 1
                     }}
@@ -182,7 +182,7 @@ const HolidayWebPlanner: React.FC = () => {
     );
   };
 
- const EventItem = ({ event }: { event: EventModel }) => {
+  const EventItem = ({ event }: { event: EventModel }) => {
     const expanded = expandedId === event.eventId;
     const eventDate = event.startDate ? new Date(event.startDate) : null;
     const isPast = eventDate ? isBefore(eventDate, new Date()) : false;
@@ -251,26 +251,26 @@ const HolidayWebPlanner: React.FC = () => {
         className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
       >
         <div className="max-w-8xl mx-auto">
-             <motion.div
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1]
               }}
-              transition={{ 
-                repeat: Infinity, 
+              transition={{
+                repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut" as const
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-             Holiday Planner
+              Holiday Planner
             </span>
           </motion.div>
 
@@ -281,7 +281,7 @@ const HolidayWebPlanner: React.FC = () => {
                 Calendar
               </span>
               <motion.img
-               initial={{ scaleX: 0 }}
+                initial={{ scaleX: 0 }}
                 src={decoration}
 
                 animate={{ scaleX: 1 }}
@@ -292,11 +292,11 @@ const HolidayWebPlanner: React.FC = () => {
             </span>
           </h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
-            Plan your academic year with our comprehensive holiday schedule. 
+            Plan your academic year with our comprehensive holiday schedule.
             Stay updated with all administrative and academic holidays.
           </motion.p>
         </div>

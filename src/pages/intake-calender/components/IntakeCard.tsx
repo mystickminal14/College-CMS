@@ -1,6 +1,6 @@
 import React from "react";
 import { Trash2, Calendar, Clock } from "lucide-react";
-import image from '../../../assets/intake.jpg'
+import image from '../../../assets/intake.webp'
 import { parseDate } from "../../../utils/ParseDate";
 import type { Intakes } from "../model/IntakeModel";
 
@@ -13,12 +13,12 @@ interface CardProps {
   intakeData: Intakes;
 }
 
-const IntakeCard: React.FC<CardProps> = ({ 
-  title, 
-  duration, 
-  date, 
-  admissionStatus, 
-  onDelete 
+const IntakeCard: React.FC<CardProps> = ({
+  title,
+  duration,
+  date,
+  admissionStatus,
+  onDelete
 }) => {
   const isOpen = admissionStatus === "OPEN";
   const parsedDate = parseDate(date);
@@ -39,17 +39,17 @@ const IntakeCard: React.FC<CardProps> = ({
           alt={title}
           className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition-opacity duration-500"
         />
-        
+
         {/* Linear Overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent"></div>
-        
+
         {/* Content Overlay */}
         <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
-          
+
           {/* Top Section with Status and Delete */}
           <div className="flex justify-between items-start">
-          
-            
+
+
             {/* Delete Button */}
             <button
               onClick={handleDelete}
@@ -59,19 +59,19 @@ const IntakeCard: React.FC<CardProps> = ({
               <Trash2 size={18} />
             </button>
           </div>
-          
+
           {/* Center Content */}
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-white leading-tight">
               {title}
             </h2>
-            
+
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full">
               <Clock size={14} />
               <span className="text-sm font-medium">{duration}</span>
             </div>
           </div>
-          
+
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 mt-2 border border-white/20">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -81,10 +81,9 @@ const IntakeCard: React.FC<CardProps> = ({
                   <p className="text-white  text-sm font-semibold">{parsedDate}</p>
                 </div>
               </div>
-              
-              <div className={`text-right ${
-                isOpen ? 'text-green-300' : 'text-red-300'
-              }`}>
+
+              <div className={`text-right ${isOpen ? 'text-green-300' : 'text-red-300'
+                }`}>
                 <p className="text-xs font-medium">
                   {isOpen ? ' Applications' : 'Applications'}
                 </p>

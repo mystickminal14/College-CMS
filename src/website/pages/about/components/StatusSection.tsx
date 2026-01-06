@@ -25,7 +25,7 @@ const stats = [
         <circle cx="18" cy="10" r="3" />
       </svg>
     ),
-    target: 1000,
+    target: 1400,
     suffix: "+",
     label: "Students"
   },
