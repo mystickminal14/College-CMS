@@ -19,8 +19,6 @@ import {
   Zap,
 } from "lucide-react";
 import CourseDetailRenderer from "./CourseDetailRender";
-
-/* ================= ANIMATION VARIANTS ================= */
 import { useEnquiry } from "../../context/EnquiryContext";
 
 
@@ -107,7 +105,7 @@ const CourseDetails = () => {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       <CourseNewHeader course={course} />
 
-      <div className="container max-w-7xl mx-auto px-4 pb-20">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-0 pb-20">
         <div className="flex flex-col-reverse sm:felx-col lg:flex-row gap-8">
           <main className="lg:w-2/3 space-y-12">
             {data?.data?.length === 0 && (
@@ -315,7 +313,7 @@ const CourseDetails = () => {
                       label: "Duration",
                       value: `${course.duration} (${course.semester} semester)`,
                     },
-                    { icon: Languages, label: "TT Language", value: "English" },
+                    { icon: Languages, label: "Language", value: "English" },
                     {
                       icon: BookOpen,
                       label: "Credits",
@@ -430,7 +428,7 @@ const CourseDetails = () => {
                     </p>
                     <motion.button
                       whileTap={{ scale: 0.95 }}
-                      className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2 npfWidgetButton npfWidget-37b0a5e5264dcf9f208d052c97b65286"
+                      className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2 "
                       onClick={() => open()}
                     >
                       Apply Now

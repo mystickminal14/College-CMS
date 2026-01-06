@@ -93,7 +93,6 @@ export default function NewCourse() {
 
   return (
     <div>
-      {/* ================= HEADER ================= */}
       <div className="max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -197,8 +196,10 @@ export default function NewCourse() {
                   {courses.slice(0, 6).map((course) => (
                     <motion.div
                       key={course.id}
+                                                  onClick={() => handleView(course)}
+
                       variants={fadeUp}
-                      className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
+                      className="group relative cursor-pointer overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
                     >
                       {/* BACKGROUND IMAGE WITH SPRING */}
                       <motion.div
@@ -250,16 +251,16 @@ export default function NewCourse() {
                             transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
                             className="text-xl font-bold group-hover:text-white"
                           >
-                            {course.title}
+                           {course.prefix} {course.title}
                           </motion.h3>
                         </div>
 
                         <div className="hover-reveal mt-4">
                           <p className="text-sm text-white">
-                            {truncateWords(course.details ?? "", 30)}
+                            {truncateWords(course.details ?? "", 25)}
                           </p>
                           <span
-                            className="mt-6 block text-white font-semibold cursor-pointer"
+                            className="mt-4 block text-white font-semibold cursor-pointer"
                             onClick={() => handleView(course)}
                           >
                             READ MORE
@@ -381,6 +382,8 @@ const MobileCarousel = ({
       >
         {courses.map((course) => (
           <motion.div
+                onClick={() => onView(course)}
+
             key={course.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -407,11 +410,11 @@ const MobileCarousel = ({
                 transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
                 className="mt-4 text-lg font-bold"
               >
-                {course.title}
+               {course.prefix} {course.title}
               </motion.h3>
 
               <p className="mt-2 text-sm flex-1">
-                {truncateWords(course.details ?? "", 30)}
+                {truncateWords(course.details ?? "", 35)}
               </p>
 
               <span

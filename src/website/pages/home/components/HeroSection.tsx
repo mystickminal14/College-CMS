@@ -23,8 +23,8 @@ export function HeroSection() {
           <div className="inline-block">
             <span className="relative inline-block">
               <motion.span
-                initial={{ opacity: 0, x: -300 }} // come from left
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, }} // come from left
+                animate={{ opacity: 1, }}
                 transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
                 className="text-md sm:text-lg lg:text-[6vw]"
               >
@@ -43,8 +43,8 @@ export function HeroSection() {
           </div>
 
           <motion.span
-            initial={{ opacity: 0, x: -300 }} // come from left
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0,}} // come from left
+            animate={{ opacity: 1, }}
             transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
             className="relative"
           >
@@ -77,8 +77,8 @@ export function HeroSection() {
               <img src={butterfiles} alt="Butterflies" />
             </motion.span>
             <motion.span
-              initial={{ opacity: 0, x: -300 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
             >
               LBEF
@@ -89,8 +89,8 @@ export function HeroSection() {
 
           <span className="relative ">
             <motion.span
-              initial={{ opacity: 0, x: 300 }} // come from right
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0}} // come from right
+              animate={{ opacity: 1 }}
               transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.4 }}
               className="md:text-[5vw]"
             >

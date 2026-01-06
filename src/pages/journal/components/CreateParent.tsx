@@ -1,37 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { X, RefreshCw, Loader2 } from "lucide-react";
-import useCreateParent from "../hooks/useCreate";
-import useEditSession from "../hooks/useEdit";
+import useCreateJournal from "../hooks/useCreate";
+import useEditJournal from "../hooks/useEdit";
 import type { CreateParentPayload } from "../model/JournalModel";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  initialData?: CreateParentPayload; // for edit
-  parentId?: number; // edit mode if present
+  initialData?: CreateParentPayload;
+  journalId?: number; // edit mode if present
 }
 
-const CreateEditParentJournalModal: React.FC<Props> = ({
+
+const CreateEditJournalModal: React.FC<Props> = ({
   isOpen,
   onClose,
   initialData,
-  parentId,
+  journalId,
 }) => {
   const [form, setForm] = useState<CreateParentPayload>({
-    issue: "",
     year: "",
+    month: "",
+    issue: "",
+    volume: "",
   });
 
   const [error, setError] = useState("");
 
-  const createMutation = useCreateParent();
-  const editMutation = useEditSession();
+  const createMutation = useCreateJournal();
+  const editMutation = useEditJournal();
 
   useEffect(() => {
     if (initialData) {
       setForm(initialData);
     } else {
-      setForm({ issue: "", year: "" });
+      setForm({
+        year: "",
+        month: "",
+        issue: "",
+        volume: "",
+      });
     }
     setError("");
   }, [initialData, isOpen]);
@@ -46,31 +54,27 @@ const CreateEditParentJournalModal: React.FC<Props> = ({
     e.preventDefault();
     setError("");
 
-    if (!form.issue.trim() || !form.year.trim()) {
-      setError("Issue and Year are required");
+    if (
+      !form.year.trim() ||
+      !form.month.trim() ||
+      !form.issue.trim() ||
+      !form.volume.trim()
+    ) {
+      setError("All fields are required");
       return;
     }
 
-    if (parentId) {
-      // EDIT
+    if (journalId) {
       editMutation.mutate(
-        {
-          id: parentId,
-          journal: form,
-        },
-        {
-          onSuccess: () => onClose(),
-        }
+        { id: journalId, journal: form },
+        { onSuccess: onClose }
       );
     } else {
-      // CREATE
-      createMutation.mutate(form, {
-        onSuccess: () => onClose(),
-      });
+      createMutation.mutate(form, { onSuccess: onClose });
     }
   };
 
-  const isPending = parentId
+  const isPending = journalId
     ? editMutation.isPending
     : createMutation.isPending;
 
@@ -79,12 +83,12 @@ const CreateEditParentJournalModal: React.FC<Props> = ({
       <div className="w-full max-w-md">
         <form
           onSubmit={handleSubmit}
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+          className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border overflow-hidden"
         >
           {/* HEADER */}
-          <div className="bg-linear-to-r from-[#1a7cd3] to-[#1a7cd3] p-6 flex justify-between items-center">
+          <div className="bg-[#1a7cd3] p-6 flex justify-between items-center">
             <h2 className="text-xl font-bold text-white">
-              {parentId ? "Edit Journal Issue" : "Create Journal Issue"}
+              {journalId ? "Edit Journal" : "Create Journal"}
             </h2>
             <button type="button" onClick={onClose}>
               <X className="w-5 h-5 text-white" />
@@ -92,30 +96,50 @@ const CreateEditParentJournalModal: React.FC<Props> = ({
           </div>
 
           <div className="p-6 space-y-4">
-            {/* Issue */}
+            {/* YEAR */}
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Issue *
-              </label>
-              <input
-                type="text"
-                value={form.issue}
-                onChange={(e) => handleChange("issue", e.target.value)}
-                placeholder="eg: Issue 1"
-                className="w-full px-4 py-2.5 border rounded-lg"
-              />
-            </div>
-
-            {/* Year */}
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Year *
-              </label>
+              <label className="block text-sm font-medium mb-1">Year *</label>
               <input
                 type="text"
                 value={form.year}
                 onChange={(e) => handleChange("year", e.target.value)}
-                placeholder="eg: 2025"
+                placeholder="e.g. 2025"
+                className="w-full px-4 py-2.5 border rounded-lg"
+              />
+            </div>
+
+            {/* MONTH */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Month *</label>
+              <input
+                type="text"
+                value={form.month}
+                onChange={(e) => handleChange("month", e.target.value)}
+                placeholder="e.g. January"
+                className="w-full px-4 py-2.5 border rounded-lg"
+              />
+            </div>
+
+            {/* ISSUE */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Issue *</label>
+              <input
+                type="text"
+                value={form.issue}
+                onChange={(e) => handleChange("issue", e.target.value)}
+                placeholder="e.g. Issue 1"
+                className="w-full px-4 py-2.5 border rounded-lg"
+              />
+            </div>
+
+            {/* VOLUME */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Volume *</label>
+              <input
+                type="text"
+                value={form.volume}
+                onChange={(e) => handleChange("volume", e.target.value)}
+                placeholder="e.g. Volume 12"
                 className="w-full px-4 py-2.5 border rounded-lg"
               />
             </div>
@@ -126,7 +150,7 @@ const CreateEditParentJournalModal: React.FC<Props> = ({
               </div>
             )}
 
-            {/* Buttons */}
+            {/* BUTTONS */}
             <div className="flex space-x-3 pt-6">
               <button
                 type="button"
@@ -144,12 +168,12 @@ const CreateEditParentJournalModal: React.FC<Props> = ({
                 {isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                    {parentId ? "Updating..." : "Creating..."}
+                    {journalId ? "Updating..." : "Creating..."}
                   </>
                 ) : (
                   <>
                     <RefreshCw className="w-4 h-4 mr-2" />
-                    {parentId ? "Update Issue" : "Create Issue"}
+                    {journalId ? "Update Journal" : "Create Journal"}
                   </>
                 )}
               </button>
@@ -161,4 +185,4 @@ const CreateEditParentJournalModal: React.FC<Props> = ({
   );
 };
 
-export default CreateEditParentJournalModal;
+export default CreateEditJournalModal;

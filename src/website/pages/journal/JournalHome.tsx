@@ -1,11 +1,10 @@
 // JournalHomeContent.tsx
 import { motion } from 'framer-motion';
-import { useMemo } from 'react';
-import useGetAllJournalsWithChildren from '../../../pages/journal/hooks/useGetAll';
 import { fadeUp } from '../../comp/animation';
 import { useNavigate } from 'react-router-dom';
-
 import decoration from "../../../assets/decoration.png";
+import useGetJournalsGroupedByYear from '../../../pages/journal/hooks/details/useGetJournalGroupedByYear';
+
 const SkeletonCard = () => (
   <div
     className="
@@ -27,44 +26,9 @@ const SkeletonCard = () => (
 );
 
 const JournalHomeContent = () => {
-  const { data, isLoading } = useGetAllJournalsWithChildren();
-  const journals = data?.data ?? [];
-  const navigate = useNavigate()
-  const groupedByYear = useMemo(() => {
-    if (!journals.length) return [];
-
-    const groups: Record<
-      string,
-      { year: string; issue: string; issues: any[] }
-    > = {};
-
-    journals.forEach((journal) => {
-      if (!journal.year) return;
-
-      const key = `${journal.year}-${journal.issue ?? ''}`;
-
-      if (!groups[key]) {
-        groups[key] = {
-          year: journal.year,
-          issue: journal.issue ?? 'ISSUES',
-          issues: [],
-        };
-      }
-
-      if (journal.children?.length) {
-        groups[key].issues.push(...journal.children);
-      }
-    });
-
-    return Object.values(groups)
-      .sort((a, b) => Number(b.year) - Number(a.year))
-      .map((group) => ({
-        ...group,
-        issues: group.issues.sort(
-          (a, b) => Number(b.volume ?? 0) - Number(a.volume ?? 0)
-        ),
-      }));
-  }, [journals]);
+  const { data, isLoading } = useGetJournalsGroupedByYear();
+  const journalsGrouped = data?.data ?? {}; // this is { "2019": [...], "2022": [...] }
+  const navigate = useNavigate();
 
   if (isLoading) {
     return (
@@ -84,12 +48,12 @@ const JournalHomeContent = () => {
     );
   }
 
-  if (!groupedByYear.length) {
+  const yearKeys = Object.keys(journalsGrouped).sort((a, b) => Number(b) - Number(a));
+
+  if (yearKeys.length === 0) {
     return (
       <div className="py-20 text-center">
-        <h3 className="text-xl font-semibold text-gray-700">
-          No journal issue
-        </h3>
+        <h3 className="text-xl font-semibold text-gray-700">No journal issue</h3>
         <p className="text-sm text-gray-500 mt-2">
           Journal issues will appear here once published.
         </p>
@@ -123,116 +87,119 @@ const JournalHomeContent = () => {
         </p>
       </motion.div>
 
-      {groupedByYear.map((group, groupIndex) => (
-        <motion.div
-          key={groupIndex}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          {/* Group Header */}
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">
-            <span>
-              {group.year} </span>–  <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> {group.issue}</span>
-              <img
-                src={decoration}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1  w-full h-2"
-              />
-            </span>
-          </h3>
+      {yearKeys.map((year) => {
+        const issues = journalsGrouped[year];
+        return (
+          <motion.div
+            key={year}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            {/* Group Header */}
+            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">
+              <span>{year} </span>
+              <span className="relative inline-block">
+                <span className="text-blue-600 relative z-10"> Issues</span>
+                <img
+                  src={decoration}
+                  alt="Decoration"
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-1  w-full h-2"
+                />
+              </span>
+            </h3>
 
-          {/* Cards (NO GAP) */}
-          {group.issues.length > 0 ? (
-            <div className="flex flex-wrap">
-              {group.issues.map((issue, issueIndex) => (
-                <motion.div
-                  key={issue.id ?? issueIndex}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  transition={{ delay: issueIndex * 0.08 }}
-                  className="
-                    w-full
-                    sm:w-1/2
-                    md:w-1/3
-                    lg:w-1/4
-                    min-w-[280px]
-                    p-8
-                    bg-white
-                    flex flex-col
-                    border border-neutral-700
-                    cursor-pointer
-                    group
-                    transition-all
-                    duration-300
-                    hover:-translate-y-1
-                  "
-                >
-                  <div className="grow">
-                    <h4
-                      className="
-                        text-xl
-                        font-bold
-                        text-gray-800
-                        mb-3
-                        transition-transform
-                        duration-300
-                        group-hover:-translate-y-1
-                      "
-                    >
-                      {issue.volume} {issue.month && `- ${issue.month}`}
-                    </h4>
+            {/* Cards */}
+            {issues.length > 0 ? (
+              <div className="flex flex-wrap">
+                {issues.map((issue, idx) => (
+                  <motion.div
+                    key={issue.id ?? idx}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.08 }}
+                    className="
+                      w-full
+                      sm:w-1/2
+                      md:w-1/3
+                      lg:w-1/4
+                      min-w-[280px]
+                      p-8
+                      bg-white
+                      flex flex-col
+                      border border-neutral-700
+                      cursor-pointer
+                      group
+                      transition-all
+                      duration-300
+                      hover:-translate-y-1
+                    "
+                  >
+                    <div className="grow">
+                      <h4
+                        className="
+                          text-xl
+                          font-bold
+                          text-gray-800
+                          mb-3
+                          transition-transform
+                          duration-300
+                          group-hover:-translate-y-1
+                        "
+                      >
+                        {issue.volume} {issue.issue && `- ${issue.issue}`}
+                      </h4>
 
-                    <div
-                      className="
-                        inline-flex
-                        items-center
-                        px-3
-                        py-1
-                        rounded
-                        bg-neutral-800
-                        mb-4
-                        transition-transform
-                        duration-300
-                        group-hover:-translate-y-1
-                      "
-                    >
-                      <span className="text-sm font-medium text-neutral-300">
-                        {issue.month || 'ISSUE'}
-                      </span>
+                      <div
+                        className="
+                          inline-flex
+                          items-center
+                          px-3
+                          py-1
+                          rounded
+                          bg-neutral-800
+                          mb-4
+                          transition-transform
+                          duration-300
+                          group-hover:-translate-y-1
+                        "
+                      >
+                        <span className="text-sm font-medium text-neutral-300">
+                          {issue.month || 'ISSUE'}
+                        </span>
+                      </div>
+
+                      <div
+                        className="
+                          mt-6
+                          transition-transform
+                          duration-300
+                          group-hover:-translate-y-1
+                        "
+                      >
+                        <button
+                          onClick={() => navigate(`/media/journal/${issue.id}`)}
+                          className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition"
+                        >
+                          View Issue <span className="ml-2">→</span>
+                        </button>
+                      </div>
                     </div>
-
-                    <div
-                      className="
-                        mt-6
-                        transition-transform
-                        duration-300
-                        group-hover:-translate-y-1
-                      "
-                    >
-                      <button
-                        onClick={() => navigate(`/media/journal/${issue.id}`)}
-
-                        className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition">
-                        View Issue <span className="ml-2">→</span>
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="border border-neutral-700 p-8 text-gray-500 text-center">
-              No volumes available
-            </div>
-          )}
-        </motion.div>
-      ))}
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="border border-neutral-700 p-8 text-gray-500 text-center">
+                No volumes available
+              </div>
+            )}
+          </motion.div>
+        );
+      })}
     </div>
   );
 };

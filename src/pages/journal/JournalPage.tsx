@@ -6,18 +6,16 @@ import { Edit, Trash2, Eye } from "lucide-react";
 import type { Journals } from "./model/JournalModel";
 import CreateEditParentJournalModal from "./components/CreateParent";
 import DeleteJournalModal from "./components/DeleteJournal";
-import ViewChildrenModal from "./components/ViewTable";
 import { PAGE_LIMIT } from "../../constants";
 import useGetJournal from "./hooks/useGetParent";
+import { useNavigate } from "react-router-dom";
 
 const JournalsPage = () => {
   const [showParentModal, setShowParentModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showViewChildrenModal, setShowViewChildrenModal] = useState(false);
   const [page, setPage] = useState(1);
 
   const [journalsToEdit, setJournalsToEdit] = useState<Journals | null>(null);
-  const [selectedParentId, setSelectedParentId] = useState<number | null>(null);
 
   const { data, isLoading, isError } = useGetJournal({
     page,
@@ -43,19 +41,18 @@ const JournalsPage = () => {
     setJournalsToEdit(journal);
     setShowDeleteModal(true);
   };
-
-  const handleViewChildren = (journal: Journals) => {
-    if (!journal.id) return;
-    setSelectedParentId(journal.id);
-    setShowViewChildrenModal(true);
+const navigate=useNavigate();
+ const handleView = (child: Journals) => {
+    if (!child.id) return;
+    navigate(`/app/media/journals/${child.id}`);
   };
 
   // ---------------- Table Actions ----------------
   const tableActions = [
     {
       icon: <Eye className="w-5 h-5" />,
-      tooltip: "View Volumes",
-      onClick: handleViewChildren,
+      tooltip: "View Details",
+      onClick: handleView,
       color: "text-green-600 hover:bg-green-600 hover:text-white",
     },
     {
@@ -73,20 +70,13 @@ const JournalsPage = () => {
   ];
 
   const columns = [
+    { label: "Volume", accessor: "volume" },
+
     { label: "Issue", accessor: "issue" },
+    { label: "Month", accessor: "month" },
+    
     { label: "Year", accessor: "year" },
-    {
-      label: "Actions",
-      accessor: "actions" as keyof Journals,
-      render: (row: Journals) => (
-        <button
-          onClick={() => handleViewChildren(row)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          View
-        </button>
-      ),
-    },
+  
   ];
 
   return (
@@ -124,10 +114,9 @@ const JournalsPage = () => {
       <CreateEditParentJournalModal
         isOpen={showParentModal}
         onClose={() => setShowParentModal(false)}
-        parentId={journalsToEdit?.id}
         initialData={
           journalsToEdit
-            ? { issue: journalsToEdit.issue ?? "", year: journalsToEdit.year ?? "" }
+            ? {  year: journalsToEdit.year ?? "" ,issue: journalsToEdit.issue ?? "", volume: journalsToEdit.volume ?? "", month: journalsToEdit.month ?? "" }
             : undefined
         }
       />
@@ -136,14 +125,9 @@ const JournalsPage = () => {
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         journal={journalsToEdit}
-        type="PARENT"
       />
 
-      <ViewChildrenModal
-        isOpen={showViewChildrenModal}
-        onClose={() => setShowViewChildrenModal(false)}
-        parentId={selectedParentId?.toString() ?? ""}
-      />
+    
     </div>
   );
 };

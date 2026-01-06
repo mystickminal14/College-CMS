@@ -1,23 +1,24 @@
 export interface CreateParentPayload {
   issue: string;
   year: string;
-
-}
-
-export interface CreateChildPayload {
-  parentId: number;
   volume: string;
   month: string;
 }
 
 export interface Journals {
   id?: number;
-  parentId?: number;
   issue?: string;
   year?: string;
   volume?: string;
   month?: string;
-   children?: Journals[]; 
+}
+export type JournalsGroupedByYear = Record<string, Journals[]>;
+
+export interface JournalsGroupedResponse {
+  statusCode: number;
+  data: JournalsGroupedByYear;
+  message: string;
+  success: boolean;
 }
 export interface EditParentJournalPayload {
   id: number;                       
@@ -25,7 +26,7 @@ export interface EditParentJournalPayload {
 }
 export interface EditChildJournalPayload {
   id: number;                       
-  journal: Partial<CreateChildPayload>; 
+  journal: Partial<CreateParentPayload>; 
 }
 export interface JournalDetailsPayload {
   journalId?: number;       

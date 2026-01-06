@@ -5,9 +5,7 @@ import ImageModal from "./components/ImageModel";
 import GalleryHeader from "./components/Head";
 import GalleryGrid from "./components/GalleryGrid";
 import ImageHero from "./components/ImageHero";
-
 const PAGE_LIMIT = 15;
-
 const Gallery = () => {
   const [page, setPage] = useState(1);
   const [galleryImages, setGalleryImages] = useState<Gallerys[]>([]);
@@ -86,7 +84,7 @@ const Gallery = () => {
     <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100">
       <GalleryHeader />
       <ImageHero galleryImages={galleryImages} />
-      <div className="container mx-auto px-4 pb-20">
+      <div className="container mx-auto px-2 sm:px-4 pb-20">
         <GalleryGrid
           images={galleryImages}
           isLoading={isLoading}

@@ -7,10 +7,9 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   journal: Journals | null;
-  type: "PARENT" | "CHILD";
 }
 
-const DeleteJournalModal: React.FC<Props> = ({ isOpen, onClose, journal, type }) => {
+const DeleteJournalModal: React.FC<Props> = ({ isOpen, onClose, journal }) => {
   const mutation = useDeleteJournal();
 
   if (!isOpen || !journal) return null;
@@ -20,17 +19,13 @@ const DeleteJournalModal: React.FC<Props> = ({ isOpen, onClose, journal, type })
 
     if (journal.id) {
       mutation.mutate(
-        { id: journal.id, type },
+        { id: journal.id },
         { onSuccess: () => onClose() }
       );
     }
   };
 
-  const title = type === "PARENT" ? "Delete Parent Session" : "Delete Child";
-  const message =
-    type === "PARENT"
-      ? "This will delete the parent session and all its children."
-      : "This will delete this child record.";
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -46,8 +41,8 @@ const DeleteJournalModal: React.FC<Props> = ({ isOpen, onClose, journal, type })
                 <Trash2 className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">{title}</h2>
-                <p className="text-white/80 text-sm mt-1">{message}</p>
+                <h2 className="text-xl font-bold text-white">Delete Journal</h2>
+                <p className="text-white/80 text-sm mt-1">Are you sure you wanna delete this journal?</p>
               </div>
             </div>
             <button

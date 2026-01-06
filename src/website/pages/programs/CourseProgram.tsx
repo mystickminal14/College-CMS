@@ -155,7 +155,9 @@ const CourseProgram = () => {
                   <motion.div
                       key={course.id}
                       variants={fadeUp}
-                      className="group relative overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
+                            onClick={() => handleView(course)}
+
+                      className="group relative cursor-pointer overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
                     >
                       {/* BACKGROUND IMAGE WITH SPRING */}
                       <motion.div
@@ -207,16 +209,16 @@ const CourseProgram = () => {
                             transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
                             className="text-xl font-bold group-hover:text-white"
                           >
-                            {course.title}
+                           {course.prefix} {course.title}
                           </motion.h3>
                         </div>
 
                         <div className="hover-reveal mt-4">
                           <p className="text-sm text-white">
-                            {truncateWords(course.details ?? "", 30)}
+                            {truncateWords(course.details ?? "", 25)}
                           </p>
                           <span
-                            className="mt-6 block text-white font-semibold cursor-pointer"
+                            className="mt-5 block text-white font-semibold cursor-pointer"
                             onClick={() => handleView(course)}
                           >
                             READ MORE
