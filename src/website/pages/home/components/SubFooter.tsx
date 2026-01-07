@@ -22,7 +22,12 @@ export default function SubFooter() {
               "
             />
           </div>
-          <div className="w-full inline-block">
+
+        </div>
+      </div>
+      <div className="bg-[#1a3183]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+          <div className="w-full inline-block ">
             <img
               src={subfooterone}
               alt="Illustration part one"
@@ -34,12 +39,13 @@ export default function SubFooter() {
                 mx-auto
                 block
                 rounded-xl
-      
               "
             />
           </div>
+
         </div>
       </div>
+
     </div>
   );
 }
