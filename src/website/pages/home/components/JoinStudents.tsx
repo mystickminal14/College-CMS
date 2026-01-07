@@ -1,5 +1,5 @@
 import girlWithCup from "../../../../assets/images/image_mac.webp";
-import girlWithThinking from "../../../../assets/two_lady.JPG";
+import girlWithThinking from "../../../../assets/two_lady.jpg";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import bg1 from '../../../../assets/images/home3.webp';

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
-import { AlertTriangle, Info } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 function FeeRefundCardMinimal() {
   return (
     <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 mt-10">
