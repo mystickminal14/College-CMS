@@ -1,5 +1,5 @@
 import girlWithCup from "../../../../assets/images/image_mac.webp";
-import girlWithThinking from "../../../../assets/girl_with_thinking.webp";
+import girlWithThinking from "../../../../assets/two_lady.JPG";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import bg1 from '../../../../assets/images/home3.webp';
@@ -43,7 +43,7 @@ export function JoinStudents() {
               <img
                 src={girlWithThinking}
                 alt="Student learning"
-                className="w-full h-full object-cover object-top scale-125 sm:scale-135"
+                className="w-full h-full object-cover object-[0%_top]"
               />
             </div>
           </div>
@@ -58,7 +58,7 @@ export function JoinStudents() {
               <img
                 src={girlWithCup}
                 alt="Student learning"
-                className="w-full h-full object-cover object-top scale-125 sm:scale-135"
+                className="w-full h-full object-cover object-[5%_top]"
               />
             </div>
             <div className="inline-flex items-center gap-5 -ml-10 lg:ml-40 bg-white rounded-full shadow-xl px-4 lg:px-6 py-2 lg:py-4 border border-purple-100">
@@ -79,7 +79,7 @@ export function JoinStudents() {
 
         <div className="text-center lg:text-left mt-2">
           <span className="inline-block px-2 py-2 text-white text-sm sm:text-base font-semibold rounded-full mb-3">
-          EVOLVE WITH US
+            EVOLVE WITH US
           </span>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
