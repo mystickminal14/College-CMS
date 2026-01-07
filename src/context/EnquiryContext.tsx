@@ -23,6 +23,8 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
   return (
     <EnquiryContext.Provider value={{ open: openPopup }}>
       {children}
+
+      {/* Hidden button required by Meritto */}
       <button
         className={`npfWidgetButton npfWidget-${widgetId} hidden`}
         type="button"

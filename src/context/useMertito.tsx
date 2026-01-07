@@ -8,6 +8,7 @@ declare global {
 
 export const useMeritto = (widgetId: string) => {
   useEffect(() => {
+    // Prevent re-initialization
     if ((window as any)[`__meritto_${widgetId}`]) return;
 
     const initWidget = () => {
