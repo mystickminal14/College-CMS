@@ -335,15 +335,7 @@ const CourseDetails = () => {
                     </motion.div>
                   ))}
 
-                  <motion.div variants={fadeItem} className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-blue-600" />
-                    <p className="text-xs text-gray-600">
-                      <span className="font-medium text-gray-800">
-                        Assessments:
-                      </span>{" "}
-                      Yes
-                    </p>
-                  </motion.div>
+                
 
                   <motion.div variants={fadeItem} className="flex items-start gap-2">
                     <GraduationCap className="w-4 h-4 text-blue-600 mt-0.5" />

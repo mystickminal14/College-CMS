@@ -16,6 +16,7 @@ import {
 import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
+import { useEnquiry } from "../../../../context/EnquiryContext";
 
 type DropdownItem = {
   name: string;
@@ -42,6 +43,7 @@ export function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const { open } = useEnquiry();
 
   /* Shadow on scroll */
   useEffect(() => {
@@ -50,9 +52,7 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close menus on route change */
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileOpen(false);
     setDropdownOpen({});
     setActiveDropdown(null);
@@ -266,14 +266,13 @@ export function NavBar() {
             )
           )}
 
-          <NavLink
-            to="https://enquiry.lbef.org/enquirenow.html"
-            target="_blank"
+          <div
+            onClick={() => open()}
             className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
           >
             <FaUserGraduate />
             Enquire Now
-          </NavLink>
+          </div>
 
         </nav>
 

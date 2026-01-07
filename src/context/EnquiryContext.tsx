@@ -17,14 +17,12 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
       `.npfWidget-${widgetId}`
     ) as HTMLButtonElement;
 
-    if (btn) btn.click(); 
+    btn?.click();
   };
 
   return (
     <EnquiryContext.Provider value={{ open: openPopup }}>
       {children}
-
-      {/* Hidden button required by Meritto */}
       <button
         className={`npfWidgetButton npfWidget-${widgetId} hidden`}
         type="button"
@@ -35,7 +33,6 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
   );
 };
 
-// Hook to use in components
 export const useEnquiry = () => {
   const ctx = useContext(EnquiryContext);
   if (!ctx) throw new Error("useEnquiry must be used inside EnquiryProvider");
