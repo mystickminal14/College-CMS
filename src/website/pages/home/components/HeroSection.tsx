@@ -109,7 +109,7 @@ export function HeroSection() {
         <img
           src={graduation}
           alt="Graduation"
-          className="w-full h-full object-cover object-[50%_30%]"
+          className="w-full h-full object-cover object-[50%_42%]"
         />
       </section>
     </>

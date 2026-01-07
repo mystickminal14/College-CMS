@@ -36,7 +36,7 @@ const ABoutHeroSection = () => {
           <img
             src={HeroImages} // Replace with your actual image URL
             alt="LBEF Faculty in Graduation Ceremony"
-            className="object-cover w-full h-80 brightness-75"
+            className="object-cover w-full object-[50%_35%] h-80"
           />
         </div>
 
