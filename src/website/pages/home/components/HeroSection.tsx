@@ -1,12 +1,11 @@
 import butterfiles from "../../../../assets/butterfiles.webp"
 import { motion } from "framer-motion";
-import graduation from "../../../../assets/images/home5.webp"
+import graduation from "../../../../assets/front.JPG"
 
 export function HeroSection() {
   return (
     <>
       <section className="bg-white flex flex-col lg:flex-row items-center justify-center lg:justify-between p-4 md:p-6 lg:p-10 lg:pt-15">
-        {/* Left line - hidden on mobile */}
         <div className="hidden lg:flex items-center">
           <div className="w-3 h-3 bg-[#0F183F] rotate-45"></div>
           <div className="h-0.5 bg-[#0F183F] w-[10vw]"></div>
@@ -110,7 +109,7 @@ export function HeroSection() {
         <img
           src={graduation}
           alt="Graduation"
-          className="w-full h-full object-cover object-[50%_35%]"
+          className="w-full h-full object-cover object-[50%_30%]"
         />
       </section>
     </>

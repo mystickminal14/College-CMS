@@ -11,6 +11,7 @@ import {
   FaCalendar,
   FaUserGraduate,
   FaComment,
+  FaMicrophone,
 
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
@@ -112,6 +113,8 @@ export function NavBar() {
     {
       name: "Students",
       dropdown: [
+        { name: "Student Support", link: "https://support.lbef.info/login.php?notice=1&goto=%2F", icon: <FaMicrophone /> },
+
         { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
         { name: "Downloads", link: "/students-life/downloads", icon: <FaUsers /> },
         { name: "Fee Planner", link: "/students-life/fee-planner", icon: <FaUniversity /> },
@@ -145,6 +148,7 @@ export function NavBar() {
         { name: "Latest News", link: "/media/news-events", icon: <FaBook /> },
       ],
     },
+   
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },
   ];
 
@@ -374,17 +378,13 @@ export function NavBar() {
             )
           )}
 
-          <NavLink
-            to="https://enquiry.lbef.org/enquirenow.html"
-            target="_blank"
-            onClick={() => {
-              setMobileOpen(false);
-            }}
+          <div
+            onClick={()=>open()}
             className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
           >
             <FaUserGraduate />
             Enquiry Now
-          </NavLink>
+          </div>
 
         </div>
       )}
