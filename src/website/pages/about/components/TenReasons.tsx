@@ -232,7 +232,7 @@ function CircularCard({ icon, topTitle, title, }: CardProps) {
 function MobileCard({ icon, topTitle, title }: CardProps) {
   return (
     <div className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100">
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3 flex-wrap">
         <div className="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-[#474AFF]">
           {icon}
         </div>

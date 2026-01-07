@@ -26,7 +26,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, }} // come from left
                 animate={{ opacity: 1, }}
                 transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
-                className="text-md sm:text-lg lg:text-[6vw]"
+                className="text-md  sm:text-lg lg:text-[6vw]"
               >
                 Welcome
               </motion.span>
@@ -35,7 +35,7 @@ export function HeroSection() {
                 initial={{ y: -50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.3 }}
-                className="absolute text-[6px] md:text-[1vw] left-0 font-normal"
+                className="absolute text-[6px] md:text-[1vw] left-0 -top-0.5 font-normal"
               >
                 The First IT College of Nepal
               </motion.span>
@@ -53,7 +53,7 @@ export function HeroSection() {
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.4 }}
-              className="absolute text-[5px] md:text-[1vw] left-0 top-[0.5vw] font-normal"
+              className="absolute text-[5px] md:text-[1vw] left-0 -top-0.5 font-normal"
             >
               Evolve With
             </motion.span>
