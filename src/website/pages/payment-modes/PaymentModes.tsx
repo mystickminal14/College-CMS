@@ -2,7 +2,29 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
+import { AlertTriangle, Info } from "lucide-react";
+function FeeRefundCardMinimal() {
+  return (
+    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 mt-10">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 bg-red-100 rounded-lg">
+          <AlertTriangle className="w-6 h-6 text-red-600" />
+        </div>
+        <h2 className="text-2xl font-bold text-gray-900">Fee Refund Policy</h2>
+      </div>
 
+      <div className="space-y-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-5">
+          <h3 className="font-bold text-red-800 mb-2">Important Notice</h3>
+          <p className="text-gray-800">
+            Fees once paid will <span className="font-bold">not be refunded</span> under any circumstances.
+            Security deposit made by students will not be liable to be returned if a student discontinues his/her academic pursuit before the course completion. For students successfully completing the course, the security deposit amount will be returned at the end of the course.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 const PaymentModes = () => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
@@ -170,7 +192,10 @@ const PaymentModes = () => {
               </div>
             </div>
           </motion.div>
+          <FeeRefundCardMinimal />
+
         </div>
+
       </div>
     </div>
   );
