@@ -1,23 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
-import { X, UserPlus, Loader2,  } from "lucide-react";
+import { X, UserPlus, Loader2 } from "lucide-react";
 import type { UseMutationResult } from "@tanstack/react-query";
-import type { Department, Teams } from "../model/TeamsModel";
+import type {  Teams } from "../model/TeamsModel";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import TeamsBasicInfoForm from "./BasicForm";
+import TeamImageUploadForm from "./ImageUpload";
 import { AppContext } from "../../../context/ContextApp";
 import { IMAGE_URL } from "../../../constants";
-import TeamImageUploadForm from "./ImageUpload";
 
 interface AddEditTeamsWizardModalProps {
   isOpen: boolean;
   onClose: () => void;
-  TeamsToEdit?: Teams|null;
+  TeamsToEdit?: Teams | null;
   createMutation?: UseMutationResult<ApiResponse<Teams>, ApiErrorResponse, Teams>;
   editMutation?: UseMutationResult<ApiResponse<Teams>, ApiErrorResponse, Teams>;
-  uploadImageMutation?: UseMutationResult<ApiResponse<Teams>, ApiErrorResponse, { id: number; image: File }>;
-  updateImageMutation?: UseMutationResult<ApiResponse<Teams>, ApiErrorResponse, { id: number; image: File }>;
+  uploadImageMutation?: UseMutationResult<
+    ApiResponse<Teams>,
+    ApiErrorResponse,
+    { id: number; image: File | null; portrait: File | null }
+  >;
+ 
 }
-
 
 const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
   isOpen,
@@ -26,23 +29,30 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
   createMutation,
   editMutation,
   uploadImageMutation,
-  updateImageMutation,
 }) => {
   const appContext = useContext(AppContext);
   const isEditMode = !!TeamsToEdit;
 
   const [step, setStep] = useState<1 | 2>(1);
- const [formData, setFormData] = useState<{ name: string; position: string; department: Department }>({
-  name: "",
-  position: "",
-  department: "ADMINISTRATION",
-});
+  const [formData, setFormData] = useState<Teams>({
+    name: "",
+    position: "",
+    department: "ADMINISTRATION",
+    bio: "",
+    facebook: "",
+    insta: "",
+    linkedIn: "",
+    email: "",
+    phone: "",
+  });
 
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [coverPreview, setCoverPreview] = useState<string | null>(null);
+  const [portraitFile, setPortraitFile] = useState<File | null>(null);
+  const [portraitPreview, setPortraitPreview] = useState<string | null>(null);
+
   const [TeamsId, setTeamsId] = useState<number | null>(null);
 
-  // Prefill form in edit mode
   useEffect(() => {
     if (isOpen) {
       if (TeamsToEdit) {
@@ -50,9 +60,16 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
           name: TeamsToEdit.name || "",
           position: TeamsToEdit.position || "",
           department: TeamsToEdit.department,
+          bio: TeamsToEdit.bio || "",
+          facebook: TeamsToEdit.facebook || "",
+          insta: TeamsToEdit.insta || "",
+          linkedIn: TeamsToEdit.linkedIn || "",
+          email: TeamsToEdit.email || "",
+          phone: TeamsToEdit.phone || "",
         });
         setTeamsId(TeamsToEdit.id || null);
-        setImagePreview(TeamsToEdit.image ? `${IMAGE_URL}${TeamsToEdit.image}` : null);
+        setCoverPreview(TeamsToEdit.image ? `${IMAGE_URL}${TeamsToEdit.image}` : null);
+        setPortraitPreview(TeamsToEdit.portrait ? `${IMAGE_URL}${TeamsToEdit.portrait}` : null);
         setStep(1);
       } else {
         resetForm();
@@ -61,38 +78,60 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
   }, [isOpen, TeamsToEdit]);
 
   const resetForm = () => {
-    setFormData({ name: "", position: "", department: 'ADMINISTRATION' as Department });
-    setImageFile(null);
-    setImagePreview(null);
+    setFormData({
+      name: "",
+      position: "",
+      department: "ADMINISTRATION",
+      bio: "",
+      facebook: "",
+      insta: "",
+      linkedIn: "",
+      email: "",
+      phone: "",
+    });
+    setCoverFile(null);
+    setCoverPreview(null);
+    setPortraitFile(null);
+    setPortraitPreview(null);
     setTeamsId(null);
     setStep(1);
   };
 
   const handleFormChange = (field: string, value: string) => {
-  if (field === "department") {
-    setFormData(prev => ({ ...prev, [field]: value as Department }));
-  } else {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  }
-};
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-
-  const handleImageChange = (file: File) => {
-    setImageFile(file);
+  const handleCoverChange = (file: File) => {
+    setCoverFile(file);
     const reader = new FileReader();
-    reader.onloadend = () => setImagePreview(reader.result as string);
+    reader.onloadend = () => setCoverPreview(reader.result as string);
     reader.readAsDataURL(file);
   };
 
-  const handleRemoveImage = () => {
-    setImageFile(null);
-    setImagePreview(null);
+  const handlePortraitChange = (file: File) => {
+    setPortraitFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setPortraitPreview(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveCover = () => {
+    setCoverFile(null);
+    setCoverPreview(null);
+  };
+
+  const handleRemovePortrait = () => {
+    setPortraitFile(null);
+    setPortraitPreview(null);
   };
 
   const validateStep1 = () => {
-    if (!formData.name.trim()) return appContext?.showToast("Name is required", "warn");
-    if (!formData.position.trim()) return appContext?.showToast("Position is required", "warn");
+    if (!formData.name?.trim()) return appContext?.showToast("Name is required", "warn");
+    if (!formData.position?.trim()) return appContext?.showToast("Position is required", "warn");
     if (!formData.department) return appContext?.showToast("Department is required", "warn");
+    if (!formData.bio) return appContext?.showToast("Bio is required", "warn");
+    if (!formData.email) return appContext?.showToast("Email is required", "warn");
+
     return true;
   };
 
@@ -100,91 +139,95 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
     e.preventDefault();
     if (!validateStep1()) return;
 
-    const payload: Teams = {
-      id: TeamsId || undefined,
-      name: formData.name,
-      position: formData.position,
-      department: formData.department,
-    };
+    const payload: Teams = { ...formData, id: TeamsId || undefined };
 
     if (isEditMode && editMutation && TeamsId) {
-      editMutation.mutate(payload);
-      setStep(2); // move to image step
+      editMutation.mutate(payload, {
+        onSuccess: () => setStep(2),
+      });
     } else if (!isEditMode && createMutation) {
-      createMutation.mutate(payload as Teams, {
+      createMutation.mutate(payload, {
         onSuccess: (res) => {
           const newId = res.data?.id ?? (res as any)?.id;
           if (newId) {
             setTeamsId(newId);
             setStep(2);
-          } else appContext?.showToast("Failed to create Teams. No ID returned.", "error");
+          } else {
+            appContext?.showToast("Failed to create Teams. No ID returned.", "error");
+          }
         },
       });
     }
   };
 
   const handleSubmitStep2 = () => {
-    if (!TeamsId || !imageFile) {
+    if (!TeamsId) {
       resetForm();
       onClose();
       return;
     }
 
-    const imagePayload = { id: TeamsId, image: imageFile };
-    if (isEditMode && updateImageMutation) {
-      updateImageMutation.mutate(imagePayload, { onSuccess: () => { resetForm(); onClose(); } });
-    } else if (!isEditMode && uploadImageMutation) {
-      uploadImageMutation.mutate(imagePayload, { onSuccess: () => { resetForm(); onClose(); } });
+    const imagePayload = { id: TeamsId, image: coverFile, portrait: portraitFile };
+
+  if (  uploadImageMutation) {
+      uploadImageMutation.mutate(imagePayload, {
+        onSuccess: () => {
+          resetForm();
+          onClose();
+        },
+      });
     }
   };
 
-  const handleSkipImage = () => { resetForm(); onClose(); };
+  const handleSkipImage = () => {
+    resetForm();
+    onClose();
+  };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-3 sm:p-4">
       <div className="relative w-full max-w-2xl">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col h-[600px] max-h-[90vh]">
+          
           {/* HEADER */}
-          <div className="bg-linear-to-r from-[#125DAA] to-[#1a7cd3] p-6">
+          <div className="bg-linear-to-r rounded-2xl from-[#125DAA] to-[#1a7cd3] p-5 sm:p-6 shrink-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="p-2 bg-white/20 rounded-xl">
-                  <UserPlus className="w-7 h-7 text-white" />
+                  <UserPlus className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">{isEditMode ? "Edit Teams" : "Add New Teams"}</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {isEditMode ? "Edit Teams" : "Add New Teams"}
+                  </h2>
                   <p className="text-white/90 text-sm mt-1">
                     {step === 1
                       ? "Step 1: Basic Information"
                       : isEditMode
                       ? "Step 2: Image Preview / Update"
-                      : "Step 2: Upload Image"}
+                      : "Step 2: Upload Images"}
                   </p>
                 </div>
               </div>
-              <button
-                onClick={onClose}
-                disabled={editMutation?.isPending || createMutation?.isPending || uploadImageMutation?.isPending || updateImageMutation?.isPending}
-                className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 disabled:opacity-50"
-              >
-                <X className="w-6 h-6 text-white" />
+              <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-xl">
+                <X className="w-5 h-5 text-white" />
               </button>
             </div>
 
             {/* Progress */}
-            <div className="flex items-center justify-center mt-6">
+            <div className="flex justify-center mt-5">
               <div className="flex items-center">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 1 ? 'bg-white text-[#135EAB]' : 'bg-white/30 text-white'}`}><span className="font-bold">1</span></div>
-                <div className={`w-24 h-1 ${step === 2 ? 'bg-white' : 'bg-white/30'}`}></div>
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 2 ? 'bg-white text-[#135EAB]' : 'bg-white/30 text-white'}`}><span className="font-bold">2</span></div>
+                <div className={`w-9 h-9 flex items-center justify-center rounded-full ${step === 1 ? "bg-white text-[#135EAB]" : "bg-white/30 text-white"}`}>1</div>
+                <div className={`w-20 h-1 ${step === 2 ? "bg-white" : "bg-white/30"}`} />
+                <div className={`w-9 h-9 flex items-center justify-center rounded-full ${step === 2 ? "bg-white text-[#135EAB]" : "bg-white/30 text-white"}`}>2</div>
               </div>
             </div>
           </div>
 
           {/* BODY */}
-          <div className="p-6 md:p-8">
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6">
             {step === 1 ? (
               <form onSubmit={handleSubmitStep1} className="space-y-6">
                 <TeamsBasicInfoForm
@@ -196,56 +239,30 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
                 <div className="pt-4 flex gap-4">
                   {isEditMode ? (
                     <>
-                      <button
-                        type="button"
-                        onClick={handleSubmitStep1}
-                        disabled={editMutation?.isPending}
-                        className="flex-1 px-6 py-3.5 bg-[#135EAB] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
-                      >
-                        {editMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Update"}
+                      <button type="submit" className="flex-1 px-6 py-3 bg-[#135EAB] text-white rounded-xl">
+                        {editMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : "Update"}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => setStep(2)}
-                        className="flex-1 px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
-                      >
-                        Next
-                      </button>
+                      <button type="button" onClick={() => setStep(2)} className="flex-1 px-6 py-3 bg-gray-200 rounded-xl">Next</button>
                     </>
                   ) : (
-                    <button
-                      type="submit"
-                      disabled={createMutation?.isPending}
-                      className="w-full px-6 py-3.5 bg-[#135EAB] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
-                    >
-                      {createMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Submit & Continue"}
+                    <button type="submit" className="w-full px-6 py-3 bg-[#135EAB] text-white rounded-xl">
+                      {createMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : "Submit & Continue"}
                     </button>
                   )}
                 </div>
               </form>
             ) : (
-              <div className="space-y-4">
-                <div className="flex justify-start mb-4">
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
-                  >
-                    ← Back to Basic Info
-                  </button>
-                </div>
-
-                <TeamImageUploadForm
-                  teamName={formData.name}
-                  imagePreview={imagePreview}
-                  imageFile={imageFile}
-                  onImageChange={handleImageChange}
-                  onRemoveImage={handleRemoveImage}
-                  isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
-                  onSkip={handleSkipImage}
-                  onSubmit={handleSubmitStep2}
-                />
-              </div>
+              <TeamImageUploadForm
+                coverPreview={coverPreview}
+                portraitPreview={portraitPreview}
+                onCoverChange={handleCoverChange}
+                onPortraitChange={handlePortraitChange}
+                onRemoveCover={handleRemoveCover}
+                onRemovePortrait={handleRemovePortrait}
+                onSubmit={handleSubmitStep2}
+                onSkip={handleSkipImage}
+                isUploading={uploadImageMutation?.isPending }
+              />
             )}
           </div>
         </div>

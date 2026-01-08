@@ -1,9 +1,19 @@
 export interface TeamMember {
   id: number;
-  name: string;
-  position: string;
+ name?: string;
+  position?: string;
   department: Department;
-  image: string;
+
+  image?: string;     // cover image
+  portrait?: string;  // portrait image
+  bio?: string;     // cover image
+
+  linkedIn?: string;
+  facebook?: string;
+  insta?: string;
+
+  email?: string;
+  phone?: string;
 }
 
 export type Department =
