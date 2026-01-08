@@ -1,37 +1,45 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import type { Gallerys} from "../model/GallModel";
+import type { Gallerys } from "../model/GallModel";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import { GALLERY_CACHE_KEY } from "../../../constants";
 import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 import { compressImage, validateImageFile } from "../../../utils/ImageCompression";
 
-interface CreateimagePayload {
-  image: File;
+interface CreateImagesPayload {
+  images: File[];
 }
 
-export const useUpdateimage = () => {
+export const useUpdateImages = () => {
   const appContext = useContext(AppContext);
-  if (!appContext) throw new Error("useUpdateimage must be used within AppContext");
+  if (!appContext) throw new Error("useUpdateImages must be used within AppContext");
 
   const { showToast } = appContext;
   const queryClient = useQueryClient();
 
-  return useMutation<ApiResponse<Gallerys>, ApiErrorResponse, CreateimagePayload>({
-    mutationFn: async ({ image }) => {
-      const validationError = validateImageFile(image);
-      if (validationError) throw new Error(validationError);
+  return useMutation<ApiResponse<Gallerys>, ApiErrorResponse, CreateImagesPayload>({
+    mutationFn: async ({ images }) => {
+      if (!images.length) throw new Error("Please select at least one image");
 
-      const compressedImage = await compressImage(image);
+      // Validate each image
+      images.forEach((file) => {
+        const validationError = validateImageFile(file);
+        if (validationError) throw new Error(validationError);
+      });
+
+      // Compress images
+      const compressedImages = await Promise.all(images.map((img) => compressImage(img)));
+
       const formData = new FormData();
-      formData.append("image", compressedImage);
+      compressedImages.forEach((img) => formData.append("images", img));
+
       const apiClient = new APIClient<Gallerys>("/gallery");
       return apiClient.postFile(formData);
     },
 
     onSuccess: (res) => {
-      showToast(res.message || "Image uploaded successfully!", "success");
+      showToast(res.message || "Images uploaded successfully!", "success");
       queryClient.invalidateQueries({ queryKey: [GALLERY_CACHE_KEY] });
     },
 

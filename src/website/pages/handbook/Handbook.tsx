@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { FaFilePdf } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-import image from "../../../assets/pcpslogo.webp";
 import decoration from "../../../assets/decoration.webp";
 
 import { IMAGE_URL } from "../../../constants";
@@ -118,7 +116,7 @@ const StudentHandbook = () => {
                 hidden: {}
               }}
             >
-              {downloads.map((download, index) => (
+              {downloads.map((download, ) => (
                 <motion.div
                   key={download.id}
                   variants={{
@@ -129,21 +127,7 @@ const StudentHandbook = () => {
                   transition={{ type: "spring", stiffness: 100, damping: 15 }}
                   className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer"
                 >
-                  <div className="relative h-32 overflow-hidden">
-                    <img src={image} alt={download.name} className="absolute inset-0 w-full h-32 object-cover" />
-                    <div className="absolute inset-0 bg-black/10" />
-                    <div className="absolute inset-0 flex items-center justify-center z-10">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="bg-blue-100 p-5 rounded-2xl"
-                      >
-                        <FaFilePdf className="w-14 h-14 text-red-600" />
-                      </motion.div>
-                    </div>
-                    <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs">PDF</div>
-                  </div>
+                 
 
                   <div className="p-5">
                     <h3 className="text-md font-bold text-gray-800 mb-3 line-clamp-2">{download.name}</h3>

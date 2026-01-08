@@ -1,6 +1,4 @@
 import { motion, type Variants } from "framer-motion";
-
-import image from "../../../assets/lbefhd.webp";
 import decoration from "../../../assets/decoration.webp";
 import useGetPlannerParents from "../../../pages/fee-planner/hooks/useGetPlannerParents";
 import { IMAGE_URL } from "../../../constants";
@@ -60,9 +58,7 @@ const SkeletonCard = () => (
   </div>
 );
 
-/* -------------------------------------------------------------------------- */
-/*                              Main Component                                 */
-/* -------------------------------------------------------------------------- */
+
 
 const FeePlannersWeb = () => {
   const { data, isLoading } = useGetPlannerParents();
@@ -187,22 +183,7 @@ const FeePlannersWeb = () => {
                     whileHover={{ y: -8 }}
                     className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:border-blue-200"
                   >
-                    {/* Image */}
-                    <motion.div
-                      variants={cardItem}
-                      className="h-28 relative overflow-hidden"
-                    >
-                      <motion.img
-                        src={image}
-                        alt={child.course}
-                        className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
-                    </motion.div>
-
-                    {/* Content */}
+                  
                     <div className="p-5">
                       <motion.h4
                         variants={cardItem}

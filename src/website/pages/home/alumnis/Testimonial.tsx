@@ -6,7 +6,7 @@ import useGetAll from "./hooks/useGetAlumni";
 import type { Alumni } from "../../../../pages/alumni/model/AlumniModel";
 import { IMAGE_URL } from "../../../../constants";
 
-const MAX_WORDS = 300;
+const MAX_WORDS = 160;
 const AUTO_SWITCH_INTERVAL = 2000; // 2 seconds
 
 function limitWords(text: string, maxWords: number) {
@@ -70,34 +70,34 @@ const autoSwitchRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const activeAlumni = alumni[activeIndex];
   const story = activeAlumni?.story ?? "";
 
-  // Reset scroll position when story changes
   useEffect(() => {
     if (storyRef.current) {
       storyRef.current.scrollTop = 0;
     }
   }, [activeIndex]);
 
-  // Auto-switch functionality for testimonial cards
-  useEffect(() => {
-    if (alumni.length <= 1 || isHovering) {
-      if (autoSwitchRef.current) {
-        clearInterval(autoSwitchRef.current);
-        autoSwitchRef.current = null;
-      }
-      return;
+
+useEffect(() => {
+  // Pause auto-switch if there's only one alumni, hovering, or video popup is open
+  if (alumni.length <= 1 || isHovering || isVideoPopupOpen) {
+    if (autoSwitchRef.current) {
+      clearInterval(autoSwitchRef.current);
+      autoSwitchRef.current = null;
     }
+    return;
+  }
 
-    autoSwitchRef.current = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % alumni.length);
-    }, AUTO_SWITCH_INTERVAL);
+  autoSwitchRef.current = setInterval(() => {
+    setActiveIndex((prev) => (prev + 1) % alumni.length);
+  }, AUTO_SWITCH_INTERVAL);
 
-    return () => {
-      if (autoSwitchRef.current) {
-        clearInterval(autoSwitchRef.current);
-        autoSwitchRef.current = null;
-      }
-    };
-  }, [alumni.length, isHovering]);
+  return () => {
+    if (autoSwitchRef.current) {
+      clearInterval(autoSwitchRef.current);
+      autoSwitchRef.current = null;
+    }
+  };
+}, [alumni.length, isHovering, isVideoPopupOpen]); // <-- added isVideoPopupOpen
 
   const next = () => setActiveIndex((i) => (i + 1) % alumni.length);
   const prev = () => setActiveIndex((i) => (i - 1 + alumni.length) % alumni.length);

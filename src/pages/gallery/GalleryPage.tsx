@@ -2,12 +2,12 @@ import { useState } from "react";
 import TitleBox from "../../components/layout/TitleBox";
 import DeleteGallerysModal from "./components/DeleteModel";
 import type { Gallerys } from "./model/GallModel";
-import { useUpdateimage } from "./hooks/useUpdateImage";
 import GallerysCardView from "./components/GalleryCardView";
 import GalleryImageUploadForm from "./components/Wizard";
 import useGetGallerys from "./hooks/useGetAll";
 import { PAGE_LIMIT } from "../../constants";
 import Pagination from "../../utils/Pagination";
+import { useUpdateImages } from "./hooks/useUpdateImage";
 
 const GallerysPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +21,7 @@ const GallerysPage = () => {
   const gallerys = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
-  const updateImageMutation = useUpdateimage();
+  const updateImageMutation = useUpdateImages();
 
   const handleAdd = () => setShowModal(true);
 
