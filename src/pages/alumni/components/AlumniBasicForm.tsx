@@ -17,7 +17,7 @@ const AlumniBasicInfoForm: React.FC<AlumniBasicInfoFormProps> = ({ formData, onC
         <InputField icon={<Briefcase className="w-5 h-5" />} label="Position" value={formData.position} field="position" onChange={onChange} placeholder="Software Engineer" required isSubmitting={isSubmitting} />
         <InputField icon={<Calendar className="w-5 h-5" />} label="Batch" value={formData.batch} field="batch" onChange={onChange} placeholder="2020" required isSubmitting={isSubmitting} />
         <InputField icon={<GraduationCap className="w-5 h-5" />} label="Course" value={formData.course} field="course" onChange={onChange} placeholder="Computer Science" required isSubmitting={isSubmitting} />
-        <InputField icon={<FaViadeo className="w-5 h-5" />} label="Video Link" value={formData.link} field="link" onChange={onChange} placeholder="https://video.com" required isSubmitting={isSubmitting} />
+        <InputField icon={<FaViadeo className="w-5 h-5" />} label="Video Link" value={formData.link} field="link" onChange={onChange} placeholder="https://video.com"  isSubmitting={isSubmitting} />
      
       </div>
 

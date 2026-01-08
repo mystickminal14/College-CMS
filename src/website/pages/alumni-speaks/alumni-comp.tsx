@@ -214,7 +214,7 @@ export function AlumniComp() {
                       ref={storyRef}
                       className="relative text-gray-700 mb-4 flex-1 overflow-hidden"
                     >
-                      <span className="absolute -top-3 -left-3 text-4xl sm:text-5xl text-blue-100 font-bold select-none">
+          4            <span className="absolute -top-3 -left-3 text-4xl sm:text-5xl text-blue-100 font-bold select-none">
                         &ldquo;
                       </span>
 
