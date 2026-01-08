@@ -94,7 +94,8 @@ export default function AboutUsSection() {
               reputation as an award-winning University through its achievements in winning a host
               of over 400 prestigious awards at local and international levels.
             </motion.p>
-            <motion.button
+            <motion.a
+              href='https://www.apu.edu.my/about-apu/'
               className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition duration-300 shadow-lg inline-flex items-center gap-3 text-lg"
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -114,7 +115,7 @@ export default function AboutUsSection() {
                   clipRule="evenodd"
                 />
               </svg>
-            </motion.button>
+            </motion.a>
           </motion.div>
         </div>
       </motion.div>

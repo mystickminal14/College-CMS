@@ -1,5 +1,5 @@
 import girlWithCup from "../../../../assets/images/image_mac.webp";
-import girlWithThinking from "../../../../assets/two_lady.jpg";
+import girlWithThinking from "../../../../assets/girl_with_thinking.webp";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import bg1 from '../../../../assets/images/home3.webp';
@@ -43,7 +43,7 @@ export function JoinStudents() {
               <img
                 src={girlWithThinking}
                 alt="Student learning"
-                className="w-full h-full object-cover object-[0%_top]"
+                className="w-full h-full object-cover object-top scale-125 sm:scale-135"
               />
             </div>
           </div>
@@ -58,7 +58,7 @@ export function JoinStudents() {
               <img
                 src={girlWithCup}
                 alt="Student learning"
-                className="w-full h-full object-cover object-[5%_top]"
+                className="w-full h-full object-cover object-top scale-125 sm:scale-135"
               />
             </div>
             <div className="inline-flex items-center gap-5 -ml-10 lg:ml-40 bg-white rounded-full shadow-xl px-4 lg:px-6 py-2 lg:py-4 border border-purple-100">
@@ -83,17 +83,16 @@ export function JoinStudents() {
           </span>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
-            Join as a{" "}
+            Start Your {" "}
             <span className="relative inline-block text-white">
-              Students
+              Learning
               <img
                 src={decoration}
                 alt="Decoration"
                 className="absolute left-1/2 -translate-x-1/2 w-full h-2 sm:h-3"
               />
             </span>{" "}
-            – <br />
-            <span>Start Your Learning</span><br />
+
             Journey Today!
           </h2>
 

@@ -1,5 +1,4 @@
 import AboutUsSection from "./components/AboutUs";
-import CareersSection from "./components/CareersSection";
 import OurCore from "./components/Core";
 import HeroSection from "./components/HeroSection";
 import { ImageSection } from "./components/ImageSection";
@@ -13,7 +12,7 @@ export function AboutUniversity() {
       <MissionVisionSection />
       <ImageSection />
       <OurCore />
-      <CareersSection />
+      {/* <CareersSection /> */}
     </>
   );
 }

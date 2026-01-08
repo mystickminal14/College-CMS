@@ -11,13 +11,11 @@ import {
   FaCalendar,
   FaUserGraduate,
   FaComment,
-  FaMicrophone,
 
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
-import { useEnquiry } from "../../../../context/EnquiryContext";
 
 type DropdownItem = {
   name: string;
@@ -44,7 +42,6 @@ export function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-  const { open } = useEnquiry();
 
   /* Shadow on scroll */
   useEffect(() => {
@@ -53,7 +50,9 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Close menus on route change */
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileOpen(false);
     setDropdownOpen({});
     setActiveDropdown(null);
@@ -113,8 +112,6 @@ export function NavBar() {
     {
       name: "Students",
       dropdown: [
-        { name: "Student Support", link: "https://support.lbef.info/login.php?notice=1&goto=%2F", icon: <FaMicrophone /> },
-
         { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
         { name: "Downloads", link: "/students-life/downloads", icon: <FaUsers /> },
         { name: "Fee Planner", link: "/students-life/fee-planner", icon: <FaUniversity /> },
@@ -145,10 +142,9 @@ export function NavBar() {
         { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
         { name: "Lbef Connect", link: "/media/connect", icon: <FaBook /> },
         { name: "Journal", link: "/media/journal", icon: <FaBook /> },
-        { name: "Latest News", link: "/media/news-events", icon: <FaBook /> },
+        { name: "LBEF News", link: "/media/news-events", icon: <FaBook /> },
       ],
     },
-   
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },
   ];
 
@@ -270,13 +266,14 @@ export function NavBar() {
             )
           )}
 
-          <div
-            onClick={() => open()}
+          <NavLink
+            to="https://enquiry.lbef.org/enquirenow.html"
+            target="_blank"
             className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
           >
             <FaUserGraduate />
             Enquire Now
-          </div>
+          </NavLink>
 
         </nav>
 
@@ -378,13 +375,17 @@ export function NavBar() {
             )
           )}
 
-          <div
-            onClick={()=>open()}
+          <NavLink
+            to="https://enquiry.lbef.org/enquirenow.html"
+            target="_blank"
+            onClick={() => {
+              setMobileOpen(false);
+            }}
             className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
           >
             <FaUserGraduate />
             Enquiry Now
-          </div>
+          </NavLink>
 
         </div>
       )}

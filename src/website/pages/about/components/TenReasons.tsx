@@ -30,7 +30,7 @@ export function TenReasons() {
   const features: Feature[] = [
     {
       icon: <Award className="w-7 h-7" />,
-      topTitle: "Nepal’s",
+      topTitle: "Nepal's",
       title: "First IT College",
       angle: -54,
       index: 1,
@@ -90,16 +90,16 @@ export function TenReasons() {
   return (
     <>
       {/* ================= DESKTOP ================= */}
-      <section className="hidden lg:block py-20 bg-linear-to-br from-blue-50 via-white to-purple-50">
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="hidden lg:block py-16 bg-linear-to-br from-blue-50 via-white to-purple-50">
+        <div className="max-w-6xl mx-auto text-center px-4">
           <motion.h2
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ type: "spring", stiffness: 120, damping: 15 }}
-            className="text-5xl font-bold mb-4"
+            className="text-4xl font-bold mb-3"
           >
-            8 Reasons to{" "}
+            Discover why{" "}
             <motion.span
               className="relative text-[#474AFF] inline-block"
               initial={{ opacity: 0 }}
@@ -107,28 +107,27 @@ export function TenReasons() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 15 }}
             >
-              Visit LBEF
+              LBEF College
               <motion.img
                 src={decoration}
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 0.4, type: "spring", stiffness: 120 }}
-                className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+                className="absolute left-1/2 -translate-x-1/2 w-full h-2"
                 alt=""
               />
-            </motion.span> {""} College
-
+            </motion.span>
           </motion.h2>
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
+          <p className="text-base text-gray-600 max-w-2xl mx-auto mb-10">
             Discover why LBEF stands out as Nepal's premier IT education destination
           </p>
 
-          <div className="relative flex items-center justify-center min-h-[900px]">
+          <div className="relative flex items-center justify-center min-h-[700px]">
             {/* Circular arrangement of cards */}
             {features.map((feature, index) => {
-              const radius = 400; // Adjusted for better centering
+              const radius = 300; // Reduced from 400 for smaller layout
               const angle = (feature.angle * Math.PI) / 180;
               const x = radius * Math.cos(angle);
               const y = radius * Math.sin(angle);
@@ -165,14 +164,15 @@ export function TenReasons() {
               );
             })}
 
-            {/* Center logo - absolutely centered */}
-            <div className="relative z-20 w-64 h-64 bg-white rounded-full shadow-2xl flex items-center justify-center p-8">
+            {/* Center logo - reduced size */}
+            <div className="relative z-20 w-48 h-48 bg-white rounded-full shadow-xl flex items-center justify-center p-6">
               <img src={lbef_bufferfly} className="w-full h-full object-contain" alt="LBEF Logo" />
             </div>
           </div>
         </div>
       </section>
 
+      {/* ================= MOBILE ================= */}
       <section className="lg:hidden py-12 bg-linear-to-br from-blue-50 via-white to-purple-50">
         <div className="max-w-md mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4 text-center">
@@ -213,16 +213,16 @@ export function TenReasons() {
   );
 }
 
-function CircularCard({ icon, topTitle, title, }: CardProps) {
+function CircularCard({ icon, topTitle, title }: CardProps) {
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-80 border border-gray-100">
-      <div className="flex items-center gap-2">
+    <div className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] w-64 border border-gray-100">
+      <div className="flex items-center gap-3">
         <div className="shrink-0 p-2 bg-blue-100 rounded-full text-[#474AFF]">
           {icon}
         </div>
         <div className="flex-1">
-          <p className="font-bold text-gray-800 text-lg leading-tight mb-1">{topTitle}</p>
-          <p className="text-gray-700 text-base leading-tight">{title}</p>
+          <p className="font-bold text-gray-800 text-base leading-tight mb-1">{topTitle}</p>
+          <p className="text-gray-700 text-sm leading-tight">{title}</p>
         </div>
       </div>
     </div>
@@ -244,4 +244,3 @@ function MobileCard({ icon, topTitle, title }: CardProps) {
     </div>
   );
 }
-

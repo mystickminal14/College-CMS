@@ -90,7 +90,6 @@ export function AboutPage() {
       ) : (
         <> <ABoutHeroSection />
           <Inspiration />
-
           <MissionSection />
           <VideoSection />
           <StatusSection />

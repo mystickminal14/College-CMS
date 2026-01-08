@@ -84,15 +84,15 @@ export function WhyChooseLBEF() {
           </p>
 
           <div className="relative h-[650px] flex items-center justify-center mt-10">
-            <div className="absolute w-[380px] h-[380px] rounded-full border-4 border-blue-100 opacity-30" />
-            <div className="absolute w-[500px] h-[500px] rounded-full border-4 border-blue-100 opacity-20" />
-            <div className="absolute w-[620px] h-[620px] rounded-full border-4 border-blue-100 opacity-20" />
+            <div className="absolute w-[340px] h-[340px] rounded-full border-4 border-blue-100 opacity-30" />
+            <div className="absolute w-[450px] h-[450px] rounded-full border-4 border-blue-100 opacity-20" />
+            <div className="absolute w-[560px] h-[560px] rounded-full border-4 border-blue-100 opacity-20" />
 
-            <Orbit size={380} duration="6s" />
-            <Orbit size={500} duration="10s" />
-            <Orbit size={620} duration="14s" />
+            <Orbit size={340} duration="6s" />
+            <Orbit size={450} duration="10s" />
+            <Orbit size={560} duration="14s" />
 
-            <div className="z-20 w-70 h-70 bg-white rounded-full shadow-2xl flex items-center justify-center">
+            <div className="z-20 w-58 h-58 bg-white rounded-full shadow-2xl flex items-center justify-center">
               <img src={lbef_bufferfly} className="w-full h-full object-contain" />
             </div>
 
@@ -150,21 +150,23 @@ export function WhyChooseLBEF() {
 
 function DesktopCard({ icon, topTitle, title, position }: any) {
   const map: any = {
-    "top-left": "top-[70px] left-[65px]",
-    "top-right": "top-[70px] right-[70px]",
-    right: "right-[20px] top-[280px]",
-    "bottom-right": "bottom-[70px] right-[70px]",
-    "bottom-left": "bottom-[70px] left-[70px]",
-    left: "-left-[10px] top-[280px]",
+    "top-left": "top-[70px] left-[85px]",
+    "top-right": "top-[70px] right-[90px]",
+    right: "right-[40px] top-[280px]",
+    "bottom-right": "bottom-[70px] right-[90px]",
+    "bottom-left": "bottom-[70px] left-[90px]",
+    left: "-left-[30px] top-[280px]",
   };
 
   return (
     <div className={`absolute ${map[position]}`}>
-      <div className="flex items-center gap-3 bg-white px-6 py-4 rounded-3xl shadow-xl hover:scale-105 transition">
-        <div className="p-3 bg-blue-100 rounded-full text-[#474AFF]">
+      <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-3xl shadow-xl hover:scale-105 transition">
+
+        <div className="p-2 bg-blue-100 rounded-full text-[#474AFF]">
+
           {icon}
         </div>
-        <div className="font-bold text-gray-800 whitespace-nowrap">
+        <div className="font-bold text-gray-800 whitespace-nowrap text-sm">
           <p>{topTitle}</p>
           <p>{title}</p>
         </div>

@@ -64,13 +64,13 @@ const NewsPageWeb = () => {
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-              Latest News & Updates
+              LBEF News & Updates
             </span>
           </motion.div>
 
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Latest </span>
+            <span className="text-gray-900">LBEF </span>
             <span className="relative inline-block ml-2">
               <span className="text-blue-600 relative z-10">News</span>
               <motion.img

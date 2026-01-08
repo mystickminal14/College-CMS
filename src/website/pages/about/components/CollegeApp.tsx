@@ -55,25 +55,15 @@ export default function CollegeAppSection() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               {/* Google Play */}
-              <a className="flex items-center gap-3 bg-black text-white px-6 py-4 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300">
-                <img src={playstore} alt="" className="h-12 w-12" />
-                <span className="text-left">
-                  <span className="block text-xs">GET IT ON</span>
-                  <span className="block text-base font-semibold">
-                    Google Play
-                  </span>
-                </span>
+              <a href='https://play.google.com/store/apps/details?id=com.lbef.edu.np.lbef&hl=en' className="rounded-2 shadow-lg hover:scale-105 transform transition-all duration-300">
+                <img src={playstore} alt="" className="h-15 w-40" />
+                
               </a>
 
               {/* App Store */}
-              <a className="flex items-center gap-3 bg-black text-white px-6 py-4 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300">
-                <img src={apple} alt="" className="h-12 w-12" />
-                <span className="text-left">
-                  <span className="block text-xs">DOWNLOAD ON THE</span>
-                  <span className="block text-base font-semibold">
-                    App Store
-                  </span>
-                </span>
+              <a className="rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300">
+                <img src={apple} alt="" className="h-15 w-40" />
+                
               </a>
             </div>
           </div>

@@ -17,15 +17,15 @@ const ABoutHeroSection = () => {
   leading-tight sm:leading-snug md:leading-tight
   flex flex-wrap items-center gap-x-2 gap-y-1
 ">
-          Leading, Boldness, Effectiveness,
+          Leading with Boldness,
 
           <span className="relative text-blue-600 inline-flex items-center">
             <span className="absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8">
               <img src={butterfiles} alt="Butterflies" className="w-full h-full" />
             </span>
-            Futuristic
+            Shaping an Effective
           </span>
-          Thinking
+          & Futuristic Education
         </h1>
 
 

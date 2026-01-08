@@ -63,11 +63,11 @@ export function MissionSection() {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           >
             <Feature
-              title="Missions"
+              title="Mission"
               iconPath="M13 10V3L4 14h7v7l9-11h-7z"
             >
               Our mission is to provide an engaging and supportive learning environment
-              that empowers our students to LEAD proactively with{" "}
+              that empowers our students to <span className="font-bold">LEAD</span>  proactively with{" "}
               <span className="font-bold">
                 BOLDNESS, EFFECTIVENESS, and FUTURISTIC
               </span>{" "}

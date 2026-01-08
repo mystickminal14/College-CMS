@@ -62,13 +62,14 @@ export default function OurCore() {
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Messages from{' '}
             <span className="relative inline-block text-white">
-              Our Leaders
+              Our Leaders 
               <img
                 src={decoration}
                 alt=""
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
             </span>
+            {' '}At University
           </h2>
         </motion.div>
 

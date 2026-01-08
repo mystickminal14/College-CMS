@@ -11,7 +11,7 @@ const messages = [
     position: "Chairman",
     institution: "LBEF Group Of Institutions",
     message:
-      "Dear Students,\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you are a large and diverse group, reflecting our wonderful regional character and diversity.",
+      "Dear Students,\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you are a part of a large and diverse group reflecting our wonderful regional character and diversity. We are all   ...",
     image: imageone,
   },
   {
@@ -87,7 +87,14 @@ export default function OurCore() {
 
               <div className="pt-2 pl-6 pb-6 pr-6 text-gray-700 whitespace-pre-line">
                 {lead.message}
+
+                <div className="flex justify-end mt-2">
+                  <span className="cursor-pointer text-indigo-600 font-medium hover:underline">
+                    Read More
+                  </span>
+                </div>
               </div>
+
             </div>
           ))}
         </div>

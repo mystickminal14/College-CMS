@@ -1,4 +1,4 @@
-import { ArrowRight, Users2 } from "lucide-react";
+import {  Users2 } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import about from '../../../../assets/decoration/about.webp';
 import { motion } from "framer-motion";
@@ -103,8 +103,8 @@ export default function AboutSection() {
               transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
               className="text-gray-600 text-base leading-relaxed mb-4"
             >
-              At LBEF, we believe quality education should be accessible, engaging,
-              and empowering for everyone, everywhere.
+              At LBEF, we believe quality education should be accessible, engaging, and
+              empowering—for everyone, everywhere.
             </motion.p>
 
             <motion.p
@@ -113,10 +113,11 @@ export default function AboutSection() {
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
               className="text-gray-600 text-base leading-relaxed mb-8"
             >
-              Lord Buddha Education Foundation (LBEF) College, established in Midhevel,
-              Kathmandu, is a non-governmental, non-profit institution within the LBEF
-              Group of Institutions. Since its founding, LBEF has grown steadily, educating
-              thousands of students, with over 13,000 graduates to date.
+              The Lord Buddha Education Foundation (LBEF), established in 1998, boasts a strong reputation for
+              excellence across various academic fields. Originating from modest beginnings, the college has
+              steadily advanced to become one of Nepal's premier institutions, currently serving over 1,500
+              students, with more than 14,000 graduates from LBEF Group of Institutions.
+              
             </motion.p>
 
             <motion.p
@@ -125,15 +126,17 @@ export default function AboutSection() {
               transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
               className="text-gray-600 text-base leading-relaxed mb-8"
             >
-              Through a proud alliance with the Asia Pacific University of Technology &
-              Innovation (APU), and approval from Nepal's Ministry of Education and
-              recognition by Tribhuvan University, LBEF offers diverse Bachelor and
-              Master-level programs. Our wide-ranging academic disciplines inspire
-              students and entrepreneurs alike.
+              Conceived by Late Parmanand Kejriwal, an esteemed educationist and social worker, LBEF Group
+              of Institutions was created with the vision of revolutionizing education in Nepal and providing
+              quality education at affordable rates.
+              LBEF Vidyapeeth Pvt. Ltd. is running under academic collaboration with the Asia Pacific University
+              of Technology & Innovation (APU), Malaysia and we offer international bachelor's and master's
+              degree programs in Information Technology and Management. These courses are approved by
+              Ministry of Education and recognized by Tribhuvan University, Nepal.
             </motion.p>
 
             {/* CTA Button */}
-            <motion.button
+            {/* <motion.button
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
@@ -141,7 +144,7 @@ export default function AboutSection() {
             >
               Learn More About Us
               <ArrowRight className="w-4 h-4" />
-            </motion.button>
+            </motion.button> */}
           </motion.div>
         </div>
       </div>
