@@ -11,8 +11,6 @@ import SearchBox from "./utils/SearchBox";
 import useGetTeams from "./hooks/useGetAll";
 import useCreateTeams from "./hooks/useCreate";
 import useEditTeams from "./hooks/useEdit";
-import { useUploadTeamsImage } from "./hooks/useUploadAlumni";
-import { useUpdateImage } from "./hooks/useUpdateImage";
 
 import AddEditTeamsWizardModal from "./components/Wizard";
 import DeleteTeamsModal from "./components/DeleteModel";
@@ -21,6 +19,7 @@ import TeamsCardView from "./components/TeamsCardView";
 import { TeamsColumns } from "./utils/columns";
 import type { Department, Teams } from "./model/TeamsModel";
 import { PAGE_LIMIT } from "../../constants";
+import { useUploadTeamsImage } from "./hooks/useUploadAlumni";
 
 const TeamsPage = () => {
   const [page, setPage] = useState(1);
@@ -46,7 +45,6 @@ const TeamsPage = () => {
   const createMutation = useCreateTeams();
   const editMutation = useEditTeams();
   const uploadImageMutation = useUploadTeamsImage();
-  const updateImageMutation = useUpdateImage();
 
   const teams = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
@@ -161,7 +159,6 @@ const TeamsPage = () => {
         Teams={teamToEdit}
       />
       <AddEditTeamsWizardModal
-        updateImageMutation={updateImageMutation}
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         TeamsToEdit={teamToEdit}

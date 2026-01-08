@@ -26,6 +26,7 @@ import PaymentModes from "../website/pages/payment-modes/PaymentModes";
 import AlumniSpeaks from "../website/pages/alumni-speaks/AlumniSpeaks";
 import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
 import Messages from "../website/pages/messages/Messages";
+import TeamDetail from "../website/pages/our-team/OurTeamDetails";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -144,6 +145,10 @@ export const websiteRoutes = [
       {
         path: "messages/:id",
         element: <Messages />,
+      },
+       {
+        path: "team/:id",
+        element: <TeamDetail />,
       },
       {
         path: "enroll",
