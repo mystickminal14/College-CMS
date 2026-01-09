@@ -1,14 +1,14 @@
-// auth/hooks/useMe.ts
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../../services/apiClient";
+import type { FrontendUser } from "../model/permission";
+import type { ApiErrorResponse, ApiResponse } from "../../services/apiTypes";
 
-const api = new APIClient<any>("/auth/me");
+const api = new APIClient<FrontendUser>("/auth/me");
 
 const useMe = () => {
-  return useQuery({
+  return useQuery<ApiResponse<FrontendUser>, ApiErrorResponse>({
     queryKey: ["me"],
     queryFn: () => api.get(),
-    retry: false,
   });
 };
 

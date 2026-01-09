@@ -1,8 +1,10 @@
+// context/ContextApp.tsx
 import { createContext, type ReactNode, useEffect, useState } from "react";
 import { ToastContainer, toast, type ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import type { PermissionNameType } from "../login/model/permission"; // import permission type
 
-// Context value type
+// extend the context type
 interface AppContextType {
   showToast: (
     message: string,
@@ -11,6 +13,10 @@ interface AppContextType {
   theme: "light" | "dark";
   toggleTheme: () => void;
   isOnline: boolean;
+
+  // NEW: permissions
+  userPermissions: PermissionNameType[];
+  setUserPermissions: (permissions: PermissionNameType[]) => void;
 }
 
 // Props for provider
@@ -18,6 +24,7 @@ interface ContextAppProps {
   children: ReactNode;
 }
 
+// keep everything else as is
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const defaultToastOptions: ToastOptions = {
@@ -38,6 +45,9 @@ export default function ContextApp({ children }: ContextAppProps) {
   });
 
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+
+  // NEW: user permissions state
+  const [userPermissions, setUserPermissions] = useState<PermissionNameType[]>([]);
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -93,7 +103,16 @@ export default function ContextApp({ children }: ContextAppProps) {
   };
 
   return (
-    <AppContext.Provider value={{ showToast, theme, toggleTheme, isOnline }}>
+    <AppContext.Provider
+      value={{
+        showToast,
+        theme,
+        toggleTheme,
+        isOnline,
+        userPermissions,        // added
+        setUserPermissions,     // added
+      }}
+    >
       <ToastContainer />
       {children}
     </AppContext.Provider>

@@ -1,4 +1,6 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
+
 import AppLayout from "../components/layout/AppLayout";
 import LoginPage from "../login/page/LoginPage";
 import UserPage from "../pages/users/UserTable";
@@ -14,7 +16,6 @@ import AddCourseDetailsPage from "../pages/add-course/AddCourseDetailsPage";
 import EditCourseDetailsPage from "../pages/add-course/EditCourseDetailsPage";
 import NoticesPage from "../pages/notices/NoticesPage";
 import NotFoundPage from "../components/NoRouteFound";
-import type { ReactNode } from "react";
 import IntakePage from "../pages/intake-calender/IntakePage";
 import PlannersPage from "../pages/academic-planner/AcademicPlanner";
 import ContactPage from "../pages/contact/ContactTable";
@@ -23,26 +24,88 @@ import AchievementPage from "../pages/achivement/Achivement";
 import ConnectsPage from "../pages/lbef-connect/LbefConnect";
 import GallerysPage from "../pages/gallery/GalleryPage";
 import DocumentPage from "../pages/docs-required/DocsPage";
-import useMe from "../login/hooks/useMe";
 import JournalsPage from "../pages/journal/JournalPage";
 import JournalDetails from "../pages/journal/JournalDetails";
 import EditorialPage from "../pages/editorial-board/EditorialBoard";
 
+import useMe from "../login/hooks/useMe";
+import type { PermissionNameType } from "../login/model/permission";
+
+// ------------------ ROUTE PERMISSIONS ------------------
+const routePermissions: Record<string, PermissionNameType | null> = {
+  "course": "COURSES",
+  "course-details": "COURSES",
+  "administation/notice": "NOTICE",
+  "administation/contact": "CONTACT",
+  "students/planner": "ACADEMIC_PLANNER",
+  "students/fee-planner": "FEE_PLANNER",
+  "students/downloads": "DOWNLOADS",
+  "user": "USERS",
+  "alumni": "ALUMNI",
+  "administation/achievement": "ACHIEVEMENT",
+  "media/news": "NEWS",
+  "media/connect": "CONNECT",
+  "media/gallery": "GALLERY",
+  "administation/recognition": "RECOGNITION",
+  "teams": "TEAMS",
+  "administation/holiday": "HOLIDAY",
+  "admission/intake": "INTAKE",
+  "admission/docs": "DOCUMENTS",
+  "media/journals": "JOURNALS",
+  "media/journals/:id": "JOURNALS",
+  "media/editorial-board": "EDITORIAL_BOARD",
+};
+
+// ------------------ PROTECTED ROUTE ------------------
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const { isError } = useMe();
+  const { data: meData, isLoading, isError } = useMe();
+  const location = useLocation();
+
+  // ------------------ Loader while fetching ------------------
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (isError) return <Navigate to="/admin/auth" replace />;
+  if (!meData) return null; // fallback, though loader handles fetch
+
+  const currentPath = location.pathname.replace(/^\/app\//, "");
+
+  // Match the route
+  const matchedRoute = Object.keys(routePermissions).find(route => {
+    // Handle dynamic route segments like :id
+    if (route.includes(":")) {
+      const baseRoute = route.split("/:")[0];
+      return currentPath.startsWith(baseRoute);
+    }
+    return route === currentPath;
+  });
+
+  const requiredPermission = matchedRoute ? routePermissions[matchedRoute] : null;
+
+  // If user lacks permission
+  if (requiredPermission && !meData.data?.permissions.includes(requiredPermission)) {
+    return <NotFoundPage />;
+  }
+
+  // If route does not exist
+  if (!matchedRoute) return <NotFoundPage />;
 
   return children;
 };
 
+// ------------------ LOGIN ROUTE ------------------
 const LoginRoute = () => {
   const { data } = useMe();
-
   if (data) return <Navigate to="/app/course" replace />;
   return <LoginPage />;
 };
 
+// ------------------ ADMIN ROUTES ------------------
 export const adminRoutes = [
   { path: "/admin/auth", element: <LoginRoute /> },
   {
@@ -74,12 +137,15 @@ export const adminRoutes = [
       { path: "administation/holiday", element: <HolidaysPage /> },
       { path: "admission/intake", element: <IntakePage /> },
       { path: "admission/docs", element: <DocumentPage /> },
-       { path: "media/journals", element: <JournalsPage /> },
+      { path: "media/journals", element: <JournalsPage /> },
       { path: "media/journals/:id", element: <JournalDetails /> },
       { path: "media/editorial-board", element: <EditorialPage /> },
 
-
+      // Catch-all unknown routes inside /app
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
+
+  // Catch-all unknown routes
   { path: "*", element: <NotFoundPage /> },
 ];
