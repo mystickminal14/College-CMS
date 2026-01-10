@@ -1,5 +1,5 @@
 import { FaAward, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useState, useContext } from "react";
+import { useState,  } from "react";
 import appLogo from "../../assets/butterfiles.webp";
 import pcpsLogo from "../../assets/pcpslogo.webp";
 import {
@@ -15,18 +15,20 @@ import {
   MdPhoto,
   MdDocumentScanner
 } from 'react-icons/md';
-import { AppContext } from "../../context/ContextApp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
 import useLogout from "../../login/hooks/useLogout";
+import { filterMenuItems } from "../../utils/filteredMenu";
+import useMe from "../../login/hooks/useMe";
+import type { PermissionNameType } from "../../login/model/permission";
 
-interface SubMenuItem {
+export interface SubMenuItem {
   id: string;
   label: string;
   icon?: React.ComponentType<{ className?: string }>;
 }
 
-interface MenuItem {
+export interface MenuItem {
   id: string;
   icon: React.ComponentType<{ className?: string }>;
   label: string;
@@ -42,6 +44,7 @@ interface SideBarProps {
   onCloseMobile: () => void;
 }
 
+// Full menu definition (unchanged)
 const menuItems: MenuItem[] = [
   { id: "user", icon: MdPeople, label: "Users", badge: "New" },
   { id: "course", icon: MdSchool, label: "Courses", badge: "New" },
@@ -56,7 +59,6 @@ const menuItems: MenuItem[] = [
       { id: "downloads", label: "Student Handbook", icon: MdMenuBook },
     ]
   },
-  // 
   { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
   {
     id: "media",
@@ -66,10 +68,8 @@ const menuItems: MenuItem[] = [
       { id: "news", label: "News", icon: MdArticle },
       { id: "journals", label: "Journal", icon: MdArticle },
       { id: "editorial-board", label: "Editorial Board", icon: MdArticle },
-
       { id: "connect", label: "LBEF Connect", icon: MdGroups },
       { id: "gallery", label: "Photo Gallery", icon: MdPhoto },
-
     ],
   },
   {
@@ -82,7 +82,6 @@ const menuItems: MenuItem[] = [
       { id: "holiday", label: "Holiday", icon: MdEvent },
       { id: "recognition", label: "Recognitions", icon: MdWorkspacePremium },
       { id: "achievement", label: "Achievements", icon: FaAward },
-
     ]
   },
   {
@@ -106,30 +105,32 @@ const SideBar: React.FC<SideBarProps> = ({
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [activeMobileItem, setActiveMobileItem] = useState<MenuItem | null>(null);
   const [submenuOpen, setSubmenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const appContext = useContext(AppContext);
-  if (!appContext) throw new Error("AppContext not found");
-  const { mutate: logout } = useLogout()
+  const { data: meData } = useMe();
+  const { mutate: logout } = useLogout();
+
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+ // Safe permissions mapping from API
+const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
+;
+
+  const role = meData?.data?.role || "USER";
+
+  // Filter menu based on API permissions
+  const visibleMenus = filterMenuItems(menuItems, userPermissions, role);
+
   const toggleSubmenu = (itemId: string) => {
     setExpandedItems(prev => {
       const newExpanded = new Set<string>();
-
-      // Close all other submenus and only open the clicked one
-      if (prev.has(itemId)) {
-        // If already expanded, close it (newExpanded is empty)
-        return newExpanded;
-      } else {
-        // If not expanded, open it and close others
-        newExpanded.add(itemId);
-        return newExpanded;
-      }
+      if (!prev.has(itemId)) newExpanded.add(itemId);
+      return newExpanded;
     });
   };
 
@@ -160,7 +161,7 @@ const SideBar: React.FC<SideBarProps> = ({
   const isSubMenuActive = (item: MenuItem, subMenuId: string) =>
     pathname === `/app/${item.id}/${subMenuId}`;
 
-  // Mobile Sidebar
+  // ------------------- Mobile Sidebar -------------------
   if (isMobile) {
     return (
       <>
@@ -188,7 +189,7 @@ const SideBar: React.FC<SideBarProps> = ({
           </div>
 
           <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-            {menuItems.map((item) => {
+            {visibleMenus.map((item) => {
               const isActive = isMenuItemActive(item);
               const isExpanded = expandedItems.has(item.id);
 
@@ -218,7 +219,6 @@ const SideBar: React.FC<SideBarProps> = ({
                     )}
                   </button>
 
-                  {/* Mobile submenus */}
                   {item.subMenus && isExpanded && (
                     <div className="ml-8 mt-2 space-y-1">
                       {item.subMenus.map((menu) => (
@@ -260,7 +260,6 @@ const SideBar: React.FC<SideBarProps> = ({
           </div>
         </div>
 
-        {/* Mobile sliding submenu */}
         {activeMobileItem && submenuOpen && (
           <>
             <div
@@ -309,7 +308,7 @@ const SideBar: React.FC<SideBarProps> = ({
     );
   }
 
-  // Desktop sidebar
+  // ------------------- Desktop Sidebar -------------------
   return (
     <div
       className={`hidden md:flex flex-col relative z-10 
@@ -341,7 +340,7 @@ const SideBar: React.FC<SideBarProps> = ({
       </div>
 
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-        {menuItems.map((item) => {
+        {visibleMenus.map((item) => {
           const isActive = isMenuItemActive(item);
           const isExpanded = expandedItems.has(item.id);
 
@@ -370,7 +369,6 @@ const SideBar: React.FC<SideBarProps> = ({
                 )}
               </button>
 
-              {/* Desktop submenus */}
               {item.subMenus && isExpanded && (
                 <div className="ml-8 mt-2 space-y-1">
                   {item.subMenus.map((menu) => (
@@ -397,18 +395,17 @@ const SideBar: React.FC<SideBarProps> = ({
       <div className="p-4 border-t border-slate-200 dark:border-slate-700">
         <button
           onClick={handleLogout}
-          className={`w-full flex items-center ${collapsed ? 'justify-center' : 'justify-start'} 
-                    p-3 rounded-xl 
+          className="w-full flex items-center justify-center p-3 rounded-xl 
                     bg-linear-to-r from-red-500 to-red-600 text-white 
                     hover:from-red-600 hover:to-red-700 
                     active:from-red-700 active:to-red-800
-                    shadow-lg hover:shadow-red-500/25 hover:shadow-xl
-                    transition-all duration-200 group cursor-pointer`}
+                    shadow-lg hover:shadow-red-500/25
+                    transition-all duration-200 group cursor-pointer"
           aria-label="Log out"
           title="Log out"
         >
-          <IoLogOutOutline className={`w-6 h-6 group-hover:scale-110 transition-transform ${collapsed ? '' : 'mr-3'}`} />
-          {!collapsed && <span className="font-medium">Logout</span>}
+          <IoLogOutOutline className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          {!collapsed && <span className="ml-3 font-medium hidden">Logout</span>}
         </button>
       </div>
     </div>

@@ -1,5 +1,3 @@
-export type Role = "MANAGER" | "ADMIN"|"USER";
-
 export type PermissionNameType =
   | "USERS" | "COURSES" | "TEAMS" | "ALUMNI"
   | "NEWS" | "JOURNALS" | "EDITORIAL_BOARD" | "CONNECT" | "GALLERY"
@@ -18,12 +16,12 @@ export interface Permission {
   permission: PermissionName;
 }
 
-export interface User {
-  id?: number;
-  fullname?: string;
-  username?: string;
-  password?: string;
-  email?: string;
-  role?: Role;
-  permissions?: PermissionNameType[]; // 👈 IMPORTANT
+export interface FrontendUser {
+  id: number;
+  fullname: string;
+  username: string;
+  email: string;
+  role: "SUPERADMIN" | "ADMIN" | "USER" | "MANAGER";
+  permissions: PermissionNameType[];
+  token?: string;
 }
