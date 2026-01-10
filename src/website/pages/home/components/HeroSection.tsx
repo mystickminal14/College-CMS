@@ -17,6 +17,7 @@ export function HeroSection() {
           text-[21px]
           [@media(min-width:380px)]:text-[7vw]
           text-center lg:text-left
+          font-size
           "
         >
           <div className="inline-block">
@@ -25,7 +26,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, }} // come from left
                 animate={{ opacity: 1, }}
                 transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
-                className="text-md  sm:text-lg lg:text-[6vw]"
+                className="text-md  lg:text-[6vw]"
               >
                 Welcome
               </motion.span>

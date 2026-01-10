@@ -4,76 +4,76 @@ import { fadeUp } from '../../comp/animation';
 import type { EditorialMember, HonoraryPosition } from '../../../pages/editorial-board/model/EditoralModel';
 import useGetEditorialAll from '../../../pages/editorial-board/hooks/useGetEditortial';
 import React from 'react';
-import { 
-  Crown, 
-  Award, 
-  UserCog, 
-  Users, 
-  FileText, 
-  Briefcase 
+import {
+  Crown,
+  Award,
+  UserCog,
+  Users,
+  FileText,
+  Briefcase
 } from 'lucide-react';
 
-const positionConfig: Record<HonoraryPosition, { 
-  title: string; 
-  order: number; 
-  bgColor: string; 
-  textColor: string; 
+const positionConfig: Record<HonoraryPosition, {
+  title: string;
+  order: number;
+  bgColor: string;
+  textColor: string;
   borderColor: string;
   icon: React.ReactNode;
 }> = {
-  CHIEF_PATRON: { 
-    title: 'CHIEF PATRON', 
-    order: 1, 
-    bgColor: 'bg-purple-50', 
-    textColor: 'text-purple-700', 
+  CHIEF_PATRON: {
+    title: 'CHIEF PATRON',
+    order: 1,
+    bgColor: 'bg-purple-50',
+    textColor: 'text-purple-700',
     borderColor: 'border-purple-200',
     icon: <Crown className="w-5 h-5" />
   },
-  PATRON: { 
-    title: 'PATRON', 
-    order: 2, 
-    bgColor: 'bg-blue-50', 
-    textColor: 'text-blue-700', 
+  PATRON: {
+    title: 'PATRON',
+    order: 2,
+    bgColor: 'bg-blue-50',
+    textColor: 'text-blue-700',
     borderColor: 'border-blue-200',
     icon: <Award className="w-5 h-5" />
   },
-  EDITOR_IN_CHIEF: { 
-    title: 'EDITOR-IN-CHIEF', 
-    order: 3, 
-    bgColor: 'bg-green-50', 
-    textColor: 'text-green-700', 
+  EDITOR_IN_CHIEF: {
+    title: 'EDITOR-IN-CHIEF',
+    order: 3,
+    bgColor: 'bg-green-50',
+    textColor: 'text-green-700',
     borderColor: 'border-green-200',
     icon: <UserCog className="w-5 h-5" />
   },
-  ASSOCIATE_EDITOR: { 
-    title: 'ASSOCIATE EDITOR(S)', 
-    order: 4, 
-    bgColor: 'bg-yellow-50', 
-    textColor: 'text-yellow-700', 
+  ASSOCIATE_EDITOR: {
+    title: 'ASSOCIATE EDITOR(S)',
+    order: 4,
+    bgColor: 'bg-yellow-50',
+    textColor: 'text-yellow-700',
     borderColor: 'border-yellow-200',
     icon: <Users className="w-5 h-5" />
   },
-  MANAGING_EDITOR: { 
-    title: 'MANAGING EDITOR', 
-    order: 5, 
-    bgColor: 'bg-orange-50', 
-    textColor: 'text-orange-700', 
+  MANAGING_EDITOR: {
+    title: 'MANAGING EDITOR',
+    order: 5,
+    bgColor: 'bg-orange-50',
+    textColor: 'text-orange-700',
     borderColor: 'border-orange-200',
     icon: <FileText className="w-5 h-5" />
   },
-  EDITORIAL_BOARD_MEMBER: { 
-    title: 'EDITORIAL BOARD MEMBER(S)', 
-    order: 6, 
-    bgColor: 'bg-gray-50', 
-    textColor: 'text-gray-700', 
+  EDITORIAL_BOARD_MEMBER: {
+    title: 'EDITORIAL BOARD MEMBER(S)',
+    order: 6,
+    bgColor: 'bg-gray-50',
+    textColor: 'text-gray-700',
     borderColor: 'border-gray-200',
     icon: <Briefcase className="w-5 h-5" />
   },
-  ADVISOR: { 
-    title: 'ADVISOR(S)', 
-    order: 7, 
-    bgColor: 'bg-pink-50', 
-    textColor: 'text-pink-700', 
+  ADVISOR: {
+    title: 'ADVISOR(S)',
+    order: 7,
+    bgColor: 'bg-pink-50',
+    textColor: 'text-pink-700',
     borderColor: 'border-pink-200',
     icon: <Users className="w-5 h-5" />
   },
@@ -92,15 +92,15 @@ const JournalEditorialBoard = () => {
 
   if (!data?.data) {
     return (
-       <div className="text-center py-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-            <Users className="w-8 h-8 text-gray-400" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No Editorial Board Members Found</h3>
-          <p className="text-gray-600 max-w-md mx-auto">
-            The editorial board information is currently being updated. Please check back soon.
-          </p>
+      <div className="text-center py-12">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+          <Users className="w-8 h-8 text-gray-400" />
         </div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">No Editorial Board Members Found</h3>
+        <p className="text-gray-600 max-w-md mx-auto">
+          The editorial board information is currently being updated. Please check back soon.
+        </p>
+      </div>
     );
   }
 
@@ -142,7 +142,7 @@ const JournalEditorialBoard = () => {
           const members = groupedByPosition[positionKey as HonoraryPosition];
           if (!members || members.length === 0) return null;
           const config = positionConfig[positionKey as HonoraryPosition];
-          
+
           return (
             <motion.div
               key={positionKey}
@@ -235,7 +235,7 @@ const JournalEditorialBoard = () => {
         </div>
       )}
 
-      
+
     </div>
   );
 };

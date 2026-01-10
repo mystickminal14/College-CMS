@@ -3,7 +3,8 @@ import decoration from '../../../../assets/decoration.webp';
 import imageone from '../../../../assets/core/drparam.webp';
 import imagetwo from '../../../../assets/core/prof.webp';
 import bg1 from '../../../../assets/apu-bg.webp';
-import { useNavigate } from 'react-router-dom';
+import MessageDetail from '../../messages/Messages';
+import { useState } from 'react';
 
 const messages = [
   {
@@ -27,7 +28,8 @@ const messages = [
 ];
 
 export default function OurCore() {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const fadeLeft: Variants = {
     hidden: { opacity: 0, x: -50 },
@@ -62,7 +64,7 @@ export default function OurCore() {
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Messages from{' '}
             <span className="relative inline-block text-white">
-              Our Leaders 
+              Our Leaders
               <img
                 src={decoration}
                 alt=""
@@ -78,7 +80,10 @@ export default function OurCore() {
           {messages.map((lead, index) => (
             <motion.div
               key={lead.id}
-              onClick={() => navigate(`/messages/${lead.id}`)}
+              onClick={() => {
+                setSelectedId(lead.id);
+                setOpen(true);
+              }}
               className="pl-10 w-full sm:w-[520px] relative bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
               variants={index % 2 === 0 ? fadeLeft : fadeRight}
               initial="hidden"
@@ -112,6 +117,12 @@ export default function OurCore() {
               </div>
             </motion.div>
           ))}
+          {selectedId && (
+            <MessageDetail
+              messageId={selectedId}
+              onClose={() => setSelectedId(null)}
+            />
+          )}
         </div>
       </div>
     </section>

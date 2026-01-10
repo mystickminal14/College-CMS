@@ -70,3 +70,18 @@
 }
 
 
+.font-size{
+
+  @media (min-width:1220px) and (max-width:1325px) {
+    font-size: 5rem;
+  }
+    @media (min-width:1150px) and (max-width:1220px) {
+    font-size: 4.5rem;
+  }
+      @media (min-width:1080px) and (max-width:1150px) {
+    font-size: 4rem;
+  }
+        @media (min-width:1024px) and (max-width:1080px) {
+    font-size: 3.5rem;
+  }
+}

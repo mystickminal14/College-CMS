@@ -87,8 +87,8 @@ export const websiteRoutes = [
           {
             path: "alumni-speaks", element: <AlumniSpeaks />
           },
-           {
-            path: "student-access", element: <StudentAccess  />
+          {
+            path: "student-access", element: <StudentAccess />
           },
           {
             path: "student-support", element: <ContactListPage />
@@ -107,13 +107,22 @@ export const websiteRoutes = [
       {
         path: "media",
         children: [
-          { path: "", element: <Gallery/> },
+          { path: "", element: <Gallery /> },
           { path: "photo-gallery", element: <Gallery /> },
           { path: "connect", element: <LBEFConnectWeb /> },
-          { path: "news-events", element: <NewsPageWeb/> },
-          { path: "journal", element: <JournalPageWeb /> },
-          { path: "journal/:id", element: <JournalPageWeb /> },
-          { path: "journal/:id/abstract", element: <JournalPageWeb /> },
+          { path: "news-events", element: <NewsPageWeb /> },
+          // { path: "journal", element: <JournalPageWeb /> },
+          // { path: "journal/:id", element: <JournalPageWeb /> },
+          // { path: "journal/:id/abstract", element: <JournalPageWeb /> },
+
+        ],
+      },
+      {
+        path: "lrjstm",
+        children: [
+          { path: "", element: <JournalPageWeb /> },
+          { path: "volume/view/:id", element: <JournalPageWeb /> },
+          { path: "volume/abstract/:id", element: <JournalPageWeb /> },
 
         ],
       },
@@ -121,8 +130,8 @@ export const websiteRoutes = [
         path: "gyandeep-scholarship",
         element: <GyandeepScholasrhip />,
       },
-      
-            {
+
+      {
         path: "ict-scholarship",
         element: <ICTScholarship />,
       },
@@ -146,7 +155,7 @@ export const websiteRoutes = [
         path: "messages/:id",
         element: <Messages />,
       },
-       {
+      {
         path: "team/:id",
         element: <TeamDetail />,
       },
@@ -154,7 +163,7 @@ export const websiteRoutes = [
         path: "enroll",
         element: <PlaceholderPage pageName="Enroll Now" />,
       },
-      
+
     ]
   }
 ];

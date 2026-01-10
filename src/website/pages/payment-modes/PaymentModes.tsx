@@ -243,7 +243,7 @@ const ProgramCard = ({
 
   return (
     <div className="h-full">
-      <div className="flex items-center gap-3 mb-6">
+      {/* <div className="flex items-center gap-3 mb-6">
         <div className={`${iconSize} rounded-xl bg-linear-to-br ${iconBg} flex items-center justify-center`}>
           <svg className={`${iconSvgSize} ${iconColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {isIT ? (
@@ -256,7 +256,7 @@ const ProgramCard = ({
         <h2 className={`${titleSize} font-bold text-gray-800`}>
           {title}
         </h2>
-      </div>
+      </div> */}
 
       <div className={spaceClass}>
         {/* Cash Payment */}

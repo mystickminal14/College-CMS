@@ -190,7 +190,7 @@ const JournalHomeContent = () => {
 
                       <div className="mt-6">
                         <button
-                          onClick={() => navigate(`/media/journal/${issue.id}`)}
+                          onClick={() => navigate(`volume/view/${issue.id}`)}
                           className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition"
                         >
                           View Issue <span className="ml-2">→</span>

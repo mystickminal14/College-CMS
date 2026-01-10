@@ -2,7 +2,8 @@ import decoration from '../../../../assets/decoration.webp';
 import imageone from '../../../../assets/core/jalan.webp';
 import imagetwo from '../../../../assets/core/prakash.webp';
 import bg1 from '../../../../assets/white_bg.webp';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import MessageDetail from '../../messages/Messages';
 
 const messages = [
   {
@@ -26,7 +27,8 @@ const messages = [
 ];
 
 export default function OurCore() {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
@@ -61,7 +63,11 @@ export default function OurCore() {
           {messages.map((lead) => (
             <div
               key={lead.id}
-              onClick={() => navigate(`/messages/${lead.id}`)}
+              onClick={() => {
+                setSelectedId(lead.id);
+                setOpen(true);
+              }}
+
               className="pl-10 w-full sm:w-[520px] relative bg-white rounded-2xl shadow-md transition-transform hover:scale-105 cursor-pointer"
             >
               <div className="flex items-center gap-4 pt-6 pl-6 pb-2 pr-6">
@@ -97,6 +103,14 @@ export default function OurCore() {
 
             </div>
           ))}
+          {selectedId && (
+            <MessageDetail
+              messageId={selectedId}
+              onClose={() => setSelectedId(null)}
+            />
+          )}
+
+
         </div>
 
       </div>

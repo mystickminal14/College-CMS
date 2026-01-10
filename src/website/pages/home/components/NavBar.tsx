@@ -131,7 +131,7 @@ export function NavBar() {
     {
       name: "Admissions",
       dropdown: [
-        { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
+        // { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
         { name: "Admission Process", link: "/admissions/admission-process", icon: <FaClipboardList /> },
         { name: "Code of Conduct", link: "/students-life/student-code-of-conduct", icon: <FaClipboardList /> },
       ],
@@ -141,7 +141,7 @@ export function NavBar() {
       dropdown: [
         { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
         { name: "Lbef Connect", link: "/media/connect", icon: <FaBook /> },
-        { name: "Journal", link: "/media/journal", icon: <FaBook /> },
+        { name: "Journal", link: "/lrjstm/", icon: <FaBook /> },
         { name: "LBEF News", link: "/media/news-events", icon: <FaBook /> },
       ],
     },

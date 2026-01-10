@@ -25,7 +25,7 @@ export function VideoSection() {
 
             <h1 className="text-2xl sm:text-3xl md:text-[55px] font-bold leading-snug md:leading-tight mb-4">
               <span className="block">25+ Years of Excellence</span>
-              <span className="block mt-1 sm:mt-2">LBEE College</span>
+              <span className="block mt-1 sm:mt-2">LBEF College</span>
             </h1>
 
             {/* <button className="mx-auto md:mx-0 w-fit px-6 sm:px-10 py-3 sm:py-5 bg-[#3040E5] text-white font-medium text-sm sm:text-lg rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center gap-3">
