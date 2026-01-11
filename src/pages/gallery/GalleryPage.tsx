@@ -1,88 +1,267 @@
 import { useState } from "react";
 import TitleBox from "../../components/layout/TitleBox";
 import DeleteGallerysModal from "./components/DeleteModel";
-import type { Gallerys } from "./model/GallModel";
+import type { Gallerys, GalleryType, STATUS } from "./model/GallModel";
 import GallerysCardView from "./components/GalleryCardView";
 import GalleryImageUploadForm from "./components/Wizard";
 import useGetGallerys from "./hooks/useGetAll";
 import { PAGE_LIMIT } from "../../constants";
 import Pagination from "../../utils/Pagination";
+import { FaTable, FaThLarge } from "react-icons/fa";
+import { Edit, Trash2 } from "lucide-react";
+import useGetGalleryTypes from "./hooks/type/useGetGalleryType";
+import DeleteGalleryTypeModal from "./components/type/addDelete";
+import AddEditGalleryTypeModal from "./components/type/addEdit";
 import { useUpdateImages } from "./hooks/useUpdateImage";
+import EnhancedTable from "../../template/EnhancedTable";
+import { TypeColumns } from "./services/columns";
+import { useCreateGalleryType } from "./hooks/type/useCreate";
+import { useUpdateGalleryType } from "./hooks/type/usUpdate";
+import { debounce } from "lodash";
+import SearchBox from "../users/utils/SearchBox";
+import useGetAllGalleryTypes from "./hooks/type/useGetGalleryTypeAll";
 
 const GallerysPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [galleryToDelete, setGalleryToDelete] = useState<Gallerys | null>(null);
+  const [showTypeModal, setShowTypeModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteTypeModal, setShowDeleteTypeModal] = useState(false);
+
+  const [galleryToDelete, setGalleryToDelete] = useState<Gallerys | null>(null);
+  const [typeToEdit, setTypeToEdit] = useState<GalleryType | null>(null);
+  const [typeToDelete, setTypeToDelete] = useState<GalleryType | null>(null);
+
+  const [viewMode, setViewMode] = useState<"type" | "photo">("photo");
 
   const [page, setPage] = useState(1);
+  const [typePage, setTypePage] = useState(1);
 
-  const { data, isLoading, isError } = useGetGallerys({    page,
-      limit: PAGE_LIMIT,});
-  const gallerys = data?.data ?? [];
-  const totalPages = data?.pagination?.totalPages ?? 1;
-  const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const [selectedStatus, setSelectedStatus] = useState<STATUS | "">("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  const handleSearch = debounce((value: string) => {
+    setDebouncedSearch(value);
+    setTypePage(1);
+  }, 500);
+
+  const [selectedTypeId, setSelectedTypeId] = useState<number | undefined>(undefined);
+  const { data: galleryData, isLoading: galleryLoading, isError: galleryError } =
+    useGetGallerys({
+      page,
+      limit: PAGE_LIMIT,
+      typeId: selectedTypeId,
+    });
+
+  const gallerys = galleryData?.data ?? [];
+  const totalPages = galleryData?.pagination?.totalPages ?? 1;
+  const hasNextPage = galleryData?.pagination?.hasNextPage ?? false;
+
   const updateImageMutation = useUpdateImages();
+  const addMutation = useCreateGalleryType();
+  const editTypeMutation = useUpdateGalleryType();
 
-  const handleAdd = () => setShowModal(true);
+  const { data: typesDataAll } = useGetGalleryTypes(); // For table view (all types)
+  const { data: typesData } = useGetAllGalleryTypes({
+    page: typePage,
+    limit: PAGE_LIMIT,
+    search: debouncedSearch,
+    status: selectedStatus,
+  });
+  const galleryTypesAll = typesDataAll?.data ?? [];
 
-  const handleDelete = (item: Gallerys) => {
+  const galleryTypes = typesData?.data ?? [];
+  const typeTotalPages = typesData?.pagination?.totalPages ?? 1;
+  const typeHasNextPage = typesData?.pagination?.hasNextPage ?? false;
+
+  const handleAddGallery = () => setShowModal(true);
+
+  const handleEditType = (type: GalleryType) => {
+    setTypeToEdit(type);
+    setShowTypeModal(true);
+  };
+
+  const handleAddType = () => {
+    setTypeToEdit(null);
+    setShowTypeModal(true);
+  };
+
+  const handleDeleteGallery = (item: Gallerys) => {
     setGalleryToDelete(item);
     setShowDeleteModal(true);
   };
 
+  const handleDeleteType = (type: GalleryType) => {
+    setTypeToDelete(type);
+    setShowDeleteTypeModal(true);
+  };
+
+  const tableActions = [
+    {
+      icon: <Edit className="w-5 h-5" />,
+      tooltip: "Edit",
+      onClick: handleEditType,
+      color: "text-blue-600 hover:bg-blue-600 hover:text-white",
+    },
+    {
+      icon: <Trash2 className="w-5 h-5" />,
+      tooltip: "Delete",
+      onClick: handleDeleteType,
+      color: "text-red-600 hover:bg-red-600 hover:text-white",
+    },
+  ];
+
+  const statusOptions: STATUS[] = ["ENABLED", "DISABLED"];
+
+  // ------------------- JSX -------------------
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 ">
+    <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       <TitleBox
-        title="Gallerys Management"
+        title="Gallery Management"
         subtitle="Upload and manage gallery images"
       />
 
+      {/* --- Toolbar --- */}
       <div className="flex justify-between items-center my-6">
-        <button
-          onClick={handleAdd}
-          disabled={updateImageMutation.isPending}
-          className="px-6 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <div className="flex gap-2">
+          <button
+            onClick={() => setViewMode("type")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "type"
+                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-          <span>Add Gallery</span>
-        </button>
+            <FaTable className="w-4 h-4" />
+            <span>Gallery Types</span>
+          </button>
+          <button
+            onClick={() => setViewMode("photo")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "photo"
+                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
+          >
+            <FaThLarge className="w-4 h-4" />
+            <span>Photos</span>
+          </button>
+        </div>
+
+        {viewMode === "photo" ? (
+          <div className="flex gap-4">
+            <select
+              className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+              value={selectedTypeId }
+              onChange={(e) => {
+                const val = e.target.value;
+                setSelectedTypeId(val ? Number(val) : undefined);
+                setPage(1); 
+              }}
+            >
+              <option value="">All Types</option>
+              {galleryTypesAll.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
+
+            <button
+              onClick={handleAddGallery}
+              disabled={updateImageMutation.isPending}
+              className="px-6 py-3 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
+            >
+              <span>Add Gallery</span>
+            </button>
+          </div>
+        ) : (
+          <>
+            <SearchBox placeholder="Search Types..." onSearch={handleSearch} />
+
+           <div className="flex gap-4">
+             <select
+              className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+              value={selectedStatus}
+              onChange={(e) => {
+                setSelectedStatus(e.target.value as STATUS | "");
+                setTypePage(1);
+              }}
+            >
+              <option value="">All Status</option>
+              {statusOptions.map((status) => (
+                <option key={status} value={status}>
+                  {status.charAt(0) + status.slice(1).toLowerCase()}
+                </option>
+              ))}
+            </select>
+
+            <button
+              onClick={handleAddType}
+              className="px-6 py-3 bg-[#125DAA] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
+            >
+              <span>Add Gallery Type</span>
+            </button>
+           </div>
+          </>
+        )}
       </div>
 
-      <GallerysCardView
-        gallerys={gallerys}
-        isLoading={isLoading}
-        isError={isError}
-        onDelete={handleDelete}
-      />
- {/* Pagination */}
-      <Pagination
-        hasNextPage={hasNextPage}
-        page={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
+      <div>
+        {viewMode === "photo" ? (
+          <>
+            <GallerysCardView
+              gallerys={gallerys}
+              isLoading={galleryLoading}
+              isError={galleryError}
+              onDelete={handleDeleteGallery}
+            />
+            <Pagination
+              hasNextPage={hasNextPage}
+              page={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
+          </>
+        ) : (
+          <>
+            <EnhancedTable
+              data={galleryTypes}
+              columns={TypeColumns}
+              actions={tableActions}
+              loading={galleryLoading}
+              emptyMessage={galleryError ? "Failed to load types" : "No types found"}
+            />
+            <Pagination
+              hasNextPage={typeHasNextPage}
+              page={typePage}
+              totalPages={typeTotalPages}
+              onPageChange={setTypePage}
+            />
+          </>
+        )}
+      </div>
+
+      {/* --- Modals --- */}
       <DeleteGallerysModal
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         gallery={galleryToDelete}
       />
-
       <GalleryImageUploadForm
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         updateImageMutation={updateImageMutation}
+      />
+      <AddEditGalleryTypeModal
+        isOpen={showTypeModal}
+        onClose={() => setShowTypeModal(false)}
+        type={typeToEdit ?? undefined}
+        isEdit={!!typeToEdit}
+        mutation={addMutation}
+        editMutation={editTypeMutation}
+      />
+      <DeleteGalleryTypeModal
+        isOpen={showDeleteTypeModal}
+        onClose={() => setShowDeleteTypeModal(false)}
+        type={typeToDelete}
       />
     </div>
   );

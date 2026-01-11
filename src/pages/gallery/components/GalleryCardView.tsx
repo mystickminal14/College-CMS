@@ -1,5 +1,5 @@
 import React from "react";
-import { Trash2, Eye, Calendar } from "lucide-react";
+import { Trash2, Eye, Calendar, } from "lucide-react";
 import type { Gallerys } from "../model/GallModel";
 import { IMAGE_URL } from "../../../constants";
 
@@ -82,35 +82,63 @@ const GallerysCardView: React.FC<Props> = ({
           className="group bg-white dark:bg-gray-800 rounded-xl shadow border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
         >
           <div className="relative h-52 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-            {item.image && (
-              <div className="relative w-full h-full flex items-center justify-center p-4">
-                <a
-                  href={`${IMAGE_URL}${item.image}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full h-full flex items-center justify-center"
-                  title={`View image`}
-                >
-                  <img
-                    src={`${IMAGE_URL}${item.image}`}
-                    alt={item.image}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </a>
+         <div className="relative w-full h-full flex items-center justify-center p-4 group">
 
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <a
-                    href={`${IMAGE_URL}${item.image}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 transition-colors flex items-center space-x-2 shadow-lg"
-                  >
-                    <Eye className="w-4 h-4" />
-                    <span>View Image</span>
-                  </a>
-                </div>
-              </div>
-            )}
+  {/* LINK ITEM */}
+  {item.link && !item.image && (
+    <a
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-full h-full flex items-center justify-center"
+      title="Open link"
+    >
+      <img
+        src={item.link}
+        alt="Gallery link"
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </a>
+  )}
+
+  {/* IMAGE ITEM */}
+  {item.image && (
+    <>
+      <a
+        href={`${IMAGE_URL}${item.image}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full h-full flex items-center justify-center"
+        title="View image"
+      >
+        <img
+          src={`${IMAGE_URL}${item.image}`}
+          alt="Gallery image"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </a>
+
+      {/* IMAGE OVERLAY */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2
+                      opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <a
+          href={`${IMAGE_URL}${item.image}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm
+                     rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300
+                     hover:bg-white dark:hover:bg-gray-800 transition-colors
+                     flex items-center space-x-2 shadow-lg"
+        >
+          <Eye className="w-4 h-4" />
+          <span>View Image</span>
+        </a>
+      </div>
+    </>
+  )}
+
+</div>
+
 
             <button
               onClick={() => onDelete(item)}

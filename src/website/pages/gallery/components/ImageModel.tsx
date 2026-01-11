@@ -18,6 +18,13 @@ const ImageModal = ({ image, images, isOpen, onClose, onNext, onPrev }: ImageMod
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < images.length - 1;
 
+  // Determine image source: if link exists, use it directly, otherwise use IMAGE_URL + image
+  const imageSrc = image.link 
+    ? image.link 
+    : image.image 
+      ? `${IMAGE_URL}${image.image}`
+      : "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Image";
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-fadeIn">
       <div className="relative w-full max-w-4xl h-[80vh]">
@@ -51,7 +58,7 @@ const ImageModal = ({ image, images, isOpen, onClose, onNext, onPrev }: ImageMod
         {/* Image container - Fixed height */}
         <div className="relative w-full h-full overflow-hidden rounded-2xl bg-black">
           <img
-            src={`${IMAGE_URL}${image.image}`}
+            src={imageSrc}
             alt="Gallery image"
             className="w-full h-full object-contain animate-scaleIn"
             style={{ maxHeight: 'calc(80vh - 120px)' }}
@@ -60,7 +67,7 @@ const ImageModal = ({ image, images, isOpen, onClose, onNext, onPrev }: ImageMod
           {/* Action buttons */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
             <button
-              onClick={() => window.open(`${IMAGE_URL}${image.image}`, "_blank")}
+              onClick={() => window.open(imageSrc, "_blank")}
               className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg text-white hover:bg-white/20 transition-all hover:scale-105"
             >
               <FaExpand className="w-4 h-4" />

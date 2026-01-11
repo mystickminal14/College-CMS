@@ -7,8 +7,11 @@ import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 import { compressImage, validateImageFile } from "../../../utils/ImageCompression";
 
-interface CreateImagesPayload {
-  images: File[];
+export interface CreateImagesPayload {
+  images?: File[];
+  links?: string[];
+  typeId: number;
+  slug:string;
 }
 
 export const useUpdateImages = () => {
@@ -19,33 +22,45 @@ export const useUpdateImages = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<Gallerys>, ApiErrorResponse, CreateImagesPayload>({
-    mutationFn: async ({ images }) => {
-      if (!images.length) throw new Error("Please select at least one image");
-
-      // Validate each image
-      images.forEach((file) => {
-        const validationError = validateImageFile(file);
-        if (validationError) throw new Error(validationError);
-      });
-
-      // Compress images
-      const compressedImages = await Promise.all(images.map((img) => compressImage(img)));
-
+    mutationFn: async ({ images = [], links = [], typeId, slug }) => {
       const formData = new FormData();
-      compressedImages.forEach((img) => formData.append("images", img));
+
+      formData.append("typeId", String(typeId));
+      formData.append("slug", slug);
+
+      if (images.length) {
+        const compressedImages = await Promise.all(
+          images.map(async (file) => {
+            const validationError = validateImageFile(file);
+            if (validationError) throw new Error(validationError);
+            return compressImage(file);
+          })
+        );
+
+        compressedImages.forEach((file) => {
+          formData.append("images", file);
+        });
+      }
+
+      /* LINKS */
+      if (links.length) {
+        links.forEach((link) => {
+          formData.append("links[]", link);
+        });
+      }
 
       const apiClient = new APIClient<Gallerys>("/gallery");
       return apiClient.postFile(formData);
     },
 
     onSuccess: (res) => {
-      showToast(res.message || "Images uploaded successfully!", "success");
+      showToast(res.message || "Gallery saved!", "success");
       queryClient.invalidateQueries({ queryKey: [GALLERY_CACHE_KEY] });
     },
 
     onError: (err) => {
-      const msg = err.errors?.[0]?.message || err.message || "Something went wrong!";
-      showToast(msg, "error");
+      showToast(err.message || "Upload failed", "error");
     },
   });
 };
+

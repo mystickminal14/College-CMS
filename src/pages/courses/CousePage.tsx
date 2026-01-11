@@ -64,49 +64,49 @@ const CoursePage = () => {
   const handlePreview = (course: Courses) => {
     navigate(`/app/course-details/${course.id}`, { state: { course } });
   };
- const handleEditDetails = (course: Courses) => {
+  const handleEditDetails = (course: Courses) => {
     navigate(`/app/course-details/edit/${course.id}`, { state: { course } });
   };
-const tableActions: {
-  icon: React.ReactNode | ((row: Courses) => React.ReactNode);
-  tooltip: string | ((row: Courses) => string);
-  onClick: (row: Courses) => void;
-  color?: string;
-  condition?: (row: Courses) => boolean;
-}[] = [
-  { 
-    icon: <Edit className="w-4 h-4" />, 
-    tooltip: "Edit Course", 
-    onClick: handleEdit, 
-    color: "text-[#135EAB]" 
-  },
-  { 
-    icon: <Trash2 className="w-4 h-4" />, 
-    tooltip: "Delete Course", 
-    onClick: handleDelete, 
-    color: "text-red-600" 
-  },
-  { 
-    icon: <View className="w-4 h-4" />, 
-    tooltip: "Preview Course", 
-    onClick: handlePreview, 
-    color: "text-blue-500" 
-  },
-  {
-    icon: <FaPlus className="w-4 h-4" />,
-    tooltip: "Add Details",
-    onClick: handleView,
-    color: "text-green-600",
-    condition: (course: Courses) => !course.hasDetails,
-  },
-  {
-    icon: <Edit3 className="w-4 h-4" />,
-    tooltip: "Edit Details",
-    onClick: handleEditDetails,
-    color: "text-green-600",
-    condition: (course: Courses) => !!course.hasDetails,
-  },
-];
+  const tableActions: {
+    icon: React.ReactNode | ((row: Courses) => React.ReactNode);
+    tooltip: string | ((row: Courses) => string);
+    onClick: (row: Courses) => void;
+    color?: string;
+    condition?: (row: Courses) => boolean;
+  }[] = [
+      {
+        icon: <Edit className="w-4 h-4" />,
+        tooltip: "Edit Course",
+        onClick: handleEdit,
+        color: "text-[#135EAB]"
+      },
+      {
+        icon: <Trash2 className="w-4 h-4" />,
+        tooltip: "Delete Course",
+        onClick: handleDelete,
+        color: "text-red-600"
+      },
+      {
+        icon: <View className="w-4 h-4" />,
+        tooltip: "Preview Course",
+        onClick: handlePreview,
+        color: "text-blue-500"
+      },
+      {
+        icon: <FaPlus className="w-4 h-4" />,
+        tooltip: "Add Details",
+        onClick: handleView,
+        color: "text-green-600",
+        condition: (course: Courses) => !course.hasDetails,
+      },
+      {
+        icon: <Edit3 className="w-4 h-4" />,
+        tooltip: "Edit Details",
+        onClick: handleEditDetails,
+        color: "text-green-600",
+        condition: (course: Courses) => !!course.hasDetails,
+      },
+    ];
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 ">
@@ -118,8 +118,8 @@ const tableActions: {
           <button
             onClick={() => setViewMode("table")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
-                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             <FaTable className="w-4 h-4" />
@@ -128,8 +128,8 @@ const tableActions: {
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
-                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             <FaThLarge className="w-4 h-4" />
