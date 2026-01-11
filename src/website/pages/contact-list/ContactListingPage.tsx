@@ -186,7 +186,7 @@ const ContactListPage = () => {
                         <td className="px-8 py-6">
                           <div className="max-w-xs">
                             <div className="text-gray-700 bg-gray-50 p-3 rounded-lg text-sm wrap-break-word">
-                              {contact.email || "No email"}
+                              {contact.email?.replace("@","(@)") || "No email"}
                             </div>
                           </div>
                         </td>

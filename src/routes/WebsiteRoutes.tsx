@@ -25,7 +25,6 @@ import ICTScholarship from "../website/pages/admission/IctScholarship";
 import PaymentModes from "../website/pages/payment-modes/PaymentModes";
 import AlumniSpeaks from "../website/pages/alumni-speaks/AlumniSpeaks";
 import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
-import Messages from "../website/pages/messages/Messages";
 import TeamDetail from "../website/pages/our-team/OurTeamDetails";
 
 
@@ -151,10 +150,10 @@ export const websiteRoutes = [
         path: "contact",
         element: <PlaceholderPage pageName="Contact Us" />,
       },
-      {
-        path: "messages/:id",
-        element: <Messages />,
-      },
+      // {
+      //   path: "messages/:id",
+      //   element: <Messages />,
+      // },
       {
         path: "team/:id",
         element: <TeamDetail />,

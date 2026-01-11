@@ -17,10 +17,10 @@ function limitWords(text: string, maxWords: number) {
 }
 
 // Video popup component
-function VideoPopup({ videoUrl, isOpen, onClose }: { 
-  videoUrl: string; 
-  isOpen: boolean; 
-  onClose: () => void 
+function VideoPopup({ videoUrl, isOpen, onClose }: {
+  videoUrl: string;
+  isOpen: boolean;
+  onClose: () => void
 }) {
   if (!isOpen) return null;
 
@@ -41,7 +41,7 @@ function VideoPopup({ videoUrl, isOpen, onClose }: {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        
+
         <div className="relative pt-[56.25%]">
           <iframe
             src={embedUrl}
@@ -64,7 +64,7 @@ export function Testimonial() {
   const [isVideoPopupOpen, setIsVideoPopupOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const storyRef = useRef<HTMLDivElement>(null);
-const autoSwitchRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoSwitchRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
 
   const activeAlumni = alumni[activeIndex];
@@ -77,27 +77,27 @@ const autoSwitchRef = useRef<ReturnType<typeof setInterval> | null>(null);
   }, [activeIndex]);
 
 
-useEffect(() => {
-  // Pause auto-switch if there's only one alumni, hovering, or video popup is open
-  if (alumni.length <= 1 || isHovering || isVideoPopupOpen) {
-    if (autoSwitchRef.current) {
-      clearInterval(autoSwitchRef.current);
-      autoSwitchRef.current = null;
+  useEffect(() => {
+    // Pause auto-switch if there's only one alumni, hovering, or video popup is open
+    if (alumni.length <= 1 || isHovering || isVideoPopupOpen) {
+      if (autoSwitchRef.current) {
+        clearInterval(autoSwitchRef.current);
+        autoSwitchRef.current = null;
+      }
+      return;
     }
-    return;
-  }
 
-  autoSwitchRef.current = setInterval(() => {
-    setActiveIndex((prev) => (prev + 1) % alumni.length);
-  }, AUTO_SWITCH_INTERVAL);
+    autoSwitchRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % alumni.length);
+    }, AUTO_SWITCH_INTERVAL);
 
-  return () => {
-    if (autoSwitchRef.current) {
-      clearInterval(autoSwitchRef.current);
-      autoSwitchRef.current = null;
-    }
-  };
-}, [alumni.length, isHovering, isVideoPopupOpen]); // <-- added isVideoPopupOpen
+    return () => {
+      if (autoSwitchRef.current) {
+        clearInterval(autoSwitchRef.current);
+        autoSwitchRef.current = null;
+      }
+    };
+  }, [alumni.length, isHovering, isVideoPopupOpen]); // <-- added isVideoPopupOpen
 
   const next = () => setActiveIndex((i) => (i + 1) % alumni.length);
   const prev = () => setActiveIndex((i) => (i - 1 + alumni.length) % alumni.length);
@@ -156,7 +156,7 @@ useEffect(() => {
                   <div className="h-4 w-2/3 bg-gray-200 rounded" />
                 </div>
               </div>
-              
+
               {/* Right side skeleton */}
               <div className="lg:w-3/5 space-y-6">
                 <div className="space-y-3">
@@ -206,32 +206,32 @@ useEffect(() => {
                   className="bg-white rounded-3xl shadow-2xl p-2 lg:p-8 min-h-[500px]  flex  flex-col lg:flex-row gap-8"
                 >
                   {/* Left side - Image and Info (40%) */}
-         <div className="lg:w-2/5 flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
-  {/* Smaller Image */}
-  <div className="relative">
-    <img
-      src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
-      alt={activeAlumni?.name ?? ""}
-      className="w-full h-60 lg:w-80 lg:h-95 aspect-4/3 rounded-2xl object-cover shadow-lg"
-    />
-  </div>
+                  <div className="lg:w-2/5 flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
+                    {/* Smaller Image */}
+                    <div className="relative">
+                      <img
+                        src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
+                        alt={activeAlumni?.name ?? ""}
+                        className="w-full h-60 lg:w-80 lg:h-95 aspect-4/3 rounded-2xl object-cover shadow-lg"
+                      />
+                    </div>
 
-  {/* User Info */}
-  <div className="space-y-2">
-    <h3 className="text-xl lg:text-2xl font-bold text-gray-900">
-      {activeAlumni?.name ?? ""}
-    </h3>
-    <p className="text-lg font-medium text-[#474AFF]">
-      {activeAlumni?.position ?? ""}
-    </p>
-    <p className="text-gray-600">
-      {activeAlumni?.course ?? ""}
-    </p>
-    <p className="text-sm text-gray-500">
-      Batch {activeAlumni?.batch ?? ""}
-    </p>
-  </div>
-</div>
+                    {/* User Info */}
+                    <div className="space-y-2">
+                      <h3 className="text-xl lg:text-2xl font-bold text-gray-900">
+                        {activeAlumni?.name ?? ""}
+                      </h3>
+                      <p className="text-lg font-medium text-[#474AFF]">
+                        {activeAlumni?.position ?? ""}
+                      </p>
+                      <p className="text-gray-600">
+                        {activeAlumni?.course ?? ""}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Batch {activeAlumni?.batch ?? ""}
+                      </p>
+                    </div>
+                  </div>
 
 
                   {/* Right side - Content, Video and Pagination (60%) */}
@@ -262,7 +262,7 @@ useEffect(() => {
                     {activeAlumni?.link && (
                       <div className="mb-6">
                         <div className="flex justify-end gap-4">
-                          <div 
+                          <div
                             onClick={openVideoPopup}
                             className="relative cursor-pointer group rounded-xl overflow-hidden bg-gray-100 hover:shadow-lg transition-shadow shrink-0"
                             style={{ width: '200px', height: '120px' }}
@@ -279,7 +279,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </div>
-                          
+
                         </div>
                       </div>
                     )}
@@ -292,7 +292,7 @@ useEffect(() => {
                           <span className="text-sm font-medium text-gray-600">
                             {activeIndex + 1} / {alumni.length}
                           </span>
-                         
+
                         </div>
 
                         {/* Pagination dots */}
@@ -302,11 +302,10 @@ useEffect(() => {
                               <button
                                 key={index}
                                 onClick={() => goToPage(index)}
-                                className={`w-3 h-3 rounded-full transition-all ${
-                                  activeIndex === index
+                                className={`w-3 h-3 rounded-full transition-all ${activeIndex === index
                                     ? "bg-[#474AFF] scale-110"
                                     : "bg-gray-300 hover:bg-gray-400"
-                                }`}
+                                  }`}
                                 aria-label={`Go to testimonial ${index + 1}`}
                               />
                             ))}
@@ -336,8 +335,6 @@ useEffect(() => {
                   </div>
                 </motion.div>
               </AnimatePresence>
-
-             
             </div>
 
             {/* Mobile thumbnail indicators */}
@@ -347,11 +344,10 @@ useEffect(() => {
                   <button
                     key={a.id}
                     onClick={() => goToPage(index)}
-                    className={`w-12 h-12 rounded-lg overflow-hidden shrink-0 transition-all ${
-                      activeIndex === index
+                    className={`w-12 h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
                         ? "ring-2 ring-[#474AFF] ring-offset-2"
                         : "opacity-50 hover:opacity-70"
-                    }`}
+                      }`}
                   >
                     <img
                       src={a.image ? IMAGE_URL + a.image : ""}
