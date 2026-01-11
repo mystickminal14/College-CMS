@@ -153,7 +153,6 @@ const GalleryGrid = () => {
     };
   };
 
-  // Effect to update display images when data changes
   useEffect(() => {
     if (data?.data && data.data.length > 0) {
       const { inner, outer } = selectImages(data.data);
@@ -378,12 +377,12 @@ const GalleryGrid = () => {
                       onClick={closeExpandedImage}
                     >
                       <div className="relative w-full max-w-sm sm:max-w-md h-full max-h-[55vh] sm:max-h-[60vh]">
-                        <motion.img
-                          src={getImageUrl(
-                            expandedCircle === 'inner' 
-                              ? innerCircleImages[expandedImage]?.image 
-                              : outerCircleImages[expandedImage - INNER_CIRCLE_IMAGES]?.image
-                          )}
+                      <motion.img
+  src={
+    expandedCircle === 'inner'
+      ? innerCircleImages[expandedImage]?.link || getImageUrl(innerCircleImages[expandedImage]?.image)
+      : outerCircleImages[expandedImage - INNER_CIRCLE_IMAGES]?.link || getImageUrl(outerCircleImages[expandedImage - INNER_CIRCLE_IMAGES]?.image)
+  }
                           alt="Expanded gallery image"
                           className="w-full h-full object-contain rounded shadow-lg sm:shadow-xl"
                           initial={{ scale: 0.4 }}
@@ -484,7 +483,7 @@ const GalleryGrid = () => {
                       getImageSize('outer', index)
                     } ${isDesktop && hoveredIndex === index && hoveredCircle === 'outer' && expandedImage === null ? 'ring-1 ring-white/30 ring-offset-1' : ''}`}>
                       <motion.img
-                        src={getImageUrl(image?.image)}
+                        src={image?.link? image.link: getImageUrl(image?.image)}
                         alt={`Gallery image ${globalIndex + 1}`}
                         className="w-full h-full object-cover"
                         animate={{
@@ -627,7 +626,7 @@ const GalleryGrid = () => {
                       getImageSize('inner', index)
                     } ${windowWidth >= 768 && hoveredIndex === index && hoveredCircle === 'inner' && expandedImage === null ? 'ring-1 sm:ring-2 ring-white/30 ring-offset-1 sm:ring-offset-2' : ''}`}>
                       <motion.img
-                        src={getImageUrl(image?.image)}
+                        src={image?.link? image.link:getImageUrl(image?.image)}
                         alt={`Gallery image ${index + 1}`}
                         className="w-full h-full object-cover"
                         animate={{

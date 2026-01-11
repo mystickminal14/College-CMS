@@ -96,51 +96,60 @@ const GalleryGrid = ({
           className="flex -ml-6 w-auto"
           columnClassName="ml-6 bg-clip-padding"
         >
-          {images.map((image, index) => (
-            <div
-              key={`${image.id}-${index}`}
-              className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer mb-6"
-              onClick={() => onImageClick(image)}
-            >
-              {/* Image with overlay */}
-              <div className="relative">
-                <img
-                  src={`${IMAGE_URL}${image.image}`}
-                  alt={`Gallery image ${index + 1}`}
-                  className="w-full h-auto object-cover rounded-2xl group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                  onLoad={(e) => {
-                    // Image loaded successfully
-                    const img = e.target as HTMLImageElement;
-                    img.style.opacity = '1';
-                  }}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Image";
-                  }}
-                  style={{ opacity: 0, transition: 'opacity 0.3s' }}
-                />
-                
-                {/* Linear overlay */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                
-                {/* Shine effect */}
-                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-2xl" />
-              </div>
+          {images.map((image, index) => {
+            // Determine image source: if link exists, use it directly, otherwise use IMAGE_URL + image
+            const imageSrc = image.link 
+              ? image.link 
+              : image.image 
+                ? `${IMAGE_URL}${image.image}`
+                : "https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Image";
 
-              {/* Hover overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 rounded-2xl">
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full">
-                  <FaExpand className="w-6 h-6 text-white" />
+            return (
+              <div
+                key={`${image.id}-${index}`}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer mb-6"
+                onClick={() => onImageClick(image)}
+              >
+                {/* Image with overlay */}
+                <div className="relative">
+                  <img
+                    src={imageSrc}
+                    alt={`Gallery image ${index + 1}`}
+                    className="w-full h-auto object-cover rounded-2xl group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                    onLoad={(e) => {
+                      // Image loaded successfully
+                      const img = e.target as HTMLImageElement;
+                      img.style.opacity = '1';
+                    }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Image";
+                    }}
+                    style={{ opacity: 0, transition: 'opacity 0.3s' }}
+                  />
+                  
+                  {/* Linear overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                  
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-2xl" />
+                </div>
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 rounded-2xl">
+                  <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full">
+                    <FaExpand className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+
+                {/* Image indicator */}
+                <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  #{index + 1}
                 </div>
               </div>
-
-              {/* Image indicator */}
-              <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                #{index + 1}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </Masonry>
       </div>
     </InfiniteScroll>

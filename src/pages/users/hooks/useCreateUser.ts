@@ -22,14 +22,12 @@ const useCreateUser = () => {
     onSuccess: (res) => {
       showToast(res.message || "User added successfully!", "success");
      queryClient.invalidateQueries({ queryKey: [USER_CACHE_KEY] });
-       
-
     },
 
     onError: (err) => {
         let errorMsg='';
       if (err.errors && err.errors.length > 0) {
-       errorMsg=err.errors[0].message; // show first validation error
+       errorMsg=err.errors[0].message; 
       } else {
          errorMsg=err.message || "Something went wrong!";
       }

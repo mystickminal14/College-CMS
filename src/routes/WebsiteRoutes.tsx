@@ -27,6 +27,7 @@ import AlumniSpeaks from "../website/pages/alumni-speaks/AlumniSpeaks";
 import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
 import Messages from "../website/pages/messages/Messages";
 import TeamDetail from "../website/pages/our-team/OurTeamDetails";
+import GalleryView from "../website/pages/gallery/GalleryView";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -109,6 +110,7 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <Gallery/> },
           { path: "photo-gallery", element: <Gallery /> },
+           { path: "photo-gallery/:name/:id", element: <GalleryView /> },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <NewsPageWeb/> },
           { path: "journal", element: <JournalPageWeb /> },

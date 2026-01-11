@@ -1,181 +1,253 @@
 import React, { useRef, useState, useContext } from "react";
-import { X, Upload, Loader2, Check } from "lucide-react";
+import { X, Loader2, Check, Image as ImageIcon, Link2 } from "lucide-react";
 import { AppContext } from "../../../context/ContextApp";
 import { validateImageFile } from "../../../utils/ImageCompression";
-import type { Gallerys } from "../model/GallModel";
+import type { Gallerys, GalleryType } from "../model/GallModel";
 import type { UseMutationResult } from "@tanstack/react-query";
 import type { ApiResponse, ApiErrorResponse } from "../../../services/apiTypes";
-import { FaImage } from "react-icons/fa";
+import useGetGalleryTypes from "../hooks/type/useGetGalleryType";
 
-interface GalleryImageUploadFormProps {
+type TabType = "images" | "links";
+
+interface Props {
   isOpen: boolean;
   onClose: () => void;
   updateImageMutation: UseMutationResult<
     ApiResponse<Gallerys>,
     ApiErrorResponse,
-    { images: File[] }
+    { images?: File[]; links?: string[]; typeId: number; slug: string }
   >;
 }
 
-const GalleryImageUploadForm: React.FC<GalleryImageUploadFormProps> = ({
+const GalleryImageUploadForm: React.FC<Props> = ({
   isOpen,
   onClose,
   updateImageMutation,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [activeTab, setActiveTab] = useState<TabType>("images");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [links, setLinks] = useState<string[]>([]);
+  const [linkInput, setLinkInput] = useState("");
+  const [selectedType, setSelectedType] = useState<GalleryType | null>(null);
 
   const appContext = useContext(AppContext);
-  if (!appContext) throw new Error("GalleryImageUploadForm must be used inside AppContext");
+  if (!appContext) throw new Error("Must be inside AppContext");
   const { showToast } = appContext;
+
+  const { data } = useGetGalleryTypes();
+  const galleryTypes: GalleryType[] = data?.data ?? [];
 
   if (!isOpen) return null;
 
+  /* ---------- IMAGES ---------- */
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : [];
     if (!files.length) return;
 
-    // Validate each file
-    const invalidFile = files.find((file) => validateImageFile(file));
-    if (invalidFile) {
-      showToast("One or more files are invalid!", "error");
+    const invalid = files.find((f) => validateImageFile(f));
+    if (invalid) {
+      showToast("Invalid image file", "error");
       return;
     }
 
     if (files.length + imageFiles.length > 20) {
-      showToast("You can upload a maximum of 20 images", "error");
+      showToast("Maximum 20 images allowed", "error");
       return;
     }
 
     setImageFiles((prev) => [...prev, ...files]);
   };
 
-  const triggerFileInput = () => fileInputRef.current?.click();
+  const removeImage = (index: number) => {
+    setImageFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
+  /* ---------- LINKS ---------- */
+  const addLink = () => {
+    if (!linkInput.trim()) return;
+    setLinks((prev) => [...prev, linkInput.trim()]);
+    setLinkInput("");
+  };
+
+  const removeLink = (index: number) => {
+    setLinks((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  /* ---------- SUBMIT ---------- */
   const handleSubmit = () => {
-    if (!imageFiles.length) {
-      showToast("Please select at least one image", "error");
+    if (!selectedType) {
+      showToast("Gallery type is required", "error");
+      return;
+    }
+
+    if (!imageFiles.length && !links.length) {
+      showToast("Add at least one image or link", "error");
       return;
     }
 
     updateImageMutation.mutate(
-      { images: imageFiles },
+      {
+        typeId: selectedType.id,
+        slug: selectedType.slug, // ✅ SLUG FROM DB
+        images: imageFiles.length ? imageFiles : undefined,
+        links: links.length ? links : undefined,
+      },
       {
         onSuccess: () => {
           setImageFiles([]);
+          setLinks([]);
+          setSelectedType(null);
           onClose();
         },
       }
     );
   };
 
-  const removeImage = (index: number) => {
-    setImageFiles((prev) => prev.filter((_, i) => i !== index));
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="relative w-full max-w-xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          {/* HEADER */}
-          <div className="bg-linear-to-r from-[#125DAA] to-[#1a7cd3] p-6 flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <div className="p-2 bg-white/20 rounded-xl cursor-pointer">
-                <FaImage className="w-7 h-7 text-white" />
-              </div>
-              <h2 className="text-2xl font-bold text-white">Upload Images</h2>
-            </div>
-            <button
-              onClick={onClose}
-              disabled={updateImageMutation.isPending}
-              className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 disabled:opacity-50 cursor-pointer"
-              aria-label="Close"
-            >
-              <X className="w-6 h-6 text-white" />
-            </button>
-          </div>
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-xl rounded-2xl shadow-xl overflow-hidden">
 
-          {/* BODY */}
-          <div className="p-6 md:p-8 space-y-6">
-            <div className="flex flex-col items-center">
+        {/* HEADER */}
+        <div className="flex justify-between items-center p-5 bg-blue-600 text-white">
+          <h2 className="text-xl font-bold">Upload Gallery</h2>
+          <button onClick={onClose}><X /></button>
+        </div>
+
+        {/* TABS */}
+        <div className="flex border-b">
+          <button
+            onClick={() => setActiveTab("images")}
+            className={`flex-1 py-3 flex justify-center gap-2 ${
+              activeTab === "images" && "border-b-2 border-blue-600 text-blue-600"
+            }`}
+          >
+            <ImageIcon size={18} /> Images
+          </button>
+
+          <button
+            onClick={() => setActiveTab("links")}
+            className={`flex-1 py-3 flex justify-center gap-2 ${
+              activeTab === "links" && "border-b-2 border-blue-600 text-blue-600"
+            }`}
+          >
+            <Link2 size={18} /> Links
+          </button>
+        </div>
+
+        {/* BODY */}
+        <div className="p-6 space-y-5">
+
+          {/* TYPE SELECT */}
+          <select
+            value={selectedType?.id ?? ""}
+            onChange={(e) => {
+              const type = galleryTypes.find(
+                (t) => t.id === Number(e.target.value)
+              );
+              setSelectedType(type ?? null);
+            }}
+            className="w-full border rounded-lg px-4 py-2"
+          >
+            <option value="">Select Gallery Type *</option>
+            {galleryTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+
+          {/* IMAGE TAB */}
+          {activeTab === "images" && (
+            <>
               <div
-                className="w-full h-56 border-2 border-dashed rounded-2xl flex flex-wrap items-center justify-start gap-2 p-2 mb-4 bg-gray-50 dark:bg-gray-700/50 cursor-pointer overflow-auto"
-                onClick={triggerFileInput}
+                onClick={() => fileInputRef.current?.click()}
+                className="border-2 border-dashed rounded-xl p-4 flex flex-wrap gap-3 cursor-pointer"
               >
                 {imageFiles.length ? (
-                  <>
-                    {imageFiles.map((file, idx) => (
-                      <div key={idx} className="relative w-24 h-24">
-                        <img
-                          src={URL.createObjectURL(file)}
-                          alt={`Preview ${idx}`}
-                          className="w-full h-full object-cover rounded-xl"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => removeImage(idx)}
-                          disabled={updateImageMutation.isPending}
-                          className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors disabled:opacity-50"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </>
+                  imageFiles.map((file, i) => (
+                    <div key={i} className="relative w-24 h-24">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                      <button
+                        onClick={() => removeImage(i)}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+                      >
+                        <X size={12} />
+                      </button>
+                    </div>
+                  ))
                 ) : (
-                  <div className="text-center w-full">
-                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-sm text-gray-400">No image selected</p>
-                  </div>
+                  <p className="text-gray-400 w-full text-center">
+                    Click to select images (max 20)
+                  </p>
                 )}
               </div>
 
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/*"
                 multiple
+                accept="image/*"
                 onChange={handleFileChange}
                 className="hidden"
-                disabled={updateImageMutation.isPending}
               />
+            </>
+          )}
 
-              <p className="text-gray-500 text-sm mt-1">
-                {imageFiles.length
-                  ? `You have selected ${imageFiles.length} image(s)`
-                  : "You can select up to 20 images"}
-              </p>
-            </div>
+          {/* LINKS TAB */}
+          {activeTab === "links" && (
+            <>
+              <div className="flex gap-2">
+                <input
+                  value={linkInput}
+                  onChange={(e) => setLinkInput(e.target.value)}
+                  placeholder="Paste image / video link"
+                  className="flex-1 border rounded-lg px-3 py-2"
+                />
+                <button
+                  onClick={addLink}
+                  className="bg-blue-600 text-white px-4 rounded-lg"
+                >
+                  Add
+                </button>
+              </div>
 
-            {/* ACTIONS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              <button
-                onClick={onClose}
-                disabled={updateImageMutation.isPending}
-                className="px-4 py-3 text-[#1a7cd3] hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors font-medium disabled:opacity-50 cursor-pointer"
-              >
-                Cancel
-              </button>
+              <ul className="space-y-2">
+                {links.map((link, i) => (
+                  <li
+                    key={i}
+                    className="flex justify-between items-center bg-gray-100 p-2 rounded"
+                  >
+                    <span className="truncate text-sm">{link}</span>
+                    <button onClick={() => removeLink(i)}>
+                      <X size={14} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
-              <button
-                onClick={handleSubmit}
-                disabled={updateImageMutation.isPending}
-                className="px-4 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
-              >
-                {updateImageMutation.isPending ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>Uploading...</span>
-                  </>
-                ) : (
-                  <>
-                    <Check className="w-5 h-5" />
-                    <span>Save</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
+          {/* SAVE */}
+          <button
+            onClick={handleSubmit}
+            disabled={updateImageMutation.isPending}
+            className="w-full bg-green-600 text-white py-3 rounded-xl flex justify-center gap-2"
+          >
+            {updateImageMutation.isPending ? (
+              <>
+                <Loader2 className="animate-spin" /> Uploading...
+              </>
+            ) : (
+              <>
+                <Check /> Save
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>
