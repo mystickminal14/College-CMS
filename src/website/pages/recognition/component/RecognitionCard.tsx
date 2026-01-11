@@ -1,7 +1,6 @@
-import React from "react";
-import { Eye } from "lucide-react";
-import type { Recognitions } from "../../../../pages/recognitions/model/RecognitionsModel";
+import React, { useState } from "react";
 import { IMAGE_URL } from "../../../../constants";
+import type { Recognitions } from "../../../../pages/recognitions/model/RecognitionsModel";
 
 interface Props {
   recognitions: Recognitions[] | [];
@@ -9,10 +8,9 @@ interface Props {
   isError: boolean;
 }
 
-const RecognitionsCardView: React.FC<Props> = ({
-  recognitions,
-  isLoading,
-}) => {
+const RecognitionsCardView: React.FC<Props> = ({ recognitions, isLoading }) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   if (isLoading) {
     return (
       <div className="flex flex-wrap justify-center gap-6">
@@ -49,67 +47,70 @@ const RecognitionsCardView: React.FC<Props> = ({
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-6">
-      {recognitions.map((item, idx) => (
+    <>
+      {/* Modal */}
+      {selectedImage && (
         <div
-          key={item.id || idx}
-          className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 w-full sm:w-[300px] hover:-translate-y-1"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
+          onClick={() => setSelectedImage(null)}
         >
-          {/* IMAGE CONTAINER - Reduced height */}
-          <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
-            {item.image && (
-              <a
-                href={`${IMAGE_URL}${item.image}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full h-full"
-              >
+          <div className="relative max-w-3xl w-full p-4">
+            <img
+              src={`${IMAGE_URL}${selectedImage}`}
+              alt="Recognition"
+              className="w-full max-h-[80vh] object-contain rounded-xl"
+            />
+            <button
+              className="absolute top-2 right-2 text-white text-2xl font-bold"
+              onClick={() => setSelectedImage(null)}
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-wrap justify-center gap-6">
+        {recognitions.map((item, idx) => (
+          <div
+            key={item.id || idx}
+            className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 w-full sm:w-[300px] hover:-translate-y-1"
+          >
+            {/* IMAGE CONTAINER */}
+            <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
+              {item.image && (
                 <img
                   src={`${IMAGE_URL}${item.image}`}
                   alt={item.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover cursor-pointer transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
+                  onClick={() => setSelectedImage(item.image!)}
                 />
-              </a>
-            )}
+              )}
+            </div>
 
-            {/* VIEW OVERLAY - Always visible but subtle */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
-              <a
-                href={`${IMAGE_URL}${item.image}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2 shadow-lg transform -translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105"
-              >
-                <Eye className="w-4 h-4" />
-                View Image
-              </a>
+            {/* CONTENT */}
+            <div className="p-3">
+              <div className="mb-1">
+                <h2 className="font-bold text-gray-900 dark:text-white text-md mb-2 line-clamp-3">
+                  {item?.name
+                    ? item.name.charAt(0).toUpperCase() + item.name.slice(1)
+                    : "Recognition"}
+                </h2>
+                <div className="h-1 w-12 bg-blue-500 rounded-full"></div>
+              </div>
+
+              <p className="text-gray-600 dark:text-gray-300 text-xs leading-relaxed line-clamp-8">
+                {item?.description
+                  ? item.description.charAt(0).toUpperCase() +
+                    item.description.slice(1)
+                  : "No description available"}
+              </p>
             </div>
           </div>
-
-          {/* CONTENT - Improved spacing and typography */}
-          <div className="p-3">
-            <div className="mb-1">
-              <h2 className="font-bold text-gray-900 dark:text-white text-md mb-2 line-clamp-3">
-                {item?.name
-                  ? item.name.charAt(0).toUpperCase() + item.name.slice(1)
-                  : "Recognition"}
-              </h2>
-              <div className="h-1 w-12 bg-blue-500 rounded-full"></div>
-            </div>
-            
-            <p className="text-gray-600 dark:text-gray-300 text-xs leading-relaxed line-clamp-8">
-              {item?.description
-                ? item.description.charAt(0).toUpperCase() +
-                  item.description.slice(1)
-                : "No description available"}
-            </p>
-            
-           
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 

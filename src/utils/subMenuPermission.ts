@@ -4,6 +4,7 @@ import type { PermissionNameType } from "../login/model/permission";
 export const subMenuPermissionMap: Record<string, PermissionNameType> = {
   // Students
   planner: "ACADEMIC_PLANNER",
+  "planner-course": "PLANNER_COURSE",
   "fee-planner": "FEE_PLANNER",
   downloads: "DOWNLOADS",
 

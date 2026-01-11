@@ -14,6 +14,8 @@ export const PLANNEER_CHILD_CACHE_KEY = 'child';
 export const FEE_PLANNEER_CACHE_KEY = 'feeplanner';
 export const FEE_PLANNEER_CHILD_CACHE_KEY = 'feechild';
 export const CONTACT_CACHE_KEY = 'contact';
+export const PLANNER_COURSE_CACHE_KEY = 'planner_course';
+
 export const ACHIVEMENT_CACHE_KEY = 'achivement';
 export const RECOGNITION_CACHE_KEY = 'recognition';
 export const DOWNLOAD_CACHE_KEY = 'downloads';

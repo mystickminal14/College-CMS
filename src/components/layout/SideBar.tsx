@@ -55,6 +55,8 @@ const menuItems: MenuItem[] = [
     label: "Students",
     subMenus: [
       { id: "planner", label: "Academic Planner", icon: MdAssignment },
+      { id: "planner-course", label: "Course Planner", icon: MdAssignment },
+      
       { id: "fee-planner", label: "Fee Planner", icon: MdAttachMoney },
       { id: "downloads", label: "Student Handbook", icon: MdMenuBook },
     ]

@@ -30,6 +30,7 @@ import EditorialPage from "../pages/editorial-board/EditorialBoard";
 
 import useMe from "../login/hooks/useMe";
 import type { PermissionNameType } from "../login/model/permission";
+import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -42,6 +43,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "students/downloads": "DOWNLOADS",
   "user": "USERS",
   "alumni": "ALUMNI",
+  "students/planner-course":"PLANNER_COURSE",
   "administation/achievement": "ACHIEVEMENT",
   "media/news": "NEWS",
   "media/connect": "CONNECT",
@@ -124,6 +126,8 @@ export const adminRoutes = [
       { path: "administation/notice", element: <NoticesPage /> },
       { path: "administation/contact", element: <ContactPage /> },
       { path: "students/planner", element: <PlannersPage /> },
+      { path: "students/planner-course", element: <PlannerCoursePage /> },
+      
       { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
       { path: "user", element: <UserPage /> },

@@ -29,7 +29,7 @@ const ChildrenTable: React.FC<Props> = ({ childrenData, isLoading, onDelete }) =
           {childrenData.map((child, i) => (
             <tr key={child.id} className="border-t hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
               <td className="p-2">{i + 1}</td>
-              <td className="p-2">{child.course}</td>
+              <td className="p-2">{child?.plannerCourse?.name??''}</td>
               <td className="p-2">{child.semester}</td>
               <td className="p-2">{child.intake}</td>
               <td className="p-2">

@@ -272,13 +272,7 @@ const StudentAccess = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <motion.img
-                              src={store.icon}
-                              alt={store.name}
-                              className="w-6 h-6 mr-2"
-                              whileHover={{ rotate: 360 }}
-                              transition={{ duration: 0.5 }}
-                            />
+                           
                             <span className="text-sm font-medium">{store.name}</span>
                           </motion.a>
                         ))}

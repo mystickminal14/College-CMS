@@ -29,7 +29,6 @@ const useUpdateMultipleChildren = () => {
         formData.append("files", file);
       });
 
-      // Use PUT since backend expects PUT for bulk update
       return plannerFilesApi.putFile(formData);
     },
 

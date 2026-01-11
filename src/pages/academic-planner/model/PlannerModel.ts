@@ -6,18 +6,22 @@ export interface CreateParentPayload {
 export interface CreateChildPayload {
   parentId: number;
   semester: string;
-  course: string;
+  plannerCourseId: number;
   intake: string;
   file: string;
 }
 
+interface course{
+  id:number;
+  name:string;
+}
 export interface Planners {
   id?: number;
   parentId?: number;
   semester?: string;
-  course?: string;
+  plannerCourseId?: number;
   year?:string;
-
+ plannerCourse?:course;
   intake?: string;
   session?: string;
   file?: string;
@@ -28,7 +32,7 @@ export interface BulkChildPayload {
   parentId: number;
   records: {
     semester: string;
-    course: string;
+    plannerCourseId: number|undefined;
     intake: string;
   }[];
   files: File[];

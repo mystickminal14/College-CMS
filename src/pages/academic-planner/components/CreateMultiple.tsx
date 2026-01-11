@@ -1,10 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
-import { X, Trash2, Upload, Loader2, Check } from "lucide-react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { X, Trash2, Loader2, Check, Upload } from "lucide-react";
 import { FaFilePdf } from "react-icons/fa";
 import useUpdateMultipleChildren from "../hooks/useCreateMultipleChild";
+import useGetPlannerCourses from "../../planner-course/hooks/useGetAll";
+import type { PlannerCourse } from "../../planner-course/model/PlannerCourse";
+import { AppContext } from "../../../context/ContextApp";
 
 interface RecordInput {
-  course: string;
+  plannerCourseId: number | undefined;
   semester: string;
   intake: string;
   file: File | null;
@@ -17,41 +20,46 @@ interface Props {
   onSuccess?: () => void;
 }
 
-const CreateMultipleFilesModal: React.FC<Props> = ({ 
-  isOpen, 
-  parentId, 
-  onClose, 
-  onSuccess 
+const CreateMultipleFilesModal: React.FC<Props> = ({
+  isOpen,
+  parentId,
+  onClose,
+  onSuccess,
 }) => {
-  const [records, setRecords] = useState<RecordInput[]>([]);
+  const { data } = useGetPlannerCourses();
+  const plannerTypes: PlannerCourse[] = data?.data ?? [];
+
+  const [selectedType, setSelectedType] = useState<PlannerCourse | null>(null);
   const [current, setCurrent] = useState<RecordInput>({
-    course: "",
+    plannerCourseId: undefined,
     semester: "",
     intake: "",
     file: null,
   });
 
+  const [records, setRecords] = useState<RecordInput[]>([]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const mutation = useUpdateMultipleChildren();
+  const appContext = useContext(AppContext);
+  if (!appContext) throw new Error("AppContext missing");
+  const { showToast } = appContext;
+
+  const semesters = ["I", "II", "III", "IV", "V", "VI"]; // Roman numerals
 
   const resetAll = () => {
-    console.log("Resetting modal state for parentId:", parentId);
+    setCurrent({ plannerCourseId: undefined, semester: "", intake: "", file: null });
+    setSelectedType(null);
     setRecords([]);
-    setCurrent({ course: "", semester: "", intake: "", file: null });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Reset when modal opens with new parentId
   useEffect(() => {
-    if (isOpen) {
-      console.log("Modal opened for parentId:", parentId);
-      resetAll();
-    }
-  }, [isOpen, parentId]); // Reset when parentId changes
+    if (isOpen) resetAll();
+  }, [isOpen, parentId]);
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      console.log("Mutation successful, closing modal");
       resetAll();
       onSuccess?.();
       onClose();
@@ -66,17 +74,20 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
   };
 
   const addRecord = () => {
-    if (!current.course || !current.semester || !current.intake || !current.file) {
-      console.log("Missing fields:", {
-        course: current.course,
-        semester: current.semester,
-        intake: current.intake,
-        file: current.file
-      });
+    if (!current.plannerCourseId || !current.semester || !current.intake || !current.file) return;
+
+    // 🔹 Unique semester check for the same course
+    const duplicate = records.some(
+      (r) => r.plannerCourseId === current.plannerCourseId && r.semester === current.semester
+    );
+    if (duplicate) {
+      showToast(`Semester "${current.semester}" already exists for this course`, "error");
       return;
     }
+
     setRecords([...records, current]);
-    setCurrent({ course: "", semester: "", intake: "", file: null });
+    setCurrent({ plannerCourseId: undefined, semester: "", intake: "", file: null });
+    setSelectedType(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -85,20 +96,14 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
   };
 
   const handleSaveAll = () => {
-    if (records.length === 0) {
-      console.log("No records to save");
-      return;
-    }
-
-    console.log("Saving records:", records);
-    console.log("Parent ID:", parentId);
+    if (records.length === 0) return;
 
     mutation.mutate({
       parentId,
-      records: records.map(({ course, semester, intake }) => ({ 
-        course, 
-        semester, 
-        intake 
+      records: records.map(({ plannerCourseId, semester, intake }) => ({
+        plannerCourseId,
+        semester: `SEMESTER - ${semester}`,
+        intake,
       })),
       files: records.map((r) => r.file!),
     });
@@ -112,54 +117,69 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
         {/* Header */}
         <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between items-center">
           <h2 className="text-xl font-bold text-white">Add Multiple Files</h2>
-          <button 
-            onClick={onClose}
-            className="hover:bg-white/10 p-1 rounded transition-colors"
-          >
+          <button onClick={onClose} className="hover:bg-white/10 p-1 rounded">
             <X className="text-white w-6 h-6" />
           </button>
         </div>
 
         {/* Form */}
         <div className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="Course"
-              value={current.course}
-              onChange={(e) => setCurrent({ ...current, course: e.target.value })}
-              className="input w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#135EAB] focus:outline-none"
-            />
-            <input
-              type="text"
-              placeholder="Semester"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* PlannerCourse Dropdown */}
+            <select
+              value={selectedType?.id ?? ""}
+              onChange={(e) => {
+                const type = plannerTypes.find(
+                  (t) => t.id === Number(e.target.value)
+                );
+                setSelectedType(type ?? null);
+                setCurrent({ ...current, plannerCourseId: type?.id });
+              }}
+              className="w-full border rounded-xl px-4 py-2 border-gray-300 dark:border-gray-600"
+            >
+              <option value="">Select Planner Course *</option>
+              {plannerTypes.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Semester Dropdown */}
+            <select
               value={current.semester}
               onChange={(e) => setCurrent({ ...current, semester: e.target.value })}
-              className="input w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#135EAB] focus:outline-none"
-            />
-          </div>
+              className="w-full border rounded-xl px-4 py-2 border-gray-300 dark:border-gray-600"
+            >
+              <option value="">Select Semester *</option>
+              {semesters.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            {/* Intake Input */}
             <input
               type="text"
               placeholder="Intake"
               value={current.intake}
               onChange={(e) => setCurrent({ ...current, intake: e.target.value })}
-              className="input w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#135EAB] focus:outline-none"
+              className="w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600"
             />
-            <div
-              className="w-full h-20 border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              onClick={triggerFileInput}
-            >
-              {current.file ? (
-                <div className="flex items-center gap-2">
-                  <FaFilePdf className="w-6 h-6 text-red-600" />
-                  <span className="truncate">{current.file.name}</span>
-                </div>
-              ) : (
-                <span className="text-gray-400 text-sm">Click to select PDF</span>
-              )}
-            </div>
+          </div>
+
+          {/* File Upload */}
+          <div
+            className="w-full h-20 border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            onClick={triggerFileInput}
+          >
+            {current.file ? (
+              <div className="flex items-center gap-2">
+                <FaFilePdf className="w-6 h-6 text-red-600" />
+                <span>{current.file.name}</span>
+              </div>
+            ) : (
+              <span className="text-gray-400 text-sm">Click to select PDF</span>
+            )}
             <input
               ref={fileInputRef}
               type="file"
@@ -169,16 +189,18 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
             />
           </div>
 
+          {/* Add Record Button */}
           <div className="flex justify-end">
             <button
               onClick={addRecord}
-              disabled={!current.course || !current.semester || !current.intake || !current.file}
-              className="flex items-center gap-2 px-6 py-3 bg-[#1a7cd3] text-white rounded-xl hover:bg-[#135EAB] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!current.plannerCourseId || !current.semester || !current.intake || !current.file}
+              className="flex items-center gap-2 px-6 py-3 bg-[#1a7cd3] text-white rounded-xl hover:bg-[#135EAB] transition disabled:opacity-50"
             >
               <Upload size={16} /> Add Record
             </button>
           </div>
 
+          {/* Records Table */}
           {records.length > 0 && (
             <div className="overflow-x-auto">
               <table className="w-full table-auto border rounded-xl overflow-hidden">
@@ -196,7 +218,7 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
                   {records.map((r, i) => (
                     <tr key={i} className="border-t hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
                       <td className="p-2">{i + 1}</td>
-                      <td className="p-2 font-medium">{r.course}</td>
+                      <td className="p-2 font-medium">{plannerTypes.find(p => p.id === r.plannerCourseId)?.name || "-"}</td>
                       <td className="p-2">{r.semester}</td>
                       <td className="p-2">{r.intake}</td>
                       <td className="p-2">
@@ -206,8 +228,8 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
                         </div>
                       </td>
                       <td className="p-2">
-                        <button 
-                          onClick={() => removeRecord(i)} 
+                        <button
+                          onClick={() => removeRecord(i)}
                           className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
                         >
                           <Trash2 size={16} />
@@ -218,49 +240,35 @@ const CreateMultipleFilesModal: React.FC<Props> = ({
                 </tbody>
               </table>
               <div className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-                Total: {records.length} record{records.length !== 1 ? 's' : ''} added
+                Total: {records.length} record{records.length !== 1 ? "s" : ""} added
               </div>
             </div>
           )}
 
-          {/* Show error if mutation fails */}
-          {mutation.isError && (
-            <div className="p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg">
-              Error saving files: {mutation.error?.message || "Unknown error"}
-            </div>
-          )}
+          {/* Footer Buttons */}
+          <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <button
+              onClick={onClose}
+              className="px-6 py-3 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+            >
+              Cancel
+            </button>
 
-          <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              {records.length === 0 
-                ? "No records added yet" 
-                : `${records.length} record${records.length !== 1 ? 's' : ''} ready to save`}
-            </div>
-            
-            <div className="flex gap-3">
-              <button
-                onClick={onClose}
-                className="px-6 py-3 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition"
-              >
-                Cancel
-              </button>
-              
-              <button
-                onClick={handleSaveAll}
-                disabled={records.length === 0 || mutation.isPending}
-                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {mutation.isPending ? (
-                  <>
-                    <Loader2 className="animate-spin w-5 h-5" /> Saving...
-                  </>
-                ) : (
-                  <>
-                    <Check className="w-5 h-5" /> Save All
-                  </>
-                )}
-              </button>
-            </div>
+            <button
+              onClick={handleSaveAll}
+              disabled={records.length === 0 || mutation.isPending}
+              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {mutation.isPending ? (
+                <>
+                  <Loader2 className="animate-spin w-5 h-5" /> Saving...
+                </>
+              ) : (
+                <>
+                  <Check className="w-5 h-5" /> Save All
+                </>
+              )}
+            </button>
           </div>
         </div>
       </div>
