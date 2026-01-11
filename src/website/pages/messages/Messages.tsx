@@ -97,9 +97,20 @@ const MessageDetail = ({
                 <img
                   src={getImage(message.id)}
                   alt={message.name}
-                  className="w-full h-auto object-cover"
+                  className="
+                  mx-auto
+                  w-full
+                  max-w-[220px] sm:max-w-full
+                  h-[220px] sm:h-auto
+                  object-top
+                  object-cover
+
+                  rounded-xl
+                "
                 />
-                <div className="text-center mt-3">
+
+                <div className="text-center mt-2 sm:mt-3">
+
                   <h3 className="font-bold">{message.name}</h3>
                   <p className="text-sm text-blue-600">{message.position}</p>
                   <p className="text-xs text-gray-500">

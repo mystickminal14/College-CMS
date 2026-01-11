@@ -47,7 +47,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 {['About Us', 'All Courses', 'Students', 'Admission', 'Media', 'Our Blogs'].map((link) => (
                   <li key={link}>
-                    <NavLink to="#" className="hover:text-blue-500 transition-colors text-sm sm:text-base">
+                    <NavLink to="#" className="hover:text-blue-500 transition-colors text-sm">
                       {link}
                     </NavLink>
                   </li>
@@ -84,7 +84,7 @@ const Footer = () => {
                     key={course.id}
                     to={`/students-life/${course.title.replace(/ /g, "-")}/${course.id}`}
                     state={{ course }}
-                    className="hover:text-blue-500 block text-sm sm:text-base "
+                    className="hover:text-blue-500 block text-sm"
                     title={`${course.prefix} ${course.title}`}
                   >
                     <span className=" block">{course.prefix} {course.title}</span>
