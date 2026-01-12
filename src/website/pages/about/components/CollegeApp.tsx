@@ -61,7 +61,7 @@ export default function CollegeAppSection() {
               </a>
 
               {/* App Store */}
-              <a className="rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300">
+              <a className="rounded-lg shadow-lg transform transition-all duration-300">
                 <img src={apple} alt="" className="h-15 w-40" />
                 
               </a>
