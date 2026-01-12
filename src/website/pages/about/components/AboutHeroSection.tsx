@@ -11,21 +11,21 @@ const ABoutHeroSection = () => {
         </div>
 
         <h1 className="
-  mb-6 sm:mb-8 md:mb-10
-  text-2xl  md:text-4xl
-  font-bold text-gray-800 uppercase
-  leading-tight sm:leading-snug md:leading-tight
-  flex flex-wrap items-center gap-x-2 gap-y-1
-">
-          Leading with Boldness,
+            mb-6 sm:mb-8 md:mb-10
+            text-2xl  md:text-4xl
+            font-bold text-gray-800 uppercase
+            leading-tight sm:leading-snug md:leading-tight
+            flex flex-wrap items-center gap-x-2 gap-y-1
+          ">
+          Leading with Boldness,Shaping an
 
           <span className="relative text-blue-600 inline-flex items-center">
             <span className="absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8">
               <img src={butterfiles} alt="Butterflies" className="w-full h-full" />
             </span>
-            Shaping an Effective
+            Effective  & Futuristic 
           </span>
-          & Futuristic Education
+         Education
         </h1>
 
 
