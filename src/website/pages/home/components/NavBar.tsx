@@ -124,6 +124,7 @@ export function NavBar() {
           icon: <FaUserGraduate />,
           dropdown: [
             { name: "Alumni Speaks", link: "/students-life/alumni-speaks", icon: <FaComment /> },
+            { name: "Alumni Form", link: "/students-life/alumni-form", icon: <FaComment /> },
           ],
         },
       ],

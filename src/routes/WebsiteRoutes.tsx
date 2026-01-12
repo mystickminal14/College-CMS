@@ -27,6 +27,7 @@ import AlumniSpeaks from "../website/pages/alumni-speaks/AlumniSpeaks";
 import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
 import TeamDetail from "../website/pages/our-team/OurTeamDetails";
 import GalleryView from "../website/pages/gallery/GalleryView";
+import AlumniFormPage from "../website/pages/alumni-form/pages/Index";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -86,6 +87,9 @@ export const websiteRoutes = [
           },
           {
             path: "alumni-speaks", element: <AlumniSpeaks />
+          },
+          {
+            path: "alumni-form", element: <AlumniFormPage />
           },
           {
             path: "student-access", element: <StudentAccess />
