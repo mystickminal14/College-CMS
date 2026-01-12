@@ -19,9 +19,9 @@ const ImageModal = ({ image, images, isOpen, onClose, onNext, onPrev }: ImageMod
   const hasNext = currentIndex < images.length - 1;
 
   // Determine image source: if link exists, use it directly, otherwise use IMAGE_URL + image
-  const imageSrc = image.link 
-    ? image.link 
-    : image.image 
+  const imageSrc = image.link
+    ? image.link
+    : image.image
       ? `${IMAGE_URL}${image.image}`
       : "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Image";
 
@@ -45,7 +45,7 @@ const ImageModal = ({ image, images, isOpen, onClose, onNext, onPrev }: ImageMod
             <FaChevronLeft className="w-6 h-6" />
           </button>
         )}
-        
+
         {hasNext && (
           <button
             onClick={onNext}
@@ -63,16 +63,24 @@ const ImageModal = ({ image, images, isOpen, onClose, onNext, onPrev }: ImageMod
             className="w-full h-full object-contain animate-scaleIn"
             style={{ maxHeight: 'calc(80vh - 120px)' }}
           />
-          
+
           {/* Action buttons */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
             <button
-              onClick={() => window.open(imageSrc, "_blank")}
-              className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg text-white hover:bg-white/20 transition-all hover:scale-105"
+              onClick={() => {
+                const a = document.createElement("a");
+                a.href = imageSrc;
+                a.download = "";
+                a.click();
+              }}
+              className="flex items-center gap-1 px-3 py-1
+             bg-white/10 backdrop-blur-sm rounded
+             text-[11px] text-white hover:bg-white/20"
             >
-              <FaExpand className="w-4 h-4" />
-              Open Full Size
+              <FaExpand className="w-3 h-3" />
+              Download
             </button>
+
           </div>
         </div>
 
