@@ -285,13 +285,24 @@ export function NavBar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white px-4 py-3 shadow-lg">
+        <div
+          className="
+      lg:hidden 
+      bg-white 
+      px-4 
+      py-3 
+      shadow-lg 
+      max-h-[calc(100vh-64px)] 
+      overflow-y-auto
+      overscroll-contain
+    "
+        >
           {menuItems.map((item) =>
             item.dropdown ? (
               <div key={item.name}>
                 <button
                   onClick={() => toggleMobile(item.name)}
-                  className="flex justify-between cursor-pointer items-center w-full py-3 uppercase font-medium"
+                  className="flex justify-between items-center w-full py-3 uppercase font-medium cursor-pointer"
                 >
                   <span>{item.name}</span>
                   <FaChevronDown
@@ -299,15 +310,19 @@ export function NavBar() {
                       }`}
                   />
                 </button>
+
                 {dropdownOpen[item.name] &&
                   item.dropdown.map((sub) => {
                     if (sub.dropdown) {
                       const nestedKey = `${item.name}-${sub.name}`;
+
                       return (
                         <div key={sub.name}>
                           <button
-                            onClick={() => toggleNestedMobile(item.name, sub.name)}
-                            className="flex justify-between cursor-pointer items-center w-full py-2 pl-4 font-medium"
+                            onClick={() =>
+                              toggleNestedMobile(item.name, sub.name)
+                            }
+                            className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
                           >
                             <span className="flex items-center gap-2">
                               {sub.icon}
@@ -318,6 +333,7 @@ export function NavBar() {
                                 }`}
                             />
                           </button>
+
                           {dropdownOpen[nestedKey] &&
                             sub.dropdown?.map((nested) => (
                               <NavLink
@@ -375,20 +391,19 @@ export function NavBar() {
             )
           )}
 
+          {/* CTA Button */}
           <NavLink
             to="https://enquiry.lbef.org/enquirenow.html"
             target="_blank"
-            onClick={() => {
-              setMobileOpen(false);
-            }}
-            className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
+            onClick={() => setMobileOpen(false)}
+            className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 sticky bottom-0"
           >
             <FaUserGraduate />
             Enquiry Now
           </NavLink>
-
         </div>
       )}
+
     </header>
   );
 }
