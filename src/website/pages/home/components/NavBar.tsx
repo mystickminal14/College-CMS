@@ -112,6 +112,7 @@ export function NavBar() {
     {
       name: "Students",
       dropdown: [
+        { name: "Academic Club", link: "/students-life/academic-club", icon: <FaGraduationCap /> },
         { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
         { name: "Downloads", link: "/students-life/downloads", icon: <FaUsers /> },
         { name: "Fee Planner", link: "/students-life/fee-planner", icon: <FaUniversity /> },
