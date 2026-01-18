@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AppContext } from "../../../../context/ContextApp";
 import type { ApiErrorResponse, ApiResponse } from "../../../../services/apiTypes";
-import {  ALUMNI_CACHE_KEY } from "../../../../constants";
+import {  ALUMNI_FORM_CACHE_KEY } from "../../../../constants";
 import {alumniCreate} from "../services/alumniServices";
 import type { AlumniFormData,  } from "../models/alumniModel";
 
@@ -18,8 +18,8 @@ const useCreateAlumni = () => {
     mutationFn: (alumniFormData) => alumniCreate.post(alumniFormData),
 
     onSuccess: (res) => {
-      showToast(res.message || "Alumni added successfully!", "success");
-     queryClient.invalidateQueries({ queryKey: [ALUMNI_CACHE_KEY] });
+      showToast(res.message || "Form successfully Created successfully!", "success");
+     queryClient.invalidateQueries({ queryKey: [ALUMNI_FORM_CACHE_KEY] });
     },
 
     onError: (err) => {

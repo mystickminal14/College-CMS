@@ -1,14 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ApiErrorResponse, ApiResponse } from "../../../../services/apiTypes";
-import { ALUMNI_CACHE_KEY } from "../../../../constants";
 import { getAlumni } from "../services/alumniServices";
+import { ALUMNI_FORM_CACHE_KEY } from "../../../../constants";
+import type { ApiErrorResponse, ApiResponse } from "../../../../services/apiTypes";
 import type { AlumniFormData } from "../models/alumniModel";
 
-const useGetAlumni = () => {
+interface AlumniQueryProps {
+  search?: string;
+  page?: number;
+  limit?: number;
+  status?: "ENABLED" | "DISABLED" | ""; // ✅ add status
+}
+
+const useGetAlumni = ({
+  search = "",
+  page = 1,
+  limit = 10,
+  status = "",
+}: AlumniQueryProps) => {
   return useQuery<ApiResponse<AlumniFormData[]>, ApiErrorResponse>({
-    queryKey: [ALUMNI_CACHE_KEY],
-    queryFn: () => getAlumni.getAll(),
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    queryKey: [ALUMNI_FORM_CACHE_KEY, search, page, limit, status],
+    queryFn: () =>
+      getAlumni.getAll(
+        `?search=${encodeURIComponent(search)}&page=${page}&limit=${limit}${
+          status ? `&status=${status}` : ""
+        }`
+      ),
   });
 };
 

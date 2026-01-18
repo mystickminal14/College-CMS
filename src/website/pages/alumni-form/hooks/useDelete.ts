@@ -2,26 +2,39 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AppContext } from "../../../../context/ContextApp";
 import type { ApiErrorResponse, ApiResponse } from "../../../../services/apiTypes";
-import { ALUMNI_CACHE_KEY } from "../../../../constants";
-import { alumniDelete } from "../services/alumniServices";
-import type { AlumniFormData } from "../models/alumniModel";
+import { ALUMNI_FORM_CACHE_KEY } from "../../../../constants";
+import type { AlumniFormData,  } from "../models/alumniModel";
+import type { STATUS } from "../../../../pages/gallery/model/GallModel";
+import APIClient from "../../../../services/apiClient";
 
-const useDeleteAlumni = () => {
+interface ToggleStatusPayload {
+  id: number;
+  status: STATUS;
+}
+
+const useToggleAlumniStatus = () => {
   const appContext = useContext(AppContext);
   const queryClient = useQueryClient();
 
   if (!appContext) {
-    throw new Error("useDeleteAlumni must be used within AppContext provider");
+    throw new Error("useToggleAlumniStatus must be used within AppContext provider");
   }
 
   const { showToast } = appContext;
 
-  return useMutation<ApiResponse<AlumniFormData>, ApiErrorResponse, string>({
-    mutationFn: (id) => alumniDelete.delete(id),
+  return useMutation<ApiResponse<AlumniFormData>, ApiErrorResponse, ToggleStatusPayload>({
+    mutationFn: ({ id, status }) => {
+      const apiClient = new APIClient<AlumniFormData>(
+        `/alumni-form/toggle/${encodeURIComponent(id)}`
+      );
+
+      return apiClient.put({ status });
+    },
+
 
     onSuccess: (res) => {
-      showToast(res.message || "Alumni deleted successfully!", "success");
-      queryClient.invalidateQueries({ queryKey: [ALUMNI_CACHE_KEY] });
+      showToast(res.message || "Alumni status updated successfully!", "success");
+      queryClient.invalidateQueries({ queryKey: [ALUMNI_FORM_CACHE_KEY] });
     },
 
     onError: (err) => {
@@ -38,4 +51,4 @@ const useDeleteAlumni = () => {
   });
 };
 
-export default useDeleteAlumni;
+export default useToggleAlumniStatus;

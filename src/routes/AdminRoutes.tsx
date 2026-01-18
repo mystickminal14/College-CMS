@@ -31,6 +31,7 @@ import useMe from "../login/hooks/useMe";
 import type { PermissionNameType } from "../login/model/permission";
 import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 import FeePlannersPage from "../pages/fee-planner/FeePlanner";
+import AlumniFormTable from "../website/pages/alumni-form/pages/AlumniFormtable";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -134,6 +135,8 @@ export const adminRoutes = [
       { path: "students/downloads", element: <DownloadsPage /> },
       { path: "user", element: <UserPage /> },
       { path: "alumni/screen", element: <AlumniPage /> },
+      { path: "alumni/form", element: <AlumniFormTable /> },
+
       { path: "administation/achievement", element: <AchievementPage /> },
       { path: "media/news", element: <NewsPage /> },
       { path: "media/connect", element: <ConnectsPage /> },

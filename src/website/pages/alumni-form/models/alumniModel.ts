@@ -12,23 +12,32 @@ export const EStudyMode = {
   WEEKEND: 'WEEKEND',
 } as const;
 
-/**
- * Union types derived from constants
- */
-export type EPrefixType = typeof EPrefix[keyof typeof EPrefix];
-export type EStudyModeType = typeof EStudyMode[keyof typeof EStudyMode];
+export const EStatus = {
+  ENABLED: 'ENABLED',
+  DISABLED: 'DISABLED',
+
+} as const
+
+export type EPrefixType = keyof typeof EPrefix; // "MR" | "MS"
+export type EStudyModeType = keyof typeof EStudyMode; // "MORNING" | "DAY" | "EVENING" | "WEEKEND"
+export type EStatusType = keyof typeof EStatus; // "ENABLED" | "DISABLED"
 
 export interface AlumniFormData {
+  id?: number;
   collegeRollNo: string;
-  UniRollNo: string;
+  uniRollNo: string;
   prefix: EPrefixType;
   fullName: string;
   degree: string;
-  yearOfPassing: string; // string for input handling
+  yearOfPassing: string;
   mode: EStudyModeType;
   email: string;
   mobileNo: string;
   presentEmployer?: string;
   designation?: string;
   presentCountry?: string;
+  registrationDate?: string;
+  status?: EStatusType; // ✅ include status for API & forms
+  createdAt?: string;
+  updatedAt?: string;
 }
