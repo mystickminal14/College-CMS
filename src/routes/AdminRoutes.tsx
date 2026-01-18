@@ -32,11 +32,17 @@ import type { PermissionNameType } from "../login/model/permission";
 import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 import AlumniFormTable from "../website/pages/alumni-form/pages/AlumniFormtable";
+import ScholarshipPage from "../pages/scholarship/ScholarPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
+  
   "course": "COURSES",
-  "course-details": "COURSES",
+  "course-details/:id": "COURSES",
+  "course-details/:key/add/:id": "COURSES",
+  "course-details/add/:id": "COURSES",
+  "course-details/edit/:id": "COURSES",
+
   "administation/notice": "NOTICE",
   "administation/contact": "CONTACT",
   "students/planner": "ACADEMIC_PLANNER",
@@ -54,6 +60,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "administation/recognition": "RECOGNITION",
   "teams": "TEAMS",
   "administation/holiday": "HOLIDAY",
+  "admission/scholarship": "SCHOLARSHIP",
   "admission/intake": "INTAKE",
   "admission/docs": "DOCUMENTS",
   "media/journals": "JOURNALS",
@@ -138,6 +145,8 @@ export const adminRoutes = [
       { path: "alumni/form", element: <AlumniFormTable /> },
 
       { path: "administation/achievement", element: <AchievementPage /> },
+      { path: "admission/scholarship", element: <ScholarshipPage /> },
+
       { path: "media/news", element: <NewsPage /> },
       { path: "media/connect", element: <ConnectsPage /> },
       { path: "media/gallery", element: <GallerysPage /> },

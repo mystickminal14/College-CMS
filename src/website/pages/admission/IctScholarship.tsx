@@ -3,8 +3,12 @@ import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
 import subfooterone from '../../../assets/six_path.webp';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
+import useGetScholarship from '../../../pages/scholarship/hooks/useGet';
 
 const ICTScholarship = () => {
+    const { data, isLoading, } = useGetScholarship();
+    const schedule = data?.data;
+
     return (
         <div className="min-h-screen bg-gray-50">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
@@ -28,7 +32,7 @@ const ICTScholarship = () => {
                             />
                         </span>
                         <br />
-                        <span className="text-gray-900 mt-2">Awards 2081 </span>
+                        <span className="text-gray-900 mt-2">Awards {schedule?.scheduleYear??'2081'} </span>
                     </h1>
 
                     <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -220,75 +224,105 @@ const ICTScholarship = () => {
 
 
             </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" className="mt-3 max-w-6xl mx-auto">
-                <h3 className="text-2xl  font-bold text-gray-900 flex items-center justify-center md:justify-start mb-4">
-                    <span>   National ICT Scholarship </span>
-                    <span className="ml-2 relative inline-block"><span className="text-blue-600 relative z-10">   2081 schedule<img
-                        src={decoration}
-                        alt="Decoration"
-                        className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-                    /></span></span>
+          <motion.div
+  variants={fadeUp}
+  initial="hidden"
+  whileInView="visible"
+  className="mt-3 max-w-6xl mx-auto"
+>
+  <h3 className="text-2xl font-bold text-gray-900 flex items-center justify-center md:justify-start mb-4">
+    <span>National ICT Scholarship</span>
 
-                </h3>
+    <span className="ml-2 relative inline-block">
+      <span className="text-blue-600 relative z-10">
+        {isLoading
+          ? "Schedule"
+          : schedule?.scheduleYear
+          ? `${schedule.scheduleYear} Schedule`
+          : "Schedule"}
+        <img
+          src={decoration}
+          alt="Decoration"
+          className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+        />
+      </span>
+    </span>
+  </h3>
 
-                <motion.div variants={fadeUp} initial="hidden" whileInView="visible" className="overflow-hidden border border-gray-200 rounded-xl bg-white">
-                    <table className="w-full border-collapse">
-                        <tbody>
-                            <tr className="bg-gray-200">
-                                <td className="px-5 py-4 text-gray-800 font-medium">
-                                    Registration Opens
-                                </td>
-                                <td className="px-5 py-4 text-gray-800">
-                                    21 February 2025
-                                </td>
-                            </tr>
+  <motion.div
+    variants={fadeUp}
+    initial="hidden"
+    whileInView="visible"
+    className="overflow-hidden border border-gray-200 rounded-xl bg-white"
+  >
+    {isLoading ? (
+      <div className="p-6 text-center text-gray-600">
+        Loading scholarship schedule...
+      </div>
+    ) : !schedule ? (
+      <div className="p-6 text-center text-gray-600">
+        Schedule not published yet
+      </div>
+    ) : (
+      <table className="w-full border-collapse">
+        <tbody>
+          <tr className="bg-gray-200">
+            <td className="px-5 py-4 text-gray-800 font-medium">
+              Registration Opens
+            </td>
+            <td className="px-5 py-4 text-gray-800">
+              {schedule.regisrationOpenDate}
+            </td>
+          </tr>
 
-                            <tr className="bg-gray-50">
-                                <td className="px-5 py-4 text-gray-800 font-medium">
-                                    Last date of form submission
-                                </td>
-                                <td className="px-5 py-4 text-gray-800">
-                                    16 March 2025
-                                </td>
-                            </tr>
+          <tr className="bg-gray-50">
+            <td className="px-5 py-4 text-gray-800 font-medium">
+              Last date of form submission
+            </td>
+            <td className="px-5 py-4 text-gray-800">
+              {schedule.lastDate}
+            </td>
+          </tr>
 
-                            <tr>
-                                <td className="px-5 py-4 text-gray-800 font-medium">
-                                    Scholarship exam
-                                </td>
-                                <td className="px-5 py-4 text-gray-800">
-                                    17 March 2025
-                                </td>
-                            </tr>
+          <tr>
+            <td className="px-5 py-4 text-gray-800 font-medium">
+              Scholarship exam
+            </td>
+            <td className="px-5 py-4 text-gray-800">
+              {schedule.examDate}
+            </td>
+          </tr>
 
-                            <tr className="bg-gray-50">
-                                <td className="px-5 py-4 text-gray-800 font-medium">
-                                    Final result by CAN Federation
-                                </td>
-                                <td className="px-5 py-4 text-gray-800">
-                                    19 March 2025
-                                </td>
-                            </tr>
+          <tr className="bg-gray-50">
+            <td className="px-5 py-4 text-gray-800 font-medium">
+              Final result by CAN Federation
+            </td>
+            <td className="px-5 py-4 text-gray-800">
+              {schedule.canDate}
+            </td>
+          </tr>
 
-                            <tr>
-                                <td className="px-5 py-4 text-gray-800 font-medium">
-                                    Last date of admission
-                                </td>
-                                <td className="px-5 py-4 text-gray-800">
-                                    25 March 2025
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </motion.div>
-            </motion.div>
+          <tr>
+            <td className="px-5 py-4 text-gray-800 font-medium">
+              Last date of admission
+            </td>
+            <td className="px-5 py-4 text-gray-800">
+              {schedule.admissionDate}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    )}
+  </motion.div>
+</motion.div>
+
 
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" className="w-full bg-gray-50 mt-10 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="w-full text-center">
                     <img
                         src={subfooterone}
                         alt="Illustration part one"
-                        className="w-full max-w-7xl h-auto object-contain mx-auto rounded-xl"
+                        className="w-full max-w-full h-auto object-cover "
                     />
                 </div>
             </motion.div>

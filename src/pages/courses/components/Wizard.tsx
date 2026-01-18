@@ -38,19 +38,18 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const [formData, setFormData] = useState({
     title: "",
     category: "",
-    degree:"",
-    prefix:"",
+    degree: "",
+    prefix: "",
     credit: "",
     duration: "",
     semester: "",
-    details:'',
+    details: "",
     shift: "" as EShift,
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  /* ---------------- PREFILL EDIT MODE ---------------- */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -60,9 +59,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
         category: courseToEdit.category ?? "",
         degree: courseToEdit.degree ?? "",
         details: courseToEdit.details ?? "",
-
         prefix: courseToEdit.prefix ?? "",
-
         credit: String(courseToEdit.credit ?? ""),
         duration: courseToEdit.duration ?? "",
         semester: String(courseToEdit.semester ?? ""),
@@ -80,13 +77,13 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const resetForm = () => {
     setFormData({
       title: "",
-      prefix:"",
-      degree:"",
+      prefix: "",
+      degree: "",
       category: "",
       credit: "",
       duration: "",
       semester: "",
-      details:"",
+      details: "",
       shift: "" as EShift,
     });
     setImageFile(null);
@@ -167,8 +164,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   /* ======================= UI ======================= */
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden">
-
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden" style={{ maxHeight: '80vh' }}>
         {/* HEADER */}
         <div className="bg-[#135EAB] p-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -188,7 +184,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
         </div>
 
         {/* BODY */}
-        <div className="p-6 md:p-8">
+        <div className="p-6 md:p-8 overflow-y-auto" style={{ maxHeight: 'calc(80vh - 96px)' }}>
           {step === 1 ? (
             <form onSubmit={handleSubmitStep1} className="space-y-6">
               <CoursesBasicForm
@@ -211,12 +207,12 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
                 {/* Next Image Button for Edit Mode */}
                 {isEditMode && (
                   <button
-              type="button"
-              onClick={() => setStep(2)}
-              className="flex-1 px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
-            >
-              Next
-            </button>
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="flex-1 px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
+                  >
+                    Next
+                  </button>
                 )}
               </div>
             </form>
@@ -227,7 +223,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
               imageFile={imageFile}
               onImageChange={handleImageChange}
               onRemoveImage={handleRemoveImage}
-                    isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
+              isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
               onSkip={() => { resetForm(); onClose(); }}
               onSubmit={handleSubmitStep2}
             />

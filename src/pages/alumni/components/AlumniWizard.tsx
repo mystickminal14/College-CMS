@@ -11,7 +11,7 @@ import { IMAGE_URL } from "../../../constants";
 interface AddEditAlumniWizardModalProps {
   isOpen: boolean;
   onClose: () => void;
-  alumniToEdit?: Alumni; // Existing alumni for edit
+  alumniToEdit?: Alumni;
   createMutation?: UseMutationResult<ApiResponse<Alumni>, ApiErrorResponse, Alumni>;
   editMutation?: UseMutationResult<ApiResponse<Alumni>, ApiErrorResponse, Partial<Alumni>>;
   uploadImageMutation?: UseMutationResult<ApiResponse<Alumni>, ApiErrorResponse, { id: number; image: File }>;
@@ -25,41 +25,38 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
   createMutation,
   editMutation,
   uploadImageMutation,
-  updateImageMutation
+  updateImageMutation,
 }) => {
   const appContext = useContext(AppContext);
   const isEditMode = !!alumniToEdit;
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [formData, setFormData] = useState({ name: "", position: "", batch: "", course: "", story: "",link:"" });
+  const [alumniId, setAlumniId] = useState<number | null>(null);
+  const [formData, setFormData] = useState({ name: "", position: "", batch: "", course: "", story: "", link: "" });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [alumniId, setAlumniId] = useState<number | null>(null);
 
-  // Prefill form in edit mode
+  // Prefill in edit mode
   useEffect(() => {
-    if (isOpen) {
-      if (alumniToEdit) {
-        setFormData({
-          name: alumniToEdit.name || "",
-          position: alumniToEdit.position || "",
-          batch: alumniToEdit.batch || "",
-          link: alumniToEdit.link || "",
+    if (!isOpen) return;
 
-          course: alumniToEdit.course || "",
-          story: alumniToEdit.story || "",
-        });
-        setAlumniId(alumniToEdit.id || null);
-        setImagePreview(alumniToEdit.image ? `${IMAGE_URL}${alumniToEdit.image}` : null);
-        setStep(1);
-      } else {
-        resetForm();
-      }
-    }
+    if (alumniToEdit) {
+      setFormData({
+        name: alumniToEdit.name || "",
+        position: alumniToEdit.position || "",
+        batch: alumniToEdit.batch || "",
+        link: alumniToEdit.link || "",
+        course: alumniToEdit.course || "",
+        story: alumniToEdit.story || "",
+      });
+      setAlumniId(alumniToEdit.id || null);
+      setImagePreview(alumniToEdit.image ? `${IMAGE_URL}${alumniToEdit.image}` : null);
+      setStep(1);
+    } else resetForm();
   }, [isOpen, alumniToEdit]);
 
   const resetForm = () => {
-    setFormData({ name: "", position: "", batch: "", course: "", story: "" ,link:''});
+    setFormData({ name: "", position: "", batch: "", course: "", story: "", link: "" });
     setImageFile(null);
     setImagePreview(null);
     setAlumniId(null);
@@ -80,11 +77,9 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
     if (!formData.position.trim()) return appContext?.showToast("Position is required", "warn");
     if (!formData.batch.trim()) return appContext?.showToast("Batch is required", "warn");
     if (!formData.course.trim()) return appContext?.showToast("Course is required", "warn");
-
     return true;
   };
 
-  // Step 1 submission
   const handleSubmitStep1 = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateStep1()) return;
@@ -94,148 +89,72 @@ const AddEditAlumniWizardModal: React.FC<AddEditAlumniWizardModalProps> = ({
     } else if (!isEditMode && createMutation) {
       createMutation.mutate(formData, {
         onSuccess: (res) => {
-          const newId = res.data?.id ?? (res as any)?.id;
-          if (newId) {
-            setAlumniId(newId);
-            setStep(2);
-          } else appContext?.showToast("Failed to create alumni. No ID returned.", "error");
+          const newId = res.data?.id;
+          if (newId) { setAlumniId(newId); setStep(2); }
+          else appContext?.showToast("Failed to create alumni. No ID returned.", "error");
         }
       });
     }
   };
 
-  // Step 2 submission
   const handleSubmitStep2 = () => {
-    if (!alumniId || !imageFile) {
-      // No image, just close
-      resetForm();
-      onClose();
-      return;
-    }
+    if (!alumniId || !imageFile) { resetForm(); onClose(); return; }
 
-    if (isEditMode && updateImageMutation) {
-      updateImageMutation.mutate({ id: alumniId, image: imageFile }, {
-        onSuccess: () => { resetForm(); onClose(); }
-      });
-    } else if (!isEditMode && uploadImageMutation) {
-      uploadImageMutation.mutate({ id: alumniId, image: imageFile }, {
-        onSuccess: () => { resetForm(); onClose(); }
-      });
-    }
+    const mutation = isEditMode ? updateImageMutation : uploadImageMutation;
+    mutation?.mutate({ id: alumniId, image: imageFile }, { onSuccess: () => { resetForm(); onClose(); } });
   };
 
   const handleSkipImage = () => { resetForm(); onClose(); };
+
+  const isAnyPending =
+    !!createMutation?.isPending ||
+    !!editMutation?.isPending ||
+    !!uploadImageMutation?.isPending ||
+    !!updateImageMutation?.isPending;
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="relative w-full max-w-2xl">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          {/* HEADER */}
-          <div className="bg-linear-to-r from-[#1a7cd3] to-[#1a7cd3] p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 bg-white/20 rounded-xl">
-                  <UserPlus className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-white">{isEditMode ? "Edit Alumni" : "Add New Alumni"}</h2>
-                  <p className="text-white/90 text-sm mt-1">
-                    {step === 1
-                      ? "Step 1: Basic Information"
-                      : isEditMode
-                      ? "Step 2: Image Preview / Update"
-                      : "Step 2: Upload Image"}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={onClose}
-                disabled={editMutation?.isPending || createMutation?.isPending || uploadImageMutation?.isPending || updateImageMutation?.isPending}
-                className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 disabled:opacity-50"
-              >
-                <X className="w-6 h-6 text-white" />
-              </button>
-            </div>
-
-            {/* Progress */}
-            <div className="flex items-center justify-center mt-6">
-              <div className="flex items-center">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 1 ? 'bg-white text-[#135EAB]' : 'bg-white/30 text-white'}`}><span className="font-bold">1</span></div>
-                <div className={`w-24 h-1 ${step === 2 ? 'bg-white' : 'bg-white/30'}`}></div>
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${step === 2 ? 'bg-white text-[#135EAB]' : 'bg-white/30 text-white'}`}><span className="font-bold">2</span></div>
-              </div>
+      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden" style={{ maxHeight: '75vh' }}>
+        {/* HEADER */}
+        <div className="bg-[#135EAB] p-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <UserPlus className="w-7 h-7 text-white" />
+            <div>
+              <h2 className="text-2xl font-bold text-white">{isEditMode ? "Edit Alumni" : "Add New Alumni"}</h2>
+              <p className="text-white/90 text-sm">{step === 1 ? "Step 1: Basic Information" : "Step 2: Upload Image"}</p>
             </div>
           </div>
+          <button onClick={onClose} disabled={isAnyPending} className="p-2 hover:bg-white/20 rounded-xl"><X className="text-white"/></button>
+        </div>
 
-          {/* BODY */}
-        <div className="p-6 md:p-8">
-  {step === 1 ? (
-    <form onSubmit={handleSubmitStep1} className="space-y-6">
-      <AlumniBasicInfoForm
-        formData={formData}
-        onChange={handleFormChange}
-        isSubmitting={editMutation?.isPending || createMutation?.isPending}
-      />
-
-      <div className="pt-4 flex gap-4">
-        {isEditMode ? (
-          <>
-            <button
-              type="button"
-              onClick={handleSubmitStep1}
-              disabled={editMutation?.isPending}
-              className="flex-1 px-6 py-3.5 bg-[#135EAB] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
-            >
-              {editMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Update"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setStep(2)}
-              className="flex-1 px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
-            >
-              Next
-            </button>
-          </>
-        ) : (
-          <button
-            type="submit"
-            disabled={createMutation?.isPending}
-            className="w-full px-6 py-3.5 bg-[#135EAB] text-white rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-2 font-medium disabled:opacity-50"
-          >
-            {createMutation?.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Submit & Continue"}
-          </button>
-        )}
-      </div>
-    </form>
-  ) : (
-    <div className="space-y-4">
-      {/* Back button */}
-      <div className="flex justify-start mb-4">
-        <button
-          type="button"
-          onClick={() => setStep(1)}
-          className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
-        >
-          ← Back to Basic Info
-        </button>
-      </div>
-
-      {/* Image upload form */}
-      <AlumniImageUploadForm
-        alumniName={formData.name}
-        imagePreview={imagePreview}
-        imageFile={imageFile}
-        onImageChange={handleImageChange}
-        onRemoveImage={handleRemoveImage}
-        isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
-        onSkip={handleSkipImage}
-        onSubmit={handleSubmitStep2}
-      />
-    </div>
-  )}
-</div>
+        {/* BODY */}
+        <div className="p-6 md:p-8 overflow-y-auto" style={{ maxHeight: 'calc(75vh - 96px)' }}>
+          {step === 1 ? (
+            <form onSubmit={handleSubmitStep1} className="space-y-6">
+              <AlumniBasicInfoForm formData={formData} onChange={handleFormChange} isSubmitting={isAnyPending} />
+              <div className="flex gap-3">
+                <button type="submit" className="flex-1 py-3.5 bg-[#135EAB] text-white rounded-xl font-medium flex justify-center items-center">
+                  {editMutation?.isPending || createMutation?.isPending ? <Loader2 className="animate-spin" /> : isEditMode ? "Update" : "Submit & Continue"}
+                </button>
+                {isEditMode && (
+                  <button type="button" onClick={onClose} className="flex-1 py-3.5 bg-gray-200 text-gray-900 rounded-xl font-medium">Cancel</button>
+                )}
+              </div>
+            </form>
+          ) : (
+            <AlumniImageUploadForm
+              alumniName={formData.name}
+              imagePreview={imagePreview}
+              imageFile={imageFile}
+              onImageChange={handleImageChange}
+              onRemoveImage={handleRemoveImage}
+              isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
+              onSkip={handleSkipImage}
+              onSubmit={handleSubmitStep2}
+            />
+          )}
         </div>
       </div>
     </div>

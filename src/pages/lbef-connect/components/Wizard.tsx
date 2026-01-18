@@ -5,7 +5,6 @@ import type { Connects } from "../model/Connects";
 import ConnectPdfUploadForm from "./ConnectPdfUpload";
 import ConnectImageStep from "./ConnectImageUpload";
 
-
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -39,7 +38,7 @@ const ConnectUploadWizard: React.FC<Props> = ({
 
   return (
     <>
-      {/* STEP 1 – PDF (UNCHANGED FORM) */}
+      {/* STEP 1 – PDF */}
       {step === 1 && (
         <ConnectPdfUploadForm
           isOpen={isOpen}
@@ -66,7 +65,7 @@ const ConnectUploadWizard: React.FC<Props> = ({
       {/* STEP 2 – IMAGE */}
       {step === 2 && isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-xl">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg p-4 flex flex-col" style={{ maxHeight: "75vh" }}>
             <ConnectImageStep
               connectId={connectId}
               uploadImageMutation={uploadImageMutation}

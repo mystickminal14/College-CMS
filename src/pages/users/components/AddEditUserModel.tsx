@@ -45,7 +45,8 @@ export const ALL_PERMISSIONS: PermissionNameType[] = [
   "COURSES",
   "TEAMS",
   "ALUMNI",
-  "PLANNER_COURSE",    // ✅ added
+  "PLANNER_COURSE",    
+  "SCHOLARSHIP",// ✅ added
   "NEWS",
   "ALMUNI_FORM",       // ✅ added
   "JOURNALS",

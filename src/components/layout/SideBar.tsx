@@ -4,7 +4,7 @@ import appLogo from "../../assets/butterfiles.webp";
 import pcpsLogo from "../../assets/pcpslogo.webp";
 import {
   MdPeople, MdSchool, MdBusinessCenter, MdArticle,
-  MdWorkspacePremium, MdGroups, MdEvent,
+  MdWorkspacePremium, MdGroups,
   MdNotificationsActive,
   MdHowToReg,
   MdContactMail,
@@ -89,7 +89,6 @@ const menuItems: MenuItem[] = [
     subMenus: [
       { id: "notice", label: "Notice Board", icon: MdNotificationsActive },
       { id: "contact", label: "Contact List", icon: MdContactMail },
-      { id: "holiday", label: "Holiday", icon: MdEvent },
       { id: "recognition", label: "Recognitions", icon: MdWorkspacePremium },
       { id: "achievement", label: "Achievements", icon: FaAward },
     ]
@@ -100,7 +99,7 @@ const menuItems: MenuItem[] = [
     label: "Admission",
     subMenus: [
       { id: "intake", label: "Intake Calender", icon: MdCalendarToday },
-      { id: "docs", label: "Document Required", icon: MdDocumentScanner },
+      { id: "scholarship", label: "ICT Scholarship", icon: MdDocumentScanner },
     ],
   },
 ];

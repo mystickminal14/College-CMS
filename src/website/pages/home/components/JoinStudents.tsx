@@ -1,12 +1,35 @@
+import { useContext, useState } from "react";
 import girlWithCup from "../../../../assets/images/image_mac.webp";
 import girlWithThinking from "../../../../assets/girl_with_thinking.webp";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import bg1 from '../../../../assets/images/home3.webp';
-
-
+import useSendStudentEmail from "../useEmail";
+import { AppContext } from "../../../../context/ContextApp";
 
 export function JoinStudents() {
+  const sendEmail = useSendStudentEmail();
+  const [email, setEmail] = useState("");
+  const appContext = useContext(AppContext);
+
+  const handleJoinClick = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (!email.trim()) {
+    appContext?.showToast("Please enter your email!", "warn");
+    return;
+  }
+
+  sendEmail.mutate(
+    { email },
+    {
+      onSuccess: () => {
+        setEmail("");
+      },
+    }
+  );
+};
+
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
       {/* Background Image with overlay */}
@@ -18,6 +41,7 @@ export function JoinStudents() {
 
       <div className="relative max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
 
+        {/* Left Images */}
         <div className="flex justify-center gap-4">
           <div className="p-4 flex flex-col mt-10 lg:mt-20 items-center gap-10 lg:gap-0">
             <div className="inline-flex items-center gap-5 -ml-10 lg:-ml-55 bg-white rounded-full shadow-xl px-4 lg:px-6 py-2 lg:py-4 border border-purple-100">
@@ -47,6 +71,7 @@ export function JoinStudents() {
               />
             </div>
           </div>
+
           <div className="p-4 flex flex-col items-center -ml-20 lg:-ml-40 z-1 gap-10">
             <div
               className="w-36 h-70 lg:w-60 lg:h-105 overflow-hidden shadow-2xl border-4 sm:border-8 border-white"
@@ -77,13 +102,14 @@ export function JoinStudents() {
           </div>
         </div>
 
+        {/* Right Content */}
         <div className="text-center lg:text-left mt-2">
           <span className="inline-block px-2 py-2 text-white text-sm sm:text-base font-semibold rounded-full mb-3">
             EVOLVE WITH US
           </span>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
-            Start Your {" "}
+            Start Your{" "}
             <span className="relative inline-block text-white">
               Learning
               <img
@@ -92,7 +118,6 @@ export function JoinStudents() {
                 className="absolute left-1/2 -translate-x-1/2 w-full h-2 sm:h-3"
               />
             </span>{" "}
-
             Journey Today!
           </h2>
 
@@ -118,15 +143,21 @@ export function JoinStudents() {
             ))}
           </div>
 
-          <div className="flex justify-center lg:justify-start">
-            <a
-              href="https://apply.lbef.org/"
-              target="_blank"
-              rel="noopener noreferrer"
+          {/* Email Input + Button */}
+          <div  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+            />
+             <button
+              type="submit" // Form submit, handled by onSubmit
               className="bg-white text-[#474AFF] font-bold text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              Join as Student
-            </a>
+              {sendEmail.isPending ? "Sending..." : "Join as Student"}
+            </button>
           </div>
         </div>
       </div>
