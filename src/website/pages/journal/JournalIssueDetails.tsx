@@ -9,7 +9,22 @@ const JournalIssueDetails = () => {
   const { data, isLoading } = useGetJournalDetails(id!);
 
   const details = data?.data ?? [];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  function makeJournalUrl(pageStr: any) {
+    const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)-(\d+)/;
+    const match = pageStr.match(regex);
+
+    if (!match) return "";
+
+    const [, vol, issue, start, end] = match;
+
+    const folder = `${vol}-${issue}`;
+    const file = `${vol}-${issue}-${start}-${end}.pdf`;
+
+    return `https://www.lbef.org/journal/${folder}/download/${file}`;
+  }
+
+
   if (isLoading) {
     return (
       <div className="space-y-3">
@@ -202,29 +217,29 @@ const JournalIssueDetails = () => {
                       </button>
                     )}
 
-                    {item.link && (
-                      <a
-                        href={IMAGE_URL + item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center px-3 py-1.5 text-sm bg-linear-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm hover:shadow"
+
+                    <a
+                      href={makeJournalUrl(item.pageNo)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center px-3 py-1.5 text-sm bg-linear-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm hover:shadow"
+                    >
+                      <svg
+                        className="w-4 h-4 mr-1.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="w-4 h-4 mr-1.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                          />
-                        </svg>
-                        PDF
-                      </a>
-                    )}
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                        />
+                      </svg>
+                      PDF
+                    </a>
+
                   </div>
                 </td>
               </tr>
