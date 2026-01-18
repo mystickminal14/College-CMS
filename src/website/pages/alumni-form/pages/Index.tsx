@@ -288,7 +288,7 @@ const AlumniFormPage: React.FC = () => {
                   onChange={handleChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${errors.yearOfPassing ? 'border-red-300' : 'border-gray-300'}`}
                   placeholder="e.g., 2023"
-                  maxLength="4"
+                  maxLength={4}
                 />
                 {errors.yearOfPassing && <p className="mt-1 text-sm text-red-600">{errors.yearOfPassing}</p>}
               </div>

@@ -28,6 +28,7 @@ import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
 import TeamDetail from "../website/pages/our-team/OurTeamDetails";
 import GalleryView from "../website/pages/gallery/GalleryView";
 import AlumniFormPage from "../website/pages/alumni-form/pages/Index";
+import AcademicClub from "../website/pages/academic-club/AcademicClub";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -80,6 +81,9 @@ export const websiteRoutes = [
             path: "academic-planner", element: <AcademicWebPlanner />
           },
           {
+            path: "academic-club", element: <AcademicClub />
+          },
+          {
             path: "downloads", element: <StudentHandbook />
           },
           {
@@ -113,7 +117,7 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <Gallery /> },
           { path: "photo-gallery", element: <Gallery /> },
-           { path: "photo-gallery/:name/:id", element: <GalleryView /> },
+          { path: "photo-gallery/:name/:id", element: <GalleryView /> },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <NewsPageWeb /> },
           // { path: "journal", element: <JournalPageWeb /> },

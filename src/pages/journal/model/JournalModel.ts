@@ -32,7 +32,8 @@ export interface JournalDetailsPayload {
   journalId?: number;       
   id?: number;
   title?: string;         
-  authors?: string[];   
+  authors?: string[];
+  pageNo?: string;
   pages?: string;          
   subject?: string;        
   country?: string;        
