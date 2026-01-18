@@ -40,27 +40,30 @@ interface FormData {
     permissions: PermissionNameType[];
 }
 
-const ALL_PERMISSIONS: PermissionNameType[] = [
-    "USERS",
-    "COURSES",
-    "TEAMS",
-    "ALUMNI",
-    "NEWS",
-    "JOURNALS",
-    "EDITORIAL_BOARD",
-    "CONNECT",
-    "GALLERY",
-    "NOTICE",
-    "CONTACT",
-    "HOLIDAY",
-    "RECOGNITION",
-    "ACHIEVEMENT",
-    "INTAKE",
-    "DOCUMENTS",
-    "ACADEMIC_PLANNER",
-    "FEE_PLANNER",
-    "DOWNLOADS",
+export const ALL_PERMISSIONS: PermissionNameType[] = [
+  "USERS",
+  "COURSES",
+  "TEAMS",
+  "ALUMNI",
+  "PLANNER_COURSE",    // ✅ added
+  "NEWS",
+  "ALMUNI_FORM",       // ✅ added
+  "JOURNALS",
+  "EDITORIAL_BOARD",
+  "CONNECT",
+  "GALLERY",
+  "NOTICE",
+  "CONTACT",
+  "HOLIDAY",
+  "RECOGNITION",
+  "ACHIEVEMENT",
+  "INTAKE",
+  "DOCUMENTS",
+  "ACADEMIC_PLANNER",
+  "FEE_PLANNER",
+  "DOWNLOADS",
 ];
+
 
 const AddEditUserModal: React.FC<Props> = ({
     isOpen,

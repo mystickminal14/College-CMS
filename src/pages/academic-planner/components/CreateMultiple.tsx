@@ -1,279 +1,265 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { X, Trash2, Loader2, Check, Upload } from "lucide-react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { X, Loader2, Check } from "lucide-react";
 import { FaFilePdf } from "react-icons/fa";
-import useUpdateMultipleChildren from "../hooks/useCreateMultipleChild";
-import useGetPlannerCourses from "../../planner-course/hooks/useGetAll";
-import type { PlannerCourse } from "../../planner-course/model/PlannerCourse";
+
 import { AppContext } from "../../../context/ContextApp";
 
-interface RecordInput {
-  plannerCourseId: number | undefined;
-  semester: string;
-  intake: string;
-  file: File | null;
-}
+import useGetPlannerCourses from "../../planner-course/hooks/useGetAll";
+import useCreateAcademicPlanner from "../hooks/useCreate";
+import useUpdateAcademicPlanner from "../hooks/useEdit";
+
+import type { AcademicPlanner } from "../model/PlannerModel";
+import type { PlannerCourse } from "../../planner-course/model/PlannerCourse";
+import useGetAcademicYears from "../hooks/year/useGetAcademicYear";
 
 interface Props {
   isOpen: boolean;
-  parentId: number;
+  planner?: AcademicPlanner | null;
   onClose: () => void;
   onSuccess?: () => void;
 }
 
-const CreateMultipleFilesModal: React.FC<Props> = ({
+const semesters = ["I", "II", "III", "IV", "V", "VI"];
+
+const CreateEditPlannerModal: React.FC<Props> = ({
   isOpen,
-  parentId,
+  planner,
   onClose,
   onSuccess,
 }) => {
-  const { data } = useGetPlannerCourses();
-  const plannerTypes: PlannerCourse[] = data?.data ?? [];
+  const { data: courseRes } = useGetPlannerCourses();
+  const { data: yearRes } = useGetAcademicYears();
 
-  const [selectedType, setSelectedType] = useState<PlannerCourse | null>(null);
-  const [current, setCurrent] = useState<RecordInput>({
-    plannerCourseId: undefined,
-    semester: "",
-    intake: "",
-    file: null,
-  });
+  const plannerCourses: PlannerCourse[] = courseRes?.data ?? [];
+  const academicYears = yearRes?.data ?? [];
 
-  const [records, setRecords] = useState<RecordInput[]>([]);
+  const [academicYearId, setAcademicYearId] = useState("");
+  const [plannerCourseId, setPlannerCourseId] = useState("");
+  const [semester, setSemester] = useState("");
+  const [intake, setIntake] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [showFileInput, setShowFileInput] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const mutation = useUpdateMultipleChildren();
-  const appContext = useContext(AppContext);
-  if (!appContext) throw new Error("AppContext missing");
-  const { showToast } = appContext;
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  const semesters = ["I", "II", "III", "IV", "V", "VI"]; // Roman numerals
+  const createMutation = useCreateAcademicPlanner();
+  const updateMutation = useUpdateAcademicPlanner(
+  );
 
-  const resetAll = () => {
-    setCurrent({ plannerCourseId: undefined, semester: "", intake: "", file: null });
-    setSelectedType(null);
-    setRecords([]);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
+  const ctx = useContext(AppContext);
+  if (!ctx) throw new Error("AppContext missing");
+  const { showToast } = ctx;
 
+  /* ---------------- Reset on open / edit ---------------- */
   useEffect(() => {
-    if (isOpen) resetAll();
-  }, [isOpen, parentId]);
-
-  useEffect(() => {
-    if (mutation.isSuccess) {
-      resetAll();
-      onSuccess?.();
-      onClose();
+    if (isOpen) {
+      setAcademicYearId(planner ? String(planner.academicYearId) : "");
+      setPlannerCourseId(planner ? String(planner.plannerCourseId) : "");
+      setSemester(
+        planner?.semester
+          ? planner.semester.replace("SEMESTER - ", "")
+          : ""
+      );
+      setIntake(planner?.intake ?? "");
+      setFile(null);
+      setShowFileInput(false);
+      if (fileRef.current) fileRef.current.value = "";
     }
-  }, [mutation.isSuccess, onClose, onSuccess]);
+  }, [isOpen, planner]);
+
+  /* ---------------- Submit ---------------- */
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!academicYearId)
+      return showToast("Academic Year is required", "error");
+
+    if (!plannerCourseId)
+      return showToast("Planner course is required", "error");
+
+    if (!semester.trim())
+      return showToast("Semester cannot be empty", "error");
+
+    if (!intake.trim())
+      return showToast("Intake cannot be empty", "error");
+
+    if (!planner && !file)
+      return showToast("Planner PDF is required", "error");
+
+    const payload: any = {
+      academicYearId: Number(academicYearId),
+      plannerCourseId: Number(plannerCourseId),
+      semester: `Semester- ${semester}`,
+      intake,
+    };
+
+    if (file) payload.file = file;
+
+    if (planner) {
+      updateMutation.mutate(
+        { id: planner.id, ...payload },
+        {
+          onSuccess: () => {
+            onSuccess?.();
+            onClose();
+          },
+        }
+      );
+    } else {
+      createMutation.mutate(payload, {
+        onSuccess: () => {
+          onSuccess?.();
+          onClose();
+        },
+      });
+    }
+  };
 
   if (!isOpen) return null;
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setCurrent({ ...current, file });
-  };
-
-  const addRecord = () => {
-    if (!current.plannerCourseId || !current.semester || !current.intake || !current.file) return;
-
-    // 🔹 Unique semester check for the same course
-    const duplicate = records.some(
-      (r) => r.plannerCourseId === current.plannerCourseId && r.semester === current.semester
-    );
-    if (duplicate) {
-      showToast(`Semester "${current.semester}" already exists for this course`, "error");
-      return;
-    }
-
-    setRecords([...records, current]);
-    setCurrent({ plannerCourseId: undefined, semester: "", intake: "", file: null });
-    setSelectedType(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const removeRecord = (index: number) => {
-    setRecords(records.filter((_, i) => i !== index));
-  };
-
-  const handleSaveAll = () => {
-    if (records.length === 0) return;
-
-    mutation.mutate({
-      parentId,
-      records: records.map(({ plannerCourseId, semester, intake }) => ({
-        plannerCourseId,
-        semester: `SEMESTER - ${semester}`,
-        intake,
-      })),
-      files: records.map((r) => r.file!),
-    });
-  };
-
-  const triggerFileInput = () => fileInputRef.current?.click();
+  const existingFileName = planner?.file
+    ? planner.file.split("/").pop()
+    : null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-xl overflow-hidden">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-xl"
+      >
         {/* Header */}
-        <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-white">Add Multiple Files</h2>
-          <button onClick={onClose} className="hover:bg-white/10 p-1 rounded">
-            <X className="text-white w-6 h-6" />
+        <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between">
+          <h2 className="text-xl text-white font-bold">
+            {planner ? "Edit Academic Planner" : "Add Academic Planner"}
+          </h2>
+          <button type="button" onClick={onClose}>
+            <X className="text-white" />
           </button>
         </div>
 
-        {/* Form */}
-        <div className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* PlannerCourse Dropdown */}
+        {/* Body */}
+        <div className="p-6 space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Academic Year */}
             <select
-              value={selectedType?.id ?? ""}
-              onChange={(e) => {
-                const type = plannerTypes.find(
-                  (t) => t.id === Number(e.target.value)
-                );
-                setSelectedType(type ?? null);
-                setCurrent({ ...current, plannerCourseId: type?.id });
-              }}
-              className="w-full border rounded-xl px-4 py-2 border-gray-300 dark:border-gray-600"
+              value={academicYearId}
+              onChange={(e) => setAcademicYearId(e.target.value)}
+              className="border rounded-xl px-4 py-2"
             >
-              <option value="">Select Planner Course *</option>
-              {plannerTypes.map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.name}
+              <option value="">Select Academic Year *</option>
+              {academicYears.map((y) => (
+                <option key={y.id} value={y.id}>
+                  {y.year} ({y.session})
                 </option>
               ))}
             </select>
 
-            {/* Semester Dropdown */}
+            {/* Planner Course */}
             <select
-              value={current.semester}
-              onChange={(e) => setCurrent({ ...current, semester: e.target.value })}
-              className="w-full border rounded-xl px-4 py-2 border-gray-300 dark:border-gray-600"
+              value={plannerCourseId}
+              onChange={(e) => setPlannerCourseId(e.target.value)}
+              className="border rounded-xl px-4 py-2"
             >
-              <option value="">Select Semester *</option>
-              {semesters.map((s) => (
-                <option key={s} value={s}>{s}</option>
+              <option value="">Select Course *</option>
+              {plannerCourses.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
               ))}
             </select>
 
-            {/* Intake Input */}
-            <input
-              type="text"
-              placeholder="Intake"
-              value={current.intake}
-              onChange={(e) => setCurrent({ ...current, intake: e.target.value })}
-              className="w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600"
-            />
-          </div>
-
-          {/* File Upload */}
-          <div
-            className="w-full h-20 border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            onClick={triggerFileInput}
-          >
-            {current.file ? (
-              <div className="flex items-center gap-2">
-                <FaFilePdf className="w-6 h-6 text-red-600" />
-                <span>{current.file.name}</span>
-              </div>
-            ) : (
-              <span className="text-gray-400 text-sm">Click to select PDF</span>
-            )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="application/pdf"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-          </div>
-
-          {/* Add Record Button */}
-          <div className="flex justify-end">
-            <button
-              onClick={addRecord}
-              disabled={!current.plannerCourseId || !current.semester || !current.intake || !current.file}
-              className="flex items-center gap-2 px-6 py-3 bg-[#1a7cd3] text-white rounded-xl hover:bg-[#135EAB] transition disabled:opacity-50"
+            {/* Semester */}
+            <select
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+              className="border rounded-xl px-4 py-2"
             >
-              <Upload size={16} /> Add Record
-            </button>
+              <option value="">Select Semester *</option>
+              {semesters.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+
+            <input
+              value={intake}
+              onChange={(e) => setIntake(e.target.value)}
+              placeholder="Intake"
+              className="border rounded-xl px-4 py-2"
+            />
           </div>
 
-          {/* Records Table */}
-          {records.length > 0 && (
-            <div className="overflow-x-auto">
-              <table className="w-full table-auto border rounded-xl overflow-hidden">
-                <thead className="bg-gray-100 dark:bg-gray-700">
-                  <tr>
-                    <th className="p-2 text-left">SN</th>
-                    <th className="p-2 text-left">Course</th>
-                    <th className="p-2 text-left">Semester</th>
-                    <th className="p-2 text-left">Intake</th>
-                    <th className="p-2 text-left">File</th>
-                    <th className="p-2 text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {records.map((r, i) => (
-                    <tr key={i} className="border-t hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                      <td className="p-2">{i + 1}</td>
-                      <td className="p-2 font-medium">{plannerTypes.find(p => p.id === r.plannerCourseId)?.name || "-"}</td>
-                      <td className="p-2">{r.semester}</td>
-                      <td className="p-2">{r.intake}</td>
-                      <td className="p-2">
-                        <div className="flex items-center gap-2">
-                          <FaFilePdf className="w-5 h-5 text-red-500" />
-                          <span className="truncate max-w-[200px] text-sm">{r.file?.name}</span>
-                        </div>
-                      </td>
-                      <td className="p-2">
-                        <button
-                          onClick={() => removeRecord(i)}
-                          className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-                Total: {records.length} record{records.length !== 1 ? "s" : ""} added
+          {/* Existing File + Edit Button */}
+          {planner?.file && !file && (
+            <div className="flex items-center justify-between border rounded-xl px-4 py-3">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <FaFilePdf className="text-red-600" />
+                {existingFileName}
               </div>
+              <button
+                type="button"
+                onClick={() => setShowFileInput(true)}
+                className="text-blue-600 text-sm underline"
+              >
+                Edit file
+              </button>
             </div>
           )}
 
-          {/* Footer Buttons */}
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <button
-              onClick={onClose}
-              className="px-6 py-3 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+          {/* File Upload (Hidden until Edit clicked or new) */}
+          {(showFileInput || !planner) && (
+            <div
+              onClick={() => fileRef.current?.click()}
+              className="h-20 border-2 border-dashed rounded-xl flex items-center justify-center cursor-pointer"
             >
+              {file ? (
+                <div className="flex gap-2 items-center">
+                  <FaFilePdf className="text-red-600" />
+                  {file.name}
+                </div>
+              ) : (
+                <span className="text-gray-400 text-sm">
+                  Click to upload planner PDF
+                </span>
+              )}
+              <input
+                ref={fileRef}
+                type="file"
+                hidden
+                accept="application/pdf"
+                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+              />
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="flex justify-end gap-3 border-t pt-4">
+            <button type="button" onClick={onClose}>
               Cancel
             </button>
 
             <button
-              onClick={handleSaveAll}
-              disabled={records.length === 0 || mutation.isPending}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              type="submit"
+              disabled={createMutation.isPending || updateMutation.isPending}
+              className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-xl"
             >
-              {mutation.isPending ? (
+              {(createMutation.isPending || updateMutation.isPending) ? (
                 <>
-                  <Loader2 className="animate-spin w-5 h-5" /> Saving...
+                  <Loader2 className="animate-spin w-4 h-4" /> Saving
                 </>
               ) : (
                 <>
-                  <Check className="w-5 h-5" /> Save All
+                  <Check className="w-4 h-4" />
+                  {planner ? "Update" : "Save"}
                 </>
               )}
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
 
-export default CreateMultipleFilesModal;
+export default CreateEditPlannerModal;

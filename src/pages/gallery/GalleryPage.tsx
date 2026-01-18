@@ -8,7 +8,7 @@ import useGetGallerys from "./hooks/useGetAll";
 import { PAGE_LIMIT } from "../../constants";
 import Pagination from "../../utils/Pagination";
 import { FaTable, FaThLarge } from "react-icons/fa";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Power, Trash2 } from "lucide-react";
 import useGetGalleryTypes from "./hooks/type/useGetGalleryType";
 import DeleteGalleryTypeModal from "./components/type/addDelete";
 import AddEditGalleryTypeModal from "./components/type/addEdit";
@@ -20,6 +20,7 @@ import { useUpdateGalleryType } from "./hooks/type/usUpdate";
 import { debounce } from "lodash";
 import SearchBox from "../users/utils/SearchBox";
 import useGetAllGalleryTypes from "./hooks/type/useGetGalleryTypeAll";
+import ToggleStatusModel from "./components/toggle-type";
 
 const GallerysPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -45,6 +46,7 @@ const GallerysPage = () => {
   }, 500);
 
   const [selectedTypeId, setSelectedTypeId] = useState<number | undefined>(undefined);
+
   const { data: galleryData, isLoading: galleryLoading, isError: galleryError } =
     useGetGallerys({
       page,
@@ -65,10 +67,10 @@ const GallerysPage = () => {
     page: typePage,
     limit: PAGE_LIMIT,
     search: debouncedSearch,
-    status: selectedStatus,
+    status: selectedStatus, // ✅ pass status here
   });
-  const galleryTypesAll = typesDataAll?.data ?? [];
 
+  const galleryTypesAll = typesDataAll?.data ?? [];
   const galleryTypes = typesData?.data ?? [];
   const typeTotalPages = typesData?.pagination?.totalPages ?? 1;
   const typeHasNextPage = typesData?.pagination?.hasNextPage ?? false;
@@ -95,12 +97,26 @@ const GallerysPage = () => {
     setShowDeleteTypeModal(true);
   };
 
+  const [showToggleModal, setShowToggleModal] = useState(false);
+  const [selectedGalleryType, setSelectedGalleryType] = useState<GalleryType | null>(null);
+
+  const handleToggleStatus = (galleryType: GalleryType) => {
+    setSelectedGalleryType(galleryType);
+    setShowToggleModal(true);
+  };
+
   const tableActions = [
     {
       icon: <Edit className="w-5 h-5" />,
       tooltip: "Edit",
       onClick: handleEditType,
       color: "text-blue-600 hover:bg-blue-600 hover:text-white",
+    },
+    {
+      icon: <Power className="w-5 h-5" />,
+      tooltip: "Toggle Status",
+      onClick: handleToggleStatus,
+      color: "text-yellow-600 hover:bg-yellow-600 hover:text-white",
     },
     {
       icon: <Trash2 className="w-5 h-5" />,
@@ -112,33 +128,31 @@ const GallerysPage = () => {
 
   const statusOptions: STATUS[] = ["ENABLED", "DISABLED"];
 
-  // ------------------- JSX -------------------
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
-      <TitleBox
-        title="Gallery Management"
-        subtitle="Upload and manage gallery images"
-      />
+      <TitleBox title="Gallery Management" subtitle="Upload and manage gallery images" />
 
       {/* --- Toolbar --- */}
       <div className="flex justify-between items-center my-6">
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("type")}
-            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "type"
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
+              viewMode === "type"
                 ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-              }`}
+            }`}
           >
             <FaTable className="w-4 h-4" />
             <span>Gallery Types</span>
           </button>
           <button
             onClick={() => setViewMode("photo")}
-            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "photo"
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
+              viewMode === "photo"
                 ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-              }`}
+            }`}
           >
             <FaThLarge className="w-4 h-4" />
             <span>Photos</span>
@@ -149,11 +163,11 @@ const GallerysPage = () => {
           <div className="flex gap-4">
             <select
               className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
-              value={selectedTypeId }
+              value={selectedTypeId}
               onChange={(e) => {
                 const val = e.target.value;
                 setSelectedTypeId(val ? Number(val) : undefined);
-                setPage(1); 
+                setPage(1);
               }}
             >
               <option value="">All Types</option>
@@ -176,30 +190,30 @@ const GallerysPage = () => {
           <>
             <SearchBox placeholder="Search Types..." onSearch={handleSearch} />
 
-           <div className="flex gap-4">
-             <select
-              className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
-              value={selectedStatus}
-              onChange={(e) => {
-                setSelectedStatus(e.target.value as STATUS | "");
-                setTypePage(1);
-              }}
-            >
-              <option value="">All Status</option>
-              {statusOptions.map((status) => (
-                <option key={status} value={status}>
-                  {status.charAt(0) + status.slice(1).toLowerCase()}
-                </option>
-              ))}
-            </select>
+            <div className="flex gap-4">
+              <select
+                className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+                value={selectedStatus}
+                onChange={(e) => {
+                  setSelectedStatus(e.target.value as STATUS | "");
+                  setTypePage(1);
+                }}
+              >
+                <option value="">All Status</option>
+                {statusOptions.map((status) => (
+                  <option key={status} value={status}>
+                    {status.charAt(0) + status.slice(1).toLowerCase()}
+                  </option>
+                ))}
+              </select>
 
-            <button
-              onClick={handleAddType}
-              className="px-6 py-3 bg-[#125DAA] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
-            >
-              <span>Add Gallery Type</span>
-            </button>
-           </div>
+              <button
+                onClick={handleAddType}
+                className="px-6 py-3 bg-[#125DAA] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
+              >
+                <span>Add Gallery Type</span>
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -240,6 +254,11 @@ const GallerysPage = () => {
       </div>
 
       {/* --- Modals --- */}
+      <ToggleStatusModel
+        isOpen={showToggleModal}
+        onClose={() => setShowToggleModal(false)}
+        contact={selectedGalleryType} // ✅ pass selected type
+      />
       <DeleteGallerysModal
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}

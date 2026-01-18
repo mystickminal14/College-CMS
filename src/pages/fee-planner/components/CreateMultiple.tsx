@@ -1,235 +1,249 @@
-import React, { useState, useRef, useEffect } from "react";
-import { X, Trash2, Upload, Loader2, Check } from "lucide-react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { X, Loader2, Check } from "lucide-react";
 import { FaFilePdf } from "react-icons/fa";
-import useUpdateMultipleChildren from "../hooks/useCreateMultipleChild";
 
-interface RecordInput {
-  course: string;
-  semester: string;
-  file: File | null;
-}
+import { AppContext } from "../../../context/ContextApp";
+
+import useCreateFeePlanner from "../hooks/useCreate";
+
+import type { FeePlanner } from "../model/PlannerModel";
+import useGetFeeYears from "../hooks/year/useGetAcademicYear";
+import useUpdateFeePlanner from "../hooks/useEdit";
 
 interface Props {
   isOpen: boolean;
-  parentId: number;
+  planner?: FeePlanner | null;
   onClose: () => void;
   onSuccess?: () => void;
 }
 
-const CreateMultipleFilesModal: React.FC<Props> = ({ 
-  isOpen, 
-  parentId, 
-  onClose, 
-  onSuccess 
+const semesters = ["I", "II", "III", "IV", "V", "VI"];
+const courses = ["Bachelor", "Master"] as const;
+
+const CreateEditPlannerModal: React.FC<Props> = ({
+  isOpen,
+  planner,
+  onClose,
+  onSuccess,
 }) => {
-  const [records, setRecords] = useState<RecordInput[]>([]);
-  const [current, setCurrent] = useState<RecordInput>({
-    course: "",
-    semester: "",
-    file: null,
-  });
+  const { data: yearRes } = useGetFeeYears();
+  const feeYears = yearRes?.data ?? [];
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const mutation = useUpdateMultipleChildren();
+  const [feeYearId, setFeeYearId] = useState("");
+  const [semester, setSemester] = useState("");
+  const [course, setCourse] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [showFileInput, setShowFileInput] = useState(false);
 
-  // Reset when modal opens with new parentId
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const createMutation = useCreateFeePlanner();
+  const updateMutation = useUpdateFeePlanner();
+
+  const ctx = useContext(AppContext);
+  if (!ctx) throw new Error("AppContext missing");
+  const { showToast } = ctx;
+
+  /* ---------------- Reset on open / edit ---------------- */
   useEffect(() => {
     if (isOpen) {
-      resetAll();
+      setFeeYearId(planner ? String(planner.feeYearId) : "");
+      setSemester(
+        planner?.semester
+          ? planner.semester.replace("Semester - ", "")
+          : ""
+      );
+      setCourse(planner?.course ?? "");
+      setFile(null);
+      setShowFileInput(false);
+      if (fileRef.current) fileRef.current.value = "";
     }
-  }, [isOpen, parentId]);
+  }, [isOpen, planner]);
 
-  useEffect(() => {
-    if (mutation.isSuccess) {
-      resetAll();
-      onSuccess?.();
-      onClose();
+  /* ---------------- Submit ---------------- */
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!feeYearId)
+      return showToast("Fee Year is required", "error");
+
+    if (!course)
+      return showToast("Course is required", "error");
+
+    if (!semester.trim())
+      return showToast("Semester cannot be empty", "error");
+
+
+    if (!planner && !file)
+      return showToast("Planner PDF is required", "error");
+
+    const payload: any = {
+      feeYearId: Number(feeYearId),
+      course,
+      semester: `Semester - ${semester}`,
+    };
+
+    if (file) payload.file = file;
+
+    if (planner) {
+      updateMutation.mutate(
+        { id: planner.id, ...payload },
+        {
+          onSuccess: () => {
+            onSuccess?.();
+            onClose();
+          },
+        }
+      );
+    } else {
+      createMutation.mutate(payload, {
+        onSuccess: () => {
+          onSuccess?.();
+          onClose();
+        },
+      });
     }
-  }, [mutation.isSuccess, onClose, onSuccess]);
-
-  const resetAll = () => {
-    setRecords([]);
-    setCurrent({ course: "", semester: "", file: null });
-    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   if (!isOpen) return null;
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setCurrent({ ...current, file });
-  };
-
-  const addRecord = () => {
-    if (!current.course || !current.semester || !current.file) return;
-    setRecords([...records, current]);
-    setCurrent({ course: "", semester: "", file: null });
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const removeRecord = (index: number) => {
-    setRecords(records.filter((_, i) => i !== index));
-  };
-
-  const handleSaveAll = () => {
-    if (records.length === 0) return;
-
-    mutation.mutate({
-      parentId,
-      records: records.map(({ course, semester }) => ({ 
-        course, 
-        semester, 
-      })),
-      files: records.map((r) => r.file!),
-    });
-  };
-
-  const triggerFileInput = () => fileInputRef.current?.click();
+  const existingFileName = planner?.file
+    ? planner.file.split("/").pop()
+    : null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-xl overflow-hidden">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-xl"
+      >
         {/* Header */}
-        <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-white">Add Multiple Files</h2>
-          <button 
-            onClick={onClose}
-            className="hover:bg-white/10 p-1 rounded transition-colors"
-          >
-            <X className="text-white w-6 h-6" />
+        <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between">
+          <h2 className="text-xl text-white font-bold">
+            {planner ? "Edit Fee Planner" : "Add Fee Planner"}
+          </h2>
+          <button type="button" onClick={onClose}>
+            <X className="text-white" />
           </button>
         </div>
 
-        {/* Form */}
-        <div className="p-6 space-y-6">
+        {/* Body */}
+        <div className="p-6 space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="Course"
-              value={current.course}
-              onChange={(e) => setCurrent({ ...current, course: e.target.value })}
-              className="input w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#135EAB] focus:outline-none"
-            />
-            <input
-              type="text"
-              placeholder="Semester"
-              value={current.semester}
-              onChange={(e) => setCurrent({ ...current, semester: e.target.value })}
-              className="input w-full px-4 py-2 border rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#135EAB] focus:outline-none"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-            <div
-              className="w-full h-20 border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              onClick={triggerFileInput}
+            {/* Fee Year */}
+            <select
+              value={feeYearId}
+              onChange={(e) => setFeeYearId(e.target.value)}
+              className="border rounded-xl px-4 py-2"
             >
-              {current.file ? (
-                <div className="flex items-center gap-2">
-                  <FaFilePdf className="w-6 h-6 text-red-600" />
-                  <span className="truncate">{current.file.name}</span>
-                </div>
-              ) : (
-                <span className="text-gray-400 text-sm">Click to select PDF</span>
-              )}
-            </div>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="application/pdf"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-          </div>
+              <option value="">Select Fee Year *</option>
+              {feeYears.map((y) => (
+                <option key={y.id} value={y.id}>
+                  {y.year} ({y.session})
+                </option>
+              ))}
+            </select>
 
-          <div className="flex justify-end">
-            <button
-              onClick={addRecord}
-              disabled={!current.course || !current.semester || !current.file}
-              className="flex items-center gap-2 px-6 py-3 bg-[#1a7cd3] text-white rounded-xl hover:bg-[#135EAB] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            {/* Course */}
+            <select
+              value={course}
+              onChange={(e) => setCourse(e.target.value)}
+              className="border rounded-xl px-4 py-2"
             >
-              <Upload size={16} /> Add Record
-            </button>
+              <option value="">Select Course *</option>
+              {courses.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            {/* Semester */}
+            <select
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+              className="border rounded-xl px-4 py-2"
+            >
+              <option value="">Select Semester *</option>
+              {semesters.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+
           </div>
 
-          {records.length > 0 && (
-            <div className="overflow-x-auto">
-              <table className="w-full table-auto border rounded-xl overflow-hidden">
-                <thead className="bg-gray-100 dark:bg-gray-700">
-                  <tr>
-                    <th className="p-2 text-left">SN</th>
-                    <th className="p-2 text-left">Course</th>
-                    <th className="p-2 text-left">Semester</th>
-                    <th className="p-2 text-left">File</th>
-                    <th className="p-2 text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {records.map((r, i) => (
-                    <tr key={i} className="border-t hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                      <td className="p-2">{i + 1}</td>
-                      <td className="p-2 font-medium">{r.course}</td>
-                      <td className="p-2">{r.semester}</td>
-                      <td className="p-2">
-                        <div className="flex items-center gap-2">
-                          <FaFilePdf className="w-5 h-5 text-red-500" />
-                          <span className="truncate max-w-[200px] text-sm">{r.file?.name}</span>
-                        </div>
-                      </td>
-                      <td className="p-2">
-                        <button 
-                          onClick={() => removeRecord(i)} 
-                          className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-                Total: {records.length} record{records.length !== 1 ? 's' : ''} added
+          {/* Existing File */}
+          {planner?.file && !file && (
+            <div className="flex items-center justify-between border rounded-xl px-4 py-3">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <FaFilePdf className="text-red-600" />
+                {existingFileName}
               </div>
+              <button
+                type="button"
+                onClick={() => setShowFileInput(true)}
+                className="text-blue-600 text-sm underline"
+              >
+                Edit file
+              </button>
             </div>
           )}
 
-          <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              {records.length === 0 
-                ? "No records added yet" 
-                : `${records.length} record${records.length !== 1 ? 's' : ''} ready to save`}
+          {/* File Upload */}
+          {(showFileInput || !planner) && (
+            <div
+              onClick={() => fileRef.current?.click()}
+              className="h-20 border-2 border-dashed rounded-xl flex items-center justify-center cursor-pointer"
+            >
+              {file ? (
+                <div className="flex gap-2 items-center">
+                  <FaFilePdf className="text-red-600" />
+                  {file.name}
+                </div>
+              ) : (
+                <span className="text-gray-400 text-sm">
+                  Click to upload planner PDF
+                </span>
+              )}
+              <input
+                ref={fileRef}
+                type="file"
+                hidden
+                accept="application/pdf"
+                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+              />
             </div>
-            
-            <div className="flex gap-3">
-              <button
-                onClick={onClose}
-                className="px-6 py-3 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition"
-              >
-                Cancel
-              </button>
-              
-              <button
-                onClick={handleSaveAll}
-                disabled={records.length === 0 || mutation.isPending}
-                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {mutation.isPending ? (
-                  <>
-                    <Loader2 className="animate-spin w-5 h-5" /> Saving...
-                  </>
-                ) : (
-                  <>
-                    <Check className="w-5 h-5" /> Save All
-                  </>
-                )}
-              </button>
-            </div>
+          )}
+
+          {/* Footer */}
+          <div className="flex justify-end gap-3 border-t pt-4">
+            <button type="button" onClick={onClose}>
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              disabled={createMutation.isPending || updateMutation.isPending}
+              className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-xl"
+            >
+              {(createMutation.isPending || updateMutation.isPending) ? (
+                <>
+                  <Loader2 className="animate-spin w-4 h-4" /> Saving
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" />
+                  {planner ? "Update" : "Save"}
+                </>
+              )}
+            </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
 
-export default CreateMultipleFilesModal;
+export default CreateEditPlannerModal;

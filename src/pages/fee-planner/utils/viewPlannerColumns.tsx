@@ -7,7 +7,7 @@ export const ViewPlannersColumns = [
   { label: "Session", accessor: "session",
       render: (row: Planners) => {
  
-       const name = `${row.course}-${row.semester}-${row.session}`; // full URL to file
+       const name = `${row.course}-${row.semester}-${row.intake}`; // full URL to file
  
        return (
         

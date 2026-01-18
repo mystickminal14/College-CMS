@@ -5,5 +5,6 @@ import type { Contact } from "../model/ContactModel";
     { label: "Email", accessor: "email" as keyof Contact },
     { label: "Department", accessor: "department" as keyof Contact },
     { label: "Purpose", accessor: "purpose" as keyof Contact },
+    { label: "Status", accessor: "status" as keyof Contact },
 
   ];

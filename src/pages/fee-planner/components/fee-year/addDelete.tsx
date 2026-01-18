@@ -1,18 +1,18 @@
 import React from "react";
 import { X, Trash2, Loader2 } from "lucide-react";
-import type { AcademicPlanner } from "../model/PlannerModel";
-import useDeleteAcademicPlanner from "../hooks/useDelete";
+import type { FeeYear } from "../../model/PlannerModel";
+import useDeleteFeeYear from "../../hooks/year/useDelete";
 
 
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  type: AcademicPlanner | null;
+  type: FeeYear | null;
 }
 
-const DeletePlannerAcademic: React.FC<Props> = ({ isOpen, onClose, type }) => {
-  const deleteMutation = useDeleteAcademicPlanner();
+const DeleteGalleryTypeModal: React.FC<Props> = ({ isOpen, onClose, type }) => {
+  const deleteMutation = useDeleteFeeYear();
 
   if (!isOpen || !type) return null;
 
@@ -37,7 +37,7 @@ const DeletePlannerAcademic: React.FC<Props> = ({ isOpen, onClose, type }) => {
         </div>
 
         <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">
-          Are you sure you want to delete <strong>{type.academicYear?.year}-{type.plannerCourse?.name}-{type.semester}-{type.intake}</strong>?
+          Are you sure you want to delete <strong>{type.session}</strong>?
         </p>
 
         <div className="flex gap-3">
@@ -69,4 +69,4 @@ const DeletePlannerAcademic: React.FC<Props> = ({ isOpen, onClose, type }) => {
   );
 };
 
-export default DeletePlannerAcademic;
+export default DeleteGalleryTypeModal;

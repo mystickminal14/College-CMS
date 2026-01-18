@@ -5,7 +5,7 @@ import { IMAGE_URL } from "../../../constants";
 import { parseDate } from "../../../utils/ParseDate";
 
 const JournalIssueDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id ,volume,issue} = useParams<{ id: string,volume:string,issue:string }>();
   const { data, isLoading } = useGetJournalDetails(id!);
 
   const details = data?.data ?? [];

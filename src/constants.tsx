@@ -10,9 +10,17 @@ export const USER_CACHE_KEY = 'users';
 export const ALUMNI_CACHE_KEY = 'alumni';
 export const INTAKE_CACHE_KEY = 'intake';
 export const PLANNEER_CACHE_KEY = 'planner';
-export const PLANNEER_CHILD_CACHE_KEY = 'child';
+export const ALL_PLANNEER_CACHE_KEY = 'planner';
+
+export const PLANNER_YEAR = 'year';
+export const PLANNER_YEAR_PAG = 'year_pag';
+
 export const FEE_PLANNEER_CACHE_KEY = 'feeplanner';
-export const FEE_PLANNEER_CHILD_CACHE_KEY = 'feechild';
+export const ALL_FEE_PLANNEER_CACHE_KEY = 'feechild';
+
+export const FEEPLANNER_YEAR = 'feeyear';
+export const FEEPLANNER_YEAR_PAG = 'feeyear_pag';
+
 export const CONTACT_CACHE_KEY = 'contact';
 export const PLANNER_COURSE_CACHE_KEY = 'planner_course';
 

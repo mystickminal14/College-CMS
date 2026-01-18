@@ -1,17 +1,19 @@
 import APIClient from "../../../services/apiClient";
-import type {
-  CreateParentPayload,
-  Planners,
-} from "../model/PlannerModel";
+import type { AcademicPlanner, AcademicYear,   } from "../model/PlannerModel";
 
-const plannerApi = new APIClient<CreateParentPayload>("/planner");
-export const plannerApiAll = new APIClient<CreateParentPayload>("/planner/all");
-export const plannerChildApi = new APIClient<CreateParentPayload>("/planner/child");
-export const plannerFilesApi = new APIClient<null>(
-  "/planner/files"
+
+const plannerApi = new APIClient<AcademicPlanner>("/planner");
+export const plannerApiAll = new APIClient<AcademicPlanner>("/planner");
+export const academicYearApi = new APIClient<AcademicYear>(
+  "/planner/academic_year"
 );
-export const plannerChildrenApi = new APIClient<Planners>("/planner/child");
-export const plannerGet = new APIClient<Planners>("/planner");
-export const plannersParent = new APIClient<Planners>("/planner/all");
+
+export const academicYearGetApi = new APIClient<AcademicYear>(
+  "/planner/academic_year"
+);
+
+export const academicYearPaginationApi = new APIClient<AcademicYear>(
+  "/planner/academic_year/pagination"
+);
 
 export default plannerApi;

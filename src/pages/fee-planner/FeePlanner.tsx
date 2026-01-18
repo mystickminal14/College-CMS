@@ -1,219 +1,210 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TitleBox from "../../components/layout/TitleBox";
 import EnhancedTable from "../../template/EnhancedTable";
-import { Edit, Trash2, Eye } from "lucide-react";
-import useGetPlannerParents from "./hooks/useGetPlannerParents";
-import type { Planners } from "./model/PlannerModel";
-import CreateEditSessionModal from "./components/CreateParent";
-import CreateMultipleFilesModal from "./components/CreateMultiple";
-import DeletePlannerModal from "./components/DeletePlanner";
-import ViewChildrenModal from "./components/ViewTable";
+import Pagination from "../../utils/Pagination";
+import { Edit, Trash2, Plus } from "lucide-react";
 import { FaTable, FaThLarge } from "react-icons/fa";
-import CardView from "./components/GirdCard";
+
+import { PAGE_LIMIT } from "../../constants";
+
+// -------- Fee Year --------
+import useGetFeeYearsPagination from "./hooks/year/usePagination";
+import type { FeeYear } from "./model/PlannerModel";
+
+
+import type { FeePlanner } from "./model/PlannerModel";
+import useGetFeePlannersPagination from "./hooks/useGerAkk";
+import AddEditFeeYearModal from "./components/fee-year/addEdit";
+import CreateEditPlannerModal from "./components/CreateMultiple";
+import DeleteGalleryTypeModal from "./components/fee-year/addDelete";
+import useCreateFeeYear from "./hooks/year/useCreatePlannerYear";
+import DeletePlannerFee from "./components/DeletePlanner";
+import useUpdateFeeYear from "./hooks/year/useUpdateAcademicYear";
 
 const FeePlannersPage = () => {
-  const [showParentModal, setShowParentModal] = useState(false);
-  const [showChildrenModal, setShowChildrenModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showViewChildrenModal, setShowViewChildrenModal] = useState(false);
+  const [viewMode, setViewMode] = useState<"year" | "planner">("year");
 
-  const [plannersToEdit, setPlannersToEdit] = useState<Planners | null>(null);
-  const [selectedParentId, setSelectedParentId] = useState<number | null>(null);
+  // ---------- Fee Year ----------
+  const [yearPage, setYearPage] = useState(1);
+  const [showYearModal, setShowYearModal] = useState(false);
+  const [yearToEdit, setYearToEdit] = useState<FeeYear | null>(null);
+  const [yearToDelete, setYearToDelete] = useState<FeeYear | null>(null);
 
-  const { data, isLoading, isError } = useGetPlannerParents();
-  const planners = data?.data ?? [];
+  const { data: yearData, isLoading: yearLoading } =
+    useGetFeeYearsPagination({
+      page: yearPage,
+      limit: PAGE_LIMIT,
+    });
 
-  // Debug logging
-  useEffect(() => {
-    console.log("Planners data:", planners);
-  }, [planners]);
+  const years = yearData?.data ?? [];
+  const yearPagination = yearData?.pagination;
 
-  // ---------------- Handlers ----------------
-  const handleAddParent = () => {
-    console.log("Opening parent modal");
-    setPlannersToEdit(null);
-    setShowParentModal(true);
-  };
+  // ---------- Fee Planner ----------
+  const [plannerPage, setPlannerPage] = useState(1);
+  const [showPlannerModal, setShowPlannerModal] = useState(false);
+  const [plannerToEdit, setPlannerToEdit] = useState<FeePlanner | null>(null);
+  const [plannerToDelete, setPlannerToDelete] = useState<FeePlanner | null>(null);
+  const addMutation = useCreateFeeYear();
+  const editMutation = useUpdateFeeYear();
 
-  const handleEditParent = (planner: Planners) => {
-    console.log("Editing planner:", planner);
-    setPlannersToEdit(planner);
-    setShowParentModal(true);
-  };
+  const { data: plannerData, isLoading: plannerLoading } =
+    useGetFeePlannersPagination({
+      page: plannerPage,
+      limit: PAGE_LIMIT,
+    });
 
-  const handleAddChildren = (planner: Planners) => {
-    console.log("Opening children modal for planner ID:", planner.id);
-    if (!planner.id) {
-      console.error("Planner ID is null or undefined!");
-      return;
-    }
-    setPlannersToEdit(planner);
-    setShowChildrenModal(true);
-  };
+  const planners = plannerData?.data ?? [];
+  const plannerPagination = plannerData?.pagination;
+  console.log("planners", planners);
 
-  const handleDelete = (planner: Planners) => {
-    console.log("Opening delete modal for planner:", planner);
-    setPlannersToEdit(planner);
-    setShowDeleteModal(true);
-  };
-
-  const handleViewChildren = (planner: Planners) => {
-    if (!planner.id) {
-      console.error("Cannot view children: planner ID is null");
-      return;
-    }
-    console.log("Viewing children for planner ID:", planner.id);
-    setSelectedParentId(planner.id);
-    setShowViewChildrenModal(true);
-  };
-
-  const tableActions = [
-    {
-      icon: <Eye className="w-5 h-5" />,
-      tooltip: "Add Academic Planner",
-      onClick: handleAddChildren,
-      color: "text-green-600 hover:bg-green-600 hover:text-white",
-    },
-    {
-      icon: <Edit className="w-5 h-5" />,
-      tooltip: "Edit Planner",
-      onClick: handleEditParent,
-      color: "text-blue-600 hover:bg-blue-600 hover:text-white",
-    },
-    {
-      icon: <Trash2 className="w-5 h-5" />,
-      tooltip: "Delete Planner",
-      onClick: handleDelete,
-      color: "text-red-600 hover:bg-red-600 hover:text-white",
-    },
-  ];
-
-  // ---------------- Table Columns ----------------
-  const columns = [
-    { label: "Session", accessor: "session" },
+  const yearColumns = [
     { label: "Year", accessor: "year" },
-
-    {
-      label: "View Children",
-      accessor: "actions" as keyof Planners,
-      render: (row: Planners) => (
-        <button
-          onClick={() => handleViewChildren(row)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          View
-        </button>
-      ),
-    },
+    { label: "Session", accessor: "session" },
   ];
 
-  // ---------------- View Mode ----------------
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  const plannerColumns = [
+   
+    { label: "Semester", accessor: "semester" },
+    { label: "Course", accessor: "course" },
+
+  ];
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
-      <TitleBox title="Fee Planners Management" subtitle="Manage application planners" />
+      <TitleBox
+        title="Fee Planner Management"
+        subtitle="Manage fee years and planners"
+      />
 
-      {/* Header Buttons */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 my-6">
+      {/* ---------------- Tabs ---------------- */}
+      <div className="flex justify-between items-center my-6">
         <div className="flex gap-2">
           <button
-            onClick={() => setViewMode("table")}
-            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
-              viewMode === "table"
-                ? "bg-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+            onClick={() => setViewMode("year")}
+            className={`px-4 py-2 flex items-center gap-1 rounded transition ${viewMode === "year"
+                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800"
+              }`}
           >
-            <FaTable className="w-4 h-4" />
-            <span>Table</span>
+            <FaTable /> Fee Years
           </button>
 
           <button
-            onClick={() => setViewMode("card")}
-            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${
-              viewMode === "card"
-                ? "bg-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+            onClick={() => setViewMode("planner")}
+            className={`px-4 py-2 flex items-center gap-1 rounded transition ${viewMode === "planner"
+                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800"
+              }`}
           >
-            <FaThLarge className="w-4 h-4" />
-            <span>Cards</span>
+            <FaThLarge /> Fee Planners
           </button>
         </div>
 
         <button
-          onClick={handleAddParent}
-          className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] 
-                     flex items-center space-x-2 shadow hover:shadow-md transition-all 
-                     duration-200 font-medium w-full md:w-auto justify-center 
-                     disabled:opacity-50"
+          onClick={() => {
+            if (viewMode === "year") {
+              setYearToEdit(null);
+              setShowYearModal(true);
+            } else {
+              setPlannerToEdit(null);
+              setShowPlannerModal(true);
+            }
+          }}
+          className="px-5 py-2 bg-[#1a7cd3] text-white rounded-lg flex items-center gap-2"
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-          <span>Add Intakes</span>
+          <Plus className="w-4 h-4" />
+          Add {viewMode === "year" ? "Fee Year" : "Planner"}
         </button>
       </div>
 
-      {/* Planners List */}
-      {viewMode === "table" ? (
-        <EnhancedTable
-          data={planners}
-          columns={columns}
-          actions={tableActions}
-          loading={isLoading}
-          emptyMessage={isError ? "Failed to load planners" : "No planners found"}
-        />
+      {/* ---------------- Content ---------------- */}
+      {viewMode === "year" ? (
+        <>
+          <EnhancedTable
+            data={years}
+            columns={yearColumns}
+            loading={yearLoading}
+            actions={[
+              {
+                icon: <Edit />,
+                tooltip: "Edit",
+                onClick: (row) => {
+                  setYearToEdit(row);
+                  setShowYearModal(true);
+                },
+              },
+              {
+                icon: <Trash2 />,
+                tooltip: "Delete",
+                onClick: (row) => setYearToDelete(row),
+              },
+            ]}
+          />
+
+          <Pagination
+            page={yearPage}
+            totalPages={yearPagination?.totalPages ?? 1}
+            hasNextPage={yearPagination?.hasNextPage ?? false}
+            onPageChange={setYearPage}
+          />
+        </>
       ) : (
-        <CardView
-          planners={planners}
-          onEdit={handleEditParent}
-          onDelete={handleDelete}
-          onAddMultiple={handleAddChildren}
-          onViewChildren={handleViewChildren}
-        />
+        <>
+          <EnhancedTable
+            data={planners}
+            columns={plannerColumns}
+            loading={plannerLoading}
+            actions={[
+              {
+                icon: <Edit />,
+                tooltip: "Edit",
+                onClick: (row) => {
+                  setPlannerToEdit(row);
+                  setShowPlannerModal(true);
+                },
+              },
+              {
+                icon: <Trash2 />,
+                tooltip: "Delete",
+                onClick: (row) => setPlannerToDelete(row),
+              },
+            ]}
+          />
+
+          <Pagination
+            page={plannerPage}
+            totalPages={plannerPagination?.totalPages ?? 1}
+            hasNextPage={plannerPagination?.hasNextPage ?? false}
+            onPageChange={setPlannerPage}
+          />
+        </>
       )}
 
-      {/* Modals */}
-      <CreateEditSessionModal
-        isOpen={showParentModal}
-        onClose={() => setShowParentModal(false)}
-        initialSession={plannersToEdit?.session}
-        sessionId={plannersToEdit?.id}
-        initialYear={plannersToEdit?.year}
+      {/* ---------------- Modals ---------------- */}
+      <AddEditFeeYearModal
+        isOpen={showYearModal}
+        onClose={() => setShowYearModal(false)}
+        type={yearToEdit ?? undefined}
+        isEdit={!!yearToEdit}
+        mutation={addMutation}
+        editMutation={editMutation}
       />
 
-      {showChildrenModal && plannersToEdit?.id && (
-        <CreateMultipleFilesModal
-          key={`multiple-modal-${plannersToEdit.id}`} // Add key to force re-render
-          isOpen={showChildrenModal}
-          onClose={() => setShowChildrenModal(false)}
-          parentId={plannersToEdit.id}
-        />
-      )}
-
-      <DeletePlannerModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        planner={plannersToEdit}
-        type="PARENT"
+      <DeleteGalleryTypeModal
+        isOpen={!!yearToDelete}
+        onClose={() => setYearToDelete(null)}
+        type={yearToDelete}
       />
 
-      <ViewChildrenModal
-        isOpen={showViewChildrenModal}
-        onClose={() => setShowViewChildrenModal(false)}
-        parentId={selectedParentId ?? 0}
+      <CreateEditPlannerModal
+        isOpen={showPlannerModal}
+        onClose={() => setShowPlannerModal(false)}
+        planner={plannerToEdit}
+      />
+      <DeletePlannerFee
+        isOpen={!!plannerToDelete}
+        onClose={() => setPlannerToDelete(null)}
+        type={plannerToDelete}
       />
     </div>
   );

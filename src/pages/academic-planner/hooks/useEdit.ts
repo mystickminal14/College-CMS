@@ -1,34 +1,62 @@
-// hooks/useEditSession.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
+import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import { AppContext } from "../../../context/ContextApp";
-import plannerApi from "../services/PlannerService";
+import type {
+  EditPlannerPayload,
+  AcademicPlanner,
+} from "../model/PlannerModel";
 import { PLANNEER_CACHE_KEY } from "../../../constants";
+import APIClient from "../../../services/apiClient";
 
-interface EditSessionPayload {
-  id: number;
-  session: string;
-  year:string;
-}
-
-const useEditSession = () => {
-  const { showToast } = useContext(AppContext)!;
+const useUpdateAcademicPlanner = () => {
+  const ctx = useContext(AppContext);
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: ({ id, session,year }: EditSessionPayload) =>
-      plannerApi.put({ session,year }, id),
+  if (!ctx) {
+    throw new Error("useUpdateAcademicPlanner must be used within AppContext");
+  }
 
-    onSuccess: (res) => {
-      showToast(res.message, "success");
-                    queryClient.invalidateQueries({ queryKey: [PLANNEER_CACHE_KEY] });
-    
+  const { showToast } = ctx;
+
+  return useMutation<
+    ApiResponse<AcademicPlanner>,
+    ApiErrorResponse,
+    Partial<EditPlannerPayload>
+  >({
+    mutationFn: (payload) => {
+      const formData = new FormData();
+
+      if (payload.semester) formData.append("semester", payload.semester);
+      if (payload.intake) formData.append("intake", payload.intake);
+      if (payload.plannerCourseId)
+        formData.append("plannerCourseId", String(payload.plannerCourseId));
+      if (payload.academicYearId)
+        formData.append("academicYearId", String(payload.academicYearId));
+      if (payload.file)
+        formData.append("files", payload.file as unknown as File);
+      const ids = Number(payload.id);
+      const apiClient = new APIClient<AcademicPlanner>(
+        `/planner/${encodeURIComponent(ids)}`,
+      );
+
+      return apiClient.putFile(formData);
     },
 
-    onError: (err: any) => {
-      showToast(err.message, "error");
+    onSuccess: (res) => {
+      showToast(
+        res.message || "Academic planner updated successfully",
+        "success",
+      );
+      queryClient.invalidateQueries({ queryKey: [PLANNEER_CACHE_KEY] });
+    },
+
+    onError: (err) => {
+      const msg =
+        err.errors?.[0]?.message || err.message || "Something went wrong";
+      showToast(msg, "error");
     },
   });
 };
 
-export default useEditSession;
+export default useUpdateAcademicPlanner;

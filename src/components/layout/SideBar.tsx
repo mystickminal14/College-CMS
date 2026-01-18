@@ -61,8 +61,16 @@ const menuItems: MenuItem[] = [
       { id: "downloads", label: "Student Handbook", icon: MdMenuBook },
     ]
   },
-  { id: "alumni", icon: MdBusinessCenter, label: "Alumni", badge: "New" },
-  {
+ {
+    id: "alumni",
+    icon: MdArticle,
+    label: "Alumni",
+    subMenus: [
+      { id: "screen", label: "Alumni", icon: MdBusinessCenter },
+      { id: "form", label: "Alumni Form", icon: MdBusinessCenter },
+    
+    ],
+  } , {
     id: "media",
     icon: MdArticle,
     label: "Lbef Publication",

@@ -1,39 +1,62 @@
-export interface CreateParentPayload {
-  session: string;
-  year:string;
+
+export interface Course {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface CreateChildPayload {
-  parentId: number;
+
+export interface AcademicYear {
+  id: number;
+  year: string;
+  session: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+
+export interface AcademicPlanner {
+  id: number;
   semester: string;
-  plannerCourseId: number;
   intake: string;
   file: string;
+
+  plannerCourseId: number;
+  academicYearId: number;
+
+  createdAt: string;
+  updatedAt: string;
+
+  academicYear: AcademicYear;
+  plannerCourse: Course;
 }
 
-interface course{
+
+// PlannerModel.ts
+export interface CreateAcademicYearPayload {
+  year: string;
+  session: string;
+}
+
+export interface UpdateAcademicYearPayload {
+  id: number;
+  year: string;
+  session: string;
+}
+
+export interface CreatePlannerPayload {
+   semester: string;
+  intake: string;
+  file: string;
+  plannerCourseId: number;
+  academicYearId: number;
+}
+export interface EditPlannerPayload {
   id:number;
-  name:string;
-}
-export interface Planners {
-  id?: number;
-  parentId?: number;
-  semester?: string;
-  plannerCourseId?: number;
-  year?:string;
- plannerCourse?:course;
-  intake?: string;
-  session?: string;
-  file?: string;
-  children?: Planners[];
-}
-
-export interface BulkChildPayload {
-  parentId: number;
-  records: {
-    semester: string;
-    plannerCourseId: number|undefined;
-    intake: string;
-  }[];
-  files: File[];
+   semester: string;
+  intake: string;
+  file: string;
+  plannerCourseId: number;
+  academicYearId: number;
 }

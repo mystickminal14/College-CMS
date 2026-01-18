@@ -19,7 +19,6 @@ import NotFoundPage from "../components/NoRouteFound";
 import IntakePage from "../pages/intake-calender/IntakePage";
 import PlannersPage from "../pages/academic-planner/AcademicPlanner";
 import ContactPage from "../pages/contact/ContactTable";
-import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 import AchievementPage from "../pages/achivement/Achivement";
 import ConnectsPage from "../pages/lbef-connect/LbefConnect";
 import GallerysPage from "../pages/gallery/GalleryPage";
@@ -31,6 +30,7 @@ import EditorialPage from "../pages/editorial-board/EditorialBoard";
 import useMe from "../login/hooks/useMe";
 import type { PermissionNameType } from "../login/model/permission";
 import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
+import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -42,7 +42,9 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "students/fee-planner": "FEE_PLANNER",
   "students/downloads": "DOWNLOADS",
   "user": "USERS",
-  "alumni": "ALUMNI",
+  "alumni/screen": "ALUMNI",
+  "alumni/form": "ALMUNI_FORM",
+
   "students/planner-course":"PLANNER_COURSE",
   "administation/achievement": "ACHIEVEMENT",
   "media/news": "NEWS",
@@ -131,7 +133,7 @@ export const adminRoutes = [
       { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
       { path: "user", element: <UserPage /> },
-      { path: "alumni", element: <AlumniPage /> },
+      { path: "alumni/screen", element: <AlumniPage /> },
       { path: "administation/achievement", element: <AchievementPage /> },
       { path: "media/news", element: <NewsPage /> },
       { path: "media/connect", element: <ConnectsPage /> },

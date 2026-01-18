@@ -1,31 +1,43 @@
-export interface CreateParentPayload {
+export interface FeeYear {
+  id: number;
+  year: string;
   session: string;
-  year:string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface CreateChildPayload {
-  parentId: number;
+export interface FeePlanner {
+  id: number;
   semester: string;
   course: string;
   file: string;
+  feeYearId: number;
+  createdAt: string;
+  updatedAt: string;
+  feeYear: FeeYear;
 }
 
-export interface Planners {
-  id?: number;
-  parentId?: number;
-  year?:string;
-  semester?: string;
-  course?: string;
-  session?: string;
-  file?: string;
-  children?: Planners[];
+export interface CreateFeeYearPayload {
+  year: string;
+  session: string;
 }
 
-export interface BulkChildPayload {
-  parentId: number;
-  records: {
-    semester: string;
-    course: string;
-  }[];
-  files: File[];
+export interface UpdateFeeYearPayload {
+  id: number;
+  year: string;
+  session: string;
+}
+
+export interface CreatePlannerPayload {
+  semester: string;
+  course: string;
+  file: string;
+  feeYearId: number;
+}
+export interface EditPlannerPayload {
+  id: number;
+  semester: string;
+  course: string;
+  file: string;
+  feeYearId: number;
 }

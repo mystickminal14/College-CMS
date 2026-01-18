@@ -4,4 +4,5 @@ export interface Contact {
   email?: string;
   purpose?:string;
   department?: string;
+  status?:string;
 }

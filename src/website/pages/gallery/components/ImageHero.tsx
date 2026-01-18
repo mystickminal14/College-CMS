@@ -11,7 +11,10 @@ export default function ImageHero({ galleryImages }: ImageHeroProps) {
   const startXRef = useRef<number | null>(null);
   const isDraggingRef = useRef(false); // ⭐
 
-  const heroImages = galleryImages.slice(0, 10).map(img => img.image);
+const heroImages = galleryImages.slice(0, 10).map(img => ({
+  link: img.link ?? null,
+  url: img.image ?? null,
+}));
 
   const nextImage = () => {
     setCurrentIndex(prev => (prev + 1) % heroImages.length);
@@ -67,9 +70,10 @@ export default function ImageHero({ galleryImages }: ImageHeroProps) {
   };
 
   const visibleImages = Array.from({ length: 5 }, (_, i) => {
-    const index = (currentIndex + i) % heroImages.length;
-    return { url: heroImages[index], index };
-  });
+  const index = (currentIndex + i) % heroImages.length;
+  return { ...heroImages[index], index };
+});
+
 
   const containerClasses = [
     "w-90 mt-20",
@@ -117,7 +121,7 @@ export default function ImageHero({ galleryImages }: ImageHeroProps) {
         {visibleImages.map((image, index) => (
           <div key={`${image.index}-${index}`} className={containerClasses[index]}>
             <img
-              src={IMAGE_URL + image.url}
+              src={image.link ?? (image.url ? IMAGE_URL + image.url : "")} // ✅ use link first, fallback to image
               alt={`Gallery image ${image.index + 1}`}
               draggable={false} // ⭐ prevents ghost drag image
               className="w-full h-95 object-cover rounded-2xl shadow-lg

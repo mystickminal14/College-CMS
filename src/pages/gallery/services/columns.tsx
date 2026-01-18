@@ -8,5 +8,9 @@ export const TypeColumns = [
     render: (row: GalleryType) => `${row.name} `
   },
 
-
+  {
+    label: "Gallery status",
+    accessor: "status",
+    render: (row: GalleryType) => `${row.status} `
+  },
 ];
