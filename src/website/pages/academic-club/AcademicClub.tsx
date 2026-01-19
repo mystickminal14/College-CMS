@@ -257,7 +257,7 @@ const AcademicClub = () => {
 
         {/* Club Tabs */}
         <div className="max-w-7xl mx-auto">
-          <div className="w-full overflow-x-auto pb-2 mb-8">
+          <div className="w-full overflow-x-auto overflow-y-hidden pb-2 mb-8">
             <div className="flex flex-nowrap gap-2 min-w-max px-4">
               {clubsData.map((club, index) => {
                 const Icon = club.icon;
@@ -270,22 +270,26 @@ const AcademicClub = () => {
                     onClick={() => setActiveClub(club)}
                     className={`shrink-0 flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${activeClub.id === club.id
                       ? `${club.bgColor} border-2 ${club.borderColor} shadow-lg scale-[1.02]`
-                      : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md'
+                      : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md"
                       }`}
                   >
                     <div className={`p-1.5 rounded-md bg-linear-to-br ${club.color}`}>
                       <Icon className="w-4 h-4 text-white" />
                     </div>
-                    <span className={`font-medium text-xs md:text-sm ${activeClub.id === club.id ? 'text-gray-900' : 'text-gray-600'}`}>
-                      {club.title.split(' ').slice(0, 3).join(' ')}
+                    <span
+                      className={`font-medium text-xs md:text-sm ${activeClub.id === club.id ? "text-gray-900" : "text-gray-600"
+                        }`}
+                    >
+                      {club.title.split(" ").slice(0, 3).join(" ")}
                       <br />
-                      {club.title.split(' ').slice(3).join(' ')}
+                      {club.title.split(" ").slice(3).join(" ")}
                     </span>
                   </motion.button>
                 );
               })}
             </div>
           </div>
+
 
           {/* Club Details */}
           <AnimatePresence mode="wait">

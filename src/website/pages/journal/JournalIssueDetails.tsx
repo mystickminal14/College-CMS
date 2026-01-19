@@ -1,11 +1,10 @@
 // JournalIssueDetails.tsx
 import { useNavigate, useParams } from "react-router-dom";
 import useGetJournalDetails from "../../../pages/journal/hooks/details/useGetJournalDetails";
-import { IMAGE_URL } from "../../../constants";
 import { parseDate } from "../../../utils/ParseDate";
 
 const JournalIssueDetails = () => {
-  const { id ,volume,issue} = useParams<{ id: string,volume:string,issue:string }>();
+  const { id } = useParams<{ id: string}>();
   const { data, isLoading } = useGetJournalDetails(id!);
 
   const details = data?.data ?? [];
