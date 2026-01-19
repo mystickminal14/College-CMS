@@ -1,34 +1,34 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import girlWithCup from "../../../../assets/images/image_mac.webp";
 import girlWithThinking from "../../../../assets/girl_with_thinking.webp";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import bg1 from '../../../../assets/images/home3.webp';
 import useSendStudentEmail from "../useEmail";
-import { AppContext } from "../../../../context/ContextApp";
+// import { AppContext } from "../../../../context/ContextApp";
 
 export function JoinStudents() {
   const sendEmail = useSendStudentEmail();
   const [email, setEmail] = useState("");
-  const appContext = useContext(AppContext);
+  // const appContext = useContext(AppContext);
 
-  const handleJoinClick = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+//   const handleJoinClick = (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
 
-  if (!email.trim()) {
-    appContext?.showToast("Please enter your email!", "warn");
-    return;
-  }
+//   if (!email.trim()) {
+//     appContext?.showToast("Please enter your email!", "warn");
+//     return;
+//   }
 
-  sendEmail.mutate(
-    { email },
-    {
-      onSuccess: () => {
-        setEmail("");
-      },
-    }
-  );
-};
+//   sendEmail.mutate(
+//     { email },
+//     {
+//       onSuccess: () => {
+//         setEmail("");
+//       },
+//     }
+//   );
+// };
 
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">

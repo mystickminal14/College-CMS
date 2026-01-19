@@ -27,7 +27,7 @@ const messages = [
 ];
 
 export default function OurCore() {
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   return (

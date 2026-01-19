@@ -1,13 +1,13 @@
 import { CheckCircle } from "lucide-react";
-import type { Documents } from "../../../../pages/docs-required/model/DocsModel";
-import useGetAllDocs from "../../../../pages/docs-required/hooks/useAllDocs";
+// import type { Documents } from "../../../../pages/docs-required/model/DocsModel";
+// import useGetAllDocs from "../../../../pages/docs-required/hooks/useAllDocs";
 
 const DocumentsRequired = () => {
-  const { data, isLoading } = useGetAllDocs();
-  const documents: Documents[] = data?.data ?? [];
+  // const { data, isLoading } = useGetAllDocs();
+  // const documents: Documents[] = data?.data ?? [];
 
-  const bachelorDocs = documents.filter(doc => doc.type === "BACHELOR");
-  const masterDocs = documents.filter(doc => doc.type === "MASTER");
+  // const bachelorDocs = documents.filter(doc => doc.type === "BACHELOR");
+  // const masterDocs = documents.filter(doc => doc.type === "MASTER");
 
   const staticDocs = [
     "Attested photocopy of SLC marks sheet and character certificate.",
@@ -18,13 +18,13 @@ const DocumentsRequired = () => {
     "Attested photocopy of proof of nationality.",
   ];
 
-  const renderSkeleton = () => (
-    <ul className="space-y-2 animate-pulse">
-      {Array.from({ length: 5 }).map((_, idx) => (
-        <li key={idx} className="h-4 bg-gray-300 rounded w-full" />
-      ))}
-    </ul>
-  );
+  // const renderSkeleton = () => (
+  //   <ul className="space-y-2 animate-pulse">
+  //     {Array.from({ length: 5 }).map((_, idx) => (
+  //       <li key={idx} className="h-4 bg-gray-300 rounded w-full" />
+  //     ))}
+  //   </ul>
+  // );
 
   const renderList = (list: string[]) => (
     <ul className="space-y-2">
@@ -49,7 +49,7 @@ const DocumentsRequired = () => {
           required to submit the following documents to the Admission Office:
         </p>
 
-        {isLoading ? renderSkeleton() : renderList(staticDocs)}
+        {renderList(staticDocs)}
 
         {/* 🔁 API-based version (enable anytime)
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

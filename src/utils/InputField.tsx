@@ -7,7 +7,7 @@ interface InputFieldProps {
   placeholder?: string;
   icon?: React.ReactNode; 
   required?: boolean;
-  type?: "text" | "email" | "password" | "tel" | "url" | "number" | "textarea";
+  type?: "text" | "email" | "password" | "tel" | "url" | "number" | "textarea" | "date";
   onChange: (field: string, value: string) => void;
   isSubmitting?: boolean;
   rows?: number;

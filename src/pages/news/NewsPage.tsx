@@ -18,7 +18,7 @@ import Pagination from "../../utils/Pagination";
 const NewsPage = () => {
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const [newsToEdit, setNewsToEdit] = useState<NewsModel | null>(null);
+  const [newsToEdit, setNewsToEdit] = useState<NewsModel | undefined>(undefined);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { data, isLoading, isError } = useGetNews({ page, limit: PAGE_LIMIT });
@@ -32,7 +32,7 @@ const NewsPage = () => {
   const totalPages = data?.pagination?.totalPages ?? 1;
 
   const handleAdd = () => {
-    setNewsToEdit(null);
+    setNewsToEdit(undefined);
     setShowModal(true);
   };
 
@@ -108,7 +108,7 @@ const NewsPage = () => {
       <DeleteNewsModel
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
-        news={newsToEdit}
+        news={newsToEdit ?? null}
       />
 
       {/* WIZARD MODAL */}

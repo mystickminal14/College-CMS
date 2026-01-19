@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [loginData, setData] = useState<LoginUser>({
     username: "",
     password: "",
+    permissions: [],
   });
   const loginMutation = useLogin();
 

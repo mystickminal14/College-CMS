@@ -12,7 +12,7 @@ const api = new APIClient<LoginUser>("/auth/login");
 
 const useLogin = () => {
   const navigate = useNavigate();
-  const { showToast,setUserPermissions } = useContext(AppContext)!;
+  const { showToast, setUserPermissions } = useContext(AppContext)!;
 
   return useMutation<ApiResponse<LoginUser>, ApiErrorResponse, LoginUser>({
     mutationFn: (data) => api.post(data),
@@ -24,12 +24,12 @@ const useLogin = () => {
         return;
       }
 
-     
+
       showToast(res.message || "Login successful", "success");
 
-if (setUserPermissions) {
-  setUserPermissions(user.permissions.map(p => p.permission.name));
-}      if (user.role === "SUPERADMIN" || user.role === "ADMIN") {
+      if (setUserPermissions) {
+        setUserPermissions(user.permissions.map(p => p.permission.name));
+      } if (user.role === "SUPERADMIN" || user.role === "ADMIN") {
         navigate("/app/course");
         return;
       }
@@ -57,6 +57,9 @@ if (setUserPermissions) {
           ACADEMIC_PLANNER: "/app/students/planner",
           FEE_PLANNER: "/app/students/fee-planner",
           DOWNLOADS: "/app/students/downloads",
+          ALMUNI_FORM: "",
+          PLANNER_COURSE: "",
+          SCHOLARSHIP: ""
         };
 
         navigate(redirectMap[firstPermission] || "/app/course");
