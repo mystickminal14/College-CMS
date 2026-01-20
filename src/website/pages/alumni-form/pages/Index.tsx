@@ -257,7 +257,7 @@ const AlumniFormPage: React.FC = () => {
                   value={formData.degree}
                   onChange={handleChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${errors.degree ? 'border-red-300' : 'border-gray-300'}`}
-                  placeholder="e.g., B.Tech Computer Science"
+                  placeholder="e.g., B.Sc. IT"
                 />
                 {errors.degree && <p className="mt-1 text-sm text-red-600">{errors.degree}</p>}
               </div>
@@ -387,30 +387,29 @@ const AlumniFormPage: React.FC = () => {
                 />
               </div>
             </div>
-          <div className="mb-10">
-  <label
-    htmlFor="content"
-    className="block text-sm font-medium text-gray-700 mb-1"
-  >
-    Alumni Experience at the College <span className="text-red-500">*</span>
-  </label>
+            <div className="mb-10">
+              <label
+                htmlFor="content"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Alumni Experience at the College <span className="text-red-500">*</span>
+              </label>
 
-  <textarea
-    id="content"
-    name="content"
-    value={formData.content}
-    onChange={handleChange}
-    rows={5}
-    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none ${
-      errors.content ? "border-red-300" : "border-gray-300"
-    }`}
-    placeholder="Share your experience at the college—your journey, memories, achievements, faculty influence, campus life, or how the college shaped your career."
-  />
+              <textarea
+                id="content"
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
+                rows={5}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none ${errors.content ? "border-red-300" : "border-gray-300"
+                  }`}
+                placeholder="Share your experience at the college—your journey, memories, achievements, faculty influence, campus life, or how the college shaped your career."
+              />
 
-  {errors.content && (
-    <p className="mt-1 text-sm text-red-600">{errors.content}</p>
-  )}
-</div>
+              {errors.content && (
+                <p className="mt-1 text-sm text-red-600">{errors.content}</p>
+              )}
+            </div>
 
             {/* Form Actions */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">

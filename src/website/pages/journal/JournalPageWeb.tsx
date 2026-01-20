@@ -8,6 +8,7 @@ import JournalEditorialBoard from './JournalEditorialBoard';
 import JournalIssueDetails from './JournalIssueDetails';
 import { useParams } from 'react-router-dom';
 import JournalAbstract from '../../../pages/journal/JournalAbstract';
+import ContactListPage from '../contact-list/ContactListingPage';
 
 type TabType = 'home' | 'editorial' | 'contact';
 
@@ -28,7 +29,7 @@ const JournalPageWeb = () => {
       case "editorial":
         return <JournalEditorialBoard />;
       case "contact":
-        return <JournalEditorialBoard />;
+        return <ContactListPage />;
       default:
         return id ? <JournalIssueDetails /> : <JournalHomeContent />;
     }

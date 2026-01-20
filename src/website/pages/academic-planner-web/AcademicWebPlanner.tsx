@@ -166,10 +166,13 @@ const AcademicWebPlanner = () => {
           </div>
         )}
         {!isLoading && sortedGroups.length === 0 && (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold mb-4">
-              No Academic Planners Found
-            </h2>
+          <div className="text-center py-20">
+            <h3 className="text-xl font-semibold text-gray-700">
+              No Academic Planners Available
+            </h3>
+            <p className="text-gray-500 mt-2">
+              Please check back later.
+            </p>
           </div>
         )}
 

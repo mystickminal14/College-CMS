@@ -79,20 +79,20 @@ const FeePlannersWeb = () => {
   const { data, isLoading } = useGetFeePlanners();
 
   /* ---------- GROUP BY YEAR + SESSION ---------- */
-const groupedData = (data?.data ?? []).reduce(
-  (acc: Record<string, FeePlanner[]>, planner) => {
-    if (!planner.feeYear) return acc; // 🚑 prevent crash
+  const groupedData = (data?.data ?? []).reduce(
+    (acc: Record<string, FeePlanner[]>, planner) => {
+      if (!planner.feeYear) return acc; // 🚑 prevent crash
 
-    const { year, session } = planner.feeYear;
-    const key = `${year}__${session}`;
+      const { year, session } = planner.feeYear;
+      const key = `${year}__${session}`;
 
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(planner);
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(planner);
 
-    return acc;
-  },
-  {}
-);
+      return acc;
+    },
+    {}
+  );
 
   /* ---------- SORT GROUPS ---------- */
   const sortedGroups = Object.entries(groupedData).sort(([a], [b]) => {
@@ -228,14 +228,14 @@ const groupedData = (data?.data ?? []).reduce(
                           variants={cardItem}
                           className="text-md font-bold text-gray-800 mb-3"
                         >
-                          {planner.course} – {planner.semester} 
+                          {planner.course} – {planner.semester}
                         </motion.h4>
 
                         <motion.div
                           variants={cardItem}
                           className="grid grid-cols-2 gap-3 mb-4"
                         >
-                           <div className="bg-green-50 rounded-lg p-3">
+                          <div className="bg-green-50 rounded-lg p-3">
                             <p className="text-xs font-semibold text-green-700">
                               Course
                             </p>
@@ -252,26 +252,26 @@ const groupedData = (data?.data ?? []).reduce(
                             </p>
                           </div>
 
-                         
+
                         </motion.div>
 
                         <motion.button
-  variants={cardItem}
-  onClick={() => {
-    const url = planner.file
-      ? IMAGE_URL + planner.file // server file
-      : planner.file;            // external link
+                          variants={cardItem}
+                          onClick={() => {
+                            const url = planner.file
+                              ? IMAGE_URL + planner.file // server file
+                              : planner.file;            // external link
 
-    if (url) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  }}
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  className="w-full py-2.5 bg-blue-500 text-white rounded-lg font-medium text-sm"
->
- View Fee Plan
-</motion.button>
+                            if (url) {
+                              window.open(url, "_blank", "noopener,noreferrer");
+                            }
+                          }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-full py-2.5 bg-blue-500 text-white rounded-lg font-medium text-sm"
+                        >
+                          View Fee Plan
+                        </motion.button>
 
                       </div>
 
