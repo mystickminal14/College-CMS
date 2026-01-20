@@ -268,7 +268,7 @@ const AcademicClub = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 * index }}
                     onClick={() => setActiveClub(club)}
-                    className={`shrink-0 flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${activeClub.id === club.id
+                    className={`shrink-0 cursor-pointer flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${activeClub.id === club.id
                       ? `${club.bgColor} border-2 ${club.borderColor} shadow-lg scale-[1.02]`
                       : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md"
                       }`}
@@ -359,7 +359,7 @@ const AcademicClub = () => {
                     {/* Three Cards Below Mission */}
                     <div className="grid grid-cols-1 md:grid-cols-1 gap-4 pt-4">
                       <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div className={`text-lg font-bold bg-gradient-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
+                        <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
                           Membership
                         </div>
                         <p className="text-gray-600 text-xs">
@@ -367,7 +367,7 @@ const AcademicClub = () => {
                         </p>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div className={`text-lg font-bold bg-gradient-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
+                        <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
                           Activities
                         </div>
                         <p className="text-gray-600 text-xs">
@@ -375,7 +375,7 @@ const AcademicClub = () => {
                         </p>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div className={`text-lg font-bold bg-gradient-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
+                        <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
                           Leadership
                         </div>
                         <p className="text-gray-600 text-xs">
@@ -388,7 +388,7 @@ const AcademicClub = () => {
                   <div className="space-y-8">
                     <div>
                       <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span className={`w-2 h-6 rounded-full bg-gradient-to-b ${activeClub.color}`} />
+                        <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
                         Leadership Team
                       </h4>
                       <ul className="space-y-2 pl-4">
@@ -400,7 +400,7 @@ const AcademicClub = () => {
                             transition={{ delay: idx * 0.05 }}
                             className="flex items-start gap-3 text-gray-600"
                           >
-                            <div className={`w-2 h-2 rounded-full mt-2 bg-gradient-to-r ${activeClub.color}`} />
+                            <div className={`w-2 h-2 rounded-full mt-2 bg-linear-to-r ${activeClub.color}`} />
                             <span className="text-sm">{item}</span>
                           </motion.li>
                         ))}
@@ -409,7 +409,7 @@ const AcademicClub = () => {
 
                     <div>
                       <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span className={`w-2 h-6 rounded-full bg-gradient-to-b ${activeClub.color}`} />
+                        <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
                         Key Activities
                       </h4>
                       <ul className="space-y-2 pl-4">
@@ -421,7 +421,7 @@ const AcademicClub = () => {
                             transition={{ delay: idx * 0.05 }}
                             className="flex items-start gap-3 text-gray-600"
                           >
-                            <div className={`w-2 h-2 rounded-full mt-2 bg-gradient-to-r ${activeClub.color}`} />
+                            <div className={`w-2 h-2 rounded-full mt-2 bg-linear-to-r ${activeClub.color}`} />
                             <span className="text-sm">{item}</span>
                           </motion.li>
                         ))}

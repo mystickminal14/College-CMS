@@ -1,4 +1,3 @@
-// EnquiryContext.tsx
 import React, { createContext, useContext } from "react";
 import { useMeritto } from "./useMertito";
 
@@ -8,7 +7,7 @@ type EnquiryContextType = {
 
 const EnquiryContext = createContext<EnquiryContextType | null>(null);
 
-const WIDGET_ID = "37b0a5e5264dcf9f208d052c97b65286";
+const WIDGET_ID = "22c1142ae37bdbc283d1bdf26604a17f";
 
 export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => {
   useMeritto(WIDGET_ID);
@@ -25,7 +24,7 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
     <EnquiryContext.Provider value={{ open: openPopup }}>
       {children}
 
-      {/* 🔴 DO NOT use hidden */}
+      {/* REQUIRED: Widget button must exist in DOM */}
       <button
         type="button"
         className={`npfWidgetButton npfWidget-${WIDGET_ID}`}
@@ -42,7 +41,6 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useEnquiry = () => {
   const ctx = useContext(EnquiryContext);
   if (!ctx) throw new Error("useEnquiry must be used inside EnquiryProvider");
