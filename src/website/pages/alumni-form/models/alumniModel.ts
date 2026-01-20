@@ -25,6 +25,8 @@ export type EStatusType = keyof typeof EStatus; // "ENABLED" | "DISABLED"
 export interface AlumniFormData {
   id?: number;
   collegeRollNo: string;
+  content: string;
+
   uniRollNo: string;
   prefix: EPrefixType;
   fullName: string;

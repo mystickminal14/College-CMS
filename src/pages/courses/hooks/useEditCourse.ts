@@ -32,7 +32,7 @@ const useEditCourses = () => {
     },
     onSuccess: (res) => {
       showToast(res.message || "Course updated successfully!", "success");
-      queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY,'details'] });
+      queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY] });
     },
     onError: (err) => {
       const msg =

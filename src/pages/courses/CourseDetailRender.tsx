@@ -2,13 +2,11 @@ import { motion, type Variants } from "framer-motion";
 import { BlockType, type CourseDetailBlock } from "./model/CourseDetailModel";
 import {
   Target,
-  CheckCircle,
   FileText,
   ListChecks,
   ChevronRight,
 } from "lucide-react";
 
-// Scroll animation variants
 const scrollContainerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -40,7 +38,7 @@ const scrollItemVariants: Variants = {
 };
 
 const listItemVariants: Variants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, x: -10 },
   visible: {
     opacity: 1,
     x: 0,
@@ -106,7 +104,7 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
 
   return (
     <motion.div 
-      className="space-y-4 sm:space-y-6"
+      className="space-y-4 sm:space-y-5"
       variants={scrollContainerVariants}
       initial="hidden"
       whileInView="visible"
@@ -152,32 +150,11 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                 variants={scrollItemVariants}
                 className="bg-white rounded-lg sm:rounded-xl border border-gray-200 shadow-sm"
               >
-                <div className="p-3 sm:p-5">
-                  <motion.div 
-                    className="flex items-center gap-3 mb-3 sm:mb-5"
-                    initial={{ opacity: 0, y: -10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <motion.div 
-                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-linear-to-br from-emerald-50 to-emerald-100 flex items-center justify-center"
-                      variants={iconVariants}
-                    >
-                      <ListChecks className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
-                    </motion.div>
-                    <div className="text-left">
-                      <h4 className="text-sm font-semibold text-gray-900">
-                        Key Points
-                      </h4>
-                      <p className="text-xs text-gray-500">
-                        {block.content.length} items
-                      </p>
-                    </div>
-                  </motion.div>
+                <div className="p-3 sm:p-4">
+                  {/* Removed header entirely */}
                   
                   <motion.ul 
-                    className="space-y-2 sm:space-y-3"
+                    className="space-y-1.5 sm:space-y-2"
                     variants={scrollContainerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -187,23 +164,16 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                       <motion.li
                         key={i}
                         variants={listItemVariants}
-                        className="flex items-start gap-3 p-2 sm:p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                        className="flex items-start gap-2 p-2 rounded-md hover:bg-gray-50 transition-colors"
                       >
-                        <motion.div 
-                          className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"
-                          initial={{ scale: 0 }}
-                          whileInView={{ scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: i * 0.03 }}
-                        >
-                          <CheckCircle className="w-3 h-3 text-emerald-600" />
-                        </motion.div>
+                        {/* Simple bullet point instead of check icon */}
+                        <div className="mt-1.5 shrink-0 w-2 h-2 rounded-full bg-emerald-500"></div>
                         <motion.span 
                           className="text-sm text-gray-700 leading-relaxed flex-1"
                           initial={{ opacity: 0.7 }}
                           whileInView={{ opacity: 1 }}
                           viewport={{ once: true }}
-                          transition={{ delay: i * 0.03 + 0.1 }}
+                          transition={{ delay: i * 0.02 + 0.1 }}
                         >
                           {text}
                         </motion.span>
@@ -223,21 +193,21 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                className="space-y-4 sm:space-y-6"
+                className="space-y-3 sm:space-y-4"
               >
                 <motion.div 
-                  className="p-4 sm:p-5 rounded-lg sm:rounded-xl bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-100"
+                  className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-100"
                 >
-                  <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3">
                     <motion.div 
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md"
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md"
                       variants={iconVariants}
                     >
-                      <Target className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                      <Target className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </motion.div>
                     <div className="flex-1 min-w-0">
                       <motion.h4 
-                        className="text-base font-semibold text-gray-900 truncate"
+                        className="text-sm sm:text-base font-semibold text-gray-900"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -245,23 +215,14 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                       >
                         {block.title}
                       </motion.h4>
-                      <motion.p 
-                        className="text-xs text-blue-600 font-medium mt-1"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        Detailed breakdown
-                      </motion.p>
                     </div>
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 shrink-0" />
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 shrink-0" />
                   </div>
                 </motion.div>
 
                 {block.children?.length > 0 && (
                   <motion.div 
-                    className="pl-2 sm:pl-4 space-y-4 sm:space-y-5"
+                    className="pl-2 sm:pl-3 space-y-3 sm:space-y-4"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
