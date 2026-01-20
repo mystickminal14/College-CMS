@@ -3,5 +3,6 @@ export interface Downloads {
 
  name?: string;
   file?: string;
+  link?:string;
 
 }

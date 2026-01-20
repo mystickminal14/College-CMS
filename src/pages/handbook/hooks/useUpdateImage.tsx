@@ -7,8 +7,9 @@ import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 
 interface CreateFilePayload {
-  file: File;
   name: string;
+  file?: File;
+  link?: string;
 }
 
 export const useUpdatefile = () => {
@@ -19,18 +20,24 @@ export const useUpdatefile = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<Downloads>, ApiErrorResponse, CreateFilePayload>({
-    mutationFn: async ({ file, name }) => {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("file", file);
-
-      // Only POST — because backend only supports CREATE
+    mutationFn: async ({ name, file, link }) => {
       const apiClient = new APIClient<Downloads>("/downloads");
-      return apiClient.postFile(formData);
+      if (file) {
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("file", file);
+        return apiClient.postFile(formData);
+      }
+
+      // LINK UPLOAD
+      return apiClient.post({
+        name,
+        link,
+      });
     },
 
     onSuccess: (res) => {
-      showToast(res.message || "Download uploaded successfully!", "success");
+      showToast(res.message || "Download saved successfully!", "success");
       queryClient.invalidateQueries({ queryKey: [DOWNLOAD_CACHE_KEY] });
     },
 

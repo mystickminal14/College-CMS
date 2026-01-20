@@ -131,14 +131,26 @@ const StudentHandbook = () => {
 
                   <div className="p-5">
                     <h3 className="text-md font-bold text-gray-800 mb-3 line-clamp-2">{download.name}</h3>
-                    <motion.button
-                      onClick={() => window.open(`${IMAGE_URL}${download.file}`, "_blank")}
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="w-full py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition text-sm"
-                    >
-                      Open Document
-                    </motion.button>
+                  <motion.button
+  onClick={() => {
+    const url = download.file
+      ? `${IMAGE_URL}${download.file}` // local file
+      : download.link;                // external link
+
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }}
+  disabled={!download.file && !download.link}
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 0.97 }}
+  className="w-full py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg
+             hover:from-blue-600 hover:to-blue-700 transition text-sm
+             disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {download.file ? "Open Document" : "Open Link"}
+</motion.button>
+
                   </div>
 
                   <div className="h-1 bg-linear-to-r from-blue-400 to-blue-600" />

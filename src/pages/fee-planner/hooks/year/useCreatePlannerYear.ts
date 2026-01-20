@@ -4,7 +4,7 @@ import { AppContext } from "../../../../context/ContextApp";
 import type { ApiErrorResponse, ApiResponse } from "../../../../services/apiTypes";
 import type { FeeYear, CreateFeeYearPayload } from "../../model/PlannerModel";
 import { feeYearApi } from "../../services/PlannerService";
-import { PLANNER_YEAR, PLANNER_YEAR_PAG } from "../../../../constants";
+import { PLANNER_YEAR, FEEPLANNER_YEAR_PAG } from "../../../../constants";
 
 
 const useCreateFeeYear = () => {
@@ -25,7 +25,7 @@ const useCreateFeeYear = () => {
     onSuccess: (res) => {
       showToast(res.message ?? "Fee year created successfully", "success");
       queryClient.invalidateQueries({ queryKey: [PLANNER_YEAR] });
-      queryClient.invalidateQueries({ queryKey: [PLANNER_YEAR_PAG] });
+      queryClient.invalidateQueries({ queryKey: [FEEPLANNER_YEAR_PAG] });
 
     },
 

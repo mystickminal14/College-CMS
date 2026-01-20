@@ -1,9 +1,7 @@
 import React from "react";
-import { Trash2 } from "lucide-react";
 import type { Downloads } from "../model/handbookModel";
 import { IMAGE_URL } from "../../../constants";
-import { FaFilePdf } from "react-icons/fa";
-import image from "../../../assets/pcpslogo.webp";
+
 
 interface Props {
   downloads: Downloads[];
@@ -16,7 +14,7 @@ const DownloadsCardView: React.FC<Props> = ({
   downloads,
   isLoading,
   isError,
-  onDelete,
+ 
 }) => {
   // Loading Skeleton
   if (isLoading) {
@@ -57,32 +55,7 @@ const DownloadsCardView: React.FC<Props> = ({
             key={download.id}
             className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer transform hover:-translate-y-1"
           >
-            <div className="relative h-34 overflow-hidden">
-              <img
-                src={image}
-                alt={download.name}
-                className="absolute inset-0 w-full h-34 "
-              />
-              <div className="absolute inset-0 bg-black/20" />
-
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="bg-blue-100 p-5 rounded-2xl group-hover:scale-110 transition">
-                  <FaFilePdf className="w-14 h-14 text-red-600" />
-                </div>
-              </div>
-              <div className="absolute bottom-2 right-2 z-10">
-                <button
-                  onClick={() => onDelete(download)}
-                  className="p-2 cursor-pointer bg-white/95 dark:bg-gray-800/95 rounded-lg shadow hover:bg-white dark:hover:bg-gray-700 transition"
-                  title="Delete"
-                >
-                  <Trash2 size={16} className="text-red-600 dark:text-red-400 cursor-pointer" />
-                </button>
-              </div>
-              <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs">
-                PDF
-              </div>
-            </div>
+         
 
             <div className="p-5">
               <h3 className="text-md font-bold text-gray-800 mb-3 line-clamp-2">
@@ -90,16 +63,23 @@ const DownloadsCardView: React.FC<Props> = ({
               </h3>
 
               <button
-                onClick={() =>
-                  window.open(
-                    `${IMAGE_URL}${download.file}`,
-                    "_blank"
-                  )
-                }
-                className="w-full py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition text-sm"
-              >
-                Open Document
-              </button>
+  onClick={() => {
+    const url = download.file
+      ? `${IMAGE_URL}${download.file}` // local file
+      : download.link;                // external link
+
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }}
+  disabled={!download.file && !download.link}
+  className="w-full py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg
+             hover:from-blue-600 hover:to-blue-700 transition text-sm
+             disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {download.file ? "Open Document" : "Open Link"}
+</button>
+
             </div>
 
             <div className="h-1 bg-linear-to-r from-blue-400 to-blue-600" />

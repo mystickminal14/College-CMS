@@ -256,19 +256,23 @@ const groupedData = (data?.data ?? []).reduce(
                         </motion.div>
 
                         <motion.button
-                          variants={cardItem}
-                          onClick={() =>
-                            window.open(
-                              IMAGE_URL + planner.file,
-                              "_blank"
-                            )
-                          }
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="w-full py-2.5 bg-blue-500 text-white rounded-lg font-medium text-sm"
-                        >
-                          View Fee Plan
-                        </motion.button>
+  variants={cardItem}
+  onClick={() => {
+    const url = planner.file
+      ? IMAGE_URL + planner.file // server file
+      : planner.file;            // external link
+
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="w-full py-2.5 bg-blue-500 text-white rounded-lg font-medium text-sm"
+>
+ View Fee Plan
+</motion.button>
+
                       </div>
 
                       <motion.div

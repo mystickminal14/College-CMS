@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { X, Loader2, Check } from "lucide-react";
-import { FaFilePdf } from "react-icons/fa";
+import { FaFilePdf, FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileAlt } from "react-icons/fa";
 
 import { AppContext } from "../../../context/ContextApp";
 
@@ -20,6 +20,37 @@ interface Props {
 }
 
 const semesters = ["I", "II", "III", "IV", "V", "VI"];
+
+const allowedMimeTypes = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "application/vnd.ms-powerpoint",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+];
+
+const getFileIcon = (fileName: string | undefined) => {
+  if (!fileName) return <FaFileAlt className="text-gray-500" />;
+
+  const ext = fileName.split(".").pop()?.toLowerCase();
+  switch (ext) {
+    case "pdf":
+      return <FaFilePdf className="text-red-600" />;
+    case "doc":
+    case "docx":
+      return <FaFileWord className="text-blue-600" />;
+    case "xls":
+    case "xlsx":
+      return <FaFileExcel className="text-green-600" />;
+    case "ppt":
+    case "pptx":
+      return <FaFilePowerpoint className="text-orange-600" />;
+    default:
+      return <FaFileAlt className="text-gray-500" />;
+  }
+};
 
 const CreateEditPlannerModal: React.FC<Props> = ({
   isOpen,
@@ -43,8 +74,7 @@ const CreateEditPlannerModal: React.FC<Props> = ({
   const fileRef = useRef<HTMLInputElement>(null);
 
   const createMutation = useCreateAcademicPlanner();
-  const updateMutation = useUpdateAcademicPlanner(
-  );
+  const updateMutation = useUpdateAcademicPlanner();
 
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error("AppContext missing");
@@ -55,11 +85,7 @@ const CreateEditPlannerModal: React.FC<Props> = ({
     if (isOpen) {
       setAcademicYearId(planner ? String(planner.academicYearId) : "");
       setPlannerCourseId(planner ? String(planner.plannerCourseId) : "");
-      setSemester(
-        planner?.semester
-          ? planner.semester.replace("SEMESTER - ", "")
-          : ""
-      );
+      setSemester(planner?.semester ? planner.semester.replace("SEMESTER - ", "") : "");
       setIntake(planner?.intake ?? "");
       setFile(null);
       setShowFileInput(false);
@@ -71,20 +97,11 @@ const CreateEditPlannerModal: React.FC<Props> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!academicYearId)
-      return showToast("Academic Year is required", "error");
-
-    if (!plannerCourseId)
-      return showToast("Planner course is required", "error");
-
-    if (!semester.trim())
-      return showToast("Semester cannot be empty", "error");
-
-    if (!intake.trim())
-      return showToast("Intake cannot be empty", "error");
-
-    if (!planner && !file)
-      return showToast("Planner PDF is required", "error");
+    if (!academicYearId) return showToast("Academic Year is required", "error");
+    if (!plannerCourseId) return showToast("Planner course is required", "error");
+    if (!semester.trim()) return showToast("Semester cannot be empty", "error");
+    if (!intake.trim()) return showToast("Intake cannot be empty", "error");
+    if (!planner && !file) return showToast("Planner file is required", "error");
 
     const payload: any = {
       academicYearId: Number(academicYearId),
@@ -96,15 +113,12 @@ const CreateEditPlannerModal: React.FC<Props> = ({
     if (file) payload.file = file;
 
     if (planner) {
-      updateMutation.mutate(
-        { id: planner.id, ...payload },
-        {
-          onSuccess: () => {
-            onSuccess?.();
-            onClose();
-          },
-        }
-      );
+      updateMutation.mutate({ id: planner.id, ...payload }, {
+        onSuccess: () => {
+          onSuccess?.();
+          onClose();
+        },
+      });
     } else {
       createMutation.mutate(payload, {
         onSuccess: () => {
@@ -117,16 +131,24 @@ const CreateEditPlannerModal: React.FC<Props> = ({
 
   if (!isOpen) return null;
 
-  const existingFileName = planner?.file
-    ? planner.file.split("/").pop()
-    : null;
+  const existingFileName = planner?.file?.split("/").pop();
+
+  /* ---------------- File Change ---------------- */
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
+
+    if (!allowedMimeTypes.includes(selectedFile.type)) {
+      showToast("Only PDF, Word, Excel, or PowerPoint files are allowed", "error");
+      return;
+    }
+
+    setFile(selectedFile);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-xl"
-      >
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-xl">
         {/* Header */}
         <div className="bg-linear-to-r from-[#1a7cd3] to-[#135EAB] p-5 flex justify-between">
           <h2 className="text-xl text-white font-bold">
@@ -190,11 +212,11 @@ const CreateEditPlannerModal: React.FC<Props> = ({
             />
           </div>
 
-          {/* Existing File + Edit Button */}
+          {/* Existing File */}
           {planner?.file && !file && (
             <div className="flex items-center justify-between border rounded-xl px-4 py-3">
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FaFilePdf className="text-red-600" />
+                {getFileIcon(existingFileName)}
                 {existingFileName}
               </div>
               <button
@@ -207,7 +229,7 @@ const CreateEditPlannerModal: React.FC<Props> = ({
             </div>
           )}
 
-          {/* File Upload (Hidden until Edit clicked or new) */}
+          {/* File Upload */}
           {(showFileInput || !planner) && (
             <div
               onClick={() => fileRef.current?.click()}
@@ -215,20 +237,19 @@ const CreateEditPlannerModal: React.FC<Props> = ({
             >
               {file ? (
                 <div className="flex gap-2 items-center">
-                  <FaFilePdf className="text-red-600" />
+                  {getFileIcon(file.name)}
                   {file.name}
                 </div>
               ) : (
                 <span className="text-gray-400 text-sm">
-                  Click to upload planner PDF
+                  Click to upload PDF, Word, Excel, or PowerPoint
                 </span>
               )}
               <input
                 ref={fileRef}
                 type="file"
                 hidden
-                accept="application/pdf"
-                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                onChange={handleFileChange}
               />
             </div>
           )}
