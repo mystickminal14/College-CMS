@@ -8,62 +8,58 @@ declare global {
 
 export const useMeritto = (widgetId: string) => {
   useEffect(() => {
-    console.log("[Meritto] useMeritto hook mounted");
-    console.log("[Meritto] Widget ID:", widgetId);
+    console.log("[Meritto] Hook mounted");
 
-    const existingScript = document.querySelector(
-      'script[src="https://in8cdn.npfs.co/js/widget/npfwpopup.js"]'
-    );
+    const SCRIPT_SRC = "https://in8cdn.npfs.co/js/widget/npfwpopup.js";
 
-    if (existingScript) {
-      console.log("[Meritto] Script already exists");
-      initWidget();
-      return;
+    const existingScript = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
+
+    if (!existingScript) {
+      console.log("[Meritto] Injecting script");
+
+      const script = document.createElement("script");
+      script.src = SCRIPT_SRC;
+      script.async = true;
+      document.body.appendChild(script);
+    } else {
+      console.log("[Meritto] Script already present");
     }
 
-    console.log("[Meritto] Injecting Meritto script...");
+    let attempts = 0;
 
-    const script = document.createElement("script");
-    script.src = "https://in8cdn.npfs.co/js/widget/npfwpopup.js";
-    script.async = true;
+    const waitForWidget = setInterval(() => {
+      attempts++;
+      console.log(`[Meritto] Waiting for NpfWidgetsInit... (${attempts})`);
 
-    script.onload = () => {
-      console.log("[Meritto] Script loaded successfully");
-      initWidget();
-    };
+      if (window.NpfWidgetsInit) {
+        clearInterval(waitForWidget);
 
-    script.onerror = () => {
-      console.error("[Meritto] Script failed to load");
-    };
+        console.log("[Meritto] NpfWidgetsInit FOUND ✅");
 
-    document.body.appendChild(script);
+        try {
+          new window.NpfWidgetsInit({
+            widgetId,
+            baseurl: "widgets.in8.nopaperforms.com",
+            formTitle: "Enquiry Form",
+            titleColor: "#FF0033",
+            backgroundColor: "#ddd",
+            iframeHeight: "500px",
+            buttonbgColor: "navy",
+            buttonTextColor: "#FFF",
+          });
 
-    function initWidget() {
-      console.log("[Meritto] Attempting widget initialization");
-
-      if (!window.NpfWidgetsInit) {
-        console.error("[Meritto] NpfWidgetsInit NOT found on window");
-        return;
+          console.log("[Meritto] Widget initialized SUCCESSFULLY 🎉");
+        } catch (err) {
+          console.error("[Meritto] Widget init FAILED", err);
+        }
       }
 
-      console.log("[Meritto] NpfWidgetsInit found, initializing...");
-
-      try {
-        new window.NpfWidgetsInit({
-          widgetId,
-          baseurl: "widgets.in8.nopaperforms.com",
-          formTitle: "Enquiry Form",
-          titleColor: "#FF0033",
-          backgroundColor: "#ddd",
-          iframeHeight: "500px",
-          buttonbgColor: "navy",
-          buttonTextColor: "#FFF",
-        });
-
-        console.log("[Meritto] Widget initialized SUCCESSFULLY");
-      } catch (err) {
-        console.error("[Meritto] Widget initialization FAILED", err);
+      if (attempts > 20) {
+        clearInterval(waitForWidget);
+        console.error("[Meritto] Timed out waiting for NpfWidgetsInit ❌");
       }
-    }
+    }, 300);
+
+    return () => clearInterval(waitForWidget);
   }, [widgetId]);
 };
