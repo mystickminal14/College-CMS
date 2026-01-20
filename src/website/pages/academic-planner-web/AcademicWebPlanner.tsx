@@ -98,7 +98,7 @@ const AcademicWebPlanner = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* HEADER */}
-       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
+      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -165,6 +165,13 @@ const AcademicWebPlanner = () => {
             ))}
           </div>
         )}
+        {!isLoading && sortedGroups.length === 0 && (
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold mb-4">
+              No Academic Planners Found
+            </h2>
+          </div>
+        )}
 
         {!isLoading &&
           sortedGroups.map(([key, planners]) => {
@@ -228,7 +235,7 @@ const AcademicWebPlanner = () => {
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                 >
                   {sortedPlanners.map((planner) => (
-                     <motion.div key={planner.id} variants={cardContainer} whileHover={{ y: -8 }} className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:border-blue-200">
+                    <motion.div key={planner.id} variants={cardContainer} whileHover={{ y: -8 }} className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:border-blue-200">
                       <div className="p-5">
                         <motion.h4 variants={cardItem} className="text-md font-bold text-gray-800 mb-3 line-clamp-2">
                           {planner.plannerCourse.name} – {planner.semester} – {planner.intake}

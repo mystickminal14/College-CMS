@@ -130,7 +130,7 @@ export const websiteRoutes = [
         path: "lrjstm",
         children: [
           { path: "", element: <JournalPageWeb /> },
-          { path: "volume/view/:id/:volume/:issue", element: <JournalPageWeb /> },
+          { path: "volume/view/:id", element: <JournalPageWeb /> },
           { path: "volume/abstract/:id", element: <JournalPageWeb /> },
 
         ],
