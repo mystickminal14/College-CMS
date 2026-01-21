@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { IMAGE_URL } from "../../constants";
 
 const JournalAbstract = () => {
 	const location = useLocation();
