@@ -273,7 +273,7 @@ const ContactListPage = () => {
                       className="text-sm text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 wrap-break-word w-full"
                     >
                       <FaEnvelope className="h-3 w-3" />
-                      {cooContact.email}
+                              {cooContact.email?.replace("@","(@)") || "No email"}
                     </a>
                   </div>
                 </div>
@@ -301,7 +301,7 @@ const ContactListPage = () => {
                       className="text-sm text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 wrap-break-word w-full"
                     >
                       <FaEnvelope className="h-3 w-3" />
-                      {executiveContact.email}
+                              {executiveContact.email?.replace("@","(@)") || "No email"}
                     </a>
                   </div>
                 </div>

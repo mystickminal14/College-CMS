@@ -24,7 +24,6 @@ const isCourseDetailBlock = (
   block: CourseDetailBlock | null | undefined
 ): block is CourseDetailBlock => block !== null && block !== undefined;
 
-/* ------------------ ANIMATION VARIANTS (UNCHANGED) ------------------ */
 const asideItemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {

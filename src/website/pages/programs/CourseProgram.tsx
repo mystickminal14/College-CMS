@@ -189,7 +189,7 @@ const CourseProgram = () => {
                       {course.degree}
                     </p>
                     <p className="text-xs uppercase text-blue-600 group-hover:text-white">
-                      {course.duration}
+                      {course.duration} years
                     </p>
                   </motion.div>
 

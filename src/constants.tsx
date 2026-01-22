@@ -1,8 +1,8 @@
 export const PCPS_BASE_URL = 'https://edusysapi.lbef.info';
-// export const BASE_URL = 'http://localhost:8000/api';
-// export const IMAGE_URL = 'http://localhost:8000';
-export const BASE_URL = 'https://lbef-server.lbef.org/api';
-export const IMAGE_URL = 'https://lbef-server.lbef.org';
+export const BASE_URL = 'http://localhost:8000/api';
+export const IMAGE_URL = 'http://localhost:8000';
+// export const BASE_URL = 'https://lbef-server.lbef.org/api';
+// export const IMAGE_URL = 'https://lbef-server.lbef.org';
 export const PAGE_LIMIT = 10;
 export const LOGIN_CACHE_KEY = 'login';
 export const USER_CACHE_KEY = 'users';
