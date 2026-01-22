@@ -1,6 +1,5 @@
 // Example images (replace with your actual imports)
 import Logo1 from "../../../../assets/partners/aakshar.webp";
-import Logo2 from "../../../../assets/partners/guru.webp";
 import Logo3 from "../../../../assets/partners/lbef.webp";
 import Logo4 from "../../../../assets/partners/pcps.webp";
 import decoration from '../../../../assets/decoration.webp';
@@ -9,7 +8,6 @@ const partners = [
   { id: 1, name: "Partner 3", image: Logo3, link: "https://lbef.org" },
   { id: 2, name: "LBEF College", image: Logo1, link: "https://www.aksharschool.edu.np/" },
   { id: 3, name: "Partner 4", image: Logo4, link: "https://patancollege.edu.np/" },
-  { id: 4, name: "LBEF IT College", image: Logo2, link: "https://www.gurunepal.com/" },
 ];
 const PartnerSection = () => {
 
@@ -30,7 +28,7 @@ const PartnerSection = () => {
         <p className="text-gray-500">Our college Partner organizations.</p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">
         {partners.map((partner) => (
           <div
             key={partner.id}

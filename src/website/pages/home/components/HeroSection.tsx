@@ -1,6 +1,6 @@
 import butterfiles from "../../../../assets/butterfiles.webp"
 import { motion } from "framer-motion";
-import graduation from "../../../../assets/front.jpg"
+import graduation from "../../../../assets/front.webp"
 
 export function HeroSection() {
   return (

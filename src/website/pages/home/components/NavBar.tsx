@@ -16,6 +16,7 @@ import {
 import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu.png";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
+import { useEnquiry } from "../../../../context/EnquiryContext";
 
 type DropdownItem = {
   name: string;
@@ -49,6 +50,7 @@ export function NavBar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  const { open } = useEnquiry();
 
   /* Close menus on route change */
   useEffect(() => {
@@ -268,14 +270,13 @@ export function NavBar() {
             )
           )}
 
-          <NavLink
-            to="https://enquiry.lbef.org/enquirenow.html"
-            target="_blank"
+          <button
+            onClick={() => open()}
             className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
           >
             <FaUserGraduate />
             Enquire Now
-          </NavLink>
+          </button>
 
         </nav>
 
@@ -394,18 +395,21 @@ export function NavBar() {
           )}
 
           {/* CTA Button */}
-          <NavLink
-            to="https://enquiry.lbef.org/enquirenow.html"
-            target="_blank"
-            onClick={() => setMobileOpen(false)}
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              console.log(" Enquiry button clicked");
+              open();
+            }}
             className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 sticky bottom-0"
           >
             <FaUserGraduate />
             Enquiry Now
-          </NavLink>
+          </button>
         </div>
-      )}
+      )
+      }
 
-    </header>
+    </header >
   );
 }

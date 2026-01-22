@@ -35,10 +35,10 @@ const Footer = () => {
               <div className="flex items-center gap-2">
                 <MdEmail className="w-4 h-4 text-blue-500" />
                 <a
-                  href="mailto:support@lbef.com"
+                  href="mailto:support@lbef.org"
                   className="hover:text-blue-500 text-[11px] break-all"
                 >
-                  support(@)lbef.com
+                  support(@)lbef.org
                 </a>
               </div>
 
@@ -105,7 +105,7 @@ const Footer = () => {
           <div className="lg:col-span-3">
             <h3 className="text-black font-semibold text-xs mb-2">Get in Touch</h3>
 
-        <a
+            <a
               href="https://maps.app.goo.gl/oU9yCBRxj3FCVCof6"
               target="_blank"
               rel="noreferrer"
