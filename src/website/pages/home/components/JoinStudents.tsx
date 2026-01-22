@@ -1,15 +1,11 @@
-import {  useState } from "react";
 import girlWithCup from "../../../../assets/images/image_mac.webp";
 import girlWithThinking from "../../../../assets/girl_with_thinking.webp";
 import { CheckCircle, Users, Video } from "lucide-react";
 import decoration from '../../../../assets/decoration.webp';
 import bg1 from '../../../../assets/images/home3.webp';
-import useSendStudentEmail from "../useEmail";
 // import { AppContext } from "../../../../context/ContextApp";
 
 export function JoinStudents() {
-  const sendEmail = useSendStudentEmail();
-  const [email, setEmail] = useState("");
   // const appContext = useContext(AppContext);
 
 //   const handleJoinClick = (e: React.FormEvent<HTMLFormElement>) => {
@@ -145,18 +141,12 @@ export function JoinStudents() {
 
           {/* Email Input + Button */}
           <div  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
-            />
+            
              <button
               type="submit" // Form submit, handled by onSubmit
               className="bg-white text-[#474AFF] font-bold text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              {sendEmail.isPending ? "Sending..." : "Join as Student"}
+              Join as Student
             </button>
           </div>
         </div>
