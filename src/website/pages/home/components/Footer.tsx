@@ -19,7 +19,7 @@ const Footer = () => {
       }}
     >
       {/* Main Footer */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-8 sm:py-16">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-8 sm:py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
 
           {/* Logo & Contact */}
@@ -56,7 +56,7 @@ const Footer = () => {
             <div>
               <h3 className="text-black font-semibold text-xs">Quick Links</h3>
               <ul className="mt-2 space-y-1">
-                {["About Us", "All Courses", "Students", "Admission", "Media", "Our Blogs"].map(
+                {["About Us", "All Courses", "Students", "Admission", "Media"].map(
                   (link) => (
                     <li key={link}>
                       <NavLink to="#" className="hover:text-blue-500 text-[11px]">
