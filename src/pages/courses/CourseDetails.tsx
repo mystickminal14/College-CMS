@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import CourseDetailRenderer from "./CourseDetailRender";
 import { useEnquiry } from "../../context/EnquiryContext";
+import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (
@@ -156,23 +157,20 @@ const CourseDetails = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
-                className={`bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden ${
-                  block.type === BlockType.HEADING ? "shadow-md" : "shadow-sm"
-                }`}
+                className={`bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden ${block.type === BlockType.HEADING ? "shadow-md" : "shadow-sm"
+                  }`}
               >
                 <motion.div
-                  className={`p-4 sm:p-6 border-b border-gray-100 ${
-                    block.type === BlockType.HEADING
+                  className={`p-4 sm:p-6 border-b border-gray-100 ${block.type === BlockType.HEADING
                       ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
                       : "bg-linear-to-r from-gray-50/50 to-white"
-                  } relative overflow-hidden`}
+                    } relative overflow-hidden`}
                 >
                   <motion.div
-                    className={`absolute top-0 left-0 w-1 h-full ${
-                      block.type === BlockType.HEADING
+                    className={`absolute top-0 left-0 w-1 h-full ${block.type === BlockType.HEADING
                         ? "bg-linear-to-b from-blue-500 to-indigo-500"
                         : "bg-linear-to-b from-gray-400 to-gray-500"
-                    }`}
+                      }`}
                   />
 
                   <div className="flex items-center gap-4">
@@ -204,7 +202,7 @@ const CourseDetails = () => {
               )}
             </div>
           </main>
- <aside className="lg:w-1/3">
+          <aside className="lg:w-1/3">
             <motion.div
               variants={sectionVariants}
               initial="hidden"
@@ -347,6 +345,7 @@ const CourseDetails = () => {
           </aside>
         </div>
       </div>
+      <LbefSubFooter />
     </div>
   );
 };

@@ -56,11 +56,11 @@ const Footer = () => {
             <div>
               <h3 className="text-black font-semibold text-xs">Quick Links</h3>
               <ul className="mt-2 space-y-1">
-                {["About Us", "All Courses", "Students", "Admission", "Media"].map(
+                {[{ "name": "About Us", "link": "/about" }, { "name": "All Courses", "link": "/courses" }, { "name": "Student Access", "link": "/students-life/student-access" }, { "name": "Admission", "link": "/admissions/admission-process" }, { "name": "Media", "link": "/media/photo-gallery"}].map(
                   (link) => (
-                    <li key={link}>
-                      <NavLink to="#" className="hover:text-blue-500 text-[11px]">
-                        {link}
+                    <li key={link.name}>
+                      <NavLink to={link.link || "#"} className="hover:text-blue-500 text-[11px]">
+                        {link.name}
                       </NavLink>
                     </li>
                   )
@@ -71,10 +71,18 @@ const Footer = () => {
             <div>
               <h3 className="text-black font-semibold text-xs">Follow Us</h3>
               <div className="flex gap-3 mt-2">
-                <FaFacebook className="w-4 h-4 text-blue-600 cursor-pointer" />
-                <FaTwitter className="w-4 h-4 text-blue-400 cursor-pointer" />
-                <FaInstagram className="w-4 h-4 text-pink-500 cursor-pointer" />
-                <FaLinkedin className="w-4 h-4 text-blue-700 cursor-pointer" />
+                <a href="https://www.facebook.com/lbefcampus" target="_blank" rel="noopener noreferrer">
+                  <FaFacebook className="w-4 h-4 text-blue-600 cursor-pointer" />
+                </a>
+                <a href="https://x.com/LBEF" target="_blank" rel="noopener noreferrer">
+                  <FaTwitter className="w-4 h-4 text-blue-400 cursor-pointer" />
+                </a>
+                <a href="https://www.instagram.com/lbefcollege/" target="_blank" rel="noopener noreferrer">
+                  <FaInstagram className="w-4 h-4 text-pink-500 cursor-pointer" />
+                </a>
+                <a href="https://www.linkedin.com/company/lbefcampus/posts/?feedView=all" target="_blank" rel="noopener noreferrer">
+                  <FaLinkedin className="w-4 h-4 text-blue-700 cursor-pointer" />
+                </a>
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import ApeuSubFooter from "../home/components/ApeuSubFooter";
 import AboutUsSection from "./components/AboutUs";
 import OurCore from "./components/Core";
 import HeroSection from "./components/HeroSection";
@@ -12,6 +13,7 @@ export function AboutUniversity() {
       <MissionVisionSection />
       <ImageSection />
       <OurCore />
+      <ApeuSubFooter/>
       {/* <CareersSection /> */}
     </>
   );

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import full_from from "../../../../assets/full_form_lbef.webp";
 import decoration from '../../../../assets/decoration.webp';
-
 const faqs = [
   {
     question: "What is your intake timings?",
-    answer: 'Admissions are conducted three times a year in the months of February, July, and August.'
+    answer: "Admissions are conducted three times a year in the months of February, July, and August."
   },
   {
     question: "Are the degrees recognized?",
@@ -16,10 +15,19 @@ const faqs = [
     answer: "Yes, we have a dedicated Training & Placement cell that assists students with placements. We also conduct career counseling sessions after course completion for higher studies."
   },
   {
-    question: "Mode of Study: Full Time or Part Time? ",
+    question: "Mode of Study: Full Time or Part Time?",
     answer: "All courses from APU are offered in full-time regular mode. Each course is developed with employability in mind and includes input from leading employers, ensuring relevance to students’ future careers."
+  },
+  {
+    question: "What scholarships are available?",
+    answer: "LBEF offers merit-based scholarships, need-based financial support, and special scholarships for deserving students. Check the Scholarships page on our website for current eligibility and details."
+  },
+  {
+    question: "How can I apply for a course?",
+    answer: "You can apply online through the LBEF website's Online Application Form. Fill in the required details, upload necessary documents, and submit before the intake deadline."
   }
 ];
+
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First one open by default

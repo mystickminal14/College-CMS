@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SubFooter from "../home/components/SubFooter";
 import { VideoSection } from "../home/components/VideoSection";
 import ABoutHeroSection from "./components/AboutHeroSection";
 import AboutSection from "./components/AboutSection";
@@ -14,6 +13,7 @@ import StatusSection from "./components/StatusSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Inspiration from "../our-team/component/inspiration";
 import { TenReasons } from "./components/TenReasons";
+import LbefSubFooter from "../home/components/LbefSubFooter";
 
 
 export function AboutPage() {
@@ -81,8 +81,9 @@ export function AboutPage() {
                 <StartJourney />
                 <Employability />
                 <CollegeAppSection />
-                <SubFooter />
                 <FAQSection />
+                <LbefSubFooter />
+
               </motion.div>
             </motion.div>
           </motion.div>
@@ -100,8 +101,9 @@ export function AboutPage() {
           <StartJourney />
           <Employability />
           <CollegeAppSection />
-          <SubFooter />
-          <FAQSection />
+            <FAQSection />
+            <LbefSubFooter />
+
         </>
       )
 

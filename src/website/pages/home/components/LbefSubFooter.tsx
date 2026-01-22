@@ -1,0 +1,26 @@
+import subfooterone from '../../../../assets/six_path.webp';
+export default function LbefSubFooter() {
+  return (
+    <div className="w-full bg-gray-50 mt-10 overflow-hidden">
+      <div className="bg-[#1a3183]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+          <div className="w-full inline-block ">
+            <img
+              src={subfooterone}
+              alt="Illustration part one"
+              className="
+                w-full
+                max-w-7xl
+                h-auto
+                object-contain
+                mx-auto
+                block
+                rounded-xl
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
