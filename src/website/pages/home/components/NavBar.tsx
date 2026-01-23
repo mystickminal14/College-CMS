@@ -14,7 +14,7 @@ import {
 
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
-import apuLogo from "../../../../assets/apu.png";
+import apuLogo from "../../../../assets/apu_logo.webp";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 import { useEnquiry } from "../../../../context/EnquiryContext";
 
