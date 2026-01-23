@@ -58,7 +58,7 @@ export function University() {
             <motion.img
               src={decoration}
               alt="Decoration"
-              className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+              className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-3"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}

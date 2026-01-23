@@ -94,13 +94,13 @@ export default function NewCourse() {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mt-5 sm:mt-0 mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="flex flex-col md:flex-row justify-between items-start mb-10"
+          className="flex flex-col items-center md:flex-row justify-between md:items-start mb-10"
         >
           {/* TEXT BLOCK */}
           <motion.h2
@@ -131,7 +131,7 @@ export default function NewCourse() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.4 }}
                 alt="Decoration"
-                className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-full h-3"
+                className="absolute left-1/2 -bottom-2 -translate-x-1/2 w-full h-3"
               />
             </motion.span>{" "}
 
@@ -147,7 +147,7 @@ export default function NewCourse() {
           {/* BUTTON */}
           <motion.button
             variants={textItem}
-            className="flex items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:border-bg-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition mt-4 md:mt-0"
+            className="flex text-sm sm:text-lg items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:border-bg-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition md:mt-0"
             onClick={() => navigate("students-life/programs")}
           >
             Learn About Course

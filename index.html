@@ -5,25 +5,27 @@
     <link rel="icon" type="image/webp" href="/src/assets/butterfiles.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The First IT College of Nepal | LBEF</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    
+
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '989725753327653');
-    fbq('track', 'PageView');
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)}; 
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '989725753327653');
+      fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
 
@@ -38,15 +40,61 @@
     <!-- End Google Tag -->
   </head>
 
-  <body>
-    <div id="root" style="font-family: 'Inter', sans-serif;"></div>
+  <body style="font-family: 'Inter', sans-serif;">
+
+    <!-- 🔥 MERITTO HIDDEN BUTTON -->
+    <button
+      type="button"
+      class="npfWidgetButton npfWidget-22c1142ae37bdbc283d1bdf26604a17f"
+      style="
+        position: fixed;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        z-index: -1;
+      "
+    >
+      Enquire Now
+    </button>
+
+     <!-- 🔥 MERITTO SCRIPTS -->
+    <script src="https://widgets.in8.nopaperforms.com/emwgts.js"></script>
+    <script src="https://in8cdn.npfs.co/js/widget/npfwpopup.js"></script>
+
+ <script>
+  (function waitForMeritto() {
+    if (window.NpfWidgetsInit) {
+      new window.NpfWidgetsInit({
+        widgetId: "22c1142ae37bdbc283d1bdf26604a17f",
+        baseurl: "widgets.in8.nopaperforms.com",
+        formTitle: "Enquiry Form",
+        titleColor: "#FF0033",
+        backgroundColor: "#ddd",
+        iframeHeight: "500px",
+        buttonbgColor: "navy",
+        buttonTextColor: "#FFF",
+      });
+
+      console.log("[Meritto] Widget initialized ✅");
+      return;
+    }
+
+    setTimeout(waitForMeritto, 50);
+  })();
+</script>
+
+
+    <!-- React Root -->
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Font Awesome -->
     <script
       src="https://kit.fontawesome.com/49b6b027f2.js"
       crossorigin="anonymous"
     ></script>
-    
-    <!-- Meta Pixel NoScript for users without JavaScript -->
+
+    <!-- Meta Pixel NoScript -->
     <noscript>
       <img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=989725753327653&ev=PageView&noscript=1"
