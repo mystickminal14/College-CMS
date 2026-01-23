@@ -27,6 +27,7 @@ const Footer = () => {
             <img src={logo} alt="LBEF Logo" className="w-36 h-14" />
 
             <p className="text-[#4B5563] text-[11px] leading-relaxed">
+              <b>The First IT College of Nepal.</b> <br/>
               Empowering learners and educators worldwide through flexible,
               expert-led online courses. Learn anytime, anywhere.
             </p>
@@ -140,16 +141,21 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-3 border-t border-[#ECEFF1]">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-1 text-[12px] text-[#4B5563]">
-          <div>
-            Developed by{" "}
-            <span className="font-semibold text-black">
-              YAKSHA <span className="text-blue-600">SOFT</span>
-            </span>
-          </div>
-          <div>© <span className="font-semibold">LBEF College</span></div>
-        </div>
-      </div>
+  <div className="flex flex-col sm:flex-row justify-between items-center gap-1 text-[12px] text-[#4B5563]">
+    <div>
+      Developed by{" "}
+      <span className="font-semibold text-black">
+        YAKSHA <span className="text-blue-600">SOFT</span>
+      </span>
+    </div>
+
+    <div>
+      © {new Date().getFullYear()}{" "}
+      <span className="font-semibold">LBEF College</span>. All Rights Reserved.
+    </div>
+  </div>
+</div>
+
     </footer>
   );
 };

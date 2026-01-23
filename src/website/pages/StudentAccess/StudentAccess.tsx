@@ -523,8 +523,8 @@ const StudentAccess = () => {
                 LBEF students can access all 11 online databases which are accessible to APU Malaysia students.
                 They can also use the APres (APU Institutional Repository) which contains research papers,
                 FVPs and dissertations. For technical assistance, contact APU Library Support at
-                <a href="mailto:support.lbef.info" className="text-blue-600 hover:text-blue-800 ml-1">
-                  support.lbef.info
+                <a href="mailto:study@lbef.edu.np" className="text-blue-600 hover:text-blue-800 ml-1">
+                  study(@)lbef.edu.np
                 </a>
               </p>
             </motion.div>
@@ -679,11 +679,11 @@ const StudentAccess = () => {
                     For technical issues with Evolve, Moodle, or database access.
                   </p>
                   <motion.a
-                    href="mailto:support.lbef.info"
+                    href="mailto:study@lbef.edu.np"
                     className="text-blue-600 hover:text-blue-800 font-medium"
                     whileHover={{ x: 5 }}
                   >
-                    support.lbef.info
+                  study(@)lbef.edu.np
                   </motion.a>
                 </motion.div>
                 <motion.div
@@ -697,11 +697,11 @@ const StudentAccess = () => {
                     For research assistance and database access queries.
                   </p>
                   <motion.a
-                    href="mailto:support.lbef.info"
+                    href="mailto:study@lbef.edu.np"
                     className="text-blue-600 hover:text-blue-800 font-medium"
                     whileHover={{ x: 5 }}
                   >
-                    support.lbef.info
+                study(@)lbef.edu.np
                   </motion.a>
                 </motion.div>
               </div>

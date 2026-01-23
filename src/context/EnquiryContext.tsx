@@ -11,8 +11,7 @@ const WIDGET_ID = "22c1142ae37bdbc283d1bdf26604a17f";
 
 export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => {
   console.log("[EnquiryProvider] Rendered");
-
-  useMeritto(WIDGET_ID);
+  useMeritto();
 
   const openPopup = () => {
     console.log("[EnquiryProvider] openPopup called");
@@ -21,22 +20,20 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
       `.npfWidget-${WIDGET_ID}`
     ) as HTMLButtonElement | null;
 
-    console.log("[EnquiryProvider] Widget button found:", btn);
-
     if (!btn) {
-      console.error("[EnquiryProvider] Widget button NOT FOUND in DOM");
+      console.error("[EnquiryProvider] Widget button not found");
       return;
     }
 
     btn.click();
-    console.log("[EnquiryProvider] Widget button clicked programmatically");
+    console.log("[EnquiryProvider] Widget opened");
   };
 
   return (
     <EnquiryContext.Provider value={{ open: openPopup }}>
       {children}
 
-      {/* THIS MUST EXIST */}
+      {/* 🔥 REQUIRED: Hidden Meritto Button */}
       <button
         type="button"
         className={`npfWidgetButton npfWidget-${WIDGET_ID}`}
@@ -45,9 +42,6 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
           bottom: "-1000px",
           opacity: 0,
           pointerEvents: "none",
-        }}
-        onClick={() => {
-          console.log("[Hidden Button] Native widget button clicked");
         }}
       >
         Enquire Now
@@ -60,10 +54,8 @@ export const useEnquiry = () => {
   const ctx = useContext(EnquiryContext);
 
   if (!ctx) {
-    console.error("[useEnquiry] Context is NULL");
     throw new Error("useEnquiry must be used inside EnquiryProvider");
   }
 
-  console.log("[useEnquiry] Context accessed successfully");
   return ctx;
 };
