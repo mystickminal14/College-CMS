@@ -17,7 +17,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import CourseDetailRenderer from "./CourseDetailRender";
-import { useEnquiry } from "../../context/EnquiryContext";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 
 /* ------------------ TYPE GUARD ------------------ */
@@ -81,7 +80,6 @@ const mainSectionContainerVariants: Variants = {
 const CourseDetails = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
-  const { open } = useEnquiry();
 
   const course = location.state?.course as Courses;
 
@@ -333,7 +331,6 @@ const CourseDetails = () => {
                     <motion.button
                       whileTap={{ scale: 0.95 }}
                       className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
-                      onClick={() => open()}
                     >
                       Apply Now
                       <ArrowRight className="w-3 h-3" />

@@ -9,7 +9,6 @@ import { motion, type Variants } from "framer-motion";
 import type { Courses } from "../model/CourseModel";
 import { IMAGE_URL } from "../../../constants";
 import decoration from "../../../assets/decoration.webp";
-import { useEnquiry } from "../../../context/EnquiryContext";
 
 interface CourseHeaderProps {
   course: Courses;
@@ -48,7 +47,6 @@ const fadeRight: Variants = {
 /* ====================================================== */
 
 const CourseHeader = ({ course }: CourseHeaderProps) => {
-  const { open } = useEnquiry();
 
   return (
     <motion.div
@@ -198,7 +196,7 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
 
             {/* CTA */}
             <motion.div variants={fadeUp} className="mt-8">
-              <button className="bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg w-full md:w-auto" onClick={() => open}>
+              <button className="bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg w-full md:w-auto">
                 Apply for Scholarship →
               </button>
             </motion.div>
