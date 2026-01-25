@@ -22,14 +22,12 @@ export function HeroSection() {
         >
           <div className="inline-block">
             <span className="relative inline-block">
-              <motion.span
-                initial={{ opacity: 0, }} // come from left
-                animate={{ opacity: 1, }}
-                transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
+              <span
+               
                 className="text-md  lg:text-[6vw]"
               >
                 Welcome
-              </motion.span>
+              </span>
 
               <motion.span
                 initial={{ y: -50, opacity: 0 }}
@@ -42,10 +40,8 @@ export function HeroSection() {
             </span>
           </div>
 
-          <motion.span
-            initial={{ opacity: 0, }} // come from left
-            animate={{ opacity: 1, }}
-            transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
+          <span
+           
             className="relative"
           >
             <span className="lg:text-[6vw]"> to {""}</span>
@@ -57,7 +53,7 @@ export function HeroSection() {
             >
               Evolve With
             </motion.span>
-          </motion.span>
+          </span>
 
           <span
             className="text-white pl-2 pr-2 sm:pl-3 sm:pr-3 inline-block relative mx-1 sm:mx-2"
@@ -76,26 +72,22 @@ export function HeroSection() {
             >
               <img src={butterfiles} alt="Butterflies" />
             </motion.span>
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.3 }}
+            <span
+             
             >
               LBEF
-            </motion.span>
+            </span>
           </span>
 
           <span className="inline-block ml-1 sm:ml-2">{" "}</span>
 
           <span className="relative ">
-            <motion.span
-              initial={{ opacity: 0 }} // come from right
-              animate={{ opacity: 1 }}
-              transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.4 }}
+            <span
+             
               className="md:text-[5vw]"
             >
               College
-            </motion.span>
+            </span>
           </span>
         </div>
 
