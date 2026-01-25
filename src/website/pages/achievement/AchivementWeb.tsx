@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import decoration from '../../../assets/decoration.webp';
 import useGetAchivementsAll from '../../../pages/achivement/hooks/useGetAll';
 import { fadeUp } from '../../comp/animation';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const AchievementWeb = () => {
   const { data, isLoading } = useGetAchivementsAll();
@@ -23,7 +25,15 @@ const AchievementWeb = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+   <Seo
+  title="Achievements of LBEF College | Awards & Milestones in Nepal"
+  description="Explore the achievements, awards, milestones, and recognitions of LBEF College Nepal, reflecting excellence in IT and management education over the years."
+  url={`${APP_URL}/about/achivement`}
+
+/>
+
+ <div className="min-h-screen bg-gray-50">
       {/* ================= HERO / HEADING (ANIMATED) ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
@@ -115,6 +125,8 @@ const AchievementWeb = () => {
         </div>
       </div>
     </div>
+</>
+   
   );
 };
 

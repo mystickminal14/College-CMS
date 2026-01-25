@@ -1,6 +1,8 @@
 import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
 import subfooterone from '../../../assets/six_path.webp';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const MeritScholarship = () => {
   const eligibilityCriteria = [
@@ -56,7 +58,11 @@ const MeritScholarship = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Section */}
+     <Seo
+        title="Merit Scholarship | LBEF College Nepal"
+        description="Rewarding academic excellence in tuition fees based on entrance and university performance. Check eligibility criteria and scholarship benefits."
+        url={`${APP_URL}/merit-scholarship`}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
         <div className="max-w-8xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">

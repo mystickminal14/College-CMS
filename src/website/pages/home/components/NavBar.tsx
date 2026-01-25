@@ -11,6 +11,8 @@ import {
   FaCalendar,
   FaUserGraduate,
   FaComment,
+  FaTimes,
+  FaBars,
 
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
@@ -281,9 +283,18 @@ export function NavBar() {
         </nav>
 
         {/* Mobile Toggle */}
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2">
-          <i className={`fa-solid ${mobileOpen ? "fa-xmark text-2xl" : "fa-bars text-2xl"}`} />
-        </button>
+      <button
+  onClick={() => setMobileOpen(!mobileOpen)}
+  className="lg:hidden p-2"
+  aria-label={mobileOpen ? "Close menu" : "Open menu"}
+>
+  {mobileOpen ? (
+    <FaTimes className="text-2xl" />
+  ) : (
+    <FaBars className="text-2xl" />
+  )}
+</button>
+
       </div>
 
       {/* Mobile Menu */}

@@ -1,6 +1,8 @@
 import React, { useState, type ChangeEvent, type FormEvent } from 'react';
 import { EPrefix, EStudyMode, type AlumniFormData } from '../models/alumniModel';
 import useCreateAlumni from '../hooks/useCreate';
+import Seo from '../../../../context/seo';
+import { APP_URL } from '../../../../constants';
 
 type FormErrors = Partial<Record<keyof AlumniFormData | 'submit', string>>;
 
@@ -128,11 +130,17 @@ const AlumniFormPage: React.FC = () => {
     setSubmitSuccess(false);
   };
 
-  /* =======================
-     JSX (100% SAME DESIGN)
-  ======================= */
+ 
   // 🔒 All JSX below is UNCHANGED
   return (
+   <>
+    <Seo
+  title="Alumni Registration | LBEF College Nepal"
+  description="Register as an alumnus of LBEF College Nepal. Share your academic journey, professional achievements, and stay connected with the LBEF alumni network."
+  url={`${APP_URL}/students-life/alumni-form`}
+
+/>
+
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-gray-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -453,6 +461,7 @@ const AlumniFormPage: React.FC = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 

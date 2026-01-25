@@ -3,6 +3,8 @@ import { useState } from "react";
 import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 import { AlertTriangle } from "lucide-react";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 function FeeRefundCardMinimal() {
   return (
     <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 mt-10">
@@ -43,6 +45,12 @@ const PaymentModes = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-blue-50/30">
+       <Seo
+    title="Payment Modes & Fee Policy | LBEF College Nepal"
+    description="Securely pay your tuition at LBEF College. Explore all available payment methods including cash, cheque, bank transfer, and mobile wallets. Learn about our fee refund policy."
+    url={`${APP_URL}/students-life/payment-modes`}
+  />
+
       <motion.div
         variants={fadeUp}
         initial="hidden"

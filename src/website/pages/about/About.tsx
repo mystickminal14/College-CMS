@@ -14,6 +14,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Inspiration from "../our-team/component/inspiration";
 import { TenReasons } from "./components/TenReasons";
 import LbefSubFooter from "../home/components/LbefSubFooter";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 
 
 export function AboutPage() {
@@ -33,6 +35,13 @@ export function AboutPage() {
 
   return (
     <>
+    <Seo
+  title="About LBEF College | Nepal’s First IT College"
+  description="Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."
+  url={`${APP_URL}/about/about-lbef`}
+
+/>
+
       {!isMobile ? (
         <div className="relative">
           <ABoutHeroSection />

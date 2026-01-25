@@ -4,12 +4,20 @@ import subfooterone from '../../../assets/six_path.webp';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 import useGetScholarship from '../../../pages/scholarship/hooks/useGet';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const ICTScholarship = () => {
     const { data, isLoading, } = useGetScholarship();
     const schedule = data?.data;
 
     return (
+       <>   
+        <Seo
+                title="National ICT Scholarship | LBEF College Nepal"
+                description="Apply for the National ICT Scholarship at LBEF College Nepal. Rewarding meritorious students in Information Technology with tuition fee benefits."
+                url={`${APP_URL}/ict-scholarship`}
+            />
         <div className="min-h-screen bg-gray-50">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
                 <div className="max-w-8xl mx-auto">
@@ -328,6 +336,7 @@ const ICTScholarship = () => {
             </motion.div>
 
         </div>
+       </>
     );
 };
 

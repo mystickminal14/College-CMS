@@ -120,9 +120,7 @@ export const websiteRoutes = [
           { path: "photo-gallery/:name/:id", element: <GalleryView /> },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <NewsPageWeb /> },
-          // { path: "journal", element: <JournalPageWeb /> },
-          // { path: "journal/:id", element: <JournalPageWeb /> },
-          // { path: "journal/:id/abstract", element: <JournalPageWeb /> },
+         
 
         ],
       },
@@ -160,10 +158,7 @@ export const websiteRoutes = [
         path: "contact",
         element: <PlaceholderPage pageName="Contact Us" />,
       },
-      // {
-      //   path: "messages/:id",
-      //   element: <Messages />,
-      // },
+     
       {
         path: "team/:id",
         element: <TeamDetail />,

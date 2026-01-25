@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import decoration from '../../../assets/decoration.webp';
 import { FileText, Calendar, Eye, Bell, Filter, ChevronDown } from 'lucide-react';
 import lbefLogo from '../../../assets/pcpslogo.webp';
-import { IMAGE_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from '../../comp/animation';
 import type { ENotice, Notices } from '../../../pages/notices/model/NoticeModel';
 import useGetNotices from "../../../pages/notices/hooks/useGetAll";
+import Seo from "../../../context/seo";
 const PAGE_LIMIT = 10;
 
 const NoticeWeb = () => {
@@ -152,7 +153,11 @@ const NoticeWeb = () => {
   );
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-      {/* HERO */}
+ <Seo
+        title="Notice Board | LBEF College"
+        description="Stay informed with the latest announcements, exam schedules, and important updates from LBEF College."
+        url={`${APP_URL}/"students-life/notices`}
+      />
       <motion.div
         className="container mx-auto px-2 sm:px-6 lg:px-8 py-8 md:py-10 text-center"
         variants={fadeUp}

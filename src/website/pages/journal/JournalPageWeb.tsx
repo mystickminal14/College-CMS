@@ -9,6 +9,8 @@ import JournalIssueDetails from './JournalIssueDetails';
 import { useParams } from 'react-router-dom';
 import JournalAbstract from '../../../pages/journal/JournalAbstract';
 import ContactListPage from '../contact-list/ContactListingPage';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 type TabType = 'home' | 'editorial' | 'contact';
 
@@ -43,6 +45,14 @@ const JournalPageWeb = () => {
   ];
 
   return (
+   <>
+    <Seo
+  title="LBEF Research Journal | Science, Technology & Management"
+  description="Explore the LBEF Research Journal featuring peer-reviewed issues in science, technology, and management. Browse volumes, editorial board, and published research."
+  url={`${APP_URL}/lrjstm`}
+
+/>
+
     <div className="min-h-screen bg-gray-50">
       {/* ================= HERO ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-10 text-center">
@@ -241,6 +251,7 @@ const JournalPageWeb = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 

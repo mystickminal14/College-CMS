@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import decoration from "../../../assets/decoration.webp";
-import { IMAGE_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
 import SkeletonCard from "./SkeletonCard";
 import { fadeUp } from "../../comp/animation";
 import type { NewsModel } from "../../../pages/news/model/NewsModel";
 import useGetNews from "../../../pages/news/hooks/useGetAllNews";
+import Seo from "../../../context/seo";
 
 const PAGE_LIMIT = 15;
 
@@ -37,6 +38,13 @@ const NewsPageWeb = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+  title="LBEF News & Updates | Announcements and Events"
+  description="Stay updated with the latest news, announcements, academic events, and institutional updates from LBEF College Nepal."
+  url={`${APP_URL}/media/news-events`}
+
+/>
+
       <motion.div
         variants={fadeUp}
         initial="hidden"

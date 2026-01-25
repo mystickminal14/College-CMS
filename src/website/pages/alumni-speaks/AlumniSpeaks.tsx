@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 import { AlumniComp } from "./alumni-comp";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 const AlumniSpeaks = () => {
 
 
@@ -9,6 +11,12 @@ const AlumniSpeaks = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+  title="LBEF Alumni Success Stories | Student Testimonials Nepal"
+  description="Hear from LBEF alumni and students about their academic journey, career growth, and real-world success after studying at Nepal’s first IT college."
+  url={`${APP_URL}/students-life/alumni-speaks`}
+/>
+
       <motion.div
         variants={fadeUp}
         initial="hidden"

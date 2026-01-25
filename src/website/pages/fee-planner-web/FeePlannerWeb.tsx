@@ -1,9 +1,10 @@
 import { motion, type Variants } from "framer-motion";
 import decoration from "../../../assets/decoration.webp";
-import { IMAGE_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
 import { fadeUp, staggerContainer } from "../../comp/animation";
 import useGetFeePlanners from "../../../pages/fee-planner/hooks/useGetAll";
 import type { FeePlanner } from "../../../pages/fee-planner/model/PlannerModel";
+import Seo from "../../../context/seo";
 
 /* -------------------------------------------------------------------------- */
 /*                              Animation Variants                            */
@@ -104,6 +105,13 @@ const FeePlannersWeb = () => {
   });
 
   return (
+    <>
+    <Seo
+  title="Fee Structure at LBEF College | Academic Fee Planner Nepal"
+  description="Explore the fee structure at LBEF College Nepal. View course-wise and semester-wise academic fee plans designed for transparency and clarity."
+  url={`${APP_URL}/students-life/fee-planner`}
+/>
+
     <div className="min-h-screen bg-gray-50">
 
       {/* ================= HERO ================= */}
@@ -302,6 +310,7 @@ const FeePlannersWeb = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

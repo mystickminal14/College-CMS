@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 type EnquiryContextType = {
   open: () => void;
@@ -6,14 +6,16 @@ type EnquiryContextType = {
 
 const EnquiryContext = createContext<EnquiryContextType | null>(null);
 
-const WIDGET_ID = "22c1142ae37bdbc283d1bdf26604a17f";
-
 export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => {
   const open = () => {
-    const btn = document.querySelector(
-      `.npfWidget-${WIDGET_ID}`
-    ) as HTMLButtonElement | null;
-    btn?.click();
+    const btn = document.getElementById("meritto-enquiry-btn");
+
+    if (!btn) {
+      console.error("[Meritto] Hidden button not found ❌");
+      return;
+    }
+
+    btn.click(); // 🔥 THIS opens Meritto popup
   };
 
   return (

@@ -10,6 +10,8 @@ import {
   Activity,
   Shield
 } from 'lucide-react';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const clubsData = [
   {
@@ -194,6 +196,14 @@ const AcademicClub = () => {
   const [activeClub, setActiveClub] = useState(clubsData[0]);
 
   return (
+   <>
+    <Seo
+  title="Academic Clubs at LBEF | AI, Robotics, Startup & Tech Clubs"
+  description="Discover academic clubs at LBEF College including AI & Robotics, Cyber Security, Software Architecture, Startup & Innovation, and more."
+  url={`${APP_URL}/students-life/academic-club`}
+
+/>
+
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       {/* Header Section */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -435,6 +445,7 @@ const AcademicClub = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 

@@ -3,6 +3,8 @@ import decoration from '../../../assets/decoration.webp';
 import useGetAll from "./hook/useGetRecognitionAll";
 import RecognitionsCardView from "./component/RecognitionCard";
 import { fadeUp, staggerContainer } from '../../comp/animation';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const RecognitionPageWeb = () => {
   const { data, isLoading, isError } = useGetAll();
@@ -10,7 +12,11 @@ const RecognitionPageWeb = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-
+ <Seo
+    title="College Recognitions & Achievements | LBEF College Nepal"
+    description="Explore LBEF College Nepal's recognitions and achievements over the years, showcasing excellence in academics, institutional awards, and accomplishments."
+    url={`${APP_URL}/about/recognition`}
+  />
       {/* ================= HERO ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div

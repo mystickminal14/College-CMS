@@ -99,12 +99,10 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 
   const requiredPermission = matchedRoute ? routePermissions[matchedRoute] : null;
 
-  // If user lacks permission
   if (requiredPermission && !meData.data?.permissions.includes(requiredPermission)) {
     return <NotFoundPage />;
   }
 
-  // If route does not exist
   if (!matchedRoute) return <NotFoundPage />;
 
   return children;

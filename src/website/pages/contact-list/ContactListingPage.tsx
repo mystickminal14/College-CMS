@@ -4,6 +4,8 @@ import decoration from "../../../assets/decoration.webp";
 import useGetContactsAll from "../../../pages/contact/hooks/useGetAll";
 import { motion } from 'framer-motion';
 import { fadeUp } from "../../comp/animation";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 
 const ContactListPage = () => {
   const { data, isLoading } = useGetContactsAll();
@@ -25,6 +27,11 @@ const ContactListPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+<Seo
+  title="Staff Contact Directory | LBEF College Nepal"
+  description="Find official contact details of LBEF College staff for academics, IT support, exams, registration, accounts, and student services."
+  url={`${APP_URL}/students-life/student-support`}
+/>
 
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div

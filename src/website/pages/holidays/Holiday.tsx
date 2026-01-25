@@ -31,6 +31,8 @@ import { fadeUp } from "../../comp/animation";
 
 import decoration from "../../../assets/decoration.webp";
 import calendarBg from "../../../assets/butterfiles.webp";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 
 const HolidayWebPlanner: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -241,6 +243,13 @@ const HolidayWebPlanner: React.FC = () => {
     );
   };
   return (
+    <>
+  <Seo
+  title="Academic Calendar & Holidays | LBEF College Nepal"
+  description="View the official academic calendar of LBEF College Nepal including holidays, events, examinations, and important academic dates."
+  url={`${APP_URL}/about/holidays`}
+/>
+
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       {/* HERO - Unchanged */}
       <motion.div
@@ -363,6 +372,7 @@ const HolidayWebPlanner: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

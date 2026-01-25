@@ -13,6 +13,8 @@ import ImportantNotice from "./components/ImportantNotice";
 import ScholarshipSection from "./components/ScholarShip";
 import FAQSection from "./components/Faq";
 import { fadeUp } from "../../comp/animation";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 
 
 export const sectionFadeUp: Variants = {
@@ -120,6 +122,14 @@ const AdmissionProcedure = () => {
 
 
   return (
+    <>
+    <Seo
+  title="Admission Procedure at LBEF College | How to Apply in Nepal"
+  description="Learn the step-by-step admission procedure at LBEF College Nepal. Find intake schedules, application process, required documents, scholarships, and FAQs."
+  url={`${APP_URL}/admissions/admission-process`}
+
+/>
+
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
@@ -220,6 +230,7 @@ const AdmissionProcedure = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

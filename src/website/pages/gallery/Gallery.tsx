@@ -6,6 +6,8 @@ import ImageHero from "./components/ImageHero";
 import useGetGallerys from "../../../pages/gallery/hooks/useGetAll";
 import type { GalleryGroup } from "./model/gallery-model";
 import GalleryTypeGrid from "./components/GalleryType";
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 
 const PAGE_LIMIT = 12;
 
@@ -45,6 +47,13 @@ const Gallery = () => {
 
 
   return (
+  <>
+    <Seo
+  title="Photo Gallery | Campus Life & Events at LBEF College"
+  description="Explore photos of campus life, events, activities, and memorable moments at LBEF College Nepal through our official gallery."
+  url={`${APP_URL}/media/photo-gallery`}
+/>
+
     <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100">
       <GalleryHeader  />
       <ImageHero galleryImages={galImages} />
@@ -59,6 +68,7 @@ const Gallery = () => {
         />
       </div>
     </div>
+  </>
   );
 };
 

@@ -4,6 +4,8 @@ import minal from "../../assets/full_form_lbef.webp";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useLogin from "../hooks/useLogin";
 import type { LoginUser } from "../model/LoginModel";
+import Seo from "../../context/seo";
+import { APP_URL } from "../../constants";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -26,6 +28,12 @@ const LoginPage = () => {
 
   return (
     <div className="w-full font-poppins min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 transition-colors duration-500">
+      <Seo
+  title="About LBEF College | Nepal’s First IT College"
+  description="Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."
+  url={`${APP_URL}//admin/auth`}
+
+/>
       <div className="flex flex-col lg:flex-row w-full max-w-4xl h-[600px] bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden">
         {/* Left login section */}
         <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8">

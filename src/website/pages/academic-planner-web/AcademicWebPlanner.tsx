@@ -1,9 +1,10 @@
 import { motion, type Variants } from 'framer-motion';
 import decoration from '../../../assets/decoration.webp';
-import { IMAGE_URL } from '../../../constants';
+import { APP_URL, IMAGE_URL } from '../../../constants';
 import { fadeUp, staggerContainer } from '../../comp/animation';
 import useGetAcademicPlanners from '../../../pages/academic-planner/hooks/useGetAll';
 import type { AcademicPlanner } from '../../../pages/academic-planner/model/PlannerModel';
+import Seo from '../../../context/seo';
 
 /* ------------------ FRAMER VARIANTS ------------------ */
 
@@ -96,6 +97,14 @@ const AcademicWebPlanner = () => {
   });
 
   return (
+    <>
+    <Seo
+  title="Academic Planner at LBEF | Course Structure & Semester Plans"
+  description="View the academic planner at LBEF College Nepal. Explore course-wise semester plans, intakes, and academic sessions designed for structured learning."
+  url={`${APP_URL}/students-life/academic-planner`}
+
+/>
+
     <div className="min-h-screen bg-gray-50">
       {/* HEADER */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
@@ -265,7 +274,7 @@ const AcademicWebPlanner = () => {
             );
           })}
       </div>
-    </div>
+    </div></>
   );
 };
 

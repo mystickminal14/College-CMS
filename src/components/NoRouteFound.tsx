@@ -31,7 +31,8 @@ const NotFoundPage: React.FC = () => {
       </p>
 
       <button
-        onClick={() => navigate("/app/dashboard")}
+        onClick={() => navigate("/")}
+        aria-label="Open Dashboard"
         className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${theme === "dark"
           ? "bg-blue-600 text-white hover:bg-blue-700"
           : "bg-blue-500 text-white hover:bg-blue-600"

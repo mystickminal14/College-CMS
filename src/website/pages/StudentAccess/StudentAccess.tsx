@@ -18,6 +18,8 @@ import evolveWebIcon from '../../../assets/butterfiles.webp'
 import evolveLibraryIcon from '../../../assets/butterfiles.webp'
 import playStoreIcon from '../../../assets/playstore.webp'
 import webIcon from '../../../assets/butterfiles.webp'
+import Seo from "../../../context/seo";
+import { APP_URL } from "../../../constants";
 
 const StudentAccess = () => {
   const databases = [
@@ -86,7 +88,11 @@ const StudentAccess = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-
+  <Seo
+        title="Student Access & Digital Learning Resources | LBEF College Nepal"
+        description="Explore student access to Evolve Learning Platform, Moodle LMS, digital libraries, and academic databases provided by LBEF College in partnership with APU Malaysia."
+        url={`${APP_URL}/students-life/student-access`}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <motion.div
           variants={fadeUp}

@@ -9,6 +9,8 @@ import useGetAll from './hook/useGetCourses';
 import type { Courses } from '../../../pages/courses/model/CourseModel';
 
 import { fadeUp, staggerContainer } from '../../comp/animation';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const truncateWords = (text: string, wordLimit: number) => {
   const words = text.split(' ');
@@ -72,6 +74,14 @@ const CourseProgram = () => {
 
 
   return (
+<>
+    <Seo
+  title="IT & Management Courses in Nepal | LBEF College"
+  description="Explore world-class IT and management courses at LBEF College Nepal. Undergraduate programs designed for global careers with experienced faculty."
+
+  url={`${APP_URL}/students-life/programs`}
+/>
+
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
         <motion.div
@@ -261,7 +271,7 @@ const CourseProgram = () => {
           }
         `}</style>
       </div>
-    </div>
+    </div></>
   );
 };
 

@@ -6,6 +6,8 @@ import useGetTeamsByDept from './hook/useGetDepartment';
 import type { TeamMember } from './model/team-model';
 import { fadeUp, staggerContainer } from '../../comp/animation';
 import { useNavigate } from 'react-router-dom';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const OurTeamWeb = () => {
   const { data, isLoading } = useGetTeamsByDept();
@@ -19,7 +21,11 @@ const OurTeamWeb = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ================= HEADER ================= */}
+     <Seo
+    title="Meet LBEF College Team | Leadership & Academic Excellence"
+    description="Meet the dedicated team at LBEF College, including leadership, administration, and computing department experts driving excellence in education."
+    url={`${APP_URL}/about/our-team`}
+  />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <motion.div
           variants={fadeUp}

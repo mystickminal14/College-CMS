@@ -12,7 +12,8 @@ import {
 import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 import type { TeamMember } from "./model/team-model";
-import { IMAGE_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
+import Seo from "../../../context/seo";
 
 const TeamDetail = () => {
   const location = useLocation();
@@ -35,8 +36,11 @@ const TeamDetail = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-      {/* ================= HERO ================= */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+ <Seo
+        title={`${member.name} - ${member.position} | Our Team`}
+        description={`Learn about ${member.name}, ${member.position} in ${member.department}. Explore biography, contact info, and social profiles.`}
+        url={`${APP_URL}/team/${member.id}`}
+      />      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           variants={fadeUp}
           initial="hidden"

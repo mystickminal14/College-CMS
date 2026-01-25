@@ -169,6 +169,7 @@ const CourseMiniCard = ({
         {/* BOTTOM ACTION */}
         <div className="mt-auto">
           <button
+
             className="
               bg-blue-600 
               hover:bg-blue-700 
@@ -183,6 +184,7 @@ const CourseMiniCard = ({
               flex items-center justify-center gap-2
               transition-colors
             "
+            aria-label="Learn More"
           >
             Learn More →
           </button>

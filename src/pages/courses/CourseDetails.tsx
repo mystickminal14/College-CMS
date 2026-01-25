@@ -19,6 +19,7 @@ import {
 import CourseDetailRenderer from "./CourseDetailRender";
 import { useEnquiry } from "../../context/EnquiryContext";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
+import Seo from "../../context/seo";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (
@@ -128,6 +129,12 @@ const CourseDetails = () => {
   }, [fetchNextPage, hasNextPage]);
 
   return (
+   <>
+    <Seo
+  title={`${course.prefix} ${course.title} in Nepal | LBEF College`}
+  description={`Study ${course.prefix} ${course.title} at LBEF College Nepal. Duration: ${course.duration} years. Learn industry-focused skills with expert faculty.`}
+/>
+
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       <CourseNewHeader course={course} />
 
@@ -347,6 +354,8 @@ const CourseDetails = () => {
       </div>
       <LbefSubFooter />
     </div>
+   </>
+
   );
 };
 

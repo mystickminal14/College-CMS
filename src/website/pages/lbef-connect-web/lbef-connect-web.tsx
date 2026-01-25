@@ -5,11 +5,12 @@ import { motion } from "framer-motion";
 import image from "../../../assets/pcpslogo.webp";
 import decoration from "../../../assets/decoration.webp";
 
-import { IMAGE_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
 import SkeletonCard from "../handbook/SkeletonCard";
 import type { Connects } from "../../../pages/lbef-connect/model/Connects";
 import useGetConnects from "../../../pages/lbef-connect/hooks/useGetAll";
 import { fadeUp } from "../../comp/animation";
+import Seo from "../../../context/seo";
 
 const PAGE_LIMIT = 8;
 
@@ -42,6 +43,13 @@ const LBEFConnectWeb = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+  title="LBEF Connect Publications | Digital Academic Archive"
+  description="Browse LBEF Connect, the digital archive of academic publications, magazines, and institutional documents from LBEF College Nepal."
+  url={`${APP_URL}/media/connect`}
+
+/>
+
       {/* Header */}
       <motion.div
         variants={fadeUp}

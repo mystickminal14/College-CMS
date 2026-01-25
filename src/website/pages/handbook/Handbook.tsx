@@ -3,11 +3,12 @@ import { motion } from "framer-motion";
 
 import decoration from "../../../assets/decoration.webp";
 
-import { IMAGE_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
 import useGetDownloads from "../../../pages/handbook/hooks/useGetAll";
 import type { Downloads } from "../../../pages/handbook/model/handbookModel";
 import SkeletonCard from "./SkeletonCard";
 import { fadeUp } from "../../comp/animation";
+import Seo from "../../../context/seo";
 
 const PAGE_LIMIT = 15;
 
@@ -33,7 +34,11 @@ const StudentHandbook = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+<Seo
+  title="Student Handbook & Downloads | LBEF College Nepal"
+  description="Download official student handbooks, academic documents, policies, and essential resources for students of LBEF College Nepal."
+  url={`${APP_URL}/students-life/downloads`}
+/>
       <motion.div
         variants={fadeUp}
         initial="hidden"

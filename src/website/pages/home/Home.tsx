@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import NewCourse from "./components/NewCourse";
 import GalleryGrid from "./components/GalleryGrid";
+import Seo from "../../../context/seo";
 export function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -28,6 +29,12 @@ export function HomePage() {
 
   return (
     <>
+        <Seo 
+        title="LBEF College Nepal | The First IT College of Nepal"
+        description="LBEF is the first IT college of Nepal offering quality education in IT and management fields. Join LBEF to shape your future with industry-focused programs and experienced faculty."
+       
+      />
+
       {!isMobile ? (
         <div className="relative">
           <HeroSection />

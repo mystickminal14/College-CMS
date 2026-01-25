@@ -1,11 +1,17 @@
 import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
 import subfooterone from '../../../assets/six_path.webp';
+import Seo from '../../../context/seo';
+import { APP_URL } from '../../../constants';
 
 const GyandeepScholasrhip = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-
+<Seo
+  title="Gyandeep Scholarship | LBEF College Nepal"
+  description="Unlock your academic potential with the Gyandeep Scholarship, rewarding excellence in high-school performance. Check eligibility and benefits."
+  url={`${APP_URL}/gyandeep-scholarship`}
+/>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
         <div className="max-w-8xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">

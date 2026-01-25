@@ -2,6 +2,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useGetJournalDetails from "../../../pages/journal/hooks/details/useGetJournalDetails";
 import { parseDate } from "../../../utils/ParseDate";
+import Seo from "../../../context/seo";
 
 const JournalIssueDetails = () => {
   const { id } = useParams<{ id: string}>();
@@ -39,6 +40,7 @@ const JournalIssueDetails = () => {
 
   if (!details.length) {
     return (
+      
       <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
         <div className="text-gray-400 mb-4">
           <svg
@@ -67,7 +69,10 @@ const JournalIssueDetails = () => {
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      {/* Table Header */}
+<Seo
+  title="Journal Issue | LBEF Research Journal"
+  description="View detailed articles and publications from this issue of the LBEF Research Journal in science, technology, and management."
+/>
       <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
         <div className="flex justify-between items-center">
           <div>
