@@ -72,7 +72,7 @@ export function TenReasons() {
     },
     {
       icon: <Users2 className="w-7 h-7" />,
-      topTitle: "13,500+",
+      topTitle: "14,000+",
       title: "Alumni Network",
       angle: 198,
       index: 7,
