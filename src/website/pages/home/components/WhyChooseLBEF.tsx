@@ -67,6 +67,7 @@ export function WhyChooseLBEF() {
               Choose
               <motion.img
                 src={decoration}
+                alt="decoration"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
@@ -110,6 +111,7 @@ export function WhyChooseLBEF() {
               Choose
               <img
                 src={decoration}
+                alt="decoration"
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
             </span>{" "}
