@@ -205,7 +205,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
               return (
                 <div key={item.id}>
                   <button
-                  area-label="handle menu click"
+                  aria-label="handle menu click"
                     className={`w-full flex items-center justify-between p-3 rounded-xl 
                       transition-all duration-200 cursor-pointer
                       ${isActive
@@ -287,7 +287,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
                   {activeMobileItem.label}
                 </h2>
                 <button
-                area-label="Close Submenu"
+                aria-label="Close Submenu"
                   onClick={() => setSubmenuOpen(false)}
                   className="text-lg font-bold text-slate-500 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100 cursor-pointer"
                 >
@@ -307,7 +307,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
                       handleMenuClick(activeMobileItem, menu.id);
                       setSubmenuOpen(false);
                     }}
-                    area-label="handle submenu click"
+                    aria-label="handle submenu click"
                   >
                     {menu.icon && <menu.icon className="w-4 h-4" />}
                     <span>{menu.label}</span>
@@ -386,7 +386,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
                 <div className="ml-8 mt-2 space-y-1">
                   {item.subMenus.map((menu) => (
                     <button
-                    area-label="handle menu click"
+                    aria-label="handle menu click"
                       key={menu.id}
                       className={`w-full text-left p-2 text-sm rounded-lg transition-all flex items-center space-x-2 cursor-pointer
                           ${isSubMenuActive(item, menu.id)
