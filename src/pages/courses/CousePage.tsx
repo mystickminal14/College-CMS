@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Edit, Edit3, Trash2, View } from "lucide-react";
+import { ArrowUp, Edit, Edit3, Trash2, View } from "lucide-react";
 import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
 import { debounce } from "lodash";
 
@@ -22,6 +22,7 @@ import { CoursesColumns } from "../courses/utils/columns";
 import type { Courses } from "./model/CourseModel";
 import CoursesCardView from "./CourseCardView";
 import { useNavigate } from "react-router-dom";
+import ChangeCourseOrderModal from "./components/ChangeOrder";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -67,6 +68,9 @@ const CoursePage = () => {
   const handleEditDetails = (course: Courses) => {
     navigate(`/app/course-details/edit/${course.id}`, { state: { course } });
   };
+  const [showOrderModal, setShowOrderModal] = useState(false);
+const [courseToChangeOrder, setCourseToChangeOrder] = useState<Courses | null>(null);
+
   const tableActions: {
     icon: React.ReactNode | ((row: Courses) => React.ReactNode);
     tooltip: string | ((row: Courses) => string);
@@ -92,6 +96,15 @@ const CoursePage = () => {
         onClick: handlePreview,
         color: "text-blue-500"
       },
+      {
+  icon: <ArrowUp className="w-4 h-4" />,
+  tooltip: "Change Order",
+  onClick: (course) => {
+    setCourseToChangeOrder(course);
+    setShowOrderModal(true);
+  },
+  color: "text-purple-600",
+},
       {
         icon: <FaPlus className="w-4 h-4" />,
         tooltip: "Add Details",
@@ -188,6 +201,13 @@ const CoursePage = () => {
         uploadImageMutation={uploadImageMutation}
         updateImageMutation={updateImageMutation}
       />
+      <ChangeCourseOrderModal
+  isOpen={showOrderModal}
+  onClose={() => setShowOrderModal(false)}
+  course={courseToChangeOrder}
+  maxOrder={courses.length}
+/>
+
     </div>
   );
 };

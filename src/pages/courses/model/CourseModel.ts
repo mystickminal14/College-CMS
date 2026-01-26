@@ -9,6 +9,7 @@ export interface Courses {
   prefix: string;
   degree: string;
   details?: string;
+  order?:number;
 
   image?: string;
   hasDetails?:boolean;

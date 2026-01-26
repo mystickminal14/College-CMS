@@ -15,6 +15,16 @@ import {
   ArrowRight,
   Sparkles,
   ChevronRight,
+  Lightbulb,
+  Award,
+  FileText,
+  Users,
+  Target,
+  Briefcase,
+  Brain,
+  Layers,
+  ClipboardList,
+  Laptop,
 } from "lucide-react";
 import CourseDetailRenderer from "./CourseDetailRender";
 import { useEnquiry } from "../../context/EnquiryContext";
@@ -127,234 +137,256 @@ const CourseDetails = () => {
 
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
+const headingIcons = [
+  BookOpen,        
+  GraduationCap,  
+  CalendarDays,   
+  Clock,          
+  Languages,    
+  ClipboardList, 
+  Layers,       
+  Brain,       
+  Laptop,         
+  Briefcase,    
+  Target,         
+  Users,          
+  FileText,       
+  Award,          
+  Lightbulb,      
+  Sparkles,       
+];
 
   return (
-   <>
-    <Seo
-  title={`${course.prefix} ${course.title} in Nepal | LBEF College`}
-  description={`Study ${course.prefix} ${course.title} at LBEF College Nepal. Duration: ${course.duration} years. Learn industry-focused skills with expert faculty.`}
-/>
+    <>
+      <Seo
+        title={`${course.prefix} ${course.title} in Nepal | LBEF College`}
+        description={`Study ${course.prefix} ${course.title} at LBEF College Nepal. Duration: ${course.duration} years. Learn industry-focused skills with expert faculty.`}
+      />
 
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-      <CourseNewHeader course={course} />
+      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
+        <CourseNewHeader course={course} />
 
-      <div className="container max-w-7xl mx-auto px-4 sm:px-0 pb-20">
-        <div className="flex flex-col-reverse sm:flex-col lg:flex-row gap-8">
-          <main className="lg:w-2/3 space-y-8">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-0 pb-20">
+          <div className="flex flex-col-reverse sm:flex-col lg:flex-row gap-8">
+            <main className="lg:w-2/3 space-y-8">
 
-            {/* ---------- NO DATA FALLBACK ---------- */}
-            {contentBlocks.length === 0 && (
-              <motion.section
-                variants={mainSectionContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                className="bg-linear-to-br from-white to-blue-50/30 rounded-2xl border border-gray-200 shadow-lg overflow-hidden"
-                whileHover={{ y: -5 }}
-              >
-                {/* SAME FALLBACK UI AS BEFORE */}
-              </motion.section>
-            )}
+              {contentBlocks.length === 0 && (
+                <motion.section
+                  variants={mainSectionContainerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="bg-linear-to-br from-white to-blue-50/30 rounded-2xl border border-gray-200 shadow-lg overflow-hidden"
+                  whileHover={{ y: -5 }}
+                >
+                </motion.section>
+              )}
 
-            {/* ---------- CONTENT BLOCKS ---------- */}
-            {contentBlocks.map((block, index) => (
-              <motion.section
-                key={block.id}
+              {/* ---------- CONTENT BLOCKS ---------- */}
+           {contentBlocks.map((block, index) => {
+  const Icon = headingIcons[index % headingIcons.length];
+
+  return (
+    <motion.section
+      key={block.id}
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      className={`bg-white rounded-xl border border-gray-200 overflow-hidden ${
+        block.type === BlockType.HEADING ? "shadow-md" : "shadow-sm"
+      }`}
+    >
+      <motion.div
+        className={`p-4 sm:p-6 border-b border-gray-100 ${
+          block.type === BlockType.HEADING
+            ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
+            : "bg-linear-to-r from-gray-50/50 to-white"
+        } relative overflow-hidden`}
+      >
+        <motion.div
+          className={`absolute top-0 left-0 w-1 h-full ${
+            block.type === BlockType.HEADING
+              ? "bg-linear-to-b from-blue-500 to-indigo-500"
+              : "bg-linear-to-b from-gray-400 to-gray-500"
+          }`}
+        />
+
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-blue-500 to-indigo-600">
+            <Icon className="w-6 h-6 text-white" />
+          </div>
+
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+            {block.title}
+          </h2>
+
+          <ChevronRight className="w-5 h-5 text-gray-300 ml-auto" />
+        </div>
+      </motion.div>
+
+      <div className="p-4 sm:p-6">
+        <CourseDetailRenderer blocks={block.children} />
+      </div>
+    </motion.section>
+  );
+})}
+
+
+              <div ref={loadMoreRef} className="h-10 flex justify-center items-center">
+                {isFetchingNextPage && (
+                  <p className="text-sm text-gray-500 animate-pulse">
+                    Loading more course details...
+                  </p>
+                )}
+              </div>
+            </main>
+            <aside className="lg:w-1/3">
+              <motion.div
                 variants={sectionVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-                className={`bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden ${block.type === BlockType.HEADING ? "shadow-md" : "shadow-sm"
-                  }`}
+                viewport={{ once: true }}
+                className="bg-white rounded-xl shadow-md border border-gray-200 sticky top-6 overflow-hidden"
               >
-                <motion.div
-                  className={`p-4 sm:p-6 border-b border-gray-100 ${block.type === BlockType.HEADING
-                      ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
-                      : "bg-linear-to-r from-gray-50/50 to-white"
-                    } relative overflow-hidden`}
-                >
-                  <motion.div
-                    className={`absolute top-0 left-0 w-1 h-full ${block.type === BlockType.HEADING
-                        ? "bg-linear-to-b from-blue-500 to-indigo-500"
-                        : "bg-linear-to-b from-gray-400 to-gray-500"
-                      }`}
-                  />
+                <img
+                  src={IMAGE_URL + course.image}
+                  alt="Course Preview"
+                  className="w-full h-48 object-cover"
+                />
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-blue-500 to-indigo-600">
-                      <span className="text-white text-lg font-bold">
-                        {index + 1}
-                      </span>
-                    </div>
+                <motion.div className="p-4 space-y-4" variants={fadeItem}>
+                  <h2 className="text-sm font-semibold text-gray-900">
+                    {course.prefix} in {course.title}
+                  </h2>
 
-                    <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-                      {block.title}
-                    </h2>
+                  <div className="space-y-3 text-left">
+                    {[
+                      {
+                        icon: CalendarDays,
+                        label: "Duration",
+                        value: `${course.duration} years (${course.semester} semester)`,
+                      },
+                      { icon: Languages, label: "Language", value: "English" },
+                      {
+                        icon: BookOpen,
+                        label: "Credits",
+                        value: `${course.credit} Credit Hours`,
+                      },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        variants={fadeItem}
+                        className="flex items-center gap-2"
+                      >
+                        <item.icon className="w-4 h-4 text-blue-600" />
+                        <p className="text-xs text-gray-600">
+                          <span className="font-medium text-gray-800">
+                            {item.label}:
+                          </span>{" "}
+                          {item.value}
+                        </p>
+                      </motion.div>
+                    ))}
 
-                    <ChevronRight className="w-5 h-5 text-gray-300 ml-auto" />
-                  </div>
-                </motion.div>
-
-                <div className="p-4 sm:p-6">
-                  <CourseDetailRenderer blocks={block.children} />
-                </div>
-              </motion.section>
-            ))}
-
-            <div ref={loadMoreRef} className="h-10 flex justify-center items-center">
-              {isFetchingNextPage && (
-                <p className="text-sm text-gray-500 animate-pulse">
-                  Loading more course details...
-                </p>
-              )}
-            </div>
-          </main>
-          <aside className="lg:w-1/3">
-            <motion.div
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-md border border-gray-200 sticky top-6 overflow-hidden"
-            >
-              <img
-                src={IMAGE_URL + course.image}
-                alt="Course Preview"
-                className="w-full h-48 object-cover"
-              />
-
-              <motion.div className="p-4 space-y-4" variants={fadeItem}>
-                <h2 className="text-sm font-semibold text-gray-900">
-                  {course.prefix} in {course.title}
-                </h2>
-
-                <div className="space-y-3 text-left">
-                  {[
-                    {
-                      icon: CalendarDays,
-                      label: "Duration",
-                      value: `${course.duration} years (${course.semester} semester)`,
-                    },
-                    { icon: Languages, label: "Language", value: "English" },
-                    {
-                      icon: BookOpen,
-                      label: "Credits",
-                      value: `${course.credit} Credit Hours`,
-                    },
-                  ].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      variants={fadeItem}
-                      className="flex items-center gap-2"
-                    >
-                      <item.icon className="w-4 h-4 text-blue-600" />
-                      <p className="text-xs text-gray-600">
+                    <motion.div variants={fadeItem} className="flex items-start gap-2">
+                      <GraduationCap className="w-4 h-4 text-blue-600 mt-0.5" />
+                      <p className="text-xs text-gray-600 leading-relaxed">
                         <span className="font-medium text-gray-800">
-                          {item.label}:
-                        </span>{" "}
-                        {item.value}
+                          Degree Awarded By:
+                        </span>
+                        <br />
+                        Asia Pacific University of Technology & Innovation (APU)
                       </p>
                     </motion.div>
-                  ))}
-
-                  <motion.div variants={fadeItem} className="flex items-start gap-2">
-                    <GraduationCap className="w-4 h-4 text-blue-600 mt-0.5" />
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      <span className="font-medium text-gray-800">
-                        Degree Awarded By:
-                      </span>
-                      <br />
-                      Asia Pacific University of Technology & Innovation (APU)
-                    </p>
-                  </motion.div>
-                </div>
-
-                {/* CLASS TIMING */}
-                <motion.div
-                  variants={fadeItem}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4"
-                >
-                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-blue-100 p-2 rounded-md">
-                        <Clock className="w-4 h-4 text-blue-600" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-gray-800">
-                          Class Timing
-                        </p>
-                        <p className="text-xs font-medium text-blue-700">
-                          6:30AM – 8:30AM
-                        </p>
-                        <p className="text-[11px] text-gray-600">
-                          Sunday – Friday
-                        </p>
-                      </div>
-                    </div>
                   </div>
 
-                  <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-emerald-100 p-2 rounded-md">
-                        <BookOpen className="w-4 h-4 text-emerald-600" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-gray-800">
-                          Tutorials
-                        </p>
-                        <p className="text-xs font-medium text-emerald-700">
-                          8:30AM – 9:30AM
-                        </p>
-                        <p className="text-[11px] text-gray-600">
-                          Sunday – Friday
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* SCHOLARSHIP */}
-                <motion.div
-                  variants={asideItemVariants}
-                  className="mt-4 bg-linear-to-r from-indigo-600 to-blue-600 rounded-lg p-4 text-white relative overflow-hidden"
-                  whileHover={{
-                    scale: 1.02,
-                    transition: { type: "spring", stiffness: 250 }
-                  }}
-                >
+                  {/* CLASS TIMING */}
                   <motion.div
-                    className="absolute inset-0 bg-linear-to-r from-white/10 to-transparent"
-                    animate={{ x: ["0%", "100%"] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  />
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Sparkles className="w-4 h-4" />
-                      <p className="text-sm font-semibold">
-                        Apply for Scholarship
-                      </p>
+                    variants={fadeItem}
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4"
+                  >
+                    <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-blue-100 p-2 rounded-md">
+                          <Clock className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-gray-800">
+                            Class Timing
+                          </p>
+                          <p className="text-xs font-medium text-blue-700">
+                            6:30AM – 8:30AM
+                          </p>
+                          <p className="text-[11px] text-gray-600">
+                            Sunday – Friday
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-xs text-indigo-100 mb-3">
-                      Limited seats available for eligible students
-                    </p>
-                    <motion.button
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
-                      onClick={() => open()}
-                    >
-                      Apply Now
-                      <ArrowRight className="w-3 h-3" />
-                    </motion.button>
-                  </div>
+
+                    <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-emerald-100 p-2 rounded-md">
+                          <BookOpen className="w-4 h-4 text-emerald-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-gray-800">
+                            Tutorials
+                          </p>
+                          <p className="text-xs font-medium text-emerald-700">
+                            8:30AM – 9:30AM
+                          </p>
+                          <p className="text-[11px] text-gray-600">
+                            Sunday – Friday
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* SCHOLARSHIP */}
+                  <motion.div
+                    variants={asideItemVariants}
+                    className="mt-4 bg-linear-to-r from-indigo-600 to-blue-600 rounded-lg p-4 text-white relative overflow-hidden"
+                    whileHover={{
+                      scale: 1.02,
+                      transition: { type: "spring", stiffness: 250 }
+                    }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-linear-to-r from-white/10 to-transparent"
+                      animate={{ x: ["0%", "100%"] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Sparkles className="w-4 h-4" />
+                        <p className="text-sm font-semibold">
+                          Apply for Scholarship
+                        </p>
+                      </div>
+                      <p className="text-xs text-indigo-100 mb-3">
+                        Limited seats available for eligible students
+                      </p>
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
+                        onClick={() => open()}
+                      >
+                        Apply Now
+                        <ArrowRight className="w-3 h-3" />
+                      </motion.button>
+                    </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
-            </motion.div>
-          </aside>
+            </aside>
+          </div>
         </div>
+        <LbefSubFooter />
       </div>
-      <LbefSubFooter />
-    </div>
-   </>
+    </>
 
   );
 };

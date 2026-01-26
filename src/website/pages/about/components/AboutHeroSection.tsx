@@ -22,9 +22,9 @@ const ABoutHeroSection = () => {
             <span className="absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8">
               <img src={butterfiles} alt="Butterflies" className="w-full h-full" />
             </span>
-            Boldness
+            Boldness,
           </span>
-          ,Shaping an
+           Shaping an
 
           <span className="relative text-blue-600 inline-flex items-center">
             <span className="absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8">

@@ -1,106 +1,61 @@
-import { useEffect, useState } from "react";
 import arrow from "../../../../assets/arrow.webp";
+import { useEnquiry } from "../../../../context/EnquiryContext";
 
 export function ApplyNow() {
-  const [openModal, setOpenModal] = useState(false);
-
-  // Debug on mount
-  useEffect(() => {
-    console.log("[ApplyNow] Component mounted");
-    console.log("[ApplyNow] window.npf_wgts on mount:", window.npf_wgts);
-  }, []);
-
-  // Reload Meritto when modal opens
-  useEffect(() => {
-    console.log("[ApplyNow] openModal:", openModal);
-
-    if (openModal) {
-      console.log("[ApplyNow] Modal opened → waiting for DOM");
-
-      setTimeout(() => {
-        console.log("[ApplyNow] Attempting Meritto load");
-
-        if (window.npf_wgts?.load) {
-          console.log("[ApplyNow] Calling window.npf_wgts.load()");
-          window.npf_wgts.load();
-        } else {
-          console.log("[ApplyNow] window.npf_wgts.load NOT available");
-        }
-      }, 300);
-    }
-  }, [openModal]);
-
+  const { open } = useEnquiry();
   return (
     <>
-      <section className="bg-white py-8 flex justify-center relative">
-        <div className="max-w-5xl text-center">
+      <section className="bg-white py-4 ms:py-10 md:py-8 lg:px-20 flex relative">
+        <div className="max-w-6xl mx-auto flex flex-col items-center gap-12">
+          <div className="absolute left-[-5vw] -top-5">
+            <img
+              src={arrow}
+              alt="Curved Dotted Arrow"
+              className="hidden lg:block lg:w-[25vw]"
+            />
+          </div>
+          <div className="text-center lg:text-left flex-1">
+            <p className="text-xs sm:text-[16px] p-1 md:text-[20px] text-center lg:text-xl text-[#19213DB2] leading-relaxed max-w-1xl">
+              Together with our top-notch faculty, we  provide a nurturing environment to help students evolve into{" "}
+              <br />
+              leaders who think boldly, make effective choices and are well-equipped with{" "} <br />
+              futuristic mindset and skills.
+            </p>
 
-          <img
-            src={arrow}
-            alt="arrow"
-            className="hidden lg:block absolute left-0 -top-4 w-[20vw]"
-          />
+            {/* Buttons */}
+            <div className="mt-10 flex gap-4 justify-center">
+              <button
+                onClick={() => {
+                  console.log("Enquiry button clicked");
+                  open();
+                }}
+                className="uppercase text-[12px] sm:text-[18px] rounded-full bg-[#474AFF] px-5 sm:px-12 py-4 text-white font-medium hover:bg-[#2535c7] shadow-lg transform transition-transform duration-150 active:scale-95"
+              >
+                Enquiry Now
+              </button>
 
-          <p className="text-gray-600 text-lg">
-            Together with our top-notch faculty, we provide a nurturing
-            environment to help students evolve into leaders with futuristic
-            skills.
-          </p>
-
-          <div className="mt-10 flex justify-center gap-4">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-full">
-              Enquiry Now
-            </button>
-
-            <button
-              onClick={() => {
-                console.log("[ApplyNow] Apply Now clicked");
-                setOpenModal(true);
-              }}
-              className="border px-8 py-3 rounded-full"
-            >
-              Apply Now
-            </button>
+              <a
+                href="https://apply.lbef.org/"
+                target="_blank"
+                rel="noreferrer"
+                className="uppercase text-[12px] sm:text-[18px] rounded-full border-2 border-[#00000057] bg-white px-5 sm:px-12 py-4 text-[#050038] font-medium hover:bg-[#474AFF] hover:text-white transform transition-transform duration-150 active:scale-95"
+              >
+                Apply Now
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* MODAL */}
-      {openModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
-          <div className="bg-white w-[95%] md:w-[65%] rounded-xl relative">
-
-            {/* Header */}
-            <div className="flex justify-between items-center px-6 py-4 border-b">
-              <h2 className="text-xl font-semibold">Apply Now</h2>
-              <button
-                onClick={() => {
-                  console.log("[ApplyNow] Modal closed");
-                  setOpenModal(false);
-                }}
-                className="text-2xl"
-              >
-                &times;
-              </button>
-            </div>
-
-            {/* Meritto Widget */}
-            <div className="p-6">
-              <div
-                className="npf_wgts"
-                data-w="37b0a5e5264dcf9f208d052c97b65286"
-              ></div>
-            </div>
-          </div>
-        </div>
-      )}
-
+      {/* Animation */}
       <style>
         {`
-          .npf_wgts iframe {
-            width: 100% !important;
-            min-height: 600px;
-            border: none;
+          @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0 }
+            to { transform: scale(1); opacity: 1 }
+          }
+          .animate-scaleIn {
+            animation: scaleIn 0.25s ease-out;
           }
         `}
       </style>

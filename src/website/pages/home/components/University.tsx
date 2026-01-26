@@ -76,7 +76,7 @@ export function University() {
           variants={fadeUp}
         >
           <p className="text-xs sm:text-lg md:text-xl text-[#4D5756] leading-relaxed mb-8 sm:mb-12">
-            The Asia Pacific University of Technology & Innovation (APU) is amongst Malaysia’s Premier Private Universities, and is where a unique fusion of technology, innovation and creativity works effectively towards transforming students into highly competent, employable and future-proof professionals. APU has earned an enviable reputation as an award-winning University through its achievements in winning a host of <span className="underline">over 400 prestigious awards at local and international levels.</span>
+            The Asia Pacific University of Technology & Innovation (APU) is among Malaysia’s Premier Private Universities, and is where a unique fusion of technology, innovation and creativity works effectively towards transforming students into highly competent, employable and future-proof professionals. APU has earned an enviable reputation as an award-winning University through its achievements in winning a host of <span className="underline">over 400 prestigious awards at local and international levels.</span>
           </p>
         </motion.div>
 

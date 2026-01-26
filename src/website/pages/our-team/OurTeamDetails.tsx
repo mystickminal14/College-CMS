@@ -36,20 +36,18 @@ const TeamDetail = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
- <Seo
+      <Seo
         title={`${member.name} - ${member.position} | Our Team`}
         description={`Learn about ${member.name}, ${member.position} in ${member.department}. Explore biography, contact info, and social profiles.`}
         url={`${APP_URL}/team/${member.id}`}
-      />      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      />      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-20">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="max-w-6xl mx-auto text-center"
+          className="max-w-7xl mx-auto text-center"
         >
-         
-
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -64,31 +62,31 @@ const TeamDetail = () => {
             Team Member Profile
           </motion.div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-  <span className="text-gray-900">Meet </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+            <span className="text-gray-900">Meet </span>
 
-  {(() => {
-    const nameParts = member?.name?.split(" ")??[];
-    const lastWord = nameParts?.pop();
-    const firstWords = nameParts.join(" ");
-    return (
-      <>
-        {firstWords && <span className="text-blue-600">{firstWords} </span>}
-        <span className="relative inline-block">
-          <span className="text-blue-600 relative z-10">{lastWord}</span>
-          <motion.img
-            src={decoration}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.25, duration: 0.5 }}
-            alt="Decoration"
-            className="absolute left-0 bottom-0 w-full h-3"
-          />
-        </span>
-      </>
-    );
-  })()}
-</h1>
+            {(() => {
+              const nameParts = member?.name?.split(" ") ?? [];
+              const lastWord = nameParts?.pop();
+              const firstWords = nameParts.join(" ");
+              return (
+                <>
+                  {firstWords && <span className="text-blue-600">{firstWords} </span>}
+                  <span className="relative inline-block">
+                    <span className="text-blue-600 relative z-10">{lastWord}</span>
+                    <motion.img
+                      src={decoration}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ delay: 0.25, duration: 0.5 }}
+                      alt="Decoration"
+                      className="absolute left-0 bottom-0 w-full h-3"
+                    />
+                  </span>
+                </>
+              );
+            })()}
+          </h1>
 
 
           <p className="mt-4 text-gray-600 text-lg">
@@ -98,7 +96,7 @@ const TeamDetail = () => {
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

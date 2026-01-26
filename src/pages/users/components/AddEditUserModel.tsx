@@ -40,17 +40,17 @@ interface FormData {
     permissions: PermissionNameType[];
 }
 
-export const ALL_PERMISSIONS: PermissionNameType[] = [
+// Permission groups
+const JOURNAL_PERMISSIONS: PermissionNameType[] = ["JOURNALS", "EDITORIAL_BOARD"];
+const ACADEMIC_PERMISSIONS: PermissionNameType[] = ["PLANNER_COURSE", "ACADEMIC_PLANNER", "FEE_PLANNER"];
+const OTHER_PERMISSIONS: PermissionNameType[] = [
   "USERS",
   "COURSES",
   "TEAMS",
   "ALUMNI",
-  "PLANNER_COURSE",    
-  "SCHOLARSHIP",// ✅ added
+  "SCHOLARSHIP",
   "NEWS",
-  "ALMUNI_FORM",       // ✅ added
-  "JOURNALS",
-  "EDITORIAL_BOARD",
+  "ALMUNI_FORM",
   "CONNECT",
   "GALLERY",
   "NOTICE",
@@ -60,11 +60,14 @@ export const ALL_PERMISSIONS: PermissionNameType[] = [
   "ACHIEVEMENT",
   "INTAKE",
   "DOCUMENTS",
-  "ACADEMIC_PLANNER",
-  "FEE_PLANNER",
   "DOWNLOADS",
 ];
 
+export const ALL_PERMISSIONS: PermissionNameType[] = [
+  ...OTHER_PERMISSIONS,
+  ...JOURNAL_PERMISSIONS,
+  ...ACADEMIC_PERMISSIONS,
+];
 
 const AddEditUserModal: React.FC<Props> = ({
     isOpen,
@@ -89,7 +92,6 @@ const AddEditUserModal: React.FC<Props> = ({
 
     const [showPassword, setShowPassword] = useState(false);
 
-    console.log(user)
     useEffect(() => {
         if (isOpen && isEdit && user) {
             setFormData({
@@ -126,7 +128,6 @@ const AddEditUserModal: React.FC<Props> = ({
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-
     const togglePermission = (permission: PermissionNameType) => {
         setFormData(prev => {
             const exists = prev.permissions.includes(permission);
@@ -144,6 +145,23 @@ const AddEditUserModal: React.FC<Props> = ({
             };
         });
     };
+const renderPermissionSection = (title: string, permissions: PermissionNameType[]) => (
+    <div className="space-y-2">
+      <h4 className="font-semibold text-sm">{title}</h4>
+      <div className="grid grid-cols-2 gap-2">
+        {permissions.map(p => (
+          <label key={p} className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={formData.permissions.includes(p)}
+              onChange={() => togglePermission(p)}
+            />
+            {p.replaceAll("_", " ")}
+          </label>
+        ))}
+      </div>
+    </div>
+  );
 
     const isAllSelected =
         formData.permissions.length === ALL_PERMISSIONS.length;
@@ -157,22 +175,18 @@ const AddEditUserModal: React.FC<Props> = ({
         }));
     };
 
-
     const validate = () => {
         if (!isEdit) {
-            // For new users, validate all required fields
             if (!formData.fullname.trim()) return error("Full Name is required");
             if (!formData.username.trim()) return error("Username is required");
             if (!formData.email.trim()) return error("Email is required");
             if (!formData.password.trim()) return error("Password is required");
         } else {
-            // For editing, only validate fields that are being changed
             if (formData.fullname.trim() === "") return error("Full Name is required");
             if (formData.username.trim() === "") return error("Username is required");
             if (formData.email.trim() === "") return error("Email is required");
         }
 
-        // Always validate permissions (should already be pre-filled in edit mode)
         if (formData.permissions.length === 0) {
             return error("Select at least one permission");
         }
@@ -196,7 +210,6 @@ const AddEditUserModal: React.FC<Props> = ({
             },
         });
     };
-
 
     const handleEdit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -228,6 +241,15 @@ const AddEditUserModal: React.FC<Props> = ({
                 onClose();
             },
         });
+    };
+
+    const generatePassword = () => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+        let generated = '';
+        for (let i = 0; i < 12; i++) {
+            generated += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        handleChange("password", generated);
     };
 
     return (
@@ -306,22 +328,29 @@ const AddEditUserModal: React.FC<Props> = ({
                                         <Lock className="w-4 h-4 text-[#125DAA]" />
                                         <span>Password *</span>
                                     </label>
-                                    <div className="relative">
+                                    <div className="relative flex items-center">
                                         <input
                                             type={showPassword ? "text" : "password"}
                                             value={formData.password}
                                             onChange={e =>
                                                 handleChange("password", e.target.value)
                                             }
-                                            className="w-full px-4 py-2.5 pl-10 pr-10 border rounded-lg"
+                                            className="w-full px-4 py-2.5 pl-10 pr-28 border rounded-lg"
                                             required
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowPassword(!showPassword)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2"
+                                            className="absolute right-20 top-1/2 -translate-y-1/2 text-gray-500"
                                         >
                                             {showPassword ? <EyeOff /> : <Eye />}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={generatePassword}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-xs hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                                        >
+                                            Generate
                                         </button>
                                     </div>
                                 </div>
@@ -346,38 +375,17 @@ const AddEditUserModal: React.FC<Props> = ({
                         )}
 
                         {/* MANAGE ACCESS */}
-                        <div className="space-y-3">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-sm font-semibold flex items-center gap-2">
-                                    <Shield className="w-4 h-4 text-[#125DAA]" />
-                                    Manage Access
-                                </h3>
+                      
+<div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <h3 className="text-sm font-semibold flex items-center gap-2"><Shield className="w-4 h-4 text-[#125DAA]" /> Manage Access</h3>
+                <button type="button" onClick={toggleSelectAll} className="text-xs font-medium text-[#125DAA] hover:underline">{isAllSelected ? "Unselect All" : "Select All"}</button>
+              </div>
 
-                                <button
-                                    type="button"
-                                    onClick={toggleSelectAll}
-                                    className="text-xs font-medium text-[#125DAA] hover:underline"
-                                >
-                                    {isAllSelected ? "Unselect All" : "Select All"}
-                                </button>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-3">
-                                {ALL_PERMISSIONS.map(permission => (
-                                    <label
-                                        key={permission}
-                                        className="flex items-center gap-2 text-sm"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            checked={formData.permissions.includes(permission)} // ✅ This will be true for user's existing permissions
-                                            onChange={() => togglePermission(permission)}
-                                        />
-                                        {permission.replaceAll("_", " ")}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
+              {renderPermissionSection("Other Permissions", OTHER_PERMISSIONS)}
+              {renderPermissionSection("Journal", JOURNAL_PERMISSIONS)}
+              {renderPermissionSection("Academic Planner", ACADEMIC_PERMISSIONS)}
+            </div>
                     </div>
 
                     {/* FOOTER */}

@@ -19,8 +19,8 @@ const scrollContainerVariants: Variants = {
 };
 
 const scrollItemVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
+  hidden: {
+    opacity: 0,
     y: 30,
     scale: 0.95
   },
@@ -66,8 +66,8 @@ const iconVariants: Variants = {
 
 // Subheading card variants
 const subheadingCardVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
+  hidden: {
+    opacity: 0,
     y: 40,
     scale: 0.9
   },
@@ -101,9 +101,15 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
         return <FileText className="w-4 h-4 text-blue-600" />;
     }
   };
+  const isShortTextList = (items: string[]) => {
+    const WORD_LIMIT = 8; // tweak if needed
+    return items.every(
+      (item) => item.split(" ").length <= WORD_LIMIT
+    );
+  };
 
   return (
-    <motion.div 
+    <motion.div
       className="space-y-4 sm:space-y-5"
       variants={scrollContainerVariants}
       initial="hidden"
@@ -121,14 +127,14 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                 className="group"
               >
                 <div className="flex gap-3 sm:gap-4">
-                  <motion.div 
+                  <motion.div
                     className="mt-0.5 shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-linear-to-br from-blue-50 to-blue-100 flex items-center justify-center"
                     variants={iconVariants}
                   >
                     {getIconForType(block.type)}
                   </motion.div>
                   <div className="flex-1">
-                    <motion.p 
+                    <motion.p
                       className="text-sm text-gray-700 leading-relaxed"
                       initial={{ opacity: 0.8 }}
                       whileInView={{ opacity: 1 }}
@@ -144,6 +150,9 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
           }
 
           if (block.type === BlockType.LIST) {
+            const shouldSplit =
+              block.content.length > 5 && isShortTextList(block.content);
+
             return (
               <motion.div
                 key={block.id}
@@ -151,10 +160,12 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                 className="bg-white rounded-lg sm:rounded-xl border border-gray-200 shadow-sm"
               >
                 <div className="p-3 sm:p-4">
-                  {/* Removed header entirely */}
-                  
-                  <motion.ul 
-                    className="space-y-1.5 sm:space-y-2"
+                  <motion.ul
+                    className={
+                      shouldSplit
+                        ? "grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2"
+                        : "space-y-1.5 sm:space-y-2"
+                    }
                     variants={scrollContainerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -164,12 +175,11 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                       <motion.li
                         key={i}
                         variants={listItemVariants}
-                        className="flex items-start gap-2 p-2 rounded-md hover:bg-gray-50 transition-colors"
+                        className="flex items-start gap-2 p-0 rounded-md hover:bg-gray-50 transition-colors"
                       >
-                        {/* Simple bullet point instead of check icon */}
-                        <div className="mt-1.5 shrink-0 w-2 h-2 rounded-full bg-emerald-500"></div>
-                        <motion.span 
-                          className="text-sm text-gray-700 leading-relaxed flex-1"
+                        <div className="mt-1.5 shrink-0 w-2 h-2 rounded-full bg-emerald-500" />
+                        <motion.span
+                          className="text-sm text-gray-700 leading-relaxed"
                           initial={{ opacity: 0.7 }}
                           whileInView={{ opacity: 1 }}
                           viewport={{ once: true }}
@@ -185,28 +195,29 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
             );
           }
 
+
           if (block.type === BlockType.SUBHEADING) {
             return (
-              <motion.div 
-                key={block.id} 
+              <motion.div
+                key={block.id}
                 variants={subheadingCardVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 className="space-y-3 sm:space-y-4"
               >
-                <motion.div 
+                <motion.div
                   className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-100"
                 >
                   <div className="flex items-center gap-3">
-                    <motion.div 
+                    <motion.div
                       className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md"
                       variants={iconVariants}
                     >
                       <Target className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </motion.div>
                     <div className="flex-1 min-w-0">
-                      <motion.h4 
+                      <motion.h4
                         className="text-sm sm:text-base font-semibold text-gray-900"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -221,7 +232,7 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                 </motion.div>
 
                 {block.children?.length > 0 && (
-                  <motion.div 
+                  <motion.div
                     className="pl-2 sm:pl-3 space-y-3 sm:space-y-4"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
