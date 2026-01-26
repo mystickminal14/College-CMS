@@ -1,8 +1,11 @@
 import butterfiles from "../../../../assets/butterfiles.webp"
 import { motion } from "framer-motion";
 import graduation from "../../../../assets/front.webp"
+import { useState } from "react";
 
 export function HeroSection() {
+    const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <>
       <section className="bg-white flex flex-col lg:flex-row items-center justify-center lg:justify-between p-4 md:p-6 lg:p-10 lg:pt-15">
@@ -98,11 +101,16 @@ export function HeroSection() {
         </div>
       </section>
 
-      <section className="w-90vw h-[40vw] md:h-[22vw] relative overflow-hidden">
+       <section className="w-90vw h-[40vw] md:h-[22vw] relative overflow-hidden bg-gray-100">
         <img
           src={graduation}
           alt="Graduation"
-          className="w-full h-full object-cover object-[50%_42%]"
+          loading="eager"
+          decoding="async"
+          onLoad={() => setImageLoaded(true)}
+          className={`w-full h-full object-cover object-[50%_42%] transition-opacity duration-500 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       </section>
     </>
