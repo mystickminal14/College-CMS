@@ -14,7 +14,6 @@ import {
   GraduationCap,
   ArrowRight,
   Sparkles,
-  ChevronRight,
   Lightbulb,
   Award,
   FileText,
@@ -137,24 +136,24 @@ const CourseDetails = () => {
 
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
-const headingIcons = [
-  BookOpen,        
-  GraduationCap,  
-  CalendarDays,   
-  Clock,          
-  Languages,    
-  ClipboardList, 
-  Layers,       
-  Brain,       
-  Laptop,         
-  Briefcase,    
-  Target,         
-  Users,          
-  FileText,       
-  Award,          
-  Lightbulb,      
-  Sparkles,       
-];
+  const headingIcons = [
+    BookOpen,
+    GraduationCap,
+    CalendarDays,
+    Clock,
+    Languages,
+    ClipboardList,
+    Layers,
+    Brain,
+    Laptop,
+    Briefcase,
+    Target,
+    Users,
+    FileText,
+    Award,
+    Lightbulb,
+    Sparkles,
+  ];
 
   return (
     <>
@@ -183,54 +182,51 @@ const headingIcons = [
               )}
 
               {/* ---------- CONTENT BLOCKS ---------- */}
-           {contentBlocks.map((block, index) => {
-  const Icon = headingIcons[index % headingIcons.length];
+              {contentBlocks.map((block, index) => {
+                const Icon = headingIcons[index % headingIcons.length];
 
-  return (
-    <motion.section
-      key={block.id}
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className={`bg-white rounded-xl border border-gray-200 overflow-hidden ${
-        block.type === BlockType.HEADING ? "shadow-md" : "shadow-sm"
-      }`}
-    >
-      <motion.div
-        className={`p-4 sm:p-6 border-b border-gray-100 ${
-          block.type === BlockType.HEADING
-            ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
-            : "bg-linear-to-r from-gray-50/50 to-white"
-        } relative overflow-hidden`}
-      >
-        <motion.div
-          className={`absolute top-0 left-0 w-1 h-full ${
-            block.type === BlockType.HEADING
-              ? "bg-linear-to-b from-blue-500 to-indigo-500"
-              : "bg-linear-to-b from-gray-400 to-gray-500"
-          }`}
-        />
+                return (
+                  <motion.section
+                    key={block.id}
+                    variants={sectionVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-80px" }}
+                    className={`bg-white rounded-xl border border-gray-200 overflow-hidden ${block.type === BlockType.HEADING ? "shadow-md" : "shadow-sm"
+                      }`}
+                  >
+                    <motion.div
+                      className={`p-4 sm:p-6 border-b border-gray-100 ${block.type === BlockType.HEADING
+                          ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
+                          : "bg-linear-to-r from-gray-50/50 to-white"
+                        } relative overflow-hidden`}
+                    >
+                      <motion.div
+                        className={`absolute top-0 left-0 w-1 h-full ${block.type === BlockType.HEADING
+                            ? "bg-linear-to-b from-blue-500 to-indigo-500"
+                            : "bg-linear-to-b from-gray-400 to-gray-500"
+                          }`}
+                      />
 
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-blue-500 to-indigo-600">
-            <Icon className="w-6 h-6 text-white" />
-          </div>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-blue-500 to-indigo-600">
+                          <Icon className="w-6 h-6 text-white" />
+                        </div>
 
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-            {block.title}
-          </h2>
+                        <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+                          {block.title}
+                        </h2>
 
-          <ChevronRight className="w-5 h-5 text-gray-300 ml-auto" />
-        </div>
-      </motion.div>
+                        
+                      </div>
+                    </motion.div>
 
-      <div className="p-4 sm:p-6">
-        <CourseDetailRenderer blocks={block.children} />
-      </div>
-    </motion.section>
-  );
-})}
+                    <div className="p-4 sm:p-6">
+                      <CourseDetailRenderer blocks={block.children} />
+                    </div>
+                  </motion.section>
+                );
+              })}
 
 
               <div ref={loadMoreRef} className="h-10 flex justify-center items-center">

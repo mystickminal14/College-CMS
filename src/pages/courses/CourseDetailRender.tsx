@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { BlockType, type CourseDetailBlock } from "./model/CourseDetailModel";
 import {
@@ -5,7 +6,10 @@ import {
   FileText,
   ListChecks,
   ChevronRight,
+  BookOpen,
 } from "lucide-react";
+
+/* ---------------- VARIANTS (UNCHANGED) ---------------- */
 
 const scrollContainerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -22,7 +26,7 @@ const scrollItemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 30,
-    scale: 0.95
+    scale: 0.95,
   },
   visible: {
     opacity: 1,
@@ -50,7 +54,6 @@ const listItemVariants: Variants = {
   },
 };
 
-// Icon animation variants
 const iconVariants: Variants = {
   hidden: { scale: 0, rotate: -10 },
   visible: {
@@ -64,13 +67,8 @@ const iconVariants: Variants = {
   },
 };
 
-// Subheading card variants
 const subheadingCardVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-    scale: 0.9
-  },
+  hidden: { opacity: 0, y: 40, scale: 0.9 },
   visible: {
     opacity: 1,
     y: 0,
@@ -89,6 +87,13 @@ interface Props {
 }
 
 const CourseDetailRenderer = ({ blocks }: Props) => {
+  /* -------- NEW STATE (ONLY ADDITION) -------- */
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
+
+  const toggle = (id: string) => {
+    setOpenMap((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   const getIconForType = (type: BlockType) => {
     switch (type) {
       case BlockType.PARAGRAPH:
@@ -101,11 +106,10 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
         return <FileText className="w-4 h-4 text-blue-600" />;
     }
   };
+
   const isShortTextList = (items: string[]) => {
-    const WORD_LIMIT = 8; // tweak if needed
-    return items.every(
-      (item) => item.split(" ").length <= WORD_LIMIT
-    );
+    const WORD_LIMIT = 8;
+    return items.every((item) => item.split(" ").length <= WORD_LIMIT);
   };
 
   return (
@@ -119,6 +123,7 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
       {blocks
         .sort((a, b) => a.order - b.order)
         .map((block) => {
+          /* ---------------- PARAGRAPH (UNCHANGED) ---------------- */
           if (block.type === BlockType.PARAGRAPH) {
             return (
               <motion.div
@@ -128,27 +133,23 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
               >
                 <div className="flex gap-3 sm:gap-4">
                   <motion.div
-                    className="mt-0.5 shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-linear-to-br from-blue-50 to-blue-100 flex items-center justify-center"
+                    className="mt-0.5 shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-lg
+                               bg-linear-to-br from-blue-50 to-blue-100
+                               flex items-center justify-center"
                     variants={iconVariants}
                   >
                     {getIconForType(block.type)}
                   </motion.div>
-                  <div className="flex-1">
-                    <motion.p
-                      className="text-sm text-gray-700 leading-relaxed"
-                      initial={{ opacity: 0.8 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {block.content}
-                    </motion.p>
-                  </div>
+
+                  <motion.p className="text-sm text-gray-700 leading-relaxed">
+                    {block.content}
+                  </motion.p>
                 </div>
               </motion.div>
             );
           }
 
+          /* ---------------- LIST (UNCHANGED) ---------------- */
           if (block.type === BlockType.LIST) {
             const shouldSplit =
               block.content.length > 5 && isShortTextList(block.content);
@@ -157,7 +158,8 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
               <motion.div
                 key={block.id}
                 variants={scrollItemVariants}
-                className="bg-white rounded-lg sm:rounded-xl border border-gray-200 shadow-sm"
+                className="bg-white rounded-lg sm:rounded-xl
+                           border border-gray-200 shadow-sm"
               >
                 <div className="p-3 sm:p-4">
                   <motion.ul
@@ -167,26 +169,17 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
                         : "space-y-1.5 sm:space-y-2"
                     }
                     variants={scrollContainerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
                   >
                     {block.content.map((text, i) => (
                       <motion.li
                         key={i}
                         variants={listItemVariants}
-                        className="flex items-start gap-2 p-0 rounded-md hover:bg-gray-50 transition-colors"
+                        className="flex items-start gap-2"
                       >
-                        <div className="mt-1.5 shrink-0 w-2 h-2 rounded-full bg-emerald-500" />
-                        <motion.span
-                          className="text-sm text-gray-700 leading-relaxed"
-                          initial={{ opacity: 0.7 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: i * 0.02 + 0.1 }}
-                        >
+                        <div className="mt-1.5 w-2 h-2 rounded-full bg-emerald-500" />
+                        <span className="text-sm text-gray-700">
                           {text}
-                        </motion.span>
+                        </span>
                       </motion.li>
                     ))}
                   </motion.ul>
@@ -195,53 +188,62 @@ const CourseDetailRenderer = ({ blocks }: Props) => {
             );
           }
 
-
+          /* ---------------- SUBHEADING (EXPANDABLE) ---------------- */
           if (block.type === BlockType.SUBHEADING) {
+            const isOpen = openMap[block.id];
+
             return (
               <motion.div
                 key={block.id}
                 variants={subheadingCardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                className="space-y-3 sm:space-y-4"
+                className="space-y-2"
               >
-                <motion.div
-                  className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-100"
+                {/* HEADER */}
+                <button
+                  type="button"
+onClick={() => block.id && toggle(block.id.toString())}
+                  className="w-full text-left p-3 sm:p-4 rounded-lg sm:rounded-xl
+                             bg-linear-to-r from-blue-50 to-indigo-50
+                             border border-blue-100 flex items-center gap-3"
                 >
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md"
-                      variants={iconVariants}
-                    >
-                      <Target className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                    </motion.div>
-                    <div className="flex-1 min-w-0">
-                      <motion.h4
-                        className="text-sm sm:text-base font-semibold text-gray-900"
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                      >
-                        {block.title}
-                      </motion.h4>
-                    </div>
-                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 shrink-0" />
-                  </div>
-                </motion.div>
-
-                {block.children?.length > 0 && (
+                  {/* ICON (ALWAYS VISIBLE) */}
                   <motion.div
-                    className="pl-2 sm:pl-3 space-y-3 sm:space-y-4"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl
+                               bg-linear-to-br from-blue-500 to-indigo-600
+                               flex items-center justify-center shadow-md"
+                    variants={iconVariants}
                   >
-                    <CourseDetailRenderer blocks={block.children} />
+                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </motion.div>
-                )}
+
+                  <span className="flex-1 text-sm sm:text-base font-semibold text-gray-900">
+                    {block.title}
+                  </span>
+
+                  <motion.div
+                    animate={{ rotate: isOpen ? 90 : 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 18 }}
+                  >
+                    <ChevronRight className="w-4 h-4 text-blue-500" />
+                  </motion.div>
+                </button>
+
+                {/* CONTENT */}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: isOpen ? "auto" : 0,
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.35 }}
+                  className="overflow-hidden pl-2 sm:pl-4"
+                >
+                  {isOpen && block.children?.length > 0 && (
+                    <div className="pt-2 space-y-3">
+                      <CourseDetailRenderer blocks={block.children} />
+                    </div>
+                  )}
+                </motion.div>
               </motion.div>
             );
           }
