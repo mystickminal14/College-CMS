@@ -202,14 +202,16 @@ export function NavBar() {
                             onMouseEnter={() => setActiveNestedDropdown(sub.name)}
                             onMouseLeave={() => setActiveNestedDropdown(null)}
                           >
-                            <div className="flex gap-3 items-center px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
-                              {sub.icon}
-                              <span>{sub.name}</span>
-                              <FaChevronDown
-                                className={`text-xs ml-auto transition-transform ${activeNestedDropdown === sub.name ? "rotate-180" : ""
-                                  }`}
-                              />
+                            <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
+                              <span className="flex items-center gap-3">
+                                <span className="text-lg">{sub.icon}</span> {/* force icon size */}
+                                <span className="whitespace-normal wrap-break-word">{sub.name}</span>
+                              </span>
+                              {sub.dropdown && (
+                                <FaChevronDown className={`text-xs transition-transform break-words${activeNestedDropdown === sub.name ? "rotate-180" : ""}`} />
+                              )}
                             </div>
+
                             {activeNestedDropdown === sub.name && (
                               <div className="absolute left-full top-0 pl-1">
                                 <div className="bg-white shadow-xl rounded-xl p-1 min-w-[220px]">
@@ -241,7 +243,7 @@ export function NavBar() {
                             onClick={sub.onClick}
                             className="flex gap-3 items-center cursor-pointer px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg"
                           >
-                            {sub.icon}
+                            <span className="text-lg">{sub.icon}</span>
                             {sub.name}
                           </button>
                         );
@@ -253,7 +255,7 @@ export function NavBar() {
                           to={sub.disabled ? "#" : sub.link!}
                           className="flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg"
                         >
-                          {sub.icon}
+                          <span className="text-lg">{sub.icon}</span>
                           {sub.name}
                         </NavLink>
                       );
@@ -283,17 +285,17 @@ export function NavBar() {
         </nav>
 
         {/* Mobile Toggle */}
-      <button
-  onClick={() => setMobileOpen(!mobileOpen)}
-  className="lg:hidden p-2"
-  aria-label={mobileOpen ? "Close menu" : "Open menu"}
->
-  {mobileOpen ? (
-    <FaTimes className="text-2xl" />
-  ) : (
-    <FaBars className="text-2xl" />
-  )}
-</button>
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="lg:hidden p-2"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileOpen ? (
+            <FaTimes className="text-2xl" />
+          ) : (
+            <FaBars className="text-2xl" />
+          )}
+        </button>
 
       </div>
 
@@ -339,7 +341,7 @@ export function NavBar() {
                             className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
                           >
                             <span className="flex items-center gap-2">
-                              {sub.icon}
+                              <span className="text-lg">{sub.icon}</span>
                               {sub.name}
                             </span>
                             <FaChevronDown
@@ -356,7 +358,7 @@ export function NavBar() {
                                 className="flex items-center gap-2 py-2 pl-8"
                                 onClick={() => setMobileOpen(false)}
                               >
-                                {nested.icon}
+                                <span className="text-lg">{nested.icon}</span>
                                 {nested.name}
                               </NavLink>
                             ))}
@@ -374,7 +376,7 @@ export function NavBar() {
                           }}
                           className="flex items-center gap-2 py-2 pl-4 w-full text-left"
                         >
-                          {sub.icon}
+                          <span className="text-lg">{sub.icon}</span>
                           {sub.name}
                         </button>
                       );

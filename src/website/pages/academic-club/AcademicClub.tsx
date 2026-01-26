@@ -196,256 +196,256 @@ const AcademicClub = () => {
   const [activeClub, setActiveClub] = useState(clubsData[0]);
 
   return (
-   <>
-    <Seo
-  title="Academic Clubs at LBEF | AI, Robotics, Startup & Tech Clubs"
-  description="Discover academic clubs at LBEF College including AI & Robotics, Cyber Security, Software Architecture, Startup & Innovation, and more."
-  url={`${APP_URL}/students-life/academic-club`}
+    <>
+      <Seo
+        title="Academic Clubs at LBEF | AI, Robotics, Startup & Tech Clubs"
+        description="Discover academic clubs at LBEF College including AI & Robotics, Cyber Security, Software Architecture, Startup & Innovation, and more."
+        url={`${APP_URL}/students-life/academic-club`}
 
-/>
+      />
 
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-      {/* Header Section */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-
+      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
+        {/* Header Section */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
             >
-              <motion.span
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [1, 0.7, 1]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: "easeInOut" as const
-                }}
-              />
-              <span className="text-blue-600 font-medium text-sm">
-                Academic Clubs
-              </span>
-            </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-              <span className="text-gray-900">Academic </span>
-              <span className="relative inline-block">
-                <span className="text-blue-600 relative z-10">Clubs</span>
-                <motion.img
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  src={decoration}
-                  alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+              >
+                <motion.span
+                  className="w-2 h-2 bg-blue-500 rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [1, 0.7, 1]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 2,
+                    ease: "easeInOut" as const
+                  }}
                 />
-              </span>
-            </h1>
+                <span className="text-blue-600 font-medium text-sm">
+                  Academic Clubs
+                </span>
+              </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12"
-            >
-              Explore our diverse range of academic clubs and programs designed to enhance your learning experience, foster collaboration, and develop essential skills for your future career.
-            </motion.p>
-          </motion.div>
-        </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+                <span className="text-gray-900">Academic </span>
+                <span className="relative inline-block">
+                  <span className="text-blue-600 relative z-10">Clubs</span>
+                  <motion.img
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    src={decoration}
+                    alt="Decoration"
+                    className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
+                  />
+                </span>
+              </h1>
 
-        {/* Club Tabs */}
-        <div className="max-w-7xl mx-auto">
-          <div className="w-full overflow-x-auto overflow-y-hidden pb-2 mb-8">
-            <div className="flex flex-nowrap gap-2 min-w-max px-4">
-              {clubsData.map((club, index) => {
-                const Icon = club.icon;
-                return (
-                  <motion.button
-                    key={club.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    onClick={() => setActiveClub(club)}
-                    className={`shrink-0 cursor-pointer flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${activeClub.id === club.id
-                      ? `${club.bgColor} border-2 ${club.borderColor} shadow-lg scale-[1.02]`
-                      : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md"
-                      }`}
-                  >
-                    <div className={`p-1.5 rounded-md bg-linear-to-br ${club.color}`}>
-                      <Icon className="w-4 h-4 text-white" />
-                    </div>
-                    <span
-                      className={`font-medium text-xs md:text-sm ${activeClub.id === club.id ? "text-gray-900" : "text-gray-600"
-                        }`}
-                    >
-                      {club.title.split(" ").slice(0, 3).join(" ")}
-                      <br />
-                      {club.title.split(" ").slice(3).join(" ")}
-                    </span>
-                  </motion.button>
-                );
-              })}
-            </div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12"
+              >
+                Explore our diverse range of academic clubs and programs designed to enhance your learning experience, foster collaboration, and develop essential skills for your future career.
+              </motion.p>
+            </motion.div>
           </div>
 
-
-          {/* Club Details */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeClub.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
-            >
-              {/* Club Header with Join Button */}
-              <div className={`p-8 ${activeClub.bgColor} border-b ${activeClub.borderColor}`}>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className={`p-3 rounded-xl bg-linear-to-br ${activeClub.color}`}>
-                      <activeClub.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h2 className="text-xl sm:text-3xl font-bold text-gray-900">{activeClub.title}</h2>
-                      <div className="h-1 w-20 mt-2 rounded-full bg-linear-to-r from-gray-300 to-transparent" />
-                    </div>
-                  </div>
-
-                  {/* Join Button on Right Side */}
-                  <a
-                    href="https://forms.office.com/r/m8Y6kiAF9d"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap"
-                  >
-                    <span>Join Club</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </a>
-                </div>
-                <p className="text-gray-700 text-lg leading-relaxed">
-                  {activeClub.content.intro}
-                </p>
+          {/* Club Tabs */}
+          <div className="max-w-7xl mx-auto">
+            <div className="w-full overflow-x-auto overflow-y-hidden pb-2 mb-8">
+              <div className="flex flex-nowrap gap-2 min-w-max px-4">
+                {clubsData.map((club, index) => {
+                  const Icon = club.icon;
+                  return (
+                    <motion.button
+                      key={club.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      onClick={() => setActiveClub(club)}
+                      className={`shrink-0 cursor-pointer flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${activeClub.id === club.id
+                        ? `${club.bgColor} border-2 ${club.borderColor} shadow-lg scale-[1.02]`
+                        : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md"
+                        }`}
+                    >
+                      <div className={`p-1.5 rounded-md bg-linear-to-br ${club.color}`}>
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <span
+                        className={`font-medium text-xs md:text-sm ${activeClub.id === club.id ? "text-gray-900" : "text-gray-600"
+                          }`}
+                      >
+                        {club.title.split(" ").slice(0, 3).join(" ")}
+                        <br />
+                        {club.title.split(" ").slice(3).join(" ")}
+                      </span>
+                    </motion.button>
+                  );
+                })}
               </div>
+            </div>
 
-              {/* Club Content */}
-              <div className="p-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-8">
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
-                        Vision
-                      </h4>
-                      <p className="text-gray-600 leading-relaxed pl-4">
-                        {activeClub.content.vision}
-                      </p>
-                    </div>
 
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
-                        Mission
-                      </h4>
-                      <p className="text-gray-600 leading-relaxed pl-4">
-                        {activeClub.content.mission}
-                      </p>
-                    </div>
-
-                    {/* Three Cards Below Mission */}
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 pt-4">
-                      <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
-                          Membership
-                        </div>
-                        <p className="text-gray-600 text-xs">
-                          Open to all LBEF students with flexible participation requirements
-                        </p>
+            {/* Club Details */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeClub.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+              >
+                {/* Club Header with Join Button */}
+                <div className={`p-8 ${activeClub.bgColor} border-b ${activeClub.borderColor}`}>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className={`p-3 rounded-xl bg-linear-to-br ${activeClub.color}`}>
+                        <activeClub.icon className="w-8 h-8 text-white" />
                       </div>
-                      <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
-                          Activities
-                        </div>
-                        <p className="text-gray-600 text-xs">
-                          Regular workshops, projects, and networking events
-                        </p>
-                      </div>
-                      <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
-                          Leadership
-                        </div>
-                        <p className="text-gray-600 text-xs">
-                          Elected student leadership with faculty guidance
-                        </p>
+                      <div>
+                        <h2 className="text-xl sm:text-3xl font-bold text-gray-900">{activeClub.title}</h2>
+                        <div className="h-1 w-20 mt-2 rounded-full bg-linear-to-r from-gray-300 to-transparent" />
                       </div>
                     </div>
+
+                    {/* Join Button on Right Side */}
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLScfjnEoPvC67jFVreIqs0pjFnrGHx_wnlRaJkSs772zj4V9mg/viewform?pli=1&embedded=true&pli=1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                    >
+                      <span>Join Club</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
                   </div>
+                  <p className="text-gray-700 text-lg leading-relaxed">
+                    {activeClub.content.intro}
+                  </p>
+                </div>
 
-                  <div className="space-y-8">
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
-                        Leadership Team
-                      </h4>
-                      <ul className="space-y-2 pl-4">
-                        {activeClub.content.leadership.map((item, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="flex items-start gap-3 text-gray-600"
-                          >
-                            <div className={`w-2 h-2 rounded-full mt-2 bg-linear-to-r ${activeClub.color}`} />
-                            <span className="text-sm">{item}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
+                {/* Club Content */}
+                <div className="p-8">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-8">
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                          <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
+                          Vision
+                        </h4>
+                        <p className="text-gray-600 leading-relaxed pl-4">
+                          {activeClub.content.vision}
+                        </p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                          <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
+                          Mission
+                        </h4>
+                        <p className="text-gray-600 leading-relaxed pl-4">
+                          {activeClub.content.mission}
+                        </p>
+                      </div>
+
+                      {/* Three Cards Below Mission */}
+                      <div className="grid grid-cols-1 md:grid-cols-1 gap-4 pt-4">
+                        <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                          <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
+                            Membership
+                          </div>
+                          <p className="text-gray-600 text-xs">
+                            Open to all LBEF students with flexible participation requirements
+                          </p>
+                        </div>
+                        <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                          <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
+                            Activities
+                          </div>
+                          <p className="text-gray-600 text-xs">
+                            Regular workshops, projects, and networking events
+                          </p>
+                        </div>
+                        <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                          <div className={`text-lg font-bold bg-linear-to-r ${activeClub.color} bg-clip-text text-transparent mb-2`}>
+                            Leadership
+                          </div>
+                          <p className="text-gray-600 text-xs">
+                            Elected student leadership with faculty guidance
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
-                        Key Activities
-                      </h4>
-                      <ul className="space-y-2 pl-4">
-                        {activeClub.content.activities.map((item, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="flex items-start gap-3 text-gray-600"
-                          >
-                            <div className={`w-2 h-2 rounded-full mt-2 bg-linear-to-r ${activeClub.color}`} />
-                            <span className="text-sm">{item}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
+                    <div className="space-y-8">
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                          <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
+                          Leadership Team
+                        </h4>
+                        <ul className="space-y-2 pl-4">
+                          {activeClub.content.leadership.map((item, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.05 }}
+                              className="flex items-start gap-3 text-gray-600"
+                            >
+                              <div className={`w-2 h-2 rounded-full mt-2 bg-linear-to-r ${activeClub.color}`} />
+                              <span className="text-sm">{item}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                          <span className={`w-2 h-6 rounded-full bg-linear-to-b ${activeClub.color}`} />
+                          Key Activities
+                        </h4>
+                        <ul className="space-y-2 pl-4">
+                          {activeClub.content.activities.map((item, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.05 }}
+                              className="flex items-start gap-3 text-gray-600"
+                            >
+                              <div className={`w-2 h-2 rounded-full mt-2 bg-linear-to-r ${activeClub.color}`} />
+                              <span className="text-sm">{item}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-    </div>
-   </>
+    </>
   );
 };
 

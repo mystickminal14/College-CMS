@@ -192,7 +192,6 @@ const Section = ({
         : members.map((member) => (
             <motion.div
               key={member.id}
-              variants={fadeUp}
               whileHover={{ y: -6 }}
               onClick={() =>
                 navigate(`/team/${member.id}`, { state: { member } })
