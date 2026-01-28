@@ -8,7 +8,7 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="bg-white flex flex-col lg:flex-row items-center justify-center lg:justify-between p-4 md:p-6 lg:p-10 lg:pt-15">
+      <section className="bg-white flex flex-col lg:flex-row items-center justify-center lg:justify-between p-4 md:p-6 lg:p-10 lg:pt-12">
         <div className="hidden lg:flex items-center">
           <div className="w-3 h-3 bg-[#0F183F] rotate-45"></div>
           <div className="h-0.5 bg-[#0F183F] w-[10vw]"></div>
