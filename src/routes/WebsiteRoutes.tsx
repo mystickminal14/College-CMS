@@ -1,42 +1,58 @@
-import OurTeamWeb from "../website/pages/our-team/OurTeam";
-import RecognitionPageWeb from "../website/pages/recognition/RecognitionWeb";
-import CourseProgram from "../website/pages/programs/CourseProgram";
-import CourseDetails from "../pages/courses/CourseDetails";
-import { HomePage } from "../website/pages/home/Home";
+import { lazy } from "react";
 import { WebsiteLayout } from "../website/WebLayout";
-import AcademicWebPlanner from "../website/pages/academic-planner-web/AcademicWebPlanner";
-import StudentHandbook from "../website/pages/handbook/Handbook";
-import HolidayWebPlanner from "../website/pages/holidays/Holiday";
-import AdmissionProcedure from "../website/pages/admission/AdmissionPage";
-import { AboutPage } from "../website/pages/about/About";
-import ContactListPage from "../website/pages/contact-list/ContactListingPage";
-import CodeOfConduct from "../website/pages/CodeOfConduct";
-import FeePlannersWeb from "../website/pages/fee-planner-web/FeePlannerWeb";
-import AchievementWeb from "../website/pages/achievement/AchivementWeb";
-import NoticeWeb from "../website/pages/notice/NoticeWeb";
-import Gallery from "../website/pages/gallery/Gallery";
-import LBEFConnectWeb from "../website/pages/lbef-connect-web/lbef-connect-web";
-import GyandeepScholasrhip from "../website/pages/admission/Gyandeep";
-import MeritScholarship from "../website/pages/admission/Merit";
-import JournalPageWeb from "../website/pages/journal/JournalPageWeb";
-import { AboutUniversity } from "../website/pages/about-university/AboutUniversity";
-import NewsPageWeb from "../website/pages/news/News";
-import ICTScholarship from "../website/pages/admission/IctScholarship";
-import PaymentModes from "../website/pages/payment-modes/PaymentModes";
-import AlumniSpeaks from "../website/pages/alumni-speaks/AlumniSpeaks";
-import StudentAccess from "../website/pages/StudentAccess/StudentAccess";
-import TeamDetail from "../website/pages/our-team/OurTeamDetails";
-import GalleryView from "../website/pages/gallery/GalleryView";
-import AlumniFormPage from "../website/pages/alumni-form/pages/Index";
-import AcademicClub from "../website/pages/academic-club/AcademicClub";
-import OurMessage from "../website/pages/our-message/OurMessage";
 
+/* =======================
+   Lazy Loaded Pages
+======================= */
+
+const HomePage = lazy(() => import("../website/pages/home/Home"));
+
+const OurTeamWeb = lazy(() => import("../website/pages/our-team/OurTeam"));
+const RecognitionPageWeb = lazy(() => import("../website/pages/recognition/RecognitionWeb"));
+const CourseProgram = lazy(() => import("../website/pages/programs/CourseProgram"));
+const CourseDetails = lazy(() => import("../pages/courses/CourseDetails"));
+const AcademicWebPlanner = lazy(() => import("../website/pages/academic-planner-web/AcademicWebPlanner"));
+const StudentHandbook = lazy(() => import("../website/pages/handbook/Handbook"));
+const HolidayWebPlanner = lazy(() => import("../website/pages/holidays/Holiday"));
+const AdmissionProcedure = lazy(() => import("../website/pages/admission/AdmissionPage"));
+const AboutPage = lazy(() => import("../website/pages/about/About"));
+const ContactListPage = lazy(() => import("../website/pages/contact-list/ContactListingPage"));
+const CodeOfConduct = lazy(() => import("../website/pages/CodeOfConduct"));
+const FeePlannersWeb = lazy(() => import("../website/pages/fee-planner-web/FeePlannerWeb"));
+const AchievementWeb = lazy(() => import("../website/pages/achievement/AchivementWeb"));
+const NoticeWeb = lazy(() => import("../website/pages/notice/NoticeWeb"));
+const Gallery = lazy(() => import("../website/pages/gallery/Gallery"));
+const LBEFConnectWeb = lazy(() => import("../website/pages/lbef-connect-web/lbef-connect-web"));
+const GyandeepScholasrhip = lazy(() => import("../website/pages/admission/Gyandeep"));
+const MeritScholarship = lazy(() => import("../website/pages/admission/Merit"));
+const JournalPageWeb = lazy(() => import("../website/pages/journal/JournalPageWeb"));
+const AboutUniversity = lazy(() => import("../website/pages/about-university/AboutUniversity"));
+const NewsPageWeb = lazy(() => import("../website/pages/news/News"));
+const ICTScholarship = lazy(() => import("../website/pages/admission/IctScholarship"));
+const PaymentModes = lazy(() => import("../website/pages/payment-modes/PaymentModes"));
+const AlumniSpeaks = lazy(() => import("../website/pages/alumni-speaks/AlumniSpeaks"));
+const StudentAccess = lazy(() => import("../website/pages/StudentAccess/StudentAccess"));
+const TeamDetail = lazy(() => import("../website/pages/our-team/OurTeamDetails"));
+const GalleryView = lazy(() => import("../website/pages/gallery/GalleryView"));
+const AlumniFormPage = lazy(() => import("../website/pages/alumni-form/pages/Index"));
+const AcademicClub = lazy(() => import("../website/pages/academic-club/AcademicClub"));
+const OurMessage = lazy(() => import("../website/pages/our-message/OurMessage"));
+
+/* =======================
+   Placeholder Page
+======================= */
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
   <div className="min-h-screen flex items-center justify-center">
-    <h1 className="text-4xl font-bold">{pageName} - Page Under Construction</h1>
+    <h1 className="text-4xl font-bold">
+      {pageName} - Page Under Construction
+    </h1>
   </div>
 );
+
+/* =======================
+   Routes (UNCHANGED)
+======================= */
 
 export const websiteRoutes = [
   {
@@ -55,9 +71,12 @@ export const websiteRoutes = [
           { path: "about-university", element: <AboutUniversity /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
           { path: "achivement", element: <AchievementWeb /> },
-          {path:"messages", element:<OurMessage/>},
+          { path: "messages", element: <OurMessage /> },
           { path: "our-team", element: <OurTeamWeb /> },
-          { path: "training-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
+          {
+            path: "training-placement",
+            element: <PlaceholderPage pageName="Training & Placement Cell" />,
+          },
           { path: "holidays", element: <HolidayWebPlanner /> },
         ],
       },
@@ -73,35 +92,20 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <CourseProgram /> },
           { path: "programs", element: <CourseProgram /> },
-          { path: "student-code-of-conduct", element: <CodeOfConduct /> },
+          {
+            path: "student-code-of-conduct",
+            element: <CodeOfConduct />,
+          },
           { path: ":name/:id", element: <CourseDetails /> },
-          {
-            path: "fee-planner", element: <FeePlannersWeb />
-          },
-          {
-            path: "academic-planner", element: <AcademicWebPlanner />
-          },
-          {
-            path: "academic-club", element: <AcademicClub />
-          },
-          {
-            path: "downloads", element: <StudentHandbook />
-          },
-          {
-            path: "payment-modes", element: <PaymentModes />
-          },
-          {
-            path: "alumni-speaks", element: <AlumniSpeaks />
-          },
-          {
-            path: "alumni-form", element: <AlumniFormPage />
-          },
-          {
-            path: "student-access", element: <StudentAccess />
-          },
-          {
-            path: "student-support", element: <ContactListPage />
-          },
+          { path: "fee-planner", element: <FeePlannersWeb /> },
+          { path: "academic-planner", element: <AcademicWebPlanner /> },
+          { path: "academic-club", element: <AcademicClub /> },
+          { path: "downloads", element: <StudentHandbook /> },
+          { path: "payment-modes", element: <PaymentModes /> },
+          { path: "alumni-speaks", element: <AlumniSpeaks /> },
+          { path: "alumni-form", element: <AlumniFormPage /> },
+          { path: "student-access", element: <StudentAccess /> },
+          { path: "student-support", element: <ContactListPage /> },
           { path: "notices", element: <NoticeWeb /> },
         ],
       },
@@ -109,8 +113,10 @@ export const websiteRoutes = [
         path: "admissions",
         children: [
           { path: "", element: <AdmissionProcedure /> },
-          { path: "admission-process", element: <AdmissionProcedure /> },
-
+          {
+            path: "admission-process",
+            element: <AdmissionProcedure />,
+          },
         ],
       },
       {
@@ -118,11 +124,12 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <Gallery /> },
           { path: "photo-gallery", element: <Gallery /> },
-          { path: "photo-gallery/:name/:id", element: <GalleryView /> },
+          {
+            path: "photo-gallery/:name/:id",
+            element: <GalleryView />,
+          },
           { path: "connect", element: <LBEFConnectWeb /> },
           { path: "news-events", element: <NewsPageWeb /> },
-         
-
         ],
       },
       {
@@ -130,15 +137,16 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <JournalPageWeb /> },
           { path: "volume/view/:id", element: <JournalPageWeb /> },
-          { path: "volume/abstract/:id", element: <JournalPageWeb /> },
-
+          {
+            path: "volume/abstract/:id",
+            element: <JournalPageWeb />,
+          },
         ],
       },
       {
         path: "gyandeep-scholarship",
         element: <GyandeepScholasrhip />,
       },
-
       {
         path: "ict-scholarship",
         element: <ICTScholarship />,
@@ -159,7 +167,6 @@ export const websiteRoutes = [
         path: "contact",
         element: <PlaceholderPage pageName="Contact Us" />,
       },
-     
       {
         path: "team/:id",
         element: <TeamDetail />,
@@ -168,7 +175,6 @@ export const websiteRoutes = [
         path: "enroll",
         element: <PlaceholderPage pageName="Enroll Now" />,
       },
-
-    ]
-  }
+    ],
+  },
 ];

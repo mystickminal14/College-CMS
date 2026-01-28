@@ -13,7 +13,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import NewCourse from "./components/NewCourse";
 import GalleryGrid from "./components/GalleryGrid";
 import Seo from "../../../context/seo";
-export function HomePage() {
+export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

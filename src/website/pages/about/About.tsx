@@ -18,7 +18,7 @@ import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 
 
-export function AboutPage() {
+export default function AboutPage() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

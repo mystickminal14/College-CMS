@@ -7,7 +7,7 @@ import HeroSection from "./components/HeroSection";
 import { ImageSection } from "./components/ImageSection";
 import MissionVisionSection from "./components/Mission";
 
-export function AboutUniversity() {
+export default function AboutUniversity() {
   return (
     <>
     <Seo

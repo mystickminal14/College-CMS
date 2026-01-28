@@ -15,7 +15,7 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
       return;
     }
 
-    btn.click(); // 🔥 THIS opens Meritto popup
+    btn.click(); // 🚀 Opens popup
   };
 
   return (
@@ -24,6 +24,7 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
     </EnquiryContext.Provider>
   );
 };
+
 
 export const useEnquiry = () => {
   const ctx = useContext(EnquiryContext);

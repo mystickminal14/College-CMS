@@ -42,6 +42,36 @@
 </head>
 
 <body style="font-family: 'Inter', sans-serif;">
+  <!-- Hidden Enquiry Button (Meritto listens to this) -->
+<button
+  id="meritto-enquiry-btn"
+  class="npfWidgetButton npfWidget-22c1142ae37bdbc283d1bdf26604a17f"
+  style="display: none;"
+>
+  Enquire Now
+</button>
+
+<!-- Popup Container -->
+<div id="popup-22c1142ae37bdbc283d1bdf26604a17f" class="npfPopup"></div>
+
+<!-- Meritto Script -->
+<script src="https://in8cdn.npfs.co/js/widget/npfwpopup.js"></script>
+
+<script>
+  window.addEventListener("load", function () {
+    new NpfWidgetsInit({
+      widgetId: "22c1142ae37bdbc283d1bdf26604a17f",
+      baseurl: "widgets.in8.nopaperforms.com",
+      formTitle: "Enquiry Form",
+      titleColor: "#FF0033",
+      backgroundColor: "#ddd",
+      iframeHeight: "500px",
+      buttonbgColor: "navy",
+      buttonTextColor: "#FFF",
+    });
+  });
+</script>
+
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 
