@@ -29,6 +29,7 @@ import TeamDetail from "../website/pages/our-team/OurTeamDetails";
 import GalleryView from "../website/pages/gallery/GalleryView";
 import AlumniFormPage from "../website/pages/alumni-form/pages/Index";
 import AcademicClub from "../website/pages/academic-club/AcademicClub";
+import OurMessage from "../website/pages/our-message/OurMessage";
 
 
 const PlaceholderPage = ({ pageName }: { pageName: string }) => (
@@ -54,7 +55,7 @@ export const websiteRoutes = [
           { path: "about-university", element: <AboutUniversity /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
           { path: "achivement", element: <AchievementWeb /> },
-
+          {path:"messages", element:<OurMessage/>},
           { path: "our-team", element: <OurTeamWeb /> },
           { path: "training-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
           { path: "holidays", element: <HolidayWebPlanner /> },

@@ -109,10 +109,7 @@ export default function OurCore() {
               onClose={() => setSelectedId(null)}
             />
           )}
-
-
         </div>
-
       </div>
     </section>
   );

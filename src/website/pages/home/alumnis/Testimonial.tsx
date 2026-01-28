@@ -203,7 +203,7 @@ export function Testimonial() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white rounded-3xl shadow-2xl p-2 lg:p-8 min-h-[500px]  flex  flex-col lg:flex-row gap-8"
+                  className="bg-white rounded-3xl shadow-2xl p-2 lg:p-8 min-h-[500px] flex flex-col lg:flex-row gap-8 max-w-5xl mx-auto"
                 >
                   {/* Left side - Image and Info (40%) */}
                   <div className="lg:w-2/5 flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
