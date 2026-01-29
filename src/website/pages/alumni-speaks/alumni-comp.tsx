@@ -165,181 +165,185 @@ export function AlumniComp() {
             </p>
           </div>
         ) : (
-          <div className="space-y-8">
-            {/* Main testimonial card */}
-            <div
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              className="relative"
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-white rounded-3xl shadow-2xl p-2 lg:p-8 min-h-[500px]  flex  flex-col lg:flex-row gap-8"
-                >
-                  {/* Left side - Image and Info (40%) */}
-                  <div className="lg:w-2/5 flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
-                    {/* Smaller Image */}
-                    <div className="relative">
-                      <img
-                        src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
-                        alt={activeAlumni?.name ?? ""}
-                        className="w-full h-60 lg:w-80 lg:h-95 aspect-4/3 rounded-2xl object-cover shadow-lg"
-                      />
-                    </div>
-
-                    {/* User Info */}
-                    <div className="space-y-2">
-                      <h3 className="text-xl lg:text-2xl font-bold text-gray-900">
-                        {activeAlumni?.name ?? ""}
-                      </h3>
-                      <p className="text-lg font-medium text-[#474AFF]">
-                        {activeAlumni?.position ?? ""}
-                      </p>
-                      <p className="text-gray-600">
-                        {activeAlumni?.course ?? ""}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Batch {activeAlumni?.batch ?? ""}
-                      </p>
-                    </div>
-                  </div>
-
-
-                  {/* Right side - Content, Video and Pagination (60%) */}
-                  <div className="lg:w-6/5 flex flex-col">
-                    {/* Content Section */}
-                    <div className="flex-1 mb-6">
-                      <div
-                        ref={storyRef}
-                        className="relative text-gray-700 h-full"
-                      >
-                        <span className="absolute -top-4 -left-2 text-5xl sm:text-6xl text-blue-100 font-bold select-none">
-                          &ldquo;
-                        </span>
-
-                        <div className="h-full pl-2 pr-2 lg:pl-6 lg:pr-4 pt-6 pb-2">
-                          <p className="text-base sm:text-lg leading-relaxed">
-                            {limitWords(story, MAX_WORDS)}
-                          </p>
-                        </div>
-
-                        <span className="absolute -bottom-4 -right-2 text-5xl sm:text-6xl text-blue-100 font-bold select-none">
-                          &rdquo;
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Video Section (if video exists) */}
-                    {activeAlumni?.link && (
-                      <div className="mb-6">
-                        <div className="flex justify-end gap-4">
-                          <div
-                            onClick={openVideoPopup}
-                            className="relative cursor-pointer group rounded-xl overflow-hidden bg-gray-100 hover:shadow-lg transition-shadow shrink-0"
-                            style={{ width: '200px', height: '120px' }}
-                          >
-                            <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity z-10" />
-                            <img
-                              src={`https://img.youtube.com/vi/${activeAlumni.link.split('v=')[1]?.split('&')[0] || ''}/hqdefault.jpg`}
-                              alt="Video thumbnail"
-                              className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center z-20">
-                              <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Play className="w-5 h-5 text-[#474AFF] ml-0.5" />
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Pagination Section (Below content and video with border top) */}
-                    <div className="border-t border-gray-200 pt-6">
-                      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        {/* Page indicator */}
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-gray-600">
-                            {activeIndex + 1} / {alumni.length}
-                          </span>
-
-                        </div>
-
-                        {/* Pagination dots */}
-                        {alumni.length > 1 && (
-                          <div className="flex items-center gap-2">
-                            {alumni.map((_, index) => (
-                              <button
-                                key={index}
-                                onClick={() => goToPage(index)}
-                                className={`w-3 h-3 rounded-full transition-all ${activeIndex === index
-                                  ? "bg-[#474AFF] scale-110"
-                                  : "bg-gray-300 hover:bg-gray-400"
-                                  }`}
-                                aria-label={`Go to testimonial ${index + 1}`}
-                              />
-                            ))}
-                          </div>
-                        )}
-
-                        {/* Navigation buttons */}
-                        <div className="flex items-center gap-3">
-                          <button
-                            onClick={prev}
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-gray-300 hover:border-[#474AFF] hover:bg-[#474AFF] hover:text-white transition-all flex items-center justify-center"
-                            aria-label="Previous testimonial"
-                          >
-                            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-                          </button>
-
-                          <button
-                            onClick={next}
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#474AFF] text-white hover:bg-blue-700 transition-all flex items-center justify-center"
-                            aria-label="Next testimonial"
-                          >
-                            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Mobile thumbnail indicators */}
-            <div className="lg:hidden overflow-x-auto scrollbar-hide">
-              <div className="flex gap-3 justify-center">
-                {alumni.slice(0, Math.min(alumni.length, 5)).map((a, index) => (
-                  <button
-                    key={a.id}
-                    onClick={() => goToPage(index)}
-                    className={`w-12 h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
-                      ? "ring-2 ring-[#474AFF] ring-offset-2"
-                      : "opacity-50 hover:opacity-70"
-                      }`}
-                  >
-                    <img
-                      src={a.image ? IMAGE_URL + a.image : ""}
-                      alt={a.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-                {alumni.length > 5 && (
-                  <div className="flex items-center justify-center w-12 h-12 bg-gray-200 rounded-lg text-sm font-medium">
-                    +{alumni.length - 5}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <div className="space-y-6">
+                   <div
+                     onMouseEnter={() => setIsHovering(true)}
+                     onMouseLeave={() => setIsHovering(false)}
+                     className="relative"
+                   >
+                     <AnimatePresence mode="wait">
+                       <motion.div
+                         key={activeIndex}
+                         initial={{ opacity: 0, x: 20 }}
+                         animate={{ opacity: 1, x: 0 }}
+                         exit={{ opacity: 0, x: -20 }}
+                         transition={{ duration: 0.3 }}
+                         className="bg-white rounded-2xl sm:rounded-3xl shadow-lg  p-4 sm:p-6 lg:p-8 min-h-[400px] sm:min-h-[450px] flex flex-col lg:flex-row gap-6  max-w-5xl mx-auto"
+                       >
+                         {/* Left side - Square Image and Info */}
+                         <div className="lg:w-2/5 flex flex-col gap-4 sm:gap-6 items-center lg:items-start text-center lg:text-left">
+                           {/* Square Image */}
+                           <div className="relative w-full max-w-[280px] lg:max-w-[300px]">
+                             <div className="aspect-square rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
+                               <img
+                                 src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
+                                 alt={activeAlumni?.name ?? ""}
+                                 className="w-full h-full object-cover"
+                               />
+                             </div>
+                           </div>
+                           <div className="space-y-1.5 sm:space-y-2 w-full max-w-[280px] lg:max-w-[320px]">
+                             <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 truncate">
+                               {activeAlumni?.name ?? ""}
+                             </h3>
+                             <div className="min-h-6 sm:min-h-7">
+                               <p 
+                                 className={`text-[#474AFF] font-medium wrap-break-word ${(activeAlumni?.position?.length || 0) > 30 
+                                   ? 'text-sm sm:text-base leading-tight' 
+                                   : 'text-base sm:text-md'
+                                 }`}
+                               >
+                                 {activeAlumni?.position ?? ""}
+                               </p>
+                             </div>
+                             
+                             <p className="text-sm sm:text-base text-gray-600 truncate">
+                               {activeAlumni?.course ?? ""}
+                             </p>
+                             <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                               Batch {activeAlumni?.batch ?? ""}
+                             </p>
+                           </div>
+                         </div>
+       
+                         {/* Right side - Content, Video and Pagination */}
+                         <div className="lg:w-3/5 flex flex-col">
+                           {/* Content Section */}
+                           <div className="flex-1 mb-4 sm:mb-6">
+                             <div
+                               ref={storyRef}
+                               className="relative text-gray-700 h-full"
+                             >
+                               <span className="absolute -top-3 -left-1 sm:-top-4 sm:-left-2 text-4xl sm:text-5xl lg:text-6xl text-blue-100 font-bold select-none">
+                                 &ldquo;
+                               </span>
+       
+                               <div className="h-full pl-3 sm:pl-4 lg:pl-6 pr-2 sm:pr-4 pt-5 sm:pt-6 pb-2">
+                                 <p className="text-sm sm:text-base lg:text-md leading-relaxed">
+                                   {limitWords(story, MAX_WORDS)}
+                                 </p>
+                               </div>
+       
+                               <span className="absolute -bottom-3 -right-1 sm:-bottom-4 sm:-right-2 text-4xl sm:text-5xl lg:text-6xl text-blue-100 font-bold select-none">
+                                 &rdquo;
+                               </span>
+                             </div>
+                           </div>
+       
+                           {/* Video Section (if video exists) */}
+                           {activeAlumni?.link && (
+                             <div className="mb-4 sm:mb-6">
+                               <div className="flex justify-end">
+                                 <div
+                                   onClick={openVideoPopup}
+                                   className="relative cursor-pointer group rounded-lg sm:rounded-xl overflow-hidden bg-gray-100 hover:shadow-lg transition-shadow shrink-0"
+                                   style={{ width: '180px', height: '100px' }}
+                                 >
+                                   <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity z-10" />
+                                   <img
+                                     src={`https://img.youtube.com/vi/${activeAlumni.link.split('v=')[1]?.split('&')[0] || ''}/hqdefault.jpg`}
+                                     alt="Video thumbnail"
+                                     className="w-full h-full object-cover"
+                                   />
+                                   <div className="absolute inset-0 flex items-center justify-center z-20">
+                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                       <Play className="w-4 h-4 sm:w-5 sm:h-5 text-[#474AFF] ml-0.5" />
+                                     </div>
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                           )}
+       
+                           {/* Pagination Section */}
+                           <div className="border-t border-gray-200 pt-4 sm:pt-6">
+                             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+                               {/* Page indicator */}
+                               <div className="flex items-center gap-2">
+                                 <span className="text-xs sm:text-sm font-medium text-gray-600">
+                                   {activeIndex + 1} / {alumni.length}
+                                 </span>
+                               </div>
+       
+                               {/* Pagination dots */}
+                               {alumni.length > 1 && (
+                                 <div className="flex items-center gap-1.5 sm:gap-2">
+                                   {alumni.map((_, index) => (
+                                     <button
+                                       key={index}
+                                       onClick={() => goToPage(index)}
+                                       className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${activeIndex === index
+                                           ? "bg-[#474AFF] scale-110"
+                                           : "bg-gray-300 hover:bg-gray-400"
+                                         }`}
+                                       aria-label={`Go to testimonial ${index + 1}`}
+                                     />
+                                   ))}
+                                 </div>
+                               )}
+       
+                               {/* Navigation buttons */}
+                               <div className="flex items-center gap-2 sm:gap-3">
+                                 <button
+                                   onClick={prev}
+                                   className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border-2 border-gray-300 hover:border-[#474AFF] hover:bg-[#474AFF] hover:text-white transition-all flex items-center justify-center"
+                                   aria-label="Previous testimonial"
+                                 >
+                                   <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                                 </button>
+       
+                                 <button
+                                   onClick={next}
+                                   className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#474AFF] text-white hover:bg-blue-700 transition-all flex items-center justify-center"
+                                   aria-label="Next testimonial"
+                                 >
+                                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                                 </button>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </motion.div>
+                     </AnimatePresence>
+                   </div>
+       
+                   {/* Mobile thumbnail indicators */}
+                   <div className="lg:hidden overflow-x-auto scrollbar-hide">
+                     <div className="flex gap-2 sm:gap-3 justify-center">
+                       {alumni.slice(0, Math.min(alumni.length, 5)).map((a, index) => (
+                         <button
+                           key={a.id}
+                           onClick={() => goToPage(index)}
+                           className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
+                               ? "ring-2 ring-[#474AFF] ring-offset-2"
+                               : "opacity-50 hover:opacity-70"
+                             }`}
+                         >
+                           <img
+                             src={a.image ? IMAGE_URL + a.image : ""}
+                             alt={a.name}
+                             className="w-full h-full object-cover"
+                           />
+                         </button>
+                       ))}
+                       {alumni.length > 5 && (
+                         <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-lg text-xs sm:text-sm font-medium">
+                           +{alumni.length - 5}
+                         </div>
+                       )}
+                     </div>
+                   </div>
+                 </div>
         )}
 
         {/* Video Popup (only when video link exists and is clicked) */}

@@ -73,7 +73,6 @@ export default function HomePage() {
                 className="relative z-20 bg-white"
               >
                 <Testimonial />
-
                 <GalleryGrid />
 
                 <RecentNews />
