@@ -90,8 +90,10 @@ export function NavBar() {
       dropdown: [
         { name: "About LBEF", link: "/about/about-lbef", icon: <FaUniversity /> },
         { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
-        { name: "Recognition", link: "/about/recognition", icon: <FaCertificate /> },
-        { name: "Achivement", link: "/about/achivement", icon: <FaCertificate /> },
+        { name: "Recognitions", link: "/about/recognition", icon: <FaCertificate /> },
+        { name: "Permission Letter", link: "/about/recognition", icon: <FaCertificate /> },
+
+        { name: "Achivements", link: "/about/achivement", icon: <FaCertificate /> },
         {name: "Messages", link: "/about/messages", icon: <FaUsers />},
         { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
         { name: "Holidays", link: "/about/holidays", icon: <FaCalendar /> },

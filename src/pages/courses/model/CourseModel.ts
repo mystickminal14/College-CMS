@@ -10,6 +10,10 @@ export interface Courses {
   degree: string;
   details?: string;
   order?:number;
+  intake?:string;
+  brochure?:string;
+
+  fullForm?:string;
 
   image?: string;
   hasDetails?:boolean;

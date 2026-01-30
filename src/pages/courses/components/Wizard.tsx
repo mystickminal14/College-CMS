@@ -38,10 +38,10 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const [formData, setFormData] = useState({
     title: "",
     category: "",
-    degree: "",
+    degree: "",brochure:"",intake:"",
     prefix: "",
     credit: "",
-    duration: "",
+    duration: "",fullForm:"",
     semester: "",
     details: "",
     shift: "" as EShift,
@@ -55,6 +55,9 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
 
     if (courseToEdit) {
       setFormData({
+        fullForm:courseToEdit.fullForm ?? "",
+        brochure:courseToEdit.brochure ?? "",
+        intake:courseToEdit.intake??'',
         title: courseToEdit.title ?? "",
         category: courseToEdit.category ?? "",
         degree: courseToEdit.degree ?? "",
@@ -77,9 +80,9 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const resetForm = () => {
     setFormData({
       title: "",
-      prefix: "",
+      prefix: "",brochure:"",intake:"",
       degree: "",
-      category: "",
+      category: "",fullForm:"",
       credit: "",
       duration: "",
       semester: "",
@@ -118,6 +121,8 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     if (!formData.duration.trim()) return appContext?.showToast("Duration is required", "warn");
     if (!formData.semester.trim()) return appContext?.showToast("Semester is required", "warn");
     if (!formData.shift) return appContext?.showToast("Shift is required", "warn");
+    if (!formData.intake.trim()) return appContext?.showToast("Intake Date is required", "warn");
+
     return true;
   };
 

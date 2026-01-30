@@ -4,7 +4,7 @@ import decoration from '../../../../assets/decoration.webp';
 const faqs = [
   {
     question: "What is your intake timings?",
-    answer: "Admissions are conducted three times a year in the months of February, July, and August."
+    answer: "Admissions are conducted three times a year in the months of Spring, Summer and Fall Session."
   },
   {
     question: "Are the degrees recognized?",

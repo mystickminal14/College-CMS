@@ -11,7 +11,7 @@ const ImportantNotice = () => {
               Important Notice
             </h3>
             <p className="text-xs sm:text-base text-gray-700 mb-2 sm:mb-3 leading-relaxed">
-              Lord Buddha Education Foundation (LBEF) has been permitted by Ministry of Education to run the courses from Asia Pacific University of Technology & Innovation, Malaysia. All the Degrees will be awarded by APU.
+              Lord Buddha Education Foundation (Licensed Under LBEF Vidyapeeth Pvt. Ltd.) has been permitted by Ministry of Education to run the courses from Asia Pacific University of Technology & Innovation, Malaysia. All the Degrees will be awarded by APU.
             </p>
             <p className="text-xs sm:text-base text-gray-700 font-semibold leading-relaxed">
               Students are advised to read the prospectus & admission guidelines carefully before joining any programme. Fee once paid are not refunded in any circumstances.

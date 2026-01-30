@@ -14,11 +14,12 @@ interface CoursesBasicFormProps {
   formData: {
     title: string;
     prefix: string;
-    degree: string;
+    degree: string;intake?:string;
+  brochure?:string;
     credit: string;
     duration: string;
     category: string;
-    details: string;
+    details: string;fullForm:string,
     semester: string;
     shift: EShift;
   };
@@ -55,6 +56,15 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
           onChange={onChange}
           placeholder="Information Technology"
           required
+          isSubmitting={isSubmitting}
+        />
+        <InputField
+          icon={<BookOpen className="w-5 h-5" />}
+          label="Full Form"
+          value={formData.fullForm}
+          field="fullForm"
+          onChange={onChange}
+          placeholder="Masters in...(optional)"
           isSubmitting={isSubmitting}
         />
         <InputField
@@ -113,7 +123,6 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
           isSubmitting={isSubmitting}
         />
 
-        {/* Total Semester */}
         <InputField
           icon={<Calendar className="w-5 h-5" />}
           label="Total Semesters"
@@ -146,8 +155,30 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
             ))}
           </select>
         </div>
+     </div>
+      <div className="border-t border-gray-300 pt-4 flex flex-col md:flex-row gap-6">
+ <InputField
+  icon={<Calendar className="w-5 h-5" />}
+  label="Intake"
+  value={formData.intake || ""}
+  field="intake"
+  onChange={onChange}
+  placeholder="Select date"
+  type="date" // <-- make it a date picker
+  isSubmitting={isSubmitting}
+/>
 
-      </div>
+
+    <InputField
+      icon={<BookOpen className="w-5 h-5" />}
+      label="Brochure"
+      value={formData.brochure || ""}
+      field="brochure"
+      onChange={onChange}
+      placeholder="Upload brochure link"
+      isSubmitting={isSubmitting}
+    />
+  </div> 
     </div>
   );
 };

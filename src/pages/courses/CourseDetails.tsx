@@ -29,6 +29,7 @@ import CourseDetailRenderer from "./CourseDetailRender";
 import { useEnquiry } from "../../context/EnquiryContext";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
+import { parseDate } from "../../utils/ParseDate";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (
@@ -164,8 +165,58 @@ const CourseDetails = () => {
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
         <CourseNewHeader course={course} />
+        <div className="relative max-w-3xl mx-auto mb-8">
+          <div className="absolute inset-0 bg-linear-to-r from-blue-500/5 via-indigo-500/5 to-blue-500/5 rounded-2xl blur-xl"></div>
+          <div className=" bg-white/90 backdrop-blur-sm border border-blue-200 rounded-xl p-5 sm:p-6 shadow-lg sticky top-6 z-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <motion.div
+                variants={fadeItem}
+                initial="hidden"
+                whileInView="visible"
+                className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                  <Clock className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="text-sm font-semibold text-gray-800 mb-1">Course Duration</h3>
+                <p className="text-sm text-blue-700 font-medium">{course.duration} years ({course.semester} semester)</p>
+              </motion.div>
 
-        <div className="container max-w-7xl mx-auto px-4 sm:px-0 pb-20">
+              {/* Intake Date Card */}
+              <motion.div
+                variants={fadeItem}
+                initial="hidden"
+                whileInView="visible"
+                transition={{ delay: 0.1 }}
+                className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mb-3">
+                  <CalendarDays className="w-6 h-6 text-emerald-600" />
+                </div>
+                <h3 className="text-sm font-semibold text-gray-800 mb-1">Intake Date</h3>
+                <p className="text-sm text-emerald-700 font-medium">{course.intake!=""? parseDate(course.intake??''):<i>will be updated</i>}</p>
+              </motion.div>
+
+              {/* Download Brochure Card */}
+              <motion.div
+                variants={fadeItem}
+                initial="hidden"
+                whileInView="visible"
+                transition={{ delay: 0.2 }}
+                className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                  <FileText className="w-6 h-6 text-indigo-600" />
+                </div>
+                <h3 className="text-sm font-semibold text-gray-800 mb-1">Download Brochure</h3>
+                <button className="text-sm text-indigo-700 font-medium hover:text-indigo-800 underline">
+                  Download PDF
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+        <div className="container max-w-7xl mx-auto px-4 sm:px-0 mt-26 pb-20">
           <div className="flex flex-col-reverse sm:flex-col lg:flex-row gap-8">
             <main className="lg:w-2/3 space-y-8">
 
@@ -197,14 +248,14 @@ const CourseDetails = () => {
                   >
                     <motion.div
                       className={`p-4 sm:p-6 border-b border-gray-100 ${block.type === BlockType.HEADING
-                          ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
-                          : "bg-linear-to-r from-gray-50/50 to-white"
+                        ? "bg-linear-to-r from-blue-50/50 to-indigo-50/30"
+                        : "bg-linear-to-r from-gray-50/50 to-white"
                         } relative overflow-hidden`}
                     >
                       <motion.div
                         className={`absolute top-0 left-0 w-1 h-full ${block.type === BlockType.HEADING
-                            ? "bg-linear-to-b from-blue-500 to-indigo-500"
-                            : "bg-linear-to-b from-gray-400 to-gray-500"
+                          ? "bg-linear-to-b from-blue-500 to-indigo-500"
+                          : "bg-linear-to-b from-gray-400 to-gray-500"
                           }`}
                       />
 
@@ -217,7 +268,7 @@ const CourseDetails = () => {
                           {block.title}
                         </h2>
 
-                        
+
                       </div>
                     </motion.div>
 

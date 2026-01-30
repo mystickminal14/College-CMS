@@ -73,7 +73,15 @@ export default function CourseNewHeader({ course }: CourseHeaderProps) {
               </span>
             </>
           )}
-        </h1>
+        </h1>  <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto"
+          >
+           {course.fullForm}
+          </motion.p>
+         
       </motion.div>
     </div>
   )

@@ -11,7 +11,7 @@ import { APP_URL } from "../../../constants";
 
 const OurTeamWeb = () => {
   const { data, isLoading } = useGetTeamsByDept();
-  const teamData = data?.data ;
+  const teamData = data?.data;
 
   const managementTeam = teamData?.MANAGEMENT || [];
   const administrationTeam = teamData?.ADMINISTRATION || [];
@@ -27,7 +27,6 @@ const OurTeamWeb = () => {
         url={`${APP_URL}/about/our-team`}
       />
 
-      {/* ================= HERO ================= */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <motion.div
           variants={fadeUp}
@@ -90,7 +89,7 @@ const OurTeamWeb = () => {
 
           {/* ===== MANAGEMENT ===== */}
           <Section
-            title="Management"
+            title="Management Division"
             subtitle="Strategic leadership and institutional governance"
             badge="Leadership Team"
             color="blue"
@@ -98,7 +97,14 @@ const OurTeamWeb = () => {
             isLoading={isLoading}
             navigate={navigate}
           />
-
+          <Section
+            title="Administrative Department"
+            badge="Support & Operations"
+            color="purple"
+            members={administrationTeam}
+            isLoading={isLoading}
+            navigate={navigate}
+          />
           {/* ===== COMPUTING ===== */}
           <Section
             title="Department of Computing"
@@ -110,14 +116,7 @@ const OurTeamWeb = () => {
           />
 
           {/* ===== ADMINISTRATION ===== */}
-          <Section
-            title="Department of Administration"
-            badge="Support & Operations"
-            color="purple"
-            members={administrationTeam}
-            isLoading={isLoading}
-            navigate={navigate}
-          />
+
         </div>
       </div>
     </div>
@@ -159,20 +158,27 @@ const Section = ({
         <div className={`w-2 h-2 bg-${color}-500 rounded-full`} />
         <span className={`text-${color}-700 font-medium`}>{badge}</span>
       </div>
-
       <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-        {title}
-        <span className="relative inline-block ml-2">
-          <span className="text-blue-600 relative z-10">
-            {title.includes("Department") ? "" : "Division"}
-          </span>
-          <img
-            src={decoration}
-            alt="Decoration"
-            className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-            loading="lazy"
-          />
-        </span>
+        {(() => {
+          const words = title.split(" ");
+          const lastWord = words.pop(); // last word
+          const firstPart = words.join(" "); // rest of the title
+
+          return (
+            <>
+              {firstPart}{" "}
+              <span className="relative inline-block">
+                <span className="text-blue-600 relative z-10">{lastWord}</span>
+                <img
+                  src={decoration}
+                  alt="Decoration"
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
+                  loading="lazy"
+                />
+              </span>
+            </>
+          );
+        })()}
       </h3>
 
       {subtitle && <p className="text-gray-600 mt-2">{subtitle}</p>}
@@ -187,20 +193,20 @@ const Section = ({
     >
       {isLoading
         ? Array.from({ length: 4 }).map((_, i) => (
-            <TeamCardSkeleton key={i} />
-          ))
+          <TeamCardSkeleton key={i} />
+        ))
         : members.map((member) => (
-            <motion.div
-              key={member.id}
-              whileHover={{ y: -6 }}
-              onClick={() =>
-                navigate(`/team/${member.id}`, { state: { member } })
-              }
-              className="cursor-pointer"
-            >
-              <TeamCard member={member} />
-            </motion.div>
-          ))}
+          <motion.div
+            key={member.id}
+            whileHover={{ y: -6 }}
+            onClick={() =>
+              navigate(`/team/${member.id}`, { state: { member } })
+            }
+            className="cursor-pointer"
+          >
+            <TeamCard member={member} />
+          </motion.div>
+        ))}
     </motion.div>
   </motion.div>
 );
