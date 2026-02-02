@@ -37,7 +37,7 @@ export function EmailSubscribe() {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[#474AFF] opacity-65" />
+      <div className="absolute inset-0 bg-black opacity-65" />
 
       {/* Content */}
       <div className="relative z-10 px-6 text-center text-white">

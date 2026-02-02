@@ -3,7 +3,7 @@ import decoration from '../../../../assets/decoration.webp';
 
 const Inspiration = () => {
   return (
-    <div className="bg-linear-to-b from-white to-blue-50 py-8 md:py-20">
+    <div className="bg-linear-to-b from-white to-blue-50 py-8 md:py-14">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">

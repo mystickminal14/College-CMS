@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     question: "Mode of Study: Full Time or Part Time?",
-    answer: "All courses from APU are offered in full-time regular mode. Each course is developed with employability in mind and includes input from leading employers, ensuring relevance to students’ future careers."
+    answer: "All courses from APU are offered in full-time regular mode. Each course is developed with employability in mind and includes input from leading employers, ensuring relevance to students' future careers."
   }
 ];
 
@@ -66,6 +66,20 @@ export default function FAQSection() {
                 {isOpen && (
                   <div className="px-6 py-5 bg-gray-50 text-gray-700 border-t border-gray-200">
                     <p className="leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                    {/* Add View button only for the "Are the degrees recognized?" FAQ (index 1) */}
+                    {index === 1 && (
+                      <a
+                        href="/about/recognition"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-4 bg-[#474AFF] hover:bg-[#3a3dcc] text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200"
+                      >
+                        View Recognitions
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
                   </div>
                 )}
               </div>

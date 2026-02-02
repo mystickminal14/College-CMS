@@ -2,7 +2,7 @@ import subfootertwo from '../../../../assets/subfootertwo.webp';
 
 export default function ApeuSubFooter() {
   return (
-    <div className="w-full bg-gray-50 mt-10 overflow-hidden">
+<div className="w-full min-h-screen overflow-hidden bg-linear-to-b from-blue-50 via-sky-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="w-full text-center">
           <div className="w-full inline-block mb-10">
@@ -17,11 +17,9 @@ export default function ApeuSubFooter() {
                 mx-auto
                 block
                 rounded-xl
-      
               "
             />
           </div>
-
         </div>
       </div>
     </div>

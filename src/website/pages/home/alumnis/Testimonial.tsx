@@ -110,7 +110,7 @@ export function Testimonial() {
 
   return (
     <section className="py-8 sm:py-12 px-4 lg:px-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Heading (unchanged) */}
         <div className="text-center mb-8 sm:mb-10">
           <motion.h1
@@ -180,7 +180,7 @@ export function Testimonial() {
           </div>
         ) : (
           <div className="space-y-6">
-            {/* Main testimonial card - Compact layout */}
+            {/* Main testimonial card - Fixed height layout */}
             <div
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
@@ -193,12 +193,12 @@ export function Testimonial() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white rounded-2xl sm:rounded-3xl shadow-lg  p-4 sm:p-6 lg:p-8 min-h-[400px] sm:min-h-[450px] flex flex-col lg:flex-row gap-6  max-w-5xl mx-auto"
+                  className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-4 sm:p-6 lg:p-8 h-auto lg:h-[550px] flex flex-col lg:flex-row gap-2 max-w-6xl mx-auto"
                 >
                   {/* Left side - Square Image and Info */}
                   <div className="lg:w-2/5 flex flex-col gap-4 sm:gap-6 items-center lg:items-start text-center lg:text-left">
                     {/* Square Image */}
-                    <div className="relative w-full max-w-[280px] lg:max-w-[300px]">
+                    <div className="relative w-full max-w-[280px] lg:max-w-[280px]">
                       <div className="aspect-square rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
                         <img
                           src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
@@ -208,46 +208,44 @@ export function Testimonial() {
                       </div>
                     </div>
 
-                    {/* User Info with adjusted font sizes */}
-                    <div className="space-y-1.5 sm:space-y-2 w-full max-w-[280px] lg:max-w-[320px]">
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 truncate">
+                    {/* User Info with fixed height */}
+                    <div className="space-y-1.5 sm:space-y-2 w-full max-w-[270px] ">
+                      <h3 className="text-lg sm:text-xl  font-bold text-gray-900 truncate">
                         {activeAlumni?.name ?? ""}
                       </h3>
                       
-                      {/* Position with dynamic font size based on length */}
-                      <div className="min-h-6 sm:min-h-7">
+                      {/* Position with ellipsis for long text */}
+                      <div className="">
                         <p 
-                          className={`text-[#474AFF] font-medium wrap-break-word ${(activeAlumni?.position?.length || 0) > 30 
-                            ? 'text-sm sm:text-base leading-tight' 
-                            : 'text-base sm:text-md'
-                          }`}
+                          className="text-gray-500 font-medium text-sm sm:text-base leading-relaxed line-clamp-3"
+                          title={activeAlumni?.position ?? ""}
                         >
                           {activeAlumni?.position ?? ""}
                         </p>
                       </div>
                       
-                      <p className="text-sm sm:text-base text-gray-600 truncate">
+                      <p className="text-sm sm:text-md text-gray-600 line-clamp-2">
                         {activeAlumni?.course ?? ""}
                       </p>
-                      <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                      <p className="text-xs  text-gray-500 font-medium">
                         Batch {activeAlumni?.batch ?? ""}
                       </p>
                     </div>
                   </div>
 
                   {/* Right side - Content, Video and Pagination */}
-                  <div className="lg:w-3/5 flex flex-col">
-                    {/* Content Section */}
+                  <div className="lg:w-5/5 flex flex-col h-full mt-4 lg:mt-0">
+                    {/* Content Section with fixed height - No overflow on mobile */}
                     <div className="flex-1 mb-4 sm:mb-6">
                       <div
                         ref={storyRef}
-                        className="relative text-gray-700 h-full"
+                        className="relative text-gray-700"
                       >
                         <span className="absolute -top-3 -left-1 sm:-top-4 sm:-left-2 text-4xl sm:text-5xl lg:text-6xl text-blue-100 font-bold select-none">
                           &ldquo;
                         </span>
 
-                        <div className="h-full pl-3 sm:pl-4 lg:pl-6 pr-2 sm:pr-4 pt-5 sm:pt-6 pb-2">
+                        <div className="pl-3 sm:pl-4 lg:pl-6 pr-2 sm:pr-4 pt-5 sm:pt-6 pb-2">
                           <p className="text-sm sm:text-base lg:text-md leading-relaxed">
                             {limitWords(story, MAX_WORDS)}
                           </p>
@@ -382,6 +380,20 @@ export function Testimonial() {
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        
+        /* Line clamp utility for truncating multiple lines */
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </section>

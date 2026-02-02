@@ -13,6 +13,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import NewCourse from "./components/NewCourse";
 import GalleryGrid from "./components/GalleryGrid";
 import Seo from "../../../context/seo";
+import ApeuSubFooter from "./components/ApeuSubFooter";
+import LbefSubFooter from "./components/LbefSubFooter";
 export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -32,9 +34,7 @@ export default function HomePage() {
       <Seo
         title="LBEF College Nepal | The First IT College of Nepal"
         description="LBEF is the first IT college of Nepal offering quality education in IT and management fields. Join LBEF to shape your future with industry-focused programs and experienced faculty."
-
       />
-
       {!isMobile ? (
         <div className="relative">
           <HeroSection />
@@ -52,7 +52,6 @@ export default function HomePage() {
               className="sticky top-0 z-10 bg-white"
             >
               <University />
-
             </motion.div>
             <motion.div
               className="sticky top-0 z-10 bg-white"
@@ -68,17 +67,17 @@ export default function HomePage() {
               >
                 <JoinStudents />
               </motion.div>
-                <motion.div
+              <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
                 <Testimonial />
               </motion.div>
-                 <motion.div
+              <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
                 <GalleryGrid />
               </motion.div>
-                  <motion.div
+              <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
                 <RecentNews />
@@ -89,8 +88,20 @@ export default function HomePage() {
               >
 
                 <EmailSubscribe />
-                <SubFooter /></motion.div></motion.div>
+                <motion.div
+                  className="sticky top-0 z-10 bg-white"
+                >
+                  <ApeuSubFooter />
 
+                </motion.div>
+                <motion.div
+                  style={{ y: contentY }}
+                  className="relative z-20 bg-white"
+                >
+                  <LbefSubFooter />
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       ) : (

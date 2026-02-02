@@ -24,8 +24,8 @@ const ScholarshipSection = () => {
       </div>
 
       <div className="space-y-12">
-        {/* National ICT Scholarship */}
-        <section className="scroll-mt-24">
+        {/* National ICT Scholarship - Added bg-blue-50 */}
+        <section className="scroll-mt-24 bg-blue-50 rounded-lg p-6">
           <div className="mb-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
               <Award className="w-5 h-5 text-blue-600" />
@@ -188,8 +188,8 @@ The scholarships will be awarded to study B.Sc.(Hons.) in Information Technology
           </div>
         </section>
 
-        {/* Gyandeep Scholarship */}
-        <section className="scroll-mt-24">
+        {/* Gyandeep Scholarship - Added bg-green-50 */}
+        <section className="scroll-mt-24 bg-green-50 rounded-lg p-6">
           <div className="mb-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
               <Percent className="w-5 h-5 text-green-600" />
@@ -262,8 +262,8 @@ This Scholarship is awarded based on the percentage achieved in the High-School 
           </div>
         </section>
 
-        {/* Merit Scholarship */}
-        <section className="scroll-mt-24">
+        {/* Merit Scholarship - Added bg-amber-50 */}
+        <section className="scroll-mt-24 bg-amber-50 rounded-lg p-6">
           <div className="mb-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
               <Award className="w-5 h-5 text-amber-600" />

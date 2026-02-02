@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Mountain, Sunrise, Droplet, Sunset, MapPin, Globe, TreeDeciduous, X } from "lucide-react";
-import bg1 from '../../../../assets/test.jpg';
+import bg1 from '../../../../assets/test.webp';
+import butterfly from '../../../../assets/butterfiles.webp';
 import decoration from "../../../../assets/decoration.webp";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
@@ -16,14 +17,15 @@ const LETTER_PATTERNS = {
     [1, 0, 0, 0],
     [1, 0, 0, 0],
     [1, 0, 0, 0],
+    [1, 0, 0, 0],
     [1, 1, 1, 1]
   ],
   B: [
-    [1, 1, 1, 0],
+    [1, 1, 1, 1],
     [1, 0, 0, 1],
     [1, 1, 1, 0],
     [1, 0, 0, 1],
-    [1, 1, 1, 0]
+    [1, 1, 1, 1]
   ],
   E: [
     [1, 1, 1, 1],
@@ -431,6 +433,43 @@ const GalleryGrid = () => {
     }
   }, [expandedImage, windowWidth]);
 
+  // Helper function to get specific border radius for letter B
+  const getBorderRadiusClass = useCallback((letter: string, rowIndex: number, colIndex: number) => {
+    if (letter !== 'B') return 'rounded-lg';
+    
+    const pattern = LETTER_PATTERNS.B;
+    const totalRows = pattern.length;
+    const totalCols = pattern[0].length;
+    
+    // Top-right corners (first row, last column)
+    if (rowIndex === 0 && colIndex === totalCols - 1) {
+      // Using custom pixel values in square brackets
+      return 'rounded-tr-[70px]'; // Custom value instead of rounded-tr-lg
+    }
+    
+    // Bottom-right corners (last row, last column)
+    if (rowIndex === totalRows - 1 && colIndex === totalCols - 1) {
+      return 'rounded-br-[70px]'; // Custom value instead of rounded-br-lg
+    }
+    
+    // For cells on the rightmost column that form the B curve
+    if (colIndex === totalCols - 1) {
+      // For cells that are at the top or bottom of the curve in the middle rows
+      if ((rowIndex === 1 || rowIndex === 3) && pattern[rowIndex][colIndex] === 1) {
+        return 'rounded-tr-lg rounded-br-lg';
+      }
+      
+      // For cells in the middle row (row 2)
+      if (rowIndex === 2 && pattern[rowIndex][colIndex] === 1) {
+        // For the middle row, we only want top curvature since it's the horizontal part of B
+        return 'rounded-tr-lg';
+      }
+    }
+    
+    // Default for other cells
+    return 'rounded-lg';
+  }, []);
+
   return (
     <section className="relative py-6 sm:py-8 md:py-10 overflow-hidden min-h-[350px] sm:min-h-[400px] md:min-h-screen">
       {/* Background image with overlay */}
@@ -533,7 +572,7 @@ const GalleryGrid = () => {
                           expandedImage.index
                         )}
                         alt="Expanded gallery image"
-                        className="w-full h-full object-contain rounded shadow-lg sm:shadow-xl"
+                        className="w-full h-full object-contain rounded-lg shadow-lg sm:shadow-xl"
                         initial={{ scale: 0.4 }}
                         animate={{ scale: 1 }}
                         transition={{ 
@@ -567,7 +606,7 @@ const GalleryGrid = () => {
                   {Object.entries(LETTER_PATTERNS).map(([letter, pattern]) => (
                     <div key={letter} className={`grid grid-rows-4 ${getRowGap()}`}>
                       {pattern.map((row, rowIndex) => (
-                        <div key={`${letter}-row-${rowIndex}`} className={`flex ${getColumnGap()}`}>
+                        <div key={`${letter}-row-${rowIndex}`} className={`flex ${getColumnGap()} relative`}>
                           {row.map((cell, colIndex) => {
                             const position = `${rowIndex}-${colIndex}`;
                             const image = imageMap[letter]?.[position];
@@ -577,11 +616,14 @@ const GalleryGrid = () => {
                                               expandedImage?.position === position;
                             const isHovered = hoveredImage?.letter === letter && hoveredImage?.position === position;
                             
+                            // Add butterfly image above the first row last image of letter 'E'
+                            const showButterfly = letter === 'E' && rowIndex === 0 && colIndex === 3 && hasImage;
+                            
                             if (!hasImage) {
                               return cell === 1 ? (
                                 <div
                                   key={`${letter}-${rowIndex}-${colIndex}`}
-                                  className={`${getDesktopImageSize()} rounded-lg bg-white/10 backdrop-blur-sm`}
+                                  className={`${getDesktopImageSize()} ${getBorderRadiusClass(letter, rowIndex, colIndex)} overflow-hidden bg-white/10 backdrop-blur-sm`}
                                 />
                               ) : (
                                 <div
@@ -592,6 +634,7 @@ const GalleryGrid = () => {
                             }
                             
                             const globalIndex = getGlobalIndex(letter, position);
+                            const borderRadiusClass = getBorderRadiusClass(letter, rowIndex, colIndex);
                             
                             return (
                               <motion.div
@@ -615,8 +658,43 @@ const GalleryGrid = () => {
                                 onMouseEnter={() => handleDesktopHoverStart(letter, position)}
                                 onMouseLeave={handleDesktopHoverEnd}
                               >
-                                <div className={`relative overflow-hidden rounded-lg border-2 border-white/80 shadow-lg transition-all duration-150 ease-out
+                                {/* Butterfly image for letter E, first row, last column */}
+                                {showButterfly && (
+                              <motion.img
+  src={butterfly}
+  alt="Butterfly decoration"
+  className="absolute w-14 h-14 lg:w-16 lg:h-16 -top-13 -right-9 z-20 pointer-events-none"
+  initial={{ opacity: 0, y: -100, rotate: -20 }}
+  whileInView={{ 
+    opacity: 1, 
+    y: 0, 
+    rotate: 0 
+  }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{
+    delay: shouldReduceMotion ? 0 : 0.3,
+    type: shouldReduceMotion ? "tween" : "spring",
+    stiffness: shouldReduceMotion ? 0 : 200,
+    damping: shouldReduceMotion ? 0 : 20,
+    mass: 0.8,
+    bounce: 0.5
+  }}
+  whileHover={{
+    y: -5,
+    rotate: 5,
+    scale: 1.05,
+    transition: { 
+      type: "spring",
+      stiffness: 400,
+      damping: 10
+    }
+  }}
+/>
+                                )}
+                                
+                                <div className={`relative overflow-hidden border-2 border-white/80 shadow-lg transition-all duration-150 ease-out
                                   ${getDesktopImageSize()}
+                                  ${borderRadiusClass}
                                   ${isHovered && !expandedImage && !shouldReduceMotion 
                                     ? 'scale-120 ring-1 ring-white/50 ring-offset-1' 
                                     : 'scale-100'}`}

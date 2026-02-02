@@ -35,21 +35,29 @@ export default function AboutPage() {
 
   return (
     <>
-    <Seo
-  title="About LBEF College | Nepal’s First IT College"
-  description="Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."
-  url={`${APP_URL}/about/about-lbef`}
+      <Seo
+        title="About LBEF College | Nepal’s First IT College"
+        description="Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."
+        url={`${APP_URL}/about/about-lbef`}
 
-/>
+      />
 
       {!isMobile ? (
         <div className="relative">
-          <ABoutHeroSection />
-          <Inspiration />
+          <motion.div
+            className="sticky top-0 z-10 bg-white"
+          >
+            <ABoutHeroSection />
+
+          </motion.div>
+          <motion.div
+            className="sticky top-0 z-10 bg-white"
+          >
+            <Inspiration />
+
+          </motion.div>
 
 
-
-          {/* ================= HERO ================= */}
           <motion.div
             className="sticky top-0 z-10 bg-white"
           >
@@ -77,7 +85,11 @@ export default function AboutPage() {
             >
               <MissionSection />
 
-              <OurCore />
+              <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <OurCore />
+              </motion.div>
               <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
@@ -89,9 +101,20 @@ export default function AboutPage() {
               >
                 <StartJourney />
                 <Employability />
-                <CollegeAppSection />
-                <FAQSection />
-                <LbefSubFooter />
+                <motion.div
+                  className="sticky top-0 z-10 bg-white"
+                >
+                  <CollegeAppSection />
+                </motion.div>
+                <motion.div
+                  style={{ y: contentY }}
+                  className="relative z-20 bg-white"
+                >
+                  <FAQSection />
+                  <LbefSubFooter />
+
+                </motion.div>
+
 
               </motion.div>
             </motion.div>
@@ -110,8 +133,8 @@ export default function AboutPage() {
           <StartJourney />
           <Employability />
           <CollegeAppSection />
-            <FAQSection />
-            <LbefSubFooter />
+          <FAQSection />
+          <LbefSubFooter />
 
         </>
       )
