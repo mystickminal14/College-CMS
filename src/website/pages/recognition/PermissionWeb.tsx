@@ -6,14 +6,14 @@ import { fadeUp, staggerContainer } from '../../comp/animation';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
 
-const RecognitionPageWeb = () => {
-  const { data, isLoading, isError } = useGetAll({type:"RECOGNITION"});
+const PermissionPageWeb = () => {
+  const { data, isLoading, isError } = useGetAll({type:"PERMISSION"});
   const recognitions = data?.data || [];
 
   return (
     <div className="min-h-screen bg-gray-50">
  <Seo
-    title="College Recognitions & Achievements | LBEF College Nepal"
+    title="Official Permission Letters & Institutional Approvals | LBEF College Nepal"
     description="Explore LBEF College Nepal's recognitions and achievements over the years, showcasing excellence in academics, institutional awards, and accomplishments."
     url={`${APP_URL}/about/recognition`}
   />
@@ -45,15 +45,15 @@ const RecognitionPageWeb = () => {
               }}
             />
             <span className="text-blue-600 font-medium text-sm">
-              Discover Our Achievements
+              Permission Letters
             </span>
           </motion.div>
 
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Our College </span>
+            <span className="text-gray-900">Official Permission </span>
             <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> Recognitions</span>
+              <span className="text-blue-600 relative z-10"> Letters</span>
               <motion.img
                 src={decoration}
                 alt="Decoration"
@@ -64,17 +64,15 @@ const RecognitionPageWeb = () => {
               />
             </span>
             <br />
-            <span className="text-blue-600">Over </span>
-            <span className="text-gray-900 relative z-10"> The Years </span>
+            <span className="text-blue-600">& Institutional  </span>
+            <span className="text-gray-900 relative z-10"> Approvals </span>
           </h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Celebrating excellence, dedication, and success. Explore the academic and
-            institutional recognitions and achievements that reflect our commitment to
-            growth and distinction.
+            Official permission letters and approvals granted to our college by authorized institutions. These documents reflect our compliance, credibility, and commitment to quality education.
           </motion.p>
         </motion.div>
       </div>
@@ -97,4 +95,4 @@ const RecognitionPageWeb = () => {
   );
 };
 
-export default RecognitionPageWeb;
+export default PermissionPageWeb;

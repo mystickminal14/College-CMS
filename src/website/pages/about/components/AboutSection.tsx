@@ -54,7 +54,7 @@ export default function AboutSection() {
               <div className="flex items-center gap-3 mb-3">
                 <Users2 />
               </div>
-              <div className="text-blue-100 text-2xl">15000+</div>
+              <div className="text-blue-100 text-2xl">14000+</div>
               <div className="font-bold">Success Stories</div>
             </motion.div>
           </motion.div>

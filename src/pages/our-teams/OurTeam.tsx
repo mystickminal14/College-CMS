@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Edit, Trash2 } from "lucide-react";
+import { ArrowUp, Edit, Trash2 } from "lucide-react";
 import { FaTable, FaThLarge, } from "react-icons/fa";
 import { debounce } from "lodash";
 
@@ -20,6 +20,7 @@ import { TeamsColumns } from "./utils/columns";
 import type { Department, Teams } from "./model/TeamsModel";
 import { PAGE_LIMIT } from "../../constants";
 import { useUploadTeamsImage } from "./hooks/useUploadAlumni";
+import ChangeTeamOrderModal from "./components/ChangeTeamOrder";
 
 const TeamsPage = () => {
   const [page, setPage] = useState(1);
@@ -54,6 +55,8 @@ const TeamsPage = () => {
   const handleAdd = () => { setTeamToEdit(null); setShowModal(true); };
   const handleEdit = (team: Teams) => { setTeamToEdit(team); setShowModal(true); };
   const handleDeleteTeam = (team: Teams) => { setTeamToEdit(team); setShowDeleteModal(true); };
+const [showOrderModal, setShowOrderModal] = useState(false);
+const [teamToChangeOrder, setTeamToChangeOrder] = useState<Teams | null>(null);
 
   const tableActions = [
     {
@@ -67,7 +70,15 @@ const TeamsPage = () => {
       tooltip: "Delete Team",
       onClick: handleDeleteTeam,
       color: "text-red-600 hover:bg-red-600 hover:text-white"
-    },
+    },  {
+  icon: <ArrowUp className="w-4 h-4" />,
+  tooltip: "Change Order",
+  onClick: (team:Teams) => {
+    setTeamToChangeOrder(team);
+    setShowOrderModal(true);
+  },
+  color: "text-purple-600",
+},
   ];
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
@@ -165,7 +176,14 @@ const TeamsPage = () => {
         createMutation={createMutation}
         editMutation={editMutation}
         uploadImageMutation={uploadImageMutation}
-      />
+      />      
+    <ChangeTeamOrderModal
+  isOpen={showOrderModal}
+  onClose={() => setShowOrderModal(false)}
+  team={teamToChangeOrder}
+  maxOrder={teams.length}
+/>
+
     </div>
   );
 };

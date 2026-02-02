@@ -29,10 +29,10 @@ export default function HomePage() {
 
   return (
     <>
-        <Seo 
+      <Seo
         title="LBEF College Nepal | The First IT College of Nepal"
         description="LBEF is the first IT college of Nepal offering quality education in IT and management fields. Join LBEF to shape your future with industry-focused programs and experienced faculty."
-       
+
       />
 
       {!isMobile ? (
@@ -68,14 +68,26 @@ export default function HomePage() {
               >
                 <JoinStudents />
               </motion.div>
+                <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <Testimonial />
+              </motion.div>
+                 <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <GalleryGrid />
+              </motion.div>
+                  <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <RecentNews />
+              </motion.div>
               <motion.div
                 style={{ y: contentY }}
                 className="relative z-20 bg-white"
               >
-                <Testimonial />
-                <GalleryGrid />
 
-                <RecentNews />
                 <EmailSubscribe />
                 <SubFooter /></motion.div></motion.div>
 

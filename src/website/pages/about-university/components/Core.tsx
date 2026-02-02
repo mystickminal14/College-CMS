@@ -42,7 +42,7 @@ export default function OurCore() {
   };
 
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
+    <section className="relative h-screen py-20 px-4 sm:px-6 lg:px-20 overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{ backgroundImage: `url(${bg1})` }}

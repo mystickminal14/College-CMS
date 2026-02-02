@@ -64,7 +64,7 @@ const ConnectsPage = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
       {/* Title */}
-      <TitleBox title="Connects Management" subtitle="Manage application connects (PDF only)" />
+      <TitleBox title="Connects Management" subtitle="Manage application connects " />
 
       {/* Add button */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">

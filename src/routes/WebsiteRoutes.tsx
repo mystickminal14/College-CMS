@@ -9,6 +9,8 @@ const HomePage = lazy(() => import("../website/pages/home/Home"));
 
 const OurTeamWeb = lazy(() => import("../website/pages/our-team/OurTeam"));
 const RecognitionPageWeb = lazy(() => import("../website/pages/recognition/RecognitionWeb"));
+const PermissionPageWeb = lazy(() => import("../website/pages/recognition/PermissionWeb"));
+
 const CourseProgram = lazy(() => import("../website/pages/programs/CourseProgram"));
 const CourseDetails = lazy(() => import("../pages/courses/CourseDetails"));
 const AcademicWebPlanner = lazy(() => import("../website/pages/academic-planner-web/AcademicWebPlanner"));
@@ -70,6 +72,8 @@ export const websiteRoutes = [
           { path: "about-lbef", element: <AboutPage /> },
           { path: "about-university", element: <AboutUniversity /> },
           { path: "recognition", element: <RecognitionPageWeb /> },
+          { path: "permission-letter", element: <PermissionPageWeb /> },
+
           { path: "achivement", element: <AchievementWeb /> },
           { path: "messages", element: <OurMessage /> },
           { path: "our-team", element: <OurTeamWeb /> },

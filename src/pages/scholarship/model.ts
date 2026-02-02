@@ -7,5 +7,7 @@ export interface ScholarshipSchedule {
   canDate: string;
   admissionDate: string;
   createdAt?: string;
+  status?: ScholarStatus
   updatedAt?: string;
 }
+export type ScholarStatus = "OPEN" | "CLOSED" ;

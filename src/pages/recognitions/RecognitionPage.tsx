@@ -10,7 +10,7 @@ import useEditRecognitions from "./hooks/useEdit";
 import AddEditRecognitionsWizardModal from "./components/Wizard";
 import { useUpdateImage } from "./hooks/useUpdateImage";
 import DeleteRecognitionsModal from "./components/DeleteModel";
-import type { Recognitions } from "./model/RecognitionsModel";
+import type { Recognitions, RecogType } from "./model/RecognitionsModel";
 import { Edit, Trash2 } from "lucide-react";
 import { useUploadRecognitionsImage } from "./hooks/useUploadAlumni";
 import Pagination from "../../utils/Pagination";
@@ -22,12 +22,16 @@ const RecognitionsPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [RecognitionsToEdit, setRecognitionsToEdit] = useState<any>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState<RecogType | "">("");
 
-    const { data, isLoading, isError } = useGetRecognitions({ page, limit: PAGE_LIMIT });
+    const { data, isLoading, isError } = useGetRecognitions({
+ type: selectedDepartment,
+        page, limit: PAGE_LIMIT });
     const createMutation = useCreateRecognitions();
     const editMutation = useEditRecognitions();
     const uploadImageMutation = useUploadRecognitionsImage();
     const updateImageMutation = useUpdateImage();
+  const departments: RecogType[] = ["RECOGNITION", "PERMISSION"];
 
     const Recognitions = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
@@ -87,6 +91,18 @@ const RecognitionsPage = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
+                  <select
+                             className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+                             value={selectedDepartment}
+                             onChange={(e) => { setSelectedDepartment(e.target.value as RecogType | ""); setPage(1); }}
+                           >
+                             <option value="">All type</option>
+                             {departments.map((dept) => (
+                               <option key={dept} value={dept}>
+                                 {dept.charAt(0) + dept.slice(1).toLowerCase()}
+                               </option>
+                             ))}
+                           </select>
                     <button onClick={handleAdd} disabled={createMutation.isPending} className="px-5 py-2.5 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-2 shadow hover:shadow-md transition-all duration-200 font-medium w-full md:w-auto justify-center disabled:opacity-50">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
                         <span>Add Recognitions</span>

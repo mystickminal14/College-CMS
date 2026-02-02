@@ -12,7 +12,7 @@ export interface Courses {
   order?:number;
   intake?:string;
   brochure?:string;
-
+feeStructure?:string;
   fullForm?:string;
 
   image?: string;

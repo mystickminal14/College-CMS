@@ -91,7 +91,7 @@ export function NavBar() {
         { name: "About LBEF", link: "/about/about-lbef", icon: <FaUniversity /> },
         { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
         { name: "Recognitions", link: "/about/recognition", icon: <FaCertificate /> },
-        { name: "Permission Letter", link: "/about/recognition", icon: <FaCertificate /> },
+        { name: "Permission Letter", link: "/about/permission-letter", icon: <FaCertificate /> },
 
         { name: "Achivements", link: "/about/achivement", icon: <FaCertificate /> },
         {name: "Messages", link: "/about/messages", icon: <FaUsers />},

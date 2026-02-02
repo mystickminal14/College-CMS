@@ -17,6 +17,7 @@ export const scholarshipColumns = [
     label: "Exam Date",
     accessor: "examDate" as keyof ScholarshipSchedule,
   },
+    
   {
     label: "Final Result",
     accessor: "canDate" as keyof ScholarshipSchedule,
@@ -24,5 +25,8 @@ export const scholarshipColumns = [
   {
     label: "Admission Date",
     accessor: "admissionDate" as keyof ScholarshipSchedule,
+  }, {
+    label: "Status",
+    accessor: "status" as keyof ScholarshipSchedule,
   },
 ];

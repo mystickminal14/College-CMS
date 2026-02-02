@@ -1,3 +1,4 @@
+import { motion} from "framer-motion";
 import { APP_URL } from "../../../constants";
 import Seo from "../../../context/seo";
 import ApeuSubFooter from "../home/components/ApeuSubFooter";
@@ -6,23 +7,82 @@ import OurCore from "./components/Core";
 import HeroSection from "./components/HeroSection";
 import { ImageSection } from "./components/ImageSection";
 import MissionVisionSection from "./components/Mission";
+import { useEffect, useState } from "react";
 
 export default function AboutUniversity() {
+ const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+
+
   return (
     <>
-    <Seo
-  title="Asia Pacific University (APU) | LBEF Partner University"
-  description="Explore Asia Pacific University of Technology & Innovation (APU), Malaysia – LBEF’s partner university known for innovation, technology, and global recognition."
-  url={`${APP_URL}/about/about-university`}
+      <Seo
+        title="Asia Pacific University (APU) | LBEF Partner University"
+        description="Explore Asia Pacific University of Technology & Innovation (APU), Malaysia – LBEF’s partner university known for innovation, technology, and global recognition."
+        url={`${APP_URL}/about/about-university`}
 
-/>
+      />
+     {!isMobile?(
+       <div className="relative">
+        <motion.div
+          className="sticky top-0 z-10 bg-white"
+        >
+          <HeroSection />
 
-      <HeroSection />
-      <AboutUsSection />
-      <MissionVisionSection />
-      <ImageSection />
-      <OurCore />
-      <ApeuSubFooter/>
+        </motion.div>
+        <motion.div
+          className="sticky top-0 z-10 bg-white"
+        >
+          <AboutUsSection />
+
+        </motion.div>
+           <motion.div
+          className="sticky top-0 z-10 bg-white"
+        >
+          <MissionVisionSection />
+
+        </motion.div>
+             <motion.div
+          className="sticky top-0 z-10 bg-white"
+        >
+          <ImageSection />
+
+        </motion.div>
+             <motion.div
+          className="sticky top-0 z-10 bg-white"
+        >
+          <OurCore />
+
+        </motion.div>
+         <motion.div
+          className="sticky top-0 z-10 bg-white"
+        >
+          <ApeuSubFooter />
+
+        </motion.div>
+      
+
+      </div>
+     ):( <>
+               <HeroSection />
+               
+          <AboutUsSection />
+          <MissionVisionSection />
+          <ImageSection />
+                         <OurCore />
+
+                         <ApeuSubFooter />
+
+     
+             </>)}
+
       {/* <CareersSection /> */}
     </>
   );

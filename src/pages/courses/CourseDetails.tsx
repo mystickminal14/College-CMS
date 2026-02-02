@@ -30,6 +30,7 @@ import { useEnquiry } from "../../context/EnquiryContext";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
 import { parseDate } from "../../utils/ParseDate";
+import { FaMoneyBill } from "react-icons/fa";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (
@@ -165,10 +166,10 @@ const CourseDetails = () => {
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
         <CourseNewHeader course={course} />
-        <div className="relative max-w-3xl mx-auto mb-8">
+        <div className=" relative max-w-5xl mx-auto ">
           <div className="absolute inset-0 bg-linear-to-r from-blue-500/5 via-indigo-500/5 to-blue-500/5 rounded-2xl blur-xl"></div>
           <div className=" bg-white/90 backdrop-blur-sm border border-blue-200 rounded-xl p-5 sm:p-6 shadow-lg sticky top-6 z-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <motion.div
                 variants={fadeItem}
                 initial="hidden"
@@ -194,7 +195,7 @@ const CourseDetails = () => {
                   <CalendarDays className="w-6 h-6 text-emerald-600" />
                 </div>
                 <h3 className="text-sm font-semibold text-gray-800 mb-1">Intake Date</h3>
-                <p className="text-sm text-emerald-700 font-medium">{course.intake!=""? parseDate(course.intake??''):<i>will be updated</i>}</p>
+                <p className="text-sm text-emerald-700 font-medium">{course.intake != "" ? parseDate(course.intake ?? '') : <i>will be updated</i>}</p>
               </motion.div>
 
               {/* Download Brochure Card */}
@@ -209,8 +210,33 @@ const CourseDetails = () => {
                   <FileText className="w-6 h-6 text-indigo-600" />
                 </div>
                 <h3 className="text-sm font-semibold text-gray-800 mb-1">Download Brochure</h3>
-                <button className="text-sm text-indigo-700 font-medium hover:text-indigo-800 underline">
+                <button     onClick={() => {
+  if (course.brochure) {
+    window.open(course.brochure, "_blank");
+  }
+}}
+className="text-sm cursor-pointer text-indigo-700 font-medium hover:text-indigo-800 ">
                   Download PDF
+                </button>
+              </motion.div>
+              <motion.div
+                variants={fadeItem}
+                initial="hidden"
+                whileInView="visible"
+                transition={{ delay: 0.2 }}
+                className="bg-emerald-50 border border-indigo-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                  <FaMoneyBill className="w-6 h-6 text-indigo-600" />
+                </div>
+                <h3 className="text-sm font-semibold text-gray-800 mb-1">Fee Structure</h3>
+                <button onClick={() => {
+  if (course.feeStructure) {
+    window.open(course.feeStructure, "_blank");
+  }
+}}
+className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indigo-800 ">
+                  View Fee Structure
                 </button>
               </motion.div>
             </div>
@@ -390,6 +416,8 @@ const CourseDetails = () => {
                         </div>
                       </div>
                     </div>
+                    
+                    
                   </motion.div>
 
                   {/* SCHOLARSHIP */}
@@ -426,6 +454,7 @@ const CourseDetails = () => {
                       </motion.button>
                     </div>
                   </motion.div>
+                 
                 </motion.div>
               </motion.div>
             </aside>

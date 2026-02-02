@@ -27,5 +27,6 @@ export const RecognitionsColumns = [
   },
 
   { label: "Name", accessor: "name" },
+  { label: "Type", accessor: "type" },
 
 ];

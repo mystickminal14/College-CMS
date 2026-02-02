@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import InputField from "../../../utils/InputField";
 import type { EShift } from "../model/CourseModel";
+import { FaMoneyBill } from "react-icons/fa";
 
 interface CoursesBasicFormProps {
   formData: {
@@ -18,7 +19,7 @@ interface CoursesBasicFormProps {
   brochure?:string;
     credit: string;
     duration: string;
-    category: string;
+    category: string;feeStructure:string;
     details: string;fullForm:string,
     semester: string;
     shift: EShift;
@@ -176,6 +177,15 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
       field="brochure"
       onChange={onChange}
       placeholder="Upload brochure link"
+      isSubmitting={isSubmitting}
+    />
+     <InputField
+      icon={<FaMoneyBill className="w-5 h-5" />}
+      label="Fee Structure link"
+      value={formData.feeStructure || ""}
+      field="feeStructure"
+      onChange={onChange}
+      placeholder="Upload Structure link"
       isSubmitting={isSubmitting}
     />
   </div> 

@@ -1,18 +1,49 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Mountain, Sunrise, Droplet, Sunset, MapPin, Globe, TreeDeciduous, X } from "lucide-react";
-import bg1 from '../../../../assets/decoration/abouthero.webp';
+import bg1 from '../../../../assets/test.jpg';
 import decoration from "../../../../assets/decoration.webp";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import useGetGallerys from "../../../../pages/gallery/hooks/useGetAll";
 import { IMAGE_URL } from "../../../../constants";
 
 const PAGE_LIMIT = 50;
-const INNER_CIRCLE_IMAGES = 8;
-const OUTER_CIRCLE_IMAGES = 12;
+const MOBILE_CIRCLE_IMAGES = 8; // Single circle with 8 images
+
+// Define more compact grid patterns for each letter (4x4 grid instead of 5x5)
+const LETTER_PATTERNS = {
+  L: [
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 1, 1, 1]
+  ],
+  B: [
+    [1, 1, 1, 0],
+    [1, 0, 0, 1],
+    [1, 1, 1, 0],
+    [1, 0, 0, 1],
+    [1, 1, 1, 0]
+  ],
+  E: [
+    [1, 1, 1, 1],
+    [1, 0, 0, 0],
+    [1, 1, 1, 0],
+    [1, 0, 0, 0],
+    [1, 1, 1, 1]
+  ],
+  F: [
+    [1, 1, 1, 1],
+    [1, 0, 0, 0],
+    [1, 1, 1, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0]
+  ]
+} as const;
 
 const SkeletonLoader = () => {
   const [isDesktop, setIsDesktop] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 1024);
@@ -27,74 +58,82 @@ const SkeletonLoader = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="relative w-[320px] h-80 sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px]">
-        {/* Inner circle skeleton */}
-        {Array.from({ length: 8 }).map((_, index) => {
-          const angle = (index * 360) / 8;
-          const radian = (angle * Math.PI) / 180;
-          const radius = 140;
-          const x = Math.cos(radian) * radius;
-          const y = Math.sin(radian) * radius;
+      {isDesktop ? (
+        // Desktop skeleton - Compact LBEF pattern
+        <div className="relative w-full max-w-5xl mx-auto h-[400px] flex items-center justify-center">
+          <div className="flex gap-6 md:gap-8 lg:gap-10">
+            {['L', 'B', 'E', 'F'].map((letter) => (
+              <div key={letter} className="grid grid-rows-4 gap-1.5 md:gap-2">
+                {LETTER_PATTERNS[letter as keyof typeof LETTER_PATTERNS].map((row, rowIndex) => (
+                  <div key={`${letter}-row-${rowIndex}`} className="flex gap-1.5 md:gap-2">
+                    {row.map((cell, colIndex) => (
+                      <div
+                        key={`${letter}-${rowIndex}-${colIndex}`}
+                        className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg overflow-hidden ${
+                          cell === 1 
+                            ? `bg-linear-to-r from-gray-300 via-gray-200 to-gray-300 ${shouldReduceMotion ? '' : 'animate-pulse'}` 
+                            : 'invisible'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        // Mobile skeleton - single circular layout
+        <div className="relative w-[320px] h-80 sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px]">
+          {Array.from({ length: MOBILE_CIRCLE_IMAGES }).map((_, index) => {
+            const angle = (index * 360) / MOBILE_CIRCLE_IMAGES;
+            const radian = (angle * Math.PI) / 180;
+            const radius = 120; // Single circle radius
+            const x = Math.cos(radian) * radius;
+            const y = Math.sin(radian) * radius;
+            
+            return (
+              <div
+                key={`mobile-skeleton-${index}`}
+                className="absolute w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 sm:border-3 border-white shadow-md"
+                style={{
+                  left: `calc(50% + ${x}px)`,
+                  top: `calc(50% + ${y}px)`,
+                  transform: 'translate(-50%, -50%)',
+                }}
+              >
+                <div className={`absolute inset-0 bg-linear-to-r from-gray-300 via-gray-200 to-gray-300 ${shouldReduceMotion ? '' : 'animate-pulse'}`} />
+              </div>
+            );
+          })}
           
-          return (
-            <div
-              key={`inner-skeleton-${index}`}
-              className="absolute w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden border-2 sm:border-3 border-white shadow-md"
-              style={{
-                left: `calc(50% + ${x}px)`,
-                top: `calc(50% + ${y}px)`,
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <div className="absolute inset-0 bg-linear-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse" />
-            </div>
-          );
-        })}
-        
-        {/* Outer circle skeleton - only show on desktop */}
-        {isDesktop && Array.from({ length: 12 }).map((_, index) => {
-          const angle = (index * 360) / 12;
-          const radian = (angle * Math.PI) / 180;
-          const radius = 280; // Increased from 240 to 280 for larger outer circle
-          const x = Math.cos(radian) * radius;
-          const y = Math.sin(radian) * radius;
-          
-          return (
-            <div
-              key={`outer-skeleton-${index}`}
-              className="absolute w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden border-2 border-white shadow-md"
-              style={{
-                left: `calc(50% + ${x}px)`,
-                top: `calc(50% + ${y}px)`,
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <div className="absolute inset-0 bg-linear-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse" />
-            </div>
-          );
-        })}
-        
-        {/* Center circle */}
-        <div className="absolute inset-0 m-auto w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-linear-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse" />
-      </div>
+          {/* Center circle */}
+          <div className={`absolute inset-0 m-auto w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-linear-to-r from-gray-300 via-gray-200 to-gray-300 ${shouldReduceMotion ? '' : 'animate-pulse'}`} />
+        </div>
+      )}
     </div>
   );
 };
 
 const GalleryGrid = () => {
-  const [innerCircleImages, setInnerCircleImages] = useState<any[]>([]);
-  const [outerCircleImages, setOuterCircleImages] = useState<any[]>([]);
-  const [innerRandomIndices, setInnerRandomIndices] = useState<number[]>([]);
-  const [outerRandomIndices, setOuterRandomIndices] = useState<number[]>([]);
-  const [expandedImage, setExpandedImage] = useState<number | null>(null);
-  const [expandedCircle, setExpandedCircle] = useState<'inner' | 'outer' | null>(null);
+  // For desktop LBEF layout
+  const [imageMap, setImageMap] = useState<Record<string, Record<string, any>>>({});
+  const [randomIndices, setRandomIndices] = useState<Record<string, Record<string, number>>>({});
+  
+  // For mobile single circular layout
+  const [mobileCircleImages, setMobileCircleImages] = useState<any[]>([]);
+  const [mobileRandomIndices, setMobileRandomIndices] = useState<number[]>([]);
+  
+  // Common states
+  const [expandedImage, setExpandedImage] = useState<{ type: 'desktop' | 'mobile'; letter?: string; position?: string; index?: number } | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [hoveredCircle, setHoveredCircle] = useState<'inner' | 'outer' | null>(null);
+  const [hoveredImage, setHoveredImage] = useState<{ letter: string; position: string } | null>(null);
+  const [hoveredMobileIndex, setHoveredMobileIndex] = useState<number | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [page] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const { data, isLoading } = useGetGallerys({
     page,
@@ -103,7 +142,7 @@ const GalleryGrid = () => {
 
   const navigate = useNavigate();
 
-  const icons = [
+  const icons = useMemo(() => [
     <Mountain size={18} className="w-4 h-4 sm:w-5 sm:h-5" />,
     <Globe size={18} className="w-4 h-4 sm:w-5 sm:h-5" />,
     <Sunrise size={18} className="w-4 h-4 sm:w-5 sm:h-5" />,
@@ -111,7 +150,7 @@ const GalleryGrid = () => {
     <Droplet size={18} className="w-4 h-4 sm:w-5 sm:h-5" />,
     <Sunset size={18} className="w-4 h-4 sm:w-5 sm:h-5" />,
     <MapPin size={18} className="w-4 h-4 sm:w-5 sm:h-5" />
-  ];
+  ], []);
 
   // Check if desktop on mount and resize
   useEffect(() => {
@@ -126,104 +165,121 @@ const GalleryGrid = () => {
     return () => window.removeEventListener('resize', checkIsDesktop);
   }, []);
 
-  // Function to select images for both circles
-  const selectImages = (images: any[]) => {
-    if (!images || images.length === 0) return { inner: [], outer: [] };
-    
-    const totalNeeded = INNER_CIRCLE_IMAGES + OUTER_CIRCLE_IMAGES;
-    
-    if (images.length >= totalNeeded) {
-      const shuffled = [...images].sort(() => 0.5 - Math.random());
-      return {
-        inner: shuffled.slice(0, INNER_CIRCLE_IMAGES),
-        outer: shuffled.slice(INNER_CIRCLE_IMAGES, totalNeeded)
-      };
-    }
-    
-    if (images.length > INNER_CIRCLE_IMAGES) {
-      return {
-        inner: images.slice(0, INNER_CIRCLE_IMAGES),
-        outer: images.slice(INNER_CIRCLE_IMAGES, images.length)
-      };
-    }
-    
-    return {
-      inner: images.slice(0, Math.min(images.length, INNER_CIRCLE_IMAGES)),
-      outer: []
+  // Function to distribute images for desktop LBEF layout
+  const distributeDesktopImages = useCallback((images: any[]) => {
+    if (!images || images.length === 0) return { 
+      imageMap: {}, 
+      randomIndices: {} 
     };
-  };
+    
+    const shuffled = [...images].sort(() => 0.5 - Math.random());
+    let imageIndex = 0;
+    
+    const newImageMap: Record<string, Record<string, any>> = {};
+    const newRandomIndices: Record<string, Record<string, number>> = {};
+    
+    // For each letter, assign images to positions where pattern has 1
+    Object.keys(LETTER_PATTERNS).forEach(letter => {
+      const pattern = LETTER_PATTERNS[letter as keyof typeof LETTER_PATTERNS];
+      newImageMap[letter] = {};
+      newRandomIndices[letter] = {};
+      
+      pattern.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          if (cell === 1 && imageIndex < shuffled.length) {
+            const position = `${rowIndex}-${colIndex}`;
+            newImageMap[letter][position] = shuffled[imageIndex];
+            newRandomIndices[letter][position] = Math.floor(Math.random() * icons.length);
+            imageIndex++;
+          }
+        });
+      });
+    });
+    
+    return { 
+      imageMap: newImageMap, 
+      randomIndices: newRandomIndices 
+    };
+  }, [icons.length]);
+
+  // Function to distribute images for mobile single circular layout
+  const distributeMobileImages = useCallback((images: any[]) => {
+    if (!images || images.length === 0) return [];
+    
+    // Take up to MOBILE_CIRCLE_IMAGES images for the single circle
+    const shuffled = [...images].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, MOBILE_CIRCLE_IMAGES);
+  }, []);
 
   useEffect(() => {
     if (data?.data && data.data.length > 0) {
-      const { inner, outer } = selectImages(data.data);
-      setInnerCircleImages(inner);
-      setOuterCircleImages(outer);
-      setInnerRandomIndices(Array.from({ length: inner.length }, () => Math.floor(Math.random() * icons.length)));
-      setOuterRandomIndices(Array.from({ length: outer.length }, () => Math.floor(Math.random() * icons.length)));
+      if (isDesktop) {
+        // Desktop layout - LBEF pattern
+        const { imageMap: newImageMap, randomIndices: newRandomIndices } = distributeDesktopImages(data.data);
+        setImageMap(newImageMap);
+        setRandomIndices(newRandomIndices);
+      } else {
+        // Mobile layout - Single circular pattern
+        const mobileImages = distributeMobileImages(data.data);
+        setMobileCircleImages(mobileImages);
+        setMobileRandomIndices(Array.from({ length: mobileImages.length }, () => Math.floor(Math.random() * icons.length)));
+      }
     }
-  }, [data]);
+  }, [data, isDesktop, distributeDesktopImages, distributeMobileImages, icons.length]);
 
   // Function to construct full image URL
-  const getImageUrl = (imagePath: string) => {
+  const getImageUrl = useCallback((imagePath: string) => {
     if (!imagePath) return '';
     
     const cleanPath = imagePath.trim();
     const formattedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
     return `${IMAGE_URL}${formattedPath}`;
-  };
+  }, []);
 
-  // Calculate radial positions
-  const getRadialPosition = (index: number, total: number, circleType: 'inner' | 'outer', isExpanded = false) => {
-    if (isExpanded) return { x: 0, y: 0, scale: 1 };
-    
-    const angle = (index * 360) / total;
-    const radian = (angle * Math.PI) / 180;
-    
-    let radius;
-    if (circleType === 'inner') {
-      radius = total <= 4 
-        ? 95 
-        : windowWidth < 640 
-          ? 100 
-          : windowWidth < 768 
-            ? 120 
-            : windowWidth < 1024 
-              ? 140 
-              : 180;
-    } else {
-      radius = isDesktop ? 280 : 240; 
+  // Get image URL based on type
+  const getImageSrc = useCallback((type: 'desktop' | 'mobile', letter?: string, position?: string, index?: number) => {
+    if (type === 'desktop' && letter && position) {
+      const image = imageMap[letter]?.[position];
+      return image?.link ? image.link : getImageUrl(image?.image);
+    } else if (type === 'mobile' && index !== undefined) {
+      const image = mobileCircleImages[index];
+      return image?.link ? image.link : getImageUrl(image?.image);
     }
-    
-    const x = Math.cos(radian) * radius;
-    const y = Math.sin(radian) * radius;
-    
-    return { x, y, scale: circleType === 'outer' ? 0.7 : 0.8 };
-  };
+    return '';
+  }, [imageMap, mobileCircleImages, getImageUrl]);
 
-  const handleImageClick = (index: number, circleType: 'inner' | 'outer') => {
+  const handleDesktopImageClick = useCallback((letter: string, position: string) => {
     if (isAnimating) return;
     setIsAnimating(true);
     
-    const globalIndex = circleType === 'inner' ? index : index + INNER_CIRCLE_IMAGES;
-    
-    if (expandedImage === globalIndex && expandedCircle === circleType) {
+    if (expandedImage?.type === 'desktop' && expandedImage?.letter === letter && expandedImage?.position === position) {
       setExpandedImage(null);
-      setExpandedCircle(null);
     } else {
-      setExpandedImage(globalIndex);
-      setExpandedCircle(circleType);
+      setExpandedImage({ type: 'desktop', letter, position });
     }
     
     setTimeout(() => setIsAnimating(false), 250);
-  };
+  }, [isAnimating, expandedImage]);
 
-  const closeExpandedImage = () => {
+  const handleMobileImageClick = useCallback((index: number) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    
+    if (expandedImage?.type === 'mobile' && expandedImage?.index === index) {
+      setExpandedImage(null);
+    } else {
+      setExpandedImage({ type: 'mobile', index });
+    }
+    
+    setTimeout(() => setIsAnimating(false), 250);
+  }, [isAnimating, expandedImage]);
+
+  const closeExpandedImage = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setExpandedImage(null);
-    setExpandedCircle(null);
     setTimeout(() => setIsAnimating(false), 250);
-  };
+  }, [isAnimating]);
 
   // Handle ESC key press
   useEffect(() => {
@@ -235,7 +291,7 @@ const GalleryGrid = () => {
 
     document.addEventListener('keydown', handleEscKey);
     return () => document.removeEventListener('keydown', handleEscKey);
-  }, [expandedImage]);
+  }, [expandedImage, closeExpandedImage]);
 
   // Handle click outside to close
   useEffect(() => {
@@ -248,64 +304,152 @@ const GalleryGrid = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [expandedImage]);
+  }, [expandedImage, closeExpandedImage]);
 
-  // Get image size based on circle type
-  const getImageSize = (circleType: 'inner' | 'outer', index: number) => {
-    const isExpanded = expandedImage === (circleType === 'inner' ? index : index + INNER_CIRCLE_IMAGES) && 
-                      expandedCircle === circleType;
+  // Get total images count for desktop
+  const totalDesktopImages = useMemo(() => 
+    Object.values(imageMap).reduce((sum, letterMap) => 
+      sum + Object.keys(letterMap || {}).length, 0
+    ), [imageMap]
+  );
+
+  // Get total images count for mobile
+  const totalMobileImages = useMemo(() => 
+    mobileCircleImages.length
+  , [mobileCircleImages]);
+
+  // Get global index for desktop
+  const getGlobalIndex = useCallback((letter: string, position: string) => {
+    const letterOrder = ['L', 'B', 'E', 'F'];
+    let index = 0;
     
-    if (isExpanded) {
-      return 'w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vw] max-w-[400px] max-h-[400px]';
+    for (const l of letterOrder) {
+      if (l === letter) {
+        const positions = Object.keys(imageMap[l] || {});
+        const positionIndex = positions.indexOf(position);
+        return index + positionIndex + 1;
+      }
+      index += Object.keys(imageMap[l] || {}).length;
     }
     
-    if (circleType === 'inner') {
-      return 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32';
+    return 0;
+  }, [imageMap]);
+
+  // Calculate radial positions for mobile single circle
+  const getRadialPosition = useCallback((index: number, total: number, isExpanded = false) => {
+    if (isExpanded) return { x: 0, y: 0, scale: 1 };
+    
+    const angle = (index * 360) / total;
+    const radian = (angle * Math.PI) / 180;
+    
+    // Single circle radius based on screen size
+    let radius;
+    if (windowWidth < 640) {
+      radius = 100; // Smaller radius for small screens
+    } else if (windowWidth < 768) {
+      radius = 120; // Medium radius for medium screens
     } else {
-      // Slightly larger outer circle images since the circle is bigger
-      return 'w-18 h-18 md:w-22 md:h-22 lg:w-28 lg:h-28';
+      radius = 140; // Larger radius for larger mobile screens
     }
-  };
+    
+    const x = Math.cos(radian) * radius;
+    const y = Math.sin(radian) * radius;
+    
+    return { x, y, scale: 1 }; // Consistent scale for single circle
+  }, [windowWidth]);
 
-  // Get hover scale - only on non-mobile
-  const getHoverScale = () => {
-    if (expandedImage !== null || windowWidth < 768) return 1;
-    return 1.2;
-  };
+  // Desktop layout helpers
+  const getDesktopImageSize = useCallback(() => {
+    if (windowWidth >= 1280) return 'w-14 h-14 lg:w-16 lg:h-16';
+    if (windowWidth >= 1024) return 'w-12 h-12 lg:w-14 lg:h-14';
+    return 'w-10 h-10 md:w-12 md:h-12';
+  }, [windowWidth]);
 
-  // Get container height - increased for larger outer circle
-  const getContainerHeight = () => {
+  const getLetterSpacing = useCallback(() => {
+    if (windowWidth >= 1280) return 'gap-8 lg:gap-10';
+    if (windowWidth >= 1024) return 'gap-6 lg:gap-8';
+    return 'gap-4 md:gap-6';
+  }, [windowWidth]);
+
+  const getRowGap = useCallback(() => {
+    if (windowWidth >= 1280) return 'gap-1.5 lg:gap-2';
+    if (windowWidth >= 1024) return 'gap-1.5';
+    return 'gap-1';
+  }, [windowWidth]);
+
+  const getColumnGap = useCallback(() => {
+    if (windowWidth >= 1280) return 'gap-1.5 lg:gap-2';
+    if (windowWidth >= 1024) return 'gap-1.5';
+    return 'gap-1';
+  }, [windowWidth]);
+
+  // Mobile layout helpers
+  const getMobileImageSize = useCallback((isExpanded = false) => {
+    if (isExpanded) {
+      return 'w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vw] max-w-[300px] max-h-[300px]';
+    }
+    
+    // Single circle image sizes
+    if (windowWidth < 640) {
+      return 'w-16 h-16';
+    } else if (windowWidth < 768) {
+      return 'w-20 h-20';
+    } else {
+      return 'w-24 h-24';
+    }
+  }, [windowWidth]);
+
+  const getMobileContainerHeight = useCallback(() => {
     if (windowWidth < 640) return 'h-[300px]';
     if (windowWidth < 768) return 'h-[350px]';
-    if (windowWidth < 1024) return 'h-[420px]';
-    return 'h-[650px] lg:h-[700px]'; // Increased for larger outer circle
-  };
+    return 'h-[420px]';
+  }, [windowWidth]);
 
-  // Check if outer circle should be shown
-  const showOuterCircle = isDesktop && outerCircleImages.length > 0;
+  // Optimized hover handlers for desktop
+  const handleDesktopHoverStart = useCallback((letter: string, position: string) => {
+    if (!expandedImage && !shouldReduceMotion) {
+      setHoveredImage({ letter, position });
+    }
+  }, [expandedImage, shouldReduceMotion]);
 
-  // Get all images for debugging
-  const totalImages = innerCircleImages.length + outerCircleImages.length;
+  const handleDesktopHoverEnd = useCallback(() => {
+    if (!expandedImage && !shouldReduceMotion) {
+      setHoveredImage(null);
+    }
+  }, [expandedImage, shouldReduceMotion]);
+
+  // Hover handlers for mobile
+  const handleMobileHoverStart = useCallback((index: number) => {
+    if (!expandedImage && windowWidth >= 768 && !shouldReduceMotion) {
+      setHoveredMobileIndex(index);
+    }
+  }, [expandedImage, windowWidth, shouldReduceMotion]);
+
+  const handleMobileHoverEnd = useCallback(() => {
+    if (!expandedImage && windowWidth >= 768) {
+      setHoveredMobileIndex(null);
+    }
+  }, [expandedImage, windowWidth]);
 
   return (
-    <section className="relative py-6 sm:py-8 md:py-10 overflow-hidden min-h-[350px] sm:min-h-[400px] md:min-h-[450px] lg:min-h-[600px]">
+    <section className="relative py-6 sm:py-8 md:py-10 overflow-hidden min-h-[350px] sm:min-h-[400px] md:min-h-screen">
       {/* Background image with overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bg1})` }}
       />
-      <div className="absolute inset-0 bg-[#474AFF] opacity-65" />
+      <div className="absolute inset-0 bg-black opacity-65" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 md:px-6"> {/* Increased max-w for larger circle */}
+      <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
         {/* Title section */}
         <motion.div
           initial={{ opacity: 0, y: -5 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
-          className="text-center mb-4"
+          transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+          className="text-center mb-4 lg-mb-10"
         >
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-5">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-6xl font-bold text-white mb-1 sm:mb-5 ">
             <span>Student </span>
             <span className="relative inline-block">
               <span className="text-white relative z-10">Life</span>
@@ -316,14 +460,17 @@ const GalleryGrid = () => {
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1, duration: 0.2 }}
+                transition={{ 
+                  delay: shouldReduceMotion ? 0 : 0.1, 
+                  duration: shouldReduceMotion ? 0 : 0.2 
+                }}
               />
             </span>
           </h2>
           
           <button
             onClick={() => navigate("/media/photo-gallery")}
-            className="bg-white cursor-pointer text-indigo-600 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded hover:bg-indigo-50 transition shadow-sm sm:shadow-md"
+            className="bg-white cursor-pointer text-indigo-600 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded hover:bg-indigo-50 transition-colors shadow-sm sm:shadow-md"
           >
             View Full Gallery
           </button>
@@ -341,6 +488,7 @@ const GalleryGrid = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             className="text-center py-6 sm:py-8"
           >
             <div className="text-white text-base sm:text-lg font-medium bg-white/10 backdrop-blur-sm rounded p-4 sm:p-6 inline-block">
@@ -351,368 +499,296 @@ const GalleryGrid = () => {
         )}
 
         {/* Gallery Container */}
-        {!isLoading && totalImages > 0 && (
+        {!isLoading && ((isDesktop && totalDesktopImages > 0) || (!isDesktop && totalMobileImages > 0)) && (
           <div ref={containerRef} className="relative">
-            {/* Main radial container */}
-            <div className={`relative ${getContainerHeight()} flex items-center justify-center`}>
-              <AnimatePresence>
-                {/* Expanded image overlay */}
-                {expandedImage !== null && expandedCircle && (
-                  <>
-                    {/* Backdrop */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="fixed inset-0 bg-black/90 z-40"
-                      onClick={closeExpandedImage}
-                    />
-                    
-                    {/* Expanded image container */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.7 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.7 }}
-                      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
-                      onClick={closeExpandedImage}
-                    >
-                      <div className="relative w-full max-w-sm sm:max-w-md h-full max-h-[55vh] sm:max-h-[60vh]">
+            <AnimatePresence>
+              {/* Expanded image overlay */}
+              {expandedImage && (
+                <>
+                  {/* Backdrop */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+                    className="fixed inset-0 bg-black/90 z-50"
+                    onClick={closeExpandedImage}
+                  />
+                  
+                  {/* Expanded image container */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.7 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.7 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
+                    onClick={closeExpandedImage}
+                  >
+                    <div className="relative w-full max-w-sm sm:max-w-md h-full max-h-[55vh] sm:max-h-[60vh]">
                       <motion.img
-  src={
-    expandedCircle === 'inner'
-      ? innerCircleImages[expandedImage]?.link || getImageUrl(innerCircleImages[expandedImage]?.image)
-      : outerCircleImages[expandedImage - INNER_CIRCLE_IMAGES]?.link || getImageUrl(outerCircleImages[expandedImage - INNER_CIRCLE_IMAGES]?.image)
-  }
-                          alt="Expanded gallery image"
-                          className="w-full h-full object-contain rounded shadow-lg sm:shadow-xl"
-                          initial={{ scale: 0.4 }}
-                          animate={{ scale: 1 }}
+                        src={getImageSrc(
+                          expandedImage.type,
+                          expandedImage.letter,
+                          expandedImage.position,
+                          expandedImage.index
+                        )}
+                        alt="Expanded gallery image"
+                        className="w-full h-full object-contain rounded shadow-lg sm:shadow-xl"
+                        initial={{ scale: 0.4 }}
+                        animate={{ scale: 1 }}
+                        transition={{ 
+                          type: shouldReduceMotion ? "tween" : "spring", 
+                          damping: shouldReduceMotion ? 0 : 20, 
+                          stiffness: shouldReduceMotion ? 0 : 180 
+                        }}
+                      />
+                      
+                      {/* Close button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          closeExpandedImage();
+                        }}
+                        className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-black/60 text-white p-1.5 sm:p-2 rounded-full hover:bg-black/80 transition-colors z-50"
+                        aria-label="Close expanded image"
+                      >
+                        <X size={16} className="sm:w-5 sm:h-5" />
+                      </button>
+                    </div>
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+
+            {isDesktop ? (
+              /* DESKTOP LAYOUT - LBEF pattern */
+              <div className="relative min-h-[350px] lg:min-h-[480px] flex items-center justify-center">
+                <div className={`flex ${getLetterSpacing()}`}>
+                  {Object.entries(LETTER_PATTERNS).map(([letter, pattern]) => (
+                    <div key={letter} className={`grid grid-rows-4 ${getRowGap()}`}>
+                      {pattern.map((row, rowIndex) => (
+                        <div key={`${letter}-row-${rowIndex}`} className={`flex ${getColumnGap()}`}>
+                          {row.map((cell, colIndex) => {
+                            const position = `${rowIndex}-${colIndex}`;
+                            const image = imageMap[letter]?.[position];
+                            const hasImage = cell === 1 && image;
+                            const isExpanded = expandedImage?.type === 'desktop' && 
+                                              expandedImage?.letter === letter && 
+                                              expandedImage?.position === position;
+                            const isHovered = hoveredImage?.letter === letter && hoveredImage?.position === position;
+                            
+                            if (!hasImage) {
+                              return cell === 1 ? (
+                                <div
+                                  key={`${letter}-${rowIndex}-${colIndex}`}
+                                  className={`${getDesktopImageSize()} rounded-lg bg-white/10 backdrop-blur-sm`}
+                                />
+                              ) : (
+                                <div
+                                  key={`${letter}-${rowIndex}-${colIndex}`}
+                                  className={`${getDesktopImageSize()} invisible`}
+                                />
+                              );
+                            }
+                            
+                            const globalIndex = getGlobalIndex(letter, position);
+                            
+                            return (
+                              <motion.div
+                                key={`${letter}-${rowIndex}-${colIndex}`}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ 
+                                  opacity: isExpanded ? 1 : 
+                                           expandedImage ? 0.3 : 1,
+                                  scale: isExpanded ? 1.1 : 1
+                                }}
+                                transition={{
+                                  delay: shouldReduceMotion ? 0 : (rowIndex * 4 + colIndex) * 0.01 + (letter.charCodeAt(0) - 76) * 0.05,
+                                  type: shouldReduceMotion ? "tween" : "spring",
+                                  stiffness: shouldReduceMotion ? 0 : 200,
+                                  damping: shouldReduceMotion ? 0 : 20
+                                }}
+                                className={`relative cursor-pointer group ${
+                                  isExpanded ? 'z-30' : ''
+                                }`}
+                                onClick={() => handleDesktopImageClick(letter, position)}
+                                onMouseEnter={() => handleDesktopHoverStart(letter, position)}
+                                onMouseLeave={handleDesktopHoverEnd}
+                              >
+                                <div className={`relative overflow-hidden rounded-lg border-2 border-white/80 shadow-lg transition-all duration-150 ease-out
+                                  ${getDesktopImageSize()}
+                                  ${isHovered && !expandedImage && !shouldReduceMotion 
+                                    ? 'scale-120 ring-1 ring-white/50 ring-offset-1' 
+                                    : 'scale-100'}`}
+                                >
+                                  <img
+                                    src={image?.link ? image.link : getImageUrl(image?.image)}
+                                    alt={`Gallery image ${globalIndex}`}
+                                    className="w-full h-full object-cover transition-transform duration-150 ease-out"
+                                    style={{
+                                      transform: isHovered && !expandedImage && !shouldReduceMotion ? 'scale(1.10)' : 'scale(1)'
+                                    }}
+                                  />
+                                  
+                                  <div 
+                                    className="absolute inset-0 bg-linear-to-t from-black/30 via-black/15 to-transparent transition-opacity duration-150"
+                                    style={{
+                                      opacity: isExpanded ? 0.5 : 
+                                               isHovered && !expandedImage ? 0.25 : 0.15
+                                    }}
+                                  />
+                                  
+                                  <div 
+                                    className="absolute bottom-1 left-1 text-white transition-opacity duration-150"
+                                    style={{
+                                      opacity: isExpanded ? 1 : 
+                                               isHovered && !expandedImage ? 0.8 : 0.5,
+                                      transform: isExpanded || (isHovered && !expandedImage) ? 'scale(1)' : 'scale(0.8)'
+                                    }}
+                                  >
+                                    <div className="p-0.5 bg-white/20 rounded-full backdrop-blur-sm">
+                                      {icons[randomIndices[letter]?.[position] || 0]}
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="absolute top-1 right-1 bg-black/40 text-white text-[9px] font-bold rounded-full w-3 h-3 flex items-center justify-center">
+                                    {globalIndex}
+                                  </div>
+                                </div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              /* MOBILE LAYOUT - Single circular design */
+              <div className={`relative ${getMobileContainerHeight()} flex items-center justify-center`}>
+                {/* Circle Images */}
+                {mobileCircleImages.map((image, index) => {
+                  if (!image) return null;
+                  
+                  const position = getRadialPosition(index, mobileCircleImages.length);
+                  const isExpanded = expandedImage?.type === 'mobile' && 
+                                    expandedImage?.index === index;
+                  const isHovered = hoveredMobileIndex === index;
+                  
+                  return (
+                    <motion.div
+                      key={`mobile-${image?.id || index}`}
+                      className={`absolute cursor-pointer group ${
+                        isExpanded 
+                          ? 'z-30' 
+                          : expandedImage 
+                            ? 'z-10 opacity-20' 
+                            : 'z-20'
+                      }`}
+                      initial={{ 
+                        x: 0, 
+                        y: 0, 
+                        scale: 0.8,
+                        opacity: 0 
+                      }}
+                      animate={{
+                        x: isExpanded ? 0 : position.x,
+                        y: isExpanded ? 0 : position.y,
+                        scale: isExpanded ? 1 : position.scale,
+                        opacity: 1,
+                      }}
+                      transition={{
+                        type: shouldReduceMotion ? "tween" : "spring",
+                        stiffness: isExpanded ? 250 : 180,
+                        damping: 18,
+                        delay: index * 0.02
+                      }}
+                      whileHover={windowWidth >= 768 && !shouldReduceMotion ? {
+                        scale: expandedImage === null ? 1.2 : 1,
+                        zIndex: 25,
+                        transition: { 
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 15
+                        }
+                      } : {}}
+                      onHoverStart={() => handleMobileHoverStart(index)}
+                      onHoverEnd={handleMobileHoverEnd}
+                      onClick={() => handleMobileImageClick(index)}
+                      style={{
+                        originX: 0.5,
+                        originY: 0.5,
+                      }}
+                    >
+                      <div className={`relative overflow-hidden rounded-full border-2 sm:border-3 border-white shadow-md sm:shadow-lg transition-all duration-200 ${
+                        getMobileImageSize(isExpanded)
+                      } ${windowWidth >= 768 && isHovered && !expandedImage ? 'ring-1 sm:ring-2 ring-white/30 ring-offset-1 sm:ring-offset-2' : ''}`}>
+                        <motion.img
+                          src={image?.link ? image.link : getImageUrl(image?.image)}
+                          alt={`Gallery image ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          animate={{
+                            scale: isExpanded ? 1.05 : 
+                                   windowWidth >= 768 && isHovered ? 1.08 : 1
+                          }}
                           transition={{ 
-                            type: "spring", 
-                            damping: 20, 
-                            stiffness: 180 
+                            duration: 0.2,
+                            ease: "easeOut"
                           }}
                         />
                         
-                        {/* Close button */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            closeExpandedImage();
+                        <motion.div 
+                          className="absolute inset-0 bg-linear-to-t from-black/30 sm:from-black/40 via-black/10 sm:via-black/20 to-transparent"
+                          initial={{ opacity: 0 }}
+                          animate={{ 
+                            opacity: isExpanded ? 0.5 : 
+                                     windowWidth >= 768 && isHovered ? 0.35 : 0.2
                           }}
-                          className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-black/60 text-white p-1.5 sm:p-2 rounded-full hover:bg-black/80 transition z-50"
+                          transition={{ duration: 0.2 }}
+                        />
+                        
+                        <motion.div 
+                          className="absolute bottom-1 sm:bottom-1.5 left-1 sm:left-1.5 text-white"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ 
+                            opacity: isExpanded ? 1 : 
+                                     windowWidth >= 768 && isHovered ? 0.85 : 0.6,
+                            scale: 1
+                          }}
+                          transition={{ duration: 0.2 }}
                         >
-                          <X size={16} className="sm:w-5 sm:h-5" />
-                        </button>
+                          <div className="p-0.5 sm:p-1 bg-white/15 sm:bg-white/20 rounded-full backdrop-blur-sm">
+                            {icons[mobileRandomIndices[index] || index % icons.length]}
+                          </div>
+                        </motion.div>
+                        
+                        <div className="absolute top-1 sm:top-1 right-1 sm:right-1 bg-black/30 sm:bg-black/40 text-white text-[10px] sm:text-xs font-bold rounded-full w-4 h-4 sm:w-4 sm:h-4 flex items-center justify-center">
+                          {index + 1}
+                        </div>
                       </div>
                     </motion.div>
-                  </>
+                  );
+                })}
+                
+                {/* Center circle - only show if we have images */}
+                {mobileCircleImages.length > 1 && expandedImage === null && (
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ 
+                      delay: shouldReduceMotion ? 0 : 0.2, 
+                      type: shouldReduceMotion ? "tween" : "spring" 
+                    }}
+                    className="absolute inset-0 m-auto w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-linear-to-r from-white/10 sm:from-white/15 to-white/5 backdrop-blur-sm border border-white/15 sm:border-2 sm:border-white/20 flex items-center justify-center shadow-sm sm:shadow-md"
+                  >
+                    <div className="text-center p-2 sm:p-3">
+                      <p className="text-white text-xs sm:text-sm font-medium">Gallery</p>
+                    </div>
+                  </motion.div>
                 )}
-              </AnimatePresence>
-
-              {/* Outer Circle Images (Desktop only) */}
-              {showOuterCircle && outerCircleImages.map((image, index) => {
-                if (!image) return null;
-                
-                const position = getRadialPosition(
-                  index, 
-                  outerCircleImages.length, 
-                  'outer',
-                  expandedCircle === 'outer' && expandedImage === index + INNER_CIRCLE_IMAGES
-                );
-                const globalIndex = index + INNER_CIRCLE_IMAGES;
-                const isExpanded = expandedCircle === 'outer' && expandedImage === globalIndex;
-                
-                return (
-                  <motion.div
-                    key={`outer-${image?.id || index}`}
-                    className={`absolute cursor-pointer group ${
-                      isExpanded 
-                        ? 'z-30' 
-                        : expandedImage !== null 
-                          ? 'z-10 opacity-20' 
-                          : 'z-15'
-                    } ${!isDesktop ? 'hidden' : ''}`}
-                    initial={{ 
-                      x: 0, 
-                      y: 0, 
-                      scale: 0.7,
-                      opacity: 0 
-                    }}
-                    animate={{
-                      x: isExpanded ? 0 : position.x,
-                      y: isExpanded ? 0 : position.y,
-                      scale: isExpanded ? 1 : position.scale,
-                      opacity: 1,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: isExpanded ? 250 : 180,
-                      damping: 18,
-                      delay: index * 0.015
-                    }}
-                    whileHover={isDesktop ? {
-                      scale: expandedImage === null ? 1.1 : 1,
-                      zIndex: 20,
-                      transition: { 
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 15
-                      }
-                    } : {}}
-                    onHoverStart={() => {
-                      if (isDesktop && expandedImage === null) {
-                        setHoveredIndex(index);
-                        setHoveredCircle('outer');
-                      }
-                    }}
-                    onHoverEnd={() => {
-                      if (isDesktop) {
-                        setHoveredIndex(null);
-                        setHoveredCircle(null);
-                      }
-                    }}
-                    onClick={() => handleImageClick(index, 'outer')}
-                    style={{
-                      originX: 0.5,
-                      originY: 0.5,
-                    }}
-                  >
-                    {/* Image container */}
-                    <div className={`relative overflow-hidden rounded-full border-2 border-white shadow-md transition-all duration-200 ${
-                      getImageSize('outer', index)
-                    } ${isDesktop && hoveredIndex === index && hoveredCircle === 'outer' && expandedImage === null ? 'ring-1 ring-white/30 ring-offset-1' : ''}`}>
-                      <motion.img
-                        src={image?.link? image.link: getImageUrl(image?.image)}
-                        alt={`Gallery image ${globalIndex + 1}`}
-                        className="w-full h-full object-cover"
-                        animate={{
-                          scale: isExpanded ? 1.05 : 
-                                 isDesktop && hoveredIndex === index && hoveredCircle === 'outer' ? 1.05 : 1
-                        }}
-                        transition={{ 
-                          duration: 0.2,
-                          ease: "easeOut"
-                        }}
-                      />
-                      
-                      {/* Overlay */}
-                      <motion.div 
-                        className="absolute inset-0 bg-linear-to-t from-black/30 via-black/20 to-transparent"
-                        initial={{ opacity: 0 }}
-                        animate={{ 
-                          opacity: isExpanded ? 0.5 : 
-                                   isDesktop && hoveredIndex === index && hoveredCircle === 'outer' ? 0.25 : 0.15
-                        }}
-                        transition={{ duration: 0.2 }}
-                      />
-                      
-                      {/* Icon */}
-                      <motion.div 
-                        className="absolute bottom-1.5 left-1.5 text-white"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ 
-                          opacity: isExpanded ? 1 : 
-                                   isDesktop && hoveredIndex === index && hoveredCircle === 'outer' ? 0.8 : 0.5,
-                          scale: 1
-                        }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="p-1 bg-white/15 rounded-full backdrop-blur-sm">
-                          {icons[outerRandomIndices[index] || index % icons.length]}
-                        </div>
-                      </motion.div>
-                      
-                      {/* Number indicator */}
-                      <div className="absolute top-1 right-1 bg-black/30 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                        {globalIndex + 1}
-                      </div>
-                    </div>
-                    
-                    {/* Connecting lines from center to outer circle */}
-                    {expandedImage === null && isDesktop && (
-                      <motion.div
-                        className="absolute inset-0 pointer-events-none"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.3 }}
-                        transition={{ delay: index * 0.015 + 0.1 }}
-                      >
-                        <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-                          <line
-                            x1="50%"
-                            y1="50%"
-                            x2={`${50 + position.x / 3.5}%`}
-                            y2={`${50 + position.y / 3.5}%`}
-                            stroke="white"
-                            strokeWidth="1"
-                            strokeDasharray="3"
-                          />
-                        </svg>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                );
-              })}
-
-              {/* Inner Circle Images */}
-              {innerCircleImages.map((image, index) => {
-                if (!image) return null;
-                
-                const position = getRadialPosition(
-                  index, 
-                  innerCircleImages.length, 
-                  'inner',
-                  expandedCircle === 'inner' && expandedImage === index
-                );
-                const isExpanded = expandedCircle === 'inner' && expandedImage === index;
-                
-                return (
-                  <motion.div
-                    key={`inner-${image?.id || index}`}
-                    className={`absolute cursor-pointer group ${
-                      isExpanded 
-                        ? 'z-30' 
-                        : expandedImage !== null 
-                          ? 'z-10 opacity-20' 
-                          : 'z-20'
-                    }`}
-                    initial={{ 
-                      x: 0, 
-                      y: 0, 
-                      scale: 0.8,
-                      opacity: 0 
-                    }}
-                    animate={{
-                      x: isExpanded ? 0 : position.x,
-                      y: isExpanded ? 0 : position.y,
-                      scale: isExpanded ? 1 : position.scale,
-                      opacity: 1,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: isExpanded ? 250 : 180,
-                      damping: 18,
-                      delay: index * 0.02
-                    }}
-                    whileHover={windowWidth >= 768 ? {
-                      scale: expandedImage === null ? getHoverScale() : 1,
-                      zIndex: 25,
-                      transition: { 
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 15
-                      }
-                    } : {}}
-                    onHoverStart={() => {
-                      if (windowWidth >= 768 && expandedImage === null) {
-                        setHoveredIndex(index);
-                        setHoveredCircle('inner');
-                      }
-                    }}
-                    onHoverEnd={() => {
-                      if (windowWidth >= 768) {
-                        setHoveredIndex(null);
-                        setHoveredCircle(null);
-                      }
-                    }}
-                    onClick={() => handleImageClick(index, 'inner')}
-                    style={{
-                      originX: 0.5,
-                      originY: 0.5,
-                    }}
-                  >
-                    {/* Image container */}
-                    <div className={`relative overflow-hidden rounded-full border-2 sm:border-3 border-white shadow-md sm:shadow-lg transition-all duration-200 ${
-                      getImageSize('inner', index)
-                    } ${windowWidth >= 768 && hoveredIndex === index && hoveredCircle === 'inner' && expandedImage === null ? 'ring-1 sm:ring-2 ring-white/30 ring-offset-1 sm:ring-offset-2' : ''}`}>
-                      <motion.img
-                        src={image?.link? image.link:getImageUrl(image?.image)}
-                        alt={`Gallery image ${index + 1}`}
-                        className="w-full h-full object-cover"
-                        animate={{
-                          scale: isExpanded ? 1.05 : 
-                                 windowWidth >= 768 && hoveredIndex === index && hoveredCircle === 'inner' ? 1.08 : 1
-                        }}
-                        transition={{ 
-                          duration: 0.2,
-                          ease: "easeOut"
-                        }}
-                      />
-                      
-                      {/* Overlay */}
-                      <motion.div 
-                        className="absolute inset-0 bg-linear-to-t from-black/30 sm:from-black/40 via-black/10 sm:via-black/20 to-transparent"
-                        initial={{ opacity: 0 }}
-                        animate={{ 
-                          opacity: isExpanded ? 0.5 : 
-                                   windowWidth >= 768 && hoveredIndex === index && hoveredCircle === 'inner' ? 0.35 : 0.2
-                        }}
-                        transition={{ duration: 0.2 }}
-                      />
-                      
-                      {/* Icon */}
-                      <motion.div 
-                        className="absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 text-white"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ 
-                          opacity: isExpanded ? 1 : 
-                                   windowWidth >= 768 && hoveredIndex === index && hoveredCircle === 'inner' ? 0.85 : 0.6,
-                          scale: 1
-                        }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="p-1 sm:p-1.5 bg-white/15 sm:bg-white/20 rounded-full backdrop-blur-sm">
-                          {icons[innerRandomIndices[index] || index % icons.length]}
-                        </div>
-                      </motion.div>
-                      
-                      {/* Number indicator */}
-                      <div className="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 bg-black/30 sm:bg-black/40 text-white text-[10px] sm:text-xs font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex items-center justify-center">
-                        {index + 1}
-                      </div>
-                    </div>
-                    
-                    {/* Connecting lines from center to inner circle */}
-                    {innerCircleImages.length > 1 && expandedImage === null && windowWidth >= 640 && (
-                      <motion.div
-                        className="absolute inset-0 pointer-events-none"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.4 }}
-                        transition={{ delay: index * 0.02 + 0.1 }}
-                      >
-                        <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-                          <line
-                            x1="50%"
-                            y1="50%"
-                            x2={`${50 + position.x / (windowWidth < 768 ? 3 : 2.5)}%`}
-                            y2={`${50 + position.y / (windowWidth < 768 ? 3 : 2.5)}%`}
-                            stroke="white"
-                            strokeWidth={windowWidth < 768 ? "1" : "1.5"}
-                            strokeDasharray={windowWidth < 768 ? "3" : "4"}
-                            className="opacity-50"
-                          />
-                        </svg>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                );
-              })}
-              
-              {/* Center circle */}
-              {(innerCircleImages.length > 1 || showOuterCircle) && expandedImage === null && (
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.2, type: "spring" }}
-                  className="absolute inset-0 m-auto w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-linear-to-r from-white/10 sm:from-white/15 to-white/5 backdrop-blur-sm border border-white/15 sm:border-2 sm:border-white/20 flex items-center justify-center shadow-sm sm:shadow-md"
-                >
-                  <div className="text-center p-2 sm:p-3">
-                    <p className="text-white text-xs sm:text-sm font-medium">Click</p>
-                    <p className="text-white/70 text-[10px] sm:text-xs mt-0.5">to expand</p>
-                  </div>
-                </motion.div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
       </div>

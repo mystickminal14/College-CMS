@@ -5,21 +5,15 @@ import university_image from "../../../../assets/university.webp";
 export default function HeroSection() {
   return (
     <>
-      <div className="mb-8 text-left text-black px-20 pt-8 ">
-        <p className="text-sm md:text-base opacity-65">
-          <span className="inline-block w-4 h-px bg-black align-middle mr-2"></span>
-          Our University
-        </p>
-      </div>
+     
 
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${university_image})` }}
-        >
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
+      <div className="relative h-screen flex items-center justify-center overflow-hidden">
+      <div
+  className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+  style={{ backgroundImage: `url(${university_image})` }}
+>
+  <div className="absolute inset-0 bg-black/40"></div>
+</div>
 
         {/* Animated Content on Scroll */}
         <motion.div

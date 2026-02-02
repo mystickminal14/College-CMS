@@ -40,7 +40,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     category: "",
     degree: "",brochure:"",intake:"",
     prefix: "",
-    credit: "",
+    credit: "",feeStructure:"",
     duration: "",fullForm:"",
     semester: "",
     details: "",
@@ -57,6 +57,8 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
       setFormData({
         fullForm:courseToEdit.fullForm ?? "",
         brochure:courseToEdit.brochure ?? "",
+        feeStructure:courseToEdit.feeStructure ?? "",
+
         intake:courseToEdit.intake??'',
         title: courseToEdit.title ?? "",
         category: courseToEdit.category ?? "",
@@ -79,7 +81,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
 
   const resetForm = () => {
     setFormData({
-      title: "",
+      title: "",feeStructure:"",
       prefix: "",brochure:"",intake:"",
       degree: "",
       category: "",fullForm:"",
