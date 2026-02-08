@@ -1,9 +1,9 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import logo from "../../../../assets/pcpslogo.webp";
-import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 import { NavLink } from "react-router-dom";
 import bg1 from "../../../../assets/decoration/footer_background.webp";
+import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 
 const Footer = () => {
   const { data } = useGetNameAll();

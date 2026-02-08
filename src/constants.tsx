@@ -36,6 +36,9 @@ export const GALLERY_TYPE_CACHE_KEY = 'gallery_type';
 
 export const CONNECT_CACHE_KEY = 'connect';
 export const COURSE_CACHE_KEY = 'courses';
+export const DEPT_CACHE_KEY = 'dept';
+export const DEPT_NAME_CACHE_KEY = 'dept_name';
+
 export const DOCUMENT_CACHE_KEY = 'docs';
 export const JOURNAL_CACHE_KEY = 'journal';
 export const JOURNAL_ISSUE_CACHE_KEY = 'j_isue';

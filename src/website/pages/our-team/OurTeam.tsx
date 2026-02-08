@@ -8,16 +8,57 @@ import { fadeUp, staggerContainer } from "../../comp/animation";
 import { useNavigate } from "react-router-dom";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
+import type {  DeptAll } from "../../../pages/our-team-dept/model/DeptModel";
+
+
+interface GroupedDept {
+  department: DeptAll;
+  members: TeamMember[];
+}
 
 const OurTeamWeb = () => {
   const { data, isLoading } = useGetTeamsByDept();
-  const teamData = data?.data;
-
-  const managementTeam = teamData?.MANAGEMENT || [];
-  const administrationTeam = teamData?.ADMINISTRATION || [];
-  const computingTeam = teamData?.COMPUTING || [];
-
   const navigate = useNavigate();
+
+ const members: TeamMember[] = data?.data
+  ? Object.values(data.data).flat()
+  : [];
+
+
+
+  const groupedDepartments: GroupedDept[] = (() => {
+    const map = new Map<number, GroupedDept>();
+
+    members.forEach((member) => {
+      const dept = member.department;
+
+      if (!dept) return;
+
+      if (!map.has(dept.id)) {
+        map.set(dept.id, {
+          department: {
+            id: dept.id,
+            name: dept.name,
+            order: dept.order,
+            status:dept.status,
+          },
+          members: [],
+        });
+      }
+
+      map.get(dept.id)!.members.push(member);
+    });
+
+    // sort members inside department
+    map.forEach((group) => {
+      group.members.sort((a, b) => a.order - b.order);
+    });
+
+    // sort departments by order
+    return Array.from(map.values()).sort(
+      (a, b) => a.department.order - b.department.order
+    );
+  })();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -27,6 +68,7 @@ const OurTeamWeb = () => {
         url={`${APP_URL}/about/our-team`}
       />
 
+      {/* ================= HERO (UNCHANGED) ================= */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <motion.div
           variants={fadeUp}
@@ -83,40 +125,27 @@ const OurTeamWeb = () => {
         </motion.div>
       </div>
 
-      {/* ================= CONTENT ================= */}
+      {/* ================= CONTENT (UPDATED ONLY) ================= */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="max-w-7xl mx-auto">
 
-          {/* ===== MANAGEMENT ===== */}
-          <Section
-            title="Management Division"
-            subtitle="Strategic leadership and institutional governance"
-            badge="Leadership Team"
-            color="blue"
-            members={managementTeam}
-            isLoading={isLoading}
-            navigate={navigate}
-          />
-          <Section
-            title="Administrative Department"
-            badge="Support & Operations"
-            color="purple"
-            members={administrationTeam}
-            isLoading={isLoading}
-            navigate={navigate}
-          />
-          {/* ===== COMPUTING ===== */}
-          <Section
-            title="Department of Computing"
-            badge="Technology & Research"
-            color="green"
-            members={computingTeam}
-            isLoading={isLoading}
-            navigate={navigate}
-          />
-
-          {/* ===== ADMINISTRATION ===== */}
-
+          {groupedDepartments.map((group, index) => (
+            <Section
+              key={group.department.id}
+              title={group.department.name}
+              badge={group.department.name}
+              color={
+                index % 3 === 0
+                  ? "blue"
+                  : index % 3 === 1
+                  ? "purple"
+                  : "green"
+              }
+              members={group.members}
+              isLoading={isLoading}
+              navigate={navigate}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -125,7 +154,7 @@ const OurTeamWeb = () => {
 
 export default OurTeamWeb;
 
-/* ================= SECTION COMPONENT ================= */
+/* ================= SECTION COMPONENT (UNCHANGED UI) ================= */
 
 const Section = ({
   title,
@@ -158,11 +187,12 @@ const Section = ({
         <div className={`w-2 h-2 bg-${color}-500 rounded-full`} />
         <span className={`text-${color}-700 font-medium`}>{badge}</span>
       </div>
+
       <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
         {(() => {
           const words = title.split(" ");
-          const lastWord = words.pop(); // last word
-          const firstPart = words.join(" "); // rest of the title
+          const lastWord = words.pop();
+          const firstPart = words.join(" ");
 
           return (
             <>
@@ -193,20 +223,20 @@ const Section = ({
     >
       {isLoading
         ? Array.from({ length: 4 }).map((_, i) => (
-          <TeamCardSkeleton key={i} />
-        ))
+            <TeamCardSkeleton key={i} />
+          ))
         : members.map((member) => (
-          <motion.div
-            key={member.id}
-            whileHover={{ y: -6 }}
-            onClick={() =>
-              navigate(`/team/${member.id}`, { state: { member } })
-            }
-            className="cursor-pointer"
-          >
-            <TeamCard member={member} />
-          </motion.div>
-        ))}
+            <motion.div
+              key={member.id}
+              whileHover={{ y: -6 }}
+              onClick={() =>
+                navigate(`/team/${member.id}`, { state: { member } })
+              }
+              className="cursor-pointer"
+            >
+              <TeamCard member={member} />
+            </motion.div>
+          ))}
     </motion.div>
   </motion.div>
 );

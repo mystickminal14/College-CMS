@@ -2,7 +2,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
 import type { Courses } from "./model/CourseModel";
-import useGetCourseDetails from "./hooks/useGetDetails";
 import CourseNewHeader from "./components/CourseNewHeader";
 import { BlockType, type CourseDetailBlock } from "./model/CourseDetailModel";
 import { IMAGE_URL } from "../../constants";
@@ -31,6 +30,7 @@ import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
 import { parseDate } from "../../utils/ParseDate";
 import { FaMoneyBill } from "react-icons/fa";
+import useGetCourseDetails from "./hooks/useGetDetails";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (

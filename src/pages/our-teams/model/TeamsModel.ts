@@ -2,7 +2,7 @@ export interface Teams {
   id?: number;
   name?: string;
   position?: string;
-  department: Department;
+  departmentId: number;
 
   image?: string;     // cover image
   portrait?: string;  // portrait image
@@ -16,4 +16,3 @@ export interface Teams {
   phone?: string;
 }
 
-export type Department = "ADMINISTRATION" | "COMPUTING" | "MANAGEMENT";

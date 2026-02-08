@@ -4,12 +4,12 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ArrowRight, BookOpen, CalendarDays, Clock, GraduationCap, Languages, Sparkles } from "lucide-react";
 import type { CourseDetailBlock } from "../courses/model/CourseDetailModel";
 import type { Courses } from "../courses/model/CourseModel";
-import useAddCourseDetails from "../courses/hooks/useAddCourseDetails";
 import CourseDetailRenderer from "../courses/components/CourseDetailRender";
 import BlockEditor from "./components/BlockEditor";
 import { useQueryClient } from "@tanstack/react-query";
 import { COURSE_CACHE_KEY, IMAGE_URL } from "../../constants";
 import { motion, type Variants } from "framer-motion";
+import useAddCourseDetails from "../courses/hooks/useAddCourseDetails";
 
 const asideItemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },

@@ -38,9 +38,10 @@ const TeamDetail = () => {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       <Seo
         title={`${member.name} - ${member.position} | Our Team`}
-        description={`Learn about ${member.name}, ${member.position} in ${member.department}. Explore biography, contact info, and social profiles.`}
+        description={`Learn about ${member.name}, ${member.position} in ${member.department.name}. Explore biography, contact info, and social profiles.`}
         url={`${APP_URL}/team/${member.id}`}
-      />      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-20">
+      />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-20">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -88,15 +89,14 @@ const TeamDetail = () => {
             })()}
           </h1>
 
-
           <p className="mt-4 text-gray-600 text-lg">
-            {member.position} · {member.department}
+            {member.position} · {member.department.name}
           </p>
         </motion.div>
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="max-w-7xl mx-auto px-4  pb-24">
+      <div className="max-w-7xl mx-auto px-4 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ const TeamDetail = () => {
           <div className="p-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* ===== PROFILE ===== */}
             <div className="text-center">
-              <div className="rounded-xl overflow-hidden shadow-md ">
+              <div className="rounded-xl overflow-hidden shadow-md">
                 <img
                   src={
                     member.portrait
@@ -205,7 +205,7 @@ const TeamDetail = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Department</p>
-                    <p className="font-semibold">{member.department}</p>
+                    <p className="font-semibold">{member.department.name}</p>
                   </div>
                   {member.email && (
                     <div>

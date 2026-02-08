@@ -7,6 +7,8 @@ import TeamsBasicInfoForm from "./BasicForm";
 import TeamImageUploadForm from "./ImageUpload";
 import { AppContext } from "../../../context/ContextApp";
 import { IMAGE_URL } from "../../../constants";
+import useGetDeptNameAll from "../../our-team-dept/hooks/useGetDeptName";
+import type { Dept } from "../../our-team-dept/model/DeptModel";
 
 interface AddEditTeamsWizardModalProps {
   isOpen: boolean;
@@ -32,12 +34,15 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
 }) => {
   const appContext = useContext(AppContext);
   const isEditMode = !!TeamsToEdit;
+  const { data: yearRes } = useGetDeptNameAll();
+
+  const deptNames: Dept[] = yearRes?.data ?? [];
 
   const [step, setStep] = useState<1 | 2>(1);
   const [formData, setFormData] = useState<Teams>({
     name: "",
     position: "",
-    department: "ADMINISTRATION",
+    departmentId: 0,
     bio: "",
     facebook: "",
     insta: "",
@@ -59,7 +64,7 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
         setFormData({
           name: TeamsToEdit.name || "",
           position: TeamsToEdit.position || "",
-          department: TeamsToEdit.department,
+          departmentId: TeamsToEdit.departmentId,
           bio: TeamsToEdit.bio || "",
           facebook: TeamsToEdit.facebook || "",
           insta: TeamsToEdit.insta || "",
@@ -81,7 +86,7 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
     setFormData({
       name: "",
       position: "",
-      department: "ADMINISTRATION",
+      departmentId: 0,
       bio: "",
       facebook: "",
       insta: "",
@@ -128,8 +133,7 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
   const validateStep1 = () => {
     if (!formData.name?.trim()) return appContext?.showToast("Name is required", "warn");
     if (!formData.position?.trim()) return appContext?.showToast("Position is required", "warn");
-    if (!formData.department) return appContext?.showToast("Department is required", "warn");
-    if (!formData.bio) return appContext?.showToast("Bio is required", "warn");
+    if (!formData.departmentId) return appContext?.showToast("Department is required", "warn");
     if (!formData.email) return appContext?.showToast("Email is required", "warn");
 
     return true;
@@ -233,6 +237,7 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
                 <TeamsBasicInfoForm
                   formData={formData}
                   onChange={handleFormChange}
+                  departments={deptNames}
                   isSubmitting={editMutation?.isPending || createMutation?.isPending}
                 />
 

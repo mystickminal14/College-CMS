@@ -17,12 +17,13 @@ import type {
 } from "../courses/model/CourseDetailModel";
 import type { Courses } from "../courses/model/CourseModel";
 
-import useGetCourseDetails from "../courses/hooks/useGetDetails";
-import useUpdateCourseBlock from "../courses/hooks/useUpdateCoruseBlock";
 
 import { EditableBlock } from "./EditableBlock";
 import DeleteBlockModal from "./DeleteBlock";
-import { IMAGE_URL } from "../../constants";
+import {  IMAGE_URL } from "../../constants";
+import EditBlockEditor from "./edit-components/EditBlockEditor";
+import useGetCourseDetails from "../courses/hooks/useGetDetails";
+import useUpdateCourseBlock from "../courses/hooks/useUpdateCoruseBlock";
 
 /* ------------------ ANIMATIONS ------------------ */
 const asideItemVariants: Variants = {
@@ -60,7 +61,6 @@ const EditCourseDetailsPage = () => {
 
   const course = location.state?.course as Courses;
 
-  /* ✅ ONE ref for ALL blocks (FIX) */
   const sectionRefs = useRef<Record<number, HTMLElement | null>>({});
 
   const {
@@ -76,14 +76,13 @@ const EditCourseDetailsPage = () => {
   });
 
   const updateBlockMutation = useUpdateCourseBlock();
+  const [blocksData, setBlocks] = useState<CourseDetailBlock[]>([]);
 
-  /* ------------------ FLATTEN PAGINATED DATA ------------------ */
   const blocks: CourseDetailBlock[] =
     data?.pages
       ?.flatMap((page) => page.data ?? [])
       ?.sort((a, b) => a.order - b.order) || [];
 
-  /* ------------------ LOAD MORE OBSERVER ------------------ */
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -102,7 +101,6 @@ const EditCourseDetailsPage = () => {
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
 
-  /* ------------------ UPDATE BLOCK ------------------ */
   const handleUpdateBlock = (updatedBlock: UpdateBlockData) => {
     if (!updatedBlock.id) return;
 
@@ -118,7 +116,6 @@ const EditCourseDetailsPage = () => {
     );
   };
 
-  /* ------------------ DELETE MODAL ------------------ */
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [selectedBlock, setSelectedBlock] =
     useState<CourseDetailBlock | null>(null);
@@ -128,15 +125,8 @@ const EditCourseDetailsPage = () => {
     setIsDeleteOpen(true);
   };
 
-  /* ------------------ ADD BLOCK ------------------ */
-  const handleAddBlock = () => {
-    if (!id) return;
-    navigate(`/app/course-details/key/add/${id}`, {
-      state: { course },
-    });
-  };
+ 
 
-  /* ------------------ LOADING ------------------ */
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -145,24 +135,18 @@ const EditCourseDetailsPage = () => {
     );
   }
 
-  /* ------------------ RENDER ------------------ */
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="p-4 md:p-8">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
-          {/* MAIN */}
           <main className="lg:w-3/4">
             <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold">Edit Course Content</h2>
 
                 <div className="flex gap-3">
-                  <button
-                    onClick={handleAddBlock}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  >
-                    + Add New Block
-                  </button>
+                
+
                   <button
                     onClick={() => navigate(-1)}
                     className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
@@ -173,17 +157,16 @@ const EditCourseDetailsPage = () => {
                 </div>
               </div>
 
+              <div className="mb-2">
+                <EditBlockEditor blocks={blocksData } id={Number(id)}   onChange={setBlocks} />
+              </div>
+
               {blocks.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-gray-500 mb-4">
                     No content blocks yet.
                   </p>
-                  <button
-                    onClick={handleAddBlock}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  >
-                    Add Your First Block
-                  </button>
+                 
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -197,7 +180,6 @@ const EditCourseDetailsPage = () => {
                     />
                   ))}
 
-                  {/* LOAD MORE */}
                   <div
                     ref={loadMoreRef}
                     className="h-10 flex justify-center items-center"
@@ -213,7 +195,6 @@ const EditCourseDetailsPage = () => {
             </div>
           </main>
 
-          {/* ASIDE */}
           <aside className="lg:w-1/3">
             <motion.div
               variants={sectionVariants}

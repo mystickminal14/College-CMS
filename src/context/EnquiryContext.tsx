@@ -7,15 +7,31 @@ type EnquiryContextType = {
 const EnquiryContext = createContext<EnquiryContextType | null>(null);
 
 export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => {
+
   const open = () => {
-    const btn = document.getElementById("meritto-enquiry-btn");
+    const tryOpen = () => {
+      const btn = document.querySelector<HTMLButtonElement>(
+        ".npfWidgetButton"
+      );
 
-    if (!btn) {
-      console.error("[Meritto] Hidden button not found ❌");
-      return;
-    }
+      if (btn) {
+        btn.click(); // ✅ Opens Meritto popup
+        return true;
+      }
+      return false;
+    };
 
-    btn.click(); // 🚀 Opens popup
+    // Try immediately
+    if (tryOpen()) return;
+
+    // Retry if widget hasn't loaded yet
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (tryOpen() || attempts > 10) {
+        clearInterval(interval);
+      }
+    }, 300);
   };
 
   return (
@@ -25,9 +41,10 @@ export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => 
   );
 };
 
-
 export const useEnquiry = () => {
   const ctx = useContext(EnquiryContext);
-  if (!ctx) throw new Error("useEnquiry must be used inside EnquiryProvider");
+  if (!ctx) {
+    throw new Error("useEnquiry must be used inside EnquiryProvider");
+  }
   return ctx;
 };

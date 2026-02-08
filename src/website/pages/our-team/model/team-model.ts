@@ -1,29 +1,31 @@
+import type { DeptAll } from "../../../../pages/our-team-dept/model/DeptModel";
+
 export interface TeamMember {
   id: number;
- name?: string;
+  name: string;
   position?: string;
-  department: Department;
 
-  image?: string;     // cover image
-  portrait?: string;  // portrait image
-  bio?: string;     // cover image
+  departmentId: number;
+  department: DeptAll;
 
-  linkedIn?: string;
-  facebook?: string;
-  insta?: string;
+  bio?: string | null;
 
-  email?: string;
-  phone?: string;
+  image?: string;
+  portrait?: string;
+
+  facebook?: string | null;
+  insta?: string | null;
+  linkedIn?: string | null;
+
+  phone?: string | null;
+  email?: string | null;
+
+  order: number;       // member display order
+  createdAt: string;
+  updatedAt: string;
 }
 
-export type Department =
-  | "MANAGEMENT"
-  | "ADMINISTRATION"
-  | "COMPUTING";
 
-// Grouped response by department
 export interface TeamsByDepartment {
-  MANAGEMENT: TeamMember[];
-  ADMINISTRATION: TeamMember[];
-  COMPUTING: TeamMember[];
+  [departmentName: string]: TeamMember[];
 }

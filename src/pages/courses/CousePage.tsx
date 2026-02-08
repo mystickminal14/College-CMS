@@ -12,17 +12,17 @@ import DeleteTeamsModal from "./components/DeleteModel";
 import AddEditCoursesWizardModal from "./components/Wizard";
 
 import { PAGE_LIMIT } from "../../constants";
-import useGetAll from "./hooks/useGetAllCourses";
-import useCreateCourse from "./hooks/useCreateCourses";
-import useEditCourses from "./hooks/useEditCourse";
-import { useUploadCourseImage } from "./hooks/useUploadImage";
-import { useUpdateImage } from "./hooks/useUpdateImage";
 import { CoursesColumns } from "../courses/utils/columns";
 
 import type { Courses } from "./model/CourseModel";
 import CoursesCardView from "./CourseCardView";
 import { useNavigate } from "react-router-dom";
 import ChangeCourseOrderModal from "./components/ChangeOrder";
+import useGetAll from "./hooks/useGetAllCourses";
+import useCreateCourse from "./hooks/useCreateCourses";
+import useEditCourses from "./hooks/useEditCourse";
+import { useUploadCourseImage } from "./hooks/useUploadImage";
+import { useUpdateImage } from "./hooks/useUpdateImage";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);

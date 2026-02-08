@@ -30,6 +30,5 @@ export const TeamsColumns = [
   { label: "Position", accessor: "position" },
   { label: "Order", accessor: "order" },
 
-  { label: "Department", accessor: "department", render: (row: Teams) => `${row.department.toLowerCase()} ` },
 
 ];
