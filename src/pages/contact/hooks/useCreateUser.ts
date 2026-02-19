@@ -20,7 +20,7 @@ const useCreateContact = () => {
 
     onSuccess: (res) => {
       showToast(res.message || "Contact added successfully!", "success");
-     queryClient.invalidateQueries({ queryKey: [CONTACT_CACHE_KEY] });
+      queryClient.invalidateQueries({ queryKey: [CONTACT_CACHE_KEY] });
        
 
     },

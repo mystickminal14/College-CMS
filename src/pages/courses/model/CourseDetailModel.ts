@@ -27,6 +27,13 @@ export interface SubHeadingBlock extends BaseBlock {
   children: CourseDetailBlock[];
   content?: never;
 }
+export interface AddBlockPayload {
+  courseId: number;
+  parentId: number | null;
+  type: "SUBHEADING" | "PARAGRAPH" | "LIST";
+  title?: string;
+  content?: string | string[];
+}
 
 export interface ParagraphBlock extends BaseBlock {
   type: typeof BlockType.PARAGRAPH;

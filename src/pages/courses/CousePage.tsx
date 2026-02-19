@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUp, Edit, Edit3, Trash2, View } from "lucide-react";
+import { ArrowUp, Copy, Edit, Edit3, Trash2, View } from "lucide-react";
 import { FaTable, FaThLarge, FaPlus } from "react-icons/fa";
 import { debounce } from "lodash";
 
@@ -23,6 +23,8 @@ import useCreateCourse from "./hooks/useCreateCourses";
 import useEditCourses from "./hooks/useEditCourse";
 import { useUploadCourseImage } from "./hooks/useUploadImage";
 import { useUpdateImage } from "./hooks/useUpdateImage";
+import useCopyCourse from "./hooks/useCopyCourse";
+import CopyCourseModal from "./components/CopyCourse";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -31,6 +33,20 @@ const CoursePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  const copyMutation = useCopyCourse();
+  const [showCopyModal, setShowCopyModal] = useState(false);
+  const [courseToCopy, setCourseToCopy] = useState<Courses | null>(null);
+  const handleCopy = (course: Courses) => {
+    setCourseToCopy(course);
+    setShowCopyModal(true);
+  };
+
+  const confirmCopy = () => {
+    if (!courseToCopy) return;
+    copyMutation.mutate(courseToCopy.id);
+    setShowCopyModal(false);
+  };
+
 
   const handleSearch = debounce((value: string) => {
     setDebouncedSearch(value);
@@ -69,7 +85,7 @@ const CoursePage = () => {
     navigate(`/app/course-details/edit/${course.id}`, { state: { course } });
   };
   const [showOrderModal, setShowOrderModal] = useState(false);
-const [courseToChangeOrder, setCourseToChangeOrder] = useState<Courses | null>(null);
+  const [courseToChangeOrder, setCourseToChangeOrder] = useState<Courses | null>(null);
 
   const tableActions: {
     icon: React.ReactNode | ((row: Courses) => React.ReactNode);
@@ -97,14 +113,21 @@ const [courseToChangeOrder, setCourseToChangeOrder] = useState<Courses | null>(n
         color: "text-blue-500"
       },
       {
-  icon: <ArrowUp className="w-4 h-4" />,
-  tooltip: "Change Order",
-  onClick: (course) => {
-    setCourseToChangeOrder(course);
-    setShowOrderModal(true);
-  },
-  color: "text-purple-600",
-},
+        icon: <Copy className="w-4 h-4" />,
+        tooltip: "Duplicate Course",
+        onClick: handleCopy,
+        color: "text-indigo-600"
+      },
+
+      {
+        icon: <ArrowUp className="w-4 h-4" />,
+        tooltip: "Change Order",
+        onClick: (course) => {
+          setCourseToChangeOrder(course);
+          setShowOrderModal(true);
+        },
+        color: "text-purple-600",
+      },
       {
         icon: <FaPlus className="w-4 h-4" />,
         tooltip: "Add Details",
@@ -202,11 +225,20 @@ const [courseToChangeOrder, setCourseToChangeOrder] = useState<Courses | null>(n
         updateImageMutation={updateImageMutation}
       />
       <ChangeCourseOrderModal
-  isOpen={showOrderModal}
-  onClose={() => setShowOrderModal(false)}
-  course={courseToChangeOrder}
-  maxOrder={courses.length}
-/>
+        isOpen={showOrderModal}
+        onClose={() => setShowOrderModal(false)}
+        course={courseToChangeOrder}
+        maxOrder={courses.length}
+      />
+
+      <CopyCourseModal
+        isOpen={showCopyModal}
+        onClose={() => setShowCopyModal(false)}
+        course={courseToCopy}
+        onConfirm={confirmCopy}
+        loading={copyMutation.isPending}
+      />
+
 
     </div>
   );

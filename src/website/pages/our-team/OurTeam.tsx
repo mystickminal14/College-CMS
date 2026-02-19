@@ -196,7 +196,7 @@ const Section = ({
 
           return (
             <>
-              {firstPart}{" "}
+             Department of {firstPart}{" "}
               <span className="relative inline-block">
                 <span className="text-blue-600 relative z-10">{lastWord}</span>
                 <img

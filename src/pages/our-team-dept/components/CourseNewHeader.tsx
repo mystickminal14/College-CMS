@@ -2,7 +2,7 @@ import decoration from "../../../assets/decoration.webp";
 
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../../website/comp/animation';
-import type { Courses } from "../model/CourseModel";
+import type { Courses } from "../../courses/model/CourseModel";
 interface CourseHeaderProps {
   course: Courses;
 }

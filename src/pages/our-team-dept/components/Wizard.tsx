@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { X, BookOpen, Loader2 } from "lucide-react";
 import type { UseMutationResult } from "@tanstack/react-query";
-import type { Courses, EShift } from "../model/CourseModel";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 
 import { AppContext } from "../../../context/ContextApp";
 import { IMAGE_URL } from "../../../constants";
-import CoursesBasicForm from "./CourseBasicForm";
 import CourseImageUploadForm from "./CourseImageUpload";
+import type { Courses, EShift } from "../../courses/model/CourseModel";
+import CoursesBasicForm from "../../courses/components/CourseBasicForm";
 
 interface AddEditCoursesWizardModalProps {
   isOpen: boolean;

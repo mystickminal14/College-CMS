@@ -172,6 +172,7 @@ const EditCourseDetailsPage = () => {
                 <div className="space-y-6">
                   {blocks.map((block) => (
                     <EditableBlock
+                    courseId={Number(id)}
                       key={block.id}
                       block={block}
                       onDelete={handleDeleteBlock}

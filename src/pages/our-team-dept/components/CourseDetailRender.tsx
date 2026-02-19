@@ -1,5 +1,5 @@
 import React from "react";
-import { BlockType, type CourseDetailBlock } from "../model/CourseDetailModel";
+import { BlockType, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
 
 interface Props {
   blocks: CourseDetailBlock[];

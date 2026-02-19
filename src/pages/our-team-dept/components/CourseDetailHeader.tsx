@@ -6,10 +6,10 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-import type { Courses } from "../model/CourseModel";
 import { IMAGE_URL } from "../../../constants";
 import decoration from "../../../assets/decoration.webp";
 import { useEnquiry } from "../../../context/EnquiryContext";
+import type { Courses } from "../../courses/model/CourseModel";
 
 interface CourseHeaderProps {
   course: Courses;

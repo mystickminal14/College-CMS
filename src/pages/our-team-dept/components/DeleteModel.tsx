@@ -1,7 +1,7 @@
 import React from "react";
 import { X, AlertTriangle, Trash2, Loader2 } from "lucide-react";
-import type { Courses } from "../model/CourseModel";
-import useDeleteCourses from "../../our-team-dept/hooks/hooks/useDeleteCourse";
+import type { Courses } from "../../courses/model/CourseModel";
+import useDeleteCourses from "../../courses/hooks/useDeleteCourse";
 
 
 interface Props {

@@ -68,7 +68,7 @@ class APIClient<T> {
   };
 
   post = async (
-    data: any,
+    data?: any,
     config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> => {
     const response = await axiosInstance.post<ApiResponse<T>>(

@@ -16,7 +16,7 @@ const useAddCourseDetails = () => {
 
   if (!appContext) {
     throw new Error(
-      "useAddCourseDetails must be used within AppContext provider"
+      "useAddCourseDetails must be used within AppContext provider",
     );
   }
 
@@ -29,15 +29,19 @@ const useAddCourseDetails = () => {
     AddCourseDetailsPayload
   >({
     mutationFn: async ({ courseId, blocks }) => {
-      const apiClient = new APIClient<CourseDetailBlock[]>(`/courses/${courseId}/details`);
+      const apiClient = new APIClient<CourseDetailBlock[]>(
+        `/courses/${courseId}/details`,
+      );
       const response = await apiClient.post(blocks);
       return response;
     },
 
     onSuccess: (res) => {
-         showToast(res.message || "Course updated successfully!", "success");
-     queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY],   refetchType: 'all' });
-      
+      showToast(res.message || "Course updated successfully!", "success");
+      queryClient.invalidateQueries({
+        queryKey: [COURSE_CACHE_KEY, "details"],
+        refetchType: "all",
+      });
     },
 
     onError: (err) => {

@@ -102,7 +102,7 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
     setStep(1);
   };
 
-  const handleFormChange = (field: string, value: string) => {
+  const handleFormChange = (field: string, value: string|number) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
