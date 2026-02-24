@@ -230,7 +230,7 @@ const Section = ({
               key={member.id}
               whileHover={{ y: -6 }}
               onClick={() =>
-                navigate(`/team/${member.id}`, { state: { member } })
+                navigate(`/ourteam/${member.id}`, { state: { member } })
               }
               className="cursor-pointer"
             >
