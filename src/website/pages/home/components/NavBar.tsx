@@ -46,6 +46,15 @@ export function NavBar() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 
+  const courseSlugMap: Record<string, string> = {
+    "Information Technology": "bscit",
+    " Information Technology with a Specialism in Cloud Engineering": "bscitce",
+    "Information Technology with a Specialism in Cyber Security": "bscitcs",
+    "Information Technology with a Specialism in Artificial Intelligence": "bscitai",
+    "Information Technology with a Specialism in Internet of Things(IOT)": "bscitiot",
+    "ITM": "mscitm",
+  };
+
   /* Shadow on scroll */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -65,6 +74,7 @@ export function NavBar() {
 
   const { data } = useGetNameAll();
   const courseNames = data?.data ?? [];
+
 
   /* Desktop hover */
   const onEnter = (menu: string) => setActiveDropdown(menu);
@@ -88,15 +98,15 @@ export function NavBar() {
     {
       name: "About",
       dropdown: [
-        { name: "About LBEF", link: "/about/about-lbef", icon: <FaUniversity /> },
-        { name: "About University", link: "/about/about-university", icon: <FaUniversity /> },
-        { name: "Recognitions", link: "/about/recognition", icon: <FaCertificate /> },
-        { name: "Permission Letter", link: "/about/permission-letter", icon: <FaCertificate /> },
+        { name: "About LBEF", link: "/about", icon: <FaUniversity /> },
+        { name: "About University", link: "/about-university", icon: <FaUniversity /> },
+        { name: "Recognitions", link: "/recognitions", icon: <FaCertificate /> },
+        { name: "Permission Letter", link: "/permission-letter", icon: <FaCertificate /> },
 
-        { name: "Achivements", link: "/about/achivement", icon: <FaCertificate /> },
-        {name: "Messages", link: "/about/messages", icon: <FaUsers />},
-        { name: "Our Team", link: "/about/our-team", icon: <FaUsers /> },
-        { name: "Holidays", link: "/about/holidays", icon: <FaCalendar /> },
+        { name: "Achivements", link: "/achivements", icon: <FaCertificate /> },
+        { name: "Messages", link: "/messages", icon: <FaUsers /> },
+        { name: "Our Team", link: "/ourteam", icon: <FaUsers /> },
+        { name: "Holidays", link: "/administrative-holidays", icon: <FaCalendar /> },
       ],
     },
     {
@@ -108,7 +118,7 @@ export function NavBar() {
             icon: <FaBook />,
             onClick: () => {
               navigate(
-                `/students-life/${course.title.replace(/ /g, "-")}/${course.id}`,
+                `${courseSlugMap[course.title]}`,
                 { state: { course } }
               );
               setActiveDropdown(null);
@@ -119,20 +129,20 @@ export function NavBar() {
     {
       name: "Students",
       dropdown: [
-        { name: "Academic Club", link: "/students-life/academic-club", icon: <FaGraduationCap /> },
-        { name: "Academic Planner", link: "/students-life/academic-planner", icon: <FaUniversity /> },
-        { name: "Downloads", link: "/students-life/downloads", icon: <FaUsers /> },
-        { name: "Fee Planner", link: "/students-life/fee-planner", icon: <FaUniversity /> },
-        { name: "Notice Board", link: "/students-life/notices", icon: <FaUniversity /> },
-        { name: "Payment Modes", link: "/students-life/payment-modes", icon: <FaUniversity /> },
-        { name: "Student Access", link: "/students-life/student-access", icon: <FaUniversity /> },
-        { name: "Contact List", link: "/students-life/student-support", icon: <FaClipboardList /> },
+        { name: "Academic Club", link: "/academic-club", icon: <FaGraduationCap /> },
+        { name: "Academic Planner", link: "/academic-planners", icon: <FaUniversity /> },
+        { name: "Downloads", link: "/downloads", icon: <FaUsers /> },
+        { name: "Fee Planner", link: "/fee-payment-planners", icon: <FaUniversity /> },
+        { name: "Notice Board", link: "/notices", icon: <FaUniversity /> },
+        { name: "Payment Modes", link: "/payment-modes", icon: <FaUniversity /> },
+        { name: "Student Access", link: "/online-libraries", icon: <FaUniversity /> },
+        { name: "Contact List", link: "/contact-info", icon: <FaClipboardList /> },
         {
           name: "Alumni",
           icon: <FaUserGraduate />,
           dropdown: [
-            { name: "Alumni Speaks", link: "/students-life/alumni-speaks", icon: <FaComment /> },
-            { name: "Alumni Form", link: "/students-life/alumni-form", icon: <FaComment /> },
+            { name: "Alumni Speaks", link: "/alumni-speaks", icon: <FaComment /> },
+            { name: "Alumni Form", link: "/alumni-information-form", icon: <FaComment /> },
           ],
         },
       ],
@@ -141,17 +151,18 @@ export function NavBar() {
       name: "Admissions",
       dropdown: [
         // { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
-        { name: "Admission Process", link: "/admissions/admission-process", icon: <FaClipboardList /> },
-        { name: "Code of Conduct", link: "/students-life/student-code-of-conduct", icon: <FaClipboardList /> },
+        { name: "Admission Process", link: "/admission-procedure", icon: <FaClipboardList /> },
+        { name: "Code of Conduct", link: "/codeofconduct", icon: <FaClipboardList /> },
+        { name: "Scholarship", link: "/scholarship", icon: <FaCertificate /> },
       ],
     },
     {
       name: "LBEF Publications",
       dropdown: [
         { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
-        { name: "Lbef Connect", link: "/media/connect", icon: <FaBook /> },
+        { name: "Lbef Connect", link: "/lbef-connect", icon: <FaBook /> },
         { name: "Journal", link: "/lrjstm/", icon: <FaBook /> },
-        { name: "LBEF News", link: "/media/news-events", icon: <FaBook /> },
+        { name: "LBEF News", link: "/news", icon: <FaBook /> },
       ],
     },
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },

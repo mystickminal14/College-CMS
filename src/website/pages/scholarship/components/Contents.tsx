@@ -1,12 +1,9 @@
 import { Award, Info, Percent } from "lucide-react";
 
-const ScholarshipSection = () => {
+const ScholarshipContent = () => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-      <div className="flex items-center gap-3 mb-6">
-        <Award className="w-6 h-6 text-purple-600" />
-        <h2 className="text-2xl font-bold text-gray-900">Scholarships</h2>
-      </div>
+    <div className="bg-white rounded-xl p-8">
+
 
       {/* Introduction */}
       <div className="bg-purple-50 border border-purple-100 rounded-lg p-6 mb-8">
@@ -199,7 +196,7 @@ const ScholarshipSection = () => {
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
 
                     </tr>
-                    
+
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"></td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Total Scholarship Amount</td>
@@ -245,7 +242,7 @@ const ScholarshipSection = () => {
 
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
                     </tr>
-                    
+
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"></td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Total Scholarship Amount</td>
@@ -466,4 +463,4 @@ const ScholarshipSection = () => {
   );
 };
 
-export default ScholarshipSection;
+export default ScholarshipContent;

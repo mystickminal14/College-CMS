@@ -37,6 +37,13 @@ const isCourseDetailBlock = (
   block: CourseDetailBlock | null | undefined
 ): block is CourseDetailBlock => block !== null && block !== undefined;
 
+/* ------------------ HELPER FUNCTION FOR ID ------------------ */
+const generateId = (title?: string | null) =>
+  title
+    ?.toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, "-");
+
 const asideItemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
@@ -91,11 +98,12 @@ const mainSectionContainerVariants: Variants = {
 
 /* ------------------ COMPONENT ------------------ */
 const CourseDetails = () => {
-  const { id } = useParams<{ id: string }>();
+
   const location = useLocation();
   const { open } = useEnquiry();
 
-  const course = location.state?.course as Courses;
+  const course = location?.state?.course as Courses;
+  const id = course?.id ?? "1";
 
   const {
     data,
@@ -103,9 +111,10 @@ const CourseDetails = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetCourseDetails({
-    courseId: id!,
+    courseId: String(id!),
     limit: 4,
   });
+  // console.log("Course Detail Data:", data);
 
   /* ------------------ FLATTEN PAGINATED DATA ------------------ */
   const contentBlocks =
@@ -160,88 +169,52 @@ const CourseDetails = () => {
   return (
     <>
       <Seo
-        title={`${course.prefix} ${course.title} in Nepal | LBEF College`}
-        description={`Study ${course.prefix} ${course.title} at LBEF College Nepal. Duration: ${course.duration} years. Learn industry-focused skills with expert faculty.`}
+        title={`${course?.prefix} ${course?.title} in Nepal | LBEF College`}
+        description={`Study ${course?.prefix} ${course?.title} at LBEF College Nepal. Duration: ${course?.duration} years. Learn industry-focused skills with expert faculty.`}
       />
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
         <CourseNewHeader course={course} />
-        <div className=" relative max-w-5xl mx-auto ">
+        <div className="relative max-w-5xl mx-auto">
           <div className="absolute inset-0 bg-linear-to-r from-blue-500/5 via-indigo-500/5 to-blue-500/5 rounded-2xl blur-xl"></div>
-          <div className=" bg-white/90 backdrop-blur-sm border border-blue-200 rounded-xl p-5 sm:p-6 shadow-lg sticky top-6 z-10">
+
+          <div className="bg-white/90 backdrop-blur-sm border border-blue-200 rounded-xl p-5 sm:p-6 shadow-lg sticky top-6 z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <motion.div
-                variants={fadeItem}
-                initial="hidden"
-                whileInView="visible"
-                className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
-              >
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
-                  <Clock className="w-6 h-6 text-blue-600" />
-                </div>
-                <h3 className="text-sm font-semibold text-gray-800 mb-1">Course Duration</h3>
-                <p className="text-sm text-blue-700 font-medium">{course.duration} years ({course.semester} semester)</p>
-              </motion.div>
+              {[
+                { title: "Course Structure", target: "programme-outline", icon: Layers },
+                { title: "Career Options", target: "career-options", icon: Briefcase },
+                { title: "Fee Structure", target: "fee-structure", icon: FileText },
+                { title: "Eligibility Requirements", target: "entry-requirements", icon: GraduationCap },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeItem}
+                  initial="hidden"
+                  whileInView="visible"
+                  onClick={() => {
+                    const element = document.getElementById(item.target);
+                    if (element) {
+                      element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                  }}
+                  className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow cursor-pointer"
+                >
+                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                    <item.icon className="w-6 h-6 text-blue-600" />
+                  </div>
 
-              {/* Intake Date Card */}
-              <motion.div
-                variants={fadeItem}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: 0.1 }}
-                className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
-              >
-                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mb-3">
-                  <CalendarDays className="w-6 h-6 text-emerald-600" />
-                </div>
-                <h3 className="text-sm font-semibold text-gray-800 mb-1">Intake Date</h3>
-                <p className="text-sm text-emerald-700 font-medium">{course.intake != "" ? parseDate(course.intake ?? '') : <i>will be updated</i>}</p>
-              </motion.div>
-
-              {/* Download Brochure Card */}
-              <motion.div
-                variants={fadeItem}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: 0.2 }}
-                className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
-              >
-                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
-                  <FileText className="w-6 h-6 text-indigo-600" />
-                </div>
-                <h3 className="text-sm font-semibold text-gray-800 mb-1">Download Brochure</h3>
-                <button     onClick={() => {
-  if (course.brochure) {
-    window.open(course.brochure, "_blank");
-  }
-}}
-className="text-sm cursor-pointer text-indigo-700 font-medium hover:text-indigo-800 ">
-                  Download PDF
-                </button>
-              </motion.div>
-              <motion.div
-                variants={fadeItem}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: 0.2 }}
-                className="bg-emerald-50 border border-indigo-100 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow"
-              >
-                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
-                  <FaMoneyBill className="w-6 h-6 text-indigo-600" />
-                </div>
-                <h3 className="text-sm font-semibold text-gray-800 mb-1">Fee Structure</h3>
-                <button onClick={() => {
-  if (course.feeStructure) {
-    window.open(course.feeStructure, "_blank");
-  }
-}}
-className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indigo-800 ">
-                  View Fee Structure
-                </button>
-              </motion.div>
+                  <h3 className="text-sm font-semibold text-gray-800">
+                    {item.title}
+                  </h3>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
+
         <div className="container max-w-7xl mx-auto px-4 sm:px-0 mt-26 pb-20">
           <div className="flex flex-col-reverse sm:flex-col lg:flex-row gap-8">
             <main className="lg:w-2/3 space-y-8">
@@ -265,6 +238,7 @@ className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indig
                 return (
                   <motion.section
                     key={block.id}
+                    id={generateId(block.title)}
                     variants={sectionVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -291,7 +265,7 @@ className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indig
                         </div>
 
                         <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-                          {block.title}
+                          {block?.title}
                         </h2>
 
 
@@ -323,14 +297,14 @@ className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indig
                 className="bg-white rounded-xl shadow-md border border-gray-200 sticky top-6 overflow-hidden"
               >
                 <img
-                  src={IMAGE_URL + course.image}
+                  src={IMAGE_URL + course?.image}
                   alt="Course Preview"
                   className="w-full h-48 object-cover"
                 />
 
                 <motion.div className="p-4 space-y-4" variants={fadeItem}>
                   <h2 className="text-sm font-semibold text-gray-900">
-                    {course.prefix} in {course.title}
+                    {course?.prefix} in {course?.title}
                   </h2>
 
                   <div className="space-y-3 text-left">
@@ -338,13 +312,13 @@ className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indig
                       {
                         icon: CalendarDays,
                         label: "Duration",
-                        value: `${course.duration} years (${course.semester} semester)`,
+                        value: `${course?.duration} years (${course?.semester} semester)`,
                       },
                       { icon: Languages, label: "Language", value: "English" },
                       {
                         icon: BookOpen,
                         label: "Credits",
-                        value: `${course.credit} Credit Hours`,
+                        value: `${course?.credit} Credit Hours`,
                       },
                     ].map((item, i) => (
                       <motion.div
@@ -416,8 +390,8 @@ className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indig
                         </div>
                       </div>
                     </div>
-                    
-                    
+
+
                   </motion.div>
 
                   {/* SCHOLARSHIP */}
@@ -454,7 +428,7 @@ className="text-sm cursor-pointer  text-emerald-700 font-medium hover:text-indig
                       </motion.button>
                     </div>
                   </motion.div>
-                 
+
                 </motion.div>
               </motion.div>
             </aside>

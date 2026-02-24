@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
-import lbef from '../../../assets/lbef_access.webp'
+import lbef from '../../../assets/full_form_lbef.webp'
 import springer from '../../../assets/e-library/springerlink.webp'
 import access from '../../../assets/e-library/access.webp'
 import acm from '../../../assets/e-library/acm.webp'

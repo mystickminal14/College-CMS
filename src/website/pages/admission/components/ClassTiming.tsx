@@ -32,7 +32,7 @@ const ClassTiming = () => {
                 06:30 A.M – 11:00 A.M
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                10:30 A.M – 12:30 P.M
+                11:00 A.M – 1:00 P.M
               </td>
             </tr>
             <tr>

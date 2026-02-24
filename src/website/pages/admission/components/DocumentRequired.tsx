@@ -2,7 +2,7 @@ import { CheckCircle } from "lucide-react";
 
 const DocumentsRequired = () => {
   const staticDocs = [
-    "Attested photocopy of SLC marks sheet and character certificate.",
+    "Attested photocopy of SEE marks sheet and character certificate.",
     "Attested photocopy of 10+2 marks sheet or equivalent academic transcript, character certificate, provisional pass certificate and migration certificate.",
     "Original migration certificate.",
     "Attested photocopies of Bachelor Level marks sheet, provisional pass certificate and degree certificate (Applicable only for Master’s Level applicants).",

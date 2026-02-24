@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { WebsiteLayout } from "../website/WebLayout";
+import NotFoundPage from "../components/NoRouteFound";
+import Scholarship from "../website/pages/scholarship/Scholarship";
 
 /* =======================
    Lazy Loaded Pages
@@ -65,64 +67,95 @@ export const websiteRoutes = [
         index: true,
         element: <HomePage />,
       },
-      {
-        path: "about",
-        children: [
-          { path: "", element: <AboutPage /> },
-          { path: "about-lbef", element: <AboutPage /> },
-          { path: "about-university", element: <AboutUniversity /> },
-          { path: "recognition", element: <RecognitionPageWeb /> },
-          { path: "permission-letter", element: <PermissionPageWeb /> },
+      // {
+      //   path: "about",
+      //   children: [
+      //     { path: "", element: <AboutPage /> },
+      //     { path: "about-lbef", element: <AboutPage /> },
+      //     { path: "about-university", element: <AboutUniversity /> },
+      //     { path: "recognition", element: <RecognitionPageWeb /> },
+      //     { path: "permission-letter", element: <PermissionPageWeb /> },
 
-          { path: "achivement", element: <AchievementWeb /> },
-          { path: "messages", element: <OurMessage /> },
-          { path: "our-team", element: <OurTeamWeb /> },
-          {
-            path: "training-placement",
-            element: <PlaceholderPage pageName="Training & Placement Cell" />,
-          },
-          { path: "holidays", element: <HolidayWebPlanner /> },
-        ],
-      },
-      {
-        path: "courses",
-        children: [
-          { path: "", element: <CourseProgram /> },
-          { path: ":name/:id", element: <CourseDetails /> },
-        ],
-      },
-      {
-        path: "students-life",
-        children: [
-          { path: "", element: <CourseProgram /> },
-          { path: "programs", element: <CourseProgram /> },
-          {
-            path: "student-code-of-conduct",
-            element: <CodeOfConduct />,
-          },
-          { path: ":name/:id", element: <CourseDetails /> },
-          { path: "fee-planner", element: <FeePlannersWeb /> },
-          { path: "academic-planner", element: <AcademicWebPlanner /> },
-          { path: "academic-club", element: <AcademicClub /> },
-          { path: "downloads", element: <StudentHandbook /> },
-          { path: "payment-modes", element: <PaymentModes /> },
-          { path: "alumni-speaks", element: <AlumniSpeaks /> },
-          { path: "alumni-form", element: <AlumniFormPage /> },
-          { path: "student-access", element: <StudentAccess /> },
-          { path: "student-support", element: <ContactListPage /> },
-          { path: "notices", element: <NoticeWeb /> },
-        ],
-      },
-      {
-        path: "admissions",
-        children: [
-          { path: "", element: <AdmissionProcedure /> },
-          {
-            path: "admission-process",
-            element: <AdmissionProcedure />,
-          },
-        ],
-      },
+      //     { path: "achivement", element: <AchievementWeb /> },
+      //     { path: "messages", element: <OurMessage /> },
+      //     { path: "our-team", element: <OurTeamWeb /> },
+      //     {
+      //       path: "training-placement",
+      //       element: <PlaceholderPage pageName="Training & Placement Cell" />,
+      //     },
+      //     { path: "holidays", element: <HolidayWebPlanner /> },
+      //   ],
+      // },
+      { path: "about", element: <AboutPage /> },
+      { path: "about-university", element: <AboutUniversity /> },
+      { path: "recognitions", element: <RecognitionPageWeb /> },
+      { path: "permission-letter", element: <PermissionPageWeb /> },
+      { path: "achivements", element: <AchievementWeb /> },
+      { path: "messages", element: <OurMessage /> },
+      { path: "ourteam", element: <OurTeamWeb /> },
+      { path: "training-and-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
+      { path: "administrative-holidays", element: <HolidayWebPlanner /> },
+      // {
+      //   path: "courses",
+      //   children: [
+      //     { path: "", element: <CourseProgram /> },
+      //     { path: ":name/:id", element: <CourseDetails /> },
+      //   ],
+      // },
+      { path: "courses", element: <CourseProgram /> },
+      { path: ":slug", element: <CourseDetails /> },
+      { path: "codeofconduct", element: <CodeOfConduct /> },
+      { path: "codeofconduct", element: <CodeOfConduct />, },
+      { path: "fee-payment-planners", element: <FeePlannersWeb /> },
+      { path: "academic-planners", element: <AcademicWebPlanner /> },
+      { path: "academic-club", element: <AcademicClub /> },
+      { path: "downloads", element: <StudentHandbook /> },
+      { path: "payment-modes", element: <PaymentModes /> },
+      { path: "alumni-speaks", element: <AlumniSpeaks /> },
+      { path: "alumni-information-form", element: <AlumniFormPage /> },
+      { path: "online-libraries", element: <StudentAccess /> },
+      { path: "contact-info", element: <ContactListPage /> },
+      { path: "notices", element: <NoticeWeb /> },
+      { path: "admission-procedure", element: <AdmissionProcedure />, },
+
+      // {
+      //   path: "students-life",
+      //   children: [
+      //     // { path: "", element: <CourseProgram /> },
+      //     // { path: "programs", element: <CourseProgram /> },
+      //     {
+      //       path: "student-code-of-conduct",
+      //       element: <CodeOfConduct />,
+      //     },
+      //     // { path: ":name/:id", element: <CourseDetails /> },
+      //     { path: "fee-payment-planners", element: <FeePlannersWeb /> },
+      //     { path: "academic-planners", element: <AcademicWebPlanner /> },
+      //     { path: "academic-club", element: <AcademicClub /> },
+      //     { path: "downloads", element: <StudentHandbook /> },
+      //     { path: "payment-modes", element: <PaymentModes /> },
+      //     { path: "alumni-speaks", element: <AlumniSpeaks /> },
+      //     { path: "alumni-information-form", element: <AlumniFormPage /> },
+      //     { path: "online-libraries", element: <StudentAccess /> },
+      //     { path: "contact-info", element: <ContactListPage /> },
+      //     { path: "notices", element: <NoticeWeb /> },
+      //   ],
+      // },
+
+      // {
+      //   path: "admissions",
+      //   children: [
+      //     { path: "", element: <AdmissionProcedure /> },
+      //     {
+      //       path: "admission-procedure",
+      //       element: <AdmissionProcedure />,
+      //     },
+      //   ],
+      // },
+      { path: "lbef-connect", element: <LBEFConnectWeb /> },
+      { path: "news", element: <NewsPageWeb /> },
+      { path: "scholarship", element: <Scholarship /> },
+
+
       {
         path: "media",
         children: [
@@ -132,8 +165,6 @@ export const websiteRoutes = [
             path: "photo-gallery/:name/:id",
             element: <GalleryView />,
           },
-          { path: "connect", element: <LBEFConnectWeb /> },
-          { path: "news-events", element: <NewsPageWeb /> },
         ],
       },
       {
@@ -172,13 +203,16 @@ export const websiteRoutes = [
         element: <PlaceholderPage pageName="Contact Us" />,
       },
       {
-        path: "team/:id",
+        path: "ourteam/:id",
         element: <TeamDetail />,
       },
       {
         path: "enroll",
         element: <PlaceholderPage pageName="Enroll Now" />,
       },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
+  { path: "*", element: <NotFoundPage /> },
+
 ];

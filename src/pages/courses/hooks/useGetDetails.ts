@@ -15,7 +15,7 @@ const useGetCourseDetails = ({ courseId, limit = 5 }: UseGetCourseDetailsProps) 
     initialPageParam: 1,
     queryFn: ({ pageParam }) => {
       const apiClient = new APIClient<CourseDetailBlock[]>(
-        `/courses/${courseId}/details?page=${pageParam}&limit=${limit}`
+        `/courses/${courseId}/details?page=${pageParam}&limit=50`,
       );
       return apiClient.get();
     },
