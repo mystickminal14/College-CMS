@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
 import type { Courses } from "./model/CourseModel";
@@ -28,8 +28,6 @@ import CourseDetailRenderer from "./CourseDetailRender";
 import { useEnquiry } from "../../context/EnquiryContext";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
-import { parseDate } from "../../utils/ParseDate";
-import { FaMoneyBill } from "react-icons/fa";
 import useGetCourseDetails from "./hooks/useGetDetails";
 
 /* ------------------ TYPE GUARD ------------------ */

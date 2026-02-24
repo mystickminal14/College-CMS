@@ -9,7 +9,8 @@ interface UseGetCourseDetailsProps {
   limit?: number;
 }
 
-const useGetCourseDetails = ({ courseId, limit = 5 }: UseGetCourseDetailsProps) => {
+// remove the limit parameter cause of need the all the data of course details at once.
+const useGetCourseDetails = ({ courseId }: UseGetCourseDetailsProps) => {
   return useInfiniteQuery<ApiResponse<CourseDetailBlock[]>, ApiErrorResponse>({
     queryKey: [COURSE_CACHE_KEY, courseId, "details"],
     initialPageParam: 1,
