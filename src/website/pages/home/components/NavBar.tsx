@@ -19,6 +19,7 @@ import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu_logo.webp";
 import { useEnquiry } from "../../../../context/EnquiryContext";
 import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
+import useGetIntakes from "../../../../pages/intake-calender/hooks/useGetAllIntakr";
 
 type DropdownItem = {
   name: string;
@@ -153,7 +154,16 @@ export function NavBar() {
         // { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
         { name: "Admission Process", link: "/admission-procedure", icon: <FaClipboardList /> },
         { name: "Code of Conduct", link: "/codeofconduct", icon: <FaClipboardList /> },
-        { name: "Scholarship", link: "/scholarship", icon: <FaCertificate /> },
+        {
+          name: "Scholarship",
+          icon: <FaCertificate />,
+          dropdown: [
+            { name: "ICT Scholarship", link: "/ict-scholarship", icon: <FaCertificate /> },
+            { name: "Gyandeep Scholarship", link: "gyandeep-scholarship", icon: <FaCertificate /> },
+            { name: "Merit Scholarship", link: "merit-scholarship", icon: <FaCertificate /> },
+
+          ],
+        },
       ],
     },
     {
@@ -167,10 +177,33 @@ export function NavBar() {
     },
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },
   ];
+  const { data: intakeData, isLoading, isError } = useGetIntakes();
+  const intakes = intakeData?.data ?? [];
+  const openIntakes = intakes.filter(i => i.status === "OPEN");
+
+  const intakeList = isLoading
+    ? "Loading intakes..."
+    : isError
+      ? "Admissions Open"
+      : openIntakes.length > 0
+        ? openIntakes.map(i => i.intake).join(" • ")
+        : "Admissions Closed";
 
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
+      <div className="w-full bg-blue-700 text-white text-sm font-medium">
+        <a
+          href="https://apply.lbef.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-center px-4 py-2 hover:bg-blue-800 transition-colors"
+        >
+          🚀 Admissions Open for {intakeList} Intake — Apply Now 🎓
+        </a>
+      </div>
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
+        {/* here i want admission */}
+
         <div className="flex gap-2">
           <NavLink to="/" className="w-40 cursor-pointer">
             <img src={logo} alt="LBEF Logo" />
