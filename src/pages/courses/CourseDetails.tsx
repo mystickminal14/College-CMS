@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
 import type { Courses } from "./model/CourseModel";
@@ -24,8 +24,8 @@ import {
   ClipboardList,
   Laptop,
 } from "lucide-react";
+
 import CourseDetailRenderer from "./CourseDetailRender";
-import { useEnquiry } from "../../context/EnquiryContext";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
 import useGetCourseDetails from "./hooks/useGetDetails";
@@ -98,7 +98,6 @@ const mainSectionContainerVariants: Variants = {
 const CourseDetails = () => {
 
   const location = useLocation();
-  const { open } = useEnquiry();
 
   const course = location?.state?.course as Courses;
   const id = course?.id ?? "1";
@@ -419,7 +418,7 @@ const CourseDetails = () => {
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
-                        onClick={() => open()}
+                        onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform")}
                       >
                         Apply Now
                         <ArrowRight className="w-3 h-3" />

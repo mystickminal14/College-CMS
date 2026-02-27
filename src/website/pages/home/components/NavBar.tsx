@@ -13,6 +13,9 @@ import {
   FaComment,
   FaTimes,
   FaBars,
+  FaBullhorn,
+  FaArrowRight,
+  FaBullseye,
 
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
@@ -191,15 +194,44 @@ export function NavBar() {
 
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
-      <div className="w-full bg-blue-700 text-white text-sm font-medium">
+      <div className="w-full bg-blue-700 text-white text-xl font-medium relative overflow-hidden">
         <a
           href="https://apply.lbef.org"
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-center px-4 py-2 hover:bg-blue-800 transition-colors"
+          className="flex items-center gap-10 justify-center text-center px-4 py-2 hover:bg-blue-800 transition-colors relative z-10"
         >
-          🚀 Admissions Open for {intakeList} Intake — Apply Now 🎓
+          {/* Bullhorn with up-down animation */}
+          <div className="relative flex items-center justify-center">
+            <FaBullhorn
+              className="sm:text-3xl text-xl relative z-10 float-animation"
+            />
+
+            {/* Sound waves coming out of the horn */}
+            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-1">
+              {/* Wave bars that also animate up-down */}
+              <div className="flex items-center gap-0.5 h-8">
+                <div className="w-1 bg-white/80 rounded-full float-gentle" style={{ height: '12px', animationDelay: '0s' }}></div>
+                <div className="w-1 bg-white/60 rounded-full float-gentle" style={{ height: '16px', animationDelay: '0.2s' }}></div>
+                <div className="w-1 bg-white/40 rounded-full float-gentle" style={{ height: '20px', animationDelay: '0.4s' }}></div>
+                <div className="w-1 bg-white/30 rounded-full float-gentle" style={{ height: '14px', animationDelay: '0.1s' }}></div>
+                <div className="w-1 bg-white/20 rounded-full float-gentle" style={{ height: '8px', animationDelay: '0.3s' }}></div>
+              </div>
+            </div>
+          </div>
+
+          Admissions Open for {intakeList} — Apply Now
+
+          {/* Graduation cap with up-down animation */}
+          <div className="relative">
+            <FaGraduationCap
+              className="sm:text-3xl text-xl"
+            />
+          </div>
         </a>
+
+        {/* Background decorative waves */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
       </div>
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
         {/* here i want admission */}
@@ -212,6 +244,7 @@ export function NavBar() {
             <img src={apuLogo} alt="APU Logo" className="" />
           </NavLink>
         </div>
+
         {/* Desktop Menu */}
         <nav className="hidden lg:flex items-center flex-wrap gap-1">
           {menuItems.map((item) =>
@@ -230,6 +263,7 @@ export function NavBar() {
                   />
                 </button>
 
+                {/* Main Dropdown */}
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${activeDropdown === item.name
                     ? "opacity-100 visible translate-y-0"
@@ -251,17 +285,18 @@ export function NavBar() {
                           >
                             <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
                               <span className="flex items-center gap-3">
-                                <span className="text-lg">{sub.icon}</span> {/* force icon size */}
+                                <span className="text-lg">{sub.icon}</span>
                                 <span className="whitespace-normal wrap-break-word">{sub.name}</span>
                               </span>
                               {sub.dropdown && (
-                                <FaChevronDown className={`text-xs transition-transform break-words${activeNestedDropdown === sub.name ? "rotate-180" : ""}`} />
+                                <FaChevronDown className={`text-xs transition-transform ${activeNestedDropdown === sub.name ? "rotate-180" : ""}`} />
                               )}
                             </div>
 
+                            {/* Nested Dropdown - NOW APPEARS BELOW INSTEAD OF RIGHT */}
                             {activeNestedDropdown === sub.name && (
-                              <div className="absolute left-full top-0 pl-1">
-                                <div className="bg-white shadow-xl rounded-xl p-1 min-w-[220px]">
+                              <div className="relative top-0 left-0 pl-4 mt-1">
+                                <div className="rounded-xl p-1 min-w-[220px">
                                   {sub.dropdown?.map((nested) => (
                                     <NavLink
                                       key={nested.name}
@@ -328,7 +363,6 @@ export function NavBar() {
             <FaUserGraduate />
             Enquire Now
           </button>
-
         </nav>
 
         {/* Mobile Toggle */}
@@ -343,7 +377,6 @@ export function NavBar() {
             <FaBars className="text-2xl" />
           )}
         </button>
-
       </div>
 
       {/* Mobile Menu */}

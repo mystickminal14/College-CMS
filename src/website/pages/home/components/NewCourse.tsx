@@ -75,13 +75,20 @@ export default function NewCourse() {
   const courses: Courses[] = data?.data || [];
   const navigate = useNavigate();
 
+
+  const courseSlugMap: Record<string, string> = {
+    "Information Technology": "bscit",
+    " Information Technology with a Specialism in Cloud Engineering": "bscitce",
+    "Information Technology with a Specialism in Cyber Security": "bscitcs",
+    "Information Technology with a Specialism in Artificial Intelligence": "bscitai",
+    "Information Technology with a Specialism in Internet of Things(IOT)": "bscitiot",
+    "ITM": "mscitm",
+  };
   const handleView = (course: Courses) => {
-    const title = course.title.replace(/ /g, "-");
-    navigate(`/students-life/${title}/${course.id}`, {
+    navigate(`/${courseSlugMap[course.title]}`, {
       state: { course },
     });
   };
-
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -148,7 +155,7 @@ export default function NewCourse() {
           <motion.button
             variants={textItem}
             className="flex text-sm sm:text-lg items-center gap-2 px-6 py-3 border border-[#19213D] rounded-full hover:border-bg-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition md:mt-0"
-            onClick={() => navigate("students-life/programs")}
+            onClick={() => navigate("/courses")}
           >
             Learn About Course
             <ChevronRight className="w-5 h-5" />

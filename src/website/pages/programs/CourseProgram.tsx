@@ -67,182 +67,191 @@ const CourseProgram = () => {
   const courses: Courses[] = data?.data ?? [];
   const navigate = useNavigate();
 
+  const courseSlugMap: Record<string, string> = {
+    "Information Technology": "bscit",
+    " Information Technology with a Specialism in Cloud Engineering": "bscitce",
+    "Information Technology with a Specialism in Cyber Security": "bscitcs",
+    "Information Technology with a Specialism in Artificial Intelligence": "bscitai",
+    "Information Technology with a Specialism in Internet of Things(IOT)": "bscitiot",
+    "ITM": "mscitm",
+  };
   const handleView = (course: Courses) => {
-    const title = course.title.replace(/ /g, '-');
-    navigate(`/students-life/${title}/${course.id}`, { state: { course } });
+    navigate(`/${courseSlugMap[course.title]}`, {
+      state: { course },
+    });
   };
 
 
   return (
-<>
-    <Seo
-  title="IT & Management Courses in Nepal | LBEF College"
-  description="Explore world-class IT and management courses at LBEF College Nepal. Undergraduate programs designed for global careers with experienced faculty."
+    <>
+      <Seo
+        title="IT & Management Courses in Nepal | LBEF College"
+        description="Explore world-class IT and management courses at LBEF College Nepal. Undergraduate programs designed for global careers with experienced faculty."
 
-  url={`${APP_URL}/students-life/programs`}
-/>
+        url={`${APP_URL}/students-life/programs`}
+      />
 
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
-        >
-
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
           >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut" as const
-              }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Explore Our Academic Programs
-            </span>
-          </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">World Class </span>
-            <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> Courses</span>
-              <motion.img
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                src={decoration}
-                alt=""
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+            >
+              <motion.span
+                className="w-2 h-2 bg-blue-500 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [1, 0.7, 1]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut" as const
+                }}
               />
-            </span>
-            <br />
-            <span className="text-gray-900">Students </span>
-            <span className="text-blue-600"> Can Join </span>
-            <span className="text-gray-900">With Us</span>
-          </h1>
+              <span className="text-blue-600 font-medium text-sm">
+                Explore Our Academic Programs
+              </span>
+            </motion.div>
 
-          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto">
-            World Class Course Students Can Join With Us
-          </p>
-        </motion.div>
-      </div>
-
-      {isLoading && (
-        <div className="relative bg-gray-100 py-10 px-4">
-          <div className="relative max-w-7xl mx-auto">
-            <CourseSkeleton />
-          </div>
-        </div>
-      )}
-
-      {!isLoading && courses.length === 0 && <EmptyCourses />}
-
-
-      <div className="container mx-auto px-6 py-10">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
-        >
-
-
-          {!isLoading &&
-            courses.length > 0 &&
-            courses.map((course) => (
-              <motion.div
-                key={course.id}
-                variants={fadeUp}
-                onClick={() => handleView(course)}
-
-                className="group relative cursor-pointer overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
-              >
-                {/* BACKGROUND IMAGE WITH SPRING */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 100, damping: 10 }}
-                  className="absolute inset-x-0 top-0 bottom-10 bg-no-repeat bg-center bg-size-[50%_50%]"
-                  style={{
-                    backgroundImage: `url(${image})`,
-                  }}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+              <span className="text-gray-900">World Class </span>
+              <span className="relative inline-block">
+                <span className="text-blue-600 relative z-10"> Courses</span>
+                <motion.img
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  src={decoration}
+                  alt=""
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
                 />
+              </span>
+              <br />
+              <span className="text-gray-900">Students </span>
+              <span className="text-blue-600"> Can Join </span>
+              <span className="text-gray-900">With Us</span>
+            </h1>
 
-                {/* BLUE OVERLAY */}
-                <div className="card-bg absolute inset-0 bg-blue-600" />
+            <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto">
+              World Class Course Students Can Join With Us
+            </p>
+          </motion.div>
+        </div>
 
-                {/* CARD CONTENT */}
-                <div className="relative z-10 p-6 flex flex-col h-full">
+        {isLoading && (
+          <div className="relative bg-gray-100 py-10 px-4">
+            <div className="relative max-w-7xl mx-auto">
+              <CourseSkeleton />
+            </div>
+          </div>
+        )}
+
+        {!isLoading && courses.length === 0 && <EmptyCourses />}
+
+
+        <div className="container mx-auto px-6 py-10">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          >
+
+
+            {!isLoading &&
+              courses.length > 0 &&
+              courses.map((course) => (
+                <motion.div
+                  key={course.id}
+                  variants={fadeUp}
+                  onClick={() => handleView(course)}
+
+                  className="group relative cursor-pointer overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
+                >
+                  {/* BACKGROUND IMAGE WITH SPRING */}
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ type: "spring", stiffness: 120, damping: 15 }}
-                    className="flex justify-between"
-                  >
-                    <p className="text-xs uppercase text-blue-600 group-hover:text-white">
-                      {course.degree}
-                    </p>
-                    <p className="text-xs uppercase text-blue-600 group-hover:text-white">
-                      {course.duration} years
-                    </p>
-                  </motion.div>
+                    transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                    className="absolute inset-x-0 top-0 bottom-10 bg-no-repeat bg-center bg-size-[50%_50%]"
+                    style={{
+                      backgroundImage: `url(${image})`,
+                    }}
+                  />
 
-                  <div className="mt-auto">
+                  {/* BLUE OVERLAY */}
+                  <div className="card-bg absolute inset-0 bg-blue-600" />
+
+                  {/* CARD CONTENT */}
+                  <div className="relative z-10 p-6 flex flex-col h-full">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
-                      className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-blue-100 group-hover:opacity-0 transition"
+                      transition={{ type: "spring", stiffness: 120, damping: 15 }}
+                      className="flex justify-between"
                     >
-                      <Monitor className="w-7 h-7 text-blue-600" />
+                      <p className="text-xs uppercase text-blue-600 group-hover:text-white">
+                        {course.degree}
+                      </p>
+                      <p className="text-xs uppercase text-blue-600 group-hover:text-white">
+                        {course.duration} years
+                      </p>
                     </motion.div>
 
-                    <motion.h3
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
-                      className="text-xl font-bold group-hover:text-white"
-                    >
-                      {course.prefix} {course.title}
-                    </motion.h3>
-                  </div>
+                    <div className="mt-auto">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.1 }}
+                        className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-blue-100 group-hover:opacity-0 transition"
+                      >
+                        <Monitor className="w-7 h-7 text-blue-600" />
+                      </motion.div>
 
-                  <div className="hover-reveal mt-4">
-                    <p className="text-sm text-white">
-                      {truncateWords(course.details ?? "", 20)}
-                    </p>
-                    <span
-                      className="mt-5 block text-white font-semibold cursor-pointer"
-                      onClick={() => handleView(course)}
-                    >
-                      READ MORE
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-        </motion.div>
+                      <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.2 }}
+                        className="text-xl font-bold group-hover:text-white"
+                      >
+                        {course.prefix} {course.title}
+                      </motion.h3>
+                    </div>
 
-        {/* ================= HOVER STYLES ================= */}
-        <style>{`
+                    <div className="hover-reveal mt-4">
+                      <p className="text-sm text-white">
+                        {truncateWords(course.details ?? "", 20)}
+                      </p>
+                      <span
+                        className="mt-5 block text-white font-semibold cursor-pointer"
+                        onClick={() => handleView(course)}
+                      >
+                        READ MORE
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+          </motion.div>
+
+          {/* ================= HOVER STYLES ================= */}
+          <style>{`
           .card-bg {
             transform: scaleY(0);
             transform-origin: bottom;
@@ -270,8 +279,8 @@ const CourseProgram = () => {
             transform: translateY(0);
           }
         `}</style>
-      </div>
-    </div></>
+        </div>
+      </div></>
   );
 };
 
