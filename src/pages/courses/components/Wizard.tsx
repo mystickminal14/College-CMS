@@ -35,13 +35,33 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   const [step, setStep] = useState<1 | 2>(1);
   const [courseId, setCourseId] = useState<number | null>(null);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string;
+    categoryId: number | null;
+    degree: string;
+    brochure: string;
+    intake: string;
+    prefix: string;
+    slug: string;
+    credit: string;
+    feeStructure: string;
+    duration: string;
+    fullForm: string;
+    semester: string;
+    details: string;
+    shift: EShift;
+  }>({
     title: "",
-    category: "",
-    degree: "",brochure:"",intake:"",
+    categoryId: null,
+    degree: "",
+    brochure: "",
+    intake: "",
     prefix: "",
-    credit: "",feeStructure:"",
-    duration: "",fullForm:"",
+    slug: "",
+    credit: "",
+    feeStructure: "",
+    duration: "",
+    fullForm: "",
     semester: "",
     details: "",
     shift: "" as EShift,
@@ -54,22 +74,22 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     if (!isOpen) return;
 
     if (courseToEdit) {
-      setFormData({
-        fullForm:courseToEdit.fullForm ?? "",
-        brochure:courseToEdit.brochure ?? "",
-        feeStructure:courseToEdit.feeStructure ?? "",
-
-        intake:courseToEdit.intake??'',
-        title: courseToEdit.title ?? "",
-        category: courseToEdit.category ?? "",
-        degree: courseToEdit.degree ?? "",
-        details: courseToEdit.details ?? "",
-        prefix: courseToEdit.prefix ?? "",
-        credit: String(courseToEdit.credit ?? ""),
-        duration: courseToEdit.duration ?? "",
-        semester: String(courseToEdit.semester ?? ""),
-        shift: courseToEdit.shift ?? "MORNING",
-      });
+     setFormData({
+  fullForm: courseToEdit.fullForm ?? "",
+  brochure: courseToEdit.brochure ?? "",
+  feeStructure: courseToEdit.feeStructure ?? "",
+  slug: courseToEdit.slug ?? "",
+  intake: courseToEdit.intake ?? '',
+  title: courseToEdit.title ?? "",
+  categoryId: courseToEdit.categoryId ?? null, 
+  degree: courseToEdit.degree ?? "", // <-- added
+  details: courseToEdit.details ?? "",
+  prefix: courseToEdit.prefix ?? "",
+  credit: String(courseToEdit.credit ?? ""),
+  duration: courseToEdit.duration ?? "",
+  semester: String(courseToEdit.semester ?? ""),
+  shift: courseToEdit.shift ?? "MORNING",
+});
 
       setCourseId(courseToEdit.id ?? null);
       setImagePreview(courseToEdit.image ? `${IMAGE_URL}${courseToEdit.image}` : null);
@@ -81,10 +101,15 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
 
   const resetForm = () => {
     setFormData({
-      title: "",feeStructure:"",
-      prefix: "",brochure:"",intake:"",
+      title: "",
+      feeStructure: "",
+      prefix: "",
+      brochure: "",
+      intake: "",
       degree: "",
-      category: "",fullForm:"",
+      slug: "",
+      categoryId: null,
+      fullForm: "",
       credit: "",
       duration: "",
       semester: "",
@@ -97,7 +122,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     setStep(1);
   };
 
-  const handleChange = (field: string, value: string) =>
+  const handleChange = (field: string, value: string | number | null) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   const handleImageChange = (file: File) => {
@@ -115,10 +140,10 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   /* ---------------- VALIDATION ---------------- */
   const validateStep1 = () => {
     if (!formData.title.trim()) return appContext?.showToast("Course title is required", "warn");
-    if (!formData.degree.trim()) return appContext?.showToast("Degree  is required", "warn");
+    if (!formData.degree.trim()) return appContext?.showToast("Degree is required", "warn");
     if (!formData.prefix.trim()) return appContext?.showToast("Degree Prefix is required", "warn");
-
-    if (!formData.category.trim()) return appContext?.showToast("Category is required", "warn");
+    if (!formData.categoryId) return appContext?.showToast("Category is required", "warn");
+    if (!formData.slug.trim()) return appContext?.showToast("Slug is required", "warn");
     if (!formData.credit.trim()) return appContext?.showToast("Credit is required", "warn");
     if (!formData.duration.trim()) return appContext?.showToast("Duration is required", "warn");
     if (!formData.semester.trim()) return appContext?.showToast("Semester is required", "warn");
@@ -160,10 +185,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
 
     const mutation = isEditMode ? updateImageMutation : uploadImageMutation;
 
-    mutation?.mutate(
-      { id: courseId, image: imageFile },
-      { onSuccess: () => { resetForm(); onClose(); } }
-    );
+    mutation?.mutate({ id: courseId, image: imageFile }, { onSuccess: () => { resetForm(); onClose(); } });
   };
 
   if (!isOpen) return null;
@@ -176,12 +198,8 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
           <div className="flex items-center gap-3">
             <BookOpen className="w-7 h-7 text-white" />
             <div>
-              <h2 className="text-2xl font-bold text-white">
-                {isEditMode ? "Edit Course" : "Add New Course"}
-              </h2>
-              <p className="text-white/90 text-sm">
-                {step === 1 ? "Step 1: Basic Information" : "Step 2: Course Image"}
-              </p>
+              <h2 className="text-2xl font-bold text-white">{isEditMode ? "Edit Course" : "Add New Course"}</h2>
+              <p className="text-white/90 text-sm">{step === 1 ? "Step 1: Basic Information" : "Step 2: Course Image"}</p>
             </div>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-xl">

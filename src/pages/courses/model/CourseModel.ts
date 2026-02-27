@@ -4,7 +4,7 @@ export interface Courses {
   title: string;
   credit: string;
   duration: string;
-  category: string;
+  categoryId: number|null;
   semester: string;
   prefix: string;
   degree: string;
@@ -12,9 +12,9 @@ export interface Courses {
   order?:number;
   intake?:string;
   brochure?:string;
-feeStructure?:string;
+  feeStructure?:string;
   fullForm?:string;
-
+  slug?:string;
   image?: string;
   hasDetails?:boolean;
 }

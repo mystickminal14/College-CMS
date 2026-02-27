@@ -47,6 +47,16 @@ const ICTScholarship = () => {
                         Unlock your academic potential with the National ICT Scholarship, rewarding excellence in high-school performance.
                     </p>
                 </div>
+                <div className='mt-2'>
+           <a
+              href="https://lbef.org/ictregistration.php"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex mt-2 items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Register Now
+              </a>
+        </div>
             </div>
 
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" className="container mx-auto px-4 sm:px-6 pb-16">

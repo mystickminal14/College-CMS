@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { BlockType, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
+import { BlockType, type ContentCategory, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
 import EditBlockItem from "./editBlockItem";
 import { COURSE_CACHE_KEY } from "../../../constants";
 import useAddCourseDetails from "../../courses/hooks/useAddCourseDetails";
@@ -9,11 +9,12 @@ interface Props {
   onChange: (blocks: CourseDetailBlock[]) => void;
   id?: Number;
   root?: boolean;
+  category:ContentCategory;
   allowSubheading?: boolean;
 }
 
 const EditBlockEditor = ({
-  blocks,
+  blocks,category,
   onChange,
   id,
   root = true,
@@ -25,10 +26,10 @@ const EditBlockEditor = ({
 
     const newBlock: CourseDetailBlock =
       type === BlockType.HEADING || type === BlockType.SUBHEADING
-        ? { id, type, order, title: "", children: [] }
+        ? { id, type, order, title: "", children: [] ,category}
         : type === BlockType.PARAGRAPH
-        ? { id, type, order, content: "" }
-        : { id, type, order, content: [] };
+        ? { id, type, order, content: "", category }
+        : { id, type, order, content: [], category };
 
     onChange([...blocks, newBlock]);
   };
@@ -42,7 +43,7 @@ const EditBlockEditor = ({
       { courseId: Number(id), blocks },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY, id, "details"] });
+          queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY, id,category, "details"] });
          
         },
       }

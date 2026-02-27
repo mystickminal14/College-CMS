@@ -5,12 +5,13 @@ import { AppContext } from "../../../context/ContextApp";
 import APIClient from "../../../services/apiClient";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import { COURSE_CACHE_KEY } from "../../../constants";
-import type { BlockType } from "../model/CourseDetailModel";
+import type { BlockType, ContentCategory } from "../model/CourseDetailModel";
 
 export interface AddBlockPayload {
   courseId: number;
   parentId?: number | null;
   type: BlockType;
+  category:ContentCategory;
   title?: string;
   content?: string | string[];
 }

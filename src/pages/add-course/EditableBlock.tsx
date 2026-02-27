@@ -3,10 +3,11 @@ import { Edit2, Save, Trash2, X, Plus } from "lucide-react";
 import AddSiblingBlockItem from "./components/AddSiblingItem";
 import EditListEditor from "./EditListEditor";
 import { BlockType as BlockTypeValues } from "../courses/model/CourseDetailModel";
-import type { BlockType, CourseDetailBlock, UpdateBlockData } from "../courses/model/CourseDetailModel";
+import type { BlockType, ContentCategory, CourseDetailBlock, UpdateBlockData } from "../courses/model/CourseDetailModel";
 
 interface EditableBlockProps {
   block: CourseDetailBlock;
+  category:ContentCategory;
   courseId: number;
   onDelete: (block: CourseDetailBlock) => void;
   onUpdate: (updated: UpdateBlockData) => void;
@@ -19,7 +20,7 @@ export const EditableBlock = ({
   courseId,
   onDelete,
   onUpdate,
-  sectionRefs,
+  sectionRefs,category,
   onChildAdded
 }: EditableBlockProps) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -53,6 +54,7 @@ export const EditableBlock = ({
     const updatedBlock: UpdateBlockData = {
       id: block.id,
       type: editType,
+      category:category,
       order: editOrder,
     };
 
@@ -181,6 +183,7 @@ export const EditableBlock = ({
               <div className="mt-4">
                 <AddSiblingBlockItem
                   courseId={courseId}
+                  category={category}
                   parentId={block.id}
                   type={addingChildType}
                   onCancel={() => setAddingChildType(null)}
@@ -351,6 +354,7 @@ export const EditableBlock = ({
               courseId={courseId}
               onDelete={onDelete}
               onUpdate={onUpdate}
+              category={category}
               sectionRefs={sectionRefs}
               onChildAdded={onChildAdded}
             />

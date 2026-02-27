@@ -3,11 +3,12 @@ import { Save, X, Plus } from "lucide-react";
 import EditListEditor from "../EditListEditor";
 import useAddCourseBlock from "../../courses/hooks/useAddSiblingBlock";
 import { BlockType as BlockTypeValues } from "../../courses/model/CourseDetailModel";
-import type { BlockType } from "../../courses/model/CourseDetailModel";
+import type { BlockType, ContentCategory } from "../../courses/model/CourseDetailModel";
 
 interface Props {
   courseId: number;
   parentId: number;
+  category:ContentCategory;
   type: BlockType;
   onCancel: () => void;
   onSuccess?: () => void;
@@ -16,7 +17,7 @@ interface Props {
 const AddSiblingBlockItemComponent = ({ 
   courseId, 
   parentId, 
-  type, 
+  type, category,
   onCancel,
   onSuccess 
 }: Props) => {
@@ -83,7 +84,7 @@ const AddSiblingBlockItemComponent = ({
     // First, create the subheading
     mutate({
       courseId,
-      parentId,
+      parentId,category:category,
       type: BlockTypeValues.SUBHEADING,
       title: subheadingTitle,
       content: undefined
@@ -98,6 +99,7 @@ const AddSiblingBlockItemComponent = ({
             setTimeout(() => {
               mutate({
                 courseId,
+                category:category,
                 parentId: createdSubheadingId,
                 type: child.type,
                 title: undefined,
@@ -130,6 +132,7 @@ const AddSiblingBlockItemComponent = ({
       parentId,
       type: BlockTypeValues.PARAGRAPH,
       title: undefined,
+      category:category,
       content: paragraphContent
     }, {
       onSuccess: () => {
@@ -148,7 +151,7 @@ const AddSiblingBlockItemComponent = ({
     }
     
     mutate({
-      courseId,
+      courseId,category:category,
       parentId,
       type: BlockTypeValues.LIST,
       title: undefined,

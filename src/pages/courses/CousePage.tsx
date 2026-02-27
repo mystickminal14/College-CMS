@@ -25,6 +25,7 @@ import { useUploadCourseImage } from "./hooks/useUploadImage";
 import { useUpdateImage } from "./hooks/useUpdateImage";
 import useCopyCourse from "./hooks/useCopyCourse";
 import CopyCourseModal from "./components/CopyCourse";
+import CourseCategoryComp from "../course-category/CourseCategoryComp";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -32,7 +33,7 @@ const CoursePage = () => {
   const [courseToEdit, setCourseToEdit] = useState<Courses | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  const [viewMode, setViewMode] = useState<"table" | "card" | "category">("table");
   const copyMutation = useCopyCourse();
   const [showCopyModal, setShowCopyModal] = useState(false);
   const [courseToCopy, setCourseToCopy] = useState<Courses | null>(null);
@@ -148,9 +149,18 @@ const CoursePage = () => {
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 ">
       <TitleBox title="Course Management" subtitle="Manage your courses" />
 
-      {/* VIEW MODE + SEARCH + ADD */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
         <div className="flex gap-2">
+          <button
+            onClick={() => setViewMode("category")}
+            className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "category"
+              ? "bg-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
+          >
+            <FaTable className="w-4 h-4" />
+            <span>Category</span>
+          </button>
           <button
             onClick={() => setViewMode("table")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
@@ -172,8 +182,7 @@ const CoursePage = () => {
             <span>Cards</span>
           </button>
         </div>
-
-        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
+        {viewMode !== "category" && <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
           <SearchBox placeholder="Search Courses..." onSearch={handleSearch} />
           <button
             onClick={() => handleAdd()}
@@ -183,31 +192,38 @@ const CoursePage = () => {
             <FaPlus className="w-4 h-4" />
             <span>Add</span>
           </button>
-        </div>
+        </div>}
       </div>
-
+      {/* Department View */}
+      {viewMode === "category" && <CourseCategoryComp />}
       <div>
-        {viewMode === "table" ? (
-          <EnhancedTable
-            data={courses}
-            columns={CoursesColumns}
-            actions={tableActions}
-            loading={isLoading}
-            emptyMessage={isError ? "Failed to load Courses" : "No Courses found"}
-          />
-        ) : (
-          <CoursesCardView
-            courses={courses}
-            isLoading={isLoading}
-            isError={isError}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            onView={handlePreview}
-          />
-        )}
+        {viewMode !== "category" &&
+          <>
+
+            {viewMode === "table" ? (
+              <EnhancedTable
+                data={courses}
+                columns={CoursesColumns}
+                actions={tableActions}
+                loading={isLoading}
+                emptyMessage={isError ? "Failed to load Courses" : "No Courses found"}
+              />
+            ) : (
+              <CoursesCardView
+                courses={courses}
+                isLoading={isLoading}
+                isError={isError}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onView={handlePreview}
+              />
+            )}
+            <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+          </>
+        }
+
       </div>
 
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
 
       {/* MODALS */}
       <DeleteTeamsModal

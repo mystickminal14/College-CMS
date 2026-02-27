@@ -1,8 +1,8 @@
 // src/pages/AddCourseDetailsPage.tsx
-import { useState, useRef,  } from "react";
+import { useState, useRef } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ArrowRight, BookOpen, CalendarDays, Clock, GraduationCap, Languages, Sparkles } from "lucide-react";
-import type { CourseDetailBlock } from "../courses/model/CourseDetailModel";
+import type { CourseDetailBlock, ContentCategory } from "../courses/model/CourseDetailModel";
 import type { Courses } from "../courses/model/CourseModel";
 import CourseDetailRenderer from "../courses/components/CourseDetailRender";
 import BlockEditor from "./components/BlockEditor";
@@ -26,29 +26,48 @@ const fadeItem: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
+// Define the four categories
+const categories: ContentCategory[] = [
+  "COURSE_STRUCTURE",
+  "CAREER_OPTIONS",
+  "FEE_STRUCTURE",
+  "ELIGIBLITY_CRITERIA",
+];
+
 const AddCourseDetailsPage = () => {
   const { id, key } = useParams<{ id: string; key: string }>();
   const navigate = useNavigate();
   const location = useLocation();
   const course = location.state?.course as Courses;
 
-  const [blocks, setBlocks] = useState<CourseDetailBlock[]>([]);
+  // State for blocks separated per category
+  const [blocksMap, setBlocksMap] = useState<Record<ContentCategory, CourseDetailBlock[]>>({
+    COURSE_STRUCTURE: [],
+    CAREER_OPTIONS: [],
+    FEE_STRUCTURE: [],
+    ELIGIBLITY_CRITERIA: [],
+  });
+
+  const [selectedCategory, setSelectedCategory] = useState<ContentCategory>("COURSE_STRUCTURE");
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const addDetailsMutation = useAddCourseDetails();
   const queryClient = useQueryClient();
 
-
-
   const handleSave = () => {
     if (!id) return;
+
+    const blocks = blocksMap[selectedCategory].map(block => ({
+      ...block,
+      category: selectedCategory, // Always pass current tab/category
+    }));
 
     addDetailsMutation.mutate(
       { courseId: Number(id), blocks },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY, id, "details"] });
-          if (key) navigate(`/app/course-details/edit/$${id}`);
+          if (key) navigate(`/app/course-details/edit/${id}`);
           navigate(-1);
         },
       }
@@ -63,7 +82,30 @@ const AddCourseDetailsPage = () => {
           <main className="lg:w-3/4 space-y-6">
             <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
               <h2 className="text-2xl font-bold mb-4">Add Course Details</h2>
-              <BlockEditor blocks={blocks} onChange={setBlocks} />
+
+              {/* Category Tabs */}
+              <div className="flex gap-2 mb-4">
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-3 py-1 rounded-md font-medium text-sm ${
+                      selectedCategory === cat ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
+                    {cat.replaceAll("_", " ")}
+                  </button>
+                ))}
+              </div>
+
+              {/* Block Editor for selected category */}
+              <BlockEditor
+                blocks={blocksMap[selectedCategory]}
+                onChange={(newBlocks) =>
+                  setBlocksMap((prev) => ({ ...prev, [selectedCategory]: newBlocks }))
+                }
+              />
+
               <button
                 onClick={handleSave}
                 disabled={addDetailsMutation.isPending}
@@ -73,16 +115,19 @@ const AddCourseDetailsPage = () => {
               </button>
             </div>
 
-            {blocks.length > 0 && (
+            {/* Preview */}
+            {blocksMap[selectedCategory].length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
                 <h3 className="text-xl font-bold mb-4">Preview</h3>
-                <CourseDetailRenderer blocks={blocks} sectionRefs={sectionRefs} />
+                <CourseDetailRenderer
+                  blocks={blocksMap[selectedCategory]}
+                  sectionRefs={sectionRefs}
+                />
               </div>
             )}
           </main>
 
-          {/* Sidebar / Aside */}
-          <aside className="lg:w-1/3">
+           <aside className="lg:w-1/3">
             <motion.div
               variants={sectionVariants}
               initial="hidden"

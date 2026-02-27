@@ -1,4 +1,5 @@
-// model/CourseDetailModel.ts
+// src/pages/courses/model/CourseDetailModel.ts
+
 export const BlockType = {
   HEADING: "HEADING",
   SUBHEADING: "SUBHEADING",
@@ -8,10 +9,17 @@ export const BlockType = {
 
 export type BlockType = (typeof BlockType)[keyof typeof BlockType];
 
+export type ContentCategory =
+  | "COURSE_STRUCTURE"
+  | "CAREER_OPTIONS"
+  | "FEE_STRUCTURE"
+  | "ELIGIBLITY_CRITERIA";
+
 interface BaseBlock {
   id: number;
   order: number;
   type: BlockType;
+  category: ContentCategory;
 }
 
 export interface HeadingBlock extends BaseBlock {
@@ -26,13 +34,6 @@ export interface SubHeadingBlock extends BaseBlock {
   title: string;
   children: CourseDetailBlock[];
   content?: never;
-}
-export interface AddBlockPayload {
-  courseId: number;
-  parentId: number | null;
-  type: "SUBHEADING" | "PARAGRAPH" | "LIST";
-  title?: string;
-  content?: string | string[];
 }
 
 export interface ParagraphBlock extends BaseBlock {
@@ -49,7 +50,20 @@ export interface ListBlock extends BaseBlock {
   title?: never;
 }
 
-export type CourseDetailBlock = HeadingBlock | SubHeadingBlock | ParagraphBlock | ListBlock;
+export type CourseDetailBlock =
+  | HeadingBlock
+  | SubHeadingBlock
+  | ParagraphBlock
+  | ListBlock;
+
+export interface AddBlockPayload {
+  courseId: number;
+  parentId: number | null;
+  type: "SUBHEADING" | "PARAGRAPH" | "LIST";
+  title?: string;
+  content?: string | string[];
+  category: ContentCategory;
+}
 
 export interface UpdateBlockData {
   id: number;
@@ -58,4 +72,5 @@ export interface UpdateBlockData {
   content?: string | string[] | null;
   order?: number;
   children?: CourseDetailBlock[];
+  category: ContentCategory;
 }

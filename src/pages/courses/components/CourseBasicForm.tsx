@@ -10,6 +10,7 @@ import {
 import InputField from "../../../utils/InputField";
 import type { EShift } from "../model/CourseModel";
 import { FaMoneyBill } from "react-icons/fa";
+import useGetCourseCategoryNameAll from "../../course-category/hooks/useGetCatName";
 
 interface CoursesBasicFormProps {
   formData: {
@@ -17,15 +18,14 @@ interface CoursesBasicFormProps {
     prefix: string;
     degree: string;intake?:string;
   brochure?:string;
-    credit: string;
+    credit: string;slug:string
     duration: string;
-    category: string;feeStructure:string;
+      categoryId: number | null;feeStructure:string;
     details: string;fullForm:string,
     semester: string;
     shift: EShift;
   };
-  onChange: (field: string, value: string) => void;
-  isSubmitting?: boolean;
+onChange: (field: string, value: string | number | null) => void;  isSubmitting?: boolean;
 }
 
 const Shifts: EShift[] = ["MORNING", "BOTH", "EVENING"];
@@ -35,6 +35,8 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
   onChange,
   isSubmitting = false,
 }) => {
+  const { data: categoryData, isLoading: categoryLoading } = useGetCourseCategoryNameAll();
+const categories = categoryData?.data ?? [];
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -68,6 +70,15 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
           placeholder="Masters in...(optional)"
           isSubmitting={isSubmitting}
         />
+          <InputField
+          icon={<BookOpen className="w-5 h-5" />}
+          label="Slug (Route Path)"
+          value={formData.slug}
+          field="slug"
+          onChange={onChange}
+          placeholder="bscit.."
+          isSubmitting={isSubmitting}
+        />
         <InputField
           icon={<BookOpen className="w-5 h-5" />}
           label="Degree "
@@ -79,17 +90,28 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
           isSubmitting={isSubmitting}
         />
 
-        {/* Category */}
-        <InputField
-          icon={<Layers className="w-5 h-5" />}
-          label="Category"
-          value={formData.category}
-          field="category"
-          onChange={onChange}
-          placeholder="Artificial Intelligence"
-          required
-          isSubmitting={isSubmitting}
-        />
+       <div className="flex flex-col">
+  <label className="mb-2 font-medium text-sm flex items-center gap-2 text-gray-700">
+    <Layers className="w-4 h-4" />
+    Category
+  </label>
+
+<select
+  value={formData.categoryId ?? ""}
+  onChange={(e) =>
+    onChange("categoryId", e.target.value ? Number(e.target.value) : null)
+  }
+  className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+  disabled={isSubmitting || categoryLoading}
+>
+  <option value="">Select Category</option>
+  {categories.map((cat) => (
+    <option key={cat.id} value={cat.id}>
+      {cat.name}
+    </option>
+  ))}
+</select>
+</div>
 
         {/* Credit */}
         <InputField

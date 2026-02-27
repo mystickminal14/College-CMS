@@ -86,6 +86,16 @@ const MeritScholarship = () => {
             Rewarding academic excellence in tuition fees based on entrance and university performance.
           </p>
         </div>
+          <div className='mt-2'>
+           <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex mt-2 items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Register Now
+              </a>
+        </div>
       </div>
 
       {/* Content Section */}

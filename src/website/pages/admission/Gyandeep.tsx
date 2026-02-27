@@ -7,11 +7,11 @@ import LbefSubFooter from '../home/components/LbefSubFooter';
 const GyandeepScholasrhip = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-<Seo
-  title="Gyandeep Scholarship | LBEF College Nepal"
-  description="Unlock your academic potential with the Gyandeep Scholarship, rewarding excellence in high-school performance. Check eligibility and benefits."
-  url={`${APP_URL}/gyandeep-scholarship`}
-/>
+      <Seo
+        title="Gyandeep Scholarship | LBEF College Nepal"
+        description="Unlock your academic potential with the Gyandeep Scholarship, rewarding excellence in high-school performance. Check eligibility and benefits."
+        url={`${APP_URL}/gyandeep-scholarship`}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
         <div className="max-w-8xl mx-auto">
           <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
@@ -38,7 +38,16 @@ const GyandeepScholasrhip = () => {
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Unlock your academic potential with the Gyandeep Scholarship, rewarding excellence in high-school performance.
           </p>
-
+        </div>
+        <div className='mt-2'>
+           <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex mt-2 items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Register Now
+              </a>
         </div>
       </div>
 
@@ -163,7 +172,7 @@ const GyandeepScholasrhip = () => {
           </div>
         </div>
       </div>
-      <LbefSubFooter/>
+      <LbefSubFooter />
     </div>
   );
 };
