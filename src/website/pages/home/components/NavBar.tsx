@@ -13,16 +13,14 @@ import {
   FaComment,
   FaTimes,
   FaBars,
-  FaBullhorn,
-  FaArrowRight,
-  FaBullseye,
-
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu_logo.webp";
 import { useEnquiry } from "../../../../context/EnquiryContext";
-import useGetNameAll from "../../../../pages/courses/hooks/useGetCourseName";
 import useGetIntakes from "../../../../pages/intake-calender/hooks/useGetAllIntakr";
+import useGetCatWithDetails from "../../../../pages/courses/hooks/useGetCourseWithCat";
+import { motion } from 'framer-motion';
+import { GraduationCap, Volume2 } from "lucide-react";
 
 type DropdownItem = {
   name: string;
@@ -30,10 +28,10 @@ type DropdownItem = {
   disabled?: boolean;
   dropdown?: DropdownItem[];
 } & (
-    | { link: string; onClick?: never }
-    | { link?: never; onClick: () => void }
-    | { link?: never; onClick?: never }
-  );
+  | { link: string; onClick?: never }
+  | { link?: never; onClick: () => void }
+  | { link?: never; onClick?: never }
+);
 
 type MenuItem = {
   name: string;
@@ -49,15 +47,7 @@ export function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-
-  const courseSlugMap: Record<string, string> = {
-    "Information Technology": "bscit",
-    " Information Technology with a Specialism in Cloud Engineering": "bscitce",
-    "Information Technology with a Specialism in Cyber Security": "bscitcs",
-    "Information Technology with a Specialism in Artificial Intelligence": "bscitai",
-    "Information Technology with a Specialism in Internet of Things(IOT)": "bscitiot",
-    "ITM": "mscitm",
-  };
+  const { open } = useEnquiry();
 
   /* Shadow on scroll */
   useEffect(() => {
@@ -65,20 +55,30 @@ export function NavBar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const { open } = useEnquiry();
 
   /* Close menus on route change */
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileOpen(false);
     setDropdownOpen({});
     setActiveDropdown(null);
     setActiveNestedDropdown(null);
   }, [location.pathname]);
 
-  const { data } = useGetNameAll();
-  const courseNames = data?.data ?? [];
+  /* Fetch categories with courses */
+  const { data } = useGetCatWithDetails();
+  const categories = data?.data ?? [];
 
+  /* Admissions Open */
+  const { data: intakeData, isLoading, isError } = useGetIntakes();
+  const intakes = intakeData?.data ?? [];
+  const openIntakes = intakes.filter(i => i.status === "OPEN");
+  const intakeList = isLoading
+    ? "Loading intakes..."
+    : isError
+      ? "Admissions Open"
+      : openIntakes.length > 0
+        ? openIntakes.map(i => i.intake).join(" • ")
+        : "Admissions Closed";
 
   /* Desktop hover */
   const onEnter = (menu: string) => setActiveDropdown(menu);
@@ -87,16 +87,16 @@ export function NavBar() {
     setActiveNestedDropdown(null);
   };
 
-  /* Mobile click toggle */
+  /* Mobile toggle */
   const toggleMobile = (menu: string) => {
     setDropdownOpen((p) => ({ ...p, [menu]: !p[menu] }));
   };
-
   const toggleNestedMobile = (parent: string, child: string) => {
     const key = `${parent}-${child}`;
     setDropdownOpen((p) => ({ ...p, [key]: !p[key] }));
   };
 
+  /* Menu items */
   const menuItems: MenuItem[] = [
     { name: "Home", link: "/" },
     {
@@ -106,7 +106,6 @@ export function NavBar() {
         { name: "About University", link: "/about-university", icon: <FaUniversity /> },
         { name: "Recognitions", link: "/recognitions", icon: <FaCertificate /> },
         { name: "Permission Letter", link: "/permission-letter", icon: <FaCertificate /> },
-
         { name: "Achivements", link: "/achivements", icon: <FaCertificate /> },
         { name: "Messages", link: "/messages", icon: <FaUsers /> },
         { name: "Our Team", link: "/ourteam", icon: <FaUsers /> },
@@ -116,19 +115,23 @@ export function NavBar() {
     {
       name: "Courses",
       dropdown:
-        courseNames.length > 0
-          ? courseNames.map((course) => ({
-            name: `${course.prefix} ${course.title}`,
+        categories.length > 0
+          ? categories.map((cat) => ({
+            name: cat.name,
             icon: <FaBook />,
-            onClick: () => {
-              navigate(
-                `${courseSlugMap[course.title]}`,
-                { state: { course } }
-              );
-              setActiveDropdown(null);
-            },
+            dropdown:
+              cat.courses.length > 0
+                ? cat.courses.map((course) => ({
+                  name: `${course.prefix} ${course.title}`,
+                  icon: <FaBook />,
+                  onClick: () => {
+                    navigate(`/${course.slug}`, { state: { course } });
+                    setActiveDropdown(null);
+                  },
+                }))
+                : [{ name: "No courses available", icon: <FaBook />, disabled: true }],
           }))
-          : [{ name: "No courses available", icon: <FaBook />, disabled: true, link: "#" }],
+          : [{ name: "No categories available", icon: <FaBook />, disabled: true }],
     },
     {
       name: "Students",
@@ -154,7 +157,6 @@ export function NavBar() {
     {
       name: "Admissions",
       dropdown: [
-        // { name: "Programs", link: "/students-life/programs", icon: <FaGraduationCap /> },
         { name: "Admission Process", link: "/admission-procedure", icon: <FaClipboardList /> },
         { name: "Code of Conduct", link: "/codeofconduct", icon: <FaClipboardList /> },
         {
@@ -162,9 +164,8 @@ export function NavBar() {
           icon: <FaCertificate />,
           dropdown: [
             { name: "ICT Scholarship", link: "/ict-scholarship", icon: <FaCertificate /> },
-            { name: "Gyandeep Scholarship", link: "gyandeep-scholarship", icon: <FaCertificate /> },
-            { name: "Merit Scholarship", link: "merit-scholarship", icon: <FaCertificate /> },
-
+            { name: "Gyandeep Scholarship", link: "/gyandeep-scholarship", icon: <FaCertificate /> },
+            { name: "Merit Scholarship", link: "/merit-scholarship", icon: <FaCertificate /> },
           ],
         },
       ],
@@ -180,68 +181,53 @@ export function NavBar() {
     },
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },
   ];
-  const { data: intakeData, isLoading, isError } = useGetIntakes();
-  const intakes = intakeData?.data ?? [];
-  const openIntakes = intakes.filter(i => i.status === "OPEN");
-
-  const intakeList = isLoading
-    ? "Loading intakes..."
-    : isError
-      ? "Admissions Open"
-      : openIntakes.length > 0
-        ? openIntakes.map(i => i.intake).join(" • ")
-        : "Admissions Closed";
 
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
-      <div className="w-full bg-blue-700 text-white text-xl font-medium relative overflow-hidden">
-        <a
-          href="https://apply.lbef.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-10 justify-center text-center px-4 py-2 hover:bg-blue-800 transition-colors relative z-10"
-        >
-          {/* Bullhorn with up-down animation */}
-          <div className="relative flex items-center justify-center">
-            <FaBullhorn
-              className="sm:text-3xl text-xl relative z-10 float-animation"
-            />
+     
+{/* Admission Announcement Bar */}
+<div className="w-full bg-blue-700 text-white font-medium overflow-hidden">
+  <motion.a
+    href="https://apply.lbef.org"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center justify-center gap-3 px-4 py-2 text-base md:text-md hover:bg-blue-800 transition-colors"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {/* Animated speaker icon */}
+    <motion.div
+      animate={{ 
+        scale: [1, 1.2, 1],
+        rotate: [0, -5, 5, -5, 0]
+      }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
+    </motion.div>
 
-            {/* Sound waves coming out of the horn */}
-            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-1">
-              {/* Wave bars that also animate up-down */}
-              <div className="flex items-center gap-0.5 h-8">
-                <div className="w-1 bg-white/80 rounded-full float-gentle" style={{ height: '12px', animationDelay: '0s' }}></div>
-                <div className="w-1 bg-white/60 rounded-full float-gentle" style={{ height: '16px', animationDelay: '0.2s' }}></div>
-                <div className="w-1 bg-white/40 rounded-full float-gentle" style={{ height: '20px', animationDelay: '0.4s' }}></div>
-                <div className="w-1 bg-white/30 rounded-full float-gentle" style={{ height: '14px', animationDelay: '0.1s' }}></div>
-                <div className="w-1 bg-white/20 rounded-full float-gentle" style={{ height: '8px', animationDelay: '0.3s' }}></div>
-              </div>
-            </div>
-          </div>
+    <span className="text-sm md:text-md ">
+      Admissions Open for {intakeList} — Apply Now
+    </span>
 
-          Admissions Open for {intakeList} — Apply Now
+      <GraduationCap className="w-5 h-5 hidden md:flex md:w-6 md:h-6" />
 
-          {/* Graduation cap with up-down animation */}
-          <div className="relative">
-            <FaGraduationCap
-              className="sm:text-3xl text-xl"
-            />
-          </div>
-        </a>
+  </motion.a>
+</div>
 
-        {/* Background decorative waves */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
-      </div>
+      {/* Navbar */}
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
-        {/* here i want admission */}
-
         <div className="flex gap-2">
           <NavLink to="/" className="w-40 cursor-pointer">
             <img src={logo} alt="LBEF Logo" />
           </NavLink>
           <NavLink to="/" className="w-14 cursor-pointer">
-            <img src={apuLogo} alt="APU Logo" className="" />
+            <img src={apuLogo} alt="APU Logo" />
           </NavLink>
         </div>
 
@@ -258,22 +244,17 @@ export function NavBar() {
                 <button className="flex items-center gap-1 px-4 py-3 cursor-pointer uppercase text-sm font-medium hover:text-[#3040E5]">
                   <span>{item.name}</span>
                   <FaChevronDown
-                    className={`text-xs transition-transform ${activeDropdown === item.name ? "rotate-180" : ""
-                      }`}
+                    className={`text-xs transition-transform ${activeDropdown === item.name ? "rotate-180" : ""}`}
                   />
                 </button>
 
-                {/* Main Dropdown */}
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${activeDropdown === item.name
                     ? "opacity-100 visible translate-y-0"
                     : "opacity-0 invisible -translate-y-2"
                     }`}
                 >
-                  <div
-                    className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"
-                      }`}
-                  >
+                  <div className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"}`}>
                     {item.dropdown.map((sub) => {
                       if (sub.dropdown) {
                         return (
@@ -286,30 +267,26 @@ export function NavBar() {
                             <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
                               <span className="flex items-center gap-3">
                                 <span className="text-lg">{sub.icon}</span>
-                                <span className="whitespace-normal wrap-break-word">{sub.name}</span>
+                                <span>{sub.name}</span>
                               </span>
                               {sub.dropdown && (
                                 <FaChevronDown className={`text-xs transition-transform ${activeNestedDropdown === sub.name ? "rotate-180" : ""}`} />
                               )}
                             </div>
 
-                            {/* Nested Dropdown - NOW APPEARS BELOW INSTEAD OF RIGHT */}
                             {activeNestedDropdown === sub.name && (
                               <div className="relative top-0 left-0 pl-4 mt-1">
-                                <div className="rounded-xl p-1 min-w-[220px">
+                                <div className="rounded-xl p-1 min-w-[220px]">
                                   {sub.dropdown?.map((nested) => (
-                                    <NavLink
+                                    <button
                                       key={nested.name}
-                                      to={nested.link!}
-                                      className="flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg"
-                                      onClick={() => {
-                                        setActiveDropdown(null);
-                                        setActiveNestedDropdown(null);
-                                      }}
+                                      onClick={nested.onClick}
+                                      disabled={nested.disabled}
+                                      className={`flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
                                     >
                                       {nested.icon}
                                       {nested.name}
-                                    </NavLink>
+                                    </button>
                                   ))}
                                 </div>
                               </div>
@@ -335,7 +312,7 @@ export function NavBar() {
                         <NavLink
                           key={sub.name}
                           to={sub.disabled ? "#" : sub.link!}
-                          className="flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg"
+                          className={`flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
                           <span className="text-lg">{sub.icon}</span>
                           {sub.name}
@@ -365,34 +342,19 @@ export function NavBar() {
           </button>
         </nav>
 
-        {/* Mobile Toggle */}
+        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="lg:hidden p-2"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
-          {mobileOpen ? (
-            <FaTimes className="text-2xl" />
-          ) : (
-            <FaBars className="text-2xl" />
-          )}
+          {mobileOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div
-          className="
-      lg:hidden 
-      bg-white 
-      px-4 
-      py-3 
-      shadow-lg 
-      max-h-[calc(100vh-64px)] 
-      overflow-y-auto
-      overscroll-contain
-    "
-        >
+        <div className="lg:hidden bg-white px-4 py-3 shadow-lg max-h-[calc(100vh-64px)] overflow-y-auto overscroll-contain">
           {menuItems.map((item) =>
             item.dropdown ? (
               <div key={item.name}>
@@ -402,8 +364,7 @@ export function NavBar() {
                 >
                   <span>{item.name}</span>
                   <FaChevronDown
-                    className={`transition-transform ${dropdownOpen[item.name] ? "rotate-180" : ""
-                      }`}
+                    className={`transition-transform ${dropdownOpen[item.name] ? "rotate-180" : ""}`}
                   />
                 </button>
 
@@ -411,13 +372,10 @@ export function NavBar() {
                   item.dropdown.map((sub) => {
                     if (sub.dropdown) {
                       const nestedKey = `${item.name}-${sub.name}`;
-
                       return (
                         <div key={sub.name}>
                           <button
-                            onClick={() =>
-                              toggleNestedMobile(item.name, sub.name)
-                            }
+                            onClick={() => toggleNestedMobile(item.name, sub.name)}
                             className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
                           >
                             <span className="flex items-center gap-2">
@@ -425,22 +383,21 @@ export function NavBar() {
                               {sub.name}
                             </span>
                             <FaChevronDown
-                              className={`transition-transform ${dropdownOpen[nestedKey] ? "rotate-180" : ""
-                                }`}
+                              className={`transition-transform ${dropdownOpen[nestedKey] ? "rotate-180" : ""}`}
                             />
                           </button>
 
                           {dropdownOpen[nestedKey] &&
                             sub.dropdown?.map((nested) => (
-                              <NavLink
+                              <button
                                 key={nested.name}
-                                to={nested.link!}
-                                className="flex items-center gap-2 py-2 pl-8"
-                                onClick={() => setMobileOpen(false)}
+                                onClick={nested.onClick}
+                                disabled={nested.disabled}
+                                className={`flex items-center gap-2 py-2 pl-8 w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
                               >
-                                <span className="text-lg">{nested.icon}</span>
+                                {nested.icon}
                                 {nested.name}
-                              </NavLink>
+                              </button>
                             ))}
                         </div>
                       );
@@ -487,11 +444,9 @@ export function NavBar() {
             )
           )}
 
-          {/* CTA Button */}
           <button
             onClick={() => {
               setMobileOpen(false);
-              console.log(" Enquiry button clicked");
               open();
             }}
             className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 sticky bottom-0"
@@ -500,9 +455,7 @@ export function NavBar() {
             Enquiry Now
           </button>
         </div>
-      )
-      }
-
-    </header >
+      )}
+    </header>
   );
 }
