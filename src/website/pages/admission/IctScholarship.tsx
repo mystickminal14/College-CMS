@@ -8,10 +8,12 @@ import { fadeUp } from '../../comp/animation';
 import useGetScholarship from '../../../pages/scholarship/hooks/useGet';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const ICTScholarship = () => {
 	const { data, isLoading, } = useGetScholarship();
 	const schedule = data?.data;
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -47,10 +49,10 @@ const ICTScholarship = () => {
 							Unlock your academic potential with the National ICT Scholarship, rewarding excellence in high-school performance.
 						</p>
 						<a
-							href="https://lbef.org/ictregistration.php"
+							onClick={() => navigate('/ictregistration')}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="inline-flex items-center gap-1 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-700 transition"
+							className="inline-flex items-center gap-1 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-700 transition cursor-pointer"
 						>
 							Register Now
 							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -623,10 +625,34 @@ const ICTScholarship = () => {
 											{schedule.examDate}
 										</td>
 									</tr>
+									<tr>
+										<td className="px-5 py-4 text-gray-800 font-medium">
+											Exam Result to NPWA
+										</td>
+										<td className="px-5 py-4 text-gray-800">
+											{schedule.examDate}
+										</td>
+									</tr>
+									<tr>
+										<td className="px-5 py-4 text-gray-800 font-medium">
+											Interview of Candidates by NPWA
+										</td>
+										<td className="px-5 py-4 text-gray-800">
+											{schedule.examDate}
+										</td>
+									</tr>
 
 									<tr className="bg-gray-50">
 										<td className="px-5 py-4 text-gray-800 font-medium">
-											Final result by CAN Federation
+											Interview of Candidates by NPWA
+										</td>
+										<td className="px-5 py-4 text-gray-800">
+											{schedule.canDate}
+										</td>
+									</tr>
+									<tr className="bg-gray-50">
+										<td className="px-5 py-4 text-gray-800 font-medium">
+											Final result by NPWA to LBEF College for Admission
 										</td>
 										<td className="px-5 py-4 text-gray-800">
 											{schedule.canDate}
@@ -635,7 +661,7 @@ const ICTScholarship = () => {
 
 									<tr>
 										<td className="px-5 py-4 text-gray-800 font-medium">
-											Last date of admission
+											Last Date of Admission
 										</td>
 										<td className="px-5 py-4 text-gray-800">
 											{schedule.admissionDate}
