@@ -11,12 +11,15 @@ import type { Courses } from '../../../pages/courses/model/CourseModel';
 import { fadeUp, staggerContainer } from '../../comp/animation';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
+import useGetCourseCategoryNameAll from '../../../pages/course-category/hooks/useGetCatName';
+import { useState } from 'react';
 
 const truncateWords = (text: string, wordLimit: number) => {
   const words = text.split(' ');
   if (words.length <= wordLimit) return text;
   return words.slice(0, wordLimit).join(' ') + '...';
 };
+
 const CourseSkeleton = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -66,6 +69,7 @@ const CourseProgram = () => {
   const { data, isLoading } = useGetAll();
   const courses: Courses[] = data?.data ?? [];
   const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState<number | 'all'>('all');
 
   const courseSlugMap: Record<string, string> = {
     "Information Technology": "bscit",
@@ -75,11 +79,16 @@ const CourseProgram = () => {
     "Information Technology with a Specialism in Internet of Things(IOT)": "bscitiot",
     "ITM": "mscitm",
   };
+  const { data: typesDataAll } = useGetCourseCategoryNameAll();
+  const categories = typesDataAll?.data ?? [];
   const handleView = (course: Courses) => {
     navigate(`/${courseSlugMap[course.title]}`, {
       state: { course },
     });
   };
+  const filteredCourses = activeCategory === 'all'
+    ? courses
+    : courses.filter(course => course.categoryId === activeCategory);
 
 
   return (
@@ -156,6 +165,42 @@ const CourseProgram = () => {
             </div>
           </div>
         )}
+        {!isLoading && categories.length > 0 && (
+          <div className="container mx-auto px-6 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap justify-center gap-2 md:gap-4"
+            >
+              {/* All Categories Tab */}
+              <button
+                onClick={() => setActiveCategory('all')}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === 'all'
+                  ? 'bg-blue-600 text-white shadow-lg scale-105'
+                  : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+              >
+                All Programs
+              </button>
+
+              {/* Dynamic Category Tabs */}
+              {categories
+                .map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => setActiveCategory(category.id ?? 0)}
+                    className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category.id
+                      ? 'bg-blue-600 text-white shadow-lg scale-105'
+                      : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                      }`}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+            </motion.div>
+          </div>
+        )}
 
         {!isLoading && courses.length === 0 && <EmptyCourses />}
 
@@ -171,11 +216,11 @@ const CourseProgram = () => {
 
 
             {!isLoading &&
-              courses.length > 0 &&
-              courses.map((course) => (
+              filteredCourses.length > 0 &&
+              filteredCourses.map((course) => (
                 <motion.div
                   key={course.id}
-                  variants={fadeUp}
+                  // variants={fadeUp}
                   onClick={() => handleView(course)}
 
                   className="group relative cursor-pointer overflow-hidden rounded-lg bg-white border-b-4 border-blue-600 shadow-md h-[360px]"
