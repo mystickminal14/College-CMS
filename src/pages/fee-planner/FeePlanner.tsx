@@ -65,6 +65,9 @@ const FeePlannersPage = () => {
   const plannerColumns = [
    
     { label: "Semester", accessor: "semester" },
+  {
+      label: "Year", accessor: "plannerCourse", render: (row: FeePlanner) => row.feeYear?.year ?? "-",
+    },
     { label: "Course", accessor: "course" },
 
   ];
