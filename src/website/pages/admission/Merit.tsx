@@ -58,7 +58,7 @@ const MeritScholarship = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-     <Seo
+      <Seo
         title="Merit Scholarship | LBEF College Nepal"
         description="Rewarding academic excellence in tuition fees based on entrance and university performance. Check eligibility criteria and scholarship benefits."
         url={`${APP_URL}/merit-scholarship`}
@@ -85,6 +85,17 @@ const MeritScholarship = () => {
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Rewarding academic excellence in tuition fees based on entrance and university performance.
           </p>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex mt-2 items-center gap-1 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-700 transition"
+          >
+            Register Now
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
           <div className='mt-2'>
            <a
@@ -148,7 +159,7 @@ const MeritScholarship = () => {
           </div>
         </div>
       </div>
-     <LbefSubFooter/>
+      <LbefSubFooter />
     </div>
   );
 };

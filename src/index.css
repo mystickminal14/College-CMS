@@ -84,3 +84,28 @@
     font-size: 3.5rem;
   }
 }
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.float-animation {
+  animation: float 1.5s ease-in-out infinite;
+}
+
+.float-gentle {
+  animation: float-gentle 2s ease-in-out infinite;
+}

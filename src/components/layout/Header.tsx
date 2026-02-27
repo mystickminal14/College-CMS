@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="hidden md:block">
             <h1 className="text-xl font-bold tracking-wider 
                            text-slate-800 dark:text-white">
-              Welcome to PCPS Life 👋
+              Welcome to LBEF Evolve 👋
             </h1>
           </div>
 
@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="md:hidden">
             <h1 className="text-lg font-bold 
                            text-slate-800 dark:text-white">
-              PCPS Life
+              LBEF Evolve
             </h1>
           </div>
         </div>

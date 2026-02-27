@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { WebsiteLayout } from "../website/WebLayout";
-import NotFoundPage from "../components/NoRouteFound";
-import Scholarship from "../website/pages/scholarship/Scholarship";
+
 
 /* =======================
    Lazy Loaded Pages
@@ -41,7 +40,9 @@ const GalleryView = lazy(() => import("../website/pages/gallery/GalleryView"));
 const AlumniFormPage = lazy(() => import("../website/pages/alumni-form/pages/Index"));
 const AcademicClub = lazy(() => import("../website/pages/academic-club/AcademicClub"));
 const OurMessage = lazy(() => import("../website/pages/our-message/OurMessage"));
-
+const NotFoundPage = lazy(() => import("../components/NoRouteFound"));
+const Scholarship = lazy(() => import("../website/pages/scholarship/Scholarship"));
+const ICTRegistration = lazy(() => import("../website/pages/admission/IctRegistration"));
 /* =======================
    Placeholder Page
 ======================= */
@@ -190,6 +191,7 @@ export const websiteRoutes = [
         path: "merit-scholarship",
         element: <MeritScholarship />,
       },
+      { path: "ictregistration", element: <ICTRegistration /> },
       {
         path: "blogs",
         element: <PlaceholderPage pageName="Blogs" />,
