@@ -26,6 +26,7 @@ import { useUpdateImage } from "./hooks/useUpdateImage";
 import useCopyCourse from "./hooks/useCopyCourse";
 import CopyCourseModal from "./components/CopyCourse";
 import CourseCategoryComp from "../course-category/CourseCategoryComp";
+import useGetCourseCategoryNameAll from "../course-category/hooks/useGetCatName";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -53,11 +54,13 @@ const CoursePage = () => {
     setDebouncedSearch(value);
     setPage(1);
   }, 500);
+  const [selectedTypeId, setSelectedTypeId] = useState<number | undefined>(undefined);
 
   const { data, isLoading, isError } = useGetAll({
     search: debouncedSearch,
     page,
     limit: PAGE_LIMIT,
+    categoryId: selectedTypeId,
   });
 
   const createMutation = useCreateCourse();
@@ -144,7 +147,9 @@ const CoursePage = () => {
         condition: (course: Courses) => !!course.hasDetails,
       },
     ];
-
+ const { data: typesDataAll } = useGetCourseCategoryNameAll(); // For table view (all types)
+  
+  const galleryTypesAll = typesDataAll?.data ?? [];
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2 ">
       <TitleBox title="Course Management" subtitle="Manage your courses" />
@@ -183,7 +188,24 @@ const CoursePage = () => {
           </button>
         </div>
         {viewMode !== "category" && <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
+
           <SearchBox placeholder="Search Courses..." onSearch={handleSearch} />
+<select
+              className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+              value={selectedTypeId}
+              onChange={(e) => {
+                const val = e.target.value;
+                setSelectedTypeId(val ? Number(val) : undefined);
+                setPage(1);
+              }}
+            >
+              <option value="">All Types</option>
+              {galleryTypesAll.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
           <button
             onClick={() => handleAdd()}
             disabled={createMutation.isPending}
