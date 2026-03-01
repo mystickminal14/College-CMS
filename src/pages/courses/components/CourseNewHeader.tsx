@@ -15,7 +15,7 @@ export default function CourseNewHeader({ course }: CourseHeaderProps) {
   const line2FirstWord = line2Words[0];
   const line2RemainingWords = line2Words.slice(1).join(" ");
 
-  const line3Words = titleWords.slice(5);
+  const line3Words = titleWords.slice(6);
   const line3LastWord = line3Words[line3Words.length - 1];
   const line3RemainingWords = line3Words.slice(0, -1).join(" ");
 
