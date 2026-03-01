@@ -1,4 +1,4 @@
-import {  useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { Courses } from "./model/CourseModel";
@@ -35,8 +35,6 @@ const isCourseDetailBlock = (
   block: CourseDetailBlock | null | undefined
 ): block is CourseDetailBlock => block !== null && block !== undefined;
 
-/* ------------------ HELPER FUNCTION FOR ID ------------------ */
-
 /* ------------------ ANIMATION VARIANTS ------------------ */
 const asideItemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
@@ -69,8 +67,24 @@ const CourseDetails = () => {
   const id = course?.id ?? "1";
 
   /* ✅ ACTIVE CATEGORY STATE */
-  const [activeCategory, setActiveCategory] =
-    useState("COURSE_STRUCTURE");
+  const [activeCategory, setActiveCategory] = useState("COURSE_STRUCTURE");
+
+  /* ✅ SCROLL ANCHOR REF */
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  /* ✅ TAB CHANGE HANDLER WITH SCROLL */
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setTimeout(() => {
+      if (contentRef.current) {
+        const top =
+          contentRef.current.getBoundingClientRect().top +
+          window.scrollY -
+          250; // 16px breathing room below the sticky tabs
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }, 50);
+  };
 
   /* ✅ FETCH BASED ON CATEGORY */
   const {
@@ -142,7 +156,7 @@ const CourseDetails = () => {
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
         <CourseNewHeader course={course} />
 
-        <div className="container max-w-7xl mx-auto px-4 sm:px-0  pb-20">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-0 pb-20">
           <div className="flex flex-col-reverse sm:flex-col lg:flex-row gap-8">
             {/* ================= MAIN ================= */}
             <main className="lg:w-2/3 space-y-8">
@@ -168,21 +182,21 @@ const CourseDetails = () => {
                           variants={fadeItem}
                           initial="hidden"
                           whileInView="visible"
-                          onClick={() => setActiveCategory(item.category)}
+                          onClick={() => handleCategoryChange(item.category)}
                           className={`
-            flex flex-col items-center text-center p-3 rounded-xl cursor-pointer
-            transition-all duration-200 ease-in-out
-            ${isActive
+                            flex flex-col items-center text-center p-3 rounded-xl cursor-pointer
+                            transition-all duration-200 ease-in-out
+                            ${isActive
                               ? "bg-linear-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-200 scale-[1.02]"
                               : "bg-white/80 text-gray-700 border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 hover:text-blue-700 shadow-sm hover:shadow-md"
                             }
-          `}
+                          `}
                         >
                           <div
                             className={`
-              w-9 h-9 rounded-full flex items-center justify-center mb-2 transition-colors
-              ${isActive ? "bg-white/20" : "bg-blue-100"}
-            `}
+                              w-9 h-9 rounded-full flex items-center justify-center mb-2 transition-colors
+                              ${isActive ? "bg-white/20" : "bg-blue-100"}
+                            `}
                           >
                             <item.icon
                               className={`w-5 h-5 ${isActive ? "text-white" : "text-blue-600"}`}
@@ -195,6 +209,10 @@ const CourseDetails = () => {
                   </div>
                 </div>
               </div>
+
+              {/* ✅ SCROLL ANCHOR — sits just below the tabs, content scrolls to here */}
+              <div ref={contentRef} />
+
               {/* ---------- CONTENT BLOCKS ---------- */}
               {contentBlocks.map((block, index) => {
                 const Icon = headingIcons[index % headingIcons.length];
