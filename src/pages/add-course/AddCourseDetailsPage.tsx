@@ -104,6 +104,7 @@ const AddCourseDetailsPage = () => {
                 onChange={(newBlocks) =>
                   setBlocksMap((prev) => ({ ...prev, [selectedCategory]: newBlocks }))
                 }
+                  category={selectedCategory}
               />
 
               <button

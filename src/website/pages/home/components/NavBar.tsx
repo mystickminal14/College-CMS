@@ -40,7 +40,7 @@ import { useEnquiry } from "../../../../context/EnquiryContext";
 import useGetIntakes from "../../../../pages/intake-calender/hooks/useGetAllIntakr";
 import useGetCatWithDetails from "../../../../pages/courses/hooks/useGetCourseWithCat";
 import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
-import { ArrowRight, GraduationCap, Sparkles, Volume2 } from "lucide-react";
+import { ArrowRight, GraduationCap,  Volume2 } from "lucide-react";
 
 const COURSE_ICONS = [
   <FaLaptopCode />,

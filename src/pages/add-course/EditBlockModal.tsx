@@ -57,6 +57,7 @@ const EditBlockModal = ({ isOpen, onClose, block, onSave, isSaving }: EditBlockM
     const updatedBlock: UpdateBlockData = {
       id: block.id,
       type,
+      category: block.category,
       order,
     };
 

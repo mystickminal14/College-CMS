@@ -1,4 +1,4 @@
-import { BlockType, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
+import { BlockType, type ContentCategory, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
 import BlockItem from "./BlockItem";
 
 interface Props {
@@ -6,20 +6,23 @@ interface Props {
   onChange: (blocks: CourseDetailBlock[]) => void;
   root?: boolean; // if true, only Heading allowed
   allowSubheading?: boolean;
+   category: ContentCategory; // 
 }
 
-const BlockEditor = ({ blocks, onChange, root = true, allowSubheading = true }: Props) => {
+const BlockEditor = ({ blocks, onChange, root = true, allowSubheading = true ,category}: Props) => {
   const addBlock = (type: BlockType) => {
     const id = Date.now() + Math.floor(Math.random() * 1000);
     const order = blocks.length;
 
     let newBlock: CourseDetailBlock;
-    if (type === BlockType.HEADING || type === BlockType.SUBHEADING) {
-      newBlock = { id, type, order, title: "", children: [] };
+     if (type === BlockType.HEADING) {
+      newBlock = { id, type, order, title: "", children: [], category };
+    } else if (type === BlockType.SUBHEADING) {
+      newBlock = { id, type, order, title: "", children: [], category };
     } else if (type === BlockType.PARAGRAPH) {
-      newBlock = { id, type, order, content: "" };
+      newBlock = { id, type, order, content: "", category };
     } else {
-      newBlock = { id, type, order, content: [] };
+      newBlock = { id, type, order, content: [], category };
     }
 
     onChange([...blocks, newBlock]);

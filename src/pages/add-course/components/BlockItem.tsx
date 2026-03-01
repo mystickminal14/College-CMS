@@ -79,6 +79,7 @@ const BlockItem = ({ block, onUpdate, onDelete }: Props) => {
           {isHeading && (
             <div className="ml-6 mt-4 border-l border-gray-200 pl-4">
               <BlockEditor
+              category={block.category}
                 blocks={block.children}
                 onChange={(children) => onUpdate({ ...block, children })}
                 root={false}
