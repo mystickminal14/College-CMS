@@ -40,7 +40,7 @@ import { useEnquiry } from "../../../../context/EnquiryContext";
 import useGetIntakes from "../../../../pages/intake-calender/hooks/useGetAllIntakr";
 import useGetCatWithDetails from "../../../../pages/courses/hooks/useGetCourseWithCat";
 import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
-import { ArrowRight, GraduationCap,  Volume2 } from "lucide-react";
+import { ArrowRight, GraduationCap, Volume2 } from "lucide-react";
 
 const COURSE_ICONS = [
   <FaLaptopCode />,
@@ -408,7 +408,7 @@ export function NavBar() {
                       onMouseLeave={onDropdownLeave}
                     >
                       <div
-                        className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "w-[480px]" : "w-[270px]"
+                        className={`bg-white shadow-xl rounded-xl p-1 min-w-[250px] md:min-w-[270px]"
                           }`}
                       >
                         {item.dropdown.map((sub) => {
@@ -446,15 +446,15 @@ export function NavBar() {
                                   {activeNestedDropdown === sub.name && (
                                     <motion.div
                                       key="nested"
-                                      variants={nestedVariants}
+                                      variants={dropdownVariants}
                                       initial="hidden"
                                       animate="visible"
                                       exit="exit"
-                                      style={{ overflow: "hidden" }}
+                                      className="absolute top-0 left-full ml-2 bg-white shadow-xl rounded-xl p-1 w-[360px]"
                                       onMouseEnter={onNestedDropdownEnter}
                                       onMouseLeave={onNestedLeave}
                                     >
-                                      <div className="pl-4 pr-1 pb-1">
+                                      <div>
                                         {sub.dropdown?.map((nested) => (
                                           <button
                                             key={nested.name}
