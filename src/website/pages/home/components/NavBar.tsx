@@ -28,10 +28,10 @@ type DropdownItem = {
   disabled?: boolean;
   dropdown?: DropdownItem[];
 } & (
-  | { link: string; onClick?: never }
-  | { link?: never; onClick: () => void }
-  | { link?: never; onClick?: never }
-);
+    | { link: string; onClick?: never }
+    | { link?: never; onClick: () => void }
+    | { link?: never; onClick?: never }
+  );
 
 type MenuItem = {
   name: string;
@@ -184,41 +184,41 @@ export function NavBar() {
 
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
-     
-{/* Admission Announcement Bar */}
-<div className="w-full bg-blue-700 text-white font-medium overflow-hidden">
-  <motion.a
-    href="https://apply.lbef.org"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center justify-center gap-3 px-4 py-2 text-base md:text-md hover:bg-blue-800 transition-colors"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {/* Animated speaker icon */}
-    <motion.div
-      animate={{ 
-        scale: [1, 1.2, 1],
-        rotate: [0, -5, 5, -5, 0]
-      }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-    >
-      <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
-    </motion.div>
 
-    <span className="text-sm md:text-md ">
-      Admissions Open for {intakeList} — Apply Now
-    </span>
+      {/* Admission Announcement Bar */}
+      <div className="w-full bg-blue-700 text-white font-medium overflow-hidden">
+        <motion.a
+          href="https://apply.lbef.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 px-4 py-2 text-base md:text-md hover:bg-blue-800 transition-colors"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Animated speaker icon */}
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, -5, 5, -5, 0]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
+          </motion.div>
 
-      <GraduationCap className="w-5 h-5 hidden md:flex md:w-6 md:h-6" />
+          <span className="text-sm md:text-md ">
+            Admissions Open for {intakeList} — Apply Now
+          </span>
 
-  </motion.a>
-</div>
+          <GraduationCap className="w-5 h-5 hidden md:flex md:w-6 md:h-6" />
+
+        </motion.a>
+      </div>
 
       {/* Navbar */}
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
@@ -280,9 +280,17 @@ export function NavBar() {
                                   {sub.dropdown?.map((nested) => (
                                     <button
                                       key={nested.name}
-                                      onClick={nested.onClick}
+                                      onClick={() => {
+                                        if (nested.link) {
+                                          navigate(nested.link);
+                                        }
+                                        if (nested.onClick) {
+                                          nested.onClick();
+                                        }
+                                      }}
                                       disabled={nested.disabled}
-                                      className={`flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                                      className={`flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""
+                                        }`}
                                     >
                                       {nested.icon}
                                       {nested.name}

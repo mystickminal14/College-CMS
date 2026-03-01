@@ -166,42 +166,109 @@ const CourseProgram = () => {
           </div>
         )}
         {!isLoading && categories.length > 0 && (
-          <div className="container mx-auto px-6 mb-8">
+          <div className="container mx-auto px-4 sm:px-6 mb-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-wrap justify-center gap-2 md:gap-4"
+              className="relative"
             >
-              {/* All Categories Tab */}
-              <button
-                onClick={() => setActiveCategory('all')}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === 'all'
-                  ? 'bg-blue-600 text-white shadow-lg scale-105'
-                  : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
-              >
-                All Programs
-              </button>
+              {/* Gradient fade on sides for horizontal scroll on mobile */}
+              <div className="absolute left-0 top-0 bottom-0 w-8 bg-linear-to-r from-gray-50 to-transparent pointer-events-none z-10 md:hidden" />
+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-linear-to-l from-gray-50 to-transparent pointer-events-none z-10 md:hidden" />
 
-              {/* Dynamic Category Tabs */}
-              {categories
-                .map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setActiveCategory(category.id ?? 0)}
-                    className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category.id
-                      ? 'bg-blue-600 text-white shadow-lg scale-105'
-                      : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                      }`}
+              {/* Scrollable tabs container */}
+              <div className="overflow-x-auto pb-2 hide-scrollbar md:overflow-visible">
+                <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 md:gap-3 min-w-max md:min-w-0 px-4 md:px-0">
+                  {/* All Categories Tab */}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setActiveCategory('all')}
+                    className={`
+              relative px-5 md:px-6 py-2.5 md:py-3 rounded-full text-sm font-medium 
+              transition-all duration-300 whitespace-nowrap
+              ${activeCategory === 'all'
+                        ? 'text-white shadow-lg shadow-blue-500/30'
+                        : 'text-gray-600 hover:text-blue-600 bg-white/80 hover:bg-white'
+                      }
+              ${activeCategory === 'all'
+                        ? 'bg-linear-to-r from-blue-600 to-indigo-600'
+                        : 'border border-gray-200 hover:border-blue-200'
+                      }
+            `}
                   >
-                    {category.name}
-                  </button>
-                ))}
+                    {/* Animated indicator for active tab */}
+                    {activeCategory === 'all' && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 rounded-full bg-linear-to-r from-blue-600 to-indigo-600 -z-10"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    <span className="relative z-10 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                      </svg>
+                      All Programs
+                    </span>
+                  </motion.button>
+
+                  {/* Dynamic Category Tabs */}
+                  {categories.map((category, index) => (
+                    <motion.button
+                      key={category.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * (index + 1) }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setActiveCategory(category.id ?? 0)}
+                      className={`
+                relative px-5 md:px-6 py-2.5 md:py-3 rounded-full text-sm font-medium 
+                transition-all duration-300 whitespace-nowrap
+                ${activeCategory === category.id
+                          ? 'text-white shadow-lg shadow-blue-500/30'
+                          : 'text-gray-600 hover:text-blue-600 bg-white/80 hover:bg-white'
+                        }
+                ${activeCategory === category.id
+                          ? 'bg-linear-to-r from-blue-600 to-indigo-600'
+                          : 'border border-gray-200 hover:border-blue-200'
+                        }
+              `}
+                    >
+                      {/* Animated indicator for active tab */}
+                      {activeCategory === category.id && (
+                        <motion.div
+                          layoutId="activeTab"
+                          className="absolute inset-0 rounded-full bg-linear-to-r from-blue-600 to-indigo-600 -z-10"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+
+                      <span className="relative z-10 flex items-center gap-2">
+                        {category.name}
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Decorative line for larger screens */}
+              <div className="hidden md:block absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-linear-to-r from-transparent via-blue-200 to-transparent" />
             </motion.div>
           </div>
         )}
 
+        <style>{`
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
         {!isLoading && courses.length === 0 && <EmptyCourses />}
 
 
