@@ -234,7 +234,7 @@ export function NavBar() {
       name: "Students",
       dropdown: [
         { name: "Academic Club", link: "/academic-club", icon: <FaGraduationCap /> },
-        { name: "Academic Planner", link: "/academic-planners", icon: <FaUniversity /> },
+        { name: "Academic Calendar", link: "/academic-planners", icon: <FaUniversity /> },
         { name: "Downloads", link: "/downloads", icon: <FaUsers /> },
         { name: "Fee Planner", link: "/fee-payment-planners", icon: <FaUniversity /> },
         { name: "Notice Board", link: "/notices", icon: <FaUniversity /> },

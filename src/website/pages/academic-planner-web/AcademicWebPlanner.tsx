@@ -99,8 +99,8 @@ const AcademicWebPlanner = () => {
   return (
     <>
     <Seo
-  title="Academic Planner at LBEF | Course Structure & Semester Plans"
-  description="View the academic planner at LBEF College Nepal. Explore course-wise semester plans, intakes, and academic sessions designed for structured learning."
+  title="Academic Calender at LBEF | Course Structure & Semester Plans"
+  description="View the academic Calender at LBEF College Nepal. Explore course-wise semester plans, intakes, and academic sessions designed for structured learning."
   url={`${APP_URL}/students-life/academic-planner`}
 
 />
@@ -143,7 +143,7 @@ const AcademicWebPlanner = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Academic </span>
             <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10">Planner</span>
+              <span className="text-blue-600 relative z-10">Calender</span>
               <motion.img
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
@@ -177,7 +177,7 @@ const AcademicWebPlanner = () => {
         {!isLoading && sortedGroups.length === 0 && (
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700">
-              No Academic Planners Available
+              No Academic Calender Available
             </h3>
             <p className="text-gray-500 mt-2">
               Please check back later.
