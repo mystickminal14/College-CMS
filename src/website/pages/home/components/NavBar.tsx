@@ -40,7 +40,7 @@ import { useEnquiry } from "../../../../context/EnquiryContext";
 import useGetIntakes from "../../../../pages/intake-calender/hooks/useGetAllIntakr";
 import useGetCatWithDetails from "../../../../pages/courses/hooks/useGetCourseWithCat";
 import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
-import { GraduationCap, Volume2 } from "lucide-react";
+import { ArrowRight, GraduationCap, Sparkles, Volume2 } from "lucide-react";
 
 const COURSE_ICONS = [
   <FaLaptopCode />,
@@ -84,10 +84,10 @@ type DropdownItem = {
   disabled?: boolean;
   dropdown?: DropdownItem[];
 } & (
-  | { link: string; onClick?: never }
-  | { link?: never; onClick: () => void }
-  | { link?: never; onClick?: never }
-);
+    | { link: string; onClick?: never }
+    | { link?: never; onClick: () => void }
+    | { link?: never; onClick?: never }
+  );
 
 type MenuItem = {
   name: string;
@@ -149,10 +149,10 @@ export function NavBar() {
   const intakeList = isLoading
     ? "Loading intakes..."
     : isError
-    ? "Admissions Open"
-    : openIntakes.length > 0
-    ? openIntakes.map((i) => i.intake).join(" • ")
-    : "Admissions Closed";
+      ? "Admissions Open"
+      : openIntakes.length > 0
+        ? openIntakes.map((i) => i.intake).join(" • ")
+        : "Admissions Closed";
 
   const onEnter = (menu: string) => {
     if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
@@ -214,20 +214,20 @@ export function NavBar() {
       dropdown:
         categories.length > 0
           ? categories.map((cat, catIdx) => ({
-              name: cat.name,
-              icon: CATEGORY_ICONS[catIdx % CATEGORY_ICONS.length],
-              dropdown:
-                cat.courses.length > 0
-                  ? cat.courses.map((course, courseIdx) => ({
-                      name: `${course.prefix} ${course.title}`,
-                      icon: COURSE_ICONS[(catIdx * 5 + courseIdx) % COURSE_ICONS.length],
-                      onClick: () => {
-                        navigate(`/${course.slug}`, { state: { course } });
-                        setActiveDropdown(null);
-                      },
-                    }))
-                  : [{ name: "No courses available", icon: <FaBook />, disabled: true }],
-            }))
+            name: cat.name,
+            icon: CATEGORY_ICONS[catIdx % CATEGORY_ICONS.length],
+            dropdown:
+              cat.courses.length > 0
+                ? cat.courses.map((course, courseIdx) => ({
+                  name: `${course.prefix} ${course.title}`,
+                  icon: COURSE_ICONS[(catIdx * 5 + courseIdx) % COURSE_ICONS.length],
+                  onClick: () => {
+                    navigate(`/${course.slug}`, { state: { course } });
+                    setActiveDropdown(null);
+                  },
+                }))
+                : [{ name: "No courses available", icon: <FaBook />, disabled: true }],
+          }))
           : [{ name: "No categories available", icon: <FaBook />, disabled: true }],
     },
     {
@@ -282,29 +282,89 @@ export function NavBar() {
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
       {/* Announcement Bar */}
-      <div className="w-full bg-blue-700 text-white font-medium overflow-hidden">
+      <div className="relative w-full overflow-hidden bg-linear-to-r bg-blue-700 hover:bg-blue-800 transition-colors">
+
+        {/* Shimmer sweep */}
+        <motion.div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-linear(105deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%)",
+            backgroundSize: "200% 100%",
+          }}
+          animate={{ backgroundPositionX: ["200%", "-200%"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Subtle dot-grid texture */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: "radial-linear(circle, white 1px, transparent 1px)",
+            backgroundSize: "18px 18px",
+          }}
+        />
+
         <motion.a
           href="https://apply.lbef.org"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 px-4 py-2 hover:bg-blue-800 transition-colors"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          className="relative flex items-center justify-center gap-3 px-5 py-2.5 group"
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
         >
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], rotate: [0, -5, 5, -5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          {/* Frosted "Enroll Now" badge */}
+          <motion.span
+            className="hidden sm:flex items-center gap-1.5 bg-white/10 border border-white/20 text-white text-[0.68rem] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm"
+            initial={{ opacity: 0, scale: 0.88 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.25, duration: 0.35 }}
           >
-            <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
+            <motion.span
+              animate={{ rotate: [0, 15, -15, 0] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <GraduationCap className="w-3 h-3 text-white" />
+            </motion.span>
+            Enroll Now
+          </motion.span>
+
+          {/* Divider */}
+          <div className="hidden sm:block w-px h-3.5 bg-white/20" />
+
+          {/* Animated speaker */}
+          <motion.div
+            animate={{ scale: [1, 1.18, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="text-violet-300 shrink-0"
+          >
+            <Volume2 className="w-4 h-4 md:w-[18px] md:h-[18px]" />
           </motion.div>
-          <span className="text-[0.8125rem] md:text-[0.875rem]">
-            Admissions Open for {intakeList} — Apply Now
-          </span>
-          <GraduationCap className="w-5 h-5 hidden md:flex md:w-6 md:h-6" />
+
+          {/* Message */}
+          <p className="text-white text-[0.8rem] md:text-[0.875rem] font-medium tracking-wide">
+            <span className="font-bold text-white">Admissions are open</span>
+            <span className="mx-2 text-white">·</span>
+            <span className="text-white">{intakeList}</span>
+          </p>
+
+          {/* CTA pill */}
+          <motion.span
+            className="hidden md:flex items-center gap-1.5 bg-white text-indigo-900 hover:bg-violet-100 text-[0.72rem] font-bold uppercase tracking-wide px-4 py-1.5 rounded-full transition-colors shrink-0"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Apply Now
+            <motion.span
+              animate={{ x: [0, 3, 0] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowRight className="w-3 h-3" />
+            </motion.span>
+          </motion.span>
         </motion.a>
       </div>
-
       {/* Main Navbar */}
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
         <div className="flex gap-2">
@@ -348,9 +408,8 @@ export function NavBar() {
                       onMouseLeave={onDropdownLeave}
                     >
                       <div
-                        className={`bg-white shadow-xl rounded-xl p-1 ${
-                          item.name === "Courses" ? "w-[480px]" : "w-[270px]"
-                        }`}
+                        className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "w-[480px]" : "w-[270px]"
+                          }`}
                       >
                         {item.dropdown.map((sub) => {
                           if (sub.dropdown) {
@@ -367,7 +426,7 @@ export function NavBar() {
                                     <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base">
                                       {sub.icon}
                                     </span>
-                                    <span className="text-[0.8375rem] font-medium leading-snug">
+                                    <span className="text-[1rem] font-medium leading-snug">
                                       {sub.name}
                                     </span>
                                   </span>
@@ -404,18 +463,17 @@ export function NavBar() {
                                               if (nested.onClick) nested.onClick();
                                             }}
                                             disabled={nested.disabled}
-                                            className={`flex gap-3 items-start px-4 py-2.5 hover:bg-blue-50 rounded-lg w-full text-left ${
-                                              nested.disabled
-                                                ? "opacity-50 cursor-not-allowed"
-                                                : ""
-                                            }`}
+                                            className={`flex gap-3 items-start px-4 py-2.5 hover:bg-blue-50 rounded-lg w-full text-left ${nested.disabled
+                                              ? "opacity-50 cursor-not-allowed"
+                                              : ""
+                                              }`}
                                           >
                                             {/* Blue icon for nested */}
                                             <span className="shrink-0 w-5 h-5 flex items-center justify-center text-blue-600 text-base mt-0.5">
                                               {nested.icon}
                                             </span>
                                             {/* Wraps naturally — no truncate */}
-                                            <span className="text-[0.8375rem] leading-snug">
+                                            <span className="text-[1rem] leading-snug">
                                               {nested.name}
                                             </span>
                                           </button>
@@ -438,7 +496,7 @@ export function NavBar() {
                                 <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
                                   {sub.icon}
                                 </span>
-                                <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                                <span className="text-[1rem] leading-snug">{sub.name}</span>
                               </button>
                             );
                           }
@@ -447,14 +505,13 @@ export function NavBar() {
                             <NavLink
                               key={sub.name}
                               to={sub.disabled ? "#" : sub.link!}
-                              className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 rounded-lg ${
-                                sub.disabled ? "opacity-50 cursor-not-allowed" : ""
-                              }`}
+                              className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""
+                                }`}
                             >
                               <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
                                 {sub.icon}
                               </span>
-                              <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                              <span className="text-[1rem] leading-snug">{sub.name}</span>
                             </NavLink>
                           );
                         })}
@@ -569,14 +626,13 @@ export function NavBar() {
                                           key={nested.name}
                                           onClick={nested.onClick}
                                           disabled={nested.disabled}
-                                          className={`flex items-start gap-2 py-2 pl-8 w-full text-left ${
-                                            nested.disabled ? "opacity-50 cursor-not-allowed" : ""
-                                          }`}
+                                          className={`flex items-start gap-2 py-2 pl-8 w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""
+                                            }`}
                                         >
                                           <span className="shrink-0 w-5 h-5 flex items-center justify-center text-blue-600 mt-0.5">
                                             {nested.icon}
                                           </span>
-                                          <span className="text-[0.8375rem] leading-snug">
+                                          <span className="text-sm leading-snug">
                                             {nested.name}
                                           </span>
                                         </button>
@@ -601,7 +657,7 @@ export function NavBar() {
                                 <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 mt-0.5">
                                   {sub.icon}
                                 </span>
-                                <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                                <span className="text-sm leading-snug">{sub.name}</span>
                               </button>
                             );
                           }
@@ -616,7 +672,7 @@ export function NavBar() {
                               <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 mt-0.5">
                                 {sub.icon}
                               </span>
-                              <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                              <span className="text-sm leading-snug">{sub.name}</span>
                             </NavLink>
                           );
                         })}
