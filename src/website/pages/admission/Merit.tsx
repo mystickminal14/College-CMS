@@ -89,7 +89,7 @@ const MeritScholarship = () => {
             href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex mt-2 items-center gap-1 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-700 transition"
+            className="inline-flex mt-2 items-center gap-1 bg-green-600 text-white text-xl font-medium px-4 py-2 rounded hover:bg-green-700 transition"
           >
             Register Now
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,16 +97,7 @@ const MeritScholarship = () => {
             </svg>
           </a>
         </div>
-          <div className='mt-2'>
-           <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex mt-2 items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
-            >
-              Register Now
-              </a>
-        </div>
+        
       </div>
 
       {/* Content Section */}

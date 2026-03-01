@@ -52,7 +52,7 @@ const ICTScholarship = () => {
 							onClick={() => navigate('/ictregistration')}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="inline-flex items-center gap-1 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-green-700 transition cursor-pointer"
+							className="inline-flex items-center gap-1 bg-green-600 text-white text-xl font-medium px-4 py-2 rounded hover:bg-green-700 transition cursor-pointer"
 						>
 							Register Now
 							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
