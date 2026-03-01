@@ -70,19 +70,10 @@ const CourseProgram = () => {
   const courses: Courses[] = data?.data ?? [];
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<number | 'all'>('all');
-
-  const courseSlugMap: Record<string, string> = {
-    "Information Technology": "bscit",
-    " Information Technology with a Specialism in Cloud Engineering": "bscitce",
-    "Information Technology with a Specialism in Cyber Security": "bscitcs",
-    "Information Technology with a Specialism in Artificial Intelligence": "bscitai",
-    "Information Technology with a Specialism in Internet of Things(IOT)": "bscitiot",
-    "ITM": "mscitm",
-  };
   const { data: typesDataAll } = useGetCourseCategoryNameAll();
   const categories = typesDataAll?.data ?? [];
   const handleView = (course: Courses) => {
-    navigate(`/${courseSlugMap[course.title]}`, {
+    navigate(`/${course.slug}`, {
       state: { course },
     });
   };
