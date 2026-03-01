@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   FaUniversity,
@@ -13,14 +13,70 @@ import {
   FaComment,
   FaTimes,
   FaBars,
+  FaLaptopCode,
+  FaFlask,
+  FaBriefcase,
+  FaHeartbeat,
+  FaPaintBrush,
+  FaCogs,
+  FaCalculator,
+  FaGlobe,
+  FaLeaf,
+  FaMicroscope,
+  FaBalanceScale,
+  FaChartLine,
+  FaCode,
+  FaDatabase,
+  FaNetworkWired,
+  FaRobot,
+  FaCloud,
+  FaMobile,
+  FaShieldAlt,
+  FaBuilding,
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu_logo.webp";
 import { useEnquiry } from "../../../../context/EnquiryContext";
 import useGetIntakes from "../../../../pages/intake-calender/hooks/useGetAllIntakr";
 import useGetCatWithDetails from "../../../../pages/courses/hooks/useGetCourseWithCat";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
 import { GraduationCap, Volume2 } from "lucide-react";
+
+const COURSE_ICONS = [
+  <FaLaptopCode />,
+  <FaFlask />,
+  <FaBriefcase />,
+  <FaHeartbeat />,
+  <FaPaintBrush />,
+  <FaCogs />,
+  <FaCalculator />,
+  <FaGlobe />,
+  <FaLeaf />,
+  <FaMicroscope />,
+  <FaBalanceScale />,
+  <FaChartLine />,
+  <FaCode />,
+  <FaDatabase />,
+  <FaNetworkWired />,
+  <FaRobot />,
+  <FaCloud />,
+  <FaMobile />,
+  <FaShieldAlt />,
+  <FaBuilding />,
+];
+
+const CATEGORY_ICONS = [
+  <FaLaptopCode />,
+  <FaFlask />,
+  <FaBriefcase />,
+  <FaHeartbeat />,
+  <FaPaintBrush />,
+  <FaCogs />,
+  <FaCalculator />,
+  <FaGlobe />,
+  <FaMicroscope />,
+  <FaBalanceScale />,
+];
 
 type DropdownItem = {
   name: string;
@@ -28,16 +84,35 @@ type DropdownItem = {
   disabled?: boolean;
   dropdown?: DropdownItem[];
 } & (
-    | { link: string; onClick?: never }
-    | { link?: never; onClick: () => void }
-    | { link?: never; onClick?: never }
-  );
+  | { link: string; onClick?: never }
+  | { link?: never; onClick: () => void }
+  | { link?: never; onClick?: never }
+);
 
 type MenuItem = {
   name: string;
   link?: string;
   dropdown?: DropdownItem[];
 };
+
+// ── Fix: use `Transition` type explicitly so TS is happy ──────────────────────
+const easeOut: Transition = { duration: 0.18, ease: "easeOut" };
+const easeIn: Transition = { duration: 0.13, ease: "easeIn" };
+const nestedEaseOut: Transition = { duration: 0.22, ease: "easeOut" };
+const nestedEaseIn: Transition = { duration: 0.15, ease: "easeIn" };
+
+const dropdownVariants: Variants = {
+  hidden: { opacity: 0, y: -8, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: easeOut },
+  exit: { opacity: 0, y: -6, scale: 0.98, transition: easeIn },
+};
+
+const nestedVariants: Variants = {
+  hidden: { opacity: 0, height: 0, y: -4 },
+  visible: { opacity: 1, height: "auto", y: 0, transition: nestedEaseOut },
+  exit: { opacity: 0, height: 0, y: -4, transition: nestedEaseIn },
+};
+// ─────────────────────────────────────────────────────────────────────────────
 
 export function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,14 +124,15 @@ export function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const { open } = useEnquiry();
 
-  /* Shadow on scroll */
+  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const nestedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close menus on route change */
   useEffect(() => {
     setMobileOpen(false);
     setDropdownOpen({});
@@ -64,39 +140,60 @@ export function NavBar() {
     setActiveNestedDropdown(null);
   }, [location.pathname]);
 
-  /* Fetch categories with courses */
   const { data } = useGetCatWithDetails();
   const categories = data?.data ?? [];
 
-  /* Admissions Open */
   const { data: intakeData, isLoading, isError } = useGetIntakes();
   const intakes = intakeData?.data ?? [];
-  const openIntakes = intakes.filter(i => i.status === "OPEN");
+  const openIntakes = intakes.filter((i) => i.status === "OPEN");
   const intakeList = isLoading
     ? "Loading intakes..."
     : isError
-      ? "Admissions Open"
-      : openIntakes.length > 0
-        ? openIntakes.map(i => i.intake).join(" • ")
-        : "Admissions Closed";
+    ? "Admissions Open"
+    : openIntakes.length > 0
+    ? openIntakes.map((i) => i.intake).join(" • ")
+    : "Admissions Closed";
 
-  /* Desktop hover */
-  const onEnter = (menu: string) => setActiveDropdown(menu);
+  const onEnter = (menu: string) => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setActiveDropdown(menu);
+  };
   const onLeave = () => {
-    setActiveDropdown(null);
-    setActiveNestedDropdown(null);
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+      setActiveNestedDropdown(null);
+    }, 150);
+  };
+  const onDropdownEnter = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+  };
+  const onDropdownLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+      setActiveNestedDropdown(null);
+    }, 150);
+  };
+  const onNestedEnter = (name: string) => {
+    if (nestedTimeoutRef.current) clearTimeout(nestedTimeoutRef.current);
+    setActiveNestedDropdown(name);
+  };
+  const onNestedLeave = () => {
+    nestedTimeoutRef.current = setTimeout(() => {
+      setActiveNestedDropdown(null);
+    }, 150);
+  };
+  const onNestedDropdownEnter = () => {
+    if (nestedTimeoutRef.current) clearTimeout(nestedTimeoutRef.current);
   };
 
-  /* Mobile toggle */
-  const toggleMobile = (menu: string) => {
+  const toggleMobile = (menu: string) =>
     setDropdownOpen((p) => ({ ...p, [menu]: !p[menu] }));
-  };
+
   const toggleNestedMobile = (parent: string, child: string) => {
     const key = `${parent}-${child}`;
     setDropdownOpen((p) => ({ ...p, [key]: !p[key] }));
   };
 
-  /* Menu items */
   const menuItems: MenuItem[] = [
     { name: "Home", link: "/" },
     {
@@ -116,21 +213,21 @@ export function NavBar() {
       name: "Courses",
       dropdown:
         categories.length > 0
-          ? categories.map((cat) => ({
-            name: cat.name,
-            icon: <FaBook />,
-            dropdown:
-              cat.courses.length > 0
-                ? cat.courses.map((course) => ({
-                  name: `${course.prefix} ${course.title}`,
-                  icon: <FaBook />,
-                  onClick: () => {
-                    navigate(`/${course.slug}`, { state: { course } });
-                    setActiveDropdown(null);
-                  },
-                }))
-                : [{ name: "No courses available", icon: <FaBook />, disabled: true }],
-          }))
+          ? categories.map((cat, catIdx) => ({
+              name: cat.name,
+              icon: CATEGORY_ICONS[catIdx % CATEGORY_ICONS.length],
+              dropdown:
+                cat.courses.length > 0
+                  ? cat.courses.map((course, courseIdx) => ({
+                      name: `${course.prefix} ${course.title}`,
+                      icon: COURSE_ICONS[(catIdx * 5 + courseIdx) % COURSE_ICONS.length],
+                      onClick: () => {
+                        navigate(`/${course.slug}`, { state: { course } });
+                        setActiveDropdown(null);
+                      },
+                    }))
+                  : [{ name: "No courses available", icon: <FaBook />, disabled: true }],
+            }))
           : [{ name: "No categories available", icon: <FaBook />, disabled: true }],
     },
     {
@@ -184,43 +281,31 @@ export function NavBar() {
 
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
-
-      {/* Admission Announcement Bar */}
+      {/* Announcement Bar */}
       <div className="w-full bg-blue-700 text-white font-medium overflow-hidden">
         <motion.a
           href="https://apply.lbef.org"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 px-4 py-2 text-base md:text-md hover:bg-blue-800 transition-colors"
+          className="flex items-center justify-center gap-3 px-4 py-2 hover:bg-blue-800 transition-colors"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Animated speaker icon */}
           <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, -5, 5, -5, 0]
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            animate={{ scale: [1, 1.2, 1], rotate: [0, -5, 5, -5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           >
             <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
           </motion.div>
-
-          <span className="text-sm md:text-md ">
+          <span className="text-[0.8125rem] md:text-[0.875rem]">
             Admissions Open for {intakeList} — Apply Now
           </span>
-
           <GraduationCap className="w-5 h-5 hidden md:flex md:w-6 md:h-6" />
-
         </motion.a>
       </div>
 
-      {/* Navbar */}
+      {/* Main Navbar */}
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
         <div className="flex gap-2">
           <NavLink to="/" className="w-40 cursor-pointer">
@@ -243,92 +328,140 @@ export function NavBar() {
               >
                 <button className="flex items-center gap-1 px-4 py-3 cursor-pointer uppercase text-sm font-medium hover:text-[#3040E5]">
                   <span>{item.name}</span>
-                  <FaChevronDown
-                    className={`text-xs transition-transform ${activeDropdown === item.name ? "rotate-180" : ""}`}
-                  />
+                  <motion.span
+                    animate={{ rotate: activeDropdown === item.name ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <FaChevronDown className="text-xs" />
+                  </motion.span>
                 </button>
 
-                <div
-                  className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all ${activeDropdown === item.name
-                    ? "opacity-100 visible translate-y-0"
-                    : "opacity-0 invisible -translate-y-2"
-                    }`}
-                >
-                  <div className={`bg-white shadow-xl rounded-xl p-1 ${item.name === "Courses" ? "min-w-[380px]" : "min-w-[220px]"}`}>
-                    {item.dropdown.map((sub) => {
-                      if (sub.dropdown) {
-                        return (
-                          <div
-                            key={sub.name}
-                            className="relative"
-                            onMouseEnter={() => setActiveNestedDropdown(sub.name)}
-                            onMouseLeave={() => setActiveNestedDropdown(null)}
-                          >
-                            <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
-                              <span className="flex items-center gap-3">
-                                <span className="text-lg">{sub.icon}</span>
-                                <span>{sub.name}</span>
-                              </span>
-                              {sub.dropdown && (
-                                <FaChevronDown className={`text-xs transition-transform ${activeNestedDropdown === sub.name ? "rotate-180" : ""}`} />
-                              )}
-                            </div>
-
-                            {activeNestedDropdown === sub.name && (
-                              <div className="relative top-0 left-0 pl-4 mt-1">
-                                <div className="rounded-xl p-1 min-w-[220px]">
-                                  {sub.dropdown?.map((nested) => (
-                                    <button
-                                      key={nested.name}
-                                      onClick={() => {
-                                        if (nested.link) {
-                                          navigate(nested.link);
-                                        }
-                                        if (nested.onClick) {
-                                          nested.onClick();
-                                        }
-                                      }}
-                                      disabled={nested.disabled}
-                                      className={`flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""
-                                        }`}
-                                    >
-                                      {nested.icon}
-                                      {nested.name}
-                                    </button>
-                                  ))}
+                <AnimatePresence>
+                  {activeDropdown === item.name && (
+                    <motion.div
+                      className="absolute left-1/2 -translate-x-1/2 top-full pt-2"
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      onMouseEnter={onDropdownEnter}
+                      onMouseLeave={onDropdownLeave}
+                    >
+                      <div
+                        className={`bg-white shadow-xl rounded-xl p-1 ${
+                          item.name === "Courses" ? "w-[480px]" : "w-[270px]"
+                        }`}
+                      >
+                        {item.dropdown.map((sub) => {
+                          if (sub.dropdown) {
+                            return (
+                              <div
+                                key={sub.name}
+                                className="relative"
+                                onMouseEnter={() => onNestedEnter(sub.name)}
+                                onMouseLeave={onNestedLeave}
+                              >
+                                {/* Category row — black icon */}
+                                <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
+                                  <span className="flex items-center gap-3 min-w-0">
+                                    <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base">
+                                      {sub.icon}
+                                    </span>
+                                    <span className="text-[0.8375rem] font-medium leading-snug">
+                                      {sub.name}
+                                    </span>
+                                  </span>
+                                  <motion.span
+                                    animate={{
+                                      rotate: activeNestedDropdown === sub.name ? 180 : 0,
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                    className="shrink-0 ml-2"
+                                  >
+                                    <FaChevronDown className="text-xs text-gray-500" />
+                                  </motion.span>
                                 </div>
+
+                                {/* Nested courses — animate height + opacity */}
+                                <AnimatePresence>
+                                  {activeNestedDropdown === sub.name && (
+                                    <motion.div
+                                      key="nested"
+                                      variants={nestedVariants}
+                                      initial="hidden"
+                                      animate="visible"
+                                      exit="exit"
+                                      style={{ overflow: "hidden" }}
+                                      onMouseEnter={onNestedDropdownEnter}
+                                      onMouseLeave={onNestedLeave}
+                                    >
+                                      <div className="pl-4 pr-1 pb-1">
+                                        {sub.dropdown?.map((nested) => (
+                                          <button
+                                            key={nested.name}
+                                            onClick={() => {
+                                              if (nested.link) navigate(nested.link);
+                                              if (nested.onClick) nested.onClick();
+                                            }}
+                                            disabled={nested.disabled}
+                                            className={`flex gap-3 items-start px-4 py-2.5 hover:bg-blue-50 rounded-lg w-full text-left ${
+                                              nested.disabled
+                                                ? "opacity-50 cursor-not-allowed"
+                                                : ""
+                                            }`}
+                                          >
+                                            {/* Blue icon for nested */}
+                                            <span className="shrink-0 w-5 h-5 flex items-center justify-center text-blue-600 text-base mt-0.5">
+                                              {nested.icon}
+                                            </span>
+                                            {/* Wraps naturally — no truncate */}
+                                            <span className="text-[0.8375rem] leading-snug">
+                                              {nested.name}
+                                            </span>
+                                          </button>
+                                        ))}
+                                      </div>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
                               </div>
-                            )}
-                          </div>
-                        );
-                      }
+                            );
+                          }
 
-                      if (sub.onClick) {
-                        return (
-                          <button
-                            key={sub.name}
-                            onClick={sub.onClick}
-                            className="flex gap-3 items-center cursor-pointer px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg"
-                          >
-                            <span className="text-lg">{sub.icon}</span>
-                            {sub.name}
-                          </button>
-                        );
-                      }
+                          if (sub.onClick) {
+                            return (
+                              <button
+                                key={sub.name}
+                                onClick={sub.onClick}
+                                className="flex gap-3 items-start cursor-pointer px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg"
+                              >
+                                <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
+                                  {sub.icon}
+                                </span>
+                                <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                              </button>
+                            );
+                          }
 
-                      return (
-                        <NavLink
-                          key={sub.name}
-                          to={sub.disabled ? "#" : sub.link!}
-                          className={`flex gap-3 items-center px-4 py-3 hover:bg-blue-50 rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-                        >
-                          <span className="text-lg">{sub.icon}</span>
-                          {sub.name}
-                        </NavLink>
-                      );
-                    })}
-                  </div>
-                </div>
+                          return (
+                            <NavLink
+                              key={sub.name}
+                              to={sub.disabled ? "#" : sub.link!}
+                              className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 rounded-lg ${
+                                sub.disabled ? "opacity-50 cursor-not-allowed" : ""
+                              }`}
+                            >
+                              <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
+                                {sub.icon}
+                              </span>
+                              <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                            </NavLink>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <NavLink
@@ -361,109 +494,161 @@ export function NavBar() {
       </div>
 
       {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-white px-4 py-3 shadow-lg max-h-[calc(100vh-64px)] overflow-y-auto overscroll-contain">
-          {menuItems.map((item) =>
-            item.dropdown ? (
-              <div key={item.name}>
-                <button
-                  onClick={() => toggleMobile(item.name)}
-                  className="flex justify-between items-center w-full py-3 uppercase font-medium cursor-pointer"
-                >
-                  <span>{item.name}</span>
-                  <FaChevronDown
-                    className={`transition-transform ${dropdownOpen[item.name] ? "rotate-180" : ""}`}
-                  />
-                </button>
-
-                {dropdownOpen[item.name] &&
-                  item.dropdown.map((sub) => {
-                    if (sub.dropdown) {
-                      const nestedKey = `${item.name}-${sub.name}`;
-                      return (
-                        <div key={sub.name}>
-                          <button
-                            onClick={() => toggleNestedMobile(item.name, sub.name)}
-                            className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
-                          >
-                            <span className="flex items-center gap-2">
-                              <span className="text-lg">{sub.icon}</span>
-                              {sub.name}
-                            </span>
-                            <FaChevronDown
-                              className={`transition-transform ${dropdownOpen[nestedKey] ? "rotate-180" : ""}`}
-                            />
-                          </button>
-
-                          {dropdownOpen[nestedKey] &&
-                            sub.dropdown?.map((nested) => (
-                              <button
-                                key={nested.name}
-                                onClick={nested.onClick}
-                                disabled={nested.disabled}
-                                className={`flex items-center gap-2 py-2 pl-8 w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-                              >
-                                {nested.icon}
-                                {nested.name}
-                              </button>
-                            ))}
-                        </div>
-                      );
-                    }
-
-                    if (sub.onClick) {
-                      return (
-                        <button
-                          key={sub.name}
-                          onClick={() => {
-                            sub.onClick?.();
-                            setMobileOpen(false);
-                          }}
-                          className="flex items-center gap-2 py-2 pl-4 w-full text-left"
-                        >
-                          <span className="text-lg">{sub.icon}</span>
-                          {sub.name}
-                        </button>
-                      );
-                    }
-
-                    return (
-                      <NavLink
-                        key={sub.name}
-                        to={sub.link!}
-                        className="flex items-center gap-2 py-2 pl-4"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {sub.icon}
-                        {sub.name}
-                      </NavLink>
-                    );
-                  })}
-              </div>
-            ) : (
-              <NavLink
-                key={item.name}
-                to={item.link!}
-                className="block py-3 uppercase"
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.name}
-              </NavLink>
-            )
-          )}
-
-          <button
-            onClick={() => {
-              setMobileOpen(false);
-              open();
-            }}
-            className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 sticky bottom-0"
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white px-4 py-3 shadow-lg max-h-[calc(100vh-64px)] overflow-y-auto overscroll-contain"
           >
-            <FaUserGraduate />
-            Enquiry Now
-          </button>
-        </div>
-      )}
+            {menuItems.map((item) =>
+              item.dropdown ? (
+                <div key={item.name}>
+                  <button
+                    onClick={() => toggleMobile(item.name)}
+                    className="flex justify-between items-center w-full py-3 uppercase font-medium cursor-pointer"
+                  >
+                    <span>{item.name}</span>
+                    <motion.span
+                      animate={{ rotate: dropdownOpen[item.name] ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <FaChevronDown />
+                    </motion.span>
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen[item.name] && (
+                      <motion.div
+                        variants={nestedVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        style={{ overflow: "hidden" }}
+                      >
+                        {item.dropdown.map((sub) => {
+                          if (sub.dropdown) {
+                            const nestedKey = `${item.name}-${sub.name}`;
+                            return (
+                              <div key={sub.name}>
+                                <button
+                                  onClick={() => toggleNestedMobile(item.name, sub.name)}
+                                  className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
+                                >
+                                  <span className="flex items-center gap-2 min-w-0">
+                                    <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900">
+                                      {sub.icon}
+                                    </span>
+                                    <span className="text-[0.8375rem] leading-snug text-left">
+                                      {sub.name}
+                                    </span>
+                                  </span>
+                                  <motion.span
+                                    animate={{ rotate: dropdownOpen[nestedKey] ? 180 : 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="shrink-0 ml-2"
+                                  >
+                                    <FaChevronDown className="text-xs" />
+                                  </motion.span>
+                                </button>
+
+                                <AnimatePresence>
+                                  {dropdownOpen[nestedKey] && (
+                                    <motion.div
+                                      variants={nestedVariants}
+                                      initial="hidden"
+                                      animate="visible"
+                                      exit="exit"
+                                      style={{ overflow: "hidden" }}
+                                    >
+                                      {sub.dropdown?.map((nested) => (
+                                        <button
+                                          key={nested.name}
+                                          onClick={nested.onClick}
+                                          disabled={nested.disabled}
+                                          className={`flex items-start gap-2 py-2 pl-8 w-full text-left ${
+                                            nested.disabled ? "opacity-50 cursor-not-allowed" : ""
+                                          }`}
+                                        >
+                                          <span className="shrink-0 w-5 h-5 flex items-center justify-center text-blue-600 mt-0.5">
+                                            {nested.icon}
+                                          </span>
+                                          <span className="text-[0.8375rem] leading-snug">
+                                            {nested.name}
+                                          </span>
+                                        </button>
+                                      ))}
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            );
+                          }
+
+                          if (sub.onClick) {
+                            return (
+                              <button
+                                key={sub.name}
+                                onClick={() => {
+                                  sub.onClick?.();
+                                  setMobileOpen(false);
+                                }}
+                                className="flex items-start gap-2 py-2 pl-4 w-full text-left"
+                              >
+                                <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 mt-0.5">
+                                  {sub.icon}
+                                </span>
+                                <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                              </button>
+                            );
+                          }
+
+                          return (
+                            <NavLink
+                              key={sub.name}
+                              to={sub.link!}
+                              className="flex items-start gap-2 py-2 pl-4"
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 mt-0.5">
+                                {sub.icon}
+                              </span>
+                              <span className="text-[0.8375rem] leading-snug">{sub.name}</span>
+                            </NavLink>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <NavLink
+                  key={item.name}
+                  to={item.link!}
+                  className="block py-3 uppercase"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.name}
+                </NavLink>
+              )
+            )}
+
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                open();
+              }}
+              className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 sticky bottom-0"
+            >
+              <FaUserGraduate />
+              Enquiry Now
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

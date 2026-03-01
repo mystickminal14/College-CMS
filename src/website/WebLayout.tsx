@@ -9,7 +9,6 @@ export function WebsiteLayout() {
     <div className="min-h-screen bg-white">
       <ScrollToTop />
       <NavBar />
-
       <main className="relative">
         <Outlet />
       </main>
