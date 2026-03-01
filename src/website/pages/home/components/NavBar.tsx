@@ -473,7 +473,7 @@ export function NavBar() {
                                               {nested.icon}
                                             </span>
                                             {/* Wraps naturally — no truncate */}
-                                            <span className="text-[1rem] leading-snug">
+                                            <span className="text-[1rem] cursor-pointer leading-snug">
                                               {nested.name}
                                             </span>
                                           </button>
@@ -496,7 +496,7 @@ export function NavBar() {
                                 <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
                                   {sub.icon}
                                 </span>
-                                <span className="text-[1rem] leading-snug">{sub.name}</span>
+                                <span className="text-[1rem] cursor-pointer leading-snug">{sub.name}</span>
                               </button>
                             );
                           }
@@ -505,13 +505,13 @@ export function NavBar() {
                             <NavLink
                               key={sub.name}
                               to={sub.disabled ? "#" : sub.link!}
-                              className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""
+                              className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 cursor-pointer rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""
                                 }`}
                             >
                               <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
                                 {sub.icon}
                               </span>
-                              <span className="text-[1rem] leading-snug">{sub.name}</span>
+                              <span className="text-[1rem] cursor-pointer leading-snug">{sub.name}</span>
                             </NavLink>
                           );
                         })}
