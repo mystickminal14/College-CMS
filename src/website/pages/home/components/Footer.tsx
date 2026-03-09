@@ -97,7 +97,7 @@ backgroundImage: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
                 courseNames.map((course) => (
                   <NavLink
                     key={course.id}
-                    to={`/students-life/${course.title.replace(/ /g, "-")}/${course.id}`}
+                    to={`${course.slug}`}
                     state={{ course }}
                     className="block text-[11px] hover:text-blue-500 whitespace-normal wrap-break-word leading-snug"
                   >

@@ -16,7 +16,6 @@ import {
   FaLaptopCode,
   FaFlask,
   FaBriefcase,
-  FaHeartbeat,
   FaPaintBrush,
   FaCogs,
   FaCalculator,
