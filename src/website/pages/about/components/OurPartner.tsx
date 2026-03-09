@@ -39,7 +39,7 @@ const PartnerSection = () => {
             <img
               src={partner.image}
               alt={partner.name}
-              className="w-full max-w-[180px] h-auto md:w-[200px]  object-cover"
+              className="w-full max-w-[220px] h-auto md:w-60 object-contain"
             />
           </div>
         ))}
