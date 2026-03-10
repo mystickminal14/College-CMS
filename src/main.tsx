@@ -6,6 +6,8 @@ import App from "./App.tsx";
 import { HelmetProvider } from 'react-helmet-async'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { EnquiryProvider } from "./context/EnquiryContext.tsx";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/ErrorFallback.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -22,6 +24,7 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById("root")!).render(
+  <ErrorBoundary FallbackComponent={ErrorFallback}>
 
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -30,5 +33,5 @@ createRoot(document.getElementById("root")!).render(
         <App />
       </EnquiryProvider>
     </QueryClientProvider>
-  </HelmetProvider>
+  </HelmetProvider></ErrorBoundary>
 );

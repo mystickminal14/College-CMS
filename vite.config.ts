@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),],
+      optimizeDeps: {
+    force: true,
+  },
  server: {
     host: true,   // exposes to local network
     port: 5173

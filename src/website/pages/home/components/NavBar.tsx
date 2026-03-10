@@ -326,7 +326,14 @@ export function NavBar() {
             >
               <GraduationCap className="w-3 h-3 text-white" />
             </motion.span>
-            Enroll Now
+           <motion.a
+             href="https://apply.lbef.org"
+          target="_blank"
+          rel="noopener noreferrer"
+           >
+    Explore Program
+            
+           </motion.a>
           </motion.span>
 
           {/* Divider */}
