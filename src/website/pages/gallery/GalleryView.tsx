@@ -32,9 +32,13 @@ const GalleryView = () => {
   useEffect(() => {
     if (!galleryData?.data) return;
 
-    setGalleryImages(prev =>
-      page === 1 ? galleryData.data ?? [] : [...prev, ...(galleryData.data ?? [])]
-    );
+    setGalleryImages(prev => {
+      const newImages = galleryData.data ?? [];
+      if (page === 1) return newImages;
+
+      const existingIds = new Set(prev.map(img => img.id));
+      return [...prev, ...newImages.filter(img => !existingIds.has(img.id))];
+    });
 
     setHasMore(Boolean(galleryData.pagination?.hasNextPage));
   }, [galleryData, page]);
@@ -60,6 +64,8 @@ const GalleryView = () => {
   const handleNextImage = () => {
     if (!selectedImage) return;
     const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
+    console.log(galleryImages);
+    console.log(currentIndex);
     if (currentIndex < galleryImages.length - 1) {
       setSelectedImage(galleryImages[currentIndex + 1]);
     }
@@ -90,24 +96,24 @@ const GalleryView = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isModalOpen, selectedImage]);
 
-  const formattedName = name 
+  const formattedName = name
     ? name.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
     : "Image Gallery";
 
   const getFormattedTitle = (title: string) => {
     if (!title) return { otherWords: '', lastWord: 'Gallery' };
-    
+
     const words = title.trim().split(/\s+/);
-    
+
     if (words.length === 0) return { otherWords: '', lastWord: 'Gallery' };
-    
+
     if (words.length === 1) {
       return { otherWords: '', lastWord: words[0] };
     }
-    
+
     const otherWords = words.slice(0, -1).join(' ');
     const lastWord = words[words.length - 1];
-    
+
     return { otherWords, lastWord };
   };
 
@@ -115,11 +121,11 @@ const GalleryView = () => {
     if (galleryTypeName && galleryTypeName !== "Gallery") {
       return galleryTypeName;
     }
-    
+
     if (formattedName && formattedName !== "Image Gallery") {
       return formattedName;
     }
-    
+
     return "Image Gallery";
   };
 
@@ -176,7 +182,7 @@ const GalleryView = () => {
           </span>
         </h1>
 
-      
+
       </motion.div>
 
       <div className="container mx-auto px-2 sm:px-4 pb-20">
