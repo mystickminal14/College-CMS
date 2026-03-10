@@ -34,11 +34,11 @@ const StudentHandbook = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-<Seo
-  title="Student Handbook & Downloads | LBEF College Nepal"
-  description="Download official student handbooks, academic documents, policies, and essential resources for students of LBEF College Nepal."
-  url={`${APP_URL}/students-life/downloads`}
-/>
+      <Seo
+        title="Student Handbook & Downloads | LBEF College Nepal"
+        description="Download official student handbooks, academic documents, policies, and essential resources for students of LBEF College Nepal."
+        url={`${APP_URL}/students-life/downloads`}
+      />
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -121,40 +121,40 @@ const StudentHandbook = () => {
                 hidden: {}
               }}
             >
-              {downloads.map((download, ) => (
+              {downloads.map((download,) => (
                 <motion.div
                   key={download.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0 }
-                  }}
+                  // variants={{
+                  //   hidden: { opacity: 0, y: 20 },
+                  //   visible: { opacity: 1, y: 0 }
+                  // }}
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 100, damping: 15 }}
                   className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer"
                 >
-                 
+
 
                   <div className="p-5">
                     <h3 className="text-md font-bold text-gray-800 mb-3 line-clamp-2">{download.name}</h3>
-                  <motion.button
-  onClick={() => {
-    const url = download.file
-      ? `${IMAGE_URL}${download.file}` // local file
-      : download.link;                // external link
+                    <motion.button
+                      onClick={() => {
+                        const url = download.file
+                          ? `${IMAGE_URL}${download.file}` // local file
+                          : download.link;                // external link
 
-    if (url) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  }}
-  disabled={!download.file && !download.link}
-  whileHover={{ scale: 1.03 }}
-  whileTap={{ scale: 0.97 }}
-  className="w-full py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg
+                        if (url) {
+                          window.open(url, "_blank", "noopener,noreferrer");
+                        }
+                      }}
+                      disabled={!download.file && !download.link}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="w-full py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg
              hover:from-blue-600 hover:to-blue-700 transition text-sm
              disabled:opacity-50 disabled:cursor-not-allowed"
->
-  {download.file ? "Open Document" : "Open Link"}
-</motion.button>
+                    >
+                      {download.file ? "Open Document" : "Open Link"}
+                    </motion.button>
 
                   </div>
 
