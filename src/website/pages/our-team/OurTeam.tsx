@@ -1,15 +1,21 @@
-import { motion } from "framer-motion";
-import decoration from "../../../assets/decoration.webp";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import TeamCard from "./component/team-card";
 import TeamCardSkeleton from "./component/team-skeleton";
 import useGetTeamsByDept from "./hook/useGetDepartment";
 import type { TeamMember } from "./model/team-model";
 import { fadeUp, staggerContainer } from "../../comp/animation";
-import { useNavigate } from "react-router-dom";
 import Seo from "../../../context/seo";
-import { APP_URL } from "../../../constants";
-import type {  DeptAll } from "../../../pages/our-team-dept/model/DeptModel";
-
+import { APP_URL, IMAGE_URL } from "../../../constants";
+import type { DeptAll } from "../../../pages/our-team-dept/model/DeptModel";
+import {
+  FaLinkedinIn,
+  FaFacebookF,
+  FaInstagram,
+  FaEnvelope,
+  FaPhoneAlt,
+} from "react-icons/fa";
+import { X } from "lucide-react";
 
 interface GroupedDept {
   department: DeptAll;
@@ -18,20 +24,17 @@ interface GroupedDept {
 
 const OurTeamWeb = () => {
   const { data, isLoading } = useGetTeamsByDept();
-  const navigate = useNavigate();
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
- const members: TeamMember[] = data?.data
-  ? Object.values(data.data).flat()
-  : [];
-
-
+  const members: TeamMember[] = data?.data
+    ? Object.values(data.data).flat()
+    : [];
 
   const groupedDepartments: GroupedDept[] = (() => {
     const map = new Map<number, GroupedDept>();
 
     members.forEach((member) => {
       const dept = member.department;
-
       if (!dept) return;
 
       if (!map.has(dept.id)) {
@@ -40,7 +43,7 @@ const OurTeamWeb = () => {
             id: dept.id,
             name: dept.name,
             order: dept.order,
-            status:dept.status,
+            status: dept.status,
           },
           members: [],
         });
@@ -49,12 +52,10 @@ const OurTeamWeb = () => {
       map.get(dept.id)!.members.push(member);
     });
 
-    // sort members inside department
     map.forEach((group) => {
       group.members.sort((a, b) => a.order - b.order);
     });
 
-    // sort departments by order
     return Array.from(map.values()).sort(
       (a, b) => a.department.order - b.department.order
     );
@@ -68,7 +69,7 @@ const OurTeamWeb = () => {
         url={`${APP_URL}/about/our-team`}
       />
 
-      {/* ================= HERO (UNCHANGED) ================= */}
+      {/* HERO */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <motion.div
           variants={fadeUp}
@@ -76,59 +77,20 @@ const OurTeamWeb = () => {
           animate="visible"
           className="max-w-8xl mx-auto text-center"
         >
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-          >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Academic Excellence Team
-            </span>
-          </motion.div>
-
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Meet The People </span>
-            <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> Powering </span>
-              <motion.img
-                src={decoration}
-                alt="Decoration"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.5 }}
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-3"
-                loading="eager"
-              />
-            </span>
+            <span className="text-blue-600">Powering</span>
             <br />
-            <span className="text-gray-900">LBEF’s </span>
-            <span className="text-blue-600"> Bold, </span>
+            <span className="text-gray-900">LBEF's </span>
+            <span className="text-blue-600">Bold,</span>
             <span className="text-gray-900"> Futuristic Journey</span>
           </h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-          >
-            LBEF’s team brings together academic excellence, visionary leadership,
-            and a future-focused mindset to deliver effective, globally relevant
-            education.
-          </motion.p>
         </motion.div>
       </div>
 
-      {/* ================= CONTENT (UPDATED ONLY) ================= */}
+      {/* CONTENT */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="max-w-7xl mx-auto">
-
           {groupedDepartments.map((group, index) => (
             <Section
               key={group.department.id}
@@ -143,35 +105,44 @@ const OurTeamWeb = () => {
               }
               members={group.members}
               isLoading={isLoading}
-              navigate={navigate}
+              onSelect={setSelectedMember}
             />
           ))}
         </div>
       </div>
+
+      {/* MODAL */}
+      <AnimatePresence mode="wait">
+        {selectedMember && (
+          <TeamDetailModal
+            member={selectedMember}
+            onClose={() => setSelectedMember(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
 export default OurTeamWeb;
 
-/* ================= SECTION COMPONENT (UNCHANGED UI) ================= */
+
+/* ================= SECTION COMPONENT ================= */
 
 const Section = ({
   title,
-  subtitle,
   badge,
   color,
   members,
   isLoading,
-  navigate,
+  onSelect,
 }: {
   title: string;
-  subtitle?: string;
   badge: string;
   color: "blue" | "green" | "purple";
   members: TeamMember[];
   isLoading: boolean;
-  navigate: any;
+  onSelect: (member: TeamMember) => void;
 }) => (
   <motion.div
     variants={fadeUp}
@@ -189,29 +160,8 @@ const Section = ({
       </div>
 
       <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-        {(() => {
-          const words = title.split(" ");
-          const lastWord = words.pop();
-          const firstPart = words.join(" ");
-
-          return (
-            <>
-             Department of {firstPart}{" "}
-              <span className="relative inline-block">
-                <span className="text-blue-600 relative z-10">{lastWord}</span>
-                <img
-                  src={decoration}
-                  alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-full h-2"
-                  loading="lazy"
-                />
-              </span>
-            </>
-          );
-        })()}
+        Department of {title}
       </h3>
-
-      {subtitle && <p className="text-gray-600 mt-2">{subtitle}</p>}
     </div>
 
     <motion.div
@@ -222,16 +172,12 @@ const Section = ({
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
     >
       {isLoading
-        ? Array.from({ length: 4 }).map((_, i) => (
-            <TeamCardSkeleton key={i} />
-          ))
+        ? Array.from({ length: 4 }).map((_, i) => <TeamCardSkeleton key={i} />)
         : members.map((member) => (
             <motion.div
               key={member.id}
               whileHover={{ y: -6 }}
-              onClick={() =>
-                navigate(`/ourteam/${member.id}`, { state: { member } })
-              }
+              onClick={() => onSelect(member)}
               className="cursor-pointer"
             >
               <TeamCard member={member} />
@@ -240,3 +186,180 @@ const Section = ({
     </motion.div>
   </motion.div>
 );
+
+
+/* ================= TEAM DETAIL MODAL ================= */
+
+const TeamDetailModal = ({
+  member,
+  onClose,
+}: {
+  member: TeamMember;
+  onClose: () => void;
+}) => {
+
+  /* lock background scroll + esc close */
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    const esc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    window.addEventListener("keydown", esc);
+
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", esc);
+    };
+  }, []);
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={handleBackdropClick}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8"
+      style={{
+        backgroundColor: "rgba(0,0,0,0.55)",
+        backdropFilter: "blur(4px)",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 40, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 40, scale: 0.97 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden"
+      >
+        {/* Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200"
+        >
+          <X size={20} />
+        </button>
+
+        {/* HEADER */}
+        <div className="px-8 pt-10 pb-6 text-center border-b border-gray-100">
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            Meet <span className="text-blue-600">{member.name}</span>
+          </h2>
+
+          <p className="mt-3 text-gray-500 text-base">
+            {member.position} · {member.department.name}
+          </p>
+        </div>
+
+        {/* BODY */}
+        <div className="max-h-[70vh] overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
+          
+          {/* IMAGE */}
+          <div className="text-center">
+            <div className="rounded-xl overflow-hidden shadow-md">
+              <img
+                src={
+                  member.portrait
+                    ? IMAGE_URL + member.portrait
+                    : IMAGE_URL + member.image
+                }
+                alt={member.name}
+                className="w-full h-80 object-cover"
+              />
+            </div>
+
+            <h3 className="mt-6 text-xl font-bold text-gray-900">
+              {member.name}
+            </h3>
+
+            {/* SOCIAL */}
+            <div className="flex justify-center gap-3 mt-5 flex-wrap">
+
+              {member.linkedIn && (
+                <a href={member.linkedIn} target="_blank" rel="noreferrer">
+                  <FaLinkedinIn size={18} />
+                </a>
+              )}
+
+              {member.facebook && (
+                <a href={member.facebook} target="_blank" rel="noreferrer">
+                  <FaFacebookF size={18} />
+                </a>
+              )}
+
+              {member.insta && (
+                <a href={member.insta} target="_blank" rel="noreferrer">
+                  <FaInstagram size={18} />
+                </a>
+              )}
+
+              {member.email && (
+                <a href={`mailto:${member.email}`}>
+                  <FaEnvelope size={18} />
+                </a>
+              )}
+
+              {member.phone && (
+                <a href={`tel:${member.phone}`}>
+                  <FaPhoneAlt size={18} />
+                </a>
+              )}
+
+            </div>
+          </div>
+
+          {/* DETAILS */}
+          <div className="lg:col-span-2 space-y-10">
+            <div>
+              <h4 className="text-xl font-bold mb-6">Details</h4>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-700">
+                <div>
+                  <p className="text-sm text-gray-500">Position</p>
+                  <p className="font-semibold">{member.position}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">Department</p>
+                  <p className="font-semibold">{member.department.name}</p>
+                </div>
+
+                {member.email && (
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-semibold">{member.email}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* BIO */}
+            <div>
+              <h4 className="text-xl font-bold mb-4">Biography</h4>
+
+              <div className="text-gray-700 leading-relaxed space-y-4">
+                {member.bio ? (
+                  member.bio
+                    .split("\n\n")
+                    .map((para, i) => <p key={i}>{para}</p>)
+                ) : (
+                  <p className="italic text-gray-500">
+                    Biography information will be updated soon.
+                  </p>
+                )}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};

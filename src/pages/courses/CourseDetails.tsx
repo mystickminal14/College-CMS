@@ -202,10 +202,8 @@ const CourseDetails = () => {
                 </div>
               </div>
 
-              {/* ✅ SCROLL ANCHOR — sits just below the tabs, content scrolls to here */}
               <div ref={contentRef} />
 
-              {/* ---------- CONTENT BLOCKS ---------- */}
               {contentBlocks.map((block, index) => {
                 const Icon = headingIcons[index % headingIcons.length];
 
