@@ -1,37 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
-  FaUniversity,
-  FaCertificate,
-  FaUsers,
-  FaClipboardList,
+
   FaBook,
-  FaGraduationCap,
   FaChevronDown,
-  FaCalendar,
   FaUserGraduate,
-  FaComment,
   FaTimes,
   FaBars,
-  FaLaptopCode,
-  FaFlask,
-  FaBriefcase,
-  FaPaintBrush,
-  FaCogs,
-  FaCalculator,
-  FaGlobe,
-  FaLeaf,
-  FaMicroscope,
-  FaBalanceScale,
-  FaChartLine,
-  FaCode,
-  FaDatabase,
-  FaNetworkWired,
-  FaRobot,
-  FaCloud,
-  FaMobile,
-  FaShieldAlt,
-  FaBuilding,
 } from "react-icons/fa";
 import logo from "../../../../assets/lbef_five.webp";
 import apuLogo from "../../../../assets/apu_logo.webp";
@@ -41,45 +16,8 @@ import useGetCatWithDetails from "../../../../pages/courses/hooks/useGetCourseWi
 import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
 import { ArrowRight, GraduationCap, Volume2 } from "lucide-react";
 
-const COURSE_ICONS = [
-  <FaLaptopCode />,
-  <FaFlask />,
-  <FaBriefcase />,
-  <FaCloud />,
-  <FaPaintBrush />,
-  <FaCogs />,
-  <FaCalculator />,
-  <FaGlobe />,
-  <FaLeaf />,
-  <FaMicroscope />,
-  <FaBalanceScale />,
-  <FaChartLine />,
-  <FaCode />,
-  <FaDatabase />,
-  <FaNetworkWired />,
-  <FaRobot />,
-  <FaCloud />,
-  <FaMobile />,
-  <FaShieldAlt />,
-  <FaBuilding />,
-];
-
-const CATEGORY_ICONS = [
-  <FaLaptopCode />,
-  <FaFlask />,
-  <FaBriefcase />,
-  <FaCloud />,
-  <FaPaintBrush />,
-  <FaCogs />,
-  <FaCalculator />,
-  <FaGlobe />,
-  <FaMicroscope />,
-  <FaBalanceScale />,
-];
-
 type DropdownItem = {
   name: string;
-  icon: React.ReactNode;
   disabled?: boolean;
   dropdown?: DropdownItem[];
 } & (
@@ -198,28 +136,26 @@ export function NavBar() {
     {
       name: "About",
       dropdown: [
-        { name: "About LBEF", link: "/about", icon: <FaUniversity /> },
-        { name: "About University", link: "/about-university", icon: <FaUniversity /> },
-        { name: "Recognitions", link: "/recognitions", icon: <FaCertificate /> },
-        { name: "Permission Letter", link: "/permission-letter", icon: <FaCertificate /> },
-        { name: "Achivements", link: "/achivements", icon: <FaCertificate /> },
-        { name: "Messages", link: "/messages", icon: <FaUsers /> },
-        { name: "Our Team", link: "/ourteam", icon: <FaUsers /> },
-        { name: "Holidays", link: "/administrative-holidays", icon: <FaCalendar /> },
+        { name: "About LBEF", link: "/about" },
+        { name: "About University", link: "/about-university" },
+        { name: "Recognitions", link: "/recognitions" },
+        { name: "Permission Letter", link: "/permission-letter" },
+        { name: "Achivements", link: "/achivements" },
+        { name: "Messages", link: "/messages" },
+        { name: "Our Team", link: "/ourteam" },
+        { name: "Holidays", link: "/administrative-holidays" },
       ],
     },
     {
       name: "Courses",
       dropdown:
         categories.length > 0
-          ? categories.map((cat, catIdx) => ({
+          ? categories.map((cat) => ({
             name: cat.name,
-            icon: CATEGORY_ICONS[catIdx % CATEGORY_ICONS.length],
             dropdown:
               cat.courses.length > 0
-                ? cat.courses.map((course, courseIdx) => ({
+                ? cat.courses.map((course) => ({
                   name: `${course.prefix} ${course.title}`,
-                  icon: COURSE_ICONS[(catIdx * 5 + courseIdx) % COURSE_ICONS.length],
                   onClick: () => {
                     navigate(`/${course.slug}`, { state: { course } });
                     setActiveDropdown(null);
@@ -227,25 +163,24 @@ export function NavBar() {
                 }))
                 : [{ name: "No courses available", icon: <FaBook />, disabled: true }],
           }))
-          : [{ name: "No categories available", icon: <FaBook />, disabled: true }],
+          : [{ name: "No categories available" }],
     },
     {
       name: "Students",
       dropdown: [
-        { name: "Academic Club", link: "/academic-club", icon: <FaGraduationCap /> },
-        { name: "Academic Calendar", link: "/academic-planners", icon: <FaUniversity /> },
-        { name: "Downloads", link: "/downloads", icon: <FaUsers /> },
-        { name: "Fee Planner", link: "/fee-payment-planners", icon: <FaUniversity /> },
-        { name: "Notice Board", link: "/notices", icon: <FaUniversity /> },
-        { name: "Payment Modes", link: "/payment-modes", icon: <FaUniversity /> },
-        { name: "Student Access", link: "/online-libraries", icon: <FaUniversity /> },
-        { name: "Contact List", link: "/contact-info", icon: <FaClipboardList /> },
+        { name: "Academic Club", link: "/academic-club", },
+        { name: "Academic Calendar", link: "/academic-planners" },
+        { name: "Downloads", link: "/downloads" },
+        { name: "Fee Planner", link: "/fee-payment-planners" },
+        { name: "Notice Board", link: "/notices" },
+        { name: "Payment Modes", link: "/payment-modes" },
+        { name: "Student Access", link: "/online-libraries" },
+        { name: "Contact List", link: "/contact-info" },
         {
           name: "Alumni",
-          icon: <FaUserGraduate />,
           dropdown: [
-            { name: "Alumni Speaks", link: "/alumni-speaks", icon: <FaComment /> },
-            { name: "Alumni Form", link: "/alumni-information-form", icon: <FaComment /> },
+            { name: "Alumni Speaks", link: "/alumni-speaks" },
+            { name: "Alumni Form", link: "/alumni-information-form" },
           ],
         },
       ],
@@ -253,15 +188,15 @@ export function NavBar() {
     {
       name: "Admissions",
       dropdown: [
-        { name: "Admission Process", link: "/admission-procedure", icon: <FaClipboardList /> },
-        { name: "Code of Conduct", link: "/codeofconduct", icon: <FaClipboardList /> },
+        { name: "Admission Process", link: "/admission-procedure" },
+        { name: "Code of Conduct", link: "/codeofconduct" },
         {
           name: "Scholarship",
-          icon: <FaCertificate />,
+
           dropdown: [
-            { name: "ICT Scholarship", link: "/ict-scholarship", icon: <FaCertificate /> },
-            { name: "Gyandeep Scholarship", link: "/gyandeep-scholarship", icon: <FaCertificate /> },
-            { name: "Merit Scholarship", link: "/merit-scholarship", icon: <FaCertificate /> },
+            { name: "ICT Scholarship", link: "/ict-scholarship" },
+            { name: "Gyandeep Scholarship", link: "/gyandeep-scholarship" },
+            { name: "Merit Scholarship", link: "/merit-scholarship" },
           ],
         },
       ],
@@ -269,10 +204,10 @@ export function NavBar() {
     {
       name: "LBEF Publications",
       dropdown: [
-        { name: "Photo Gallery", link: "/media/photo-gallery", icon: <FaBook /> },
-        { name: "Lbef Connect", link: "/lbef-connect", icon: <FaBook /> },
-        { name: "Journal", link: "/lrjstm/", icon: <FaBook /> },
-        { name: "LBEF News", link: "/news", icon: <FaBook /> },
+        { name: "Photo Gallery", link: "/media/photo-gallery" },
+        { name: "Lbef Connect", link: "/lbef-connect" },
+        { name: "Journal", link: "/lrjstm/" },
+        { name: "LBEF News", link: "/news" },
       ],
     },
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },
@@ -422,9 +357,6 @@ export function NavBar() {
                                 {/* Category row — black icon */}
                                 <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
                                   <span className="flex items-center gap-3 min-w-0">
-                                    <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base">
-                                      {sub.icon}
-                                    </span>
                                     <span className="text-[1rem] font-medium leading-snug">
                                       {sub.name}
                                     </span>
@@ -467,10 +399,6 @@ export function NavBar() {
                                               : ""
                                               }`}
                                           >
-                                            {/* Blue icon for nested */}
-                                            <span className="shrink-0 w-5 h-5 flex items-center justify-center text-blue-600 text-base mt-0.5">
-                                              {nested.icon}
-                                            </span>
                                             {/* Wraps naturally — no truncate */}
                                             <span className="text-[1rem] cursor-pointer leading-snug">
                                               {nested.name}
@@ -492,9 +420,6 @@ export function NavBar() {
                                 onClick={sub.onClick}
                                 className="flex gap-3 items-start cursor-pointer px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg"
                               >
-                                <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
-                                  {sub.icon}
-                                </span>
                                 <span className="text-[1rem] cursor-pointer leading-snug">{sub.name}</span>
                               </button>
                             );
@@ -507,9 +432,6 @@ export function NavBar() {
                               className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 cursor-pointer rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""
                                 }`}
                             >
-                              <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 text-base mt-0.5">
-                                {sub.icon}
-                              </span>
                               <span className="text-[1rem] cursor-pointer leading-snug">{sub.name}</span>
                             </NavLink>
                           );
@@ -595,9 +517,6 @@ export function NavBar() {
                                   className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
                                 >
                                   <span className="flex items-center gap-2 min-w-0">
-                                    <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900">
-                                      {sub.icon}
-                                    </span>
                                     <span className="text-[0.8375rem] leading-snug text-left">
                                       {sub.name}
                                     </span>
@@ -628,9 +547,6 @@ export function NavBar() {
                                           className={`flex items-start gap-2 py-2 pl-8 w-full text-left ${nested.disabled ? "opacity-50 cursor-not-allowed" : ""
                                             }`}
                                         >
-                                          <span className="shrink-0 w-5 h-5 flex items-center justify-center text-blue-600 mt-0.5">
-                                            {nested.icon}
-                                          </span>
                                           <span className="text-sm leading-snug">
                                             {nested.name}
                                           </span>
@@ -653,9 +569,6 @@ export function NavBar() {
                                 }}
                                 className="flex items-start gap-2 py-2 pl-4 w-full text-left"
                               >
-                                <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 mt-0.5">
-                                  {sub.icon}
-                                </span>
                                 <span className="text-sm leading-snug">{sub.name}</span>
                               </button>
                             );
@@ -668,9 +581,6 @@ export function NavBar() {
                               className="flex items-start gap-2 py-2 pl-4"
                               onClick={() => setMobileOpen(false)}
                             >
-                              <span className="shrink-0 w-5 h-5 flex items-center justify-center text-gray-900 mt-0.5">
-                                {sub.icon}
-                              </span>
                               <span className="text-sm leading-snug">{sub.name}</span>
                             </NavLink>
                           );
