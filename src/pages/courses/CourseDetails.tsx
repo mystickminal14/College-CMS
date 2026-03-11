@@ -258,7 +258,7 @@ const CourseDetails = () => {
 
                   <div className="space-y-3 text-left">
                     {[
-                      { icon: CalendarDays, label: "Duration", value: `${course.duration} (${course.semester} semester)` },
+                      { icon: CalendarDays, label: "Duration", value: `${course.duration}years (${course.semester} semester)` },
                       { icon: Languages, label: "Language", value: "English" },
                       { icon: BookOpen, label: "Credits", value: `${course.credit} Credit Hours` },
                     ].map((item, i) => (

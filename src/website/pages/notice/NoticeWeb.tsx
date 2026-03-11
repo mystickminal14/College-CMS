@@ -1,11 +1,10 @@
 import decoration from '../../../assets/decoration.webp';
 import { FileText, Calendar, Eye, Bell } from 'lucide-react';
 import lbefLogo from '../../../assets/pcpslogo.webp';
-import { APP_URL } from "../../../constants";
+import { APP_URL, IMAGE_URL } from "../../../constants";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from '../../comp/animation';
 import Seo from "../../../context/seo";
-import fileOne from "../../../assets/notices/examination-schedule-5th-semester-june-2024.pdf";
 
 const ALL_NOTICES = [
   {
@@ -358,92 +357,94 @@ const NoticeWeb = () => {
               initial="hidden"
               animate="visible"
             >
-              {ALL_NOTICES.map((notice, index) => {
-                const dateInfo = formatDate(notice.date);
-                return (
-                  <motion.div
-                    key={notice.id || index}
-                    variants={fadeUp}
-                    className="bg-white rounded-xl shadow border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200"
-                  >
-                    <div className="flex flex-col sm:flex-row">
-                      {/* DATE */}
-                      <div className="w-full sm:w-1/4 sm:min-w-[120px] bg-linear-to-br from-blue-500 to-blue-600 text-white p-3 sm:p-4">
-                        <div className="flex flex-row sm:flex-col items-center justify-between sm:justify-center sm:h-full">
-                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
-                            <div className="text-2xl sm:text-3xl md:text-4xl font-bold">
-                              {dateInfo.day}
+              {[...ALL_NOTICES]
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map((notice, index) => {
+                  const dateInfo = formatDate(notice.date);
+                  return (
+                    <motion.div
+                      key={notice.id || index}
+                      variants={fadeUp}
+                      className="bg-white rounded-xl shadow border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200"
+                    >
+                      <div className="flex flex-col sm:flex-row">
+                        {/* DATE */}
+                        <div className="w-full sm:w-1/4 sm:min-w-[120px] bg-linear-to-br from-blue-500 to-blue-600 text-white p-3 sm:p-4">
+                          <div className="flex flex-row sm:flex-col items-center justify-between sm:justify-center sm:h-full">
+                            <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                              <div className="text-2xl sm:text-3xl md:text-4xl font-bold">
+                                {dateInfo.day}
+                              </div>
+                              <div className="text-xs sm:text-sm uppercase tracking-wider">
+                                {dateInfo.month}
+                              </div>
                             </div>
-                            <div className="text-xs sm:text-sm uppercase tracking-wider">
-                              {dateInfo.month}
+                            <div className="text-base sm:text-lg font-semibold">
+                              {dateInfo.year}
                             </div>
-                          </div>
-                          <div className="text-base sm:text-lg font-semibold">
-                            {dateInfo.year}
                           </div>
                         </div>
-                      </div>
 
-                      {/* CONTENT */}
-                      <div className="flex-1 p-3 sm:p-4">
-                        <div className="flex flex-col h-full">
-                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
-                            <span
-                              className={`px-3 py-1 rounded-full text-xs font-bold ${notice.type === "ACADEMIC"
-                                  ? "bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200"
-                                  : "bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200"
-                                }`}
-                            >
-                              {notice.type}
-                            </span>
-                            {notice.file && (
-                              <div className="flex items-center gap-1 text-blue-600 text-xs sm:text-sm">
-                                <FileText className="w-4 h-4" />
-                                <span>Document</span>
-                              </div>
-                            )}
-                          </div>
-
-                          <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 line-clamp-2">
-                            {notice.title}
-                          </h3>
-
-                          {notice.program_name && (
-                            <div className="mb-2">
-                              <div className="inline-flex items-center gap-2 bg-gray-50 px-3 py-1 rounded border border-gray-200">
-                                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span className="text-gray-700 text-sm font-medium">
-                                  {notice.program_name}
-                                </span>
-                              </div>
-                            </div>
-                          )}
-
-                          <div className="flex items-center justify-between mt-auto pt-2">
-                            <div className="flex items-center gap-2 text-gray-600 text-sm">
-                              <Calendar className="w-4 h-4" />
-                              <span>{dateInfo.full}</span>
-                            </div>
-                            {notice.file ? (
-                              <button
-                                onClick={() => handleViewFile("/src/assets/" + notice.file)}
-                                className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-blue-700 transition shadow"
+                        {/* CONTENT */}
+                        <div className="flex-1 p-3 sm:p-4">
+                          <div className="flex flex-col h-full">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
+                              <span
+                                className={`px-3 py-1 rounded-full text-xs font-bold ${notice.type === "ACADEMIC"
+                                    ? "bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200"
+                                    : "bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200"
+                                  }`}
                               >
-                                <Eye className="w-4 h-4" />
-                                View
-                              </button>
-                            ) : (
-                              <span className="text-sm text-gray-500 italic">
-                                No document
+                                {notice.type}
                               </span>
+                              {notice.file && (
+                                <div className="flex items-center gap-1 text-blue-600 text-xs sm:text-sm">
+                                  <FileText className="w-4 h-4" />
+                                  <span>Document</span>
+                                </div>
+                              )}
+                            </div>
+
+                            <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+                              {notice.title}
+                            </h3>
+
+                            {notice.program_name && (
+                              <div className="mb-2">
+                                <div className="inline-flex items-center gap-2 bg-gray-50 px-3 py-1 rounded border border-gray-200">
+                                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                  <span className="text-gray-700 text-sm font-medium">
+                                    {notice.program_name}
+                                  </span>
+                                </div>
+                              </div>
                             )}
+
+                            <div className="flex items-center justify-between mt-auto pt-2">
+                              <div className="flex items-center gap-2 text-gray-600 text-sm">
+                                <Calendar className="w-4 h-4" />
+                                <span>{dateInfo.full}</span>
+                              </div>
+                              {notice.file ? (
+                                <button
+                                  onClick={() => handleViewFile(IMAGE_URL + notice.file)}
+                                  className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-blue-700 transition shadow"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                  View
+                                </button>
+                              ) : (
+                                <span className="text-sm text-gray-500 italic">
+                                  No document
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
             </motion.div>
           )}
         </div>

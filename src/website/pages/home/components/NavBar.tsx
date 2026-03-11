@@ -239,9 +239,7 @@ export function NavBar() {
           }}
         />
 
-        <motion.a
-          href="https://apply.lbef.org"
-          target="_blank"
+        <motion.span
           rel="noopener noreferrer"
           className="relative flex items-center justify-center gap-3 px-5 py-2.5 group"
           initial={{ opacity: 0, y: -4 }}
@@ -261,14 +259,14 @@ export function NavBar() {
             >
               <GraduationCap className="w-3 h-3 text-white" />
             </motion.span>
-           <motion.a
-             href="https://apply.lbef.org"
-          target="_blank"
-          rel="noopener noreferrer"
-           >
-    Explore Program
-            
-           </motion.a>
+            <motion.span
+              onClick={() => navigate('/courses')}
+              className="cursor-pointer"
+              rel="noopener noreferrer"
+            >
+              Explore Program
+
+            </motion.span>
           </motion.span>
 
           {/* Divider */}
@@ -291,7 +289,9 @@ export function NavBar() {
           </p>
 
           {/* CTA pill */}
-          <motion.span
+          <motion.a
+            href="https://apply.lbef.org/"
+            target="_blank"
             className="hidden md:flex items-center gap-1.5 bg-white text-indigo-900 hover:bg-violet-100 text-[0.72rem] font-bold uppercase tracking-wide px-4 py-1.5 rounded-full transition-colors shrink-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -303,8 +303,8 @@ export function NavBar() {
             >
               <ArrowRight className="w-3 h-3" />
             </motion.span>
-          </motion.span>
-        </motion.a>
+          </motion.a>
+        </motion.span>
       </div>
       {/* Main Navbar */}
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">

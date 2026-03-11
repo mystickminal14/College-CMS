@@ -100,8 +100,8 @@ const OurTeamWeb = () => {
                 index % 3 === 0
                   ? "blue"
                   : index % 3 === 1
-                  ? "purple"
-                  : "green"
+                    ? "purple"
+                    : "green"
               }
               members={group.members}
               isLoading={isLoading}
@@ -174,15 +174,15 @@ const Section = ({
       {isLoading
         ? Array.from({ length: 4 }).map((_, i) => <TeamCardSkeleton key={i} />)
         : members.map((member) => (
-            <motion.div
-              key={member.id}
-              whileHover={{ y: -6 }}
-              onClick={() => onSelect(member)}
-              className="cursor-pointer"
-            >
-              <TeamCard member={member} />
-            </motion.div>
-          ))}
+          <motion.div
+            key={member.id}
+            whileHover={{ y: -6 }}
+            onClick={() => onSelect(member)}
+            className="cursor-pointer"
+          >
+            <TeamCard member={member} />
+          </motion.div>
+        ))}
     </motion.div>
   </motion.div>
 );
@@ -259,7 +259,7 @@ const TeamDetailModal = ({
 
         {/* BODY */}
         <div className="max-h-[70vh] overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
-          
+
           {/* IMAGE */}
           <div className="text-center">
             <div className="rounded-xl overflow-hidden shadow-md">
@@ -270,7 +270,7 @@ const TeamDetailModal = ({
                     : IMAGE_URL + member.image
                 }
                 alt={member.name}
-                className="w-full h-80 object-cover"
+                className="w-full h-80 object-cover object-[center_20%]"
               />
             </div>
 
