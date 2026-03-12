@@ -216,96 +216,98 @@ export function NavBar() {
   return (
     <header className={`sticky top-0 z-50 bg-white ${scrolled ? "shadow-md" : ""}`}>
       {/* Announcement Bar */}
-      <div className="relative w-full overflow-hidden bg-linear-to-r bg-blue-700 hover:bg-blue-800 transition-colors">
-
-        {/* Shimmer sweep */}
-        <motion.div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-linear(105deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%)",
-            backgroundSize: "200% 100%",
-          }}
-          animate={{ backgroundPositionX: ["200%", "-200%"] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        />
-
-        {/* Subtle dot-grid texture */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: "radial-linear(circle, white 1px, transparent 1px)",
-            backgroundSize: "18px 18px",
-          }}
-        />
-
-        <motion.span
-          rel="noopener noreferrer"
-          className="relative flex items-center justify-center gap-3 px-5 py-2.5 group"
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-        >
-          {/* Frosted "Enroll Now" badge */}
-          <motion.span
-            className="hidden sm:flex items-center gap-1.5 bg-white/10 border border-white/20 text-white text-[0.68rem] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm"
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.25, duration: 0.35 }}
-          >
-            <motion.span
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <GraduationCap className="w-3 h-3 text-white" />
-            </motion.span>
-            <motion.span
-              onClick={() => navigate('/courses')}
-              className="cursor-pointer"
-              rel="noopener noreferrer"
-            >
-              Explore Program
-
-            </motion.span>
-          </motion.span>
-
-          {/* Divider */}
-          <div className="hidden sm:block w-px h-3.5 bg-white/20" />
-
-          {/* Animated speaker */}
+      {intakeList.length > 0 && (
+        <div className="relative w-full overflow-hidden bg-linear-to-r bg-blue-700 hover:bg-blue-800 transition-colors">
+          {/* Shimmer sweep */}
           <motion.div
-            animate={{ scale: [1, 1.18, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            className="text-violet-300 shrink-0"
-          >
-            <Volume2 className="w-4 h-4 md:w-[18px] md:h-[18px]" />
-          </motion.div>
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-linear(105deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%)",
+              backgroundSize: "200% 100%",
+            }}
+            animate={{ backgroundPositionX: ["200%", "-200%"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          />
 
-          {/* Message */}
-          <p className="text-white text-[0.8rem] md:text-[0.875rem] font-medium tracking-wide">
-            <span className="font-bold text-white">Admissions are open</span>
-            <span className="mx-2 text-white">·</span>
-            <span className="text-white">{intakeList}</span>
-          </p>
+          {/* Subtle dot-grid texture */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage: "radial-linear(circle, white 1px, transparent 1px)",
+              backgroundSize: "18px 18px",
+            }}
+          />
 
-          {/* CTA pill */}
-          <motion.a
-            href="https://apply.lbef.org/"
-            target="_blank"
-            className="hidden md:flex items-center gap-1.5 bg-white text-indigo-900 hover:bg-violet-100 text-[0.72rem] font-bold uppercase tracking-wide px-4 py-1.5 rounded-full transition-colors shrink-0"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
+          <motion.span
+            rel="noopener noreferrer"
+            className="relative flex items-center justify-center gap-3 px-5 py-2.5 group"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            Apply Now
+            {/* Frosted "Enroll Now" badge */}
             <motion.span
-              animate={{ x: [0, 3, 0] }}
-              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              className="hidden sm:flex items-center gap-1.5 bg-white/10 border border-white/20 text-white text-[0.68rem] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm"
+              initial={{ opacity: 0, scale: 0.88 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.25, duration: 0.35 }}
             >
-              <ArrowRight className="w-3 h-3" />
+              <motion.span
+                animate={{ rotate: [0, 15, -15, 0] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <GraduationCap className="w-3 h-3 text-white" />
+              </motion.span>
+              <motion.span
+                onClick={() => navigate('/courses')}
+                className="cursor-pointer"
+                rel="noopener noreferrer"
+              >
+                Explore Program
+
+              </motion.span>
             </motion.span>
-          </motion.a>
-        </motion.span>
-      </div>
+
+            {/* Divider */}
+            <div className="hidden sm:block w-px h-3.5 bg-white/20" />
+
+            {/* Animated speaker */}
+            <motion.div
+              animate={{ scale: [1, 1.18, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="text-violet-300 shrink-0"
+            >
+              <Volume2 className="w-4 h-4 md:w-[18px] md:h-[18px]" />
+            </motion.div>
+
+            {/* Message */}
+            <p className="text-white text-[0.8rem] md:text-[0.875rem] font-medium tracking-wide">
+              <span className="font-bold text-white">Admissions are open</span>
+              <span className="mx-2 text-white">·</span>
+              <span className="text-white">{intakeList}</span>
+            </p>
+
+            {/* CTA pill */}
+            <motion.a
+              href="https://apply.lbef.org/"
+              target="_blank"
+              className="hidden md:flex items-center gap-1.5 bg-white text-indigo-900 hover:bg-violet-100 text-[0.72rem] font-bold uppercase tracking-wide px-4 py-1.5 rounded-full transition-colors shrink-0"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Apply Now
+              <motion.span
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ArrowRight className="w-3 h-3" />
+              </motion.span>
+            </motion.a>
+          </motion.span>
+        </div>
+      )}
+
       {/* Main Navbar */}
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-1">
         <div className="flex gap-2">
