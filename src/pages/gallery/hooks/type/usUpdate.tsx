@@ -22,9 +22,9 @@ export const useUpdateGalleryType = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<GalleryType>, ApiErrorResponse, UpdateGalleryTypePayload>({
-    mutationFn: ({ id, name }) => {
+    mutationFn: ({ id, name, month, day, year }) => {
       const apiClient = new APIClient<GalleryType>(`/gallery/type/${encodeURIComponent(id)}`);
-      return apiClient.put({ name }); // ✅ send the name as payload
+      return apiClient.put({ name, year, month, day }); // ✅ send the name as payload
     },
     onSuccess: (res) => {
       showToast(res.message || "Gallery type updated", "success");

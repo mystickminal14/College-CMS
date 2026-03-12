@@ -10,7 +10,7 @@ interface Props {
   onClose: () => void;
   type?: GalleryType;
   isEdit?: boolean;
-  mutation?: UseMutationResult<any, any, { name: string }>;
+  mutation?: UseMutationResult<any, any, { name: string, month: string, day: string, year: string }>;
   editMutation?: UseMutationResult<any, any, { id: number; name: string, month: string, day: string, year: string }>;
 }
 
@@ -47,13 +47,13 @@ const AddEditGalleryTypeModal: React.FC<Props> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return showToast("Type name is required", "error");
-    if (!month || !day || !year) {
+    if (!month  || !year) {
       return showToast("Please select full date", "error");
     }
     if (isEdit && type && editMutation) {
       editMutation.mutate({ id: type.id, name, month, day, year });
     } else if (mutation) {
-      mutation.mutate({ name });
+      mutation.mutate({ name , month, day, year });
     }
 
     onClose();

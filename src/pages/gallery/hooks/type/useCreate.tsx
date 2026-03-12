@@ -14,7 +14,7 @@ export const useCreateGalleryType = () => {
   const { showToast } = appContext;
   const queryClient = useQueryClient();
 
-  return useMutation<ApiResponse<GalleryType>, ApiErrorResponse, { name: string }>({
+  return useMutation<ApiResponse<GalleryType>, ApiErrorResponse, { name: string , year: string, month: string, day: string}>({
     mutationFn: (payload) => GalleryTypeApi.post(payload),
 
     onSuccess: (res) => {
