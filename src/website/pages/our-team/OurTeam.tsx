@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TeamCard from "./component/team-card";
 import TeamCardSkeleton from "./component/team-skeleton";
+import decoration from "../../../assets/decoration.webp";
 import useGetTeamsByDept from "./hook/useGetDepartment";
 import type { TeamMember } from "./model/team-model";
 import { fadeUp, staggerContainer } from "../../comp/animation";
@@ -77,14 +78,52 @@ const OurTeamWeb = () => {
           animate="visible"
           className="max-w-8xl mx-auto text-center"
         >
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+          >
+            <motion.span
+              className="w-2 h-2 bg-blue-500 rounded-full"
+              animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            />
+            <span className="text-blue-600 font-medium text-sm">
+              Academic Excellence Team
+            </span>
+          </motion.div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Meet The People </span>
-            <span className="text-blue-600">Powering</span>
+            <span className="relative inline-block">
+              <span className="text-blue-600 relative z-10"> Powering </span>
+              <motion.img
+                src={decoration}
+                alt="Decoration"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.5 }}
+                className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-3"
+                loading="eager"
+              />
+            </span>
             <br />
-            <span className="text-gray-900">LBEF's </span>
-            <span className="text-blue-600">Bold,</span>
+            <span className="text-gray-900">LBEF’s </span>
+            <span className="text-blue-600"> Bold, </span>
             <span className="text-gray-900"> Futuristic Journey</span>
           </h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            LBEF’s team brings together academic excellence, visionary leadership,
+            and a future-focused mindset to deliver effective, globally relevant
+            education.
+          </motion.p>
         </motion.div>
       </div>
 

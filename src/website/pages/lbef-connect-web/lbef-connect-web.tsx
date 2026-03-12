@@ -40,15 +40,22 @@ const LBEFConnectWeb = () => {
       setPage(prev => prev + 1);
     }
   };
+  const groupedConnects = connects.reduce((acc: Record<string, Connects[]>, item) => {
+    if (!acc[item.volume]) {
+      acc[item.volume] = [];
+    }
+    acc[item.volume].push(item);
+    return acc;
+  }, {});
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-  title="LBEF Connect Publications | Digital Academic Archive"
-  description="Browse LBEF Connect, the digital archive of academic publications, magazines, and institutional documents from LBEF College Nepal."
-  url={`${APP_URL}/media/connect`}
+        title="LBEF Connect Publications | Digital Academic Archive"
+        description="Browse LBEF Connect, the digital archive of academic publications, magazines, and institutional documents from LBEF College Nepal."
+        url={`${APP_URL}/media/connect`}
 
-/>
+      />
 
       {/* Header */}
       <motion.div
@@ -137,63 +144,71 @@ const LBEFConnectWeb = () => {
         {/* Cards */}
         {connects.length > 0 && (
           <>
-            <div className="grid px-1 md:px-14 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {connects.map(connect => (
-                <div
-                  key={connect.id}
-                  className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer h-[400px]"
-                >
-                  <div className="absolute inset-0">
-                    <img
-                      src={
-                        connect.image
-                          ? `${IMAGE_URL}${connect.image}`
-                          : image
-                      }
-                      alt={`${connect.volume} ${connect.issue}`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = image;
-                      }}
-                    />
+            {Object.entries(groupedConnects).map(([volume, issues]) => (
+              <div key={volume} className="mb-16">
 
-                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/50 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:h-48 transition-all duration-300" />
-                  </div>
+                <div className="grid px-1 md:px-14 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-                  <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg z-20">
-                    {connect.volume}
-                  </div>
-
-                  <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1 shadow-lg z-20">
-                    <FaFilePdf className="w-3 h-3" />
-                    PDF
-                  </div>
-
-                  <div className="absolute bottom-0 left-0 right-0 p-5 z-10 group-hover:-translate-y-12 transition-all duration-300">
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {connect.volume}, {connect.issue}
-                    </h3>
-
-                    <div className="flex items-center gap-2 text-white/90 mb-4">
-                      <FaCalendarAlt className="w-4 h-4" />
-                      <span className="text-sm font-medium">
-                        {connect.duration}
-                      </span>
-                    </div>
-
-                    <button
-                      onClick={() =>
-                        window.open(`${IMAGE_URL}${connect.file}`, "_blank")
-                      }
-                      className="w-full py-3 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-300 text-sm font-semibold"
+                  {issues.map((connect) => (
+                    <div
+                      key={connect.id}
+                      className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer h-[400px] w-[300px]"
                     >
-                      Open Publication
-                    </button>
-                  </div>
+
+                      <div className="absolute inset-0">
+                        <img
+                          src={
+                            connect.image
+                              ? `${IMAGE_URL}${connect.image}`
+                              : image
+                          }
+                          alt={`${connect.volume} ${connect.issue}`}
+                          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = image;
+                          }}
+                        />
+
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/50 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:h-48 transition-all duration-300" />
+                      </div>
+
+                      <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg z-20">
+                        {connect.volume}
+                      </div>
+
+                      <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1 shadow-lg z-20">
+                        <FaFilePdf className="w-3 h-3" />
+                        PDF
+                      </div>
+
+                      <div className="absolute bottom-0 left-0 right-0 p-5 z-10 group-hover:-translate-y-12 transition-all duration-300">
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                          {connect.volume}, {connect.issue}
+                        </h3>
+
+                        <div className="flex items-center gap-2 text-white/90 mb-4">
+                          <FaCalendarAlt className="w-4 h-4" />
+                          <span className="text-md font-medium">
+                            {connect.duration} Issues
+                          </span>
+                        </div>
+
+                        <button
+                          onClick={() =>
+                            window.open(`${IMAGE_URL}${connect.file}`, "_blank")
+                          }
+                          className="w-full py-3 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-300 text-sm font-semibold"
+                        >
+                          Open Publication
+                        </button>
+                      </div>
+
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
 
             {/* Load More */}
             {hasMore && (
