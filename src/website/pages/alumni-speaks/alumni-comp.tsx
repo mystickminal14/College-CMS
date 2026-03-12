@@ -6,7 +6,7 @@ import type { Alumni } from "../../../pages/alumni/model/AlumniModel";
 import { IMAGE_URL } from "../../../constants";
 
 
-const MAX_WORDS = 160;
+const MAX_WORDS = 250;
 const AUTO_SWITCH_INTERVAL = 2000; // 2 seconds
 
 function limitWords(text: string, maxWords: number) {
@@ -116,8 +116,8 @@ export function AlumniComp() {
 
   return (
     <section className="py-12 px-4 lg:px-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-       
+      <div className="max-w-7xl mx-auto">
+
 
         {isLoading ? (
           <div className="animate-pulse">
@@ -180,7 +180,7 @@ export function AlumniComp() {
                   {/* Left side - Square Image and Info */}
                   <div className="lg:w-2/5 flex flex-col gap-4 sm:gap-6 items-center lg:items-start text-center lg:text-left">
                     {/* Square Image */}
-                    <div className="relative w-full max-w-[280px] lg:max-w-[280px]">
+                    <div className="relative w-full max-w-[260px] lg:max-w-[260px]">
                       <div className="aspect-square rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
                         <img
                           src={activeAlumni?.image ? IMAGE_URL + activeAlumni.image : ""}
@@ -191,25 +191,32 @@ export function AlumniComp() {
                     </div>
 
                     {/* User Info with fixed height */}
-                    <div className="space-y-1.5 sm:space-y-2 w-full max-w-[270px] ">
-                      <h3 className="text-lg sm:text-xl  font-bold text-gray-900 truncate">
-                        {activeAlumni?.name ?? ""}
-                      </h3>
-                      
-                      {/* Position with ellipsis for long text */}
-                      <div className="">
-                        <p 
+                    <div className="space-y-1.5 sm:space-y-2 w-full max-w-[270px]">
+                      <p className="text-lg sm:text-xl font-bold text-gray-900 truncate" 
+                      title={activeAlumni?.name ?? ""}
+                          dangerouslySetInnerHTML={{
+                            __html: activeAlumni?.name || "",
+                          }}/>
+                       
+
+                      <div>
+                        <p
                           className="text-gray-500 font-medium text-sm sm:text-base leading-relaxed line-clamp-3"
                           title={activeAlumni?.position ?? ""}
-                        >
-                          {activeAlumni?.position ?? ""}
-                        </p>
+                          dangerouslySetInnerHTML={{
+                            __html: activeAlumni?.position || "",
+                          }}
+                        />
                       </div>
-                      
-                      <p className="text-sm sm:text-md text-gray-600 line-clamp-2">
-                        {activeAlumni?.course ?? ""}
-                      </p>
-                      <p className="text-xs  text-gray-500 font-medium">
+
+                      <p
+                        className="text-sm sm:text-md text-gray-600 line-clamp-2"
+                        dangerouslySetInnerHTML={{
+                          __html: activeAlumni?.course || "",
+                        }}
+                      />
+
+                      <p className="text-xs text-gray-500 font-medium">
                         Batch {activeAlumni?.batch ?? ""}
                       </p>
                     </div>
@@ -228,9 +235,12 @@ export function AlumniComp() {
                         </span>
 
                         <div className="pl-3 sm:pl-4 lg:pl-6 pr-2 sm:pr-4 pt-5 sm:pt-6 pb-2">
-                          <p className="text-sm sm:text-base lg:text-md leading-relaxed">
-                            {limitWords(story, MAX_WORDS)}
-                          </p>
+                          <p
+                            className="text-sm sm:text-base lg:text-md leading-relaxed"
+                            dangerouslySetInnerHTML={{
+                              __html: limitWords(story || "", MAX_WORDS),
+                            }}
+                          />
                         </div>
 
                         <span className="absolute -bottom-3 -right-1 sm:-bottom-4 sm:-right-2 text-4xl sm:text-5xl lg:text-6xl text-blue-100 font-bold select-none">
@@ -282,8 +292,8 @@ export function AlumniComp() {
                                 key={index}
                                 onClick={() => goToPage(index)}
                                 className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${activeIndex === index
-                                    ? "bg-[#474AFF] scale-110"
-                                    : "bg-gray-300 hover:bg-gray-400"
+                                  ? "bg-[#474AFF] scale-110"
+                                  : "bg-gray-300 hover:bg-gray-400"
                                   }`}
                                 aria-label={`Go to testimonial ${index + 1}`}
                               />
@@ -324,8 +334,8 @@ export function AlumniComp() {
                     key={a.id}
                     onClick={() => goToPage(index)}
                     className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden shrink-0 transition-all ${activeIndex === index
-                        ? "ring-2 ring-[#474AFF] ring-offset-2"
-                        : "opacity-50 hover:opacity-70"
+                      ? "ring-2 ring-[#474AFF] ring-offset-2"
+                      : "opacity-50 hover:opacity-70"
                       }`}
                   >
                     <img
