@@ -190,7 +190,7 @@ const LBEFConnectWeb = () => {
                         <div className="flex items-center gap-2 text-white/90 mb-4">
                           <FaCalendarAlt className="w-4 h-4" />
                           <span className="text-md font-medium">
-                            {connect.duration} Issues
+                            {connect.duration} Issue
                           </span>
                         </div>
 

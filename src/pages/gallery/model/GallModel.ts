@@ -2,6 +2,9 @@ export interface GalleryType {
   id: number;
   name: string;
   slug: string;
+  year: string;
+  month: string;
+  day: string;
   status:STATUS;
   createdAt: string;
 }

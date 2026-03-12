@@ -144,7 +144,7 @@ const GallerysPage = () => {
             }`}
           >
             <FaTable className="w-4 h-4" />
-            <span>Gallery Types</span>
+            <span>Gallery Name</span>
           </button>
           <button
             onClick={() => setViewMode("photo")}
@@ -211,7 +211,7 @@ const GallerysPage = () => {
                 onClick={handleAddType}
                 className="px-6 py-3 bg-[#125DAA] text-white rounded-lg hover:bg-[#0f4a8c] shadow hover:shadow-lg transition-all duration-200 flex items-center space-x-2 font-medium"
               >
-                <span>Add Gallery Type</span>
+                <span>Add Gallery Name</span>
               </button>
             </div>
           </>

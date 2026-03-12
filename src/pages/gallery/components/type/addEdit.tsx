@@ -11,7 +11,7 @@ interface Props {
   type?: GalleryType;
   isEdit?: boolean;
   mutation?: UseMutationResult<any, any, { name: string }>;
-  editMutation?: UseMutationResult<any, any, { id: number; name: string }>;
+  editMutation?: UseMutationResult<any, any, { id: number; name: string, month: string, day: string, year: string }>;
 }
 
 const AddEditGalleryTypeModal: React.FC<Props> = ({
@@ -24,10 +24,21 @@ const AddEditGalleryTypeModal: React.FC<Props> = ({
 }) => {
   const { showToast } = useContext(AppContext)!;
   const [name, setName] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [year, setYear] = useState("");
 
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
   useEffect(() => {
     if (isOpen) {
       setName(isEdit && type ? type.name : "");
+      setMonth(isEdit && type ? type.month : "");
+      setDay(isEdit && type ? type.day : "");
+      setYear(isEdit && type ? type.year : "");
     }
   }, [isOpen, isEdit, type]);
 
@@ -36,9 +47,11 @@ const AddEditGalleryTypeModal: React.FC<Props> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return showToast("Type name is required", "error");
-
+    if (!month || !day || !year) {
+      return showToast("Please select full date", "error");
+    }
     if (isEdit && type && editMutation) {
-      editMutation.mutate({ id: type.id, name });
+      editMutation.mutate({ id: type.id, name, month, day, year });
     } else if (mutation) {
       mutation.mutate({ name });
     }
@@ -69,6 +82,47 @@ const AddEditGalleryTypeModal: React.FC<Props> = ({
           className="w-full px-4 py-2 border rounded-lg mb-4"
           required
         />
+        {/* Date Selection */}
+        <div className="grid grid-cols-3 gap-3 mb-4">
+
+          {/* Month Dropdown */}
+          <select
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            className="px-3 py-2 border rounded-lg"
+          >
+            <option value="">Month</option>
+            {months.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
+          </select>
+
+          {/* Day Dropdown */}
+          <select
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+            className="px-3 py-2 border rounded-lg"
+          >
+            <option value="">Day</option>
+            {days.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
+          </select>
+
+          {/* Year Input */}
+          <input
+            type="text"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            placeholder="Year"
+            className="px-3 py-2 border rounded-lg"
+          />
+
+        </div>
 
         <button
           type="submit"
@@ -77,8 +131,8 @@ const AddEditGalleryTypeModal: React.FC<Props> = ({
           {isEdit && editMutation?.isPending
             ? <Loader2 className="w-4 h-4 animate-spin" />
             : isEdit
-            ? <Check className="w-4 h-4" />
-            : <Plus className="w-4 h-4" />}
+              ? <Check className="w-4 h-4" />
+              : <Plus className="w-4 h-4" />}
           {isEdit ? "Update Type" : "Add Type"}
         </button>
       </form>
