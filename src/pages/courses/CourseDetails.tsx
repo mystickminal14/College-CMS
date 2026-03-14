@@ -287,7 +287,7 @@ const CourseDetails = () => {
                         <div className="bg-blue-100 p-2 rounded-md"><Clock className="w-4 h-4 text-blue-600" /></div>
                         <div>
                           <p className="text-xs font-semibold text-gray-800">Class Timing</p>
-                          <p className="text-xs font-medium text-blue-700">6:30AM – 8:30AM</p>
+                          <p className="text-xs font-medium text-blue-700">6:30AM – 11:00AM</p>
                           <p className="text-[11px] text-gray-600">Sunday – Friday</p>
                         </div>
                       </div>
@@ -298,7 +298,7 @@ const CourseDetails = () => {
                         <div className="bg-emerald-100 p-2 rounded-md"><BookOpen className="w-4 h-4 text-emerald-600" /></div>
                         <div>
                           <p className="text-xs font-semibold text-gray-800">Tutorials</p>
-                          <p className="text-xs font-medium text-emerald-700">8:30AM – 9:30AM</p>
+                          <p className="text-xs font-medium text-emerald-700">11:00AM – 1:00PM</p>
                           <p className="text-[11px] text-gray-600">Sunday – Friday</p>
                         </div>
                       </div>

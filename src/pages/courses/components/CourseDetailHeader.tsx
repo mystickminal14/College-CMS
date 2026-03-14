@@ -166,7 +166,7 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
                       Class Timing
                     </h3>
                     <p className="text-lg font-semibold text-blue-700">
-                      6:30AM - 8:30AM
+                      6:30AM - 11:00AM
                     </p>
                     <p className="text-sm text-gray-600 mt-1">
                       Sunday - Friday
@@ -186,7 +186,7 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
                   <div>
                     <h3 className="font-bold text-gray-800 mb-1">Tutorials</h3>
                     <p className="text-lg font-semibold text-emerald-700">
-                      8:30AM - 9:30AM
+                      11:00AM - 1:00PM
                     </p>
                     <p className="text-sm text-gray-600 mt-1">
                       Sunday - Friday
