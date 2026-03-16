@@ -13,9 +13,9 @@ interface Props {
     ApiResponse<Connects>,
     ApiErrorResponse,
     {
-      issue: string;
+      issue: number;
       duration: string;
-      volumne: string;
+      volumne: number;
       file: File;
     }
   >;

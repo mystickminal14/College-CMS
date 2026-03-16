@@ -1,8 +1,8 @@
 export interface Connects {
   id?: number;
-  issue: string;
+  issue: number;
   duration: string;
-  volume:string;
+  volume:number;
   file: string;
   image?:string;
 }

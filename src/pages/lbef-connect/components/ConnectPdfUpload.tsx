@@ -22,9 +22,9 @@ interface ConnectPdfUploadFormProps {
     ApiResponse<Connects>,
     ApiErrorResponse,
     {
-      issue: string;
+      issue: number;
       duration: string;
-      volumne: string;
+      volumne: number;
       file: File;
     }
   >;
@@ -55,25 +55,28 @@ const ConnectPdfUploadForm: React.FC<ConnectPdfUploadFormProps> = ({
     setPdfFile(file);
   };
 
-  const handleSubmit = () => {
-    if (!issue.trim()) return showToast("Issue is required", "error");
-    if (!volumne.trim()) return showToast("Volume is required", "error");
-    if (!duration.trim()) return showToast("Duration is required", "error");
-    if (!pdfFile) return showToast("Please select a PDF file", "error");
+const handleSubmit = () => {
+  const issueNum = parseInt(issue.trim());
+  const volumeNum = parseInt(volumne.trim());
 
-    createConnectMutation.mutate(
-      { issue: issue.trim(), duration: duration.trim(), volumne: volumne.trim(), file: pdfFile },
-      {
-        onSuccess: () => {
-          onClose();
-          setIssue("");
-          setDuration("");
-          setVolumne("");
-          setPdfFile(null);
-        },
-      }
-    );
-  };
+  if (!issue.trim() || isNaN(issueNum)) return showToast("Issue must be a valid number", "error");
+  if (!volumne.trim() || isNaN(volumeNum)) return showToast("Volume must be a valid number", "error");
+  if (!duration.trim()) return showToast("Duration is required", "error");
+  if (!pdfFile) return showToast("Please select a PDF file", "error");
+
+  createConnectMutation.mutate(
+    { issue: issueNum, duration: duration.trim(), volumne: volumeNum, file: pdfFile },
+    {
+      onSuccess: () => {
+        onClose();
+        setIssue("");
+        setDuration("");
+        setVolumne("");
+        setPdfFile(null);
+      },
+    }
+  );
+};
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">

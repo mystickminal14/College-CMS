@@ -12,8 +12,7 @@ import useGetConnects from "../../../pages/lbef-connect/hooks/useGetAll";
 import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 
-const PAGE_LIMIT = 8;
-
+const PAGE_LIMIT = 10;
 
 const LBEFConnectWeb = () => {
   const [page, setPage] = useState(1);
@@ -28,19 +27,27 @@ const LBEFConnectWeb = () => {
   useEffect(() => {
     if (!data?.data) return;
 
-    setConnects(prev =>
-      page === 1 ? data.data ?? [] : [...prev, ...(data.data ?? [])]
-    );
+    if (page === 1) {
+      setConnects(data.data ?? []);
+    } else {
+      setConnects(prev => {
+        const existingIds = new Set(prev.map(c => c.id));
+        const newItems = (data.data ?? []).filter(c => !existingIds.has(c.id));
+        return [...prev, ...newItems];
+      });
+    }
 
     setHasMore(Boolean(data.pagination?.hasNextPage));
-  }, [data, page]);
+  }, [data]);
 
   const handleLoadMore = () => {
     if (!isLoading && hasMore) {
       setPage(prev => prev + 1);
     }
   };
-  const groupedConnects = connects.reduce((acc: Record<string, Connects[]>, item) => {
+
+  // Group by volume (now a number)
+  const groupedConnects = connects.reduce((acc: Record<number, Connects[]>, item) => {
     if (!acc[item.volume]) {
       acc[item.volume] = [];
     }
@@ -48,13 +55,20 @@ const LBEFConnectWeb = () => {
     return acc;
   }, {});
 
+  // Sort groups: Volume 8 first, Volume 1 last
+  const sortedGroups = Object.entries(groupedConnects)
+    .map(([vol, issues]) => ({
+      volume: Number(vol),
+      issues: [...issues].sort((a, b) => b.issue - a.issue), // Issue 4 first
+    }))
+    .sort((a, b) => b.volume - a.volume); // Volume 8 first
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
         title="LBEF Connect Publications | Digital Academic Archive"
         description="Browse LBEF Connect, the digital archive of academic publications, magazines, and institutional documents from LBEF College Nepal."
         url={`${APP_URL}/media/connect`}
-
       />
 
       {/* Header */}
@@ -73,23 +87,12 @@ const LBEFConnectWeb = () => {
           >
             <motion.span
               className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut" as const
-              }}
+              animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" as const }}
             />
             <FaFilePdf className="text-blue-500" />
-            <span className="text-blue-600 font-medium text-sm">
-              Digital Archive
-            </span>
+            <span className="text-blue-600 font-medium text-sm">Digital Archive</span>
           </motion.div>
-
-
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">LBEF</span>
@@ -109,7 +112,9 @@ const LBEFConnectWeb = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            transition={{ delay: 0.2 }}
+            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
             Explore our digital collection of LBEF Connect publications. Browse through volumes, issues, and access comprehensive archives.
           </motion.p>
         </div>
@@ -132,9 +137,7 @@ const LBEFConnectWeb = () => {
             <div className="inline-block p-6 bg-blue-50 rounded-full mb-6">
               <FaFilePdf className="w-16 h-16 text-blue-400" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-700">
-              No Publications Available
-            </h3>
+            <h3 className="text-xl font-semibold text-gray-700">No Publications Available</h3>
             <p className="text-gray-500 mt-2">
               LBEF Connect publications will be added here. Check back soon.
             </p>
@@ -144,37 +147,29 @@ const LBEFConnectWeb = () => {
         {/* Cards */}
         {connects.length > 0 && (
           <>
-            {Object.entries(groupedConnects).map(([volume, issues]) => (
+            {sortedGroups.map(({ volume, issues }) => (
               <div key={volume} className="mb-16">
-
                 <div className="grid px-1 md:px-14 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-
                   {issues.map((connect) => (
                     <div
                       key={connect.id}
                       className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 cursor-pointer h-[400px] w-[300px]"
                     >
-
                       <div className="absolute inset-0">
                         <img
-                          src={
-                            connect.image
-                              ? `${IMAGE_URL}${connect.image}`
-                              : image
-                          }
-                          alt={`${connect.volume} ${connect.issue}`}
+                          src={connect.image ? `${IMAGE_URL}${connect.image}` : image}
+                          alt={`Volume ${connect.volume} Issue ${connect.issue}`}
                           className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                           onError={(e) => {
                             (e.target as HTMLImageElement).src = image;
                           }}
                         />
-
                         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/50 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:h-48 transition-all duration-300" />
                       </div>
 
                       <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg z-20">
-                        {connect.volume}
+                        Volume {connect.volume}
                       </div>
 
                       <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1 shadow-lg z-20">
@@ -184,26 +179,23 @@ const LBEFConnectWeb = () => {
 
                       <div className="absolute bottom-0 left-0 right-0 p-5 z-10 group-hover:-translate-y-12 transition-all duration-300">
                         <h3 className="text-2xl font-bold text-white mb-2">
-                          {connect.volume}, {connect.issue}
+                          Volume {connect.volume}, Issue {connect.issue}
                         </h3>
 
                         <div className="flex items-center gap-2 text-white/90 mb-4">
                           <FaCalendarAlt className="w-4 h-4" />
                           <span className="text-md font-medium">
-                            {connect.duration} Issue
+                            {connect.duration}
                           </span>
                         </div>
 
                         <button
-                          onClick={() =>
-                            window.open(`${IMAGE_URL}${connect.file}`, "_blank")
-                          }
+                          onClick={() => window.open(`${IMAGE_URL}${connect.file}`, "_blank")}
                           className="w-full py-3 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-lg opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-300 text-sm font-semibold"
                         >
                           Open Publication
                         </button>
                       </div>
-
                     </div>
                   ))}
                 </div>
