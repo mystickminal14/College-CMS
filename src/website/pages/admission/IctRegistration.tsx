@@ -1,10 +1,10 @@
-import subfooterone from '../../../assets/six_path.webp';
 import logo from '../../../assets/lbefhd.webp';
 import police from '../../../assets/police.png';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
+import LbefSubFooter from '../home/components/LbefSubFooter';
 
 const ICTRegistration = () => {
   const particularDate = new Date('2026-02-18');
@@ -65,13 +65,8 @@ const ICTRegistration = () => {
           whileInView="visible"
           className="w-full bg-gray-50 mt-10 overflow-hidden"
         >
-          <div className="w-full text-center">
-            <img
-              src={subfooterone}
-              alt="Illustration part one"
-              className="w-full max-w-full h-auto object-cover"
-            />
-          </div>
+          <LbefSubFooter />
+
         </motion.div>
       </div>
     </>

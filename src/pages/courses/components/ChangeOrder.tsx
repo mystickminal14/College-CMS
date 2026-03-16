@@ -7,7 +7,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   course?: Courses | null;
-  maxOrder?: number; // maximum order allowed
+  maxOrder?: number;
 }
 
 const ChangeCourseOrderModal: React.FC<Props> = ({ isOpen, onClose, course, maxOrder }) => {
@@ -77,7 +77,7 @@ const ChangeCourseOrderModal: React.FC<Props> = ({ isOpen, onClose, course, maxO
             <div className="flex items-center justify-center gap-4">
               <button
                 type="button"
-                onClick={handleDecrement}
+                onClick={handleIncrement}
                 className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center"
               >
                 <ArrowDown className="w-4 h-4 mr-1" /> Down
@@ -94,7 +94,7 @@ const ChangeCourseOrderModal: React.FC<Props> = ({ isOpen, onClose, course, maxO
 
               <button
                 type="button"
-                onClick={handleIncrement}
+                onClick={handleDecrement}
                 className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center"
               >
                 <ArrowUp className="w-4 h-4 mr-1" /> Up

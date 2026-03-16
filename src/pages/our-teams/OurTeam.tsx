@@ -17,7 +17,7 @@ import DeleteTeamsModal from "./components/DeleteModel";
 import TeamsCardView from "./components/TeamsCardView";
 
 import { TeamsColumns } from "./utils/columns";
-import type {  Teams } from "./model/TeamsModel";
+import type { Teams } from "./model/TeamsModel";
 import { PAGE_LIMIT } from "../../constants";
 import { useUploadTeamsImage } from "./hooks/useUploadAlumni";
 import ChangeTeamOrderModal from "./components/ChangeTeamOrder";
@@ -85,8 +85,8 @@ const TeamsPage = () => {
     },
   ];
 
-    const { data: typesDataAll } = useGetDeptNameAll(); // For table view (all types)
-  
+  const { data: typesDataAll } = useGetDeptNameAll(); // For table view (all types)
+
   const galleryTypesAll = typesDataAll?.data ?? [];
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
@@ -98,8 +98,8 @@ const TeamsPage = () => {
           <button
             onClick={() => setViewMode("dept")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "dept"
-                ? "bg-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "bg-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             <FaTable className="w-4 h-4" />
@@ -109,8 +109,8 @@ const TeamsPage = () => {
           <button
             onClick={() => setViewMode("table")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "table"
-                ? "bg-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "bg-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             <FaTable className="w-4 h-4" />
@@ -120,8 +120,8 @@ const TeamsPage = () => {
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 flex items-center space-x-1 transition-colors rounded ${viewMode === "card"
-                ? "bg-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "bg-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             <FaThLarge className="w-4 h-4" />
@@ -140,23 +140,23 @@ const TeamsPage = () => {
             <SearchBox placeholder="Search Teams..." onSearch={handleSearch} />
 
             <div className="flex gap-2">
-           
-<select
-              className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
-              value={selectedTypeId}
-              onChange={(e) => {
-                const val = e.target.value;
-                setSelectedTypeId(val ? Number(val) : undefined);
-                setPage(1);
-              }}
-            >
-              <option value="">All Types</option>
-              {galleryTypesAll.map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.name}
-                </option>
-              ))}
-            </select>
+
+              <select
+                className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 cursor-pointer appearance-none transition duration-150 ease-in-out"
+                value={selectedTypeId}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setSelectedTypeId(val ? Number(val) : undefined);
+                  setPage(1);
+                }}
+              >
+                <option value="">All Types</option>
+                {galleryTypesAll.map((type) => (
+                  <option key={type.id} value={type.id}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
 
               <button
                 onClick={handleAdd}
@@ -179,7 +179,7 @@ const TeamsPage = () => {
               loading={isLoading}
               emptyMessage={isError ? "Failed to load Teams" : "No Teams found"}
             />
-            
+
           ) : (
             <TeamsCardView
               teams={teams}
@@ -189,7 +189,7 @@ const TeamsPage = () => {
               onDelete={handleDeleteTeam}
             />
           )}
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+          <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
 
         </>
       )}

@@ -48,7 +48,8 @@ const DeptComp = () => {
         icon: React.ReactNode | ((row: Dept) => React.ReactNode);
         tooltip: string | ((row: Dept) => string);
         onClick: (row: Dept) => void;
-        color?: string;
+        color?: string | ((row: Dept) => string);
+
         condition?: (row: Dept) => boolean;
     }[] = [
             {
@@ -68,10 +69,14 @@ const DeptComp = () => {
             },
             {
                 icon: <Stamp className="w-5 h-5" />,
-                tooltip: "Change Status",
+                tooltip: (row) =>
+                    row.status === "ENABLED" ? "Disable Category" : "Enable Category",
                 onClick: handleStatusChange,
-                color: "text-yellow-600 hover:bg-yellow-600 hover:text-white",
-            },
+                color: (row) =>
+                    row.status === "ENABLED"
+                        ? "text-blue-600 border-blue-200 hover:bg-blue-600 hover:text-white"
+                        : "text-red-600 border-red-200 hover:bg-red-600 hover:text-white",
+            }
         ]; const handleSearch = debounce((value: string) => {
             setDebouncedSearch(value);
             setPage(1);

@@ -143,7 +143,7 @@ export function NavBar() {
         { name: "Achivements", link: "/achivements" },
         { name: "Messages", link: "/messages" },
         { name: "Our Team", link: "/ourteam" },
-        { name: "Holidays", link: "/administrative-holidays" },
+        { name: "Events & Holidays", link: "/administrative-holidays" },
       ],
     },
     {
@@ -205,7 +205,7 @@ export function NavBar() {
       name: "LBEF Publications",
       dropdown: [
         { name: "Photo Gallery", link: "/media/photo-gallery" },
-        { name: "Lbef Connect", link: "/lbef-connect" },
+        { name: "LBEF Connect", link: "/lbef-connect" },
         { name: "Journal", link: "/lrjstm/" },
         { name: "LBEF News", link: "/news" },
       ],

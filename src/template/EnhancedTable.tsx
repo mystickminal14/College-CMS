@@ -9,7 +9,7 @@ interface EnhancedTableProps<T> {
     icon: React.ReactNode | ((row: T) => React.ReactNode);
     tooltip: string | ((row: T) => string);
     onClick: (row: T) => void;
-    color?: string;
+    color?: string | ((row: T) => string);
     condition?: (row: T) => boolean; // <-- optional condition to show action
   }[];
   onRowClick?: (row: T) => void;
@@ -119,6 +119,10 @@ const EnhancedTable = <T extends { id?: string | number }>({
                           .map((action, i) => {
                             const iconEl = typeof action.icon === "function" ? action.icon(row) : action.icon;
                             const tooltipContent = typeof action.tooltip === "function" ? action.tooltip(row) : action.tooltip;
+                            const buttonColor =
+                              typeof action.color === "function"
+                                ? action.color(row)
+                                : action.color;
 
                             return (
                               <button
@@ -126,7 +130,9 @@ const EnhancedTable = <T extends { id?: string | number }>({
                                 data-tooltip-id={`tooltip-${row.id ?? index}-${i}`}
                                 data-tooltip-content={tooltipContent}
                                 onClick={() => action.onClick(row)}
-                                className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 ${action.color || "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white border-[#1a7cd3]/20 hover:border-[#1a7cd3]"}`}
+                                className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 ${buttonColor ||
+                                  "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white border-[#1a7cd3]/20 hover:border-[#1a7cd3]"
+                                  }`}
                               >
                                 {iconEl}
                                 <Tooltip

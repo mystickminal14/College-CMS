@@ -183,19 +183,19 @@ const CourseDetails = () => {
                           initial="hidden"
                           whileInView="visible"
                           onClick={() => handleCategoryChange(item.category)}
-                        className={`
+                          className={`
     flex flex-col items-center text-center p-2 rounded-xl cursor-pointer
     transition-all duration-200 ease-in-out
     ${isActive
-      ? "bg-linear-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-200 scale-[1.02]"
-      : "bg-white/80 text-gray-700 border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 hover:text-blue-700 shadow-sm hover:shadow-md"
-    }
+                              ? "bg-linear-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-200 scale-[1.02]"
+                              : "bg-white/80 text-gray-700 border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 hover:text-blue-700 shadow-sm hover:shadow-md"
+                            }
   `}
                         >
-                         <div className={`w-7 h-7 rounded-full flex items-center justify-center mb-1 transition-colors ${isActive ? "bg-white/20" : "bg-blue-100"}`}>
-    <item.icon className={`w-4 h-4 ${isActive ? "text-white" : "text-blue-600"}`} />
-  </div>
-  <h3 className="text-[10px] font-semibold leading-tight">{item.title}</h3> </motion.div>
+                          <div className={`w-7 h-7 rounded-full flex items-center justify-center mb-1 transition-colors ${isActive ? "bg-white/20" : "bg-blue-100"}`}>
+                            <item.icon className={`w-4 h-4 ${isActive ? "text-white" : "text-blue-600"}`} />
+                          </div>
+                          <h3 className="text-[10px] font-semibold leading-tight">{item.title}</h3> </motion.div>
                       );
                     })}
                   </div>

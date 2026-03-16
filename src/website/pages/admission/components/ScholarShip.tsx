@@ -1,6 +1,8 @@
 import { Award, Info, Percent } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ScholarshipSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
       <div className="flex items-center gap-3 mb-6">
@@ -34,7 +36,7 @@ const ScholarshipSection = () => {
             <p className="text-gray-700 mb-6">
               This scholarship initiative provides opportunities for family members and dependents of serving, retired, and deceased Nepal Police personnel to pursue the B.Sc. IT program at LBEF, with preference given to female candidates. <br />Additionally, scholarships are available to currently serving Nepal Police personnel for enrollment in the M.Sc. ITM and MBA programs at LBEF, facilitating advanced academic growth and professional development within the organization. </p>
             <a
-              href="https://lbef.org/ictregistration.php"
+              onClick={() => navigate('/ictregistration')}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition"
@@ -199,7 +201,7 @@ const ScholarshipSection = () => {
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
 
                     </tr>
-                    
+
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"></td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Total Scholarship Amount</td>
@@ -245,7 +247,7 @@ const ScholarshipSection = () => {
 
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
                     </tr>
-                    
+
                     <tr>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"></td>
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Total Scholarship Amount</td>

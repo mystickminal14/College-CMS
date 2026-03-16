@@ -37,10 +37,12 @@ const ChangeCourseCategoryOrderModal: React.FC<Props> = ({ isOpen, onClose, cour
 
   const handleIncrement = () => {
     if (!maxOrder || newOrder < maxOrder) setNewOrder(newOrder + 1);
+    console.log(newOrder);
   };
 
   const handleDecrement = () => {
     if (newOrder > 1) setNewOrder(newOrder - 1);
+    console.log(newOrder);
   };
 
   return (
@@ -77,7 +79,7 @@ const ChangeCourseCategoryOrderModal: React.FC<Props> = ({ isOpen, onClose, cour
             <div className="flex items-center justify-center gap-4">
               <button
                 type="button"
-                onClick={handleDecrement}
+                onClick={handleIncrement}
                 className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center"
               >
                 <ArrowDown className="w-4 h-4 mr-1" /> Down
@@ -94,7 +96,7 @@ const ChangeCourseCategoryOrderModal: React.FC<Props> = ({ isOpen, onClose, cour
 
               <button
                 type="button"
-                onClick={handleIncrement}
+                onClick={handleDecrement}
                 className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center"
               >
                 <ArrowUp className="w-4 h-4 mr-1" /> Up

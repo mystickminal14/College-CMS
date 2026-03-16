@@ -199,7 +199,7 @@ const Section = ({
       </div>
 
       <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-        Department of {title}
+        {title}
       </h3>
     </div>
 

@@ -60,7 +60,7 @@ const ChangeTeamOrderModal: React.FC<Props> = ({
             <div className="flex items-center justify-center gap-4">
               <button
                 type="button"
-                onClick={() => setNewOrder((o) => Math.max(1, o - 1))}
+                onClick={() => setNewOrder((o) => Math.max(1, o + 1))}
                 className="p-2 bg-gray-100 rounded hover:bg-gray-200"
               >
                 <ArrowDown />
@@ -77,7 +77,7 @@ const ChangeTeamOrderModal: React.FC<Props> = ({
 
               <button
                 type="button"
-                onClick={() => setNewOrder((o) => Math.min(maxOrder, o + 1))}
+                onClick={() => setNewOrder((o) => Math.min(maxOrder, o - 1))}
                 className="p-2 bg-gray-100 rounded hover:bg-gray-200"
               >
                 <ArrowUp />
