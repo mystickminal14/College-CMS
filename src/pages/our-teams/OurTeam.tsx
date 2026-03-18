@@ -52,6 +52,8 @@ const TeamsPage = () => {
   const teams = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
+
 
 
   const handleAdd = () => { setTeamToEdit(null); setShowModal(true); };
@@ -214,7 +216,7 @@ const TeamsPage = () => {
         isOpen={showOrderModal}
         onClose={() => setShowOrderModal(false)}
         team={teamToChangeOrder}
-        maxOrder={teams.length}
+        maxOrder={total}
       />
     </div>
   );
