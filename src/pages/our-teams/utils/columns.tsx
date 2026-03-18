@@ -29,6 +29,8 @@ export const TeamsColumns = [
   { label: "Name", accessor: "name" },
   { label: "Position", accessor: "position" },
   { label: "Order", accessor: "order" },
+  { label: "Status", accessor: "status" },
+
 
 
 ];

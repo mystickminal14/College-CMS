@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUp, Edit, Trash2 } from "lucide-react";
+import { ArrowUp, Edit, Stamp, Trash2 } from "lucide-react";
 import { FaTable, FaThLarge } from "react-icons/fa";
 import { debounce } from "lodash";
 
@@ -10,7 +10,7 @@ import SearchBox from "./utils/SearchBox";
 
 import useGetTeams from "./hooks/useGetAll";
 import useCreateTeams from "./hooks/useCreate";
-import useEditTeams from "./hooks/useEdit";
+import useEditTeams, { useChangeStatus } from "./hooks/useEdit";
 
 import AddEditTeamsWizardModal from "./components/Wizard";
 import DeleteTeamsModal from "./components/DeleteModel";
@@ -23,6 +23,7 @@ import { useUploadTeamsImage } from "./hooks/useUploadAlumni";
 import ChangeTeamOrderModal from "./components/ChangeTeamOrder";
 import DeptComp from "../our-team-dept/DeptComp";
 import useGetDeptNameAll from "../our-team-dept/hooks/useGetDeptName";
+import StatusModal from "./components/StatusModel";
 
 const TeamsPage = () => {
   const [page, setPage] = useState(1);
@@ -48,7 +49,14 @@ const TeamsPage = () => {
   const createMutation = useCreateTeams();
   const editMutation = useEditTeams();
   const uploadImageMutation = useUploadTeamsImage();
+  const [statusData, setStatusData] = useState<Teams | null>(null);
+  const [showStatusModal, setShowStatusModal] = useState(false);
 
+  const statusMutation = useChangeStatus();
+  const handleStatusChange = (row: Teams) => {
+    setStatusData(row);
+    setShowStatusModal(true);
+  };
   const teams = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
@@ -85,6 +93,16 @@ const TeamsPage = () => {
       },
       color: "text-purple-600",
     },
+    {
+      icon: <Stamp className="w-5 h-5" />,
+      tooltip: (row:Teams) =>
+        row.status === "ENABLED" ? "Disable Person" : "Enable Person",
+      onClick: handleStatusChange,
+      color: (row:Teams) =>
+        row.status === "ENABLED"
+          ? "text-blue-600 border-blue-200 hover:bg-blue-600 hover:text-white"
+          : "text-red-600 border-red-200 hover:bg-red-600 hover:text-white",
+    }
   ];
 
   const { data: typesDataAll } = useGetDeptNameAll(); // For table view (all types)
@@ -217,6 +235,12 @@ const TeamsPage = () => {
         onClose={() => setShowOrderModal(false)}
         team={teamToChangeOrder}
         maxOrder={total}
+      />
+      <StatusModal
+        isOpen={showStatusModal}
+        onClose={() => setShowStatusModal(false)}
+        data={statusData}
+        mutation={statusMutation}
       />
     </div>
   );

@@ -11,8 +11,9 @@ export interface Teams {
   linkedIn?: string;
   facebook?: string;
   insta?: string;
-
+  status?: Status;
   email?: string;
   phone?: string;
 }
 
+export type Status = "ENABLED" | "DISABLED";

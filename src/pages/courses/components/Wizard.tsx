@@ -8,6 +8,7 @@ import { AppContext } from "../../../context/ContextApp";
 import { IMAGE_URL } from "../../../constants";
 import CoursesBasicForm from "./CourseBasicForm";
 import CourseImageUploadForm from "./CourseImageUpload";
+import useDeleteImage from "../hooks/useDeleteImage";
 
 interface AddEditCoursesWizardModalProps {
   isOpen: boolean;
@@ -34,7 +35,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
 
   const [step, setStep] = useState<1 | 2>(1);
   const [courseId, setCourseId] = useState<number | null>(null);
-
+  const deleteImageMutation = useDeleteImage();
   const [formData, setFormData] = useState<{
     title: string;
     categoryId: number | null;
@@ -74,22 +75,22 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     if (!isOpen) return;
 
     if (courseToEdit) {
-     setFormData({
-  fullForm: courseToEdit.fullForm ?? "",
-  brochure: courseToEdit.brochure ?? "",
-  feeStructure: courseToEdit.feeStructure ?? "",
-  slug: courseToEdit.slug ?? "",
-  intake: courseToEdit.intake ?? '',
-  title: courseToEdit.title ?? "",
-  categoryId: courseToEdit.categoryId ?? null, 
-  degree: courseToEdit.degree ?? "", // <-- added
-  details: courseToEdit.details ?? "",
-  prefix: courseToEdit.prefix ?? "",
-  credit: String(courseToEdit.credit ?? ""),
-  duration: courseToEdit.duration ?? "",
-  semester: String(courseToEdit.semester ?? ""),
-  shift: courseToEdit.shift ?? "MORNING",
-});
+      setFormData({
+        fullForm: courseToEdit.fullForm ?? "",
+        brochure: courseToEdit.brochure ?? "",
+        feeStructure: courseToEdit.feeStructure ?? "",
+        slug: courseToEdit.slug ?? "",
+        intake: courseToEdit.intake ?? '',
+        title: courseToEdit.title ?? "",
+        categoryId: courseToEdit.categoryId ?? null,
+        degree: courseToEdit.degree ?? "", // <-- added
+        details: courseToEdit.details ?? "",
+        prefix: courseToEdit.prefix ?? "",
+        credit: String(courseToEdit.credit ?? ""),
+        duration: courseToEdit.duration ?? "",
+        semester: String(courseToEdit.semester ?? ""),
+        shift: courseToEdit.shift ?? "MORNING",
+      });
 
       setCourseId(courseToEdit.id ?? null);
       setImagePreview(courseToEdit.image ? `${IMAGE_URL}${courseToEdit.image}` : null);
@@ -133,9 +134,28 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
   };
 
   const handleRemoveImage = () => {
-    setImageFile(null);
-    setImagePreview(null);
+    if (imageFile) {
+      // Just a locally selected file, no API call needed
+      setImageFile(null);
+      setImagePreview(null);
+      return;
+    }
+
+    // It's an existing server image — call delete API
+    if (courseId) {
+      deleteImageMutation.mutate(
+        { id: courseId },
+        {
+          onSuccess: () => {
+            setImageFile(null);
+            setImagePreview(null);
+          },
+        }
+      );
+    }
   };
+
+
 
   /* ---------------- VALIDATION ---------------- */
   const validateStep1 = () => {
@@ -247,9 +267,10 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
               imageFile={imageFile}
               onImageChange={handleImageChange}
               onRemoveImage={handleRemoveImage}
-              isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || false}
+                isUploading={uploadImageMutation?.isPending || updateImageMutation?.isPending || deleteImageMutation.isPending || false}
               onSkip={() => { resetForm(); onClose(); }}
-              onSubmit={handleSubmitStep2}
+                onSubmit={handleSubmitStep2}
+                
             />
           )}
         </div>
