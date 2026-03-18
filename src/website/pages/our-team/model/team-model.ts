@@ -19,7 +19,7 @@ export interface TeamMember {
 
   phone?: string | null;
   email?: string | null;
-
+  status?: "ENABLED" | "DISABLED";
   order: number;       // member display order
   createdAt: string;
   updatedAt: string;

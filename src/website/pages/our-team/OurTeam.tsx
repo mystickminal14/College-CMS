@@ -28,7 +28,7 @@ const OurTeamWeb = () => {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   const members: TeamMember[] = data?.data
-    ? Object.values(data.data).flat()
+    ? Object.values(data.data).flat().filter((m) => m.status === "ENABLED")
     : [];
 
   const groupedDepartments: GroupedDept[] = (() => {
