@@ -134,7 +134,6 @@ const AddEditTeamsWizardModal: React.FC<AddEditTeamsWizardModalProps> = ({
     if (!formData.name?.trim()) return appContext?.showToast("Name is required", "warn");
     if (!formData.position?.trim()) return appContext?.showToast("Position is required", "warn");
     if (!formData.departmentId) return appContext?.showToast("Department is required", "warn");
-    if (!formData.email) return appContext?.showToast("Email is required", "warn");
 
     return true;
   };
