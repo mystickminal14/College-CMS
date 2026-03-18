@@ -15,6 +15,7 @@ import GalleryGrid from "./components/GalleryGrid";
 import Seo from "../../../context/seo";
 import ApeuSubFooter from "./components/ApeuSubFooter";
 import LbefSubFooter from "./components/LbefSubFooter";
+import IndustryPartnerSection from "./components/IndustryPartner";
 export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -61,7 +62,13 @@ export default function HomePage() {
             <motion.div
               style={{ y: contentY }}
               className="relative z-20 bg-white"
-            ><WhyChooseLBEF />
+            >
+              <WhyChooseLBEF />
+              <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <IndustryPartnerSection />
+              </motion.div>
               <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
@@ -112,6 +119,7 @@ export default function HomePage() {
           <University />
           <VideoSection />
           <WhyChooseLBEF />
+          <IndustryPartnerSection />
           <JoinStudents />
           <Testimonial />
           <GalleryGrid />

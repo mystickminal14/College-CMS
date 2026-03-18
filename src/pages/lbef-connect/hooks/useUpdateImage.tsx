@@ -8,9 +8,9 @@ import APIClient from "../../../services/apiClient";
 
 interface CreateimagePayload {
   file: File;
-  issue:string;
+  issue:number;
   duration:string;
-  volumne:string;
+  volumne:number;
 }
 
 export const useUpdateimageConnect = () => {
@@ -23,11 +23,11 @@ export const useUpdateimageConnect = () => {
   return useMutation<ApiResponse<Connects>, ApiErrorResponse, CreateimagePayload>({
     mutationFn: async ({ issue, duration, volumne, file }:CreateimagePayload) => {
        const formData = new FormData();
-      formData.append("issue", issue);
+      formData.append("issue", issue.toString());
       formData.append("file", file);
       formData.append("duration", duration);
 
-      formData.append("volume", volumne);
+      formData.append("volume", volumne.toString());
 
 
       const apiClient = new APIClient<Connects>("/connect");
