@@ -42,11 +42,11 @@ const ICTScholarship = () => {
 								/>
 							</span>
 							<br />
-							<span className="text-gray-900 mt-2">Awards {schedule?.scheduleYear ?? '2081'} </span>
+							<span className="text-gray-900 mt-2">Awards {schedule?.scheduleYear ?? '2082'} </span>
 						</h1>
 
 						<p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto mb-5 leading-relaxed">
-							Unlock your academic potential with the National ICT Scholarship, rewarding excellence in high-school performance.
+							Empowering Nepal Police Families Through Education.
 						</p>
 						<a
 							onClick={() => navigate('/ictregistration')}

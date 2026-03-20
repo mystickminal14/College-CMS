@@ -383,7 +383,8 @@ const ScholarshipSection = () => {
               Merit Scholarship
             </h3>
             <p className="text-gray-700 mb-6">
-              Merit Scholarship is awarded on the basis of academic performance in the  conducted by LBEF Campus, internal examinations/evaluations and the End Semester examinations of the University. This scholarship is only awarded in the <strong>tuition fee category</strong> . The scholarship privileges provided in this category are as follows:            </p>
+              Merit Scholarship is awarded on the basis of academic performance in the assessments conducted at LBEF College - continuous internal evaluations, and the end semester evaluations of the University. This scholarship is only awarded in the <strong>tuition fee category</strong>. The scholarship privileges provided in this category are as follows:
+            </p>
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
               target="_blank"

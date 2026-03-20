@@ -3,8 +3,8 @@ import full_from from "../../../../assets/full_form_lbef.webp";
 import decoration from '../../../../assets/decoration.webp';
 const faqs = [
   {
-    question: "What is your intake timings?",
-    answer: "Admissions are conducted three times a year in the months of February, July, and August."
+    question: "What are your intake sessions?",
+    answer: "Admissions are conducted three times a year - Spring Session (Feb/Mar), Summer Session (June/July), and Fall Session (Oct/Nov)."
   },
   {
     question: "Are the degrees recognized?",

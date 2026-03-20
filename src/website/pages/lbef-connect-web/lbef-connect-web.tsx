@@ -68,7 +68,7 @@ const LBEFConnectWeb = () => {
       <Seo
         title="LBEF Connect Publications | Digital Academic Archive"
         description="Browse LBEF Connect, the digital archive of academic publications, magazines, and institutional documents from LBEF College Nepal."
-        url={`${APP_URL}/media/connect`}
+        url={`${APP_URL}/lbef-connect`}
       />
 
       {/* Header */}
@@ -115,7 +115,7 @@ const LBEFConnectWeb = () => {
             transition={{ delay: 0.2 }}
             className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Explore our digital collection of LBEF Connect publications. Browse through volumes, issues, and access comprehensive archives.
+            Explore our quarterly newletter - LBEF Connect, which captures the vibrancy of campus life at LBEF. Browser through past volumes and issues, and acces the complete digital archive.
           </motion.p>
         </div>
       </motion.div>
@@ -231,3 +231,8 @@ const LBEFConnectWeb = () => {
 };
 
 export default LBEFConnectWeb;
+
+
+
+
+

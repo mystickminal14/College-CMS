@@ -179,7 +179,7 @@ export function NavBar() {
         {
           name: "Alumni",
           dropdown: [
-            { name: "Alumni Speaks", link: "/alumni-speaks" },
+            { name: "Alumni Speak", link: "/alumni-speaks" },
             { name: "Alumni Form", link: "/alumni-information-form" },
           ],
         },
@@ -202,12 +202,12 @@ export function NavBar() {
       ],
     },
     {
-      name: "LBEF Publications",
+      name: "Media & Publications",
       dropdown: [
         { name: "Photo Gallery", link: "/media/photo-gallery" },
         { name: "LBEF Connect", link: "/lbef-connect" },
-        { name: "Journal", link: "/lrjstm/" },
-        { name: "LBEF News", link: "/news" },
+        { name: "LBEF Journal", link: "/lrjstm/" },
+        { name: "LBEF in the News", link: "/news" },
       ],
     },
     { name: "UGC", link: "https://lbef.org/ugc/login.php" },

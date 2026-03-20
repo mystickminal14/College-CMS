@@ -3,8 +3,8 @@ import decoration from '../../../../assets/decoration.webp';
 
 const faqs = [
   {
-    question: "What is your intake timings?",
-    answer: "Admissions are conducted three times a year in the months of Spring, Summer and Fall Session."
+    question: "What are your intake sessions?",
+    answer: "Admissions are conducted three times a year - Spring Session (Feb/Mar), Summer Session (June/July), and Fall Session (Oct/Nov)."
   },
   {
     question: "Are the degrees recognized?",
@@ -69,7 +69,7 @@ export default function FAQSection() {
                     {/* Add View button only for the "Are the degrees recognized?" FAQ (index 1) */}
                     {index === 1 && (
                       <a
-                        href="/about/recognition"
+                        href="/recognitions"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 mt-4 bg-[#474AFF] hover:bg-[#3a3dcc] text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200"
