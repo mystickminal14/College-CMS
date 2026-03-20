@@ -49,6 +49,8 @@ const menuItems: MenuItem[] = [
   { id: "user", icon: MdPeople, label: "Users", badge: "New" },
   { id: "course", icon: MdSchool, label: "Courses", badge: "New" },
   { id: "teams", icon: MdGroups, label: "Our Teams", badge: "New" },
+  { id: "hero-section", icon: MdBusinessCenter, label: "Hero Section", badge: "New" },
+
   {
     id: "students",
     icon: MdBusinessCenter,

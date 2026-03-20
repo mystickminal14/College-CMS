@@ -33,6 +33,7 @@ import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 import AlumniFormTable from "../website/pages/alumni-form/pages/AlumniFormtable";
 import ScholarshipPage from "../pages/scholarship/ScholarPage";
+import HeroSectionPage from "../pages/hero-section/HeroSectIonPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -42,7 +43,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "course-details/:key/add/:id": "COURSES",
   "course-details/add/:id": "COURSES",
   "course-details/edit/:id": "COURSES",
-
+  "hero-section": "HERO_SECTION",
   "administation/notice": "NOTICE",
   "administation/contact": "CONTACT",
   "students/planner": "ACADEMIC_PLANNER",
@@ -135,6 +136,7 @@ export const adminRoutes = [
       { path: "administation/contact", element: <ContactPage /> },
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/planner-course", element: <PlannerCoursePage /> },
+      { path: "hero-section", element: <HeroSectionPage /> },
       
       { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
