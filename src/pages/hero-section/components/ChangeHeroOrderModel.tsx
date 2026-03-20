@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X, ArrowUpDown, Loader2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, ArrowUpDown, Loader2, ChevronUp, ChevronDown } from "lucide-react";
 import type { HeroSectionImage } from "../model/HeroModel";
 import useChangeHeroOrder from "../hooks/useChangeHeroOrder";
 
@@ -14,6 +14,10 @@ const ChangeHeroOrderModal: React.FC<Props> = ({ isOpen, onClose, image, totalIm
   const mutation = useChangeHeroOrder();
   const [newOrder, setNewOrder] = useState<number>(image?.order ?? 1);
 
+  useEffect(() => {
+    if (image) setNewOrder(image.order);
+  }, [image]);
+
   if (!isOpen || !image) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,6 +31,9 @@ const ChangeHeroOrderModal: React.FC<Props> = ({ isOpen, onClose, image, totalIm
       { onSuccess: () => onClose() }
     );
   };
+
+  const increment = () => setNewOrder((prev) => Math.min(prev + 1, totalImages));
+  const decrement = () => setNewOrder((prev) => Math.max(prev - 1, 1));
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -59,26 +66,67 @@ const ChangeHeroOrderModal: React.FC<Props> = ({ isOpen, onClose, image, totalIm
           </div>
 
           {/* BODY */}
-          <div className="p-6 space-y-4">
+          <div className="p-6 space-y-5">
+
+            {/* Order stepper */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 New Position
               </label>
-              <input
-                type="number"
-                min={1}
-                max={totalImages}
-                value={newOrder}
-                onChange={(e) => setNewOrder(Number(e.target.value))}
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <p className="text-xs text-gray-400 mt-1">
-                Enter a value between 1 and {totalImages}
-              </p>
+
+              <div className="flex items-center justify-center gap-5">
+                <button
+                  type="button"
+                  onClick={decrement}
+                  disabled={newOrder <= 1 || mutation.isPending}
+                  className="w-12 h-12 flex items-center justify-center rounded-xl border-2 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+                >
+                  <ChevronDown className="w-6 h-6" />
+                </button>
+
+                <div className="flex flex-col items-center">
+                  <span className="text-4xl font-bold text-gray-900 dark:text-white w-16 text-center tabular-nums">
+                    {newOrder}
+                  </span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    of {totalImages}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={increment}
+                  disabled={newOrder >= totalImages || mutation.isPending}
+                  className="w-12 h-12 flex items-center justify-center rounded-xl border-2 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+                >
+                  <ChevronUp className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Visual progress bar */}
+              <div className="mt-4 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-blue-500 rounded-full transition-all duration-200"
+                  style={{ width: `${(newOrder / totalImages) * 100}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-xs text-gray-400 mt-1">
+                <span>1</span>
+                <span>{totalImages}</span>
+              </div>
             </div>
 
+            {/* Change indicator */}
+            {newOrder !== image.order && (
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-lg py-2 px-3">
+                <span className="font-medium text-gray-700 dark:text-gray-300">#{image.order}</span>
+                <ArrowUpDown className="w-3.5 h-3.5" />
+                <span className="font-medium text-blue-600 dark:text-blue-400">#{newOrder}</span>
+              </div>
+            )}
+
             {/* BUTTONS */}
-            <div className="flex space-x-3 pt-2">
+            <div className="flex space-x-3 pt-1">
               <button
                 type="button"
                 onClick={onClose}

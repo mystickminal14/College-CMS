@@ -5,7 +5,6 @@ import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import { HERO_SECTION_CACHE_KEY } from "../../../constants";
 import type { HeroSectionImage } from "../model/HeroModel";
 import APIClient from "../../../services/apiClient";
-import { compressImage, validateImageFile } from "../../../utils/ImageCompression";
 
 const useAddHeroImage = () => {
   const appContext = useContext(AppContext);
@@ -15,12 +14,9 @@ const useAddHeroImage = () => {
 
   return useMutation<ApiResponse<HeroSectionImage>, ApiErrorResponse, { file: File }>({
     mutationFn: async ({ file }) => {
-      const validationError = validateImageFile(file);
-      if (validationError) throw new Error(validationError);
-
-      const compressed = await compressImage(file);
+      
       const formData = new FormData();
-      formData.append("thumbnail", compressed);
+      formData.append("thumbnail", file);
 
       const apiClient = new APIClient<HeroSectionImage>("/hero_section_image");
       return apiClient.postFile(formData);
