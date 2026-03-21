@@ -144,7 +144,7 @@ export function HeroSection() {
       </section>
 
       <section
-        className="w-90vw h-[40vw] md:h-[22vw] relative overflow-hidden bg-gray-100"
+        className="w-90vw h-[40vw] md:h-[24vw] relative overflow-hidden bg-gray-100"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -158,7 +158,7 @@ export function HeroSection() {
                 alt={`Hero banner ${idx + 1}`}
                 loading={idx === 0 ? "eager" : "lazy"}
                 decoding="async"
-                className={`absolute inset-0 w-full h-full object-cover object-[50%_42%] transition-opacity duration-500 ${
+                className={`absolute inset-0 w-full h-full object-cover object-[50%_46%] transition-opacity duration-500 ${
                   idx === current ? "opacity-100" : "opacity-0"
                 }`}
               />

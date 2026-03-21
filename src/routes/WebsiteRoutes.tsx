@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { WebsiteLayout } from "../website/WebLayout";
+import CourseDetailsByID from "../pages/courses/CourseDetailsById";
 
 
 /* =======================
@@ -105,6 +106,8 @@ export const websiteRoutes = [
       // },
       { path: "courses", element: <CourseProgram /> },
       { path: ":slug", element: <CourseDetails /> },
+      { path: "details/:courseId", element: <CourseDetailsByID /> },
+
       { path: "codeofconduct", element: <CodeOfConduct /> },
       { path: "codeofconduct", element: <CodeOfConduct />, },
       { path: "fee-payment-planners", element: <FeePlannersWeb /> },

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { Courses } from "./model/CourseModel";
@@ -29,6 +29,7 @@ import CourseDetailRenderer from "./CourseDetailRender";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
 import useGetCourseDetails from "./hooks/useGetDetails";
+import useGetCourseById from "./hooks/useGetCOurseByID";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (
@@ -59,10 +60,20 @@ const fadeItem: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
+/* ------------------ SKELETON ------------------ */
+const CourseSkeleton = () => (
+  <div className="min-h-screen bg-linear-to-b from-gray-50 to-white animate-pulse">
+    <div className="h-64 bg-gray-200 w-full" />
+    <div className="container max-w-7xl mx-auto px-4 py-10 space-y-6">
+      <div className="h-8 bg-gray-200 rounded w-1/3" />
+      <div className="h-4 bg-gray-200 rounded w-2/3" />
+      <div className="h-4 bg-gray-200 rounded w-1/2" />
+    </div>
+  </div>
+);
+
 /* ------------------ INNER COMPONENT (course guaranteed non-undefined) ------------------ */
 const CourseDetailsInner = ({ course }: { course: Courses }) => {
-  const id = course?.id ?? "1";
-
   const [activeCategory, setActiveCategory] = useState("COURSE_STRUCTURE");
   const contentRef = useRef<HTMLDivElement | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -86,7 +97,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetCourseDetails({
-    courseId: String(id),
+    courseId: String(course.id),
     category: activeCategory,
     limit: 4,
   });
@@ -138,8 +149,8 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
   return (
     <>
       <Seo
-        title={`${course?.prefix} ${course?.title} in Nepal | LBEF College`}
-        description={`Study ${course?.prefix} ${course?.title} at LBEF College Nepal.`}
+        title={`${course.prefix} ${course.title} in Nepal | LBEF College`}
+        description={`Study ${course.prefix} ${course.title} at LBEF College Nepal.`}
       />
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
@@ -147,6 +158,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
 
         <div className="container max-w-7xl mx-auto px-4 sm:px-0 pb-20">
           <div className="flex flex-col-reverse sm:flex-col lg:flex-row gap-8">
+
             {/* ================= MAIN ================= */}
             <main className="lg:w-2/3 space-y-8">
 
@@ -226,6 +238,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
               </div>
             </main>
 
+            {/* ================= ASIDE ================= */}
             <aside className="lg:w-1/3">
               <motion.div
                 variants={sectionVariants}
@@ -234,14 +247,20 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                 viewport={{ once: true }}
                 className="bg-white rounded-xl shadow-md border border-gray-200 sticky top-14 overflow-hidden"
               >
-                <img src={IMAGE_URL + course.image} alt="Course Preview" className="w-full h-48 object-cover" />
+                <img
+                  src={IMAGE_URL + course.image}
+                  alt="Course Preview"
+                  className="w-full h-48 object-cover"
+                />
 
                 <motion.div className="p-4 space-y-4" variants={fadeItem}>
-                  <h2 className="text-sm font-semibold text-gray-900">{course.prefix} in {course.title}</h2>
+                  <h2 className="text-sm font-semibold text-gray-900">
+                    {course.prefix} in {course.title}
+                  </h2>
 
                   <div className="space-y-3 text-left">
                     {[
-                      { icon: CalendarDays, label: "Duration", value: `${course.duration}years (${course.semester} semester)` },
+                      { icon: CalendarDays, label: "Duration", value: `${course.duration} years (${course.semester} semester)` },
                       { icon: Languages, label: "Language", value: "English" },
                       { icon: BookOpen, label: "Credits", value: `${course.credit} Credit Hours` },
                     ].map((item, i) => (
@@ -267,7 +286,9 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                   <motion.div variants={fadeItem} className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
                     <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
                       <div className="flex items-center gap-3">
-                        <div className="bg-blue-100 p-2 rounded-md"><Clock className="w-4 h-4 text-blue-600" /></div>
+                        <div className="bg-blue-100 p-2 rounded-md">
+                          <Clock className="w-4 h-4 text-blue-600" />
+                        </div>
                         <div>
                           <p className="text-xs font-semibold text-gray-800">Class Timing</p>
                           <p className="text-xs font-medium text-blue-700">6:30AM – 11:00AM</p>
@@ -278,7 +299,9 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
 
                     <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
                       <div className="flex items-center gap-3">
-                        <div className="bg-emerald-100 p-2 rounded-md"><BookOpen className="w-4 h-4 text-emerald-600" /></div>
+                        <div className="bg-emerald-100 p-2 rounded-md">
+                          <BookOpen className="w-4 h-4 text-emerald-600" />
+                        </div>
                         <div>
                           <p className="text-xs font-semibold text-gray-800">Tutorials</p>
                           <p className="text-xs font-medium text-emerald-700">11:00AM – 1:00PM</p>
@@ -304,11 +327,17 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                         <Sparkles className="w-4 h-4" />
                         <p className="text-sm font-semibold">Apply for Scholarship</p>
                       </div>
-                      <p className="text-xs text-indigo-100 mb-3">Limited seats available for eligible students</p>
+                      <p className="text-xs text-indigo-100 mb-3">
+                        Limited seats available for eligible students
+                      </p>
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         className="bg-white text-indigo-600 text-xs font-semibold px-4 py-2 rounded-md hover:bg-indigo-50 transition w-full flex items-center justify-center gap-2"
-                        onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform")}
+                        onClick={() =>
+                          window.open(
+                            "https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
+                          )
+                        }
                       >
                         Apply Now
                         <ArrowRight className="w-3 h-3" />
@@ -327,23 +356,28 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
   );
 };
 
-/* ------------------ SHELL COMPONENT (guards against undefined course) ------------------ */
-const CourseDetails = () => {
-  const location = useLocation();
+/* ------------------ SHELL COMPONENT ------------------ */
+const CourseDetailsByID = () => {
+  const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
 
-  const course = location?.state?.course as Courses | undefined;
+  const { data, isLoading, isError } = useGetCourseById({
+    courseId: courseId ?? "",
+    enabled: !!courseId,
+  });
+
+  const course = data?.data;
 
   useEffect(() => {
-    if (!course) {
+    if (!isLoading && (isError || !course)) {
       navigate("/courses", { replace: true });
     }
-  }, [course, navigate]);
+  }, [isLoading, isError, course, navigate]);
 
-  /* ✅ Must be AFTER all hooks, BEFORE any JSX that touches course */
+  if (isLoading) return <CourseSkeleton />;
   if (!course) return null;
 
   return <CourseDetailsInner course={course} />;
 };
 
-export default CourseDetails;
+export default CourseDetailsByID;
