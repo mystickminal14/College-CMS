@@ -34,6 +34,7 @@ import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 import AlumniFormTable from "../website/pages/alumni-form/pages/AlumniFormtable";
 import ScholarshipPage from "../pages/scholarship/ScholarPage";
 import HeroSectionPage from "../pages/hero-section/HeroSectIonPage";
+import FaqPage from "../pages/Faq/FaqPAge";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -52,6 +53,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "user": "USERS",
   "alumni/screen": "ALUMNI",
   "alumni/form": "ALMUNI_FORM",
+  "faq": "FAQ",
 
   "students/planner-course":"PLANNER_COURSE",
   "administation/achievement": "ACHIEVEMENT",
@@ -146,6 +148,7 @@ export const adminRoutes = [
 
       { path: "administation/achievement", element: <AchievementPage /> },
       { path: "admission/scholarship", element: <ScholarshipPage /> },
+      { path: "faq", element: <FaqPage /> },
 
       { path: "media/news", element: <NewsPage /> },
       { path: "media/connect", element: <ConnectsPage /> },
