@@ -1,48 +1,87 @@
-// Example images (replace with your actual imports)
-import Logo1 from "../../../../assets/IndustryLogo/aws.png";
-import Logo3 from "../../../../assets/IndustryLogo/cisco.png";
-import Logo4 from "../../../../assets/IndustryLogo/oracle.png";
-import decoration from '../../../../assets/decoration.webp';
+import Logo1 from "../../../../assets/IndustryLogo/1.png"; // Cisco Networking Academy
+import Logo2 from "../../../../assets/IndustryLogo/4.png"; // Red Hat Academy
+import Logo3 from "../../../../assets/IndustryLogo/2.png"; // AWS Academy
+import Logo4 from "../../../../assets/IndustryLogo/3.png"; // Oracle Academy
+import decoration from "../../../../assets/decoration.webp";
 
 const partners = [
-  { id: 1, name: "Partner 3", image: Logo3, },
-  { id: 2, name: "LBEF College", image: Logo1 },
-  { id: 3, name: "Partner 4", image: Logo4 },
+  {
+    id: 1,
+    name: "Cisco Networking Academy",
+    image: Logo1,
+    description: "Networking & Cybersecurity",
+  },
+  {
+    id: 2,
+    name: "AWS Academy",
+    image: Logo3,
+    description: "Cloud Computing",
+  },
+  {
+    id: 3,
+    name: "Oracle Academy",
+    image: Logo4,
+    description: "Database & Enterprise Tech",
+  },
+  {
+    id: 4,
+    name: "Red Hat Academy",
+    image: Logo2,
+    description: "Linux & Open Source",
+  },
 ];
-const IndustryPartnerSection = () => {
 
+const IndustryPartnerSection = () => {
   return (
-    <section className="py:12 md:py-12 bg-white">
-      <div className="text-center mb-10">
-        <p className="text-blue-600 text-sm mb-2">Industry Partner</p>
-        <h2 className="text-4xl md:text-5xl  font-bold line-height-1 text-gray-900 mb-3">
-          Our Industry {""}
-          <span className="relative inline-block text-[#474AFF]">
-             Partners
+    <section className="py-16 bg-[#0f1560]">
+      {/* Header */}
+      <div className="text-center mb-14 px-4">
+        <p className="text-blue-300 text-sm font-semibold  tracking-widest mb-3">
+               Globally connected. Industry ready.
+
+        </p>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+          Our Industry{" "}
+          <span className="relative inline-block text-[#7B9EFF]">
+            Partners
             <img
               src={decoration}
-              alt="Decoration"
-              className="absolute left-1/2 -translate-x-1/2 w-full h-3"
+              alt=""
+              aria-hidden="true"
+              className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-full h-3 pointer-events-none opacity-50"
             />
           </span>
         </h2>
-        <p className="text-gray-500">Our industry Partner organizations.</p>
+        <p className="text-blue-200 max-w-xl mx-auto text-base md:text-lg mt-4">
+          We collaborate with globally recognized technology leaders to bring
+          students industry-standard certifications, hands-on labs, and
+          real-world learning experiences.
+        </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">
-        {partners.map((partner) => (
-          <div
-            key={partner.id}
+      {/* Partner Cards */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          {partners.map((partner) => (
+            <div
+              key={partner.id}
+              className="group flex flex-col items-center justify-center gap-3 border border-white/10 rounded-2xl p-5 sm:p-6 bg-white "
+            >
+              <div className="w-full flex items-center justify-center h-14 sm:h-16">
+                <img
+                  src={partner.image}
+                  alt={partner.name}
+                  className="max-h-full max-w-[220px] w-auto object-contain"
+                />
+              </div>
+              <p className="text-xs text-black text-center text-md font-medium tracking-wide">
+                {partner.description}
+              </p>
+            </div>
+          ))}
+        </div>
 
-            className="border cursor-pointer border-gray-200 p-4 sm:p-6 rounded-lg flex items-center justify-center hover:shadow-lg transition-shadow duration-300 bg-white"
-          >
-            <img
-              src={partner.image}
-              alt={partner.name}
-              className="w-full max-w-[220px] h-auto md:w-60 object-contain"
-            />
-          </div>
-        ))}
+      
       </div>
     </section>
   );
