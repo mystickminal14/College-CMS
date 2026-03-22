@@ -53,15 +53,15 @@ const GyandeepScholasrhip = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6  pb-16">
+      <div className="container mx-auto px-4 sm:px-6 pb-16">
         <div className="max-w-6xl mx-auto text-left">
           {/* Description */}
           <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
-            The <b>Gyandeep Scholarship</b> is valid for students who are eligible for
-            admission to Under Graduate programs at LBEF. The Scholarship benefit
-            is valid for students who submit a duly signed valid application form
-            with enclosures before the entrance examination for admission to any
-            of the Under Graduate programs offered.
+            The <b>Gyandeep Scholarship</b> is available to students eligible for
+            admission to undergraduate programs at LBEF. To receive the scholarship,
+            students must submit a duly completed application form along with the
+            required documents before the entrance examination for their chosen
+            undergraduate program.
           </p>
 
           <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-8">
@@ -69,7 +69,6 @@ const GyandeepScholasrhip = () => {
             High-School Board examinations or equivalent examination. The
             scholarship scheme is as follows:
           </p>
-
           {/* Table */}
           <div className="overflow-x-auto mb-10">
             <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
@@ -122,52 +121,47 @@ const GyandeepScholasrhip = () => {
           <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
             <h3 className="text-xl font-semibold text-gray-900 mb-5 flex items-center gap-2">
               <Info className="w-5 h-5 text-blue-600" />
-              Conditions
+              Applicable Conditions
             </h3>
 
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
                 <p className="text-gray-700">
-                  This scholarship will be only provided in the tuition fee applicable
-                  for every semester.
+                  This scholarship applies exclusively to the tuition fee for each semester.
                 </p>
               </li>
 
               <li className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
                 <p className="text-gray-700">
-                  Only physical Scholarship Applications duly signed by the students
-                  along with the Application for Admission form completed in all
-                  respects and necessary enclosures, received by the University
-                  Admissions Office within the specified period, will be considered
-                  as valid applications.
+                  Only physical scholarship applications, signed by the student and submitted
+                  with a fully completed admission form and all required enclosures to the
+                  Admissions Office within the specified period, will be considered valid.
                 </p>
               </li>
 
               <li className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-purple-600 mt-1" />
                 <p className="text-gray-700">
-                  There are limited numbers of Scholarships and they will be provided
-                  to eligible students on a first come, first serve basis.
+                  Scholarships are limited and awarded to eligible students on a first-come,
+                  first-served basis. Students may apply for only one scholarship scheme.
                 </p>
               </li>
 
               <li className="flex items-start gap-3">
                 <Award className="w-5 h-5 text-indigo-600 mt-1" />
                 <p className="text-gray-700">
-                  No further scholarships will be offered after exhausting the number
-                  of available Scholarships in each category. Students can opt for
-                  only one scholarship scheme.
+                  Once the available scholarships in each category are exhausted, no further
+                  awards will be offered.
                 </p>
               </li>
 
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
                 <p className="text-gray-700">
-                  The continuation of Scholarship to the eligible student in the
-                  second and subsequent semesters will be as per the rules and
-                  regulations of the merit scholarship.
+                  Continuation of the scholarship in the second and subsequent semesters is
+                  subject to the applicable rules.
                 </p>
               </li>
             </ul>

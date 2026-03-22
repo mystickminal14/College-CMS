@@ -39,11 +39,11 @@ const NewsPageWeb = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-  title="LBEF News & Updates | Announcements and Events"
-  description="Stay updated with the latest news, announcements, academic events, and institutional updates from LBEF College Nepal."
-  url={`${APP_URL}/media/news-events`}
+        title="LBEF News & Updates | Announcements and Events"
+        description="Stay updated with the latest news, announcements, academic events, and institutional updates from LBEF College Nepal."
+        url={`${APP_URL}/news`}
 
-/>
+      />
 
       <motion.div
         variants={fadeUp}
@@ -78,9 +78,9 @@ const NewsPageWeb = () => {
 
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">LBEF </span>
+            <span className="text-gray-900">LBEF in  </span>
             <span className="relative inline-block ml-2">
-              <span className="text-blue-600 relative z-10">News</span>
+              <span className="text-blue-600 relative z-10"> the News</span>
               <motion.img
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}

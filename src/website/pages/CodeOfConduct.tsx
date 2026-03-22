@@ -8,11 +8,11 @@ import { APP_URL } from "../../constants";
 const CodeOfConduct = () => {
   return (
     <div className="min-h-screen bg-gray-50">
- <Seo
-    title="Student Code of Conduct | LBEF College Nepal"
-    description="Learn about the student code of conduct at LBEF College Nepal, including guidelines, misconduct definitions, violations, and disciplinary procedures to ensure a respectful and productive learning environment."
-    url={`${APP_URL}/students-life/student-code-of-conduct`}
-  />
+      <Seo
+        title="Student Code of Conduct | LBEF College Nepal"
+        description="Learn about the student code of conduct at LBEF College Nepal, including guidelines, misconduct definitions, violations, and disciplinary procedures to ensure a respectful and productive learning environment."
+        url={`${APP_URL}/students-life/student-code-of-conduct`}
+      />
       <motion.div
         className="container mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-12"
         initial="hidden"
@@ -175,10 +175,10 @@ const CodeOfConduct = () => {
               </h3>
               <div className="space-y-3 text-gray-700">
                 <p>
-                  Students of the University studying at partner colleges will normally be subject to the disciplinary procedures of the partner college in the first instance.
+                  Students will normally be subject to LBEF's disciplinary procedures in the first instance.
                 </p>
                 <p>
-                  Where the alleged misconduct has the potential to damage the reputation of the University or the University's student body, the University will liaise with the partner college as necessary.
+                  Where the alleged misconduct could affect the reputation of the University or its student body, the University will liaise with LBEF as necessary to initiate the disciplinary procedures.
                 </p>
                 <p className="font-medium text-gray-900 mt-4">
                   All students are responsible for familiarizing themselves with this Code of Conduct. Violations may result in disciplinary action.

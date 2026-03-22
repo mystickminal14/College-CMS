@@ -12,10 +12,10 @@ const AlumniSpeaks = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-  title="LBEF Alumni Success Stories | Student Testimonials Nepal"
-  description="Hear from LBEF alumni and students about their academic journey, career growth, and real-world success after studying at Nepal’s first IT college."
-  url={`${APP_URL}/students-life/alumni-speaks`}
-/>
+        title="LBEF Alumni Success Stories | Student Testimonials Nepal"
+        description="Hear from LBEF alumni and students about their academic journey, career growth, and real-world success after studying at Nepal’s first IT college."
+        url={`${APP_URL}/alumni-speaks`}
+      />
 
       <motion.div
         variants={fadeUp}
@@ -52,7 +52,7 @@ const AlumniSpeaks = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Alumni </span>
             <span className="relative inline-block ml-2">
-              <span className="text-blue-600 relative z-10">Speaks</span>
+              <span className="text-blue-600 relative z-10">Speak</span>
               <motion.img
                 src={decoration}
                 alt="Decoration"

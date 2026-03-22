@@ -4,10 +4,8 @@ import { useGetActiveFaqs } from '../../../../pages/Faq/hooks/FAqHooks';
 
 const FALLBACK_FAQS = [
   {
-    id: -1,
-    questions: "What is your intake timings?",
-    order: 1,
-    children: [{ id: -1, answers: "Admissions are conducted three times a year in the months of Spring, Summer and Fall Session.", order: 1 }],
+    question: "What are your intake sessions?",
+    answer: "Admissions are conducted three times a year - Spring Session (Feb/Mar), Summer Session (June/July), and Fall Session (Oct/Nov)."
   },
   {
     id: -2,
@@ -59,12 +57,43 @@ export default function FAQSection() {
           </span>{' '}
         </h2>
 
-        {/* Loading skeleton */}
-        {isLoading && (
-          <div className="space-y-4">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="rounded-lg overflow-hidden border border-gray-200 animate-pulse">
-                <div className="h-14 bg-gray-200" />
+        {/* FAQ Items */}
+        <div className="space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <div key={index} className="rounded-lg overflow-hidden border border-gray-200">
+                {/* Question Button */}
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className={`w-full px-6 py-4 flex justify-between items-center text-left font-medium text-lg transition-all duration-200 ${isOpen ? 'bg-[#474AFF] text-white' : 'bg-white text-gray-900'
+                    }`}
+                >
+                  <span>{faq.question}</span>
+                  <span className="text-2xl font-bold">{isOpen ? '−' : '+'}</span>
+                </button>
+
+                {/* Answer */}
+                {isOpen && (
+                  <div className="px-6 py-5 bg-gray-50 text-gray-700 border-t border-gray-200">
+                    <p className="leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                    {/* Add View button only for the "Are the degrees recognized?" FAQ (index 1) */}
+                    {index === 1 && (
+                      <a
+                        href="/recognitions"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-4 bg-[#474AFF] hover:bg-[#3a3dcc] text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200"
+                      >
+                        View Recognitions
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

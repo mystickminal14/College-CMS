@@ -37,7 +37,7 @@ const IntakeCardsSection = ({
     );
   }
 
- 
+
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-2 md:p-4">
@@ -66,7 +66,9 @@ const IntakeCardsSection = ({
           ))}
         </div>
       )}
-      <p className="mt-4">For International Students, you must apply 2 months in advance to process the Application, Student Pass (visa if required), and other accommodation arrangements."</p>
+      <p className="mt-4">
+        International students must apply at least 2 months in advance to ensure that their application, student pass (visa if required), and other logistical arrangements are completed on time.
+      </p>
     </div>
   );
 };

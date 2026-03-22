@@ -11,24 +11,19 @@ const ApplicationProcess = ({ intakes, isLoading }: IntakeCardsSectionProps) => 
   const intakeList = isLoading
     ? "Loading intakes..."
     : intakes && intakes.length > 0
-    ? intakes.map((i) => i.intake).join(", ")
-    : "No intakes available";
+      ? intakes.map((i) => i.intake).join(", ")
+      : "No intakes available";
 
   const steps = [
     {
       title: "Online Application",
-      description: `Admissions are done for the following intakes: ${intakeList}.`,
-    },
-    {
-      title: "Document Submission",
       description:
-        "To begin the process, applicants are required to fill out and submit the online application form available at our portal.",
+        "To begin the admission process, applicants are required to fill out and submit the Online Application Form.",
       link: "https://apply.lbef.org/",
     },
     {
-      title: "In-Person Submission",
       description:
-        "Once the form is submitted, applicants must visit LBEF in person and submit the necessary documents to the Admissions Office.",
+        "After submitting the Online Application Form, applicants must visit LBEF in person and submit the necessary documents to the Admissions Office.",
     },
   ];
 
@@ -62,7 +57,7 @@ const ApplicationProcess = ({ intakes, isLoading }: IntakeCardsSectionProps) => 
                   rel="noopener noreferrer"
                   className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded hover:bg-blue-700 transition"
                 >
-                  Apply Now
+                  Online Application Form
                 </a>
               )}
             </div>

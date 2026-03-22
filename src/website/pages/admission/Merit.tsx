@@ -1,3 +1,4 @@
+
 import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
 import Seo from '../../../context/seo';
@@ -8,51 +9,47 @@ const MeritScholarship = () => {
   const eligibilityCriteria = [
     {
       icon: <CheckCircle className="w-5 h-5 text-green-600 mt-1" />,
-      text: "Clear promotion to the next semester in first attempt with pass in all papers of the previous semester including internal examinations/tests."
+      text: "Students must achieve clear promotion to the next semester in the first attempt, passing all papers, including internal assessments."
     },
     {
       icon: <Clock className="w-5 h-5 text-purple-600 mt-1" />,
-      text: "Attendance should be above 85% in previous & current semester."
+      text: "A minimum of 85% attendance must be maintained in all courses in both the previous and current semesters."
     },
     {
       icon: <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />,
-      text: "No EC form has been submitted throughout previous and current semester."
+      text: "Students who have submitted any EC form in the previous or current semester are not eligible."
     },
     {
       icon: <Info className="w-5 h-5 text-blue-600 mt-1" />,
-      text: "There are limited numbers of Scholarships. In total, Gyandeep & Merit Scholarship will be only provided in the Tuition Fee to 20% of class Strength. One Student can opt for only one scholarship scheme."
-    },
-    {
-      icon: <CheckCircle className="w-5 h-5 text-green-600 mt-1" />,
-      text: "Student must have attendance higher than 85% to avail any type of scholarship/award."
+      text: "Scholarships are limited and awarded to up to 20% of the class strength, covering tuition fees only. Students may avail only one scholarship scheme (Gyandeep or Merit)."
     },
     {
       icon: <Clock className="w-5 h-5 text-purple-600 mt-1" />,
-      text: "On the basis of entrance examination, scholarship will be only provided in the tuition fee of first semester and from the next semester onwards overall performance in university examination and internal examinations (include midterm test, presentation, project, pre-final, group discussion etc.) will be taken into account."
+      text: "For the first semester, scholarships are awarded based on entrance examination performance. From the second semester onward, continuation is based on overall academic performance, including university exams and internal evaluations such as midterms, presentations, projects, pre-finals, and group discussions."
     },
     {
       icon: <Award className="w-5 h-5 text-indigo-600 mt-1" />,
-      text: "Average of pre-final, mid-term and University Examination will be taken into account while calculating the scholarship percentage."
+      text: "Scholarship percentages are determined based on the average of pre-final, midterm, and university examination scores."
     },
     {
       icon: <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />,
-      text: "Student has to pass in all university theory papers, college internal examinations & internal assessment and term work. If any student fails, his scholarship will be seized without any prior notice."
+      text: "Students must pass all university theory papers, internal examinations, and assessments. Failure to do so will result in immediate cancellation of the scholarship."
     },
     {
       icon: <Info className="w-5 h-5 text-blue-600 mt-1" />,
-      text: "Students will pay the whole tuition fee at the starting of second semester and once the university result is declared, student has to give a fresh application to college management; campus will refund the scholarship amount."
+      text: "Students are required to pay the full tuition fee at the start of the second semester. Scholarship amounts will be refunded upon declaration of university results, subject to submission of a fresh application."
     },
     {
       icon: <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />,
-      text: "As MBA (Weekend) is an executive education programme, no scholarship will be awarded to the students joining MBA in weekend mode."
+      text: "Scholarships are not applicable to students enrolled in the MBA (Weekend) program."
     },
     {
       icon: <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />,
-      text: "Any undisciplined/unprofessional behavior from the student can also lead to the cancellation of scholarship."
+      text: "Any instance of indiscipline or unprofessional conduct may lead to cancellation of the scholarship."
     },
     {
       icon: <Info className="w-5 h-5 text-blue-600 mt-1" />,
-      text: "Decision taken by college management will be final and rules for scholarship can be changed without any notice. College will be under no obligation to continue scholarship in higher semester. College decision will be final and cannot be challenged."
+      text: "All decisions made by the college management are final. The college reserves the right to amend scholarship rules or discontinue scholarships without prior notice."
     }
   ];
 
@@ -83,7 +80,7 @@ const MeritScholarship = () => {
           </h1>
 
           <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Rewarding academic excellence in tuition fees based on entrance and university performance.
+            Awarded on the basic of academic performance.
           </p>
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSd4a49-3lWEfEeQERhJrQLiqX2YBIbCMTuocah0MyZ2jsvxqg/viewform"
@@ -97,7 +94,7 @@ const MeritScholarship = () => {
             </svg>
           </a>
         </div>
-        
+
       </div>
 
       {/* Content Section */}
@@ -109,7 +106,7 @@ const MeritScholarship = () => {
           </p>
 
           <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-8">
-            The scholarship privileges provided by LBEF are as follows:
+            The scholarship datails are as follows:
           </p>
 
           {/* Table */}
