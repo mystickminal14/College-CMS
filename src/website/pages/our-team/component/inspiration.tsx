@@ -58,7 +58,7 @@ const Inspiration = () => {
               <div className="mb-8">
                 <h4 className="font-bold text-gray-900 mb-4 text-xl">Founder</h4>
                 <p className="text-gray-600">
-                  An esteemed educationist and social worker,
+                  An esteemed educationist and social worker, who
                   conceived the LBEF Group of Institutions with a revolutionary vision to
                   transform education in Nepal.
                 </p>

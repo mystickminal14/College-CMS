@@ -14,11 +14,10 @@ const IndustryPartnerSection = () => {
   return (
     <section className="py:12 md:py-12 bg-white">
       <div className="text-center mb-10">
-        <p className="text-blue-600 text-sm mb-2">Industry Partner</p>
         <h2 className="text-4xl md:text-5xl  font-bold line-height-1 text-gray-900 mb-3">
           Our Industry {""}
           <span className="relative inline-block text-[#474AFF]">
-             Partners
+            Partners
             <img
               src={decoration}
               alt="Decoration"
@@ -26,7 +25,6 @@ const IndustryPartnerSection = () => {
             />
           </span>
         </h2>
-        <p className="text-gray-500">Our industry Partner organizations.</p>
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">

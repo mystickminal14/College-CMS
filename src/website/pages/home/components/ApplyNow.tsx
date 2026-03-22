@@ -24,15 +24,15 @@ export function ApplyNow() {
 
             {/* Buttons */}
             <div className="mt-10 flex gap-4 justify-center">
-       <button
-  onClick={() => {
-    console.log("Enquiry button clicked");
-    open();
-  }}
-  className="uppercase text-[12px] sm:text-[18px] rounded-full bg-[#474AFF] px-5 sm:px-12 py-4 text-white font-medium hover:bg-[#2535c7]"
->
-  Enquiry Now
-</button>
+              <button
+                onClick={() => {
+                  console.log("Enquiry button clicked");
+                  open();
+                }}
+                className="uppercase text-[12px] sm:text-[18px] rounded-full bg-[#474AFF] px-5 sm:px-12 py-4 text-white font-medium hover:bg-[#2535c7]"
+              >
+                Enquire Now
+              </button>
 
               <a
                 href="https://apply.lbef.org/"
