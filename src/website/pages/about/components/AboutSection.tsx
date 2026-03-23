@@ -116,7 +116,7 @@ export default function AboutSection() {
               The Lord Buddha Education Foundation (LBEF), established in 1998, boasts a strong reputation for
               excellence across various academic fields. Originating from modest beginnings, the college has
               steadily advanced to become one of Nepal's premier institutions, currently serving over 1,500
-              students, with more than 14,000 graduates from LBEF Group of Institutions.
+              students, with more than 14,000 graduates from Lord Buddha Education Foundation (LBEF).
               
             </motion.p>
 
@@ -126,10 +126,9 @@ export default function AboutSection() {
               transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
               className="text-gray-600 text-base leading-relaxed mb-8"
             >
-              Conceived by Late Parmanand Kejriwal, an esteemed educationist and social worker, LBEF Group
-              of Institutions was created with the vision of revolutionizing education in Nepal and providing
+              Conceived by Late Parmanand Kejriwal, an esteemed educationist and social worker, Lord Buddha Education Foundation (LBEF) was created with the vision of revolutionizing education in Nepal and providing
               quality education at affordable rates.
-              LBEF Vidyapeeth Pvt. Ltd. is running under academic collaboration with the Asia Pacific University
+              Lord Buddha Education Foundation (LBEF) is running under academic collaboration with the Asia Pacific University
               of Technology & Innovation (APU), Malaysia and we offer international bachelor's and master's
               degree programs in Information Technology and Management. These courses are approved by
               Ministry of Education and recognized by Tribhuvan University, Nepal.

@@ -18,7 +18,7 @@ export default function Employability() {
             </span>
           </h1>
           <p className="text-gray-600 text-base leading-relaxed">
-            Employers look for qualified people who have the technical know-how and the ability to communicate, work in teams and other personal skills. At APU, our programmes are developed to provide you not only with interesting and stimulating modules to develop your mind, but also to enhance your knowledge and skills and increase your ability to compete for that dream job. You need to possess the ability to learn, develop and adapt. Much of what is current knowledge will soon be out-of-date and the reality is that to succeed you need to be adaptable and innovative. We achieve this through the five "I"s Model:
+            Employers look for qualified people who have the technical know-how and the ability to communicate, work in teams and other personal skills. Our programmes are developed to provide you not only with interesting and stimulating modules to develop your mind, but also to enhance your knowledge and skills and increase your ability to compete for that dream job. You need to possess the ability to learn, develop and adapt. Much of what is current knowledge will soon be out-of-date and the reality is that to succeed you need to be adaptable and innovative. We achieve this through the five "I"s Model:
           </p>
         </div>
 

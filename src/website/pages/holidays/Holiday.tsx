@@ -148,7 +148,7 @@ const HolidayWebPlanner: React.FC = () => {
                     key={idx}
                     className="w-2 h-2 rounded-full"
                     style={{
-                      backgroundColor: isSelected ? "#ffffff" : (event.colorCode==="Yellow"? "#FF8C00"  : event.colorCode || "#6B7280"),
+                      backgroundColor: isSelected ? "#ffffff" : (event.colorCode === "Yellow" ? "#FF8C00" : event.colorCode || "#6B7280"),
                       opacity: isSelected ? 0.9 : 1
                     }}
                   />
@@ -193,7 +193,7 @@ const HolidayWebPlanner: React.FC = () => {
       <motion.div
         layout
         className={`rounded-lg p-4 mb-3 border-l-4 shadow-sm cursor-pointer ${isPast ? "opacity-70" : ""}`}
-        style={{ borderLeftColor: event.colorCode==="Yellow"?"#FF8C00" : event.colorCode || "#3B82F6" }}
+        style={{ borderLeftColor: event.colorCode === "Yellow" ? "#FF8C00" : event.colorCode || "#3B82F6" }}
         onClick={() => setExpandedId(expanded ? null : event.eventId || null)}
       >
         <div className="flex justify-between">
@@ -203,7 +203,7 @@ const HolidayWebPlanner: React.FC = () => {
             {event.eventType && (
               <span
                 className="inline-block text-xs mt-1 px-2 py-0.5 rounded-full text-white"
-                style={{ backgroundColor: event.colorCode ==="Yellow"? "#FF8C00" : event.colorCode || "#3B82F6" }}
+                style={{ backgroundColor: event.colorCode === "Yellow" ? "#FF8C00" : event.colorCode || "#3B82F6" }}
               >
                 {event.eventType}
               </span>
@@ -244,134 +244,134 @@ const HolidayWebPlanner: React.FC = () => {
   };
   return (
     <>
-  <Seo
-  title="Academic Calendar & Holidays | LBEF College Nepal"
-  description="View the official academic calendar of LBEF College Nepal including holidays, events, examinations, and important academic dates."
-  url={`${APP_URL}/about/holidays`}
-/>
+      <Seo
+        title="Academic Calendar & Holidays | LBEF College Nepal"
+        description="View the official academic calendar of LBEF College Nepal including holidays, events, examinations, and important academic dates."
+        url={`${APP_URL}/about/holidays`}
+      />
 
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-      {/* HERO - Unchanged */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
-      >
-        <div className="max-w-8xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-          >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut" as const
-              }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Events & Holidays
-            </span>
-          </motion.div>
-
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
-            <span className="text-gray-900">Institutional </span>
-            <span className="relative inline-block sm:ml-2">
-              <span className="text-blue-600 relative z-10">
-                Calendar
-              </span>
-              <motion.img
-                initial={{ scaleX: 0 }}
-                src={decoration}
-
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 sm:-bottom-1 w-full h-2 sm:h-3"
+      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
+        {/* HERO - Unchanged */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
+        >
+          <div className="max-w-8xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+            >
+              <motion.span
+                className="w-2 h-2 bg-blue-500 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [1, 0.7, 1]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut" as const
+                }}
               />
-            </span>
-          </h1>
+              <span className="text-blue-600 font-medium text-sm">
+                Events & Holidays
+              </span>
+            </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }} className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
-            Plan your academic year with our comprehensive holiday schedule.
-            Stay updated with all administrative and academic holidays.
-          </motion.p>
-        </div>
-      </motion.div>
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
+              <span className="text-gray-900">Institutional </span>
+              <span className="relative inline-block sm:ml-2">
+                <span className="text-blue-600 relative z-10">
+                  Calendar
+                </span>
+                <motion.img
+                  initial={{ scaleX: 0 }}
+                  src={decoration}
 
-      <div className="max-w-7xl mx-auto px-1 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-200">
-              <CalendarHeader />
-              <DaysHeader />
-              {isLoading ? (
-                <div className="h-[420px] flex flex-col items-center justify-center">
-                  <div className="relative">
-                    <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <FaCalendarAlt className="text-blue-500 text-xl" />
-                    </div>
-                  </div>
-                  <p className="mt-4 text-gray-600 font-medium">Loading calendar...</p>
-                </div>
-              ) : (
-                <CalendarGrid />
-              )}
-            </div>
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  alt="Decoration"
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 sm:-bottom-1 w-full h-2 sm:h-3"
+                />
+              </span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }} className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
+              Explore all upcoming events and holidays to stay prepared, participate actively, and make the most of every opportunity throughout the academic year.
+
+            </motion.p>
           </div>
+        </motion.div>
 
-          {/* Events Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 sticky top-6">
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="font-bold text-lg text-gray-900">
-                    {format(selectedDate, "EEEE")}
-                  </h3>
-                  <span className="text-sm font-medium text-gray-500">
-                    {format(selectedDate, "MMM d, yyyy")}
-                  </span>
-                </div>
-                <div className="text-sm text-gray-600">
-                  {selectedEvents.length} event{selectedEvents.length !== 1 ? 's' : ''}
-                </div>
-              </div>
-
-              <div className="h-[500px] overflow-y-auto pr-2">
-                {selectedEvents.length === 0 ? (
-                  <div className="text-center py-12">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                      <FaCalendarAlt className="text-gray-400 text-xl" />
+        <div className="max-w-7xl mx-auto px-1 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-200">
+                <CalendarHeader />
+                <DaysHeader />
+                {isLoading ? (
+                  <div className="h-[420px] flex flex-col items-center justify-center">
+                    <div className="relative">
+                      <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <FaCalendarAlt className="text-blue-500 text-xl" />
+                      </div>
                     </div>
-                    <p className="text-gray-500 font-medium">No events scheduled</p>
-                    <p className="text-sm text-gray-400 mt-1">
-                      Select another date to view events
-                    </p>
+                    <p className="mt-4 text-gray-600 font-medium">Loading calendar...</p>
                   </div>
                 ) : (
-                  selectedEvents.map((event) => (
-                    <EventItem key={event.eventId} event={event} />
-                  ))
+                  <CalendarGrid />
                 )}
+              </div>
+            </div>
+
+            {/* Events Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 sticky top-6">
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="font-bold text-lg text-gray-900">
+                      {format(selectedDate, "EEEE")}
+                    </h3>
+                    <span className="text-sm font-medium text-gray-500">
+                      {format(selectedDate, "MMM d, yyyy")}
+                    </span>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {selectedEvents.length} event{selectedEvents.length !== 1 ? 's' : ''}
+                  </div>
+                </div>
+
+                <div className="h-[500px] overflow-y-auto pr-2">
+                  {selectedEvents.length === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+                        <FaCalendarAlt className="text-gray-400 text-xl" />
+                      </div>
+                      <p className="text-gray-500 font-medium">No events scheduled</p>
+                      <p className="text-sm text-gray-400 mt-1">
+                        Select another date to view events
+                      </p>
+                    </div>
+                  ) : (
+                    selectedEvents.map((event) => (
+                      <EventItem key={event.eventId} event={event} />
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

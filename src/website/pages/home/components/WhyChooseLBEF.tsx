@@ -80,8 +80,7 @@ export function WhyChooseLBEF() {
 
 
           <p className="text-lg text-gray-600 max-w-2xl  mx-auto">
-            Unlock your true potential and discover a world of opportunities
-            that align with your skills, interests, and aspirations
+            Join LBEF to deepen your knowledge, gain pratical, industry-relevant skills, and enjoy a supportive and engaging campus environment that prepares you for a sucessful career and fulfilling life.
           </p>
 
           <div className="relative h-[650px] flex items-center justify-center mt-10">

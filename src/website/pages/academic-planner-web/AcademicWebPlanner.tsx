@@ -159,8 +159,7 @@ const AcademicWebPlanner = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Plan your academic journey with our comprehensive curriculum structure.
-              Explore different sessions and their corresponding academic plans.
+              Stay on top of your academic jourrney with our detailed calender. Plan your classes, exams, and important deadlines so that you never miss a key date in your seesion.
             </motion.p>
           </motion.div>
         </div>

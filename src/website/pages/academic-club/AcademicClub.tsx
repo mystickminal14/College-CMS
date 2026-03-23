@@ -36,7 +36,7 @@ const clubsData = [
       ],
       activities: [
         'Workshops: Introductory and advanced sessions on AI/ML tools and robotics.',
-        'Projects: Group and capstone projects tackling real-world issues, with quarterly showcases.',
+        'Projects: Group and capstone projects tackling real-world issues, with periodic showcases.',
         'Competitions: Intra-club hackathons, coding challenges, and coordination for participation in external events.',
         'Guest Lectures & Industry Ties: Expert talks, site visits, and mentorship programs.',
         'Community Outreach: STEM workshops for schools, open-source contributions, and social impact initiatives.',
@@ -260,7 +260,8 @@ const AcademicClub = () => {
                 transition={{ delay: 0.2 }}
                 className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12"
               >
-                Explore our diverse range of academic clubs and programs designed to enhance your learning experience, foster collaboration, and develop essential skills for your future career.
+                Through participation in our student led clubs, you take the lead in shaping experiences that go beyond the classroom. you explore your interest, express your creativity, and develop leadership and teamwork sills along the way. These clubs give you a space to collaborate, take initiative, and grow with confidence.
+
               </motion.p>
             </motion.div>
           </div>
