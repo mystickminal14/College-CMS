@@ -168,14 +168,15 @@ export function NavBar() {
     {
       name: "Students",
       dropdown: [
-        { name: "Academic Club", link: "/academic-club", },
+        { name: "Student Clubs", link: "/academic-club", },
         { name: "Academic Calendar", link: "/academic-planners" },
         { name: "Downloads", link: "/downloads" },
-        { name: "Fee Planner", link: "/fee-payment-planners" },
         { name: "Notice Board", link: "/notices" },
-        { name: "Payment Modes", link: "/payment-modes" },
         { name: "Student Access", link: "/online-libraries" },
         { name: "Contact List", link: "/contact-info" },
+        { name: "Fee Planner", link: "/fee-payment-planners" },
+        { name: "Payment Modes", link: "/payment-modes" },
+
         {
           name: "Alumni",
           dropdown: [

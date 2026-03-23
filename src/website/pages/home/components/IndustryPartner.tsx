@@ -74,9 +74,7 @@ const IndustryPartnerSection = () => {
                   className="max-h-full max-w-[220px] w-auto object-contain"
                 />
               </div>
-              <p className="text-xs text-black text-center text-md font-medium tracking-wide">
-                {partner.description}
-              </p>
+             
             </div>
           ))}
         </div>

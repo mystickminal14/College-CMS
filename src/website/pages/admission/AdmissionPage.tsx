@@ -200,7 +200,7 @@ const AdmissionProcedure = () => {
           <main className="lg:w-3/4 space-y-16">
             {[
               ["intake-schedule", <IntakeCardsSection intakes={intakes} isLoading={isLoading} isError={isError} />],
-              ["application-process", <ApplicationProcess intakes={intakes} isLoading={isLoading} isError={isError} />],
+              ["application-process", <ApplicationProcess  />],
               ["documents-required", <DocumentsRequired />],
               ["important-notes", <ImportantNotes />],
               ["important-notice", <ImportantNotice />],
