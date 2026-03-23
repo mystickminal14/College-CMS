@@ -8,6 +8,8 @@ export const APP_URL = 'https://new.lbef.org';
 
 export const PAGE_LIMIT = 10;
 export const LOGIN_CACHE_KEY = 'login';
+export const FAQ_CACHE_KEY = 'faq';
+
 export const COURSE_CAT_CACHE_KEY = 'course-category';
 export const HERO_SECTION_CACHE_KEY = 'hero-image';
 

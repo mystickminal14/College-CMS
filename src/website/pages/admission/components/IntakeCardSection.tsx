@@ -59,7 +59,7 @@ const IntakeCardsSection = ({
               key={intake.id}
               title={intake.intake || "Intake Program"}
               duration={intake.duration || "6 Months"}
-              date={intake.lastdate || new Date().toISOString()}
+              date={intake.lastdate || "N/A"}
               admissionStatus={intake.status || "CLOSED"}
               intakeData={intake}
             />

@@ -1,27 +1,31 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
 import university_image from "../../../../assets/university.webp";
+import logo from "../../../../assets/apu_logo.webp";
 
 export default function HeroSection() {
   return (
     <>
-     
-
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div
-  className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-  style={{ backgroundImage: `url(${university_image})` }}
->
-  <div className="absolute inset-0 bg-black/40"></div>
-</div>
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: `url(${university_image})` }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        {/* APU Logo - Top Right */}
+        <div className="absolute top-5 right-6 z-20">
+          <img src={logo} alt="APU Logo" className="h-12 sm:h-22 w-auto drop-shadow-lg" />
+        </div>
 
         {/* Animated Content on Scroll */}
         <motion.div
           className="relative z-10 max-w-7xl mx-auto px-6 text-center text-white"
           variants={staggerContainer}
           initial="hidden"
-          whileInView="visible"      // ✅ Animate when in viewport
-          viewport={{ once: true, amount: 0.3 }} // triggers when 30% visible, runs once
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
         >
           {/* Main Heading */}
           <motion.h1

@@ -1,4 +1,4 @@
-import { motion} from "framer-motion";
+import { motion, useScroll, useTransform} from "framer-motion";
 import { APP_URL } from "../../../constants";
 import Seo from "../../../context/seo";
 import ApeuSubFooter from "../home/components/ApeuSubFooter";
@@ -6,8 +6,9 @@ import AboutUsSection from "./components/AboutUs";
 import OurCore from "./components/Core";
 import HeroSection from "./components/HeroSection";
 import { ImageSection } from "./components/ImageSection";
-import MissionVisionSection from "./components/Mission";
 import { useEffect, useState } from "react";
+import AchievementsSection from "./components/Achievement";
+import MissionVisionSection from "./components/MIssion";
 
 export default function AboutUniversity() {
  const [isMobile, setIsMobile] = useState(false);
@@ -19,7 +20,10 @@ export default function AboutUniversity() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const { scrollY } = useScroll();
+  
 
+  const contentY = useTransform(scrollY, [0, 400], [100, 0]);
 
   return (
     <>
@@ -49,7 +53,13 @@ export default function AboutUniversity() {
           <MissionVisionSection />
 
         </motion.div>
-             <motion.div
+          <motion.div
+            style={{ y: contentY }}
+            className="relative z-20 bg-white"
+          >
+          <AchievementsSection />
+
+              <motion.div
           className="sticky top-0 z-10 bg-white"
         >
           <ImageSection />
@@ -67,6 +77,8 @@ export default function AboutUniversity() {
           <ApeuSubFooter />
 
         </motion.div>
+          </motion.div>
+           
       
 
       </div>
@@ -75,6 +87,8 @@ export default function AboutUniversity() {
                
           <AboutUsSection />
           <MissionVisionSection />
+          <AchievementsSection />
+
           <ImageSection />
                          <OurCore />
 

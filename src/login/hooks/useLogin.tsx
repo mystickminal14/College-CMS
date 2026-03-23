@@ -59,7 +59,9 @@ const useLogin = () => {
           DOWNLOADS: "/app/students/downloads",
           ALMUNI_FORM: "",
           PLANNER_COURSE: "",
-          SCHOLARSHIP: ""
+          SCHOLARSHIP: "",
+          FAQ:"fee",
+          HERO_SECTION: "",
         };
 
         navigate(redirectMap[firstPermission] || "/app/course");

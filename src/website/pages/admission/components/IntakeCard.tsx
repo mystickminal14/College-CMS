@@ -71,7 +71,7 @@ const IntakeCard = ({
                 <Calendar className="text-white/90" size={16} />
                 <div>
                   <p className="text-xs text-white/70">Last Date</p>
-                  <p className="text-white text-sm font-semibold">{parsedDate}</p>
+                  <p className="text-white text-sm font-semibold">{parsedDate? parsedDate :"-------"}</p>
                 </div>
               </div>
             </div>

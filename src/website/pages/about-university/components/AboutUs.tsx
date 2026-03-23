@@ -4,6 +4,13 @@ import graduations from '../../../../assets/apu-about.webp';
 import ring from '../../../../assets/ring.webp';
 import decoration from '../../../../assets/decoration.webp';
 
+const stats = [
+  { value: '10,000+', label: 'Students Enrolled' },
+  { value: '130+', label: 'Nationalities' },
+  { value: '400+', label: 'Global Awards' },
+  { value: 'QS 5★', label: 'Star Rated University' },
+];
+
 export default function AboutUsSection() {
   return (
     <section
@@ -23,10 +30,10 @@ export default function AboutUsSection() {
             <div className="absolute hidden lg:block top-12 left-0 w-40 2xl:-left-16 2xl:w-64 h-24 border-t-2 border-l-2 border-black rounded-tl-2xl" />
             <div className="absolute hidden lg:block top-12 right-0 w-40 2xl:-right-16 2xl:w-64 h-24 border-t-2 border-r-2 border-black rounded-tr-2xl" />
 
-            <h2 className="inline-block px-8 bg-white text-3xl md:text-4xl lg:text-5xl font-bold text-blue-600 relative z-10">
+            <h2 className="inline-block px-8 bg-white text-3xl md:text-4xl lg:text-5xl font-bold relative z-10">
               About{' '}
-              <span className="relative inline-block">
-                Us
+              <span className="relative text-blue-600 inline-block">
+                APU
                 <img
                   src={decoration}
                   alt=""
@@ -37,9 +44,9 @@ export default function AboutUsSection() {
           </div>
 
           <p className="mt-4 text-gray-600 text-base md:text-lg max-w-4xl mx-auto">
-            APU is one of Malaysia's premier private universities, transforming
-            students into future-ready professionals through technology,
-            innovation, and creativity.
+            Malaysia's Premier Digital Tech Institution — shaping future-ready
+            graduates through world-class education, global partnerships, and
+            cutting-edge innovation.
           </p>
         </motion.div>
 
@@ -86,7 +93,7 @@ export default function AboutUsSection() {
           </motion.div>
 
           {/* Text */}
-          <motion.div className="space-y-6" variants={fadeUp}>
+          <motion.div className="space-y-5" variants={fadeUp}>
             <motion.h3
               className="text-xl md:text-2xl font-semibold"
               initial={{ y: 20, opacity: 0 }}
@@ -100,17 +107,50 @@ export default function AboutUsSection() {
               className="text-gray-600 text-base leading-relaxed"
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
             >
-              Asia Pacific University of Technology & Innovation (APU) is among
-              Malaysia’s premier private universities, known globally for
-              producing highly employable, future-ready graduates and earning
-              over 400 prestigious international awards.
+              APU is among Malaysia's most prestigious private universities,
+              awarded <span className="font-semibold text-blue-600">Premier Digital Tech Institution</span> status
+              by MDEC. With students from over 130 countries, APU offers a
+              truly global campus experience backed by a QS 5-Star rating and
+              an exclusive dual degree partnership with De Montfort University
+              (DMU), UK.
             </motion.p>
+
+            <motion.p
+              className="text-gray-600 text-base leading-relaxed"
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Conveniently located just 16km from Kuala Lumpur's iconic Petronas
+              Twin Towers, APU combines world-class facilities, industry-aligned
+              programmes, and over 400 international awards to deliver an
+              education that is truly future-proof.
+            </motion.p>
+
+            {/* Stats row */}
+            <motion.div
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2"
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.25 }}
+            >
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="bg-blue-50 rounded-xl px-3 py-3 text-center"
+                >
+                  <p className="text-blue-600 font-bold text-lg leading-tight">{stat.value}</p>
+                  <p className="text-gray-500 text-xs mt-1 leading-tight">{stat.label}</p>
+                </div>
+              ))}
+            </motion.div>
 
             <motion.a
               href="https://www.apu.edu.my/about-apu/"
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-7 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 shadow-lg"
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}

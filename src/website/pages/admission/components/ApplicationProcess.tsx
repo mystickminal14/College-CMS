@@ -1,18 +1,7 @@
-import type { Intakes } from "../../../../pages/intake-calender/model/IntakeModel";
 
-interface IntakeCardsSectionProps {
-  intakes: Intakes[];
-  isLoading: boolean;
-  isError: boolean;
-}
 
-const ApplicationProcess = ({ intakes, isLoading }: IntakeCardsSectionProps) => {
-  // Create the first step description dynamically
-  const intakeList = isLoading
-    ? "Loading intakes..."
-    : intakes && intakes.length > 0
-      ? intakes.map((i) => i.intake).join(", ")
-      : "No intakes available";
+const ApplicationProcess = () => {
+
 
   const steps = [
     {
