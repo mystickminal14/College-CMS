@@ -6,9 +6,9 @@ import AboutUsSection from "./components/AboutUs";
 import OurCore from "./components/Core";
 import HeroSection from "./components/HeroSection";
 import { ImageSection } from "./components/ImageSection";
-import MissionVisionSection from "./components/Mission";
 import { useEffect, useState } from "react";
 import AchievementsSection from "./components/Achievement";
+import MissionVisionSection from "./components/MIssion";
 
 export default function AboutUniversity() {
  const [isMobile, setIsMobile] = useState(false);
