@@ -13,7 +13,7 @@ const Footer = () => {
     <footer
       className="bg-[#FCFCFF] text-black w-full"
       style={{
-backgroundImage: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url(${bg1})`,
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url(${bg1})`,
         backgroundSize: "cover",
         backgroundPosition: "bottom",
       }}
@@ -27,7 +27,7 @@ backgroundImage: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
             <img src={logo} alt="LBEF Logo" className="w-36 h-14" />
 
             <p className="text-[#4B5563] text-[11px] leading-relaxed">
-              <b>The First IT College of Nepal.</b> <br/>
+              <b>The First IT College of Nepal.</b> <br />
               Empowering learners and educators worldwide through flexible,
               expert-led online courses. Learn anytime, anywhere.
             </p>
@@ -57,10 +57,10 @@ backgroundImage: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
             <div>
               <h3 className="text-black font-semibold text-xs">Quick Links</h3>
               <ul className="mt-2 space-y-1">
-                {[{ "name": "About Us", "link": "/about" }, { "name": "All Courses", "link": "/courses" }, { "name": "Student Access", "link": "/students-life/student-access" }, { "name": "Admission", "link": "/admissions/admission-process" }, { "name": "Media", "link": "/media/photo-gallery"}].map(
+                {[{ "name": "About Us", "link": "/about" }, { "name": "All Courses", "link": "/courses" }, { "name": "Student Access", "link": "/online-libraries" }, { "name": "Admission", "link": "/admission-procedure" }, { "name": "Media", "link": "/media/photo-gallery" }].map(
                   (link) => (
                     <li key={link.name}>
-                      <NavLink to={link.link || "#"} className="hover:text-blue-500 text-[11px]">
+                      <NavLink to={link.link || "#students-life/student-access"} className="hover:text-blue-500 text-[11px]">
                         {link.name}
                       </NavLink>
                     </li>
@@ -141,20 +141,20 @@ backgroundImage: `linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
 
       {/* Bottom Bar */}
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-3 border-t border-[#ECEFF1]">
-  <div className="flex flex-col sm:flex-row justify-between items-center gap-1 text-[12px] text-[#4B5563]">
-    <div>
-      Developed by{" "}
-      <span className="font-semibold text-black">
-        YAKSHA <span className="text-blue-600">SOFT</span>
-      </span>
-    </div>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-1 text-[12px] text-[#4B5563]">
+          <div>
+            Developed by{" "}
+            <span className="font-semibold text-black">
+              YAKSHA <span className="text-blue-600">SOFT</span>
+            </span>
+          </div>
 
-    <div>
-      © {new Date().getFullYear()}{" "}
-      <span className="font-semibold">LBEF College</span>. All Rights Reserved.
-    </div>
-  </div>
-</div>
+          <div>
+            © {new Date().getFullYear()}{" "}
+            <span className="font-semibold">LBEF College</span>. All Rights Reserved.
+          </div>
+        </div>
+      </div>
 
     </footer>
   );
