@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
-import image from "../../../../assets/qs-5star.jpg";
+import image from "../../../../assets/qs-5star.webp";
 import decoration from '../../../../assets/decoration.webp';
 
 export function ImageSection() {

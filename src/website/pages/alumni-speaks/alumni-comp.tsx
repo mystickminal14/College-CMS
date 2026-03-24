@@ -192,12 +192,12 @@ export function AlumniComp() {
 
                     {/* User Info with fixed height */}
                     <div className="space-y-1.5 sm:space-y-2 w-full max-w-[270px]">
-                      <p className="text-lg sm:text-xl font-bold text-gray-900 truncate" 
-                      title={activeAlumni?.name ?? ""}
-                          dangerouslySetInnerHTML={{
-                            __html: activeAlumni?.name || "",
-                          }}/>
-                       
+                      <p className="text-lg sm:text-xl font-bold text-gray-900 truncate"
+                        title={activeAlumni?.name ?? ""}
+                        dangerouslySetInnerHTML={{
+                          __html: activeAlumni?.name || "",
+                        }} />
+
 
                       <div>
                         <p
@@ -260,7 +260,7 @@ export function AlumniComp() {
                           >
                             <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity z-10" />
                             <img
-                              src={`https://img.youtube.com/vi/${activeAlumni.link.split('v=')[1]?.split('&')[0] || ''}/hqdefault.jpg`}
+                              src={`https://img.youtube.com/vi/${activeAlumni.link.split('v=')[1]?.split('&')[0] || ''}/hqdefault.webp`}
                               alt="Video thumbnail"
                               className="w-full h-full object-cover"
                             />

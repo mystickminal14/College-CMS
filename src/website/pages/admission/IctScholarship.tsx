@@ -2,7 +2,7 @@ import decoration from '../../../assets/decoration.webp';
 import { Info, CheckCircle, AlertCircle, Clock, Award } from "lucide-react";
 import subfooterone from '../../../assets/six_path.webp';
 import logo from '../../../assets/lbefhd.webp';
-import police from '../../../assets/police.png';
+import police from '../../../assets/police.webp';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 import useGetScholarship from '../../../pages/scholarship/hooks/useGet';

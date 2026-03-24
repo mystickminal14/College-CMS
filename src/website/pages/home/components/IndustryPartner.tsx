@@ -1,7 +1,7 @@
-import Logo1 from "../../../../assets/IndustryLogo/1.png"; // Cisco Networking Academy
-import Logo2 from "../../../../assets/IndustryLogo/4.png"; // Red Hat Academy
-import Logo3 from "../../../../assets/IndustryLogo/2.png"; // AWS Academy
-import Logo4 from "../../../../assets/IndustryLogo/3.png"; // Oracle Academy
+import Logo1 from "../../../../assets/IndustryLogo/1.webp"; // Cisco Networking Academy
+import Logo2 from "../../../../assets/IndustryLogo/4.webp"; // Red Hat Academy
+import Logo3 from "../../../../assets/IndustryLogo/2.webp"; // AWS Academy
+import Logo4 from "../../../../assets/IndustryLogo/3.webp"; // Oracle Academy
 import decoration from "../../../../assets/decoration.webp";
 
 const partners = [
@@ -37,7 +37,7 @@ const IndustryPartnerSection = () => {
       {/* Header */}
       <div className="text-center mb-14 px-4">
         <p className="text-blue-300 text-sm font-semibold  tracking-widest mb-3">
-               Globally connected. Industry ready.
+          Globally connected. Industry ready.
 
         </p>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
@@ -74,12 +74,12 @@ const IndustryPartnerSection = () => {
                   className="max-h-full max-w-[220px] w-auto object-contain"
                 />
               </div>
-             
+
             </div>
           ))}
         </div>
 
-      
+
       </div>
     </section>
   );

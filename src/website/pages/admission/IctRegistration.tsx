@@ -1,5 +1,5 @@
 import logo from '../../../assets/lbefhd.webp';
-import police from '../../../assets/police.png';
+import police from '../../../assets/police.webp';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../comp/animation';
 import Seo from '../../../context/seo';

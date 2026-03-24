@@ -2,11 +2,11 @@ import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../../comp/animation';
 import decoration from '../../../../assets/decoration.webp';
 import apu from "../../../../assets/apu_logo.webp";
-import ranking from "../../../../assets/IndustryLogo/Bandung.png";
-import md from '../../../../assets/IndustryLogo/md.jpeg';
-import TOP from '../../../../assets/IndustryLogo/top.jpeg';
-import Asia from '../../../../assets/IndustryLogo/asia.jpeg';
-import five from '../../../../assets/IndustryLogo/five.jpeg';
+import ranking from "../../../../assets/IndustryLogo/bandung.webp";
+import md from '../../../../assets/IndustryLogo/md.webp';
+import TOP from '../../../../assets/IndustryLogo/top.webp';
+import Asia from '../../../../assets/IndustryLogo/asia.webp';
+import five from '../../../../assets/IndustryLogo/five.webp';
 
 const achievements = [
   {
