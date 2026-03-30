@@ -4,7 +4,7 @@ export const IMAGE_URL = 'https://lbef-server.lbef.org';
 
 // export const BASE_URL = 'http://localhost:8000/api';
 // export const IMAGE_URL = 'http://localhost:8000';
-export const APP_URL = 'https://new.lbef.org';
+export const APP_URL = 'https://lbef.org';
 
 export const PAGE_LIMIT = 10;
 export const LOGIN_CACHE_KEY = 'login';

@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /app/
 Disallow: /admin/
 
-Sitemap: https://new.lbef.org/sitemap.xml
+Sitemap: https://lbef.org/sitemap.xml
