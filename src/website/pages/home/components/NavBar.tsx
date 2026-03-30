@@ -176,7 +176,7 @@ export function NavBar() {
         { name: "Contact List", link: "/contact-info" },
         { name: "Fee Planner", link: "/fee-payment-planners" },
         { name: "Payment Modes", link: "/payment-modes" },
-        { name: "Support Tickets", link: "https://support.lbef.info/" },
+        { name: "Support Ticket", link: "https://support.lbef.info/" },
 
 
         {
