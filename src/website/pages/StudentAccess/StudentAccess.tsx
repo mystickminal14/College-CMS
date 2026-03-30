@@ -91,7 +91,7 @@ const StudentAccess = () => {
   <Seo
         title="Student Access & Digital Learning Resources | LBEF College Nepal"
         description="Explore student access to Evolve Learning Platform, Moodle LMS, digital libraries, and academic databases provided by LBEF College in partnership with APU Malaysia."
-        url={`${APP_URL}/students-life/student-access`}
+        url={`${APP_URL}/online-libraries`}
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <motion.div

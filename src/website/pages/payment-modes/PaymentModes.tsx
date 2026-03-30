@@ -45,11 +45,11 @@ const PaymentModes = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-blue-50/30">
-       <Seo
-    title="Payment Modes & Fee Policy | LBEF College Nepal"
-    description="Securely pay your tuition at LBEF College. Explore all available payment methods including cash, cheque, bank transfer, and mobile wallets. Learn about our fee refund policy."
-    url={`${APP_URL}/students-life/payment-modes`}
-  />
+      <Seo
+        title="Payment Modes & Fee Policy | LBEF College Nepal"
+        description="Securely pay your tuition at LBEF College. Explore all available payment methods including cash, cheque, bank transfer, and mobile wallets. Learn about our fee refund policy."
+        url={`${APP_URL}/payment-modes`}
+      />
 
       <motion.div
         variants={fadeUp}

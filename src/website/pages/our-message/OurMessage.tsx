@@ -74,7 +74,7 @@ const OurMessage = () => {
       <Seo
         title="Message From Leadership | LBEF"
         description="Read inspiring messages from the Chairman, Executive Director, and Academic Leaders of LBEF."
-        url={`${APP_URL}/students-life/messages`}
+        url={`${APP_URL}/messages`}
       />
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">

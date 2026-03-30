@@ -37,7 +37,7 @@ const StudentHandbook = () => {
       <Seo
         title="Student Handbook & Downloads | LBEF College Nepal"
         description="Download official student handbooks, academic documents, policies, and essential resources for students of LBEF College Nepal."
-        url={`${APP_URL}/students-life/downloads`}
+        url={`${APP_URL}/downloads`}
       />
       <motion.div
         variants={fadeUp}

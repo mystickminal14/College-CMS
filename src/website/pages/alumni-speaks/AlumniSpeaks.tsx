@@ -14,7 +14,7 @@ const AlumniSpeaks = () => {
       <Seo
         title="LBEF Alumni Success Stories | Student Testimonials Nepal"
         description="Hear from LBEF alumni and students about their academic journey, career growth, and real-world success after studying at Nepal’s first IT college."
-        url={`${APP_URL}/alumni-speaks`}
+        url={`${APP_URL}/alumni-speak`}
       />
 
       <motion.div

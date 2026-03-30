@@ -67,7 +67,7 @@ const OurTeamWeb = () => {
       <Seo
         title="Meet LBEF College Team | Leadership & Academic Excellence"
         description="Meet the dedicated team at LBEF College, including leadership, administration, and computing department experts driving excellence in education."
-        url={`${APP_URL}/about/our-team`}
+        url={`${APP_URL}/our-team`}
       />
 
       {/* HERO */}

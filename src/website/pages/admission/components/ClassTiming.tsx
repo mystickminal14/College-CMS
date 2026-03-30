@@ -7,7 +7,7 @@ const ClassTiming = () => {
         <Clock className="w-6 h-6 text-blue-600" />
         <h2 className="text-2xl font-bold text-gray-900">Class Timing</h2>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
           <thead className="bg-gray-50">
@@ -26,13 +26,24 @@ const ClassTiming = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             <tr>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200">
-                B.Sc.(IT)
+                B.Sc.(IT) Morning Session
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 border-r border-gray-200">
                 06:30 A.M – 11:00 A.M
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                 11:00 A.M – 1:00 P.M
+              </td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200">
+                B.Sc.(IT) Day Session
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 border-r border-gray-200">
+                10:00 A.M – 2:00 A.M
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                02:00 A.M – 04:00 P.M
               </td>
             </tr>
             <tr>
@@ -49,7 +60,7 @@ const ClassTiming = () => {
           </tbody>
         </table>
       </div>
-      
+
       <div className="mt-6 bg-blue-50 border border-blue-100 rounded-lg p-4">
         <p className="text-sm text-gray-700">
           <strong>Note:</strong> Class timings are subject to change. Please confirm with the administration office for the most current schedule.

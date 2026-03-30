@@ -11,7 +11,7 @@ const Scholarship = () => {
       <Seo
         title="Student Scholarship | LBEF College Nepal"
         description="Learn about the student scholarship programs at LBEF College Nepal, including eligibility criteria, application process, and benefits for students."
-        url={`${APP_URL}/students-life/student-code-of-conduct`}
+        url={`${APP_URL}/student-code-of-conduct`}
       />
       <motion.div
         className="container mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-12"

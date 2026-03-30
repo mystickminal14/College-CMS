@@ -88,7 +88,7 @@ const CourseProgram = () => {
         title="IT & Management Courses in Nepal | LBEF College"
         description="Explore world-class IT and management courses at LBEF College Nepal. Undergraduate programs designed for global careers with experienced faculty."
 
-        url={`${APP_URL}/students-life/programs`}
+        url={`${APP_URL}/programs`}
       />
 
       <div className="min-h-screen bg-gray-50">

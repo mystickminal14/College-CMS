@@ -123,113 +123,113 @@ const AdmissionProcedure = () => {
 
   return (
     <>
-    <Seo
-  title="Admission Procedure at LBEF College | How to Apply in Nepal"
-  description="Learn the step-by-step admission procedure at LBEF College Nepal. Find intake schedules, application process, required documents, scholarships, and FAQs."
-  url={`${APP_URL}/admissions/admission-process`}
+      <Seo
+        title="Admission Procedure at LBEF College | How to Apply in Nepal"
+        description="Learn the step-by-step admission procedure at LBEF College Nepal. Find intake schedules, application process, required documents, scholarships, and FAQs."
+        url={`${APP_URL}/admission-procedure/`}
 
-/>
+      />
 
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
-        >
-
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
           >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut" as const
-              }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Prospective
-            </span>
-          </motion.div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
-            Admission{" "}
-            <span className="relative inline-block text-blue-600">
-              Procedure
-              <motion.img
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                src={decoration}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
-              />
-            </span>
-            <br />
-            <span> for New Applicant</span>
-          </h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto">
-            A clear guide to the admission process, eligibility and timelines.
-          </motion.p>
-        </motion.div>
-      </div>
-
-      <div className="container mx-auto px-4 pb-20">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <AdmissionTOC
-            tocItems={tocItems}
-            activeSection={activeSection}
-            scrollToSection={scrollToSection}
-            tocRef={tocRef as RefObject<HTMLDivElement>}
-          />
-
-          <main className="lg:w-3/4 space-y-16">
-            {[
-              ["intake-schedule", <IntakeCardsSection intakes={intakes} isLoading={isLoading} isError={isError} />],
-              ["application-process", <ApplicationProcess  />],
-              ["documents-required", <DocumentsRequired />],
-              ["important-notes", <ImportantNotes />],
-              ["important-notice", <ImportantNotice />],
-              ["class-timing", <ClassTiming />],
-              ["scholarship", <ScholarshipSection />],
-              ["fee-policy", <FeePolicy />],
-              ["faq", <FAQSection />],
-            ].map(([id, component]) => (
-              <section
-                key={id as string}
-                id={id as string}
-                ref={(el) => {
-                  sectionRefs.current[id as string] = el; // ✅ void return
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
+            >
+              <motion.span
+                className="w-2 h-2 bg-blue-500 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [1, 0.7, 1]
                 }}
-              >
-                <motion.div
-                  variants={sectionFadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut" as const
+                }}
+              />
+              <span className="text-blue-600 font-medium text-sm">
+                Prospective
+              </span>
+            </motion.div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
+              Admission{" "}
+              <span className="relative inline-block text-blue-600">
+                Procedure
+                <motion.img
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  src={decoration}
+                  alt="Decoration"
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
+                />
+              </span>
+              <br />
+              <span> for New Applicant</span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto">
+              A clear guide to the admission process, eligibility and timelines.
+            </motion.p>
+          </motion.div>
+        </div>
+
+        <div className="container mx-auto px-4 pb-20">
+          <div className="flex flex-col lg:flex-row gap-8">
+            <AdmissionTOC
+              tocItems={tocItems}
+              activeSection={activeSection}
+              scrollToSection={scrollToSection}
+              tocRef={tocRef as RefObject<HTMLDivElement>}
+            />
+
+            <main className="lg:w-3/4 space-y-16">
+              {[
+                ["intake-schedule", <IntakeCardsSection intakes={intakes} isLoading={isLoading} isError={isError} />],
+                ["application-process", <ApplicationProcess />],
+                ["documents-required", <DocumentsRequired />],
+                ["important-notes", <ImportantNotes />],
+                ["important-notice", <ImportantNotice />],
+                ["class-timing", <ClassTiming />],
+                ["scholarship", <ScholarshipSection />],
+                ["fee-policy", <FeePolicy />],
+                ["faq", <FAQSection />],
+              ].map(([id, component]) => (
+                <section
+                  key={id as string}
+                  id={id as string}
+                  ref={(el) => {
+                    sectionRefs.current[id as string] = el; // ✅ void return
+                  }}
                 >
-                  {component}
-                </motion.div>
-              </section>
-            ))}
-          </main>
+                  <motion.div
+                    variants={sectionFadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                  >
+                    {component}
+                  </motion.div>
+                </section>
+              ))}
+            </main>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

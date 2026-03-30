@@ -27,11 +27,11 @@ const ContactListPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-<Seo
-  title="Staff Contact Directory | LBEF College Nepal"
-  description="Find official contact details of LBEF College staff for academics, IT support, exams, registration, accounts, and student services."
-  url={`${APP_URL}/students-life/student-support`}
-/>
+      <Seo
+        title="Staff Contact Directory | LBEF College Nepal"
+        description="Find official contact details of LBEF College staff for academics, IT support, exams, registration, accounts, and student services."
+        url={`${APP_URL}/contact-info`}
+      />
 
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div
@@ -193,7 +193,7 @@ const ContactListPage = () => {
                         <td className="px-8 py-6">
                           <div className="max-w-xs">
                             <div className="text-gray-700 bg-gray-50 p-3 rounded-lg text-sm wrap-break-word">
-                              {contact.email?.replace("@","(@)") || "No email"}
+                              {contact.email?.replace("@", "(@)") || "No email"}
                             </div>
                           </div>
                         </td>
@@ -280,7 +280,7 @@ const ContactListPage = () => {
                       className="text-sm text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 wrap-break-word w-full"
                     >
                       <FaEnvelope className="h-3 w-3" />
-                              {cooContact.email?.replace("@","(@)") || "No email"}
+                      {cooContact.email?.replace("@", "(@)") || "No email"}
                     </a>
                   </div>
                 </div>
@@ -308,7 +308,7 @@ const ContactListPage = () => {
                       className="text-sm text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 wrap-break-word w-full"
                     >
                       <FaEnvelope className="h-3 w-3" />
-                              {executiveContact.email?.replace("@","(@)") || "No email"}
+                      {executiveContact.email?.replace("@", "(@)") || "No email"}
                     </a>
                   </div>
                 </div>

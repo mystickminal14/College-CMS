@@ -200,7 +200,7 @@ const AcademicClub = () => {
       <Seo
         title="Academic Clubs at LBEF | AI, Robotics, Startup & Tech Clubs"
         description="Discover academic clubs at LBEF College including AI & Robotics, Cyber Security, Software Architecture, Startup & Innovation, and more."
-        url={`${APP_URL}/students-life/academic-club`}
+        url={`${APP_URL}/academic-club`}
 
       />
 

@@ -101,7 +101,7 @@ const AcademicWebPlanner = () => {
       <Seo
         title="Academic Calender at LBEF | Course Structure & Semester Plans"
         description="View the academic Calender at LBEF College Nepal. Explore course-wise semester plans, intakes, and academic sessions designed for structured learning."
-        url={`${APP_URL}/students-life/academic-planner`}
+        url={`${APP_URL}/academic-planner`}
 
       />
 

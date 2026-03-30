@@ -11,7 +11,7 @@ const CodeOfConduct = () => {
       <Seo
         title="Student Code of Conduct | LBEF College Nepal"
         description="Learn about the student code of conduct at LBEF College Nepal, including guidelines, misconduct definitions, violations, and disciplinary procedures to ensure a respectful and productive learning environment."
-        url={`${APP_URL}/students-life/student-code-of-conduct`}
+        url={`${APP_URL}/student-code-of-conduct`}
       />
       <motion.div
         className="container mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-12"

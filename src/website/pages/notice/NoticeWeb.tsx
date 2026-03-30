@@ -260,7 +260,7 @@ const NoticeWeb = () => {
       <Seo
         title="Notice Board | LBEF College"
         description="Stay informed with the latest announcements, exam schedules, and important updates from LBEF College."
-        url={`${APP_URL}/students-life/notices`}
+        url={`${APP_URL}/notices`}
       />
 
       {/* HERO */}

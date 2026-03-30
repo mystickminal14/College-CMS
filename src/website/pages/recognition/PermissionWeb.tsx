@@ -7,16 +7,16 @@ import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
 
 const PermissionPageWeb = () => {
-  const { data, isLoading, isError } = useGetAll({type:"PERMISSION"});
+  const { data, isLoading, isError } = useGetAll({ type: "PERMISSION" });
   const recognitions = data?.data || [];
 
   return (
     <div className="min-h-screen bg-gray-50">
- <Seo
-    title="Official Permission Letters & Institutional Approvals | LBEF College Nepal"
-    description="Explore LBEF College Nepal's recognitions and achievements over the years, showcasing excellence in academics, institutional awards, and accomplishments."
-    url={`${APP_URL}/about/recognition`}
-  />
+      <Seo
+        title="Official Permission Letters & Institutional Approvals | LBEF College Nepal"
+        description="Explore LBEF College Nepal's recognitions and achievements over the years, showcasing excellence in academics, institutional awards, and accomplishments."
+        url={`${APP_URL}/recognition`}
+      />
       {/* ================= HERO ================= */}
       <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
         <motion.div

@@ -38,7 +38,7 @@ export default function AboutPage() {
       <Seo
         title="About LBEF College | Nepal’s First IT College"
         description="Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."
-        url={`${APP_URL}/about/about-lbef`}
+        url={`${APP_URL}/about`}
 
       />
 

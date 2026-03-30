@@ -47,28 +47,28 @@ const Gallery = () => {
 
 
   return (
-  <>
-    <Seo
-  title="Photo Gallery | Campus Life & Events at LBEF College"
-  description="Explore photos of campus life, events, activities, and memorable moments at LBEF College Nepal through our official gallery."
-  url={`${APP_URL}/media/photo-gallery`}
-/>
+    <>
+      <Seo
+        title="Photo Gallery | Campus Life & Events at LBEF College"
+        description="Explore photos of campus life, events, activities, and memorable moments at LBEF College Nepal through our official gallery."
+        url={`${APP_URL}/media/photo-gallery`}
+      />
 
-    <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100">
-      <GalleryHeader  />
-      <ImageHero galleryImages={galImages} />
+      <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100">
+        <GalleryHeader />
+        <ImageHero galleryImages={galImages} />
 
-      <div className="container mx-auto px-2 sm:px-4 pb-20">
-        <GalleryTypeGrid
-          galleryGroups={galleryGroups}
-          isLoading={isLoading}
-          hasMore={hasMore}
-          page={page}
-          fetchNextPage={fetchNextPage}
-        />
+        <div className="container mx-auto px-2 sm:px-4 pb-20">
+          <GalleryTypeGrid
+            galleryGroups={galleryGroups}
+            isLoading={isLoading}
+            hasMore={hasMore}
+            page={page}
+            fetchNextPage={fetchNextPage}
+          />
+        </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 

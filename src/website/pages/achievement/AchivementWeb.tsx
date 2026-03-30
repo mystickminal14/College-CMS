@@ -29,7 +29,7 @@ const AchievementWeb = () => {
       <Seo
         title="Achievements of LBEF College | Awards & Milestones in Nepal"
         description="Explore the achievements, awards, milestones, and recognitions of LBEF College Nepal, reflecting excellence in IT and management education over the years."
-        url={`${APP_URL}/about/achivement`}
+        url={`${APP_URL}/achivements`}
 
       />
 

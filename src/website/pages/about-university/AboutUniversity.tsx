@@ -29,7 +29,7 @@ export default function AboutUniversity() {
       <Seo
         title="Asia Pacific University (APU) | LBEF Partner University"
         description="Explore Asia Pacific University of Technology & Innovation (APU), Malaysia – LBEF’s partner university known for innovation, technology, and global recognition."
-        url={`${APP_URL}/about/about-university`}
+        url={`${APP_URL}/about-university`}
 
       />
      {!isMobile?(
