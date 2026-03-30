@@ -1,5 +1,5 @@
 import decoration from '../../../assets/decoration.webp';
-import { FileText, Calendar, Eye, Bell } from 'lucide-react';
+import { FileText, Calendar, Eye, Bell, ExternalLink } from 'lucide-react';
 import lbefLogo from '../../../assets/pcpslogo.webp';
 import { APP_URL, IMAGE_URL } from "../../../constants";
 import { motion } from "framer-motion";
@@ -335,7 +335,24 @@ const NoticeWeb = () => {
             </div>
           </div>
         )}
-
+ <div className="max-w-6xl mx-auto mb-6">
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 sm:px-5 sm:py-4">
+            <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 mt-0.5 shrink-0" />
+            <p className="text-amber-800 text-xs sm:text-sm leading-relaxed">
+              <span className="font-semibold">Disclaimer:</span> Students are encouraged to visit{" "}
+              <a
+                href="https://evolve.lbef.info"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-semibold text-amber-700 underline underline-offset-2 hover:text-amber-900 transition-colors"
+              >
+                evolve.lbef.info
+                <ExternalLink className="w-3 h-3" />
+              </a>{" "}
+              for the most up-to-date notices and official announcements.
+            </p>
+          </div>
+        </div>
         {/* Notice List */}
         <div className="max-w-6xl mx-auto">
           {ALL_NOTICES.length === 0 ? (

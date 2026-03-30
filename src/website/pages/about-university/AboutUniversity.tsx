@@ -5,7 +5,6 @@ import ApeuSubFooter from "../home/components/ApeuSubFooter";
 import AboutUsSection from "./components/AboutUs";
 import OurCore from "./components/Core";
 import HeroSection from "./components/HeroSection";
-import { ImageSection } from "./components/ImageSection";
 import { useEffect, useState } from "react";
 import AchievementsSection from "./components/Achievement";
 import MissionVisionSection from "./components/MIssion";
@@ -62,7 +61,6 @@ export default function AboutUniversity() {
               <motion.div
           className="sticky top-0 z-10 bg-white"
         >
-          <ImageSection />
 
         </motion.div>
              <motion.div
@@ -89,7 +87,6 @@ export default function AboutUniversity() {
           <MissionVisionSection />
           <AchievementsSection />
 
-          <ImageSection />
                          <OurCore />
 
                          <ApeuSubFooter />
