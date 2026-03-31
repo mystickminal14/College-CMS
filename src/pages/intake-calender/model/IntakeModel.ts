@@ -6,4 +6,4 @@ export interface Intakes {
   lastDateStatus?: "ENABLED" | "DISABLED";
   status?: IntakeStatus;
 }
-export type IntakeStatus = "OPEN" | "CLOSED";
+export type IntakeStatus = "OPEN" | "CLOSED" | "UPCOMING";

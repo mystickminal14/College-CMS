@@ -9,9 +9,9 @@ import type { IntakeStatus } from "../model/IntakeModel";
 
 interface NewsFormShape {
   intake: string;
-  status:IntakeStatus;
+  status: IntakeStatus;
   lastdate: string;
-  duration: string;    
+  duration: string;
 }
 
 interface IntakeBasicInfoFormProps {
@@ -25,8 +25,8 @@ const IntakeBasicInfoForm: React.FC<IntakeBasicInfoFormProps> = ({
   onChange,
   isSubmitting = false,
 }) => {
- 
-const IntakeStatus: IntakeStatus[] = ["OPEN", "CLOSED",];
+
+  const IntakeStatus: IntakeStatus[] = ["OPEN", "CLOSED","UPCOMING"];
 
   return (
     <div className="space-y-6">
@@ -52,7 +52,7 @@ const IntakeStatus: IntakeStatus[] = ["OPEN", "CLOSED",];
           isSubmitting={isSubmitting}
         />
 
-       
+
 
         <InputField
           icon={<Calendar className="w-5 h-5" />}
@@ -68,22 +68,22 @@ const IntakeStatus: IntakeStatus[] = ["OPEN", "CLOSED",];
 
       </div>
 
-         <div className="flex flex-col">
-                <label className="mb-2 font-medium text-sm">Intake Status</label>
-                <select
-                  className="border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-                  value={formData.status}
-                  onChange={(e) => onChange("status", e.target.value as IntakeStatus)}
-                  disabled={isSubmitting}
-                >
-                  <option value="">Select Department</option>
-                  {IntakeStatus.map((dept) => (
-                    <option key={dept} value={dept}>
-                      {dept.charAt(0) + dept.slice(1).toLowerCase()}
-                    </option>
-                  ))}
-                </select>
-              </div>
+      <div className="flex flex-col">
+        <label className="mb-2 font-medium text-sm">Intake Status</label>
+        <select
+          className="border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+          value={formData.status}
+          onChange={(e) => onChange("status", e.target.value as IntakeStatus)}
+          disabled={isSubmitting}
+        >
+          <option value="">Select Department</option>
+          {IntakeStatus.map((dept) => (
+            <option key={dept} value={dept}>
+              {dept.charAt(0) + dept.slice(1).toLowerCase()}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };
