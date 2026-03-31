@@ -59,14 +59,14 @@ const StudentHandbook = () => {
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" as const }}
             />
             <span className="text-blue-600 font-medium text-sm">
-              Academic Programs & Curriculum
+              Student Resources
             </span>
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Student </span>
             <span className="relative inline-block ml-2">
-              <span className="text-blue-600 relative z-10">Handbook</span>
+              <span className="text-blue-600 relative z-10">Resources</span>
               <motion.img
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}

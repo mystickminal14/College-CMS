@@ -32,9 +32,9 @@ export default function HeroSection() {
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-12"
             variants={fadeUp}
           >
-            Malaysia's Best Technology
+          Asia Pacific University of Technology and Innovation (APU)
             <br />
-            University
+            Malaysia's Best Technology Univeristy
           </motion.h1>
 
           {/* Buttons */}

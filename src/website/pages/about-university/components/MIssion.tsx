@@ -52,7 +52,7 @@ export default function MissionVisionSection() {
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">🎯</span>
-              <h3 className="text-2xl md:text-3xl font-bold">Our Mission</h3>
+              <h3 className="text-2xl md:text-3xl font-bold">Mission</h3>
             </div>
             <p className="text-base md:text-lg leading-relaxed text-gray-200">
               To provide high quality, affordable, innovative and internationally
@@ -70,7 +70,7 @@ export default function MissionVisionSection() {
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">🔭</span>
-              <h3 className="text-2xl md:text-3xl font-bold">Our Vision</h3>
+              <h3 className="text-2xl md:text-3xl font-bold">Vision</h3>
             </div>
             <p className="text-base md:text-lg leading-relaxed text-gray-200">
               To be a leading university of technology and innovation,

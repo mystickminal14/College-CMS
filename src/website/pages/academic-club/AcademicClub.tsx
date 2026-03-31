@@ -235,12 +235,12 @@ const AcademicClub = () => {
                   }}
                 />
                 <span className="text-blue-600 font-medium text-sm">
-                  Academic Clubs
+                  Student Clubs
                 </span>
               </motion.div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-                <span className="text-gray-900">Academic </span>
+                <span className="text-gray-900"> Student  </span>
                 <span className="relative inline-block">
                   <span className="text-blue-600 relative z-10">Clubs</span>
                   <motion.img

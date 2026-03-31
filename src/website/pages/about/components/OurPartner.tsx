@@ -25,7 +25,6 @@ const PartnerSection = () => {
             />
           </span>
         </h2>
-        <p className="text-gray-500">Our college Partner organizations.</p>
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">
