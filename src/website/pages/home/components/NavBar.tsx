@@ -457,7 +457,8 @@ export function NavBar() {
               <NavLink
                 key={item.name}
                 to={item.link!}
-                className="px-4 py-3 uppercase cursor-pointer text-sm font-medium hover:text-[#3040E5]"
+                target={item.name == "UGC" ? "_blank" : "_self"}
+                className="px-4 py-3 uppercase cursor-pointer text-sm font-medium hover:text-[#3040E5] ${}"
               >
                 {item.name}
               </NavLink>

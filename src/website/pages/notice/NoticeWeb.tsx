@@ -13,7 +13,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-06-01",
     program_name: "BCA / BSc CSIT",
-    file: "notices/examination-schedule-5th-semester-june-2024.pdf",
+    file: "notice/examination-schedule-5th-semester-june-2024.pdf",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-06-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-jun-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-jun-2025-lbef.pdf",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-08-15",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-aug-2024-lbef-updated.pdf",
+    file: "notice/final-exam-schedule-aug-2024-lbef-updated.pdf",
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-11-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-nov-2024-lbef-updated.pdf",
+    file: "notice/final-exam-schedule-nov-2024-lbef-updated.pdf",
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-06-10",
     program_name: "Semester I",
-    file: "notices/sem-I-final-exam-schedule-june-2024.pdf",
+    file: "notice/sem-I-final-exam-schedule-june-2024.pdf",
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-12-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-dec-2024-lbef-updated.pdf",
+    file: "notice/final-exam-schedule-dec-2024-lbef-updated.pdf",
   },
   {
     id: 7,
@@ -61,7 +61,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-08-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-aug-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-aug-2025-lbef.pdf",
   },
   {
     id: 8,
@@ -69,7 +69,7 @@ const ALL_NOTICES = [
     type: "ADMINISTRATIVE",
     date: "2024-12-10",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-dec-2024-lbef-updated.pdf",
+    file: "notice/final-exam-schedule-dec-2024-lbef-updated.pdf",
   },
   {
     id: 9,
@@ -77,7 +77,7 @@ const ALL_NOTICES = [
     type: "ADMINISTRATIVE",
     date: "2024-12-05",
     program_name: null,
-    file: "notices/final-exam-schedule-dec-2024-lbef-updated.pdf",
+    file: "notice/final-exam-schedule-dec-2024-lbef-updated.pdf",
   },
   {
     id: 10,
@@ -85,7 +85,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-08-10",
     program_name: "BCA",
-    file: "notices/final-exam-schedule-aug-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-aug-2025-lbef.pdf",
   },
   {
     id: 11,
@@ -93,7 +93,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-11-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-nov-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-nov-2025-lbef.pdf",
   },
   {
     id: 12,
@@ -101,7 +101,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-12-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-dec-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-dec-2025-lbef.pdf",
   },
   {
     id: 13,
@@ -109,7 +109,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-03-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-mar-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-mar-2025-lbef.pdf",
   },
   {
     id: 14,
@@ -117,7 +117,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-08-05",
     program_name: "CPS",
-    file: "notices/final-exam-schedule-aug-2025-cps.pdf",
+    file: "notice/final-exam-schedule-aug-2025-cps.pdf",
   },
   {
     id: 15,
@@ -125,7 +125,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-05-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-may-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-may-2025-lbef.pdf",
   },
   {
     id: 16,
@@ -133,7 +133,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2026-01-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-jan-2026-lbef.pdf",
+    file: "notice/final-exam-schedule-jan-2026-lbef.pdf",
   },
   {
     id: 17,
@@ -141,7 +141,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-08-01",
     program_name: "CPS",
-    file: "notices/final-exam-schedule-aug-2024-cps.pdf",
+    file: "notice/final-exam-schedule-aug-2024-cps.pdf",
   },
   {
     id: 18,
@@ -149,7 +149,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-01-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-jan-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-jan-2025-lbef.pdf",
   },
   {
     id: 19,
@@ -157,7 +157,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-05-01",
     program_name: "All Programs",
-    file: "notices/may-2024-final-exam-schedule.pdf",
+    file: "notice/may-2024-final-exam-schedule.pdf",
   },
   {
     id: 20,
@@ -165,7 +165,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-12-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-dec-2024-lbef.pdf",
+    file: "notice/final-exam-schedule-dec-2024-lbef.pdf",
   },
   {
     id: 21,
@@ -173,7 +173,7 @@ const ALL_NOTICES = [
     type: "ADMINISTRATIVE",
     date: "2025-11-05",
     program_name: null,
-    file: "notices/final-exam-schedule-nov-2025-lbef-original.pdf",
+    file: "notice/final-exam-schedule-nov-2025-lbef-original.pdf",
   },
   {
     id: 22,
@@ -181,7 +181,7 @@ const ALL_NOTICES = [
     type: "ADMINISTRATIVE",
     date: "2024-11-10",
     program_name: null,
-    file: "notices/final-exam-schedule-nov-2024-lbef-updated-old.pdf",
+    file: "notice/final-exam-schedule-nov-2024-lbef-updated-old.pdf",
   },
   {
     id: 23,
@@ -189,7 +189,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-09-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-sep-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-sep-2025-lbef.pdf",
   },
   {
     id: 24,
@@ -197,7 +197,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-04-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-apr-2025-lbef.pdf",
+    file: "notice/final-exam-schedule-apr-2025-lbef.pdf",
   },
   {
     id: 25,
@@ -205,7 +205,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-08-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-aug-2024-lbef.pdf",
+    file: "notice/final-exam-schedule-aug-2024-lbef.pdf",
   },
   {
     id: 26,
@@ -213,7 +213,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2024-11-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-nov-2024-lbef.pdf",
+    file: "notice/final-exam-schedule-nov-2024-lbef.pdf",
   },
   {
     id: 27,
@@ -221,7 +221,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2025-03-05",
     program_name: "CPS",
-    file: "notices/final-exam-schedule-mar-2025-cps.pdf",
+    file: "notice/final-exam-schedule-mar-2025-cps.pdf",
   },
   {
     id: 28,
@@ -229,7 +229,7 @@ const ALL_NOTICES = [
     type: "ACADEMIC",
     date: "2026-04-01",
     program_name: "All Programs",
-    file: "notices/final-exam-schedule-apr-2026-lbef.pdf",
+    file: "notice/final-exam-schedule-apr-2026-lbef.pdf",
   },
 ];
 
@@ -335,7 +335,7 @@ const NoticeWeb = () => {
             </div>
           </div>
         )}
- <div className="max-w-6xl mx-auto mb-6">
+        <div className="max-w-6xl mx-auto mb-6">
           <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 sm:px-5 sm:py-4">
             <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 mt-0.5 shrink-0" />
             <p className="text-amber-800 text-xs sm:text-sm leading-relaxed">
@@ -408,8 +408,8 @@ const NoticeWeb = () => {
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
                               <span
                                 className={`px-3 py-1 rounded-full text-xs font-bold ${notice.type === "ACADEMIC"
-                                    ? "bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200"
-                                    : "bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200"
+                                  ? "bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200"
+                                  : "bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200"
                                   }`}
                               >
                                 {notice.type}
@@ -444,7 +444,7 @@ const NoticeWeb = () => {
                               </div>
                               {notice.file ? (
                                 <button
-                                  onClick={() => handleViewFile(IMAGE_URL + notice.file)}
+                                  onClick={() => handleViewFile(`${IMAGE_URL}/public/${notice.file}`)}
                                   className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-blue-700 transition shadow"
                                 >
                                   <Eye className="w-4 h-4" />
