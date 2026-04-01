@@ -58,11 +58,19 @@ const getSemesterIndex = (semester: string) => {
 
 // Session priority (same year)
 const sessionPriority: Record<string, number> = {
-  January: 1,
-  October: 2,
-  December: 3,
+  January: 12,
+  February: 11,
+  March: 10,
+  April: 9,
+  May: 8,
+  June: 7,
+  July: 6,
+  August: 5,
+  September: 4,
+  October: 3,
+  November: 2,
+  December: 1,
 };
-
 const getSessionPriority = (session: string) => {
   const month = session.split(' ')[0];
   return sessionPriority[month] ?? 999;
