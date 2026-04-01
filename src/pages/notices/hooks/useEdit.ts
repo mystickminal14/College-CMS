@@ -20,7 +20,7 @@ const useEditNotices = () => {
 
       const { id, ...updateData } = payload;
       const apiClient = new APIClient<Notices>(
-        `/Notices/${encodeURIComponent(id)}`
+        `/notice/${encodeURIComponent(id)}`
       );
 
       return apiClient.put(updateData);
