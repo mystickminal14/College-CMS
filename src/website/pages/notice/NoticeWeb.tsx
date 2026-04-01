@@ -157,7 +157,7 @@ const NoticeWeb = () => {
       <Seo
         title="Notice Board | LBEF College"
         description="Stay informed with the latest announcements, exam schedules, and important updates from LBEF College."
-        url={`${APP_URL}/"students-life/notices`}
+        url={`${APP_URL}/notices`}
       />
       <motion.div
         className="container mx-auto px-2 sm:px-6 lg:px-8 py-8 md:py-10 text-center"

@@ -119,7 +119,7 @@ export const websiteRoutes = [
       { path: "alumni-information-form", element: <AlumniFormPage /> },
       { path: "online-libraries", element: <StudentAccess /> },
       { path: "contact-info", element: <ContactListPage /> },
-      { path: "notices", element: <NoticeWeb /> },
+      { path: "notice", element: <NoticeWeb /> },
       { path: "admission-procedure", element: <AdmissionProcedure />, },
 
       // {
