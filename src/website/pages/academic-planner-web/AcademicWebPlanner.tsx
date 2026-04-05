@@ -1,10 +1,11 @@
 import { motion, type Variants } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import decoration from '../../../assets/decoration.webp';
 import { APP_URL, IMAGE_URL } from '../../../constants';
 import { fadeUp, staggerContainer } from '../../comp/animation';
-import useGetAcademicPlanners from '../../../pages/academic-planner/hooks/useGetAll';
 import type { AcademicPlanner } from '../../../pages/academic-planner/model/PlannerModel';
 import Seo from '../../../context/seo';
+import useGetAcademicPlannersPagination from '../../../pages/academic-planner/hooks/useGerAkk';
 
 /* ------------------ FRAMER VARIANTS ------------------ */
 
@@ -48,7 +49,6 @@ const SkeletonCard = () => (
 
 /* ------------------ SORT HELPERS ------------------ */
 
-// Semester order
 const semesterOrder = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
 const getSemesterIndex = (semester: string) => {
@@ -56,7 +56,6 @@ const getSemesterIndex = (semester: string) => {
   return match ? semesterOrder.indexOf(match[0]) : 999;
 };
 
-// Session priority (same year)
 const sessionPriority: Record<string, number> = {
   January: 12,
   February: 11,
@@ -71,6 +70,7 @@ const sessionPriority: Record<string, number> = {
   November: 2,
   December: 1,
 };
+
 const getSessionPriority = (session: string) => {
   const month = session.split(' ')[0];
   return sessionPriority[month] ?? 999;
@@ -78,16 +78,33 @@ const getSessionPriority = (session: string) => {
 
 /* ------------------ MAIN COMPONENT ------------------ */
 
+const PAGE_LIMIT = 20;
+
 const AcademicWebPlanner = () => {
-  const { data, isLoading } = useGetAcademicPlanners();
+  const [page, setPage] = useState(1);
+  const [allPlanners, setAllPlanners] = useState<AcademicPlanner[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  const { data, isLoading } = useGetAcademicPlannersPagination({ page, limit: PAGE_LIMIT });
+
+  useEffect(() => {
+    if (!data?.data) return;
+    setAllPlanners(prev =>
+      page === 1 ? data.data ?? [] : [...prev, ...(data.data ?? [])]
+    );
+    setHasMore(Boolean(data.pagination?.hasNextPage));
+  }, [data, page]);
+
+  const handleLoadMore = () => {
+    if (!isLoading && hasMore) setPage(prev => prev + 1);
+  };
 
   /* ---------- GROUP BY YEAR + SESSION ---------- */
-  const groupedData = (data?.data ?? []).reduce(
+  const groupedData = allPlanners.reduce(
     (acc: Record<string, AcademicPlanner[]>, planner) => {
       const year = planner.academicYear.year;
       const session = planner.academicYear.session;
       const key = `${year}__${session}`;
-
       if (!acc[key]) acc[key] = [];
       acc[key].push(planner);
       return acc;
@@ -99,7 +116,6 @@ const AcademicWebPlanner = () => {
   const sortedGroups = Object.entries(groupedData).sort(([a], [b]) => {
     const [yearA, sessionA] = a.split('__');
     const [yearB, sessionB] = b.split('__');
-
     if (yearA !== yearB) return Number(yearB) - Number(yearA);
     return getSessionPriority(sessionA) - getSessionPriority(sessionB);
   });
@@ -110,7 +126,6 @@ const AcademicWebPlanner = () => {
         title="Academic Calender at LBEF | Course Structure & Semester Plans"
         description="View the academic Calender at LBEF College Nepal. Explore course-wise semester plans, intakes, and academic sessions designed for structured learning."
         url={`${APP_URL}/academic-planner`}
-
       />
 
       <div className="min-h-screen bg-gray-50">
@@ -123,7 +138,6 @@ const AcademicWebPlanner = () => {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto"
           >
-
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,19 +146,11 @@ const AcademicWebPlanner = () => {
             >
               <motion.span
                 className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [1, 0.7, 1]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: "easeInOut" as const
-                }}
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
+                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' as const }}
               />
               <span className="text-blue-600 font-medium text-sm">
                 Academic Programs & Curriculum
-
               </span>
             </motion.div>
 
@@ -166,52 +172,46 @@ const AcademicWebPlanner = () => {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Stay on top of your academic jourrney with our detailed calender. Plan your classes, exams, and important deadlines so that you never miss a key date in your seesion.
+              transition={{ delay: 0.2 }}
+              className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            >
+              Stay on top of your academic journey with our detailed calender. Plan your classes,
+              exams, and important deadlines so that you never miss a key date in your session.
             </motion.p>
           </motion.div>
         </div>
 
         {/* CONTENT */}
         <div className="container mx-auto px-4 sm:px-16 pb-20">
-          {isLoading && (
+          {/* Initial skeleton */}
+          {isLoading && page === 1 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {Array.from({ length: 8 }).map((_, i) => (
                 <SkeletonCard key={i} />
               ))}
             </div>
           )}
-          {!isLoading && sortedGroups.length === 0 && (
+
+          {!isLoading && allPlanners.length === 0 && (
             <div className="text-center py-20">
-              <h3 className="text-xl font-semibold text-gray-700">
-                No Academic Calender Available
-              </h3>
-              <p className="text-gray-500 mt-2">
-                Please check back later.
-              </p>
+              <h3 className="text-xl font-semibold text-gray-700">No Academic Calender Available</h3>
+              <p className="text-gray-500 mt-2">Please check back later.</p>
             </div>
           )}
 
-          {!isLoading &&
+          {allPlanners.length > 0 &&
             sortedGroups.map(([key, planners]) => {
               const [year, session] = key.split('__');
 
-              /* ---------- SORT BY COURSE → SEMESTER ---------- */
-              const sortedPlanners = planners.sort((a, b) => {
+              const sortedPlanners = [...planners].sort((a, b) => {
                 if (a.plannerCourse.name !== b.plannerCourse.name) {
-                  return a.plannerCourse.name.localeCompare(
-                    b.plannerCourse.name
-                  );
+                  return a.plannerCourse.name.localeCompare(b.plannerCourse.name);
                 }
-                return (
-                  getSemesterIndex(a.semester) -
-                  getSemesterIndex(b.semester)
-                );
+                return getSemesterIndex(a.semester) - getSemesterIndex(b.semester);
               });
 
               return (
                 <div key={key} className="mb-16">
-                  {/* YEAR HEADING (DESIGN UNCHANGED) */}
                   <motion.div
                     variants={fadeUp}
                     initial="hidden"
@@ -221,16 +221,13 @@ const AcademicWebPlanner = () => {
                   >
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 flex flex-wrap items-center gap-2">
                       <span>{year}</span>
-
                       <span className="text-blue-600 inline-flex flex-wrap items-center">
                         {(() => {
                           const words = session.split(' ');
                           const lastWord = words.pop();
                           return (
                             <>
-                              <span className="mr-1">
-                                {words.join(' ')}
-                              </span>
+                              <span className="mr-1">{words.join(' ')}</span>
                               <span className="relative inline-block">
                                 {lastWord}
                                 <img
@@ -254,9 +251,17 @@ const AcademicWebPlanner = () => {
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                   >
                     {sortedPlanners.map((planner) => (
-                      <motion.div key={planner.id} variants={cardContainer} whileHover={{ y: -8 }} className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:border-blue-200">
+                      <motion.div
+                        key={planner.id}
+                        variants={cardContainer}
+                        whileHover={{ y: -8 }}
+                        className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:border-blue-200"
+                      >
                         <div className="p-5">
-                          <motion.h4 variants={cardItem} className="text-md font-bold text-gray-800 mb-3 line-clamp-2">
+                          <motion.h4
+                            variants={cardItem}
+                            className="text-md font-bold text-gray-800 mb-3 line-clamp-2"
+                          >
                             {planner.plannerCourse.name} – {planner.semester} – {planner.intake}
                           </motion.h4>
                           <motion.div variants={cardItem} className="grid grid-cols-2 gap-3 mb-4">
@@ -269,19 +274,63 @@ const AcademicWebPlanner = () => {
                               <p className="text-sm font-medium text-gray-800">{planner.intake}</p>
                             </div>
                           </motion.div>
-                          <motion.button variants={cardItem} onClick={() => window.open(IMAGE_URL + planner.file, '_blank')} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full py-2.5 bg-blue-500 text-white rounded-lg font-medium text-sm">
+                          <motion.button
+                            variants={cardItem}
+                            onClick={() => window.open(IMAGE_URL + planner.file, '_blank')}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-full py-2.5 bg-blue-500 text-white rounded-lg font-medium text-sm"
+                          >
                             View Academic Plan
                           </motion.button>
                         </div>
-                        <motion.div variants={cardItem} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="h-1 bg-linear-to-r from-blue-400 to-blue-600" />
+                        <motion.div
+                          variants={cardItem}
+                          initial={{ scaleX: 0 }}
+                          whileInView={{ scaleX: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6 }}
+                          className="h-1 bg-linear-to-r from-blue-400 to-blue-600"
+                        />
                       </motion.div>
                     ))}
                   </motion.div>
                 </div>
               );
             })}
+
+          {/* Load More button */}
+          {hasMore && allPlanners.length > 0 && (
+            <motion.div
+              className="flex justify-center mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <motion.button
+                onClick={handleLoadMore}
+                disabled={isLoading}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+              >
+                {isLoading ? 'Loading...' : 'Load More'}
+              </motion.button>
+            </motion.div>
+          )}
+
+          {/* Load more skeleton */}
+          {isLoading && page > 1 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          )}
         </div>
-      </div></>
+      </div>
+    </>
   );
 };
 
