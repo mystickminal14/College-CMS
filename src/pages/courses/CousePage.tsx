@@ -70,6 +70,7 @@ const CoursePage = () => {
   const navigate = useNavigate();
 
   const courses = data?.data ?? [];
+  const totalItems = data?.pagination?.total ?? 0;
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
@@ -266,7 +267,7 @@ const CoursePage = () => {
         isOpen={showOrderModal}
         onClose={() => setShowOrderModal(false)}
         course={courseToChangeOrder}
-        maxOrder={courses.length}
+        maxOrder={totalItems}
       />
 
       <CopyCourseModal

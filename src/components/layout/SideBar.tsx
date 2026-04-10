@@ -61,7 +61,7 @@ const menuItems: MenuItem[] = [
       { id: "planner-course", label: "Course Planner", icon: MdAssignment },
       
       { id: "fee-planner", label: "Fee Planner", icon: MdAttachMoney },
-      { id: "downloads", label: "Student Handbook", icon: MdMenuBook },
+      { id: "downloads", label: "Downloads", icon: MdMenuBook },
     ]
   },
  {

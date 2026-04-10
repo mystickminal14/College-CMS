@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
   },
   withCredentials:true
 ,
-  timeout: 5000,
+  timeout: 20000,
 });
 
 axiosInstance.interceptors.request.use((config) => {

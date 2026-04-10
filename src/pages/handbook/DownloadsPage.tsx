@@ -39,6 +39,7 @@ const DownloadsPage = () => {
   });
 
   const downloads = data?.data ?? [];
+  const totalItems = data?.pagination?.total ?? 0;
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
 
@@ -154,7 +155,7 @@ const DownloadsPage = () => {
         isOpen={showOrderModal}
         onClose={() => setShowOrderModal(false)}
         download={downloadToChangeOrder}
-        maxOrder={downloads.length}
+        maxOrder={totalItems}
       />
 
       {/* ADD MODAL */}
