@@ -58,7 +58,6 @@ const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) =
         to the homepage.
       </p>
 
-      {/* Error message (dev-friendly) */}
       {(error as Error).message && (
         <div
           className={`mb-8 px-4 py-3 rounded-lg text-xs font-mono max-w-md w-full text-center wrap-break-word ${

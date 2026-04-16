@@ -42,6 +42,8 @@ interface FormData {
 
 // Permission groups
 const JOURNAL_PERMISSIONS: PermissionNameType[] = ["JOURNALS", "EDITORIAL_BOARD"];
+const BLOGS_PERMISSIONS: PermissionNameType[] = ["BLOGS"];
+
 const ACADEMIC_PERMISSIONS: PermissionNameType[] = ["PLANNER_COURSE", "ACADEMIC_PLANNER", "FEE_PLANNER"];
 const OTHER_PERMISSIONS: PermissionNameType[] = [
   "USERS",
@@ -66,7 +68,7 @@ const OTHER_PERMISSIONS: PermissionNameType[] = [
 export const ALL_PERMISSIONS: PermissionNameType[] = [
   ...OTHER_PERMISSIONS,
   ...JOURNAL_PERMISSIONS,
-  ...ACADEMIC_PERMISSIONS,
+  ...ACADEMIC_PERMISSIONS,...BLOGS_PERMISSIONS
 ];
 
 const AddEditUserModal: React.FC<Props> = ({
@@ -384,6 +386,8 @@ const renderPermissionSection = (title: string, permissions: PermissionNameType[
 
               {renderPermissionSection("Other Permissions", OTHER_PERMISSIONS)}
               {renderPermissionSection("Journal", JOURNAL_PERMISSIONS)}
+              {renderPermissionSection("Blogs", BLOGS_PERMISSIONS)}
+
               {renderPermissionSection("Academic Planner", ACADEMIC_PERMISSIONS)}
             </div>
                     </div>

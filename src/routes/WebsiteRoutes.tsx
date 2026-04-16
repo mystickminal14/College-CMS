@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { WebsiteLayout } from "../website/WebLayout";
 import CourseDetailsByID from "../pages/courses/CourseDetailsById";
+import PreviewBlog from "../pages/blogs/PreviewBlog";
 
 
 /* =======================
@@ -214,6 +215,10 @@ export const websiteRoutes = [
       {
         path: "enroll",
         element: <PlaceholderPage pageName="Enroll Now" />,
+      },
+       {
+        path: "blogs/:slug",
+        element: <PreviewBlog/>,
       },
       { path: "*", element: <NotFoundPage /> },
     ],

@@ -16,6 +16,7 @@ import Seo from "../../../context/seo";
 import ApeuSubFooter from "./components/ApeuSubFooter";
 import LbefSubFooter from "./components/LbefSubFooter";
 import IndustryPartnerSection from "./components/IndustryPartner";
+import BlogSECTION from "./components/BlogSection";
 export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -72,7 +73,8 @@ export default function HomePage() {
               <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
-                <JoinStudents />
+              <BlogSECTION/>
+
               </motion.div>
               <motion.div
                 className="sticky top-0 z-10 bg-white"
@@ -93,7 +95,6 @@ export default function HomePage() {
                 style={{ y: contentY }}
                 className="relative z-20 bg-white"
               >
-
                 <EmailSubscribe />
                 <motion.div
                   className="sticky top-0 z-10 bg-white"

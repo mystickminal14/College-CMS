@@ -1,4 +1,4 @@
-import { FaAward, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaAward, FaBlog, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState,  } from "react";
 import appLogo from "../../assets/butterfiles.webp";
 import pcpsLogo from "../../assets/pcpslogo.webp";
@@ -84,6 +84,14 @@ const menuItems: MenuItem[] = [
       { id: "connect", label: "LBEF Connect", icon: MdGroups },
       { id: "gallery", label: "Photo Gallery", icon: MdPhoto },
     ],
+  },
+  {
+    id: "lbef",
+    icon: FaBlog,
+    label: "Manage Blogs",
+    subMenus: [
+      { id: "blogs", label: "Blogs", icon: FaBlog },
+    ]
   },
   {
     id: "administation",
