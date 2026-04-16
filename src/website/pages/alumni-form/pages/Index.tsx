@@ -55,9 +55,6 @@ const AlumniFormPage: React.FC = () => {
     if (!formData.collegeRollNo.trim())
       newErrors.collegeRollNo = 'College Roll No is required';
 
-    if (!formData.uniRollNo.trim())
-      newErrors.uniRollNo = 'University Roll No is required';
-
     if (!formData.fullName.trim())
       newErrors.fullName = 'Full Name is required';
 
