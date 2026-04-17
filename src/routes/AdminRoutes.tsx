@@ -40,7 +40,7 @@ import BlogFormPage from "../pages/blogs/components/EditPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
-  
+
   "course": "COURSES",
   "course-details/:id": "COURSES",
   "course-details/:key/add/:id": "COURSES",
@@ -56,8 +56,8 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "alumni/screen": "ALUMNI",
   "alumni/form": "ALMUNI_FORM",
   "faq": "FAQ",
-  "lbef/blogs": "BLOGS",
-  "students/planner-course":"PLANNER_COURSE",
+  "media/blogs": "BLOGS",
+  "students/planner-course": "PLANNER_COURSE",
   "administation/achievement": "ACHIEVEMENT",
   "media/news": "NEWS",
   "media/connect": "CONNECT",
@@ -70,8 +70,8 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "admission/docs": "DOCUMENTS",
   "media/journals": "JOURNALS",
   "media/journals/:id": "JOURNALS",
-  "lbef/blogs/edit/:id": "BLOGS",
-  "lbef/blogs/add": "BLOGS",
+  "media/blogs/edit/:id": "BLOGS",
+  "media/blogs/add": "BLOGS",
   "media/editorial-board": "EDITORIAL_BOARD",
 };
 
@@ -143,7 +143,7 @@ export const adminRoutes = [
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/planner-course", element: <PlannerCoursePage /> },
       { path: "hero-section", element: <HeroSectionPage /> },
-      
+
       { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },
       { path: "user", element: <UserPage /> },
@@ -164,9 +164,9 @@ export const adminRoutes = [
       { path: "media/journals", element: <JournalsPage /> },
       { path: "media/journals/:id", element: <JournalDetails /> },
       { path: "media/editorial-board", element: <EditorialPage /> },
-      { path: "lbef/blogs", element: <BlogsPage /> },
-      { path: "lbef/blogs/add", element: <AddBlogPage /> },
-      { path: "lbef/blogs/edit/:id", element: <BlogFormPage/> },
+      { path: "media/blogs", element: <BlogsPage /> },
+      { path: "media/blogs/add", element: <AddBlogPage /> },
+      { path: "media/blogs/edit/:id", element: <BlogFormPage /> },
 
       // Catch-all unknown routes inside /app
       { path: "*", element: <NotFoundPage /> },

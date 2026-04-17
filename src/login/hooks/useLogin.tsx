@@ -57,7 +57,7 @@ const useLogin = () => {
           ACADEMIC_PLANNER: "/app/students/planner",
           FEE_PLANNER: "/app/students/fee-planner",
           DOWNLOADS: "/app/students/downloads",
-          BLOGS: "/app/lbef/blogs",
+          BLOGS: "/app/media/blogs",
           ALMUNI_FORM: "",
           PLANNER_COURSE: "",
           SCHOLARSHIP: "",

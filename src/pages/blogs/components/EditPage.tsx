@@ -121,7 +121,7 @@ const BlogFormPage = () => {
     if (isEdit && blogId) {
       editBlog(
         { ...payload, id: blogId },
-        { onSuccess: () => navigate("/app/lbef/blogs") }
+        { onSuccess: () => navigate("/app/media/blogs") }
       );
     } else {
       createBlog(payload);
@@ -133,7 +133,7 @@ const BlogFormPage = () => {
     if (!blogId) return;
 
     deleteBlog(blogId, {
-      onSuccess: () => navigate("/app/lbef/blogs"),
+      onSuccess: () => navigate("/app/media/blogs"),
     });
   };
 
@@ -160,7 +160,7 @@ const BlogFormPage = () => {
       {/* TOP BAR */}
       <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-white/80 dark:bg-gray-950/80 backdrop-blur border-b">
         <button
-          onClick={() => navigate("/app/lbef/blogs")}
+          onClick={() => navigate("/app/media/blogs")}
           className="flex items-center gap-2 text-sm text-gray-500"
         >
           <ArrowLeft size={16} /> Back
@@ -170,8 +170,8 @@ const BlogFormPage = () => {
           {savedBlogId
             ? "Upload Featured Image"
             : isEdit
-            ? "Edit Blog"
-            : "New Blog"}
+              ? "Edit Blog"
+              : "New Blog"}
         </h1>
 
         <span className="text-xs text-gray-400">{wordCount} words</span>

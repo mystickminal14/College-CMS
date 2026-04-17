@@ -1,5 +1,5 @@
 import { FaAward, FaBlog, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useState,  } from "react";
+import { useState, } from "react";
 import appLogo from "../../assets/butterfiles.webp";
 import pcpsLogo from "../../assets/pcpslogo.webp";
 import {
@@ -59,25 +59,26 @@ const menuItems: MenuItem[] = [
     subMenus: [
       { id: "planner", label: "Academic Planner", icon: MdAssignment },
       { id: "planner-course", label: "Course Planner", icon: MdAssignment },
-      
+
       { id: "fee-planner", label: "Fee Planner", icon: MdAttachMoney },
       { id: "downloads", label: "Downloads", icon: MdMenuBook },
     ]
   },
- {
+  {
     id: "alumni",
     icon: MdArticle,
     label: "Alumni",
     subMenus: [
       { id: "screen", label: "Alumni", icon: MdBusinessCenter },
       { id: "form", label: "Alumni Form", icon: MdBusinessCenter },
-    
+
     ],
-  } , {
+  }, {
     id: "media",
     icon: MdArticle,
     label: "Lbef Publication",
     subMenus: [
+      { id: "blogs", label: "Blogs", icon: FaBlog },
       { id: "news", label: "News", icon: MdArticle },
       { id: "journals", label: "Journal", icon: MdArticle },
       { id: "editorial-board", label: "Editorial Board", icon: MdArticle },
@@ -85,14 +86,14 @@ const menuItems: MenuItem[] = [
       { id: "gallery", label: "Photo Gallery", icon: MdPhoto },
     ],
   },
-  {
-    id: "lbef",
-    icon: FaBlog,
-    label: "Manage Blogs",
-    subMenus: [
-      { id: "blogs", label: "Blogs", icon: FaBlog },
-    ]
-  },
+  // {
+  //   id: "lbef",
+  //   icon: FaBlog,
+  //   label: "Manage Blogs",
+  //   subMenus: [
+  //     { id: "blogs", label: "Blogs", icon: FaBlog },
+  //   ]
+  // },
   {
     id: "administation",
     icon: MdBusinessCenter,
@@ -137,9 +138,9 @@ const SideBar: React.FC<SideBarProps> = ({
     navigate("/");
   };
 
- // Safe permissions mapping from API
-const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
-;
+  // Safe permissions mapping from API
+  const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
+  ;
 
   const role = meData?.data?.role || "USER";
 
@@ -216,7 +217,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
               return (
                 <div key={item.id}>
                   <button
-                  aria-label="handle menu click"
+                    aria-label="handle menu click"
                     className={`w-full flex items-center justify-between p-3 rounded-xl 
                       transition-all duration-200 cursor-pointer
                       ${isActive
@@ -244,7 +245,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
                     <div className="ml-8 mt-2 space-y-1">
                       {item.subMenus.map((menu) => (
                         <button
-                        aria-label="handle menu click"
+                          aria-label="handle menu click"
                           key={menu.id}
                           className={`w-full text-left p-2 text-sm rounded-lg transition-all flex items-center space-x-2 cursor-pointer
                           ${isSubMenuActive(item, menu.id)
@@ -298,7 +299,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
                   {activeMobileItem.label}
                 </h2>
                 <button
-                aria-label="Close Submenu"
+                  aria-label="Close Submenu"
                   onClick={() => setSubmenuOpen(false)}
                   className="text-lg font-bold text-slate-500 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100 cursor-pointer"
                 >
@@ -397,7 +398,7 @@ const userPermissions: PermissionNameType[] = meData?.data?.permissions || [];
                 <div className="ml-8 mt-2 space-y-1">
                   {item.subMenus.map((menu) => (
                     <button
-                    aria-label="handle menu click"
+                      aria-label="handle menu click"
                       key={menu.id}
                       className={`w-full text-left p-2 text-sm rounded-lg transition-all flex items-center space-x-2 cursor-pointer
                           ${isSubMenuActive(item, menu.id)

@@ -56,7 +56,7 @@ const BlogFeaturedImage = ({
             setPendingFile(null);
             setSaved(true);
 
-            if (!inlineMode) navigate("/app/lbef/blogs");
+            if (!inlineMode) navigate("/app/media/blogs");
           },
         }
       );
@@ -65,7 +65,7 @@ const BlogFeaturedImage = ({
 
     onAltChange(localAlt);
 
-    if (!inlineMode) navigate("/app/lbef/blogs");
+    if (!inlineMode) navigate("/app/media/blogs");
   };
 
   const handleSkip = () => {
@@ -73,7 +73,7 @@ const BlogFeaturedImage = ({
     setPreview(currentImage ?? null);
     setSaved(false);
 
-    if (!inlineMode) navigate("/app/lbef/blogs");
+    if (!inlineMode) navigate("/app/media/blogs");
   };
 
   const isDisabled =
@@ -169,10 +169,10 @@ const BlogFeaturedImage = ({
           {isPending
             ? "Uploading..."
             : saved
-            ? "Image Saved ✓"
-            : pendingFile
-            ? "Upload Image"
-            : "Update Image"}
+              ? "Image Saved ✓"
+              : pendingFile
+                ? "Upload Image"
+                : "Update Image"}
         </button>
       ) : (
         <div className="flex gap-3 pt-2">

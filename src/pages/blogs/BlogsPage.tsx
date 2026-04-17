@@ -55,44 +55,44 @@ const BlogsPage = () => {
     color?: string;
     condition?: (row: Blog) => boolean;
   }[] = [
-    // Edit blog content
-    {
-      icon: <Edit className="w-4 h-4" />,
-      tooltip: "Edit Blog",
-      onClick: (row: Blog) => navigate(`/app/lbef/blogs/edit/${row.id}`),
-      color: "text-[#135EAB]",
-    },
-    // Preview (public view)
-    {
-      icon: <Eye className="w-4 h-4" />,
-      tooltip: "Preview Blog",
-      onClick: (row: Blog) => navigate(`/blogs/${row.slug}`),
-      color: "text-blue-500",
-    },
-    {
-      icon: <Globe className="w-4 h-4" />,
-      tooltip: "Publish Now",
-      onClick: (row: Blog) => setBlogToPublish(row),
-      color: "text-green-600",
-      condition: (row: Blog) => row.status !== "PUBLISHED",
-    },
-    // Reschedule — for DRAFT or SCHEDULED (not PUBLISHED)
-    {
-      icon: <Calendar className="w-4 h-4" />,
-      tooltip: (row: Blog) =>
-        row.status === "SCHEDULED" ? "Reschedule" : "Schedule",
-      onClick: (row: Blog) => setBlogToReschedule(row),
-      color: "text-indigo-500",
-      condition: (row: Blog) => row.status !== "PUBLISHED",
-    },
-    // Delete
-    {
-      icon: <Trash2 className="w-4 h-4" />,
-      tooltip: "Delete Blog",
-      onClick: (row: Blog) => setBlogToDelete(row),
-      color: "text-red-600",
-    },
-  ];
+      // Edit blog content
+      {
+        icon: <Edit className="w-4 h-4" />,
+        tooltip: "Edit Blog",
+        onClick: (row: Blog) => navigate(`/app/media/blogs/edit/${row.id}`),
+        color: "text-[#135EAB]",
+      },
+      // Preview (public view)
+      {
+        icon: <Eye className="w-4 h-4" />,
+        tooltip: "Preview Blog",
+        onClick: (row: Blog) => navigate(`/blogs/${row.slug}`),
+        color: "text-blue-500",
+      },
+      {
+        icon: <Globe className="w-4 h-4" />,
+        tooltip: "Publish Now",
+        onClick: (row: Blog) => setBlogToPublish(row),
+        color: "text-green-600",
+        condition: (row: Blog) => row.status !== "PUBLISHED",
+      },
+      // Reschedule — for DRAFT or SCHEDULED (not PUBLISHED)
+      {
+        icon: <Calendar className="w-4 h-4" />,
+        tooltip: (row: Blog) =>
+          row.status === "SCHEDULED" ? "Reschedule" : "Schedule",
+        onClick: (row: Blog) => setBlogToReschedule(row),
+        color: "text-indigo-500",
+        condition: (row: Blog) => row.status !== "PUBLISHED",
+      },
+      // Delete
+      {
+        icon: <Trash2 className="w-4 h-4" />,
+        tooltip: "Delete Blog",
+        onClick: (row: Blog) => setBlogToDelete(row),
+        color: "text-red-600",
+      },
+    ];
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-0 md:p-2">
@@ -121,7 +121,7 @@ const BlogsPage = () => {
           </select>
 
           <button
-            onClick={() => navigate("/app/lbef/blogs/add")}
+            onClick={() => navigate("/app/media/blogs/add")}
             className="px-4 py-2 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c]
               flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
           >
