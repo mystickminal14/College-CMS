@@ -26,7 +26,6 @@ export interface AlumniFormData {
   id?: number;
   collegeRollNo: string;
   content: string;
-
   uniRollNo: string;
   prefix: EPrefixType;
   fullName: string;
