@@ -195,6 +195,7 @@ const navigate=useNavigate()
               className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth cursor-grab active:cursor-grabbing pb-6 pt-2 px-1"
             >
               {newsList.map((blog: Blog, index: number) => (
+                
                 <motion.article
                   key={blog.id || index}
                   custom={index}
@@ -247,7 +248,10 @@ const navigate=useNavigate()
                       </div>
                     </div>
 
-                    <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover/card:text-[#474AFF] transition-colors duration-200">
+                    <h3 
+                  onClick={()=>navigate(`/blogs/${blog.slug}`)}
+                    
+                    className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover/card:text-[#474AFF] transition-colors duration-200">
                       {blog.title}
                     </h3>
 

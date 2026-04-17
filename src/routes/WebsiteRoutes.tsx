@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { WebsiteLayout } from "../website/WebLayout";
 import CourseDetailsByID from "../pages/courses/CourseDetailsById";
 import PreviewBlog from "../pages/blogs/PreviewBlog";
+import BlogsPAge from "../website/pages/blogs/BlogsPage";
 
 
 /* =======================
@@ -166,6 +167,10 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <Gallery /> },
           { path: "photo-gallery", element: <Gallery /> },
+              {
+        path: "blogs",
+        element: <BlogsPAge/>,
+      },
           {
             path: "photo-gallery/:name/:id",
             element: <GalleryView />,
@@ -196,10 +201,7 @@ export const websiteRoutes = [
         element: <MeritScholarship />,
       },
       { path: "ictregistration", element: <ICTRegistration /> },
-      {
-        path: "blogs",
-        element: <PlaceholderPage pageName="Blogs" />,
-      },
+  
       {
         path: "ugc",
         element: <PlaceholderPage pageName="UGC" />,

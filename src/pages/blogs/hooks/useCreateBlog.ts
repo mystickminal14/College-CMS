@@ -19,7 +19,7 @@ const useCreateBlog = () => {
     onSuccess: (res) => {
       showToast(res.message || "Blog created successfully!", "success");
       queryClient.invalidateQueries({ queryKey: [BLOG_CACHE_KEY] });
-    },
+  },
 
     onError: (err) => {
       const msg = err.errors?.[0]?.message || err.message || "Something went wrong!";

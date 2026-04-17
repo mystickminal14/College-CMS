@@ -75,7 +75,8 @@ const BlogPublish = ({
 
       {/* ACTION BUTTON */}
       {isPublished && isEdit ? (
-        <button
+        <>
+       <button
           type="button"
           onClick={onDelete}
           disabled={isDeleting}
@@ -85,6 +86,19 @@ const BlogPublish = ({
         >
           {isDeleting ? "Deleting..." : "Delete Blog"}
         </button>
+        <button
+          type="button"
+          onClick={onSubmit}
+          disabled={isPending}
+          className="w-full py-2.5 rounded-lg bg-gray-900 dark:bg-white
+            hover:bg-gray-700 dark:hover:bg-gray-200
+            text-white dark:text-gray-900
+            text-sm font-bold tracking-wide transition-colors
+            disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isPending ? "Saving..." : isEdit ? "Update Blog" : "Save Blog"}
+        </button> 
+        </>
       ) : (
         <button
           type="button"

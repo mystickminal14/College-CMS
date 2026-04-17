@@ -207,6 +207,7 @@ export function NavBar() {
     {
       name: "Media & Publications",
       dropdown: [
+        { name: "LBEF Blogs", link: "/media/blogs" },
         { name: "Photo Gallery", link: "/media/photo-gallery" },
         { name: "LBEF Connect", link: "/lbef-connect" },
         { name: "LBEF Journal", link: "/lrjstm/" },
