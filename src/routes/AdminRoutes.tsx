@@ -31,7 +31,6 @@ import useMe from "../login/hooks/useMe";
 import type { PermissionNameType } from "../login/model/permission";
 import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 import FeePlannersPage from "../pages/fee-planner/FeePlanner";
-import AlumniFormTable from "../website/pages/alumni-form/pages/AlumniFormtable";
 import ScholarshipPage from "../pages/scholarship/ScholarPage";
 import HeroSectionPage from "../pages/hero-section/HeroSectIonPage";
 import FaqPage from "../pages/Faq/FaqPAge";
@@ -149,7 +148,6 @@ export const adminRoutes = [
       { path: "students/downloads", element: <DownloadsPage /> },
       { path: "user", element: <UserPage /> },
       { path: "alumni/screen", element: <AlumniPage /> },
-      { path: "alumni/form", element: <AlumniFormTable /> },
 
       { path: "administation/achievement", element: <AchievementPage /> },
       { path: "admission/scholarship", element: <ScholarshipPage /> },
