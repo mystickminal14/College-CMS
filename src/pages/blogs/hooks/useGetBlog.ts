@@ -18,6 +18,7 @@ const useGetBlogs = ({ search, page = 1, limit = 10, status }: BlogQueryProps) =
       blogApi.getAll(
         `?page=${page}&limit=${limit}${status ? `&status=${status}` : ""}${search ? `&search=${search}` : ""}`
       ),
+    refetchOnMount: true,
   });
 };
 

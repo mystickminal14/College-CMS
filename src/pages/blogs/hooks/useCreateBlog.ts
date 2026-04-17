@@ -18,8 +18,21 @@ const useCreateBlog = () => {
 
     onSuccess: (res) => {
       showToast(res.message || "Blog created successfully!", "success");
+
+      queryClient.setQueriesData(
+        { queryKey: [BLOG_CACHE_KEY] },
+        (oldData: ApiResponse<Blog[]> | undefined) => {
+          if (!oldData) return oldData;
+
+          return {
+            ...oldData,
+            data: [res.data, ...(oldData.data || [])],
+          };
+        }
+      );
+
       queryClient.invalidateQueries({ queryKey: [BLOG_CACHE_KEY] });
-  },
+    },
 
     onError: (err) => {
       const msg = err.errors?.[0]?.message || err.message || "Something went wrong!";
