@@ -11,6 +11,8 @@ import { APP_URL } from "../../../constants";
 import MessageDetail from "../messages/Messages";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import butterflyGif from "../../../assets/butter.gif";
+
 const OurMessage = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,7 +24,7 @@ const OurMessage = () => {
       position: "Chairman",
       institution: "LBEF Group Of Institutions",
       message:
-        "Dear Students,\nIt is my pleasure to extend a warm welcome to all prospective students. As a part of our student community, you are a part of a large and diverse group reflecting our wonderful regional character and diversity. We are all   ...",
+        "Dear Students,\nIt is my pleasure to extend a warm welcome to all prospective students...",
       image: imageone,
     },
     {
@@ -31,7 +33,7 @@ const OurMessage = () => {
       position: "Executive Director",
       institution: "LBEF Group of Institutions",
       message:
-        "Dear Students,\nWelcome to LBEF College - the First IT College of Nepal! We are excited about your interest in joining our esteemed institution. At LBEF, we are dedicated to offering an exceptional educational experience that prepares you for ...",
+        "Dear Students,\nWelcome to LBEF College - the First IT College of Nepal!...",
       image: imagetwo,
     },
     {
@@ -40,7 +42,7 @@ const OurMessage = () => {
       position: "CO-FOUNDER & CEO",
       institution: "APIIT Education Group",
       message:
-        "Dear Students,\nWe welcome LBEF to the international community of the Asia Pacific University of Technology & Innovation (APU). Parents, prospective & current students will be pleased to note that over 11,000 students including international students from over 120 countries are currently....",
+        "Dear Students,\nWe welcome LBEF to the international community...",
       image: imagethree,
     },
     {
@@ -49,7 +51,7 @@ const OurMessage = () => {
       position: "VICE CHANCELLOR",
       institution: "Asia Pacific University",
       message:
-        "Dear Students,\nI would like to extend a warm welcome to students who are part of the APU – LBEF academic partnership. The APU – LBEF partnership which started in 2016 has produced around 300 graduates. Student centricity and uncompromising quality are at the heart...",
+        "Dear Students,\nI would like to extend a warm welcome...",
       image: imagefour,
     },
   ];
@@ -73,66 +75,65 @@ const OurMessage = () => {
     <>
       <Seo
         title="Message From Leadership | LBEF"
-        description="Read inspiring messages from the Chairman, Executive Director, and Academic Leaders of LBEF."
+        description="Read inspiring messages from leadership."
         url={`${APP_URL}/messages`}
       />
 
-      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-              >
-                <motion.span
-                  className="w-2 h-2 bg-blue-500 rounded-full"
-                  animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                />
-                <span className="text-blue-600 font-medium text-sm">
-                  Message from Our Leaders
-                </span>
-              </motion.div>
+      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white relative">
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-                <span className="text-gray-900">Leadership </span>
-                <span className="relative inline-block">
-                  <span className="text-blue-600 relative z-10">Messages</span>
-                  <motion.img
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    src={decoration}
-                    alt="Decoration"
-                    className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
-                  />
-                </span>
-              </h1>
-            </motion.div>
+        {/* ================= GLOBAL TOP BACKGROUND GIF ================= */}
+        <div className="absolute top-0 left-0 w-full h-[60vh] z-0 pointer-events-none">
+          <img
+            src={butterflyGif}
+            alt="Butterfly Background"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* ================= PAGE CONTENT ================= */}
+        <div className="relative z-10">
+
+          {/* HEADER */}
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <div className="text-center">
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="max-w-4xl mx-auto"
+              >
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+                  <span className="text-gray-900">Leadership </span>
+                  <span className="relative inline-block">
+                    <span className="text-blue-600 relative z-10">
+                      Messages
+                    </span>
+                    <motion.img
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      src={decoration}
+                      alt="Decoration"
+                      className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
+                    />
+                  </span>
+                </h1>
+              </motion.div>
+            </div>
           </div>
 
+          {/* CAROUSEL */}
           <div className="relative max-w-6xl mx-auto p-8">
-            {/* Carousel Container */}
             <div className="relative overflow-hidden rounded-2xl">
-              {/* Cards Container */}
+
               <div
                 className="flex transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                  <div
-                    key={slideIndex}
-                    className="w-full shrink-0 px-4"
-                  >
+                  <div key={slideIndex} className="w-full shrink-0 px-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ml-5">
                       {messages
                         .slice(slideIndex * cardsPerView, slideIndex * cardsPerView + cardsPerView)
@@ -176,19 +177,19 @@ const OurMessage = () => {
                 ))}
               </div>
 
-              {/* Navigation Buttons - Show only if there are more than 2 slides */}
+              {/* NAVIGATION */}
               {totalSlides > 1 && (
                 <>
                   <button
                     onClick={handlePrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
                   >
                     <ChevronLeft className="w-6 h-6 text-gray-700" />
                   </button>
 
                   <button
                     onClick={handleNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
                   >
                     <ChevronRight className="w-6 h-6 text-gray-700" />
                   </button>
@@ -196,18 +197,18 @@ const OurMessage = () => {
               )}
             </div>
 
-            {/* Indicators/Dots */}
+            {/* DOTS */}
             {totalSlides > 1 && (
               <div className="flex justify-center mt-8 space-x-2">
                 {Array.from({ length: totalSlides }).map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                        ? 'bg-blue-600 w-8'
-                        : 'bg-gray-300 hover:bg-gray-400'
-                      }`}
-                    aria-label={`Go to slide ${index + 1}`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentIndex
+                        ? "bg-blue-600 w-8"
+                        : "bg-gray-300 hover:bg-gray-400"
+                    }`}
                   />
                 ))}
               </div>

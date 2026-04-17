@@ -35,6 +35,9 @@ import AlumniFormTable from "../website/pages/alumni-form/pages/AlumniFormtable"
 import ScholarshipPage from "../pages/scholarship/ScholarPage";
 import HeroSectionPage from "../pages/hero-section/HeroSectIonPage";
 import FaqPage from "../pages/Faq/FaqPAge";
+import BlogsPage from "../pages/blogs/BlogsPage";
+import AddBlogPage from "../pages/blogs/components/AddBlogPage";
+import BlogFormPage from "../pages/blogs/components/EditPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -54,7 +57,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "alumni/screen": "ALUMNI",
   "alumni/form": "ALMUNI_FORM",
   "faq": "FAQ",
-
+  "lbef/blogs": "BLOGS",
   "students/planner-course":"PLANNER_COURSE",
   "administation/achievement": "ACHIEVEMENT",
   "media/news": "NEWS",
@@ -68,6 +71,8 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "admission/docs": "DOCUMENTS",
   "media/journals": "JOURNALS",
   "media/journals/:id": "JOURNALS",
+  "lbef/blogs/edit/:id": "BLOGS",
+  "lbef/blogs/add": "BLOGS",
   "media/editorial-board": "EDITORIAL_BOARD",
 };
 
@@ -161,6 +166,9 @@ export const adminRoutes = [
       { path: "media/journals", element: <JournalsPage /> },
       { path: "media/journals/:id", element: <JournalDetails /> },
       { path: "media/editorial-board", element: <EditorialPage /> },
+      { path: "lbef/blogs", element: <BlogsPage /> },
+      { path: "lbef/blogs/add", element: <AddBlogPage /> },
+      { path: "lbef/blogs/edit/:id", element: <BlogFormPage/> },
 
       // Catch-all unknown routes inside /app
       { path: "*", element: <NotFoundPage /> },
