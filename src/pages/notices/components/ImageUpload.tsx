@@ -6,6 +6,7 @@ import { FaFilePdf } from "react-icons/fa";
 interface NoticePdfUploadFormProps {
   noticeName: string;
   pdfFile: File | null;
+  existingPdfFileName?: string | null;
   onFileChange: (file: File | null) => void;
   onRemoveFile: () => void;
   isUploading?: boolean;
@@ -16,6 +17,7 @@ interface NoticePdfUploadFormProps {
 const NoticePdfUploadForm: React.FC<NoticePdfUploadFormProps> = ({
   noticeName,
   pdfFile,
+  existingPdfFileName = null,
   onFileChange,
   onRemoveFile,
   isUploading = false,
@@ -42,26 +44,49 @@ const NoticePdfUploadForm: React.FC<NoticePdfUploadFormProps> = ({
     onFileChange(file);
   };
 
+  // Function to truncate filename if too long
+  const truncateFileName = (fileName: string, maxLength: number = 30) => {
+    if (fileName.length <= maxLength) return fileName;
+    const extension = fileName.split('.').pop();
+    const nameWithoutExt = fileName.slice(0, fileName.lastIndexOf('.'));
+    const truncatedName = nameWithoutExt.slice(0, maxLength - 3 - (extension?.length || 0));
+    return `${truncatedName}...${extension ? `.${extension}` : ''}`;
+  };
+
+  // Determine what to display
+  const hasFile = pdfFile !== null || existingPdfFileName !== null;
+  const displayFileName = pdfFile ? pdfFile.name : existingPdfFileName;
+
   return (
     <div className="space-y-6">
       <div className="text-center mb-2">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {pdfFile ? "Selected PDF / Upload New" : "Upload PDF for Notice"}
+          {hasFile ? "Selected PDF / Upload New" : "Upload PDF for Notice"}
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
-          {pdfFile ? `Selected file for ${noticeName}` : `Choose a PDF file for ${noticeName}`}
+          {hasFile ? `Selected file for ${noticeName}` : `Choose a PDF file for ${noticeName}`}
         </p>
       </div>
 
       <div className="flex flex-col items-center justify-center">
         <div className="relative mb-6">
           <div className="w-56 h-56 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-700/50 cursor-pointer"
-               onClick={triggerFileInput}>
-            {pdfFile ? (
-              <div className="text-center">
+            onClick={triggerFileInput}>
+            {hasFile ? (
+              <div className="text-center relative w-full h-full flex flex-col items-center justify-center">
                 <FaFilePdf className="w-12 h-12 text-red-600 mx-auto mb-2" />
-                <p className="text-sm">{pdfFile.name}</p>
-                <button type="button" onClick={onRemoveFile} disabled={isUploading} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors disabled:opacity-50">
+                <p className="text-sm font-medium px-2 break-words">
+                  {truncateFileName(displayFileName || "")}
+                </p>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRemoveFile();
+                  }}
+                  disabled={isUploading}
+                  className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors disabled:opacity-50"
+                >
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -79,10 +104,10 @@ const NoticePdfUploadForm: React.FC<NoticePdfUploadFormProps> = ({
 
         <button type="button" onClick={triggerFileInput} disabled={isUploading} className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center space-x-2 font-medium disabled:opacity-50">
           <Upload className="w-5 h-5" />
-          <span>{pdfFile ? "Change PDF" : "Choose PDF"}</span>
+          <span>{hasFile ? "Change PDF" : "Choose PDF"}</span>
         </button>
 
-        {!pdfFile && (
+        {!hasFile && (
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
             PDF is optional. You can skip this step.
           </p>

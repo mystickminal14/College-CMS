@@ -38,6 +38,7 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
   });
   const [noticeId, setNoticeId] = useState<number | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [existingPdfFileName, setExistingPdfFileName] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -49,6 +50,15 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
           type: NoticesToEdit.type,
         });
         setNoticeId(NoticesToEdit.id || null);
+
+        // Extract filename from the file path if it exists
+        if (NoticesToEdit.file) {
+          const fileName = NoticesToEdit.file.split('/').pop() || '';
+          setExistingPdfFileName(fileName);
+        } else {
+          setExistingPdfFileName(null);
+        }
+
         setStep(1);
         setPdfFile(null);
       } else {
@@ -61,6 +71,7 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
     setFormData({ title: "", program_name: "", date: "", type: "ADMINISTRATIVE" });
     setNoticeId(null);
     setPdfFile(null);
+    setExistingPdfFileName(null);
     setStep(1);
   };
 
@@ -190,23 +201,25 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
                   >
                     {isStep1Submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Submit"}
                   </button>
-                  {!isEditMode && noticeId && (
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
-                    >
-                      Next
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="px-6 py-3.5 bg-gray-200 text-gray-900 rounded-xl hover:bg-gray-300 transition-all font-medium"
+                  >
+                    Next
+                  </button>
                 </div>
               </form>
             ) : (
               <NoticePdfUploadForm
                 noticeName={formData.program_name}
                 pdfFile={pdfFile}
+                existingPdfFileName={existingPdfFileName}
                 onFileChange={setPdfFile}
-                onRemoveFile={() => setPdfFile(null)}
+                onRemoveFile={() => {
+                  setPdfFile(null);
+                  setExistingPdfFileName(null);
+                }}
                 onSubmit={handleSubmitStep2}
                 onSkip={handleSkipPdf}
                 isUploading={isStep2Uploading}
