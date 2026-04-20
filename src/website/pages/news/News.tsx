@@ -53,7 +53,7 @@ const NewsPageWeb = () => {
         className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center"
       >
         <div className="max-w-4xl mx-auto">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -74,7 +74,7 @@ const NewsPageWeb = () => {
             <span className="text-blue-600 font-medium text-sm">
               LBEF News & Updates
             </span>
-          </motion.div>
+          </motion.div> */}
 
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">

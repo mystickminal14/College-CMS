@@ -62,10 +62,10 @@ const MeritScholarship = () => {
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 text-center">
         <div className="max-w-8xl mx-auto">
-          <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
+          {/* <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
             <span className="text-blue-600 font-medium text-sm">Scholarship</span>
-          </div>
+          </div> */}
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Merit </span>

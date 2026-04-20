@@ -166,7 +166,7 @@ const NoticeWeb = () => {
         animate="visible"
       >
         <div className="max-w-4xl mx-auto">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -187,7 +187,7 @@ const NoticeWeb = () => {
             <span className="text-blue-600 font-medium text-sm">
               Latest Updates & Announcements
             </span>
-          </motion.div>
+          </motion.div> */}
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Notice </span>

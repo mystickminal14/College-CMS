@@ -28,7 +28,7 @@ const CodeOfConduct = () => {
             variants={fadeUp}
           >
             <div className="max-w-8xl mx-auto">
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -49,7 +49,7 @@ const CodeOfConduct = () => {
                 <span className="text-blue-600 font-medium text-sm">
                   Student Code of Conduct
                 </span>
-              </motion.div>
+              </motion.div> */}
 
 
 

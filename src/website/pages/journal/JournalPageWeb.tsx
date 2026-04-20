@@ -63,7 +63,7 @@ const JournalPageWeb = () => {
             viewport={{ once: true }}
             className="max-w-8xl mx-auto"
           >
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -84,7 +84,7 @@ const JournalPageWeb = () => {
               <span className="text-blue-600 font-medium text-sm">
                 Journal
               </span>
-            </motion.div>
+            </motion.div> */}
 
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-snug">
               <span>LBEF Research </span>

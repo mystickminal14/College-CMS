@@ -260,7 +260,7 @@ const HolidayWebPlanner: React.FC = () => {
           className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
         >
           <div className="max-w-8xl mx-auto">
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -281,7 +281,7 @@ const HolidayWebPlanner: React.FC = () => {
               <span className="text-blue-600 font-medium text-sm">
                 Events & Holidays
               </span>
-            </motion.div>
+            </motion.div> */}
 
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
               <span className="text-gray-900">Institutional </span>

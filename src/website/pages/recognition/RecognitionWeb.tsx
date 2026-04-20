@@ -26,7 +26,7 @@ const RecognitionPageWeb = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -47,7 +47,7 @@ const RecognitionPageWeb = () => {
             <span className="text-blue-600 font-medium text-sm">
               Discover Our Achievements
             </span>
-          </motion.div>
+          </motion.div> */}
 
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">

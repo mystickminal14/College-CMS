@@ -1,4 +1,4 @@
-import { FaImages } from "react-icons/fa";
+// import { FaImages } from "react-icons/fa";
 import decoration from "../../../../assets/decoration.webp";
 import { motion } from 'framer-motion';
 import { fadeUp } from "../../../comp/animation";
@@ -17,7 +17,7 @@ const GalleryHeader = () => {
           viewport={{ once: true }}
           className="max-w-8xl mx-auto">
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -38,7 +38,7 @@ const GalleryHeader = () => {
             <FaImages className="text-blue-500" />
             <span className="text-blue-600 font-medium text-sm">Image Gallery</span>
 
-          </motion.div>
+          </motion.div> */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Image </span>
             <span className="relative inline-block ml-2">
