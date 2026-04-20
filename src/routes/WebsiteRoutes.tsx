@@ -5,16 +5,17 @@ import PreviewBlog from "../pages/blogs/PreviewBlog";
 import BlogsPAge from "../website/pages/blogs/BlogsPage";
 
 
+
 /* =======================
    Lazy Loaded Pages
 ======================= */
 
 const HomePage = lazy(() => import("../website/pages/home/Home"));
-
+const AcademicHolidays = lazy(() => import("../website/pages/academic-holidays/AcademicHolidays"));
 const OurTeamWeb = lazy(() => import("../website/pages/our-team/OurTeam"));
 const RecognitionPageWeb = lazy(() => import("../website/pages/recognition/RecognitionWeb"));
 const PermissionPageWeb = lazy(() => import("../website/pages/recognition/PermissionWeb"));
-
+const AdministrativeHolidays = lazy(() => import("../website/pages/administrative-holidays/AdministrativeHolidays"));
 const CourseProgram = lazy(() => import("../website/pages/programs/CourseProgram"));
 const CourseDetails = lazy(() => import("../pages/courses/CourseDetails"));
 const AcademicWebPlanner = lazy(() => import("../website/pages/academic-planner-web/AcademicWebPlanner"));
@@ -98,7 +99,9 @@ export const websiteRoutes = [
       { path: "messages", element: <OurMessage /> },
       { path: "ourteam", element: <OurTeamWeb /> },
       { path: "training-and-placement", element: <PlaceholderPage pageName="Training & Placement Cell" /> },
-      { path: "administrative-holidays", element: <HolidayWebPlanner /> },
+      { path: "events", element: <HolidayWebPlanner /> },
+      { path: "academic-holidays", element: <AcademicHolidays /> },
+      { path: "administrative-holidays", element: <AdministrativeHolidays /> },
       // {
       //   path: "courses",
       //   children: [
