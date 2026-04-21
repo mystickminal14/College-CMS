@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Monitor } from 'lucide-react';
 import image from "../../../assets/butterfiles.webp";
 
-import decoration from '../../../assets/decoration.webp';
 import useGetAll from './hook/useGetCourses';
 
 import type { Courses } from '../../../pages/courses/model/CourseModel';
@@ -13,6 +12,7 @@ import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
 import useGetCourseCategoryNameAll from '../../../pages/course-category/hooks/useGetCatName';
 import { useState } from 'react';
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const truncateWords = (text: string, wordLimit: number) => {
   const words = text.split(' ');
@@ -92,62 +92,12 @@ const CourseProgram = () => {
       />
 
       <div className="min-h-screen bg-gray-50">
-        <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-12 text-center">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-            >
-              <motion.span
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [1, 0.7, 1]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: "easeInOut" as const
-                }}
-              />
-              <span className="text-blue-600 font-medium text-sm">
-                Explore Our Academic Programs
-              </span>
-            </motion.div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-              <span className="text-gray-900">World Class </span>
-              <span className="relative inline-block">
-                <span className="text-blue-600 relative z-10"> Courses</span>
-                <motion.img
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  src={decoration}
-                  alt=""
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
-                />
-              </span>
-              <br />
-              <span className="text-gray-900">Students </span>
-              <span className="text-blue-600"> Can Join </span>
-              <span className="text-gray-900">With Us</span>
-            </h1>
-
-            <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto">
-              World Class Course Students Can Join With Us
-            </p>
-          </motion.div>
-        </div>
+        <HeroTitleWithGif
+          title="World Class Courses Students Can Join With Us"
+          highlightedText="Courses"
+          subtitle="World Class Course Students Can Join With Us"
+          badgeText="Explore Our Academic Programs"
+        />
 
         {isLoading && (
           <div className="relative bg-gray-100 py-10 px-4">

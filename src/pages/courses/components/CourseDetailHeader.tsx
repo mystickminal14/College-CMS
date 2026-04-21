@@ -63,12 +63,12 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
           <motion.div className="lg:w-1/2" variants={container}>
             {/* Badge + Title */}
             <motion.div className="mb-8" variants={container}>
-              <motion.div
+              {/* <motion.div
                 variants={fadeUp}
                 className="inline-block bg-linear-to-r from-blue-100 to-indigo-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full mb-4"
               >
                 {course.degree.toUpperCase()}'S DEGREE
-              </motion.div>
+              </motion.div> */}
 
               <motion.h1
                 variants={fadeUp}

@@ -29,10 +29,10 @@ import { useGetCalender } from "./hook/useGetCalender";
 import type { EventModel } from "./model/CalenderModel";
 import { fadeUp } from "../../comp/animation";
 
-import decoration from "../../../assets/decoration.webp";
 import calendarBg from "../../../assets/butterfiles.webp";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const HolidayWebPlanner: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -252,64 +252,12 @@ const HolidayWebPlanner: React.FC = () => {
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
         {/* HERO - Unchanged */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 text-center"
-        >
-          <div className="max-w-8xl mx-auto">
-            {/* <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-            >
-              <motion.span
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [1, 0.7, 1]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: "easeInOut" as const
-                }}
-              />
-              <span className="text-blue-600 font-medium text-sm">
-                Events & Holidays
-              </span>
-            </motion.div> */}
-
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 md:mb-8">
-              <span className="text-gray-900">Institutional </span>
-              <span className="relative inline-block sm:ml-2">
-                <span className="text-blue-600 relative z-10">
-                  Calendar
-                </span>
-                <motion.img
-                  initial={{ scaleX: 0 }}
-                  src={decoration}
-
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 sm:-bottom-1 w-full h-2 sm:h-3"
-                />
-              </span>
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }} className="text-xs sm:text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2">
-              Explore all upcoming events and holidays to stay prepared, participate actively, and make the most of every opportunity throughout the academic year.
-
-            </motion.p>
-          </div>
-        </motion.div>
+        <HeroTitleWithGif
+          title="Institutional Calendar"
+          highlightedText="Calendar"
+          subtitle="Explore all upcoming events and holidays to stay prepared, participate actively, and make the most of every opportunity throughout the academic year."
+          badgeText="Events & Holidays"
+        />
 
         <div className="max-w-7xl mx-auto px-1 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">

@@ -1,8 +1,5 @@
 // JournalPageWeb.tsx
-import { motion } from 'framer-motion';
-import decoration from "../../../assets/decoration.webp";
 import { useState } from 'react';
-import { fadeUp } from '../../comp/animation';
 import JournalHomeContent from './JournalHome';
 import JournalEditorialBoard from './JournalEditorialBoard';
 import JournalIssueDetails from './JournalIssueDetails';
@@ -11,6 +8,7 @@ import JournalAbstract from '../../../pages/journal/JournalAbstract';
 import ContactListPage from '../contact-list/ContactListingPage';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 type TabType = 'home' | 'editorial' | 'contact';
 
@@ -55,64 +53,12 @@ const JournalPageWeb = () => {
 
       <div className="min-h-screen bg-gray-50">
         {/* ================= HERO ================= */}
-        <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-10 text-center">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="max-w-8xl mx-auto"
-          >
-            {/* <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-            >
-              <motion.span
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [1, 0.7, 1]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: "easeInOut" as const
-                }}
-              />
-              <span className="text-blue-600 font-medium text-sm">
-                Journal
-              </span>
-            </motion.div> */}
-
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-snug">
-              <span>LBEF Research </span>
-              <span className="relative inline-block text-blue-600">
-                Journal
-                <motion.img
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  src={decoration}
-                  alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
-                />
-              </span>
-              <span> of</span>
-              <br />
-              <span className="relative inline-block text-blue-600">
-                Science,
-                <img
-                  src={decoration}
-                  alt="Decoration"
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
-                />
-              </span>
-              Technology And Management
-            </h1>
-          </motion.div>
-        </div>
+        <HeroTitleWithGif
+          title="LBEF Research Journal  of Science, Technology And Management"
+          highlightedText="Journal "
+          subtitle="Our quarterly research publication featuring articles by Master's level students, drawing on their final year dissertations."
+          badgeText="Journal"
+        />
 
         {/* ================= E-ISSN ================= */}
         <div className="container mx-auto px-4 sm:px-6 mb-6">
@@ -124,12 +70,6 @@ const JournalPageWeb = () => {
               E-ISSN: <span className="text-gray-900">2705-4683</span>
             </div>
           </div>
-        <div className="mt-4 flex justify-center ">
-  <p className="max-w-xl mx-auto text-center text-base md:text-lg mt-4 text-gray-600 leading-relaxed">
-    Our quarterly research publication featuring articles by Master's level
-    students, drawing on their final year dissertations.
-  </p>
-</div>
         </div>
 
 

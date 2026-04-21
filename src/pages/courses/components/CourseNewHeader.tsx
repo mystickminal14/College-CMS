@@ -36,12 +36,12 @@ export default function CourseNewHeader({ course }: CourseHeaderProps) {
         className="w-full max-w-5xl mx-auto"
       >
         {/* DEGREE BADGE */}
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
+        {/* <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100">
           <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
           <span className="text-blue-600 font-medium text-sm">
             {course.degree?.toUpperCase()}'S DEGREE
           </span>
-        </div>
+        </div> */}
 
         {/* TITLE */}
         <h1 className="text-xl sm:text-4xl md:text-7xl font-bold mb-8 leading-snug sm:leading-tight">

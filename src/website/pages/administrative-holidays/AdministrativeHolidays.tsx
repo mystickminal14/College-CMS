@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion } from 'framer-motion';
-import decoration from '../../../assets/decoration.webp';
-import { fadeUp, staggerContainer } from '../../comp/animation';
+import {  staggerContainer } from '../../comp/animation';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
 import AdministrativeHolidaysImage from '../../../assets/AdministrativeHolidays.png'; // Add your image path
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const AdministrativeHolidays = () => {
   const [imageError, setImageError] = useState(false);
@@ -18,62 +18,12 @@ const AdministrativeHolidays = () => {
       />
 
       {/* ================= HERO ================= */}
-      <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
-        >
-          {/* <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-          >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut"
-              }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Administrative Holidays
-            </span>
-          </motion.div> */}
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Administrative </span>
-            <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> Holidays</span>
-              <motion.img
-                src={decoration}
-                alt="Decoration"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
-              />
-            </span>
-          </h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-          >
-            Stay informed about the official administrative holidays at LBEF College Nepal. Check out the calendar below for important dates and plan accordingly.
-          </motion.p>
-        </motion.div>
-      </div>
+      <HeroTitleWithGif
+        title="Administrative Holidays"
+        highlightedText="Holidays"
+        subtitle="Stay informed about the official administrative holidays at LBEF College Nepal. Check out the calendar below for important dates and plan accordingly."
+        badgeText="Administrative Holidays"
+      />
 
       {/* ================= IMAGE VIEWER ================= */}
       <motion.div

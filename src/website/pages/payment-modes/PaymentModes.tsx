@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import decoration from "../../../assets/decoration.webp";
 import { fadeUp } from "../../comp/animation";
 import { AlertTriangle } from "lucide-react";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 function FeeRefundCardMinimal() {
   return (
     <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 mt-10">
@@ -58,157 +58,123 @@ const PaymentModes = () => {
         viewport={{ once: true }}
         className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-10 text-center"
       >
-        <div className="max-w-4xl mx-auto">
-          {/* <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-6 py-3 rounded-full bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 shadow-sm"
-          >
-            <span className="w-2 h-2 bg-linear-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse"></span>
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600 font-semibold text-sm">
-              Secure Payment Gateway
-            </span>
-          </motion.div> */}
+        <HeroTitleWithGif
+          title="Payment Modes"
+          highlightedText="Modes"
+          subtitle="Choose your convenient payment method from the options below."
+          badgeText="Secure Payment Gateway"
+        />
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Payment </span>
-            <span className="relative inline-block ml-2">
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600 relative z-10">
-                Modes
-              </span>
-              <motion.img
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                src={decoration}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2 md:h-3"
-              />
-            </span>
-          </h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choose your convenient payment method from the options below.
-          </motion.p>
-        </div>
-      </motion.div>
-
-      {/* <div className="container mx-auto px-4 mb-8 lg:hidden">
-        <div className="flex rounded-2xl bg-white p-1 shadow-lg border border-gray-200 max-w-md mx-auto">
-          <button
-            onClick={() => setActiveTab("IT")}
-            className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === "IT"
-              ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
-              : "text-gray-600 hover:text-gray-900"
-              }`}
-          >
-            IT Programs
-          </button>
-        </div>
-      </div> */}
-
-      <div className="container mx-auto px-4 pb-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="hidden lg:flex justify-center mb-12">
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px 0px" }}
-              className="bg-white rounded-3xl p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 max-w-7xl w-full mx-auto"
+        {/* <div className="container mx-auto px-4 mb-8 lg:hidden">
+          <div className="flex rounded-2xl bg-white p-1 shadow-lg border border-gray-200 max-w-md mx-auto">
+            <button
+              onClick={() => setActiveTab("IT")}
+              className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === "IT"
+                ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
+                : "text-gray-600 hover:text-gray-900"
+                }`}
             >
-              <ProgramCard
-                type="IT"
-                accounts={ITBankAccounts}
-                onCopy={handleCopy}
-                copiedIndex={copiedIndex}
-              />
-            </motion.div>
+              IT Programs
+            </button>
           </div>
+        </div> */}
 
+        <div className="container mx-auto px-4 pb-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="hidden lg:flex justify-center mb-12">
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px 0px" }}
+                className="bg-white rounded-3xl p-8 border border-blue-100 hover:shadow-3xl transition-shadow duration-300 max-w-7xl w-full mx-auto"
+              >
+                <ProgramCard
+                  type="IT"
+                  accounts={ITBankAccounts}
+                  onCopy={handleCopy}
+                  copiedIndex={copiedIndex}
+                />
+              </motion.div>
+            </div>
 
-          <div className="lg:hidden space-y-6">
+            <div className="lg:hidden space-y-6">
+              <motion.div
+                key="IT"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-white rounded-3xl shadow-2xl p-6 border border-blue-100"
+              >
+                <ProgramCard
+                  type="IT"
+                  accounts={ITBankAccounts}
+                  onCopy={handleCopy}
+                  copiedIndex={copiedIndex}
+                  isMobile={true}
+                />
+              </motion.div>
+            </div>
+
             <motion.div
-              key="IT"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="bg-white rounded-3xl shadow-2xl p-6 border border-blue-100"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px 0px" }}
+              className="bg-linear-to-r from-amber-50 to-orange-50 rounded-3xl p-6 md:p-8 shadow-lg border border-amber-200 mt-8"
             >
-              <ProgramCard
-                type="IT"
-                accounts={ITBankAccounts}
-                onCopy={handleCopy}
-                copiedIndex={copiedIndex}
-                isMobile={true}
-              />
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px 0px" }}
-            className="bg-linear-to-r from-amber-50 to-orange-50 rounded-3xl p-6 md:p-8 shadow-lg border border-amber-200 mt-8"
-          >
-            <div className="flex items-start gap-4">
-              <div className="shrink-0">
-                <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-100 to-orange-100 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                  </svg>
+              <div className="flex items-start gap-4">
+                <div className="shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-100 to-orange-100 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Important Notice</h3>
-                <div className="space-y-2 text-amber-800">
-                  <p className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
-                    <span>Please ensure you use the correct payment details based on your program.</span>
-                  </p>
-                  <p className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
-                    <span>Payments made to incorrect accounts may cause delays in processing.</span>
-                  </p>
-                  <p className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
-                    <span>Always include your student ID in the payment reference.</span>
-                  </p>
-                </div>
-                <div className="mt-4 p-4 bg-white/50 rounded-xl border border-amber-200">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <p className="text-sm text-amber-700 font-medium">
-                      📞 Need help? Contact accounts office:
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-amber-900 mb-2">Important Notice</h3>
+                  <div className="space-y-2 text-amber-800">
+                    <p className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
+                      <span>Please ensure you use the correct payment details based on your program.</span>
                     </p>
-                    <div className="flex items-center gap-2">
-                      <code className="bg-amber-100 text-amber-800 px-3 py-1 rounded-lg font-mono text-sm">
-                        {contactNumber}
-                      </code>
-                      <button
-                        onClick={() => handleCopy(contactNumber, 999)}
-                        className="text-amber-600 hover:text-amber-800 transition-colors text-sm font-medium"
-                      >
-                        {copiedIndex === 999 ? "✓ Copied" : "Copy"}
-                      </button>
+                    <p className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
+                      <span>Payments made to incorrect accounts may cause delays in processing.</span>
+                    </p>
+                    <p className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
+                      <span>Always include your student ID in the payment reference.</span>
+                    </p>
+                  </div>
+                  <div className="mt-4 p-4 bg-white/50 rounded-xl border border-amber-200">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <p className="text-sm text-amber-700 font-medium">
+                        📞 Need help? Contact accounts office:
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <code className="bg-amber-100 text-amber-800 px-3 py-1 rounded-lg font-mono text-sm">
+                          {contactNumber}
+                        </code>
+                        <button
+                          onClick={() => handleCopy(contactNumber, 999)}
+                          className="text-amber-600 hover:text-amber-800 transition-colors text-sm font-medium"
+                        >
+                          {copiedIndex === 999 ? "✓ Copied" : "Copy"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-          <FeeRefundCardMinimal />
+            </motion.div>
 
+            <FeeRefundCardMinimal />
+          </div>
         </div>
-
-      </div>
+      </motion.div>
     </div>
   );
 };
-
 const ProgramCard = ({
   type,
   accounts,

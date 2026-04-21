@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Clock, Calendar, User, ArrowUpRight } from "lucide-react";
-
-import butterflyGif from "../../../assets/butter.gif";
 
 import { APP_URL, IMAGE_URL } from "../../../constants";
 import useGetBlogs from "../../../pages/blogs/hooks/useGetBlog";
@@ -12,6 +9,7 @@ import type { Blog } from "../../../pages/blogs/model/BlogsModel";
 import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 import SkeletonCard from "../handbook/SkeletonCard";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const BlogsPage = () => {
   const navigate = useNavigate();
@@ -66,69 +64,12 @@ const BlogsPage = () => {
       />
 
       {/* HERO */}
-      <div className="relative">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <img src={butterflyGif} alt="background" className="w-full h-full object-cover opacity-70" />
-        </div>
-
-        <div className="container mx-auto px-4 py-20 relative z-10 text-center">
-          <motion.div variants={fadeUp} initial="hidden" animate="visible">
-                <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-3 mb-6 relative"
-              style={{ padding: "10px 24px 10px 12px" }}
-            >
-              {/* wavy blue dashed lines — matches page's blue-600 theme */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 300 52" preserveAspectRatio="none">
-                <path d="M0 51 Q50 44 100 49 Q150 54 200 47 Q250 41 300 51"
-                  fill="none" stroke="#2563eb" strokeWidth="0.8" strokeDasharray="5 4" opacity="0.25" />
-                <path d="M0 1 Q50 8 100 3 Q150 -2 200 5 Q250 11 300 1"
-                  fill="none" stroke="#2563eb" strokeWidth="0.8" strokeDasharray="5 4" opacity="0.25" />
-                <circle cx="55" cy="50" r="1.8" fill="#3b82f6" opacity="0.4" />
-                <circle cx="160" cy="48" r="1.4" fill="#6366f1" opacity="0.35" />
-                <circle cx="265" cy="50" r="1.8" fill="#3b82f6" opacity="0.4" />
-                <circle cx="100" cy="2" r="1.4" fill="#3b82f6" opacity="0.35" />
-                <circle cx="220" cy="3" r="1.8" fill="#6366f1" opacity="0.4" />
-              </svg>
-
-              {/* butterfly in blue/indigo */}
-              <svg width="46" height="46" viewBox="0 0 52 52" fill="none">
-                <path d="M26 28 C20 10,2 6,2 18 C2 26,14 28,26 28Z" fill="#bfdbfe" stroke="#2563eb" strokeWidth="0.7" />
-                <path d="M26 28 C16 34,4 46,8 50 C12 53,22 44,26 28Z" fill="#dbeafe" stroke="#2563eb" strokeWidth="0.5" />
-                <path d="M26 28 C32 10,50 6,50 18 C50 26,38 28,26 28Z" fill="#bfdbfe" stroke="#2563eb" strokeWidth="0.7" />
-                <path d="M26 28 C36 34,48 46,44 50 C40 53,30 44,26 28Z" fill="#dbeafe" stroke="#2563eb" strokeWidth="0.5" />
-                <ellipse cx="26" cy="28" rx="2" ry="11" fill="#1e40af" />
-                <path d="M25 17 C22 9,17 5,15 2" fill="none" stroke="#1e40af" strokeWidth="0.9" strokeLinecap="round" />
-                <circle cx="15" cy="2" r="1.8" fill="#1e40af" />
-                <path d="M27 17 C30 9,35 5,37 2" fill="none" stroke="#1e40af" strokeWidth="0.9" strokeLinecap="round" />
-                <circle cx="37" cy="2" r="1.8" fill="#1e40af" />
-                <circle cx="17" cy="20" r="2.2" fill="#3b82f6" opacity="0.45" />
-                <circle cx="35" cy="20" r="2.2" fill="#3b82f6" opacity="0.45" />
-                <circle cx="13" cy="37" r="1.5" fill="#6366f1" opacity="0.35" />
-                <circle cx="39" cy="37" r="1.5" fill="#6366f1" opacity="0.35" />
-              </svg>
-
-              <div className="flex flex-col gap-0.5 relative z-10">
-                <span className="text-sm font-medium text-blue-900">LBEF Blog</span>
-              </div>
-            </motion.div>
-            {/* 🔥 MAIN TITLE */}
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              <span className="text-gray-900">Explore Our </span>
-              <span className="text-blue-600">Stories, Ideas & Insights</span>
-            </h1>
-
-            {/* 🔥 SUBTITLE OPTIONS */}
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Discover knowledge, inspiration, and updates from our team shaping the future of education.
-            </p>
-
-          </motion.div>
-        </div>
-      </div>
+      <HeroTitleWithGif
+        title="Explore Our Stories, Ideas & Insights"
+        highlightedText="Stories, Ideas & Insights"
+        subtitle="Discover knowledge, inspiration, and updates from our team shaping the future of education."
+        badgeText="LBEF Blog"
+      />
 
       {/* CONTENT */}
       <div className="container mx-auto px-4 pb-20">

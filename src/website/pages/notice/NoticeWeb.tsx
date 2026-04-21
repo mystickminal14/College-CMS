@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from "react";
-import decoration from '../../../assets/decoration.webp';
 import { FileText, Calendar, Eye, Bell, Filter, ChevronDown } from 'lucide-react';
 import lbefLogo from '../../../assets/pcpslogo.webp';
 import { APP_URL, IMAGE_URL } from "../../../constants";
@@ -9,6 +7,7 @@ import { fadeUp, staggerContainer } from '../../comp/animation';
 import type { ENotice, Notices } from '../../../pages/notices/model/NoticeModel';
 import useGetNotices from "../../../pages/notices/hooks/useGetAll";
 import Seo from "../../../context/seo";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 const PAGE_LIMIT = 10;
 
 const NoticeWeb = () => {
@@ -159,61 +158,17 @@ const NoticeWeb = () => {
         description="Stay informed with the latest announcements, exam schedules, and important updates from LBEF College."
         url={`${APP_URL}/notices`}
       />
-      <motion.div
-        className="container mx-auto px-2 sm:px-6 lg:px-8 py-8 md:py-10 text-center"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="max-w-4xl mx-auto">
-          {/* <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-          >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut" as const
-              }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Latest Updates & Announcements
-            </span>
-          </motion.div> */}
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Notice </span>
-            <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> Board</span>
-              <motion.img
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                src={decoration}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom:0 w-full h-2 md:h-3"
-              />
-            </span>
-          </h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }} className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Stay informed with the latest announcements, exam schedules, and important updates from LBEF College
-          </motion.p>
-        </div>
-      </motion.div>
+      {/* ================= HERO WITH GIF BACKGROUND ================= */}
+      <HeroTitleWithGif
+        title="Notice Board"
+        highlightedText="Board"
+        subtitle="Stay informed with the latest announcements, exam schedules, and important updates from LBEF College"
+        badgeText="Latest Updates & Announcements"
+      />
+
       {/* CONTENT */}
       <div className="container mx-auto px-3 sm:px-6 lg:px-8 pb-12">
-
         {/* Department Filter */}
         <motion.div
           className="max-w-6xl mx-auto mb-6"
@@ -256,10 +211,9 @@ const NoticeWeb = () => {
             )}
           </div>
         </motion.div>
+
         {!isLoading && notices.length > 0 && (
-          <div
-            className="mt-6 text-center"
-          >
+          <div className="mt-6 text-center">
             <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-linear-to-r from-blue-50 to-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl border border-blue-200">
               <div className="bg-white p-2 rounded-lg border">
                 <img src={lbefLogo} alt="LBEF Logo" className="h-8 sm:h-10 w-auto" />
@@ -276,13 +230,12 @@ const NoticeWeb = () => {
             </div>
           </div>
         )}
+
         <div className="max-w-6xl mt-6 mx-auto">
           {isLoading && page === 1 ? (
             <SkeletonLoader />
           ) : notices.length === 0 && !isLoading ? (
-            <div
-              className="text-center py-8 sm:py-12 bg-white rounded-xl shadow border border-gray-100"
-            >
+            <div className="text-center py-8 sm:py-12 bg-white rounded-xl shadow border border-gray-100">
               <div className="bg-blue-50 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bell className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" />
               </div>
@@ -299,9 +252,7 @@ const NoticeWeb = () => {
             </div>
           ) : (
             <>
-              <div
-                className="space-y-3 sm:space-y-4"
-              >
+              <div className="space-y-3 sm:space-y-4">
                 {notices.map((notice, index) => {
                   const dateInfo = formatDate(notice.date);
                   return (
@@ -393,4 +344,5 @@ const NoticeWeb = () => {
     </div>
   );
 };
+
 export default NoticeWeb;

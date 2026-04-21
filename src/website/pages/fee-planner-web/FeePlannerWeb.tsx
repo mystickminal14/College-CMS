@@ -5,6 +5,7 @@ import { fadeUp, staggerContainer } from "../../comp/animation";
 import useGetFeePlanners from "../../../pages/fee-planner/hooks/useGetAll";
 import type { FeePlanner } from "../../../pages/fee-planner/model/PlannerModel";
 import Seo from "../../../context/seo";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 /* -------------------------------------------------------------------------- */
 /*                              Animation Variants                            */
@@ -114,61 +115,15 @@ const FeePlannersWeb = () => {
 
       <div className="min-h-screen bg-gray-50">
 
-        {/* ================= HERO ================= */}
-        <div className="container mx-auto sm:px-6 lg:px-8 py-4 md:py-20 text-center">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-            {/* <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-            >
-              <motion.span
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-              />
-              <span className="text-blue-600 font-medium text-sm">
-                Fee Programs
-              </span>
-            </motion.div> */}
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
-              <span className="text-gray-900">Academic </span>
-              <span className="relative inline-block ml-2">
-                <span className="text-blue-600 relative z-10">Fee</span>
-                <motion.img
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  src={decoration}
-                  alt=""
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-full h-2"
-                />
-              </span>{" "}
-              Planner
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto"
-            >
-              Plan your fee journey with our comprehensive fee structure.
-            </motion.p>
-          </motion.div>
-        </div>
+        <HeroTitleWithGif
+          title="Academic Fee Planner"
+          highlightedText="Fee"
+          subtitle="Plan your fee journey with our comprehensive fee structure."
+          badgeText="Fee Planner"
+        />
 
         {/* ================= CONTENT ================= */}
         <div className="container mx-auto px-4 sm:px-16 pb-20">
-
           {isLoading && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -194,7 +149,6 @@ const FeePlannersWeb = () => {
 
               return (
                 <div key={key} className="mb-16">
-
                   {/* Heading */}
                   <motion.div
                     variants={fadeUp}
@@ -259,8 +213,6 @@ const FeePlannersWeb = () => {
                                 {planner.semester}
                               </p>
                             </div>
-
-
                           </motion.div>
 
                           <motion.button
@@ -280,7 +232,6 @@ const FeePlannersWeb = () => {
                           >
                             View Fee Plan
                           </motion.button>
-
                         </div>
 
                         <motion.div

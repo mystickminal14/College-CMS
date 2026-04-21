@@ -1,17 +1,14 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 import imageone from "../../../assets/core/jalan.webp";
 import imagetwo from "../../../assets/core/prakash.webp";
-import decoration from "../../../assets/decoration.webp";
 import imagethree from '../../../assets/core/drparam.webp';
 import imagefour from '../../../assets/core/prof.webp';
-import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 import MessageDetail from "../messages/Messages";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import butterflyGif from "../../../assets/butter.gif";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const OurMessage = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -81,49 +78,16 @@ const OurMessage = () => {
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white relative">
 
-        {/* ================= GLOBAL TOP BACKGROUND GIF ================= */}
-        <div className="absolute top-0 left-0 w-full h-[60vh] z-0 pointer-events-none">
-          <img
-            src={butterflyGif}
-            alt="Butterfly Background"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
+       
         {/* ================= PAGE CONTENT ================= */}
         <div className="relative z-10">
 
-          {/* HEADER */}
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-            <div className="text-center">
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="max-w-4xl mx-auto"
-              >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-                  <span className="text-gray-900">Leadership </span>
-                  <span className="relative inline-block">
-                    <span className="text-blue-600 relative z-10">
-                      Messages
-                    </span>
-                    <motion.img
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                      src={decoration}
-                      alt="Decoration"
-                      className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-2 md:h-3"
-                    />
-                  </span>
-                </h1>
-              </motion.div>
-            </div>
-          </div>
-
+          <HeroTitleWithGif
+            title="Leadership Messages"
+            highlightedText="Messages"
+            subtitle=""
+            badgeText="Message From Leadership"
+          />
           {/* CAROUSEL */}
           <div className="relative max-w-6xl mx-auto p-8">
             <div className="relative overflow-hidden rounded-2xl">

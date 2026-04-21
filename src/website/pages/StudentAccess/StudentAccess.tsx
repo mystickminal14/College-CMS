@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import decoration from "../../../assets/decoration.webp";
-import { fadeUp } from "../../comp/animation";
 import lbef from '../../../assets/full_form_lbef.webp'
 import springer from '../../../assets/e-library/springerlink.webp'
 import access from '../../../assets/e-library/access.webp'
@@ -20,6 +19,7 @@ import playStoreIcon from '../../../assets/playstore.webp'
 import webIcon from '../../../assets/butterfiles.webp'
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
+import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const StudentAccess = () => {
   const databases = [
@@ -88,72 +88,18 @@ const StudentAccess = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-  <Seo
+      <Seo
         title="Student Access & Digital Learning Resources | LBEF College Nepal"
         description="Explore student access to Evolve Learning Platform, Moodle LMS, digital libraries, and academic databases provided by LBEF College in partnership with APU Malaysia."
         url={`${APP_URL}/online-libraries`}
       />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-8xl mx-auto text-center"
-        >
-          {/* <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-50 border border-blue-100"
-          >
-            <motion.span
-              className="w-2 h-2 bg-blue-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut" as const
-              }}
-            />
-            <span className="text-blue-600 font-medium text-sm">
-              Student Access Portal
-            </span>
-          </motion.div> */}
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
-            <span className="text-gray-900">Student Access & </span>
-            <span className="relative inline-block">
-              <span className="text-blue-600 relative z-10"> Digital</span>
-              <motion.img
-                src={decoration}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                alt="Decoration"
-                className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
-
-              />
-            </span>
-            <br />
-            <span className="text-gray-900"> Learning</span>
-            <span className="text-blue-600"> Resources</span>
-          </h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-          >  Access comprehensive academic databases, digital libraries, and learning platforms
-            to support your research and studies at LBEF through APU's partnership.
-          </motion.p>
-        </motion.div>
-      </div>
-
+      <HeroTitleWithGif
+        title="Student Access & Digital Learning Resources"
+        highlightedText="Digital"
+        subtitle="  Access comprehensive academic databases, digital libraries, and learning platforms
+            to support your research and studies at LBEF through APU's partnership."
+        badgeText="Digital Learning Resources"
+      />
 
       {/* Main Content - Evolve Learning moved to top */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-20">
@@ -278,7 +224,7 @@ const StudentAccess = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                           
+
                             <span className="text-sm font-medium">{store.name}</span>
                           </motion.a>
                         ))}
@@ -689,7 +635,7 @@ const StudentAccess = () => {
                     className="text-blue-600 hover:text-blue-800 font-medium"
                     whileHover={{ x: 5 }}
                   >
-                  study(@)lbef.edu.np
+                    study(@)lbef.edu.np
                   </motion.a>
                 </motion.div>
                 <motion.div
@@ -707,7 +653,7 @@ const StudentAccess = () => {
                     className="text-blue-600 hover:text-blue-800 font-medium"
                     whileHover={{ x: 5 }}
                   >
-                study(@)lbef.edu.np
+                    study(@)lbef.edu.np
                   </motion.a>
                 </motion.div>
               </div>
