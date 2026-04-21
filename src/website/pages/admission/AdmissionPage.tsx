@@ -11,7 +11,6 @@ import FeePolicy from "./components/Feepolicy";
 import ImportantNotice from "./components/ImportantNotice";
 import ScholarshipSection from "./components/ScholarShip";
 import FAQSection from "./components/Faq";
-import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";

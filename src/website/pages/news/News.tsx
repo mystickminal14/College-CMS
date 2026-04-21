@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { APP_URL, IMAGE_URL } from "../../../constants";
 import SkeletonCard from "./SkeletonCard";
-import { fadeUp } from "../../comp/animation";
 import type { NewsModel } from "../../../pages/news/model/NewsModel";
 import useGetNews from "../../../pages/news/hooks/useGetAllNews";
 import Seo from "../../../context/seo";

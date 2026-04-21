@@ -5,7 +5,6 @@ import { APP_URL, IMAGE_URL } from "../../../constants";
 import useGetDownloads from "../../../pages/handbook/hooks/useGetAll";
 import type { Downloads } from "../../../pages/handbook/model/handbookModel";
 import SkeletonCard from "./SkeletonCard";
-import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 

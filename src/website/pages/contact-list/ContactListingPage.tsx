@@ -2,8 +2,6 @@ import { FaEnvelope, FaUser } from "react-icons/fa";
 
 import decoration from "../../../assets/decoration.webp";
 import useGetContactsAll from "../../../pages/contact/hooks/useGetAll";
-import { motion } from 'framer-motion';
-import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";

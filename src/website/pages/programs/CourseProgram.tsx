@@ -7,7 +7,7 @@ import useGetAll from './hook/useGetCourses';
 
 import type { Courses } from '../../../pages/courses/model/CourseModel';
 
-import { fadeUp, staggerContainer } from '../../comp/animation';
+import {  staggerContainer } from '../../comp/animation';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
 import useGetCourseCategoryNameAll from '../../../pages/course-category/hooks/useGetCatName';

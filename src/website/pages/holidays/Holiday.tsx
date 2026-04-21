@@ -27,7 +27,6 @@ import type { JSX } from "react/jsx-runtime";
 
 import { useGetCalender } from "./hook/useGetCalender";
 import type { EventModel } from "./model/CalenderModel";
-import { fadeUp } from "../../comp/animation";
 
 import calendarBg from "../../../assets/butterfiles.webp";
 import Seo from "../../../context/seo";

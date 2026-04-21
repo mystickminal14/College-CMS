@@ -1,7 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import decoration from '../../../assets/decoration.webp';
-import { fadeUp } from '../../comp/animation';
 import {
   Bot,
   Rocket,

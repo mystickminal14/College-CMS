@@ -6,10 +6,10 @@ import { APP_URL, IMAGE_URL } from "../../../constants";
 import useGetBlogs from "../../../pages/blogs/hooks/useGetBlog";
 import type { Blog } from "../../../pages/blogs/model/BlogsModel";
 
-import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
 import SkeletonCard from "../handbook/SkeletonCard";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
+import { motion } from "framer-motion";
 
 const BlogsPage = () => {
   const navigate = useNavigate();

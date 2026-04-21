@@ -11,7 +11,6 @@ import type { Connects } from "../../../pages/lbef-connect/model/Connects";
 import useGetConnects from "../../../pages/lbef-connect/hooks/useGetAll";
 import { fadeUp } from "../../comp/animation";
 import Seo from "../../../context/seo";
-import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
 const PAGE_LIMIT = 10;
 

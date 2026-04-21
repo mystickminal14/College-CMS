@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import useGetAll from "./hook/useGetRecognitionAll";
 import RecognitionsCardView from "./component/RecognitionCard";
-import { fadeUp, staggerContainer } from '../../comp/animation';
+import {  staggerContainer } from '../../comp/animation';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
 import HeroTitleWithGif from '../../../components/AnimatedTitleWithGif';
