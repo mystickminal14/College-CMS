@@ -10,6 +10,7 @@ import Seo from "../../../context/seo";
 import { APP_URL, IMAGE_URL } from "../../../constants";
 import type { DeptAll } from "../../../pages/our-team-dept/model/DeptModel";
 import { X } from "lucide-react";
+import { FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
 
 interface GroupedDept {
   department: DeptAll;
@@ -247,6 +248,87 @@ const TeamDetailModal = ({
                 alt={member.name}
                 className="w-full h-80 object-cover object-[center_20%]"
               />
+            </div>
+            <h3 className="mt-6 text-xl font-bold text-gray-900">
+              {member.name}
+            </h3>
+
+            {/* SOCIAL */}
+            <div className="flex justify-center gap-3 mt-5 flex-wrap">
+
+              {member.linkedIn && (
+                <a href={member.linkedIn} target="_blank" rel="noreferrer">
+                  <FaLinkedinIn size={18} />
+                </a>
+              )}
+
+              {member.facebook && (
+                <a href={member.facebook} target="_blank" rel="noreferrer">
+                  <FaFacebookF size={18} />
+                </a>
+              )}
+
+              {member.insta && (
+                <a href={member.insta} target="_blank" rel="noreferrer">
+                  <FaInstagram size={18} />
+                </a>
+              )}
+
+              {member.email && (
+                <a href={`mailto:${member.email}`}>
+                  <FaEnvelope size={18} />
+                </a>
+              )}
+
+              {member.phone && (
+                <a href={`tel:${member.phone}`}>
+                  <FaPhoneAlt size={18} />
+                </a>
+              )}
+
+            </div>
+          </div>
+
+          {/* DETAILS */}
+          <div className="lg:col-span-2 space-y-10">
+            <div>
+              <h4 className="text-xl font-bold mb-6">Details</h4>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-700">
+                <div>
+                  <p className="text-sm text-gray-500">Position</p>
+                  <p className="font-semibold">{member.position}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">Department</p>
+                  <p className="font-semibold">{member.department.name}</p>
+                </div>
+
+                {member.email && (
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-semibold">{member.email}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* BIO */}
+            <div>
+              <h4 className="text-xl font-bold mb-4">Biography</h4>
+
+              <div className="text-gray-700 leading-relaxed space-y-4">
+                {member.bio ? (
+                  member.bio
+                    .split("\n\n")
+                    .map((para, i) => <p key={i}>{para}</p>)
+                ) : (
+                  <p className="italic text-gray-500">
+                    Biography information will be updated soon.
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
