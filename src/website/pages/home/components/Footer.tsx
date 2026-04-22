@@ -144,9 +144,9 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-1 text-[12px] text-[#4B5563]">
           <div>
             Developed by{" "}
-            <span className="font-semibold text-black">
+            <a href="https://yakshasoft.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-black">
               YAKSHA <span className="text-blue-600">SOFT</span>
-            </span>
+            </a>
           </div>
 
           <div>

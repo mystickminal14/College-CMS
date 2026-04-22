@@ -143,7 +143,7 @@ export function NavBar() {
         { name: "Achivements", link: "/achivements" },
         { name: "Messages", link: "/messages" },
         { name: "Our Team", link: "/ourteam" },
-        { name:"Administrative Holidays", link:"/administrative-holidays" },
+        { name: "Administrative Holidays", link: "/administrative-holidays" },
       ],
     },
     {
@@ -168,10 +168,11 @@ export function NavBar() {
     {
       name: "Students",
       dropdown: [
+        { name: "Career Pathway", link: "https://evolve.lbef.org/" },
         { name: "Student Clubs", link: "/academic-club", },
         { name: "Academic Holidays", link: "/academic-holidays" },
         { name: "Academic Calendar", link: "/academic-planners" },
-        { name: "Events Calendar", link: "/events" },
+        { name: "Event Calendar", link: "/events" },
         { name: "Downloads", link: "/downloads" },
         { name: "Notice Board", link: "/notice" },
         { name: "Student Access", link: "/online-libraries" },
