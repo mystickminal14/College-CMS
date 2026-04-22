@@ -445,6 +445,7 @@ export function NavBar() {
                             <NavLink
                               key={sub.name}
                               to={sub.disabled ? "#" : sub.link!}
+                              target={sub.name === "Career Pathway" ? "_blank" : "_self"}
                               className={`flex gap-3 items-start px-4 py-3 hover:bg-blue-50 cursor-pointer rounded-lg ${sub.disabled ? "opacity-50 cursor-not-allowed" : ""
                                 }`}
                             >
