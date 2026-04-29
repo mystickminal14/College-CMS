@@ -1,5 +1,10 @@
+// src/pages/AddCourseDetailsPage/edit-components/EditBlockEditor.tsx
 import { useQueryClient } from "@tanstack/react-query";
-import { BlockType, type ContentCategory, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
+import {
+  BlockType,
+  type ContentCategory,
+  type CourseDetailBlock,
+} from "../../courses/model/CourseDetailModel";
 import EditBlockItem from "./editBlockItem";
 import { COURSE_CACHE_KEY } from "../../../constants";
 import useAddCourseDetails from "../../courses/hooks/useAddCourseDetails";
@@ -7,60 +12,63 @@ import useAddCourseDetails from "../../courses/hooks/useAddCourseDetails";
 interface Props {
   blocks: CourseDetailBlock[];
   onChange: (blocks: CourseDetailBlock[]) => void;
-  id?: Number;
+  id?: number;
   root?: boolean;
-  category:ContentCategory;
+  category: ContentCategory;
   allowSubheading?: boolean;
 }
 
 const EditBlockEditor = ({
-  blocks,category,
+  blocks,
+  category,
   onChange,
   id,
   root = true,
   allowSubheading = true,
 }: Props) => {
-    const addBlock = (type: BlockType) => {
-    const id = Date.now() + Math.floor(Math.random() * 1000);
-    const order = blocks.length + 1; // new block order = last + 1
+  const addDetailsMutation = useAddCourseDetails();
+  const queryClient = useQueryClient();
+
+  const addBlock = (type: BlockType) => {
+    const newId = Date.now() + Math.floor(Math.random() * 1000);
+    const order = blocks.length + 1;
 
     const newBlock: CourseDetailBlock =
       type === BlockType.HEADING || type === BlockType.SUBHEADING
-        ? { id, type, order, title: "", children: [] ,category}
+        ? { id: newId, type, order, title: "", children: [], category }
         : type === BlockType.PARAGRAPH
-        ? { id, type, order, content: "", category }
-        : { id, type, order, content: [], category };
+        ? { id: newId, type, order, content: "", category }
+        : { id: newId, type, order, content: [], category };
 
     onChange([...blocks, newBlock]);
   };
-  const addDetailsMutation = useAddCourseDetails();
-  const queryClient = useQueryClient();
 
   const handleSave = () => {
     if (!id) return;
 
     addDetailsMutation.mutate(
-      { courseId: Number(id), blocks },
+      { courseId: id, blocks },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: [COURSE_CACHE_KEY, id,category, "details"] });
-         
+          queryClient.invalidateQueries({
+            queryKey: [COURSE_CACHE_KEY, id, category, "details"],
+          });
         },
       }
     );
   };
- 
+
   const availableBlocks = root
     ? [BlockType.HEADING]
     : allowSubheading
-      ? [BlockType.SUBHEADING, BlockType.PARAGRAPH, BlockType.LIST]
-      : [BlockType.PARAGRAPH, BlockType.LIST];
+    ? [BlockType.SUBHEADING, BlockType.PARAGRAPH, BlockType.LIST]
+    : [BlockType.PARAGRAPH, BlockType.LIST];
 
   return (
     <div className="space-y-4">
       {blocks.map((block, index) => (
         <EditBlockItem
-          key={index}
+          key={block.id ?? index}
           block={block}
           onSave={handleSave}
           onUpdate={(updated) => {
@@ -74,23 +82,15 @@ const EditBlockEditor = ({
 
       <div className="flex gap-2 flex-wrap items-center">
         {availableBlocks.map((type) => (
-          <>
-            <button
-              key={type}
-              onClick={() => addBlock(type)}
-              className="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-md hover:bg-blue-100 transition"
-            >
-              + {type.charAt(0) + type.slice(1).toLowerCase()}
-            </button>
-        
-          </>
+          <button
+            key={type}
+            onClick={() => addBlock(type)}
+            className="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-md hover:bg-blue-100 transition"
+          >
+            + {type.charAt(0) + type.slice(1).toLowerCase()}
+          </button>
         ))}
-
-
-
-        
       </div>
-      
     </div>
   );
 };

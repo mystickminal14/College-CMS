@@ -71,15 +71,12 @@ const EditCourseDetailsPage = () => {
 
   const sectionRefs = useRef<Record<number, HTMLElement | null>>({});
 
-  // Selected category
-  const [selectedCategory, setSelectedCategory] = useState<ContentCategory>(
-    "COURSE_STRUCTURE"
-  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<ContentCategory>("COURSE_STRUCTURE");
 
-  // Local state for adding new blocks
+  // Local state for adding new blocks via EditBlockEditor
   const [blocksData, setBlocks] = useState<CourseDetailBlock[]>([]);
 
-  // Fetch course blocks for the selected category with infinite scroll
   const {
     data,
     isLoading,
@@ -95,9 +92,11 @@ const EditCourseDetailsPage = () => {
 
   const updateBlockMutation = useUpdateCourseBlock();
 
+  // Flatten pages and sort by order
   const blocks: CourseDetailBlock[] =
-    data?.pages?.flatMap((page) => page.data ?? [])?.sort((a, b) => a.order - b.order) ||
-    [];
+    data?.pages
+      ?.flatMap((page) => page.data ?? [])
+      ?.sort((a, b) => a.order - b.order) ?? [];
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
@@ -121,10 +120,7 @@ const EditCourseDetailsPage = () => {
     if (!updatedBlock.id) return;
 
     updateBlockMutation.mutate(
-      {
-        ...updatedBlock,
-        category: selectedCategory, // include selected category
-      },
+      { ...updatedBlock, category: selectedCategory },
       { onSuccess: () => refetch() }
     );
   };
@@ -138,6 +134,7 @@ const EditCourseDetailsPage = () => {
     setIsDeleteOpen(true);
   };
 
+  /* ------------------ LOADING ------------------ */
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -146,12 +143,13 @@ const EditCourseDetailsPage = () => {
     );
   }
 
+  /* ------------------ RENDER ------------------ */
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="p-4 md:p-8">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
           <main className="lg:w-3/4">
-            {/* ------------------ HEADER ------------------ */}
+            {/* HEADER */}
             <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6 flex justify-between items-center">
               <h2 className="text-xl font-bold">Edit Course Content</h2>
               <button
@@ -163,15 +161,15 @@ const EditCourseDetailsPage = () => {
               </button>
             </div>
 
-            {/* ------------------ CATEGORY TABS ------------------ */}
+            {/* CATEGORY TABS */}
             <div className="bg-white rounded-2xl shadow-lg mb-6 p-4 flex gap-2 overflow-x-auto">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => {
                     setSelectedCategory(cat);
-                    setBlocks([]); // reset blocks when changing category
-                    refetch(); // fetch selected category blocks
+                    setBlocks([]);
+                    refetch();
                   }}
                   className={`px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap ${
                     selectedCategory === cat
@@ -184,8 +182,9 @@ const EditCourseDetailsPage = () => {
               ))}
             </div>
 
-            {/* ------------------ BLOCK EDITOR ------------------ */}
+            {/* BLOCK EDITOR */}
             <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+              {/* New-block builder (local draft) */}
               <EditBlockEditor
                 blocks={blocksData}
                 id={Number(id)}
@@ -193,12 +192,13 @@ const EditCourseDetailsPage = () => {
                 onChange={setBlocks}
               />
 
+              {/* Persisted blocks from the API */}
               {blocks.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-gray-500 mb-4">No content blocks yet.</p>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-6 mt-6">
                   {blocks.map((block) => (
                     <EditableBlock
                       courseId={Number(id)}
@@ -226,7 +226,7 @@ const EditCourseDetailsPage = () => {
             </div>
           </main>
 
-          {/* ------------------ ASIDE (UNCHANGED) ------------------ */}
+          {/* ASIDE */}
           <aside className="lg:w-1/3">
             <motion.div
               variants={sectionVariants}
@@ -236,13 +236,13 @@ const EditCourseDetailsPage = () => {
               className="bg-white rounded-xl shadow-md border border-gray-200 sticky top-6 overflow-hidden"
             >
               <img
-                src={IMAGE_URL + course.image}
+                src={IMAGE_URL + course?.image}
                 alt="Course Preview"
                 className="w-full h-48 object-cover"
               />
               <motion.div className="p-4 space-y-4" variants={fadeItem}>
                 <h2 className="text-sm font-semibold text-gray-900">
-                  {course.prefix} in {course.title}
+                  {course?.prefix} in {course?.title}
                 </h2>
 
                 <div className="space-y-3 text-left">
@@ -250,13 +250,13 @@ const EditCourseDetailsPage = () => {
                     {
                       icon: CalendarDays,
                       label: "Duration",
-                      value: `${course.duration} years (${course.semester} semester)`,
+                      value: `${course?.duration} years (${course?.semester} semester)`,
                     },
                     { icon: Languages, label: "Language", value: "English" },
                     {
                       icon: BookOpen,
                       label: "Credits",
-                      value: `${course.credit} Credit Hours`,
+                      value: `${course?.credit} Credit Hours`,
                     },
                   ].map((item, i) => (
                     <motion.div
@@ -284,7 +284,8 @@ const EditCourseDetailsPage = () => {
                         Degree Awarded By:
                       </span>
                       <br />
-                      Asia Pacific University of Technology & Innovation (APU)
+                      Asia Pacific University of Technology &amp; Innovation
+                      (APU)
                     </p>
                   </motion.div>
                 </div>
@@ -295,7 +296,9 @@ const EditCourseDetailsPage = () => {
                 >
                   <div className="flex items-center gap-3 mb-2">
                     <Sparkles className="w-4 h-4" />
-                    <p className="text-sm font-semibold">Apply for Scholarship</p>
+                    <p className="text-sm font-semibold">
+                      Apply for Scholarship
+                    </p>
                   </div>
                   <p className="text-xs text-indigo-100 mb-3">
                     Limited seats available for eligible students
@@ -310,7 +313,7 @@ const EditCourseDetailsPage = () => {
         </div>
       </div>
 
-      {/* ------------------ DELETE MODAL ------------------ */}
+      {/* DELETE MODAL */}
       <DeleteBlockModal
         isOpen={isDeleteOpen}
         block={selectedBlock}

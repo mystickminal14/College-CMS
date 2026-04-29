@@ -1,3 +1,4 @@
+// src/pages/AddCourseDetailsPage/components/AddSiblingItem.tsx
 import { useState, memo } from "react";
 import { Save, X, Plus } from "lucide-react";
 import EditListEditor from "../EditListEditor";
@@ -8,21 +9,22 @@ import type { BlockType, ContentCategory } from "../../courses/model/CourseDetai
 interface Props {
   courseId: number;
   parentId: number;
-  category:ContentCategory;
+  category: ContentCategory;
   type: BlockType;
   onCancel: () => void;
   onSuccess?: () => void;
 }
 
-const AddSiblingBlockItemComponent = ({ 
-  courseId, 
-  parentId, 
-  type, category,
+const AddSiblingBlockItemComponent = ({
+  courseId,
+  parentId,
+  type,
+  category,
   onCancel,
-  onSuccess 
+  onSuccess,
 }: Props) => {
   const { mutate, isPending } = useAddCourseBlock();
-  
+
   // For subheading
   const [subheadingTitle, setSubheadingTitle] = useState("");
   const [subheadingChildren, setSubheadingChildren] = useState<
@@ -32,140 +34,141 @@ const AddSiblingBlockItemComponent = ({
       tempId: string;
     }>
   >([]);
-  
+
   // For direct paragraph
   const [paragraphContent, setParagraphContent] = useState("");
-  
+
   // For direct list
   const [listItems, setListItems] = useState<string[]>([]);
 
-  // Add a child block to subheading
+  /* ---------- subheading child helpers ---------- */
   const addSubheadingChild = (
     childType: typeof BlockTypeValues.PARAGRAPH | typeof BlockTypeValues.LIST
   ) => {
     const tempId = `temp-${Date.now()}-${Math.random()}`;
-    
-    if (childType === BlockTypeValues.PARAGRAPH) {
-      setSubheadingChildren([
-        ...subheadingChildren,
-        { type: BlockTypeValues.PARAGRAPH, content: "", tempId }
-      ]);
-    } else if (childType === BlockTypeValues.LIST) {
-      setSubheadingChildren([
-        ...subheadingChildren,
-        { type: BlockTypeValues.LIST, content: [], tempId }
-      ]);
-    }
+    setSubheadingChildren((prev) => [
+      ...prev,
+      {
+        type: childType,
+        content: childType === BlockTypeValues.LIST ? [] : "",
+        tempId,
+      },
+    ]);
   };
 
-  // Update a child block content
   const updateSubheadingChild = (tempId: string, content: string | string[]) => {
-    setSubheadingChildren(prev =>
-      prev.map(child =>
+    setSubheadingChildren((prev) =>
+      prev.map((child) =>
         child.tempId === tempId ? { ...child, content } : child
       )
     );
   };
 
-  // Remove a child block from subheading
   const removeSubheadingChild = (tempId: string) => {
-    setSubheadingChildren(prev =>
-      prev.filter(child => child.tempId !== tempId)
+    setSubheadingChildren((prev) =>
+      prev.filter((child) => child.tempId !== tempId)
     );
   };
 
-  // Save subheading with all its children
+  /* ---------- save handlers ---------- */
   const saveSubheadingWithChildren = () => {
     if (!subheadingTitle.trim()) {
       alert("Please enter a title for the subheading");
       return;
     }
 
-    // First, create the subheading
-    mutate({
-      courseId,
-      parentId,category:category,
-      type: BlockTypeValues.SUBHEADING,
-      title: subheadingTitle,
-      content: undefined
-    }, {
-      onSuccess: (subheadingRes) => {
-        const createdSubheadingId = subheadingRes.data?.id;
-        
-        if (createdSubheadingId && subheadingChildren.length > 0) {
-          // Now create each child under the subheading
-          subheadingChildren.forEach((child, index) => {
-            // Use setTimeout to stagger API calls
-            setTimeout(() => {
-              mutate({
-                courseId,
-                category:category,
-                parentId: createdSubheadingId,
-                type: child.type,
-                title: undefined,
-                content: child.type === BlockTypeValues.PARAGRAPH 
-                  ? child.content as string 
-                  : child.content as string[]
-              });
-            }, index * 100);
-          });
-        }
-        
-        // Reset form and notify success
-        setSubheadingTitle("");
-        setSubheadingChildren([]);
-        onCancel();
-        onSuccess?.();
+    mutate(
+      {
+        courseId,
+        parentId,
+        category,
+        type: BlockTypeValues.SUBHEADING,
+        title: subheadingTitle,
+        content: undefined,
+      },
+      {
+        onSuccess: (subheadingRes) => {
+          const createdSubheadingId = subheadingRes?.data?.id;
+
+          if (createdSubheadingId && subheadingChildren.length > 0) {
+            subheadingChildren.forEach((child, index) => {
+              setTimeout(() => {
+                mutate({
+                  courseId,
+                  category,
+                  parentId: createdSubheadingId,
+                  type: child.type,
+                  title: undefined,
+                  content:
+                    child.type === BlockTypeValues.PARAGRAPH
+                      ? (child.content as string)
+                      : (child.content as string[]),
+                });
+              }, index * 100);
+            });
+          }
+
+          setSubheadingTitle("");
+          setSubheadingChildren([]);
+          onCancel();
+          onSuccess?.();
+        },
       }
-    });
+    );
   };
 
-  // Save direct paragraph block
   const saveDirectParagraph = () => {
     if (!paragraphContent.trim()) {
       alert("Please enter paragraph content");
       return;
     }
-    
-    mutate({
-      courseId,
-      parentId,
-      type: BlockTypeValues.PARAGRAPH,
-      title: undefined,
-      category:category,
-      content: paragraphContent
-    }, {
-      onSuccess: () => {
-        setParagraphContent("");
-        onCancel();
-        onSuccess?.();
+
+    mutate(
+      {
+        courseId,
+        parentId,
+        type: BlockTypeValues.PARAGRAPH,
+        title: undefined,
+        category,
+        content: paragraphContent,
+      },
+      {
+        onSuccess: () => {
+          setParagraphContent("");
+          onCancel();
+          onSuccess?.();
+        },
       }
-    });
+    );
   };
 
-  // Save direct list block
   const saveDirectList = () => {
-    if (listItems.length === 0 || listItems.every(item => !item.trim())) {
+    const filtered = listItems.filter((item) => item.trim());
+    if (filtered.length === 0) {
       alert("Please add at least one list item");
       return;
     }
-    
-    mutate({
-      courseId,category:category,
-      parentId,
-      type: BlockTypeValues.LIST,
-      title: undefined,
-      content: listItems.filter(item => item.trim())
-    }, {
-      onSuccess: () => {
-        setListItems([]);
-        onCancel();
-        onSuccess?.();
+
+    mutate(
+      {
+        courseId,
+        category,
+        parentId,
+        type: BlockTypeValues.LIST,
+        title: undefined,
+        content: filtered,
+      },
+      {
+        onSuccess: () => {
+          setListItems([]);
+          onCancel();
+          onSuccess?.();
+        },
       }
-    });
+    );
   };
 
-  // RENDER FOR SUBHEADING
+  /* ---------- render SUBHEADING ---------- */
   if (type === BlockTypeValues.SUBHEADING) {
     return (
       <div className="mt-3 border rounded-lg p-4 bg-blue-50">
@@ -181,7 +184,6 @@ const AddSiblingBlockItemComponent = ({
           />
         </div>
 
-        {/* Child blocks section */}
         {subheadingTitle.trim() && (
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
@@ -204,7 +206,6 @@ const AddSiblingBlockItemComponent = ({
               </div>
             </div>
 
-            {/* Display child blocks */}
             <div className="space-y-3">
               {subheadingChildren.map((child, index) => (
                 <div key={child.tempId} className="p-3 border rounded bg-white">
@@ -223,17 +224,21 @@ const AddSiblingBlockItemComponent = ({
                   {child.type === BlockTypeValues.PARAGRAPH ? (
                     <textarea
                       value={child.content as string}
-                      onChange={(e) => updateSubheadingChild(child.tempId, e.target.value)}
+                      onChange={(e) =>
+                        updateSubheadingChild(child.tempId, e.target.value)
+                      }
                       placeholder="Enter paragraph content..."
                       className="w-full border px-3 py-2 rounded text-sm min-h-20"
                     />
                   ) : (
-                    <div>
-                      <EditListEditor
-                        items={Array.isArray(child.content) ? child.content : []}
-                        onChange={(items) => updateSubheadingChild(child.tempId, items)}
-                      />
-                    </div>
+                    <EditListEditor
+                      items={
+                        Array.isArray(child.content) ? child.content : []
+                      }
+                      onChange={(items) =>
+                        updateSubheadingChild(child.tempId, items)
+                      }
+                    />
                   )}
                 </div>
               ))}
@@ -247,7 +252,6 @@ const AddSiblingBlockItemComponent = ({
           </div>
         )}
 
-        {/* Action buttons */}
         <div className="flex gap-2 pt-3 border-t">
           <button
             onClick={saveSubheadingWithChildren}
@@ -267,7 +271,7 @@ const AddSiblingBlockItemComponent = ({
     );
   }
 
-  // RENDER FOR DIRECT PARAGRAPH
+  /* ---------- render PARAGRAPH ---------- */
   if (type === BlockTypeValues.PARAGRAPH) {
     return (
       <div className="mt-3 border rounded-lg p-4 bg-green-50">
@@ -282,7 +286,7 @@ const AddSiblingBlockItemComponent = ({
             className="w-full border border-green-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 min-h-[120px]"
           />
           <p className="text-xs text-gray-500 mt-1">
-            This paragraph will be added as a direct block (not under any subheading)
+            This paragraph will be added directly (not under any subheading).
           </p>
         </div>
         <div className="flex gap-2">
@@ -304,7 +308,7 @@ const AddSiblingBlockItemComponent = ({
     );
   }
 
-  // RENDER FOR DIRECT LIST
+  /* ---------- render LIST ---------- */
   if (type === BlockTypeValues.LIST) {
     return (
       <div className="mt-3 border rounded-lg p-4 bg-purple-50">
@@ -312,18 +316,19 @@ const AddSiblingBlockItemComponent = ({
           <label className="block text-sm font-medium text-purple-700 mb-1">
             List Items *
           </label>
-          <EditListEditor
-            items={listItems}
-            onChange={setListItems}
-          />
+          <EditListEditor items={listItems} onChange={setListItems} />
           <p className="text-xs text-gray-500 mt-1">
-            This list will be added as a direct block (not under any subheading)
+            This list will be added directly (not under any subheading).
           </p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={saveDirectList}
-            disabled={isPending || listItems.length === 0 || listItems.every(item => !item.trim())}
+            disabled={
+              isPending ||
+              listItems.length === 0 ||
+              listItems.every((item) => !item.trim())
+            }
             className="px-4 py-2 bg-purple-600 text-white rounded flex items-center gap-1 hover:bg-purple-700 disabled:opacity-50"
           >
             <Save className="w-4 h-4" /> Save List

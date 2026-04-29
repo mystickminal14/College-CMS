@@ -1,5 +1,9 @@
+// src/pages/AddCourseDetailsPage/edit-components/editBlockItem.tsx
 import { useState, useEffect } from "react";
-import { BlockType, type CourseDetailBlock } from "../../courses/model/CourseDetailModel";
+import {
+  BlockType,
+  type CourseDetailBlock,
+} from "../../courses/model/CourseDetailModel";
 import ListEditor from "../components/ListEditor";
 import BlockEditor from "./EditBlockEditor";
 
@@ -14,20 +18,39 @@ const EditBlockItem = ({ block, onUpdate, onDelete, onSave }: Props) => {
   const [collapsed, setCollapsed] = useState(false);
   const [editOrder, setEditOrder] = useState(block.order);
 
-  const isHeading = block.type === BlockType.HEADING || block.type === BlockType.SUBHEADING;
+  const isHeading =
+    block.type === BlockType.HEADING || block.type === BlockType.SUBHEADING;
   const allowSubheadingInChild = block.type === BlockType.HEADING;
 
-  // Sync order input with block.order
+  // Sync order input with block
   useEffect(() => {
     setEditOrder(block.order);
   }, [block.order]);
 
-  // Update parent when user changes order input
+  // Push order changes up
   useEffect(() => {
     if (editOrder !== block.order) {
       onUpdate({ ...block, order: editOrder });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editOrder]);
+
+  // Safe children accessor — API may not always include it
+  const children: CourseDetailBlock[] =
+    isHeading ? ((block as any).children ?? []) : [];
+
+  // Safe content accessors
+  const paragraphContent =
+    block.type === BlockType.PARAGRAPH
+      ? ((block.content as string | null) ?? "")
+      : "";
+
+  const listContent =
+    block.type === BlockType.LIST
+      ? Array.isArray(block.content)
+        ? block.content
+        : []
+      : [];
 
   return (
     <div className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition">
@@ -50,7 +73,7 @@ const EditBlockItem = ({ block, onUpdate, onDelete, onSave }: Props) => {
 
           {isHeading && (
             <button
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={() => setCollapsed((c) => !c)}
               className="text-gray-500 hover:text-gray-700 transition"
             >
               {collapsed ? "▼" : "▲"}
@@ -58,14 +81,12 @@ const EditBlockItem = ({ block, onUpdate, onDelete, onSave }: Props) => {
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onDelete}
-            className="text-red-600 hover:text-red-800 transition text-sm"
-          >
-            Delete
-          </button>
-        </div>
+        <button
+          onClick={onDelete}
+          className="text-red-600 hover:text-red-800 transition text-sm"
+        >
+          Delete
+        </button>
       </div>
 
       {/* BODY */}
@@ -76,9 +97,9 @@ const EditBlockItem = ({ block, onUpdate, onDelete, onSave }: Props) => {
             <>
               <input
                 placeholder="Enter title..."
-                value={block.title ?? ""}
+                value={(block as any).title ?? ""}
                 onChange={(e) =>
-                  onUpdate({ ...block, title: e.target.value })
+                  onUpdate({ ...block, title: e.target.value } as any)
                 }
                 className="w-full border rounded px-3 py-2 mb-3 focus:ring-1 focus:ring-blue-400"
               />
@@ -104,7 +125,7 @@ const EditBlockItem = ({ block, onUpdate, onDelete, onSave }: Props) => {
           {block.type === BlockType.PARAGRAPH && (
             <textarea
               placeholder="Enter paragraph..."
-              value={block.content as string}
+              value={paragraphContent}
               onChange={(e) =>
                 onUpdate({ ...block, content: e.target.value })
               }
@@ -115,35 +136,33 @@ const EditBlockItem = ({ block, onUpdate, onDelete, onSave }: Props) => {
           {/* LIST */}
           {block.type === BlockType.LIST && (
             <ListEditor
-              items={block.content as string[]}
-              onChange={(items) =>
-                onUpdate({ ...block, content: items })
-              }
+              items={listContent}
+              onChange={(items) => onUpdate({ ...block, content: items })}
             />
           )}
 
-          {/* CHILDREN */}
+          {/* CHILDREN (only for HEADING / SUBHEADING) */}
           {isHeading && (
             <div className="ml-6 mt-4 border-l border-gray-200 pl-4">
               <BlockEditor
-              category={block.category}
-                blocks={block.children}
-                onChange={(children) =>
-                  onUpdate({ ...block, children })
+                category={block.category}
+                blocks={children}
+                onChange={(updatedChildren) =>
+                  onUpdate({ ...block, children: updatedChildren } as any)
                 }
                 root={false}
                 allowSubheading={allowSubheadingInChild}
               />
-              <div className="flex justify-end mt-1">
-                {onSave && (
+              {onSave && (
+                <div className="flex justify-end mt-1">
                   <button
                     onClick={onSave}
                     className="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition text-sm"
                   >
                     Add Course Block
                   </button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           )}
         </>

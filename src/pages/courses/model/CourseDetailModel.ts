@@ -24,30 +24,32 @@ interface BaseBlock {
 
 export interface HeadingBlock extends BaseBlock {
   type: typeof BlockType.HEADING;
-  title: string;
+  title: string | null;
   children: CourseDetailBlock[];
-  content?: never;
+  content?: null;
 }
 
 export interface SubHeadingBlock extends BaseBlock {
   type: typeof BlockType.SUBHEADING;
-  title: string;
+  title: string | null;
   children: CourseDetailBlock[];
-  content?: never;
+  content?: null;
 }
 
 export interface ParagraphBlock extends BaseBlock {
   type: typeof BlockType.PARAGRAPH;
-  content: string;
-  children?: never;
-  title?: never;
+  content: string | null;
+  children?: CourseDetailBlock[];
+  title?: string | null;
 }
 
+// KEY FIX: LIST blocks can have null content AND can have children
+// (API returns LIST blocks with title + children instead of a flat content array)
 export interface ListBlock extends BaseBlock {
   type: typeof BlockType.LIST;
-  content: string[];
-  children?: never;
-  title?: never;
+  content: string[] | null;
+  children?: CourseDetailBlock[];
+  title?: string | null;
 }
 
 export type CourseDetailBlock =
@@ -68,7 +70,7 @@ export interface AddBlockPayload {
 export interface UpdateBlockData {
   id: number;
   type: BlockType;
-  title?: string;
+  title?: string | null;
   content?: string | string[] | null;
   order?: number;
   children?: CourseDetailBlock[];

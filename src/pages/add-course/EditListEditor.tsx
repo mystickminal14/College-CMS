@@ -1,4 +1,4 @@
-// src/components/EditListEditor.tsx
+// src/pages/AddCourseDetailsPage/EditListEditor.tsx
 import { Plus, X } from "lucide-react";
 
 interface EditListEditorProps {
@@ -18,8 +18,7 @@ const EditListEditor = ({ items, onChange }: EditListEditorProps) => {
   };
 
   const removeItem = (index: number) => {
-    const newItems = items.filter((_, i) => i !== index);
-    onChange(newItems);
+    onChange(items.filter((_, i) => i !== index));
   };
 
   return (
