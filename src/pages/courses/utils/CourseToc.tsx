@@ -18,14 +18,14 @@ export const buildToc = (blocks: CourseDetailBlock[]): TocItem[] => {
             if (block.type === BlockType.HEADING) {
                 tocItems.push({
                     id: `heading-${block.id}`,
-                    label: block.title,
+                    label: block.title ?? "",
                     order: block.order,
                     level: 1
                 });
             } else if (block.type === BlockType.SUBHEADING) {
                 tocItems.push({
                     id: `subheading-${block.id}`,
-                    label: block.title,
+                    label: block.title ?? "",
                     order: block.order,
                     level: 2
                 });
