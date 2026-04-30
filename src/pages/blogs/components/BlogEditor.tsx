@@ -28,7 +28,9 @@ const BlogEditor = ({ onChange, initialContent = "" }: BlogEditorProps) => {
         heading: { levels: [1, 2, 3, 4, 5, 6] },
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
-        
+        // FIX 2: Disable StarterKit's built-in link extension so the custom
+        // Link.configure() below takes over without creating a duplicate.
+        // The duplicate caused: [tiptap warn]: Duplicate extension names found: ['link']
         link: false,
       }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
