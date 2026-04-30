@@ -16,7 +16,11 @@ interface BlogEditorProps {
 }
 
 const BlogEditor = ({ onChange, initialContent = "" }: BlogEditorProps) => {
-  const seededContentRef = useRef<string>("");
+  // FIX 1: Track whether we've seeded the editor once — never re-seed after that.
+  // Previously used seededContentRef which compared content strings, but since
+  // onChange → parent state → initialContent prop creates a loop, any typing
+  // would change initialContent and trigger a re-seed, resetting cursor to end.
+  const seededRef = useRef(false);
 
   const editor = useEditor({
     extensions: [
@@ -24,6 +28,8 @@ const BlogEditor = ({ onChange, initialContent = "" }: BlogEditorProps) => {
         heading: { levels: [1, 2, 3, 4, 5, 6] },
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
+        
+        link: false,
       }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Link.configure({ openOnClick: false }),
@@ -48,15 +54,16 @@ const BlogEditor = ({ onChange, initialContent = "" }: BlogEditorProps) => {
     if (!editor) return;
     if (!initialContent) return;
 
-    if (seededContentRef.current === initialContent) return;
+    // FIX: Once seeded, never touch the editor content again.
+    // Without this guard, every keystroke triggers onChange → parent updates
+    // content state → initialContent prop changes → this effect fires again
+    // → setContent resets the editor and snaps cursor to "end".
+    if (seededRef.current) return;
 
     const timeout = setTimeout(() => {
       editor.commands.setContent(initialContent, { emitUpdate: false });
-
-      // ✅ FIX: Put cursor at end so typing continues inline
       editor.commands.focus("end");
-
-      seededContentRef.current = initialContent;
+      seededRef.current = true;
     }, 0);
 
     return () => clearTimeout(timeout);
