@@ -180,6 +180,7 @@ export function NavBar() {
         { name: "Fee Planner", link: "/fee-payment-planners" },
         { name: "Payment Modes", link: "/payment-modes" },
         { name: "Support Ticket", link: "https://support.lbef.info/" },
+        { name: "Verification", link: "/verification" },
 
 
         {

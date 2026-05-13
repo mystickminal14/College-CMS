@@ -3,6 +3,7 @@ import { WebsiteLayout } from "../website/WebLayout";
 import CourseDetailsByID from "../pages/courses/CourseDetailsById";
 import PreviewBlog from "../pages/blogs/PreviewBlog";
 import BlogsPAge from "../website/pages/blogs/BlogsPage";
+import VerificationPage from "../website/pages/verifications/Verifications";
 
 
 
@@ -126,6 +127,8 @@ export const websiteRoutes = [
       { path: "contact-info", element: <ContactListPage /> },
       { path: "notice", element: <NoticeWeb /> },
       { path: "admission-procedure", element: <AdmissionProcedure />, },
+      { path: "verification", element: <VerificationPage/>, },
+
 
       // {
       //   path: "students-life",
