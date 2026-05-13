@@ -1,7 +1,7 @@
 import Logo1 from "../../../../assets/IndustryLogo/1.webp"; // Cisco Networking Academy
 import Logo2 from "../../../../assets/IndustryLogo/4.webp"; // Red Hat Academy
 import Logo3 from "../../../../assets/IndustryLogo/2.webp"; // AWS Academy
-import Logo4 from "../../../../assets/IndustryLogo/3.webp"; // Oracle Academy
+// import Logo4 from "../../../../assets/IndustryLogo/3.webp"; // Oracle Academy
 import decoration from "../../../../assets/decoration.webp";
 
 const partners = [
