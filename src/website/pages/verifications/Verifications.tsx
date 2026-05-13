@@ -1,6 +1,5 @@
 import { FaEnvelope, FaShieldAlt, FaUserTie } from "react-icons/fa";
 
-import decoration from "../../../assets/decoration.webp";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";

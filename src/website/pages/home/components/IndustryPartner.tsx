@@ -17,14 +17,14 @@ const partners = [
     image: Logo3,
     description: "Cloud Computing",
   },
+  // {
+  //   id: 3,
+  //   name: "Oracle Academy",
+  //   image: Logo4,
+  //   description: "Database & Enterprise Tech",
+  // },
   {
     id: 3,
-    name: "Oracle Academy",
-    image: Logo4,
-    description: "Database & Enterprise Tech",
-  },
-  {
-    id: 4,
     name: "Red Hat Academy",
     image: Logo2,
     description: "Linux & Open Source",
