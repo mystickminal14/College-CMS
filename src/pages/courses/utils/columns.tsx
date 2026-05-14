@@ -31,6 +31,8 @@ export const CoursesColumns = [
     render: (row: Courses) => `${row.prefix} ${row.title}`
   },
   { label: "Duration", accessor: "duration" },
+  { label: "Status", accessor: "status", render: (row: Courses) => row.status },
+
   { label: "Shift", accessor: "shift", render: (row: Courses) => `${row.shift === 'BOTH' ? "Morning/Evening" : row.shift.toLowerCase()} ` },
   { label: "Credits", accessor: "credit" },
 

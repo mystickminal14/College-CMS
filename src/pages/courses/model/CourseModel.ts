@@ -16,6 +16,9 @@ export interface Courses {
   fullForm?:string;
   slug?:string;
   image?: string;
+  status?: EStatus;
   hasDetails?:boolean;
 }
 export type EShift = "MORNING" | "BOTH" | "EVENING";
+export type EStatus = "ENABLED" | "DISABLED";
+
