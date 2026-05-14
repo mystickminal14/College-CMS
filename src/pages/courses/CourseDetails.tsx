@@ -269,56 +269,130 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                     </motion.div>
                   </div>
 
-                  {/* CLASS TIMING - DYNAMIC BASED ON DEGREE LEVEL */}
-                  <motion.div variants={fadeItem} className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                    {/* Check if it's Bachelor's degree */}
-                    {course.degree === 'Bachelor' ? (
-                      <>
-                        {/* Morning Session */}
-                        <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-blue-100 p-2 rounded-md">
-                              <Clock className="w-4 h-4 text-blue-600" />
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-800">Morning Session</p>
-                              <p className="text-xs font-medium text-blue-700">6:30 AM – 11:00 AM</p>
-                              <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                            </div>
-                          </div>
-                        </div>
+          <motion.div
+  variants={fadeItem}
+  className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4"
+>
+  {course.degree === "Bachelor" ? (
+    <>
+      {/* Morning Session */}
+      <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
+        <div className="flex items-center gap-3">
+          <div className="bg-blue-100 p-2 rounded-md">
+            <Clock className="w-4 h-4 text-blue-600" />
+          </div>
 
-                        {/* Day Session */}
-                        <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-emerald-100 p-2 rounded-md">
-                              <Clock className="w-4 h-4 text-emerald-600" />
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-800">Day Session</p>
-                              <p className="text-xs font-medium text-emerald-700">10:00 AM – 2:00 PM</p>
-                              <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      /* Master's degree - Single timing */
-                      <div className="col-span-full bg-blue-50 border border-blue-100 rounded-lg p-3">
-                        <div className="flex items-center gap-3">
-                          <div className="bg-blue-100 p-2 rounded-md">
-                            <Clock className="w-4 h-4 text-blue-600" />
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold text-gray-800">Class Timing</p>
-                            <p className="text-xs font-medium text-blue-700">6:30 AM – 9:00 AM</p>
-                            <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
+          <div>
+            <p className="text-xs font-semibold text-gray-800">
+              Morning Session
+            </p>
 
+            <p className="text-xs font-medium text-blue-700">
+              6:30 AM – 11:00 AM
+            </p>
+
+            <p className="text-[11px] text-gray-600">
+              Sunday – Friday
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Day Session */}
+      <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
+        <div className="flex items-center gap-3">
+          <div className="bg-emerald-100 p-2 rounded-md">
+            <Clock className="w-4 h-4 text-emerald-600" />
+          </div>
+
+          <div>
+            <p className="text-xs font-semibold text-gray-800">
+              Day Session
+            </p>
+
+            <p className="text-xs font-medium text-emerald-700">
+              10:00 AM – 2:00 PM
+            </p>
+
+            <p className="text-[11px] text-gray-600">
+              Sunday – Friday
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  ) : (
+    <>
+      {/* MBA AI */}
+      {course.slug === "mba-ai" && (
+        <div className="col-span-full bg-blue-50 border border-blue-100 rounded-lg p-3">
+          <div className="flex items-start gap-3">
+            <div className="bg-blue-100 p-2 rounded-md">
+              <Clock className="w-4 h-4 text-blue-600" />
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold text-gray-800">
+                MBA (AI)
+              </p>
+
+              <p className="text-xs font-medium text-blue-700">
+                Sunday to Friday - 6:30 AM to 8:30 AM
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MBA DL */}
+      {course.slug === "mba-dl" && (
+        <div className="col-span-full bg-blue-50 border border-blue-100 rounded-lg p-3">
+          <div className="flex items-start gap-3">
+            <div className="bg-blue-100 p-2 rounded-md">
+              <Clock className="w-4 h-4 text-blue-600" />
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold text-gray-800">
+                MBA (DL)
+              </p>
+
+              <p className="text-xs font-medium text-blue-700">
+                Sunday to Friday - 6:30 AM to 8:30 AM
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MBA Weekend */}
+      {(course.slug === "mba" ||
+        course.slug === "mba-htm") && (
+        <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">
+          <div className="flex items-start gap-3">
+            <div className="bg-emerald-100 p-2 rounded-md">
+              <Clock className="w-4 h-4 text-emerald-600" />
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold text-gray-800">
+                MBA (Weekend)
+              </p>
+
+              <p className="text-xs font-medium text-emerald-700">
+                Friday: 4:30 PM – 8:30 PM
+              </p>
+
+              <p className="text-xs font-medium text-emerald-700">
+                Saturday: 8:00 AM – 4:00 PM
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )}
+</motion.div>
                   {/* TUTORIALS SECTION - DYNAMIC BASED ON DEGREE LEVEL */}
                   <motion.div variants={fadeItem} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Check if it's Bachelor's degree */}
