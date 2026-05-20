@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { Courses } from "./model/CourseModel";
@@ -29,6 +29,7 @@ import CourseDetailRenderer from "./CourseDetailRender";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
 import useGetCourseDetails from "./hooks/useGetDetails";
+import useGetCourseBySlug from "./hooks/useGetCourseBySlug";
 
 /* ------------------ TYPE GUARD ------------------ */
 const isCourseDetailBlock = (
@@ -488,23 +489,30 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
   );
 };
 
-/* ------------------ SHELL COMPONENT (guards against undefined course) ------------------ */
+/* ------------------ SHELL COMPONENT (fetches course by slug from URL) ------------------ */
 const CourseDetails = () => {
-  const location = useLocation();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
-  const course = location?.state?.course as Courses | undefined;
+  const { data, isLoading, isError } = useGetCourseBySlug(slug ?? "");
 
   useEffect(() => {
-    if (!course) {
+    if (isError) {
       navigate("/courses", { replace: true });
     }
-  }, [course, navigate]);
+  }, [isError, navigate]);
 
-  /* ✅ Must be AFTER all hooks, BEFORE any JSX that touches course */
-  if (!course) return null;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 animate-pulse">Loading course...</p>
+      </div>
+    );
+  }
 
-  return <CourseDetailsInner course={course} />;
+  if (!data?.data) return null;
+
+  return <CourseDetailsInner course={data.data} />;
 };
 
 export default CourseDetails;

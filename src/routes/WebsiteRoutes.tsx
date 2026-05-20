@@ -48,6 +48,8 @@ const OurMessage = lazy(() => import("../website/pages/our-message/OurMessage"))
 const NotFoundPage = lazy(() => import("../components/NoRouteFound"));
 const Scholarship = lazy(() => import("../website/pages/scholarship/Scholarship"));
 const ICTRegistration = lazy(() => import("../website/pages/admission/IctRegistration"));
+const VacancyWeb = lazy(() => import("../website/pages/vacancy/VacancyWeb"));
+const VacancyDetailWeb = lazy(() => import("../website/pages/vacancy/VacancyDetailWeb"));
 /* =======================
    Placeholder Page
 ======================= */
@@ -207,6 +209,8 @@ export const websiteRoutes = [
         element: <MeritScholarship />,
       },
       { path: "ictregistration", element: <ICTRegistration /> },
+      { path: "vacancy", element: <VacancyWeb /> },
+      { path: "vacancy/:id", element: <VacancyDetailWeb /> },
   
       {
         path: "ugc",

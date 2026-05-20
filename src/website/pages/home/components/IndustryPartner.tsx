@@ -1,7 +1,7 @@
 import Logo1 from "../../../../assets/IndustryLogo/1.webp"; // Cisco Networking Academy
 import Logo2 from "../../../../assets/IndustryLogo/4.webp"; // Red Hat Academy
 import Logo3 from "../../../../assets/IndustryLogo/2.webp"; // AWS Academy
-// import Logo4 from "../../../../assets/IndustryLogo/3.webp"; // Oracle Academy
+import Logo4 from "../../../../assets/IndustryLogo/3.webp"; // Oracle Academy
 import decoration from "../../../../assets/decoration.webp";
 
 const partners = [
@@ -17,14 +17,14 @@ const partners = [
     image: Logo3,
     description: "Cloud Computing",
   },
-  // {
-  //   id: 3,
-  //   name: "Oracle Academy",
-  //   image: Logo4,
-  //   description: "Database & Enterprise Tech",
-  // },
   {
     id: 3,
+    name: "Oracle Academy",
+    image: Logo4,
+    description: "Database & Enterprise Tech",
+  },
+  {
+    id: 4,
     name: "Red Hat Academy",
     image: Logo2,
     description: "Linux & Open Source",
@@ -71,7 +71,7 @@ const IndustryPartnerSection = () => {
                 <img
                   src={partner.image}
                   alt={partner.name}
-                  className="max-h-full max-w-[220px] w-auto object-contain"
+                  className="max-h-full max-w-55 w-auto object-contain"
                 />
               </div>
 

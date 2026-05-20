@@ -22,8 +22,8 @@ const HeroTitleWithGif = ({
   title,
   highlightedText,
   subtitle,
-  badgeText = "Latest Updates & Announcements",
-  gifSrc = butterflyGif,
+  badgeText: _badgeText = "Latest Updates & Announcements",
+  gifSrc: _gifSrc = butterflyGif,
   className = "",
   containerClassName = "",
   titleClassName = "",
@@ -66,15 +66,9 @@ const HeroTitleWithGif = ({
   return (
     <div className={`relative ${className}`}>
       {/* GIF BACKGROUND */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src={gifSrc}
-          alt="background decoration"
-          className="w-full h-full object-cover"
-        />
-      </div>
+      
 
-      <div className={`container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10 ${containerClassName}`}>
+      <div className={`container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 relative z-10 ${containerClassName}`}>
         <motion.div
           variants={{
             hidden: { opacity: 0, y: 20 },
@@ -122,26 +116,8 @@ const HeroTitleWithGif = ({
                 <circle cx="220" cy="3" r="1.8" fill="#6366f1" opacity="0.4" />
               </svg>
 
-              {/* Butterfly icon */}
-              <svg width="46" height="46" viewBox="0 0 52 52" fill="none">
-                <path d="M26 28 C20 10,2 6,2 18 C2 26,14 28,26 28Z" fill="#bfdbfe" stroke="#2563eb" strokeWidth="0.7" />
-                <path d="M26 28 C16 34,4 46,8 50 C12 53,22 44,26 28Z" fill="#dbeafe" stroke="#2563eb" strokeWidth="0.5" />
-                <path d="M26 28 C32 10,50 6,50 18 C50 26,38 28,26 28Z" fill="#bfdbfe" stroke="#2563eb" strokeWidth="0.7" />
-                <path d="M26 28 C36 34,48 46,44 50 C40 53,30 44,26 28Z" fill="#dbeafe" stroke="#2563eb" strokeWidth="0.5" />
-                <ellipse cx="26" cy="28" rx="2" ry="11" fill="#1e40af" />
-                <path d="M25 17 C22 9,17 5,15 2" fill="none" stroke="#1e40af" strokeWidth="0.9" strokeLinecap="round" />
-                <circle cx="15" cy="2" r="1.8" fill="#1e40af" />
-                <path d="M27 17 C30 9,35 5,37 2" fill="none" stroke="#1e40af" strokeWidth="0.9" strokeLinecap="round" />
-                <circle cx="37" cy="2" r="1.8" fill="#1e40af" />
-                <circle cx="17" cy="20" r="2.2" fill="#3b82f6" opacity="0.45" />
-                <circle cx="35" cy="20" r="2.2" fill="#3b82f6" opacity="0.45" />
-                <circle cx="13" cy="37" r="1.5" fill="#6366f1" opacity="0.35" />
-                <circle cx="39" cy="37" r="1.5" fill="#6366f1" opacity="0.35" />
-              </svg>
 
-              <div className="flex flex-col gap-0.5 relative z-10">
-                <span className="text-sm font-medium text-blue-900">{badgeText}</span>
-              </div>
+             
             </motion.div>
           )}
 

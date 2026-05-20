@@ -63,6 +63,9 @@ const PlannersPage = () => {
   ];
 
   const plannerColumns = [
+    { label: "Session", accessor: "session" },
+    { label: "Year", accessor: "year" },
+
     {
       label: "Course", accessor: "plannerCourse", render: (row: AcademicPlanner) => row.plannerCourse?.name ?? "-",
     },
@@ -84,8 +87,8 @@ const PlannersPage = () => {
           <button
             onClick={() => setViewMode("year")}
             className={`px-4 py-2 flex items-center gap-1 rounded transition ${viewMode === "year"
-                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800"
+              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800"
               }`}
           >
             <FaTable /> Academic Years
@@ -94,8 +97,8 @@ const PlannersPage = () => {
           <button
             onClick={() => setViewMode("planner")}
             className={`px-4 py-2 flex items-center gap-1 rounded transition ${viewMode === "planner"
-                ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800"
+              ? "bg-linear-to-r from-[#125DAA] to-[#1a7cd3] text-white"
+              : "bg-gray-100 dark:bg-gray-800"
               }`}
           >
             <FaThLarge /> Academic Planners

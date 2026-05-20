@@ -73,9 +73,7 @@ const CourseProgram = () => {
   const { data: typesDataAll } = useGetCourseCategoryNameAll();
   const categories = typesDataAll?.data ?? [];
   const handleView = (course: Courses) => {
-    navigate(`/${course.slug}`, {
-      state: { course },
-    });
+    navigate(`/${course.slug}`);
   };
   const filteredCourses = activeCategory === 'all'
     ? courses

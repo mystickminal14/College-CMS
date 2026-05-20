@@ -63,6 +63,7 @@ const useLogin = () => {
           SCHOLARSHIP: "",
           FAQ:"fee",
           HERO_SECTION: "",
+          VACANCY: "/app/job-vacancy/vacancy",
         };
 
         navigate(redirectMap[firstPermission] || "/app/course");

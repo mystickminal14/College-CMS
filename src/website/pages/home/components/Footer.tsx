@@ -98,8 +98,7 @@ const Footer = () => {
                   <NavLink
                     key={course.id}
                     to={`${course.slug}`}
-                    state={{ course }}
-                    className="block text-[11px] hover:text-blue-500 whitespace-normal wrap-break-word leading-snug"
+className="block text-[11px] hover:text-blue-500 whitespace-normal wrap-break-word leading-snug"
                   >
                     {course.prefix} {course.title}
                   </NavLink>

@@ -30,6 +30,7 @@ type MenuItem = {
   name: string;
   link?: string;
   dropdown?: DropdownItem[];
+  columns?: 2;
 };
 
 // ── Fix: use `Transition` type explicitly so TS is happy ──────────────────────
@@ -135,6 +136,7 @@ export function NavBar() {
     { name: "Home", link: "/" },
     {
       name: "About",
+      columns: 2,
       dropdown: [
         { name: "About LBEF", link: "/about" },
         { name: "About University", link: "/about-university" },
@@ -144,6 +146,7 @@ export function NavBar() {
         { name: "Messages", link: "/messages" },
         { name: "Our Team", link: "/ourteam" },
         { name: "Administrative Holidays", link: "/administrative-holidays" },
+        { name: "Career Opportunities", link: "/vacancy" },
       ],
     },
     {
@@ -157,7 +160,7 @@ export function NavBar() {
                 ? cat.courses.map((course) => ({
                   name: `${course.prefix} ${course.title}`,
                   onClick: () => {
-                    navigate(`/${course.slug}`, { state: { course } });
+                    navigate(`/${course.slug}`);
                     setActiveDropdown(null);
                   },
                 }))
@@ -167,6 +170,7 @@ export function NavBar() {
     },
     {
       name: "Students",
+      columns: 2,
       dropdown: [
         { name: "Career Pathway", link: "https://evolve.lbef.org/" },
         { name: "Student Clubs", link: "/academic-club", },
@@ -359,15 +363,18 @@ export function NavBar() {
                       onMouseLeave={onDropdownLeave}
                     >
                       <div
-                        className={`bg-white shadow-xl rounded-xl p-1 min-w-[250px] md:min-w-[270px]"
-                          }`}
+                        className={`bg-white shadow-xl rounded-xl p-1 ${
+                          item.columns === 2
+                            ? "grid grid-cols-2 w-[480px]"
+                            : "min-w-[250px] md:min-w-[270px]"
+                        }`}
                       >
                         {item.dropdown.map((sub) => {
                           if (sub.dropdown) {
                             return (
                               <div
                                 key={sub.name}
-                                className="relative"
+                                className={`relative ${item.columns === 2 ? "col-span-2" : ""}`}
                                 onMouseEnter={() => onNestedEnter(sub.name)}
                                 onMouseLeave={onNestedLeave}
                               >

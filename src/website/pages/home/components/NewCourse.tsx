@@ -75,9 +75,7 @@ export default function NewCourse() {
   const courses: Courses[] = data?.data || [];
   const navigate = useNavigate();
   const handleView = (course: Courses) => {
-    navigate(`/${course.slug}`, {
-      state: { course },
-    });
+    navigate(`/${course.slug}`);
   };
   const [isMobile, setIsMobile] = useState(false);
 

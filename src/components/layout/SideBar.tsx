@@ -13,7 +13,8 @@ import {
   MdAssignment,
   MdAttachMoney,
   MdPhoto,
-  MdDocumentScanner
+  MdDocumentScanner,
+  MdWork,
 } from 'react-icons/md';
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -112,6 +113,14 @@ const menuItems: MenuItem[] = [
     subMenus: [
       { id: "intake", label: "Intake Calender", icon: MdCalendarToday },
       { id: "scholarship", label: "ICT Scholarship", icon: MdDocumentScanner },
+    ],
+  },
+  {
+    id: "job-vacancy",
+    icon: MdWork,
+    label: "Job Vacancy",
+    subMenus: [
+      { id: "vacancy", label: "Vacancies", icon: MdWork },
     ],
   },
 ];
