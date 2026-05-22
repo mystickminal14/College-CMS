@@ -63,6 +63,7 @@ const OTHER_PERMISSIONS: PermissionNameType[] = [
   "INTAKE",
   "DOCUMENTS",
   "DOWNLOADS",
+  "VACANCY",
 ];
 
 export const ALL_PERMISSIONS: PermissionNameType[] = [
