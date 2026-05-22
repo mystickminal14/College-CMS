@@ -59,12 +59,12 @@ const PlannersPage = () => {
 
   const yearColumns = [
     { label: "Year", accessor: "year" },
-    { label: "Session", accessor: "session" },
+    { label: "Session", accessor: "" },
   ];
 
   const plannerColumns = [
-    { label: "Session", accessor: "session" },
-    { label: "Year", accessor: "year" },
+    { label: "Session", accessor: "academicYear" , render: (row: AcademicPlanner) => row.academicYear?.session ?? "-",},
+    { label: "Year", accessor: "academicYear" , render: (row: AcademicPlanner) => row.academicYear?.year ?? "-",},
 
     {
       label: "Course", accessor: "plannerCourse", render: (row: AcademicPlanner) => row.plannerCourse?.name ?? "-",
