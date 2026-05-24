@@ -4,6 +4,7 @@ const JournalAbstract = () => {
 	const location = useLocation();
 	const article = location.state?.article;
 	function makeJournalUrl(pageStr: any) {
+		if (!pageStr) return "";
 		const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)-(\d+)/;
 		const match = pageStr.match(regex);
 

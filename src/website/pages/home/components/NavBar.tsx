@@ -374,7 +374,7 @@ export function NavBar() {
                             return (
                               <div
                                 key={sub.name}
-                                className={`relative ${item.columns === 2 ? "col-span-2" : ""}`}
+                                className="relative"
                                 onMouseEnter={() => onNestedEnter(sub.name)}
                                 onMouseLeave={onNestedLeave}
                               >

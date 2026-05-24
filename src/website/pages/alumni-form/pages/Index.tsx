@@ -52,12 +52,6 @@ const AlumniFormPage: React.FC = () => {
   const validateForm = (): FormErrors => {
     const newErrors: FormErrors = {};
 
-    if (!formData.collegeRollNo.trim())
-      newErrors.collegeRollNo = 'College Roll No is required';
-
-    if (!formData.uniRollNo.trim())
-      newErrors.uniRollNo = 'University Roll No is required'; // ✅ Added validation
-
     if (!formData.fullName.trim())
       newErrors.fullName = 'Full Name is required';
 
@@ -201,7 +195,7 @@ const AlumniFormPage: React.FC = () => {
                 {/* College Roll No */}
                 <div>
                   <label htmlFor="collegeRollNo" className="block text-sm font-medium text-gray-700 mb-1">
-                    College Roll No <span className="text-red-500">*</span>
+                    College Roll No
                   </label>
                   <input
                     type="text"
@@ -219,7 +213,7 @@ const AlumniFormPage: React.FC = () => {
                 {/* University Roll No */}
                 <div>
                   <label htmlFor="uniRollNo" className="block text-sm font-medium text-gray-700 mb-1">
-                    University Roll No <span className="text-red-500">*</span>
+                    University Roll No
                   </label>
                   <input
                     type="text"
