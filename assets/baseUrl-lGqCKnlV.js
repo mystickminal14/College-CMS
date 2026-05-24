@@ -1,0 +1,1 @@
+import{be as o,bf as a}from"./index-CYQC3tU4.js";const e=o.create({baseURL:a,headers:{Accept:"application/json","Content-Type":"application/json"},timeout:5e3});class r{endpoint;constructor(t){this.endpoint=t}getAll=async(t,n)=>{const s=t?`${this.endpoint}/${t}`:this.endpoint;return(await e.get(s,n)).data};post=async(t,n)=>(await e.post(this.endpoint,t,n)).data}export{r as A};

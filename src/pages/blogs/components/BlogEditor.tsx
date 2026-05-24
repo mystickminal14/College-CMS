@@ -1,7 +1,8 @@
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, ReactNodeViewRenderer } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
+import BlogImageNode from "./BlogImageNode";
 import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
@@ -35,7 +36,11 @@ const BlogEditor = ({ onChange, initialContent = "" }: BlogEditorProps) => {
       }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Link.configure({ openOnClick: false }),
-      Image,
+      Image.extend({
+        addNodeView() {
+          return ReactNodeViewRenderer(BlogImageNode);
+        },
+      }),
       Table.configure({ resizable: true }),
       TableRow,
       TableHeader,
@@ -72,8 +77,12 @@ const BlogEditor = ({ onChange, initialContent = "" }: BlogEditorProps) => {
   }, [editor, initialContent]);
 
   return (
-    <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-colors duration-300">
-      {editor && <BlogToolbar editor={editor} />}
+    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-colors duration-300">
+      {editor && (
+        <div className="sticky top-12.25 z-20 rounded-t-xl overflow-hidden">
+          <BlogToolbar editor={editor} />
+        </div>
+      )}
 
       <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <style>{`

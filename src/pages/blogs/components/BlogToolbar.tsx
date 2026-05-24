@@ -1,9 +1,14 @@
 import { Editor, useEditorState } from "@tiptap/react";
 import {
   Bold, Italic, Strikethrough, List, ListOrdered,
-  Quote, Undo, Redo, Table, Link, Image,
+  Quote, Undo, Redo, Table, Link, Image, ExternalLink,
   AlignLeft, AlignCenter, AlignRight, Minus,
 } from "lucide-react";
+import { useRef, useContext, useState } from "react";
+import { AppContext } from "../../../context/ContextApp";
+import { compressImage, validateImageFile } from "../../../utils/ImageCompression";
+import APIClient from "../../../services/apiClient";
+import { IMAGE_URL } from "../../../constants";
 
 const Divider = () => <div className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-0.5" />;
 
@@ -33,6 +38,10 @@ const Btn = ({
 );
 
 const BlogToolbar = ({ editor }: { editor: Editor }) => {
+  const appContext = useContext(AppContext);
+  const showToast = appContext?.showToast;
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageUploading, setImageUploading] = useState(false);
   const s = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -72,9 +81,41 @@ const BlogToolbar = ({ editor }: { editor: Editor }) => {
     if (url) editor.chain().focus().setLink({ href: url }).run();
   };
 
-  const addImage = () => {
+  const addImageFromUrl = () => {
     const url = window.prompt("Enter image URL");
     if (url) editor.chain().focus().setImage({ src: url }).run();
+  };
+
+  const triggerImageUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const error = validateImageFile(file);
+    if (error) {
+      showToast?.(error, "error");
+      e.target.value = "";
+      return;
+    }
+
+    setImageUploading(true);
+    try {
+      const compressed = await compressImage(file, { maxSizeMB: 1, maxWidthOrHeight: 1200 });
+      const formData = new FormData();
+      formData.append("image", compressed);
+
+      const api = new APIClient<{ url: string }>("/blogs/content-image");
+      const res = await api.postFile(formData);
+      if (res.data?.url) editor.chain().focus().setImage({ src: IMAGE_URL + res.data.url }).run();
+    } catch {
+      showToast?.("Failed to upload image", "error");
+    } finally {
+      setImageUploading(false);
+      e.target.value = "";
+    }
   };
 
   const insertTable = () => {
@@ -163,9 +204,19 @@ const BlogToolbar = ({ editor }: { editor: Editor }) => {
       <Btn tooltip="Insert Link" active={s.isLink} onClick={addLink}>
         <Link size={14} />
       </Btn>
-      <Btn tooltip="Insert Image URL" onClick={addImage}>
+      <Btn tooltip="Upload Image from Computer" disabled={imageUploading} onClick={triggerImageUpload}>
         <Image size={14} />
       </Btn>
+      <Btn tooltip="Insert Image by URL" onClick={addImageFromUrl}>
+        <ExternalLink size={14} />
+      </Btn>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/jpg"
+        className="hidden"
+        onChange={handleImageFile}
+      />
 
       <Divider />
 

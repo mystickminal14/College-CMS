@@ -1,0 +1,1 @@
+import{c as e,Q as o,a2 as r,a3 as t}from"./index-CYQC3tU4.js";const s=[["rect",{width:"20",height:"14",x:"2",y:"3",rx:"2",key:"48i651"}],["line",{x1:"8",x2:"16",y1:"21",y2:"21",key:"1svkeh"}],["line",{x1:"12",x2:"12",y1:"17",y2:"21",key:"vw1qmm"}]],i=e("monitor",s),n=()=>o({queryKey:[r],queryFn:()=>t.getAll()});export{i as M,n as u};
