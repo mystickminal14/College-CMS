@@ -1,5 +1,5 @@
 // pages/journals/JournalDetails.tsx
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState } from "react";
 import EnhancedTable from "../../template/EnhancedTable";
 import { Edit, Trash2 } from "lucide-react";
@@ -7,18 +7,16 @@ import { Edit, Trash2 } from "lucide-react";
 import type { JournalDetailsPayload } from "./model/JournalModel";
 import useGetJournalDetails from "./hooks/details/useGetJournalDetails";
 import useDeleteJournalDetails from "./hooks/details/useDeleteJournalDetails";
-import useGetJournal from "./hooks/useGetParent";
 import JournalDetailsWizardModal from "./detail-comp/JournalDetailWizard";
 import { IMAGE_URL } from "../../constants";
 import TitleBox from "../../components/layout/TitleBox";
 
 const JournalDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const { state } = useLocation();
+  const volume: string | undefined = state?.volume;
+  const issue: string | undefined = state?.issue;
   const { data, isLoading } = useGetJournalDetails(id!);
-  const { data: journalsData } = useGetJournal({ page: 1, limit: 100 });
-  const parentJournal = journalsData?.data?.find(j => j.id === Number(id));
-  const volume = parentJournal?.volume;
-  const issue = parentJournal?.issue;
   const deleteMutation = useDeleteJournalDetails();
 
   const [selected, setSelected] = useState<JournalDetailsPayload | null>(null);
