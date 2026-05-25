@@ -44,7 +44,9 @@ const JournalsPage = () => {
 const navigate=useNavigate();
  const handleView = (child: Journals) => {
     if (!child.id) return;
-    navigate(`/app/media/journals/${child.id}`);
+    navigate(`/app/media/journals/${child.id}`, {
+      state: { volume: child.volume, issue: child.issue },
+    });
   };
 
   // ---------------- Table Actions ----------------

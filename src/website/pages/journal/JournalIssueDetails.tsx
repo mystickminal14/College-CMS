@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useGetJournalDetails from "../../../pages/journal/hooks/details/useGetJournalDetails";
 import { parseDate } from "../../../utils/ParseDate";
 import Seo from "../../../context/seo";
+import { IMAGE_URL } from "../../../constants";
 
 const JournalIssueDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,18 +11,15 @@ const JournalIssueDetails = () => {
 
   const details = data?.data ?? [];
   const navigate = useNavigate();
+
   function makeJournalUrl(pageStr: any) {
     if (!pageStr) return "";
-    const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)-(\d+)/;
+    const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)\s*-\s*(\d+)/;
     const match = pageStr.match(regex);
-
     if (!match) return "";
-
     const [, vol, issue, start, end] = match;
-
     const folder = `${vol}-${issue}`;
     const file = `${vol}-${issue}-${start}-${end}.pdf`;
-
     return `https://www.lbef.org/journal/${folder}/download/${file}`;
   }
 
@@ -84,6 +82,15 @@ const JournalIssueDetails = () => {
               {details.length} articles published
             </p>
           </div>
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors border border-gray-200"
+          >
+            <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Issues
+          </button>
         </div>
       </div>
 
@@ -223,27 +230,32 @@ const JournalIssueDetails = () => {
                     )}
 
 
-                    <a
-                      href={makeJournalUrl(item.pageNo)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center px-3 py-1.5 text-sm bg-linear-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm hover:shadow"
-                    >
-                      <svg
-                        className="w-4 h-4 mr-1.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                        />
-                      </svg>
-                      PDF
-                    </a>
+                    {(() => {
+                        const pdfUrl = makeJournalUrl(item.pageNo) || (item.link ? `${IMAGE_URL}${item.link}` : "");
+                        if (pdfUrl) {
+                          return (
+                            <a
+                              href={pdfUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center px-3 py-1.5 text-sm bg-linear-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm hover:shadow"
+                            >
+                              <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                              </svg>
+                              PDF
+                            </a>
+                          );
+                        }
+                        return (
+                          <span className="flex items-center px-3 py-1.5 text-sm text-gray-400 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed">
+                            <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            No PDF
+                          </span>
+                        );
+                      })()}
 
                   </div>
                 </td>

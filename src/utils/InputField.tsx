@@ -5,11 +5,12 @@ interface InputFieldProps {
   value: string;
   field: string;
   placeholder?: string;
-  icon?: React.ReactNode; 
+  icon?: React.ReactNode;
   required?: boolean;
   type?: "text" | "email" | "password" | "tel" | "url" | "number" | "textarea" | "date";
   onChange: (field: string, value: string) => void;
   isSubmitting?: boolean;
+  disabled?: boolean;
   rows?: number;
 }
 
@@ -23,8 +24,10 @@ const InputField: React.FC<InputFieldProps> = ({
   type = "text",
   onChange,
   isSubmitting = false,
+  disabled = false,
   rows = 4,
 }) => {
+  const isDisabled = isSubmitting || disabled;
   const isTextarea = type === "textarea";
   return (
     <div className="space-y-2">
@@ -44,7 +47,7 @@ const InputField: React.FC<InputFieldProps> = ({
             onChange={(e) => onChange(field, e.target.value)}
             placeholder={placeholder}
             required={required}
-            disabled={isSubmitting}
+            disabled={isDisabled}
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135EAB] focus:border-transparent resize-none disabled:opacity-50"
           />
         ) : (
@@ -55,10 +58,15 @@ const InputField: React.FC<InputFieldProps> = ({
               onChange={(e) => onChange(field, e.target.value)}
               placeholder={placeholder}
               required={required}
-              disabled={isSubmitting}
+              disabled={isDisabled}
               className={`w-full px-4 py-3 ${
                 icon ? "pl-11" : ""
-              } border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135EAB] focus:border-transparent disabled:opacity-50`}
+              } border rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135EAB] focus:border-transparent
+              ${disabled
+                ? "bg-gray-100 border-gray-200 text-gray-500 cursor-not-allowed"
+                : "bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+              }
+              ${isSubmitting ? "opacity-50" : ""}`}
             />
 
             {icon && (

@@ -1,11 +1,12 @@
 import { useLocation } from "react-router-dom";
+import { IMAGE_URL } from "../../constants";
 
 const JournalAbstract = () => {
 	const location = useLocation();
 	const article = location.state?.article;
 	function makeJournalUrl(pageStr: any) {
 		if (!pageStr) return "";
-		const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)-(\d+)/;
+		const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)\s*-\s*(\d+)/;
 		const match = pageStr.match(regex);
 
 		if (!match) return "";
@@ -17,6 +18,8 @@ const JournalAbstract = () => {
 
 		return `https://www.lbef.org/journal/${folder}/download/${file}`;
 	}
+
+	const pdfUrl = makeJournalUrl(article?.pageNo) || (article?.link ? `${IMAGE_URL}${article.link}` : "");
 	if (!article) {
 		return (
 			<div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
@@ -71,10 +74,10 @@ const JournalAbstract = () => {
 						</div>
 					</div>
 
-					{article.pageNo && (
+					{pdfUrl && (
 						<div className="ml-4 shrink-0">
 							<a
-								href={makeJournalUrl(article.pageNo)}
+								href={pdfUrl}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="inline-flex items-center px-4 py-2 text-sm font-medium

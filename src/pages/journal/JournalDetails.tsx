@@ -7,6 +7,7 @@ import { Edit, Trash2 } from "lucide-react";
 import type { JournalDetailsPayload } from "./model/JournalModel";
 import useGetJournalDetails from "./hooks/details/useGetJournalDetails";
 import useDeleteJournalDetails from "./hooks/details/useDeleteJournalDetails";
+import useGetJournal from "./hooks/useGetParent";
 import JournalDetailsWizardModal from "./detail-comp/JournalDetailWizard";
 import { IMAGE_URL } from "../../constants";
 import TitleBox from "../../components/layout/TitleBox";
@@ -14,6 +15,10 @@ import TitleBox from "../../components/layout/TitleBox";
 const JournalDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useGetJournalDetails(id!);
+  const { data: journalsData } = useGetJournal({ page: 1, limit: 100 });
+  const parentJournal = journalsData?.data?.find(j => j.id === Number(id));
+  const volume = parentJournal?.volume;
+  const issue = parentJournal?.issue;
   const deleteMutation = useDeleteJournalDetails();
 
   const [selected, setSelected] = useState<JournalDetailsPayload | null>(null);
@@ -44,6 +49,7 @@ const JournalDetails = () => {
     { label: "Title", accessor: "title" },
     { label: "Authors", accessor: "authors" },
     { label: "Pages", accessor: "pages" },
+    { label: "Page No", accessor: "pageNo" },
     { label: "Country", accessor: "country" },
      {
         label: "File",
@@ -100,6 +106,8 @@ const JournalDetails = () => {
           onClose={() => setOpenWizard(false)}
           journalId={Number(id)}
           detailsToEdit={selected}
+          volume={volume}
+          issue={issue}
         />
       )}
     </div>
