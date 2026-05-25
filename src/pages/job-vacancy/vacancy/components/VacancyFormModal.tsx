@@ -43,6 +43,7 @@ const VacancyFormModal: React.FC<Props> = ({
   const [step, setStep] = useState<1 | 2>(1);
   const [form, setForm] = useState<CreateVacancyPayload>(EMPTY_FORM);
   const [savedVacancyId, setSavedVacancyId] = useState<string | null>(null);
+  const [savedPhpVacancyId, setSavedPhpVacancyId] = useState<number | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -55,6 +56,7 @@ const VacancyFormModal: React.FC<Props> = ({
       setImageFile(null);
       setImagePreview(null);
       setSavedVacancyId(null);
+      setSavedPhpVacancyId(null);
     }
   }, [isOpen]);
 
@@ -117,6 +119,8 @@ const VacancyFormModal: React.FC<Props> = ({
       createMutation.mutate(payload, {
         onSuccess: (res) => {
           if (res.data?.id) setSavedVacancyId(res.data.id);
+          const phpId = (res.data as unknown as { phpId?: number })?.phpId;
+          if (phpId !== undefined && phpId !== null) setSavedPhpVacancyId(phpId);
           setStep(2);
         },
       });
@@ -130,7 +134,7 @@ const VacancyFormModal: React.FC<Props> = ({
       return;
     }
     changeImageMutation.mutate(
-      { id: savedVacancyId, image: imageFile },
+      { id: savedVacancyId, phpId: savedPhpVacancyId ?? undefined, image: imageFile },
       { onSuccess: onClose }
     );
   };

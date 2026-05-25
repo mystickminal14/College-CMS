@@ -5,9 +5,11 @@ import type { ApiErrorResponse, ApiResponse } from "../../../../services/apiType
 import { VACANCY_CACHE_KEY } from "../../../../constants";
 import type { JobVacancy } from "../model/VacancyModel";
 import APIClient from "../../../../services/apiClient";
+import { uploadToPcps } from "../../../../services/pcpsClient";
 
 interface ChangeImagePayload {
-  id: string;
+  id: string;          // existing (Node) backend vacancy id
+  phpId?: number;      // PHP backend vacancy id (when known, from the create step)
   image: File;
 }
 
@@ -18,11 +20,25 @@ const useChangeVacancyImage = () => {
   const { showToast } = appContext;
 
   return useMutation<ApiResponse<JobVacancy>, ApiErrorResponse, ChangeImagePayload>({
-    mutationFn: ({ id, image }) => {
+    mutationFn: async ({ id, phpId, image }) => {
+      // 1. Existing backend.
       const formData = new FormData();
       formData.append("poster", image);
       const api = new APIClient<JobVacancy>(`/vacancy/${id}/image`);
-      return api.putFile(formData);
+      const nodeRes = await api.putFile(formData);
+
+      // 2. Mirror to PHP (best-effort) — POST /upload/poster stores the file and
+      //    writes posterUrl onto pcps_job_vacancies for the PHP id.
+      if (phpId !== undefined && phpId !== null) {
+        try {
+          await uploadToPcps("poster", image, phpId);
+        } catch (e) {
+          const msg = (e as ApiErrorResponse)?.message || "PHP poster sync failed";
+          showToast(`Poster saved, but PHP sync failed: ${msg}`, "error");
+        }
+      }
+
+      return nodeRes;
     },
     onSuccess: (res) => {
       showToast(res.message || "Poster updated successfully!", "success");
