@@ -1,28 +1,57 @@
-# Apache rules for the LBEF SPA on cPanel (public_html).
-# 1. Real files/dirs (assets, images, php) are served directly.
-# 2. /blogs/:slug is routed to blog-seo.php which injects per-blog SEO meta tags.
-# 3. Every other path falls back to index.html so React Router works on refresh.
+RewriteOptions inherit
+RewriteEngine On
 
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
+# Redirect non-www to www
+RewriteCond %{HTTP_HOST} ^lbef\.org$ [NC]
+RewriteRule ^ https://www.lbef.org%{REQUEST_URI} [R=301,L]
 
-  # Serve existing files and directories as-is (JS/CSS/images/blog-seo.php).
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-  # Blog detail pages -> PHP injector (single slug segment only).
-  # /blogs (the list page) is NOT matched and falls through to the SPA below.
-  RewriteRule ^blogs/([A-Za-z0-9._-]+)/?$ blog-seo.php?slug=$1 [L,QSA]
+# PHP routes
+RewriteRule ^ourteam$ ourteam.php [L]
+RewriteRule ^our-team$ ourteam.php [L]
+RewriteRule ^about$ about.php [L]
+RewriteRule ^aboutus$ about.php [L]
+RewriteRule ^about-us$ about.php [L]
+RewriteRule ^recognitions$ recognitions.php [L]
+RewriteRule ^messages$ messages.php [L]
+RewriteRule ^achivements$ achivements.php [L]
+RewriteRule ^infrastructure$ infrastructure.php [L]
+RewriteRule ^training-placement-cell$ training-placement-cell.php [L]
+RewriteRule ^administrative-holidays$ administrative-holidays.php [L]
+RewriteRule ^intake-calendar$ intake-calendar.php [L]
 
-  # SPA fallback: everything else serves index.html.
-  RewriteRule ^ index.html [L]
+# Blog detail pages -> PHP SEO injector (injects per-blog meta tags for crawlers).
+# Requires a slug segment, so /blogs (list) falls through to the SPA below.
+RewriteRule ^blogs/([A-Za-z0-9._-]+)/?$ blog-seo.php?slug=$1 [L,QSA]
+
+# PHP handler
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
 </IfModule>
 
-# Optional: long-cache hashed build assets (safe — filenames change on rebuild).
-<IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2?|png|jpe?g|webp|svg|gif|ico)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
-  </FilesMatch>
+# Exclude API and upload/static directories
+RewriteCond %{REQUEST_URI} !^/api
+RewriteCond %{REQUEST_URI} !^/uploads
+RewriteCond %{REQUEST_URI} !^/images
+RewriteCond %{REQUEST_URI} !^/public
+RewriteCond %{REQUEST_URI} !^/ugc
+
+# Exclude ALL static file extensions
+RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|mp4|mp3|woff|woff2|ttf|eot)$ [NC]
+
+# Don't touch real files/folders
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# React SPA fallback
+RewriteRule ^ index.html [L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the "ea-php83" package as the default "PHP" programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
 </IfModule>
+# php -- END cPanel-generated handler, do not edit
