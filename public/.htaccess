@@ -1,0 +1,28 @@
+# Apache rules for the LBEF SPA on cPanel (public_html).
+# 1. Real files/dirs (assets, images, php) are served directly.
+# 2. /blogs/:slug is routed to blog-seo.php which injects per-blog SEO meta tags.
+# 3. Every other path falls back to index.html so React Router works on refresh.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files and directories as-is (JS/CSS/images/blog-seo.php).
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Blog detail pages -> PHP injector (single slug segment only).
+  # /blogs (the list page) is NOT matched and falls through to the SPA below.
+  RewriteRule ^blogs/([A-Za-z0-9._-]+)/?$ blog-seo.php?slug=$1 [L,QSA]
+
+  # SPA fallback: everything else serves index.html.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Optional: long-cache hashed build assets (safe — filenames change on rebuild).
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|png|jpe?g|webp|svg|gif|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
