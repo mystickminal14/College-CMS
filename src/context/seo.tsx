@@ -1,14 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import { APP_URL } from "../constants";
 interface SeoProps {
-  title: string;
+  title?: string;
   description?: string;
   url?: string;
   image?: string;
 }
 
 const Seo: React.FC<SeoProps> = ({
-  title,
+  title = "LBEF College Nepal | The First IT College of Nepal",
   description = "Lord Buddha Education Foundation – The First IT College of Nepal",
   url,
   image = `${APP_URL}/assets/lbefhd.webp`,

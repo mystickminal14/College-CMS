@@ -46,7 +46,7 @@ const PreviewBlog = () => {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <Seo
-        title={blog.metaTitle || blog.title}
+        title={blog.metaTitle}
         description={blog.metaDescription}
         url={`${APP_URL}/blogs/${blog.slug}`}
       />
