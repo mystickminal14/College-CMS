@@ -52,10 +52,10 @@ const ICTRegistration = () => {
               title="ICT Scholarship Form"
             />
           ) : (
-            <h1 className="text-2xl font-semibold text-center text-red-600 mt-10">
+            <p className="text-2xl font-semibold text-center text-red-600 mt-10">
               The Registration for ICT Scholarship-2082 will open on
               {` ${particularDate.toDateString()}`}
-            </h1>
+            </p>
           )}
         </div>
 

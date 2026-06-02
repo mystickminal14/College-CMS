@@ -49,6 +49,31 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # React SPA fallback
 RewriteRule ^ index.html [L]
 
+# Font MIME types
+<IfModule mime_module>
+  AddType font/woff          .woff
+  AddType font/woff2         .woff2
+  AddType font/ttf           .ttf
+  AddType font/otf           .otf
+  AddType application/vnd.ms-fontobject .eot
+</IfModule>
+
+# CORS for fonts (required when fonts load cross-origin or via CDN)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+# Cache fonts for 1 year (they are content-hashed so safe to cache forever)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+    ExpiresDefault "access plus 1 year"
+    Header append Cache-Control "public, immutable"
+  </FilesMatch>
+</IfModule>
+
 # php -- BEGIN cPanel-generated handler, do not edit
 # Set the "ea-php83" package as the default "PHP" programming language.
 <IfModule mime_module>

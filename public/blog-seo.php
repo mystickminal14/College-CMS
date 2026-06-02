@@ -60,9 +60,6 @@ if ($blog) {
            ? $IMAGE_URL . $blog['featuredImage']
            : $APP_URL . '/assets/lbefhd.webp';
 
-    // Replace the static <title>.
-    $html = preg_replace('/<title>.*?<\/title>/is', '<title>' . $e($title) . '</title>', $html, 1);
-
     // Replace the static description meta (homepage default in index.html).
     $html = preg_replace(
         '/<meta\s+name=["\']description["\'][^>]*>/i',
@@ -70,8 +67,9 @@ if ($blog) {
         $html, 1
     );
 
-    // Inject canonical + Open Graph + Twitter right before </head>.
-    $inject = '<link rel="canonical" href="' . $e($url) . '" />'
+    // Inject <title> + canonical + Open Graph + Twitter right before </head>.
+    $inject = '<title>' . $e($title) . '</title>'
+        . '<link rel="canonical" href="' . $e($url) . '" />'
         . '<meta property="og:site_name" content="LBEF: The First IT College of Nepal" />'
         . '<meta property="og:type" content="article" />'
         . '<meta property="og:locale" content="en_US" />'

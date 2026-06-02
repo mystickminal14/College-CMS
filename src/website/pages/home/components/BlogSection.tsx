@@ -107,7 +107,7 @@ const navigate=useNavigate()
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
           className="text-center mb-14"
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
             LBEF
             <span className="relative inline-block text-[#474AFF] ml-2">
               Blogs
@@ -121,7 +121,7 @@ const navigate=useNavigate()
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3 -bottom-2"
               />
             </span>
-          </h1>
+          </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
             Insights, stories, and perspectives from our community
           </p>
