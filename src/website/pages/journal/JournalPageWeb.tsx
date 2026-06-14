@@ -68,7 +68,7 @@ const JournalPageWeb = () => {
               E-ISSN: <span className="text-gray-900">2705-4748</span>
             </div>
             <div className="px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-gray-700">
-              E-ISSN: <span className="text-gray-900">2705-4683</span>
+              P-ISSN: <span className="text-gray-900">2705-4683</span>
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@ const JournalPageWeb = () => {
                         <span className="font-medium ml-1">2705-4748</span>
                       </div>
                       <div>
-                        <span className="text-gray-500">E-ISSN:</span>
+                        <span className="text-gray-500">P-ISSN:</span>
                         <span className="font-medium ml-1">2705-4683</span>
                       </div>
                     </div>
