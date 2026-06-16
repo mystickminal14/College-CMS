@@ -59,7 +59,7 @@ const PlannersPage = () => {
 
   const yearColumns = [
     { label: "Year", accessor: "year" },
-    { label: "Session", accessor: "" },
+    { label: "Session", accessor: "session" },
   ];
 
   const plannerColumns = [
