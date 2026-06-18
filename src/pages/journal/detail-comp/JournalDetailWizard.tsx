@@ -19,6 +19,8 @@ interface Props {
   onClose: () => void;
   journalId: number;
   detailsToEdit?: JournalDetailsPayload | null;
+  volume?: string;
+  issue?: string;
 }
 
 const JournalDetailsWizardModal: React.FC<Props> = ({
@@ -26,8 +28,10 @@ const JournalDetailsWizardModal: React.FC<Props> = ({
   onClose,
   journalId,
   detailsToEdit,
+  volume,
+  issue,
 }) => {
-  const isEdit = Boolean(detailsToEdit?.id); // ✅ safer check
+  const isEdit = Boolean(detailsToEdit?.id);
   const { showToast } = useContext(AppContext)!;
 
   const [step, setStep] = useState<1 | 2>(1);
@@ -37,6 +41,7 @@ const JournalDetailsWizardModal: React.FC<Props> = ({
     title: "",
     authors: [],
     pages: "",
+    pageNo: "",
     subject: "",
     country: "",
     abstract: "",
@@ -71,6 +76,7 @@ const JournalDetailsWizardModal: React.FC<Props> = ({
         title: "",
         authors: [],
         pages: "",
+        pageNo: "",
         subject: "",
         country: "",
         abstract: "",
@@ -103,10 +109,15 @@ const JournalDetailsWizardModal: React.FC<Props> = ({
   const handleSubmitStep1 = () => {
     if (!validateStep1()) return;
 
+    const autoPageNo = (volume && issue && formData.pages)
+      ? `${volume} (${issue}) - ${formData.pages}`
+      : (formData.pageNo ?? "");
+
     const payload: EditJournalDetailsPayload["journal"] = {
       title: formData.title,
       authors: formData.authors,
       pages: formData.pages,
+      pageNo: autoPageNo,
       subject: formData.subject,
       country: formData.country,
       abstract: formData.abstract,

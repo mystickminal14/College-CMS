@@ -17,7 +17,7 @@ export default function CollegeAppSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* TOP: Title + Paragraph */}
         <div className="text-center max-w-5xl mx-auto mb-12">
-          <h1 className="text-3xl sm:text-5xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-5xl lg:text-5xl font-bold text-white mb-6">
             Our College{" "}
             <span className="relative inline-block text-white">
               Apps
@@ -27,7 +27,7 @@ export default function CollegeAppSection() {
                 className="absolute left-1/2 -translate-x-1/2 w-full h-3"
               />
             </span>
-          </h1>
+          </h2>
 
           <p className="text-white text-base sm:text-lg leading-relaxed">
             LBEF Evolve is built to simplify student life. From college updates and academic resources to important notifications, everything you need is just a tap away. Stay connected, stay informed, and evolve with LBEF.

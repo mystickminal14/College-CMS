@@ -1,5 +1,5 @@
 // pages/journals/JournalDetails.tsx
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState } from "react";
 import EnhancedTable from "../../template/EnhancedTable";
 import { Edit, Trash2 } from "lucide-react";
@@ -13,6 +13,9 @@ import TitleBox from "../../components/layout/TitleBox";
 
 const JournalDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const { state } = useLocation();
+  const volume: string | undefined = state?.volume;
+  const issue: string | undefined = state?.issue;
   const { data, isLoading } = useGetJournalDetails(id!);
   const deleteMutation = useDeleteJournalDetails();
 
@@ -44,6 +47,7 @@ const JournalDetails = () => {
     { label: "Title", accessor: "title" },
     { label: "Authors", accessor: "authors" },
     { label: "Pages", accessor: "pages" },
+    { label: "Page No", accessor: "pageNo" },
     { label: "Country", accessor: "country" },
      {
         label: "File",
@@ -100,6 +104,8 @@ const JournalDetails = () => {
           onClose={() => setOpenWizard(false)}
           journalId={Number(id)}
           detailsToEdit={selected}
+          volume={volume}
+          issue={issue}
         />
       )}
     </div>

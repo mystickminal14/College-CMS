@@ -129,7 +129,7 @@ const JournalEditorialBoard = () => {
     <div className="space-y-12">
       {/* Header Section */}
       <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editorial Board</h1>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editorial Board</h2>
         <p className="text-gray-600 max-w-3xl">
           Our distinguished editorial board comprises experts and leaders from academia and industry who guide the journal's direction and maintain the highest standards of scholarly publishing.
         </p>

@@ -38,7 +38,7 @@ export default function Events() {
     <div className="max-w-7xl mx-auto bg-white">
       <div className="container mx-auto px-4  py-16 lg:py-18">
         {/* Page Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
           Upcoming <span className="relative inline-block text-[#474AFF]">
             Events
             <img
@@ -47,7 +47,7 @@ export default function Events() {
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
             />
           </span>{" "}
-        </h1>
+        </h2>
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 ">

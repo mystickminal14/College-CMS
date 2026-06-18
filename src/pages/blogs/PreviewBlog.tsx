@@ -46,8 +46,8 @@ const PreviewBlog = () => {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <Seo
-        title={blog.title}
-        description={blog.metaDescription || "Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."}
+        title={blog.metaTitle}
+        description={blog.metaDescription}
         url={`${APP_URL}/blogs/${blog.slug}`}
       />
 

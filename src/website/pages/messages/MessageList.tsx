@@ -41,7 +41,7 @@ const MessagesList = () => {
             </span>
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             <span className="text-gray-900">Messages from </span>
             <span className="relative inline-block">
               <span className="text-blue-600 relative z-10"> Leadership</span>
@@ -54,7 +54,7 @@ const MessagesList = () => {
                 className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:bottom-0 w-full h-3"
               />
             </span>
-          </h1>
+          </h2>
 
           <p className="text-gray-600 text-lg max-w-3xl mx-auto mb-12">
             Read inspiring messages from our leadership team about our vision, mission, and commitment to your success.

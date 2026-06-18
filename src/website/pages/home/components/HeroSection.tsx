@@ -71,7 +71,7 @@ export function HeroSection() {
           <div className="h-0.5 bg-[#0F183F] w-[10vw]"></div>
         </div>
 
-        <div
+        <h1
           className="
           font-bold
           text-[21px]
@@ -134,7 +134,7 @@ export function HeroSection() {
           <span className="relative">
             <span className="md:text-[5vw]">College</span>
           </span>
-        </div>
+        </h1>
 
         {/* Right line - hidden on mobile */}
         <div className="hidden lg:flex items-center">

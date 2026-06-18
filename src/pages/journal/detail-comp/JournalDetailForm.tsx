@@ -47,6 +47,17 @@ const JournalDetailsForm: React.FC<Props> = ({ formData, onChange, isSubmitting,
       />
 
       <InputField
+        icon={<Hash size={18} />}
+        label="Page No (auto-generated from Pages)"
+        field="pageNo"
+        value={formData.pageNo || ""}
+        placeholder="Auto-filled when Pages is entered"
+        isSubmitting={isSubmitting}
+        disabled={true}
+        onChange={onChange}
+      />
+
+      <InputField
         icon={<BookOpen size={18} />}
         label="Subject"
         field="subject"

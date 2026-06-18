@@ -38,7 +38,7 @@ const StartJourney = () => {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center  px-6 py-30 text-center text-white">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight max-w-4xl">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight max-w-4xl">
           Start Your Journey Toward In-Demand {' '}
           <span className="relative inline-block">
             Skill Today
@@ -48,7 +48,7 @@ const StartJourney = () => {
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
             />
           </span>{' '}
-        </h1>
+        </h2>
         <p className="mt-8 text-lg md:text-xl lg:text-2xl opacity-90 max-w-2xl">
           Enroll now and learn from certified industry experts.
         </p>

@@ -85,7 +85,7 @@ const CreateEditPlannerModal: React.FC<Props> = ({
     if (isOpen) {
       setAcademicYearId(planner ? String(planner.academicYearId) : "");
       setPlannerCourseId(planner ? String(planner.plannerCourseId) : "");
-      setSemester(planner?.semester ? planner.semester.replace("SEMESTER - ", "") : "");
+      setSemester(planner?.semester ? planner.semester.replace(/semester-\s*/i, "") : "");
       setIntake(planner?.intake ?? "");
       setFile(null);
       setShowFileInput(false);

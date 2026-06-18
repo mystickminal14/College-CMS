@@ -3,7 +3,7 @@ import { useState } from 'react';
 import JournalHomeContent from './JournalHome';
 import JournalEditorialBoard from './JournalEditorialBoard';
 import JournalIssueDetails from './JournalIssueDetails';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import JournalAbstract from '../../../pages/journal/JournalAbstract';
 import ContactListPage from '../contact-list/ContactListingPage';
 import Seo from '../../../context/seo';
@@ -15,6 +15,7 @@ type TabType = 'home' | 'editorial' | 'contact';
 const JournalPageWeb = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const { id } = useParams<{ id?: string }>();
+  const navigate = useNavigate();
 
   const renderContent = () => {
     const isAbstract = window.location.pathname.includes("/abstract");
@@ -67,7 +68,7 @@ const JournalPageWeb = () => {
               E-ISSN: <span className="text-gray-900">2705-4748</span>
             </div>
             <div className="px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-gray-700">
-              E-ISSN: <span className="text-gray-900">2705-4683</span>
+              P-ISSN: <span className="text-gray-900">2705-4683</span>
             </div>
           </div>
         </div>
@@ -140,20 +141,15 @@ const JournalPageWeb = () => {
                   {/* Back to Issues link if viewing issue details */}
                   {id && activeTab === 'home' && (
                     <div className="mt-4 pt-3 border-t border-gray-100">
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          // Handle navigation back to issues list
-                          window.history.back();
-                        }}
-                        className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                      <button
+                        onClick={() => navigate(-1)}
+                        className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors w-full"
                       >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Back to Issues
-                      </a>
+                      </button>
                     </div>
                   )}
 
@@ -166,7 +162,7 @@ const JournalPageWeb = () => {
                         <span className="font-medium ml-1">2705-4748</span>
                       </div>
                       <div>
-                        <span className="text-gray-500">E-ISSN:</span>
+                        <span className="text-gray-500">P-ISSN:</span>
                         <span className="font-medium ml-1">2705-4683</span>
                       </div>
                     </div>
