@@ -61,6 +61,7 @@ export const NOTICE_CACHE_KEY = 'notice';
 export const NEWS_CACHE_KEY = 'news';
 export const VACANCY_CACHE_KEY = 'vacancy';
 export const APPLICANT_CACHE_KEY = 'applicant';
+export const COURSE_REGISTRATION_CACHE_KEY = 'course-registration';
 
 
 

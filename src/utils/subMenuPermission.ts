@@ -38,4 +38,5 @@ export const subMenuPermissionMap: Record<string, PermissionNameType> = {
 
   // ---------------- Job Vacancy ----------------
   vacancy: "VACANCY",
+
 };

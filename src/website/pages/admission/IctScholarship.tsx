@@ -8,12 +8,9 @@ import { fadeUp } from '../../comp/animation';
 import useGetScholarship from '../../../pages/scholarship/hooks/useGet';
 import Seo from '../../../context/seo';
 import { APP_URL } from '../../../constants';
-import { useNavigate } from 'react-router-dom';
-
 const ICTScholarship = () => {
 	const { data, isLoading, } = useGetScholarship();
 	const schedule = data?.data;
-	const navigate = useNavigate();
 
 	return (
 		<>

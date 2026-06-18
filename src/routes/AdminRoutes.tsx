@@ -39,6 +39,7 @@ import AddBlogPage from "../pages/blogs/components/AddBlogPage";
 import BlogFormPage from "../pages/blogs/components/EditPage";
 import VacancyPage from "../pages/job-vacancy/vacancy/VacancyPage";
 import ApplicantPage from "../pages/job-vacancy/applicant/ApplicantPage";
+import CourseRegistrationPage from "../pages/course-registration/CourseRegistrationPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -77,6 +78,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "media/editorial-board": "EDITORIAL_BOARD",
   "job-vacancy/vacancy": "VACANCY",
   "job-vacancy/applicant/:vacancyId": "VACANCY",
+  "course-registration": "COURSE_REGISTRATION",
 };
 
 // ------------------ PROTECTED ROUTE ------------------
@@ -174,6 +176,8 @@ export const adminRoutes = [
 
       { path: "job-vacancy/vacancy", element: <VacancyPage /> },
       { path: "job-vacancy/applicant/:vacancyId", element: <ApplicantPage /> },
+
+      { path: "course-registration", element: <CourseRegistrationPage /> },
 
       // Catch-all unknown routes inside /app
       { path: "*", element: <NotFoundPage /> },

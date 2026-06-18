@@ -1,17 +1,24 @@
+export interface CourseBlock {
+  category: "CAREER_OPTIONS" | "ELIGIBLITY_CRITERIA";
+  title: string | null;
+  children: { title: string | null }[];
+}
+
 export interface Course {
   id: number;
   title: string;
   slug: string;
   duration: string;
   credit: string;
-  prefix:string;
-  degree:string;
-  details:string;
-  fullForm:string;
-  intake:string;
+  prefix: string;
+  degree: string;
+  details: string;
+  fullForm: string;
+  intake: string;
   image: string;
-  semester:string;
+  semester: string;
   shift: string;
+  blocks?: CourseBlock[];
 }
 
 export interface CategoryWithDetails {

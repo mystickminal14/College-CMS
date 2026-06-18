@@ -64,6 +64,7 @@ const OTHER_PERMISSIONS: PermissionNameType[] = [
   "DOCUMENTS",
   "DOWNLOADS",
   "VACANCY",
+  "COURSE_REGISTRATION",
 ];
 
 export const ALL_PERMISSIONS: PermissionNameType[] = [

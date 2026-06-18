@@ -50,6 +50,7 @@ const Scholarship = lazy(() => import("../website/pages/scholarship/Scholarship"
 const ICTRegistration = lazy(() => import("../website/pages/admission/IctRegistration"));
 const VacancyWeb = lazy(() => import("../website/pages/vacancy/VacancyWeb"));
 const VacancyDetailWeb = lazy(() => import("../website/pages/vacancy/VacancyDetailWeb"));
+const CategoryCoursesPage = lazy(() => import("../website/pages/programs/CategoryCoursesPage"));
 /* =======================
    Placeholder Page
 ======================= */
@@ -113,6 +114,7 @@ export const websiteRoutes = [
       //   ],
       // },
       { path: "courses", element: <CourseProgram /> },
+      { path: "courses/category/:categoryId", element: <CategoryCoursesPage /> },
       { path: ":slug", element: <CourseDetails /> },
       { path: "details/:courseId", element: <CourseDetailsByID /> },
 

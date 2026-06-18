@@ -9,11 +9,12 @@ import DownloadsCardView from "./components/DownloadCardView";
 import DownloadPdfUploadForm from "./components/Wizard";
 import { FaPlus, FaTable, FaThLarge } from "react-icons/fa";
 import EnhancedTable from "../../template/EnhancedTable";
-import { ArrowUp, Pencil, Trash2 } from "lucide-react";
+import { ArrowUp, Pencil, Trash2, ToggleLeft, ToggleRight } from "lucide-react";
 import { DownloadsColumns } from "./utils/columns";
 import SearchBox from "./utils/SearchBox";
 import { debounce } from "lodash";
 import ChangedownloadOrderModal from "./components/ChangeOrder";
+import useToggleDownloadStatus from "./hooks/useToggleStatus";
 
 const DownloadsPage = () => {
   const [page, setPage] = useState(1);
@@ -32,10 +33,13 @@ const DownloadsPage = () => {
     setPage(1);
   }, 500);
 
+  const { mutate: toggleStatus } = useToggleDownloadStatus();
+
   const { data, isLoading, isError } = useGetDownloads({
     search: debouncedSearch,
     page,
     limit: PAGE_LIMIT,
+    admin: true,
   });
 
   const downloads = data?.data ?? [];
@@ -57,6 +61,15 @@ const DownloadsPage = () => {
         setShowEditModal(true);
       },
       color: "text-blue-600 hover:bg-blue-600 hover:text-white",
+    },
+    {
+      icon: (item: Downloads) =>
+        item.status === "ENABLED"
+          ? <ToggleRight className="w-5 h-5 text-green-600" />
+          : <ToggleLeft className="w-5 h-5 text-gray-400" />,
+      tooltip: "Toggle Status",
+      onClick: (item: Downloads) => { if (item.id) toggleStatus(item.id); },
+      color: "",
     },
     {
       icon: <Trash2 className="w-5 h-5" />,
@@ -132,6 +145,7 @@ const DownloadsPage = () => {
             isLoading={isLoading}
             isError={isError}
             onDelete={handleDelete}
+            onToggle={(item) => { if (item.id) toggleStatus(item.id); }}
           />
         )}
       </div>

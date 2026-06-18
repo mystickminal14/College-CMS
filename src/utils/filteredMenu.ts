@@ -33,7 +33,7 @@ export const filterMenuItems = (
       }
 
       // CASE 2: Menu without submenu (direct permission)
-      const directPermission = menu.id.toUpperCase() as PermissionNameType;
+      const directPermission = menu.id.toUpperCase().replace(/-/g, "_") as PermissionNameType;
       return userPermissions.includes(directPermission) ? menu : null;
     })
     .filter(Boolean) as MenuItem[];

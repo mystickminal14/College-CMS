@@ -155,6 +155,7 @@ export function NavBar() {
         categories.length > 0
           ? categories.map((cat) => ({
             name: cat.name,
+            link: `/courses/category/${cat.id}`,
             dropdown:
               cat.courses.length > 0
                 ? cat.courses.map((course) => ({
@@ -378,8 +379,13 @@ export function NavBar() {
                                 onMouseEnter={() => onNestedEnter(sub.name)}
                                 onMouseLeave={onNestedLeave}
                               >
-                                {/* Category row — black icon */}
-                                <div className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer">
+                                {/* Category row — clickable to navigate to category page */}
+                                <div
+                                  className="flex items-center justify-between px-4 py-3 hover:bg-blue-50 w-full text-left rounded-lg cursor-pointer"
+                                  onClick={() => {
+                                    if (sub.link) { navigate(sub.link); setActiveDropdown(null); }
+                                  }}
+                                >
                                   <span className="flex items-center gap-3 min-w-0">
                                     <span className="text-[1rem] font-medium leading-snug">
                                       {sub.name}
@@ -539,7 +545,10 @@ export function NavBar() {
                             return (
                               <div key={sub.name}>
                                 <button
-                                  onClick={() => toggleNestedMobile(item.name, sub.name)}
+                                  onClick={() => {
+                                    if (sub.link) { navigate(sub.link); setMobileOpen(false); }
+                                    else toggleNestedMobile(item.name, sub.name);
+                                  }}
                                   className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
                                 >
                                   <span className="flex items-center gap-2 min-w-0">

@@ -1,8 +1,8 @@
 export interface Downloads {
   id?: number;
- order?: number;
- name?: string;
+  order?: number;
+  name?: string;
   file?: string;
-  link?:string;
-
+  link?: string;
+  status?: "ENABLED" | "DISABLED";
 }
