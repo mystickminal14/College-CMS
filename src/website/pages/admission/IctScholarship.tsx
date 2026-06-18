@@ -42,13 +42,13 @@ const ICTScholarship = () => {
 								/>
 							</span>
 							<br />
-							<span className="text-gray-900 mt-2">Awards {schedule?.scheduleYear ?? '2082'} </span>
+							<span className="text-gray-900 mt-2">Awards {schedule?.scheduleYear ?? '2083'} </span>
 						</h1>
 
 						<p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto mb-5 leading-relaxed">
 							Empowering Nepal Police Families Through Education.
 						</p>
-						<a
+						{/* <a
 							onClick={() => navigate('/ictregistration')}
 							target="_blank"
 							rel="noopener noreferrer"
@@ -58,7 +58,7 @@ const ICTScholarship = () => {
 							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
 							</svg>
-						</a>
+						</a> */}
 					</div>
 				</div>
 
@@ -135,33 +135,33 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Saraswati</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">100%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,65,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,65,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,90,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,90,000</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">0</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7,455,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">76,30,000</td>
 
 											</tr>
 											<tr>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Laxmi</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,65,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,32,500</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,32,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,90,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,45,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,45,000</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,727,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">38,15,000</td>
 
 											</tr>
 											<tr>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">3</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Durga</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">30%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,65,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,19,500</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7,45,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,90,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,27,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7,63,000</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">14</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">4,473,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">45,78,000</td>
 											</tr>
 											<tr>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900"> </td>
@@ -172,7 +172,7 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">15,655,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,60,23,000</td>
 											</tr>
 										</tbody>
 									</table>
@@ -199,22 +199,22 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Shakti</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,65,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,32,500</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,32,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,90,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,45,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5,45,000</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,727,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">38,15,000</td>
 
 											</tr>
 											<tr>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">2</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Sathi</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">30%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,65,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,19,500</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7,45,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">10,90,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,27,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">7,63,000</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">14</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">4,473,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">45,78,000</td>
 
 											</tr>
 											<tr>
@@ -226,7 +226,7 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">8,200,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">83,93,000</td>
 											</tr>
 										</tbody>
 									</table>
@@ -254,11 +254,11 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Shakti</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">6,60,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,30,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,30,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">6,65,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,32,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,32,500</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">16,62,500</td>
 
 											</tr>
 
@@ -271,7 +271,7 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">16,62,500</td>
 											</tr>
 										</tbody>
 									</table>
@@ -300,12 +300,12 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">1</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Shakti</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">50%</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">6,60,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,30,000</td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,30,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">6,65,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,32,500</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">3,32,500</td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">5</td>
 
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">16,62,500</td>
 											</tr>
 
 											<tr>
@@ -317,7 +317,7 @@ const ICTScholarship = () => {
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
 												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"></td>
-												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">1,650,000</td>
+												<td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">16,62,500</td>
 											</tr>
 										</tbody>
 									</table>
