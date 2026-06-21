@@ -8,7 +8,7 @@ import useGetCatWithDetails from "../../../pages/courses/hooks/useGetCourseWithC
 import CourseRegisterModal from "./comp/CourseRegisterModal";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
-import type { Course } from "../../../pages/courses/model/CourseWithDetails";
+import type { Course, CourseBlock } from "../../../pages/courses/model/CourseWithDetails";
 
 type PageTab = "details" | "career" | "eligibility";
 
@@ -65,7 +65,7 @@ function CourseCard({
   onRegister: (name: string) => void;
   onLearnMore: (name: string, slug: string) => void;
 }) {
-  const extractItems = (block: typeof course.blocks[0] | undefined): string[] => {
+  const extractItems = (block: CourseBlock | undefined): string[] => {
     if (!block) return [];
     const items: string[] = [];
     for (const child of block.children) {
