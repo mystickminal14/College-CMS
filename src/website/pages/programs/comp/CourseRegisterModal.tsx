@@ -6,6 +6,7 @@ import useRegisterCourse from "../hooks/useRegisterCourse";
 interface Props {
   courseName: string;
   onClose: () => void;
+  onAfterRegister?: () => void;
 }
 
 interface FormState {
@@ -31,7 +32,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
   );
 }
 
-export default function CourseRegisterModal({ courseName, onClose }: Props) {
+export default function CourseRegisterModal({ courseName, onClose, onAfterRegister }: Props) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitted, setSubmitted] = useState(false);
   const { mutate: register, isPending } = useRegisterCourse();
@@ -48,7 +49,16 @@ export default function CourseRegisterModal({ courseName, onClose }: Props) {
     e.preventDefault();
     register(
       { fullName: form.fullName, email: form.email, phone: form.phone, courseName },
-      { onSuccess: () => setSubmitted(true) }
+      {
+        onSuccess: () => {
+          if (onAfterRegister) {
+            onClose();
+            onAfterRegister();
+          } else {
+            setSubmitted(true);
+          }
+        },
+      }
     );
   };
 

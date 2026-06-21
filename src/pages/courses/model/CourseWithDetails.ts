@@ -1,7 +1,7 @@
 export interface CourseBlock {
   category: "CAREER_OPTIONS" | "ELIGIBLITY_CRITERIA";
   title: string | null;
-  children: { title: string | null }[];
+  children: { title: string | null; content: string | null }[];
 }
 
 export interface Course {
