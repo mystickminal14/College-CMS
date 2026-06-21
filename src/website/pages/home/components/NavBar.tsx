@@ -155,7 +155,7 @@ export function NavBar() {
         categories.length > 0
           ? categories.map((cat) => ({
             name: cat.name,
-            link: `/courses/category/${cat.id}`,
+            link: `/camp/${cat.slug}`,
             dropdown:
               cat.courses.length > 0
                 ? cat.courses.map((course) => ({

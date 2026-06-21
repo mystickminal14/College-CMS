@@ -24,6 +24,7 @@ export interface Course {
 export interface CategoryWithDetails {
   id: number;
   name: string;
+  slug: string;
   status: "ENABLED" | "DISABLED"; // or just string if other values exist
   order: number;
   createdAt: string; // could also use Date if you parse it

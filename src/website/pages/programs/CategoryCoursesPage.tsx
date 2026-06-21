@@ -234,7 +234,7 @@ function CourseCard({
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function CategoryCoursesPage() {
-  const { categoryId } = useParams<{ categoryId: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<PageTab>("details");
   const [registerCourse, setRegisterCourse] = useState<string | null>(null);
@@ -243,8 +243,7 @@ export default function CategoryCoursesPage() {
   const { data, isLoading } = useGetCatWithDetails();
   const categories = data?.data ?? [];
 
-  const catIdNum = parseInt(categoryId ?? "0");
-  const category = categories.find((c) => c.id === catIdNum);
+  const category = categories.find((c) => c.slug === slug);
   const courses = (category?.courses ?? []).filter(
     (c) => (c as any).status !== "DISABLED"
   );
@@ -254,7 +253,7 @@ export default function CategoryCoursesPage() {
       <Seo
         title={`${category?.name ?? "Programs"} | LBEF College`}
         description={`Explore ${category?.name ?? ""} programs at LBEF College Nepal. World-class courses designed for global careers.`}
-        url={`${APP_URL}/courses/category/${categoryId}`}
+        url={`${APP_URL}/camp/${slug}`}
       />
 
       <div className="min-h-screen bg-gray-50">

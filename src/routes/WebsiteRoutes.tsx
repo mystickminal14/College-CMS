@@ -114,7 +114,7 @@ export const websiteRoutes = [
       //   ],
       // },
       { path: "courses", element: <CourseProgram /> },
-      { path: "courses/category/:categoryId", element: <CategoryCoursesPage /> },
+      { path: "camp/:slug", element: <CategoryCoursesPage /> },
       { path: ":slug", element: <CourseDetails /> },
       { path: "details/:courseId", element: <CourseDetailsByID /> },
 
