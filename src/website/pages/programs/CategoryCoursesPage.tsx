@@ -260,7 +260,7 @@ export default function CategoryCoursesPage() {
         <HeroTitleWithGif
           title={`Explore Our ${category?.name ?? "Programs"}`}
           highlightedText={category?.name ?? "Programs"}
-          subtitle={`${courses.length} program${courses.length !== 1 ? "s" : ""} available — register your interest today and our admissions team will reach out to you.`}
+          subtitle={`${courses.length}${courses.length === 4 ? " Specialism" : " programs"} ${courses.length !== 1 ? "are" : "is"} available — register your interest today and our admissions team will reach out to you.`}
           badgeText="Academic Programs"
         />
 
