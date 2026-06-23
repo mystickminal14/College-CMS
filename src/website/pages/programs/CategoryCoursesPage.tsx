@@ -9,13 +9,15 @@ import CourseRegisterModal from "./comp/CourseRegisterModal";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 import type { Course, CourseBlock } from "../../../pages/courses/model/CourseWithDetails";
+import LbefSubFooter from "../home/components/LbefSubFooter";
+import ApeuSubFooter from "../home/components/ApeuSubFooter";
 
 type PageTab = "details" | "career" | "eligibility";
 
 const PAGE_TABS: { id: PageTab; label: string; icon: React.ElementType }[] = [
-  { id: "details",     label: "Course Details",           icon: BookMarked   },
-  { id: "career",      label: "Career Options",            icon: Briefcase    },
-  { id: "eligibility", label: "Eligibility",               icon: GraduationCap },
+  { id: "details", label: "Course Details", icon: BookMarked },
+  { id: "career", label: "Career Options", icon: Briefcase },
+  { id: "eligibility", label: "Eligibility", icon: GraduationCap },
 ];
 
 // ─── Skeleton ─────────────────────────────────────────────────────────────────
@@ -85,12 +87,12 @@ function CourseCard({
   };
 
   const careerItems = extractItems(course.blocks?.find(b => b.category === "CAREER_OPTIONS"));
-  const eligItems   = extractItems(course.blocks?.find(b => b.category === "ELIGIBLITY_CRITERIA"));
+  const eligItems = extractItems(course.blocks?.find(b => b.category === "ELIGIBLITY_CRITERIA"));
 
   const shiftLabel =
     course.shift === "BOTH" ? "Morning & Evening"
-    : course.shift === "MORNING" ? "Morning"
-    : "Evening";
+      : course.shift === "MORNING" ? "Morning"
+        : "Evening";
 
   return (
     <motion.div
@@ -280,11 +282,10 @@ export default function CategoryCoursesPage() {
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
-                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                  activeTab === id
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${activeTab === id
                     ? "bg-blue-600 text-white shadow-sm"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
-                }`}
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 {label}
@@ -338,6 +339,8 @@ export default function CategoryCoursesPage() {
           />
         )}
       </AnimatePresence>
+      <LbefSubFooter />
+      <ApeuSubFooter />
     </>
   );
 }
