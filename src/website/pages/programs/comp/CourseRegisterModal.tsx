@@ -110,7 +110,7 @@ export default function CourseRegisterModal({ courseName, onClose, onAfterRegist
                 <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-5">
                   <CheckCircle2 className="w-10 h-10 text-green-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Registration Submitted!</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Enquiry Submitted!</h3>
                 <p className="text-gray-500 text-sm max-w-sm leading-relaxed">
                   Thank you for your interest in{" "}
                   <span className="font-semibold text-gray-700">{courseName}</span>. Our admissions team will contact you shortly.
