@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Loader2, CheckCircle2 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Turnstile } from "@marsidev/react-turnstile";
 import useRegisterCourse from "../hooks/useRegisterCourse";
 
 interface Props {
@@ -35,6 +36,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
 export default function CourseRegisterModal({ courseName, onClose, onAfterRegister }: Props) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitted, setSubmitted] = useState(false);
+  const [cfToken, setCfToken] = useState<string | null>(null);
   const { mutate: register, isPending } = useRegisterCourse();
 
   useEffect(() => {
@@ -47,8 +49,9 @@ export default function CourseRegisterModal({ courseName, onClose, onAfterRegist
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!cfToken) return;
     register(
-      { fullName: form.fullName, email: form.email, phone: form.phone, courseName },
+      { fullName: form.fullName, email: form.email, phone: form.phone, courseName, cfToken },
       {
         onSuccess: () => {
           if (onAfterRegister) {
@@ -167,6 +170,14 @@ export default function CourseRegisterModal({ courseName, onClose, onAfterRegist
                   />
                 </Field>
 
+                <Turnstile
+                  siteKey={import.meta.env.VITE_CF_TURNSTILE_SITE_KEY}
+                  onSuccess={(token) => setCfToken(token)}
+                  onExpire={() => setCfToken(null)}
+                  onError={() => setCfToken(null)}
+                  options={{ theme: "light", size: "flexible" }}
+                />
+
               </form>
             )}
           </div>
@@ -184,7 +195,7 @@ export default function CourseRegisterModal({ courseName, onClose, onAfterRegist
                 </button>
                 <button
                   onClick={handleSubmit}
-                  disabled={isPending}
+                  disabled={isPending || !cfToken}
                   className="flex-1 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
                 >
                   {isPending && <Loader2 className="w-4 h-4 animate-spin" />}

@@ -9,6 +9,7 @@ interface CourseRegistrationPayload {
   email: string;
   phone: string;
   courseName: string;
+  cfToken: string;
   message?: string;
 }
 

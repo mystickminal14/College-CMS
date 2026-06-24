@@ -27,6 +27,12 @@ RewriteRule ^intake-calendar$ intake-calendar.php [L]
 # Requires a slug segment, so /blogs (list) falls through to the SPA below.
 RewriteRule ^blogs/([A-Za-z0-9._-]+)/?$ blog-seo.php?slug=$1 [L,QSA]
 
+# Category landing pages -> PHP SEO injector (injects per-category meta tags).
+RewriteRule ^camp/([A-Za-z0-9._-]+)/?$ category-seo.php?slug=$1 [L,QSA]
+
+# Student Referral page -> PHP SEO injector (static meta tags for crawlers).
+RewriteRule ^referral/?$ referral-seo.php [L,QSA]
+
 # PHP handler
 <IfModule mime_module>
   AddHandler application/x-httpd-ea-php83 .php .php8 .phtml

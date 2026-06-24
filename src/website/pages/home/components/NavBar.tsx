@@ -201,6 +201,7 @@ export function NavBar() {
       name: "Admissions",
       dropdown: [
         { name: "Admission Process", link: "/admission-procedure" },
+        { name: "Student Referral", link: "/referral" },
         { name: "Code of Conduct", link: "/codeofconduct" },
         {
           name: "Scholarship",
