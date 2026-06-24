@@ -51,6 +51,8 @@ const ICTRegistration = lazy(() => import("../website/pages/admission/IctRegistr
 const VacancyWeb = lazy(() => import("../website/pages/vacancy/VacancyWeb"));
 const VacancyDetailWeb = lazy(() => import("../website/pages/vacancy/VacancyDetailWeb"));
 const CategoryCoursesPage = lazy(() => import("../website/pages/programs/CategoryCoursesPage"));
+const ThankYouPage = lazy(() => import("../website/pages/programs/ThankYouPage"));
+const ReferralPage = lazy(() => import("../website/pages/referral/ReferralPage"));
 /* =======================
    Placeholder Page
 ======================= */
@@ -115,6 +117,8 @@ export const websiteRoutes = [
       // },
       { path: "courses", element: <CourseProgram /> },
       { path: "camp/:slug", element: <CategoryCoursesPage /> },
+      { path: "referral", element: <ReferralPage /> },
+      { path: ":slug/thank-you", element: <ThankYouPage /> },
       { path: ":slug", element: <CourseDetails /> },
       { path: "details/:courseId", element: <CourseDetailsByID /> },
 

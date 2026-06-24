@@ -64,7 +64,7 @@ function CourseCard({
 }: {
   course: Course;
   activeTab: PageTab;
-  onRegister: (name: string) => void;
+  onRegister: (name: string, slug: string) => void;
   onLearnMore: (name: string, slug: string) => void;
 }) {
   const extractItems = (block: CourseBlock | undefined): string[] => {
@@ -223,7 +223,7 @@ function CourseCard({
           Learn More
         </button>
         <button
-          onClick={() => onRegister(`${course.prefix} ${course.title}`)}
+          onClick={() => onRegister(`${course.prefix} ${course.title}`, course.slug)}
           className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-sm font-semibold transition-all duration-150"
         >
           Register Now
@@ -239,7 +239,7 @@ export default function CategoryCoursesPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<PageTab>("details");
-  const [registerCourse, setRegisterCourse] = useState<string | null>(null);
+  const [registerCourse, setRegisterCourse] = useState<{ name: string; slug: string } | null>(null);
   const [learnMore, setLearnMore] = useState<{ name: string; slug: string } | null>(null);
 
   const { data, isLoading } = useGetCatWithDetails();
@@ -315,7 +315,7 @@ export default function CategoryCoursesPage() {
                   key={course.id}
                   course={course}
                   activeTab={activeTab}
-                  onRegister={setRegisterCourse}
+                  onRegister={(name, slug) => setRegisterCourse({ name, slug })}
                   onLearnMore={(name, slug) => setLearnMore({ name, slug })}
                 />
               ))}
@@ -327,8 +327,9 @@ export default function CategoryCoursesPage() {
       <AnimatePresence>
         {registerCourse && (
           <CourseRegisterModal
-            courseName={registerCourse}
+            courseName={registerCourse.name}
             onClose={() => setRegisterCourse(null)}
+            onAfterRegister={() => navigate(`/${registerCourse.slug}/thank-you`)}
           />
         )}
         {learnMore && (
