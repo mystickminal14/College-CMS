@@ -262,7 +262,7 @@ export default function CategoryCoursesPage() {
         <HeroTitleWithGif
           title={`Explore Our ${category?.name ?? "Programs"}`}
           highlightedText={category?.name ?? "Programs"}
-          subtitle={`${courses.length}${courses.length === 4 ? " Specialism" : " programs"} ${courses.length !== 1 ? "are" : "is"} available — register your interest today and our admissions team will reach out to you.`}
+          subtitle={`${courses.length}${courses.length === 4 || courses.length === 3 ? " Specialism" : " programs"} ${courses.length !== 1 ? "are" : "is"} available — register your interest today and our admissions team will reach out to you.`}
           badgeText="Academic Programs"
         />
 
@@ -283,8 +283,8 @@ export default function CategoryCoursesPage() {
                 key={id}
                 onClick={() => setActiveTab(id)}
                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${activeTab === id
-                    ? "bg-blue-600 text-white shadow-sm"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
                   }`}
               >
                 <Icon className="w-4 h-4" />
