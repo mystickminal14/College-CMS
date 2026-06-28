@@ -40,9 +40,9 @@ const nestedEaseOut: Transition = { duration: 0.22, ease: "easeOut" };
 const nestedEaseIn: Transition = { duration: 0.15, ease: "easeIn" };
 
 const dropdownVariants: Variants = {
-  hidden: { opacity: 0, y: -8, scale: 0.98 },
+  hidden: { opacity: 0, y: 8, scale: 0.98 },
   visible: { opacity: 1, y: 0, scale: 1, transition: easeOut },
-  exit: { opacity: 0, y: -6, scale: 0.98, transition: easeIn },
+  exit: { opacity: 0, y: 6, scale: 0.98, transition: easeIn },
 };
 
 const nestedVariants: Variants = {
@@ -100,16 +100,13 @@ export function NavBar() {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
       setActiveNestedDropdown(null);
-    }, 150);
-  };
-  const onDropdownEnter = () => {
-    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    }, 250);
   };
   const onDropdownLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
       setActiveNestedDropdown(null);
-    }, 150);
+    }, 250);
   };
   const onNestedEnter = (name: string) => {
     if (nestedTimeoutRef.current) clearTimeout(nestedTimeoutRef.current);
@@ -118,7 +115,7 @@ export function NavBar() {
   const onNestedLeave = () => {
     nestedTimeoutRef.current = setTimeout(() => {
       setActiveNestedDropdown(null);
-    }, 150);
+    }, 250);
   };
   const onNestedDropdownEnter = () => {
     if (nestedTimeoutRef.current) clearTimeout(nestedTimeoutRef.current);
@@ -361,7 +358,7 @@ export function NavBar() {
                       initial="hidden"
                       animate="visible"
                       exit="exit"
-                      onMouseEnter={onDropdownEnter}
+                      onMouseEnter={() => onEnter(item.name)}
                       onMouseLeave={onDropdownLeave}
                     >
                       <div
@@ -412,11 +409,11 @@ export function NavBar() {
                                       initial="hidden"
                                       animate="visible"
                                       exit="exit"
-                                      className="absolute top-0 left-full ml-2 bg-white shadow-xl rounded-xl p-1 w-[360px]"
+                                      className="absolute top-0 left-full pl-2"
                                       onMouseEnter={onNestedDropdownEnter}
                                       onMouseLeave={onNestedLeave}
                                     >
-                                      <div>
+                                      <div className="bg-white shadow-xl rounded-xl p-1 w-[360px]">
                                         {sub.dropdown?.map((nested) => (
                                           <button
                                             key={nested.name}
@@ -547,8 +544,8 @@ export function NavBar() {
                               <div key={sub.name}>
                                 <button
                                   onClick={() => {
-                                    if (sub.link) { navigate(sub.link); setMobileOpen(false); }
-                                    else toggleNestedMobile(item.name, sub.name);
+                                    if (sub.dropdown) { toggleNestedMobile(item.name, sub.name); }
+                                    else if (sub.link) { navigate(sub.link); setMobileOpen(false); }
                                   }}
                                   className="flex justify-between items-center w-full py-2 pl-4 font-medium cursor-pointer"
                                 >
