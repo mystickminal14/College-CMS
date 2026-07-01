@@ -1,17 +1,19 @@
 import { createContext, useContext } from "react";
 
 type EnquiryContextType = {
-  open: () => void;
+  /** Pass a widget's unique class (e.g. "npfWidget-8ba86168...") to open that
+   * specific Meritto form instead of the default one. */
+  open: (widgetClass?: string) => void;
 };
 
 const EnquiryContext = createContext<EnquiryContextType | null>(null);
 
 export const EnquiryProvider = ({ children }: { children: React.ReactNode }) => {
 
-  const open = () => {
+  const open = (widgetClass?: string) => {
     const tryOpen = () => {
       const btn = document.querySelector<HTMLButtonElement>(
-        ".npfWidgetButton"
+        widgetClass ? `.${widgetClass}` : ".npfWidgetButton"
       );
 
       if (btn) {

@@ -11,8 +11,16 @@ import { APP_URL } from "../../../constants";
 import type { Course, CourseBlock } from "../../../pages/courses/model/CourseWithDetails";
 import LbefSubFooter from "../home/components/LbefSubFooter";
 import ApeuSubFooter from "../home/components/ApeuSubFooter";
+import { useEnquiry } from "../../../context/EnquiryContext";
 
 type PageTab = "details" | "career" | "eligibility";
+
+// Category-specific Meritto/NoPaperForms widgets (falls back to the site-wide
+// widget for any category not listed here).
+const CATEGORY_WIDGET_CLASS: Record<string, string> = {
+  "bsc-it": "npfWidget-8ba86168054a16adae9a43feb359f45f",
+  "bsc-cs": "npfWidget-37b0a5e5264dcf9f208d052c97b65286",
+};
 
 const PAGE_TABS: { id: PageTab; label: string; icon: React.ElementType }[] = [
   { id: "details", label: "Course Details", icon: BookMarked },
@@ -238,6 +246,7 @@ function CourseCard({
 export default function CategoryCoursesPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { open } = useEnquiry();
   const [activeTab, setActiveTab] = useState<PageTab>("details");
   const [registerCourse, setRegisterCourse] = useState<{ name: string; slug: string } | null>(null);
   const [learnMore, setLearnMore] = useState<{ name: string; slug: string } | null>(null);
@@ -246,6 +255,7 @@ export default function CategoryCoursesPage() {
   const categories = data?.data ?? [];
 
   const category = categories.find((c) => c.slug === slug);
+  const categoryWidgetClass = slug ? CATEGORY_WIDGET_CLASS[slug] : undefined;
   const courses = (category?.courses ?? []).filter(
     (c) => (c as any).status !== "DISABLED"
   );
@@ -315,8 +325,12 @@ export default function CategoryCoursesPage() {
                   key={course.id}
                   course={course}
                   activeTab={activeTab}
-                  onRegister={(name, slug) => setRegisterCourse({ name, slug })}
-                  onLearnMore={(name, slug) => setLearnMore({ name, slug })}
+                  onRegister={(name, slug) =>
+                    categoryWidgetClass ? open(categoryWidgetClass) : setRegisterCourse({ name, slug })
+                  }
+                  onLearnMore={(name, slug) =>
+                    categoryWidgetClass ? open(categoryWidgetClass) : setLearnMore({ name, slug })
+                  }
                 />
               ))}
             </div>
