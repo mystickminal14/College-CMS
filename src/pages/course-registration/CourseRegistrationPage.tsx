@@ -19,6 +19,7 @@ const formatDate = (d: string) =>
 
 const CourseRegistrationPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [search, setSearch] = useState("");
   const [date, setDate] = useState("");
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
@@ -30,7 +31,7 @@ const CourseRegistrationPage = () => {
 
   const { data, isLoading, isError } = useGetAllCourseRegistrations({
     page,
-    limit: PAGE_LIMIT,
+    limit,
     search,
     date,
   });
@@ -38,6 +39,12 @@ const CourseRegistrationPage = () => {
   const registrations = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const handleView = (r: CourseRegistration) => {
     setRegToView(r);
@@ -132,6 +139,7 @@ const CourseRegistrationPage = () => {
           actions={tableActions}
           loading={isLoading}
           emptyMessage={isError ? "Failed to load registrations" : "No registrations found"}
+          total={total}
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -168,7 +176,15 @@ const CourseRegistrationPage = () => {
         </div>
       )}
 
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       <ViewRegistrationModal
         isOpen={showViewModal}

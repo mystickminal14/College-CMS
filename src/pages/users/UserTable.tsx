@@ -19,6 +19,7 @@ const PAGE_LIMIT = 10;
 
 const UserPage = () => {
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(PAGE_LIMIT);
     const [debouncedSearch, setDebouncedSearch] = useState("");
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [showAddEditModal, setShowAddEditModal] = useState(false);
@@ -29,18 +30,23 @@ const UserPage = () => {
 
     const { data, isLoading, isError } = useGetUsers({
         page,
-        limit: PAGE_LIMIT,
+        limit,
         search: debouncedSearch,
     });
 
     const users = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
+    const total = data?.pagination?.total ?? 0;
     const userMutation = useCreateUser();
     const editMutation = useEditUser();
     const handleSearch = debounce((value: string) => {
         setDebouncedSearch(value);
         setPage(1);
     }, 500);
+    const handleLimitChange = (newLimit: number) => {
+        setLimit(newLimit);
+        setPage(1);
+    };
 
     const handleAddUser = () => {
         setSelectedUser(null);
@@ -121,9 +127,18 @@ const UserPage = () => {
                 actions={tableActions}
                 loading={isLoading}
                 emptyMessage={isError ? "Failed to load users" : "No users found"}
+                total={total}
             />
 
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} hasNextPage={hasNextPage} />
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+                hasNextPage={hasNextPage}
+                limit={limit}
+                onLimitChange={handleLimitChange}
+                total={total}
+            />
 
             <AddEditUserModal
                 isOpen={showAddEditModal}

@@ -118,6 +118,7 @@ const IntakePage = () => {
           columns={NIntakesModelColumns}
           actions={tableActions}
           loading={isLoading}
+          total={intake.length}
           emptyMessage={isError ? "Failed to load intake" : "No intake found"}
         />
       ) : (

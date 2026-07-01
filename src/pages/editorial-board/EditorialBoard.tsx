@@ -30,6 +30,7 @@ const positions: HonoraryPosition[] = [
 
 const EditorialPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedPosition, setSelectedPosition] = useState<HonoraryPosition | "">("");
   const [memberToEdit, setMemberToEdit] = useState<EditorialMember | null>(null);
@@ -45,15 +46,20 @@ const EditorialPage = () => {
     search: debouncedSearch,
     honoraryPosition: selectedPosition,
     page,
-    limit: PAGE_LIMIT
+    limit
   });
 
   const createMutation = useCreateEditorial();
   const editMutation = useEditEditorial();
 
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const members = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
+  const total = data?.pagination?.total ?? 0;
 
   const handleAdd = () => { setMemberToEdit(null); setShowModal(true); };
   const handleEdit = (member: EditorialMember) => { setMemberToEdit(member); setShowModal(true); };
@@ -112,10 +118,19 @@ const EditorialPage = () => {
         actions={tableActions}
         loading={isLoading}
         emptyMessage={isError ? "Failed to load Members" : "No Members found"}
+        total={total}
       />
 
       {/* Pagination */}
-      <Pagination page={page} totalPages={totalPages} hasNextPage={data?.pagination?.hasNextPage ?? false} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        hasNextPage={data?.pagination?.hasNextPage ?? false}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       {/* Modals */}
       <DeleteEditorialModal

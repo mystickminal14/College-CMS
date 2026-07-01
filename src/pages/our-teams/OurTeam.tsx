@@ -27,6 +27,7 @@ import StatusModal from "./components/StatusModel";
 
 const TeamsPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [teamToEdit, setTeamToEdit] = useState<Teams | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -43,8 +44,13 @@ const TeamsPage = () => {
     search: debouncedSearch,
     department: selectedTypeId,
     page,
-    limit: PAGE_LIMIT,
+    limit,
   });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const createMutation = useCreateTeams();
   const editMutation = useEditTeams();
@@ -198,6 +204,7 @@ const TeamsPage = () => {
               actions={tableActions}
               loading={isLoading}
               emptyMessage={isError ? "Failed to load Teams" : "No Teams found"}
+              total={total}
             />
 
           ) : (
@@ -209,7 +216,15 @@ const TeamsPage = () => {
               onDelete={handleDeleteTeam}
             />
           )}
-          <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+          <Pagination
+            page={page}
+            hasNextPage={hasNextPage}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            limit={limit}
+            onLimitChange={handleLimitChange}
+            total={total}
+          />
 
         </>
       )}

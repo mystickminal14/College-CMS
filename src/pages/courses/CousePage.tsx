@@ -32,6 +32,7 @@ import ToggleStatusModal from "./components/ToggleStatus";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [courseToEdit, setCourseToEdit] = useState<Courses | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -77,13 +78,18 @@ const confirmToggle = () => {
     setPage(1);
   }, 500);
 
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
+
   const [selectedTypeId, setSelectedTypeId] = useState<number | undefined>(undefined);
 
   // ── Data ──────────────────────────────────────────────────────────────────
   const { data, isLoading, isError } = useGetAll({
     search: debouncedSearch,
     page,
-    limit: PAGE_LIMIT,
+    limit,
     categoryId: selectedTypeId,
   });
 
@@ -262,6 +268,7 @@ const confirmToggle = () => {
               actions={tableActions}
               loading={isLoading}
               emptyMessage={isError ? "Failed to load Courses" : "No Courses found"}
+              total={totalItems}
             />
           ) : (
             <CoursesCardView
@@ -278,6 +285,9 @@ const confirmToggle = () => {
             hasNextPage={hasNextPage}
             totalPages={totalPages}
             onPageChange={setPage}
+            limit={limit}
+            onLimitChange={handleLimitChange}
+            total={totalItems}
           />
         </div>
       )}

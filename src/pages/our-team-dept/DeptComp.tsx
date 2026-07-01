@@ -18,12 +18,17 @@ import StatusModal from "./components/StatusModel";
 const DeptComp = () => {
     const [debouncedSearch, setDebouncedSearch] = useState("");
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(PAGE_LIMIT);
     const createMutation = useCreateDept();
     const { data, isLoading, isError } = useGetAllDept({
         search: debouncedSearch,
         page,
-        limit: PAGE_LIMIT,
+        limit,
     });
+    const handleLimitChange = (newLimit: number) => {
+        setLimit(newLimit);
+        setPage(1);
+    };
 
     const editMutation = useEditDept();
     const [deptToChangeOrder, setDeptToChangeOrder] = useState<Dept | null>(null);
@@ -38,6 +43,7 @@ const DeptComp = () => {
     };
     const totalPages = data?.pagination?.totalPages ?? 1;
     const hasNextPage = data?.pagination?.hasNextPage ?? false;
+    const total = data?.pagination?.total ?? 0;
     const handleEdit = (dept: Dept) => { setDeptToEdit(dept); setShowModal(true); };
     const [showOrderModal, setShowOrderModal] = useState(false);
     const handleAdd = (dept?: Dept) => {
@@ -103,9 +109,18 @@ const DeptComp = () => {
                     actions={tableActions}
                     loading={isLoading}
                     emptyMessage={isError ? "Failed to load Depts" : "No Depts found"}
+                    total={total}
                 />
             </div>
-            <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination
+                page={page}
+                hasNextPage={hasNextPage}
+                totalPages={totalPages}
+                onPageChange={setPage}
+                limit={limit}
+                onLimitChange={handleLimitChange}
+                total={total}
+            />
             <ChangeDeptOrderModal
                 isOpen={showOrderModal}
                 onClose={() => setShowOrderModal(false)}

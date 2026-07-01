@@ -21,6 +21,7 @@ const PAGE_LIMIT = 10;
 
 const ContactPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<STATUS | "">("");
@@ -34,13 +35,19 @@ const ContactPage = () => {
   const { data, isLoading, isError } = useGetContacts({
     status:selectedStatus || undefined,
     page,
-    limit: PAGE_LIMIT,
+    limit,
     search: debouncedSearch,
   });
 
   const contacts = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const contactMutation = useCreateContact();
   const editMutation = useEditContact();
@@ -153,6 +160,7 @@ const ContactPage = () => {
         emptyMessage={
           isError ? "Failed to load contacts" : "No contacts found"
         }
+        total={total}
       />
 
       <Pagination
@@ -160,6 +168,9 @@ const ContactPage = () => {
         totalPages={totalPages}
         onPageChange={setPage}
         hasNextPage={hasNextPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
       />
 
       {/* ADD / EDIT MODAL */}

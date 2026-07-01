@@ -19,13 +19,19 @@ import EditConnectForm from "./components/EditConnect";
 
 const ConnectsPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [showAddModal, setShowAddModal] = useState(false);
   const [connectToDelete, setConnectToDelete] = useState<Connects | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [connectToUpdate, setConnectToUpdate] = useState<Connects | null>(null);
   const [connectToEdit, setConnectToEdit] = useState<Connects | null>(null); // 👈 new
 
-  const { data, isLoading, isError } = useGetConnects({ page, limit: PAGE_LIMIT });
+  const { data, isLoading, isError } = useGetConnects({ page, limit });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const createConnectMutation = useUpdateimageConnect();
   const uploadImageMutation = useUploadConnectImage();
@@ -35,6 +41,7 @@ const ConnectsPage = () => {
   const connects = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
 
   const tableActions = [
     {
@@ -80,6 +87,7 @@ const ConnectsPage = () => {
         actions={tableActions}
         loading={isLoading}
         emptyMessage={isError ? "Failed to load Connects" : "No Connects found"}
+        total={total}
       />
 
       <Pagination
@@ -87,6 +95,9 @@ const ConnectsPage = () => {
         page={page}
         totalPages={totalPages}
         onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
       />
 
       <DeleteConnectsModal

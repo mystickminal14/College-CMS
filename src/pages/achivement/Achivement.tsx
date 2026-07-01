@@ -17,6 +17,7 @@ const PAGE_LIMIT = 10;
 
 const AchivementPage = () => {
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(PAGE_LIMIT);
     const [selectedAchivement, setSelectedAchivement] = useState<Achivement | null>(null);
     const [showAddEditModal, setShowAddEditModal] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
@@ -24,11 +25,17 @@ const AchivementPage = () => {
 
     const { data, isLoading, isError } = useGetAchivements({
         page,
-        limit: PAGE_LIMIT,
+        limit,
     });
+
+    const handleLimitChange = (newLimit: number) => {
+        setLimit(newLimit);
+        setPage(1);
+    };
 
     const achivements = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
+    const total = data?.pagination?.total ?? 0;
     const achivementMutation = useCreateAchivement();
     const editMutation = useEditAchivement();
 
@@ -93,9 +100,18 @@ const AchivementPage = () => {
                 actions={tableActions}
                 loading={isLoading}
                 emptyMessage={isError ? "Failed to load achivements" : "No achivements found"}
+                total={total}
             />
 
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} hasNextPage={hasNextPage} />
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+                hasNextPage={hasNextPage}
+                limit={limit}
+                onLimitChange={handleLimitChange}
+                total={total}
+            />
 
             <AddEditAchivementModal
                 isOpen={showAddEditModal}

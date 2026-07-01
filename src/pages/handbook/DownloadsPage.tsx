@@ -18,6 +18,7 @@ import useToggleDownloadStatus from "./hooks/useToggleStatus";
 
 const DownloadsPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [showModal, setShowModal] = useState(false);
   const [DownloadsToDelete, setDownloadsToDelete] = useState<Downloads | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -38,9 +39,14 @@ const DownloadsPage = () => {
   const { data, isLoading, isError } = useGetDownloads({
     search: debouncedSearch,
     page,
-    limit: PAGE_LIMIT,
+    limit,
     admin: true,
   });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const downloads = data?.data ?? [];
   const totalItems = data?.pagination?.total ?? 0;
@@ -138,6 +144,7 @@ const DownloadsPage = () => {
             actions={tableActions}
             loading={isLoading}
             emptyMessage={isError ? "Failed to load downloads" : "No downloads found"}
+            total={totalItems}
           />
         ) : (
           <DownloadsCardView
@@ -155,6 +162,9 @@ const DownloadsPage = () => {
         page={page}
         totalPages={totalPages}
         onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={totalItems}
       />
 
       {/* DELETE MODAL */}

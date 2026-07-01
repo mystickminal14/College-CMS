@@ -81,6 +81,7 @@ const PlannerCoursePage = () => {
                 actions={tableActions}
                 loading={isLoading}
                 emptyMessage={isError ? "Failed to load courses" : "No plannercourses found"}
+                total={plannercourses.length}
             />
 
 

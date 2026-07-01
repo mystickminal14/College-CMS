@@ -26,6 +26,7 @@ const FeePlannersPage = () => {
 
   // ---------- Fee Year ----------
   const [yearPage, setYearPage] = useState(1);
+  const [yearLimit, setYearLimit] = useState(PAGE_LIMIT);
   const [showYearModal, setShowYearModal] = useState(false);
   const [yearToEdit, setYearToEdit] = useState<FeeYear | null>(null);
   const [yearToDelete, setYearToDelete] = useState<FeeYear | null>(null);
@@ -33,14 +34,20 @@ const FeePlannersPage = () => {
   const { data: yearData, isLoading: yearLoading } =
     useGetFeeYearsPagination({
       page: yearPage,
-      limit: PAGE_LIMIT,
+      limit: yearLimit,
     });
 
   const years = yearData?.data ?? [];
   const yearPagination = yearData?.pagination;
 
+  const handleYearLimitChange = (newLimit: number) => {
+    setYearLimit(newLimit);
+    setYearPage(1);
+  };
+
   // ---------- Fee Planner ----------
   const [plannerPage, setPlannerPage] = useState(1);
+  const [plannerLimit, setPlannerLimit] = useState(PAGE_LIMIT);
   const [showPlannerModal, setShowPlannerModal] = useState(false);
   const [plannerToEdit, setPlannerToEdit] = useState<FeePlanner | null>(null);
   const [plannerToDelete, setPlannerToDelete] = useState<FeePlanner | null>(null);
@@ -50,12 +57,16 @@ const FeePlannersPage = () => {
   const { data: plannerData, isLoading: plannerLoading } =
     useGetFeePlannersPagination({
       page: plannerPage,
-      limit: PAGE_LIMIT,
+      limit: plannerLimit,
     });
 
   const planners = plannerData?.data ?? [];
   const plannerPagination = plannerData?.pagination;
-  console.log("planners", planners);
+
+  const handlePlannerLimitChange = (newLimit: number) => {
+    setPlannerLimit(newLimit);
+    setPlannerPage(1);
+  };
 
   const yearColumns = [
     { label: "Year", accessor: "year" },
@@ -127,6 +138,7 @@ const FeePlannersPage = () => {
             data={years}
             columns={yearColumns}
             loading={yearLoading}
+            total={yearPagination?.total ?? 0}
             actions={[
               {
                 icon: <Edit />,
@@ -149,6 +161,9 @@ const FeePlannersPage = () => {
             totalPages={yearPagination?.totalPages ?? 1}
             hasNextPage={yearPagination?.hasNextPage ?? false}
             onPageChange={setYearPage}
+            limit={yearLimit}
+            onLimitChange={handleYearLimitChange}
+            total={yearPagination?.total ?? 0}
           />
         </>
       ) : (
@@ -157,6 +172,7 @@ const FeePlannersPage = () => {
             data={planners}
             columns={plannerColumns}
             loading={plannerLoading}
+            total={plannerPagination?.total ?? 0}
             actions={[
               {
                 icon: <Edit />,
@@ -179,6 +195,9 @@ const FeePlannersPage = () => {
             totalPages={plannerPagination?.totalPages ?? 1}
             hasNextPage={plannerPagination?.hasNextPage ?? false}
             onPageChange={setPlannerPage}
+            limit={plannerLimit}
+            onLimitChange={handlePlannerLimitChange}
+            total={plannerPagination?.total ?? 0}
           />
         </>
       )}

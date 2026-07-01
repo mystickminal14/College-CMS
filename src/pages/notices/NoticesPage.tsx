@@ -20,6 +20,7 @@ import { PAGE_LIMIT } from "../../constants";
 
 const NoticesPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [selectedENotice, setSelectedENotice] = useState<ENotice | "">("");
   const [noticeToEdit, setNoticeToEdit] = useState<Notices | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -29,8 +30,13 @@ const NoticesPage = () => {
   const { data, isLoading, isError } = useGetNotices({
     department: selectedENotice,
     page,
-    limit: PAGE_LIMIT,
+    limit,
   });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const createMutation = useCreateNotices();
   const editMutation = useEditNotices();
@@ -40,6 +46,7 @@ const NoticesPage = () => {
   const Notices = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
 
   const ENotices: ENotice[] = ["ADMINISTRATIVE", "ACADEMIC"];
 
@@ -145,6 +152,7 @@ const NoticesPage = () => {
             actions={tableActions}
             loading={isLoading}
             emptyMessage={isError ? "Failed to load Notices" : "No Notices found"}
+            total={total}
           />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -166,7 +174,15 @@ const NoticesPage = () => {
       </div>
 
       {/* Pagination */}
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       {/* Modals */}
       <DeleteNoticesModal

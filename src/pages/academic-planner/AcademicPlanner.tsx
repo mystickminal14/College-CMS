@@ -26,6 +26,7 @@ const PlannersPage = () => {
 
   // ---------- Academic Year ----------
   const [yearPage, setYearPage] = useState(1);
+  const [yearLimit, setYearLimit] = useState(PAGE_LIMIT);
   const [showYearModal, setShowYearModal] = useState(false);
   const [yearToEdit, setYearToEdit] = useState<AcademicYear | null>(null);
   const [yearToDelete, setYearToDelete] = useState<AcademicYear | null>(null);
@@ -33,14 +34,20 @@ const PlannersPage = () => {
   const { data: yearData, isLoading: yearLoading } =
     useGetAcademicYearsPagination({
       page: yearPage,
-      limit: PAGE_LIMIT,
+      limit: yearLimit,
     });
 
   const years = yearData?.data ?? [];
   const yearPagination = yearData?.pagination;
 
+  const handleYearLimitChange = (newLimit: number) => {
+    setYearLimit(newLimit);
+    setYearPage(1);
+  };
+
   // ---------- Academic Planner ----------
   const [plannerPage, setPlannerPage] = useState(1);
+  const [plannerLimit, setPlannerLimit] = useState(PAGE_LIMIT);
   const [showPlannerModal, setShowPlannerModal] = useState(false);
   const [plannerToEdit, setPlannerToEdit] = useState<AcademicPlanner | null>(null);
   const [plannerToDelete, setPlannerToDelete] = useState<AcademicPlanner | null>(null);
@@ -50,12 +57,16 @@ const PlannersPage = () => {
   const { data: plannerData, isLoading: plannerLoading } =
     useGetAcademicPlannersPagination({
       page: plannerPage,
-      limit: PAGE_LIMIT,
+      limit: plannerLimit,
     });
 
   const planners = plannerData?.data ?? [];
   const plannerPagination = plannerData?.pagination;
-  console.log("planners", planners);
+
+  const handlePlannerLimitChange = (newLimit: number) => {
+    setPlannerLimit(newLimit);
+    setPlannerPage(1);
+  };
 
   const yearColumns = [
     { label: "Year", accessor: "year" },
@@ -129,6 +140,7 @@ const PlannersPage = () => {
             data={years}
             columns={yearColumns}
             loading={yearLoading}
+            total={yearPagination?.total ?? 0}
             actions={[
               {
                 icon: <Edit />,
@@ -151,6 +163,9 @@ const PlannersPage = () => {
             totalPages={yearPagination?.totalPages ?? 1}
             hasNextPage={yearPagination?.hasNextPage ?? false}
             onPageChange={setYearPage}
+            limit={yearLimit}
+            onLimitChange={handleYearLimitChange}
+            total={yearPagination?.total ?? 0}
           />
         </>
       ) : (
@@ -159,6 +174,7 @@ const PlannersPage = () => {
             data={planners}
             columns={plannerColumns}
             loading={plannerLoading}
+            total={plannerPagination?.total ?? 0}
             actions={[
               {
                 icon: <Edit />,
@@ -181,6 +197,9 @@ const PlannersPage = () => {
             totalPages={plannerPagination?.totalPages ?? 1}
             hasNextPage={plannerPagination?.hasNextPage ?? false}
             onPageChange={setPlannerPage}
+            limit={plannerLimit}
+            onLimitChange={handlePlannerLimitChange}
+            total={plannerPagination?.total ?? 0}
           />
         </>
       )}

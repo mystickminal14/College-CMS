@@ -81,6 +81,7 @@ const ScholarshipPage = () => {
         columns={scholarshipColumns}
         actions={actions}
         loading={isLoading}
+        total={teams.length}
       />
 
       {/* Add/Edit Scholarship Modal */}

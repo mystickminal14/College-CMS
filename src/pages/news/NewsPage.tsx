@@ -17,11 +17,17 @@ import Pagination from "../../utils/Pagination";
 
 const NewsPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [showModal, setShowModal] = useState(false);
   const [newsToEdit, setNewsToEdit] = useState<NewsModel | undefined>(undefined);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { data, isLoading, isError } = useGetNews({ page, limit: PAGE_LIMIT });
+  const { data, isLoading, isError } = useGetNews({ page, limit });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const createMutation = useCreateNews();
   const editMutation = useEditNews();
@@ -30,6 +36,7 @@ const NewsPage = () => {
 
   const news = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
+  const total = data?.pagination?.total ?? 0;
 
   const handleAdd = () => {
     setNewsToEdit(undefined);
@@ -100,9 +107,18 @@ const NewsPage = () => {
         actions={tableActions}
         loading={isLoading}
         emptyMessage={isError ? "Failed to load news" : "No news found"}
+        total={total}
       />
 
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       {/* DELETE MODAL */}
       <DeleteNewsModel

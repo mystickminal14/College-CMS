@@ -15,6 +15,7 @@ import ChangeHeroOrderModal from "./components/ChangeHeroOrderModel";
 
 const HeroSectionPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
 
   const [selectedImage, setSelectedImage] = useState<HeroSectionImage | null>(null);
 
@@ -24,7 +25,12 @@ const HeroSectionPage = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  const { data, isLoading, isError } = useGetHeroImages({ page, limit: PAGE_LIMIT });
+  const { data, isLoading, isError } = useGetHeroImages({ page, limit });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const images = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
@@ -99,6 +105,9 @@ const HeroSectionPage = () => {
         page={page}
         totalPages={totalPages}
         onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
       />
 
       {/* ── Modals ── */}

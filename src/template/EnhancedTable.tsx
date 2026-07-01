@@ -16,6 +16,7 @@ interface EnhancedTableProps<T> {
   loading?: boolean;
   emptyMessage?: string;
   className?: string;
+  total?: number;
 }
 
 const EnhancedTable = <T extends { id?: string | number }>({
@@ -26,11 +27,17 @@ const EnhancedTable = <T extends { id?: string | number }>({
   loading = false,
   emptyMessage = "No data available",
   className = "",
+  total,
 }: EnhancedTableProps<T>) => {
   return (
     <div
       className={`bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden ${className}`}
     >
+      {total !== undefined && (
+        <div className="px-6 py-3 border-b border-gray-200 dark:border-gray-800 text-sm font-medium text-gray-600 dark:text-gray-300">
+          Total Records: <span className="text-gray-900 dark:text-white font-semibold">{total}</span>
+        </div>
+      )}
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>

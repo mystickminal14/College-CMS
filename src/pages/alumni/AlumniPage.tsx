@@ -18,12 +18,13 @@ import Pagination from "../../utils/Pagination";
 
 const AlumniPage = () => {
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(PAGE_LIMIT);
     const [debouncedSearch, setDebouncedSearch] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [alumniToEdit, setAlumniToEdit] = useState<any>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-    const { data, isLoading, isError } = useGetAlumni({ page, limit: PAGE_LIMIT, search: debouncedSearch });
+    const { data, isLoading, isError } = useGetAlumni({ page, limit, search: debouncedSearch });
     const createMutation = useCreateAlumni();
     const editMutation = useEditAlumni();
     const uploadImageMutation = useUploadAlumniImage();
@@ -31,7 +32,12 @@ const AlumniPage = () => {
 
     const alumni = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
- const hasNextPage = data?.pagination?.hasNextPage ?? false;
+    const hasNextPage = data?.pagination?.hasNextPage ?? false;
+    const total = data?.pagination?.total ?? 0;
+    const handleLimitChange = (newLimit: number) => {
+        setLimit(newLimit);
+        setPage(1);
+    };
     const handleSearch = debounce((value: string) => { setDebouncedSearch(value); setPage(1); }, 500);
     const handleAdd = () => { setAlumniToEdit(null); setShowModal(true); };
     const handleEdit = (alumni: Alumni) => { setAlumniToEdit(alumni); setShowModal(true); };
@@ -67,8 +73,16 @@ const AlumniPage = () => {
                     <span>Add Alumni</span>
                 </button>
             </div>
-            <EnhancedTable data={alumni} columns={AlumniColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Alumni" : "No Alumni found"} />
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} hasNextPage={hasNextPage} />
+            <EnhancedTable data={alumni} columns={AlumniColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Alumni" : "No Alumni found"} total={total} />
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+                hasNextPage={hasNextPage}
+                limit={limit}
+                onLimitChange={handleLimitChange}
+                total={total}
+            />
             <DeleteAlumniModal
                 isOpen={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}

@@ -23,6 +23,7 @@ import { IMAGE_URL, PAGE_LIMIT } from "../../../constants";
 const VacancyPage = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<JobStatus | "">("");
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
@@ -36,7 +37,7 @@ const VacancyPage = () => {
 
   const { data, isLoading, isError } = useGetVacancies({
     page,
-    limit: PAGE_LIMIT,
+    limit,
     search,
     status: filterStatus,
   });
@@ -48,6 +49,12 @@ const VacancyPage = () => {
   const vacancies = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const handleAdd = () => {
     setVacancyToEdit(null);
@@ -179,6 +186,7 @@ const VacancyPage = () => {
           actions={tableActions}
           loading={isLoading}
           emptyMessage={isError ? "Failed to load vacancies" : "No vacancies found"}
+          total={total}
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -217,7 +225,15 @@ const VacancyPage = () => {
         </div>
       )}
 
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       <VacancyFormModal
         isOpen={showFormModal}

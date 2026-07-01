@@ -13,6 +13,7 @@ import AddFaqModal from "./components/AddFAqModel";
 
 const FaqPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
 
   const [selectedFaq, setSelectedFaq] = useState<FAQ | null>(null);
 
@@ -22,7 +23,12 @@ const FaqPage = () => {
   const [showToggleModal, setShowToggleModal] = useState(false);
   const [showOrderModal, setShowOrderModal] = useState(false);
 
-  const { data, isLoading, isError } = useGetFaqs({ page, limit: PAGE_LIMIT });
+  const { data, isLoading, isError } = useGetFaqs({ page, limit });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const faqs = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
@@ -97,6 +103,9 @@ const FaqPage = () => {
         page={page}
         totalPages={totalPages}
         onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
       />
 
       {/* ── Modals ── */}

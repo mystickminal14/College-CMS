@@ -18,6 +18,7 @@ import AddEditCourseCategoryModal from "./components/AddEditDept";
 const CourseCategoryComp = () => {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const createMutation = useCreateCourseCategory();
   const [statusFilter, setStatusFilter] = useState<'ENABLED' | "DISABLED" | ''>("");
 
@@ -25,8 +26,12 @@ const CourseCategoryComp = () => {
     search: debouncedSearch,
     page,
     status: statusFilter,
-    limit: PAGE_LIMIT,
+    limit,
   });
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
   const editMutation = useEditCourseCategory();
   const [coursecategoryToChangeOrder, setCourseCategoryToChangeOrder] = useState<CourseCategory | null>(null);
   const [coursecategoryToEdit, setCourseCategoryToEdit] = useState<CourseCategory | null>(null);
@@ -40,6 +45,7 @@ const CourseCategoryComp = () => {
   };
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
   const handleEdit = (coursecategory: CourseCategory) => { setCourseCategoryToEdit(coursecategory); setShowModal(true); };
   const [showOrderModal, setShowOrderModal] = useState(false);
   const handleAdd = (coursecategory?: CourseCategory) => {
@@ -134,9 +140,18 @@ const CourseCategoryComp = () => {
           actions={tableActions}
           loading={isLoading}
           emptyMessage={isError ? "Failed to load Course Categories" : "No Course Categories found"}
+          total={total}
         />
       </div>
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
       <ChangeCourseCategoryOrderModal
         isOpen={showOrderModal}
         onClose={() => setShowOrderModal(false)}

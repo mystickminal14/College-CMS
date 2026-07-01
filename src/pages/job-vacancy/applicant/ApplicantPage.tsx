@@ -29,6 +29,7 @@ const ApplicantPage = () => {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [search, setSearch] = useState("");
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
 
@@ -42,13 +43,19 @@ const ApplicantPage = () => {
   const { data, isLoading, isError } = useGetApplicants({
     vacancyId: vacancyId ?? "",
     page,
-    limit: PAGE_LIMIT,
+    limit,
     search,
   });
 
   const applicants = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const handleDelete = (a: JobApplication) => {
     setApplicantToDelete(a);
@@ -146,6 +153,7 @@ const ApplicantPage = () => {
           actions={tableActions}
           loading={isLoading}
           emptyMessage={isError ? "Failed to load applications" : "No applications found"}
+          total={total}
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -187,7 +195,15 @@ const ApplicantPage = () => {
         </div>
       )}
 
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       <DeleteApplicantModal
         isOpen={showDeleteModal}

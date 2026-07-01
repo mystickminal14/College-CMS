@@ -159,8 +159,12 @@ const SideBar: React.FC<SideBarProps> = ({
 
   const toggleSubmenu = (itemId: string) => {
     setExpandedItems(prev => {
-      const newExpanded = new Set<string>();
-      if (!prev.has(itemId)) newExpanded.add(itemId);
+      const newExpanded = new Set(prev);
+      if (newExpanded.has(itemId)) {
+        newExpanded.delete(itemId);
+      } else {
+        newExpanded.add(itemId);
+      }
       return newExpanded;
     });
   };

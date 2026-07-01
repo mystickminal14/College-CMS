@@ -35,7 +35,9 @@ const GallerysPage = () => {
   const [viewMode, setViewMode] = useState<"type" | "photo">("photo");
 
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [typePage, setTypePage] = useState(1);
+  const [typeLimit, setTypeLimit] = useState(PAGE_LIMIT);
 
   const [selectedStatus, setSelectedStatus] = useState<STATUS | "">("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -50,13 +52,19 @@ const GallerysPage = () => {
   const { data: galleryData, isLoading: galleryLoading, isError: galleryError } =
     useGetGallerys({
       page,
-      limit: PAGE_LIMIT,
+      limit,
       typeId: selectedTypeId,
     });
 
   const gallerys = galleryData?.data ?? [];
   const totalPages = galleryData?.pagination?.totalPages ?? 1;
   const hasNextPage = galleryData?.pagination?.hasNextPage ?? false;
+  const total = galleryData?.pagination?.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const updateImageMutation = useUpdateImages();
   const addMutation = useCreateGalleryType();
@@ -65,7 +73,7 @@ const GallerysPage = () => {
   const { data: typesDataAll } = useGetGalleryTypes(); // For table view (all types)
   const { data: typesData } = useGetAllGalleryTypes({
     page: typePage,
-    limit: PAGE_LIMIT,
+    limit: typeLimit,
     search: debouncedSearch,
     status: selectedStatus, // ✅ pass status here
   });
@@ -74,6 +82,12 @@ const GallerysPage = () => {
   const galleryTypes = typesData?.data ?? [];
   const typeTotalPages = typesData?.pagination?.totalPages ?? 1;
   const typeHasNextPage = typesData?.pagination?.hasNextPage ?? false;
+  const typeTotal = typesData?.pagination?.total ?? 0;
+
+  const handleTypeLimitChange = (newLimit: number) => {
+    setTypeLimit(newLimit);
+    setTypePage(1);
+  };
 
   const handleAddGallery = () => setShowModal(true);
 
@@ -232,6 +246,9 @@ const GallerysPage = () => {
               page={page}
               totalPages={totalPages}
               onPageChange={setPage}
+              limit={limit}
+              onLimitChange={handleLimitChange}
+              total={total}
             />
           </>
         ) : (
@@ -242,12 +259,16 @@ const GallerysPage = () => {
               actions={tableActions}
               loading={galleryLoading}
               emptyMessage={galleryError ? "Failed to load types" : "No types found"}
+              total={typeTotal}
             />
             <Pagination
               hasNextPage={typeHasNextPage}
               page={typePage}
               totalPages={typeTotalPages}
               onPageChange={setTypePage}
+              limit={typeLimit}
+              onLimitChange={handleTypeLimitChange}
+              total={typeTotal}
             />
           </>
         )}

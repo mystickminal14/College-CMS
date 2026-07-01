@@ -16,6 +16,7 @@ import DeleteDocumentsModal from "./components/DeleteModel";
 
 const DocumentPage = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [degreeFilter, setDegreeFilter] = useState<EDegree | "All">("All");
   const [documentToEdit, setDocumentToEdit] = useState<Documents | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -26,7 +27,7 @@ const DocumentPage = () => {
   const { data, isLoading, isError } = useGetAll({
     search: degreeFilter === "All" ? undefined : degreeFilter,
     page,
-    limit: PAGE_LIMIT,
+    limit,
   });
 
   const createMutation = useCreateDocument();
@@ -35,6 +36,12 @@ const DocumentPage = () => {
   const documents = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const handleAdd = () => {
     setDocumentToEdit(null);
@@ -99,9 +106,18 @@ const DocumentPage = () => {
         actions={tableActions}
         loading={isLoading}
         emptyMessage={isError ? "Failed to load Documents" : "No Documents found"}
+        total={total}
       />
 
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       {/* MODALS */}
       <DeleteDocumentsModal

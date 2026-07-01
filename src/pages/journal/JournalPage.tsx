@@ -14,17 +14,24 @@ const JournalsPage = () => {
   const [showParentModal, setShowParentModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
 
   const [journalsToEdit, setJournalsToEdit] = useState<Journals | null>(null);
 
   const { data, isLoading, isError } = useGetJournal({
     page,
-    limit: PAGE_LIMIT,
+    limit,
   });
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const journals = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
 
   // ---------------- Handlers ----------------
   const handleAddParent = () => {
@@ -107,10 +114,19 @@ const navigate=useNavigate();
         actions={tableActions}
         loading={isLoading}
         emptyMessage={isError ? "Failed to load journals" : "No journals found"}
+        total={total}
       />
 
       {/* Pagination */}
-      <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        hasNextPage={hasNextPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
+      />
 
       {/* Modals */}
       <CreateEditParentJournalModal

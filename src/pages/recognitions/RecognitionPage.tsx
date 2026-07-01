@@ -19,6 +19,7 @@ import RecognitionsCardView from "./components/RecognitionCard";
 
 const RecognitionsPage = () => {
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(PAGE_LIMIT);
     const [showModal, setShowModal] = useState(false);
     const [RecognitionsToEdit, setRecognitionsToEdit] = useState<any>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -26,7 +27,11 @@ const RecognitionsPage = () => {
 
     const { data, isLoading, isError } = useGetRecognitions({
  type: selectedDepartment,
-        page, limit: PAGE_LIMIT });
+        page, limit });
+    const handleLimitChange = (newLimit: number) => {
+        setLimit(newLimit);
+        setPage(1);
+    };
     const createMutation = useCreateRecognitions();
     const editMutation = useEditRecognitions();
     const uploadImageMutation = useUploadRecognitionsImage();
@@ -36,6 +41,7 @@ const RecognitionsPage = () => {
     const Recognitions = data?.data ?? [];
     const totalPages = data?.pagination?.totalPages ?? 1;
     const hasNextPage = data?.pagination?.hasNextPage ?? false;
+    const total = data?.pagination?.total ?? 0;
 
     const handleAdd = () => { setRecognitionsToEdit(null); setShowModal(true); };
     const handleEdit = (Recognitions: Recognitions) => { setRecognitionsToEdit(Recognitions); setShowModal(true); };
@@ -110,7 +116,7 @@ const RecognitionsPage = () => {
                 </div>
             </div>
             {viewMode === "table" ? (
-                <EnhancedTable data={Recognitions} columns={RecognitionsColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Recognitions" : "No Recognitions found"} />
+                <EnhancedTable data={Recognitions} columns={RecognitionsColumns} actions={tableActions} loading={isLoading} emptyMessage={isError ? "Failed to load Recognitions" : "No Recognitions found"} total={total} />
 
             ) : (
                 <RecognitionsCardView
@@ -121,7 +127,15 @@ const RecognitionsPage = () => {
                 />
             )}
 
-            <Pagination page={page} hasNextPage={hasNextPage} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination
+                page={page}
+                hasNextPage={hasNextPage}
+                totalPages={totalPages}
+                onPageChange={setPage}
+                limit={limit}
+                onLimitChange={handleLimitChange}
+                total={total}
+            />
             <DeleteRecognitionsModal
                 isOpen={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}

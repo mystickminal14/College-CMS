@@ -22,6 +22,7 @@ const BlogsPage = () => {
 
   // Pagination & filters
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(PAGE_LIMIT);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
 
@@ -35,10 +36,15 @@ const BlogsPage = () => {
     setPage(1);
   }, 500);
 
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
+
   const { data, isLoading, isError } = useGetBlogs({
     search: debouncedSearch,
     page,
-    limit: PAGE_LIMIT,
+    limit,
     status: selectedStatus
       ? (selectedStatus as "DRAFT" | "PUBLISHED" | "SCHEDULED")
       : undefined,
@@ -47,6 +53,7 @@ const BlogsPage = () => {
   const blogs = data?.data ?? [];
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
+  const total = data?.pagination?.total ?? 0;
 
   const tableActions: {
     icon: React.ReactNode | ((row: Blog) => React.ReactNode);
@@ -137,6 +144,7 @@ const BlogsPage = () => {
         actions={tableActions}
         loading={isLoading}
         emptyMessage={isError ? "Failed to load blogs" : "No blogs found"}
+        total={total}
       />
 
       <Pagination
@@ -144,6 +152,9 @@ const BlogsPage = () => {
         hasNextPage={hasNextPage}
         totalPages={totalPages}
         onPageChange={setPage}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        total={total}
       />
 
       {/* Modals */}

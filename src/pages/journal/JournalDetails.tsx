@@ -95,6 +95,7 @@ const JournalDetails = () => {
         columns={columns}
         actions={actions}
         loading={isLoading}
+        total={details.length}
         emptyMessage="No journal details found"
       />
 
