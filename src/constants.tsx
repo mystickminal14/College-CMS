@@ -7,6 +7,8 @@ export const IMAGE_URL = 'https://lbef-server.lbef.org';
 export const APP_URL = 'https://www.lbef.org';
 
 export const PAGE_LIMIT = 10;
+export const PAGE_LIMIT_OPTIONS = [10, 25, 50, 100];
+export const PAGE_LIMIT_ALL = 'all';
 export const LOGIN_CACHE_KEY = 'login';
 export const FAQ_CACHE_KEY = 'faq';
 

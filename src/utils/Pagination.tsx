@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({
               onChange={(e) => onLimitChange(Number(e.target.value))}
               className="border border-gray-300 dark:border-gray-600 rounded-lg px-2 py-1 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
             >
-              {limitOptions.map((opt) => (
+              {limitOptions.map((opt: number) => (
                 <option key={opt} value={opt}>
                   {opt}
                 </option>
