@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import decoration from "../../../../assets/decoration.webp";
 import { IMAGE_URL } from "../../../../constants";
 import useGetNews from "../../../../pages/news/hooks/useGetAllNews";
+import { parseDate } from "../../../../utils/ParseDate";
 import { motion } from 'framer-motion';
 
 const RecentNews = () => {
@@ -178,7 +179,7 @@ const RecentNews = () => {
 
                       <div className="flex justify-between items-center text-xs text-gray-500">
                         <span>{item.source ?? "LBEF News"}</span>
-                        <span>{item.publishedOn}</span>
+                        <span>{item.publishedOn && parseDate(item.publishedOn)}</span>
                       </div>
                     </a>
                   </div>
