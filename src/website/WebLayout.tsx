@@ -3,6 +3,7 @@ import { NavBar } from "./pages/home/components/NavBar";
 import { ScrollToTop } from "../Scrolltop";
 import Footer from "./pages/home/components/Footer";
 import NiaaChatbot from "./Chatbot";
+import PopupDisplay from "./comp/PopupDisplay";
 
 export function WebsiteLayout() {
   return (
@@ -16,6 +17,7 @@ export function WebsiteLayout() {
       <Footer />
 
       <NiaaChatbot />
+      <PopupDisplay />
     </div>
   );
 }

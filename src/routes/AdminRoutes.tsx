@@ -33,6 +33,7 @@ import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 import FeePlannersPage from "../pages/fee-planner/FeePlanner";
 import ScholarshipPage from "../pages/scholarship/ScholarPage";
 import HeroSectionPage from "../pages/hero-section/HeroSectIonPage";
+import PopupPage from "../pages/popup/PopupPage";
 import FaqPage from "../pages/Faq/FaqPAge";
 import BlogsPage from "../pages/blogs/BlogsPage";
 import AddBlogPage from "../pages/blogs/components/AddBlogPage";
@@ -50,6 +51,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "course-details/add/:id": "COURSES",
   "course-details/edit/:id": "COURSES",
   "hero-section": "HERO_SECTION",
+  "popup": "POPUP",
   "administation/notice": "NOTICE",
   "administation/contact": "CONTACT",
   "students/planner": "ACADEMIC_PLANNER",
@@ -149,6 +151,7 @@ export const adminRoutes = [
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/planner-course", element: <PlannerCoursePage /> },
       { path: "hero-section", element: <HeroSectionPage /> },
+      { path: "popup", element: <PopupPage /> },
 
       { path: "students/fee-planner", element: <FeePlannersPage /> },
       { path: "students/downloads", element: <DownloadsPage /> },

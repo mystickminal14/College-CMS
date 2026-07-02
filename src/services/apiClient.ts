@@ -102,6 +102,21 @@ class APIClient<T> {
     
     return response.data;
   };
+
+  patch = async (
+    data?: any,
+    params?: any,
+    config?: AxiosRequestConfig
+  ): Promise<ApiResponse<T>> => {
+    const url = params ? `${this.endpoint}/${params}` : this.endpoint;
+    const response = await axiosInstance.patch<ApiResponse<T>>(
+      url,
+      data,
+      config
+    );
+
+    return response.data;
+  };
   postImage = async (
     formData: FormData,
     params?: any,
