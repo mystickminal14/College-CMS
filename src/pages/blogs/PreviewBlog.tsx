@@ -145,10 +145,23 @@ const PreviewBlog = () => {
           margin: 1.25rem 0;
           padding-left: 2rem;
         }
-        
+
+        .blog-content ul {
+          list-style-type: disc;
+        }
+
+        .blog-content ol {
+          list-style-type: decimal;
+        }
+
         .blog-content li {
           margin: 0.5rem 0;
           line-height: 1.7;
+          display: list-item;
+        }
+
+        .blog-content li::marker {
+          color: #242424;
         }
         
         .blog-content blockquote {

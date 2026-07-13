@@ -1,6 +1,6 @@
 // src/components/Pagination.tsx
 import React from "react";
-import { PAGE_LIMIT_OPTIONS, PAGE_LIMIT_ALL } from "../constants";
+import { PAGE_LIMIT_OPTIONS } from "../constants";
 
 interface PaginationProps {
   page: number;
@@ -42,7 +42,6 @@ const Pagination: React.FC<PaginationProps> = ({
                   {opt}
                 </option>
               ))}
-              <option value={PAGE_LIMIT_ALL}>All</option>
             </select>
           </label>
         )}
