@@ -195,69 +195,64 @@ const navigate=useNavigate()
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
-                  className="group/card flex-none w-[320px] md:w-90 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer border border-gray-100"
+                  className="group/card flex-none w-[320px] md:w-90 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
                 >
-                  {/* Image Container */}
-                  <div className="relative h-60 overflow-hidden bg-linear-to-br from-gray-100 to-gray-200">
-                    {blog.featuredImage ? (
-                      <img
-                        src={blog.featuredImage.startsWith('http') ? blog.featuredImage : `${IMAGE_URL}${blog.featuredImage}`}
-                        alt={blog.featuredImageAlt || blog.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    )}
-                    
-                 
+                  <Link to={`/blogs/${blog.slug}`} className="block cursor-pointer">
+                    {/* Image Container */}
+                    <div className="relative h-60 overflow-hidden bg-linear-to-br from-gray-100 to-gray-200">
+                      {blog.featuredImage ? (
+                        <img
+                          src={blog.featuredImage.startsWith('http') ? blog.featuredImage : `${IMAGE_URL}${blog.featuredImage}`}
+                          alt={blog.featuredImageAlt || blog.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                      )}
 
-                    {/* Read time badge */}
-                    <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1">
-                      <div className="flex items-center gap-1 text-white text-xs">
-                        <Clock className="w-3 h-3" />
-                        <span>{getReadTime(blog)}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-5">
-                    {/* Date and Author placeholder */}
-                    <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <time dateTime={blog.publishDate || blog.createdAt}>
-                          {formatToNepalTime(blog.publishDate || blog.createdAt)}
-                        </time>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <User className="w-3.5 h-3.5" />
-                        <span>LBEF Team</span>
+                      {/* Read time badge */}
+                      <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1">
+                        <div className="flex items-center gap-1 text-white text-xs">
+                          <Clock className="w-3 h-3" />
+                          <span>{getReadTime(blog)}</span>
+                        </div>
                       </div>
                     </div>
 
-                    <Link to={`/blogs/${blog.slug}`}>
+                    {/* Content */}
+                    <div className="p-5">
+                      {/* Date and Author placeholder */}
+                      <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <time dateTime={blog.publishDate || blog.createdAt}>
+                            {formatToNepalTime(blog.publishDate || blog.createdAt)}
+                          </time>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <User className="w-3.5 h-3.5" />
+                          <span>LBEF Team</span>
+                        </div>
+                      </div>
+
                       <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover/card:text-[#474AFF] transition-colors duration-200">
                         {blog.title}
                       </h3>
-                    </Link>
 
-                    {/* Read More Link */}
-                    <Link
-                      to={`/blogs/${blog.slug}`}
-                      className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100"
-                    >
-                      <span className="flex items-center gap-1 text-[#474AFF] text-sm font-medium hover:gap-2 transition-all duration-200">
-                        Read Article
-                        <ArrowUpRight className="w-4 h-4" />
-                      </span>
-                    </Link>
-                  </div>
+                      {/* Read More */}
+                      <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
+                        <span className="flex items-center gap-1 text-[#474AFF] text-sm font-medium hover:gap-2 transition-all duration-200">
+                          Read Article
+                          <ArrowUpRight className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
                 </motion.article>
               ))}
             </div>
