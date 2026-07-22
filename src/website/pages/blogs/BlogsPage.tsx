@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Clock, Calendar, User, ArrowUpRight } from "lucide-react";
 
 import { APP_URL, IMAGE_URL } from "../../../constants";
@@ -12,8 +12,6 @@ import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 import { motion } from "framer-motion";
 
 const BlogsPage = () => {
-  const navigate = useNavigate();
-
   const [page, setPage] = useState(1);
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -38,13 +36,7 @@ const BlogsPage = () => {
     if (!isLoading && hasMore) setPage((prev) => prev + 1);
   };
 
-  const getReadTime = (content?: string) => {
-    if (!content) return "5 min read";
-    const wordsPerMinute = 200;
-    const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
-    const readTime = Math.ceil(wordCount / wordsPerMinute);
-    return `${readTime} min read`;
-  };
+  const getReadTime = (blog: Blog) => `${blog.readTime ?? 1} min read`;
 
   const formatToNepalTime = (date?: string) => {
     if (!date) return "Recent";
@@ -130,7 +122,7 @@ const BlogsPage = () => {
                   <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1">
                     <div className="flex items-center gap-1 text-white text-xs">
                       <Clock className="w-3 h-3" />
-                      <span>{getReadTime(blog.content)}</span>
+                      <span>{getReadTime(blog)}</span>
                     </div>
                   </div>
                 </div>
@@ -151,23 +143,21 @@ const BlogsPage = () => {
                     </div>
                   </div>
 
-                  <h3 
-                  onClick={()=>navigate(`/blogs/${blog.slug}`)}
-                  
-                  className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover/card:text-[#474AFF] transition-colors duration-200">
-                    {blog.title}
-                  </h3>
+                  <Link to={`/blogs/${blog.slug}`}>
+                    <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover/card:text-[#474AFF] transition-colors duration-200">
+                      {blog.title}
+                    </h3>
+                  </Link>
 
-                  
-
-                  <div 
-                  onClick={()=>navigate(`/blogs/${blog.slug}`)}
-                  className="flex items-center cursor-pointer justify-between mt-2 pt-2 border-t border-gray-100">
-                    <button className="flex items-center gap-1 text-[#474AFF] text-sm font-medium hover:gap-2 transition-all duration-200">
+                  <Link
+                    to={`/blogs/${blog.slug}`}
+                    className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100"
+                  >
+                    <span className="flex items-center gap-1 text-[#474AFF] text-sm font-medium hover:gap-2 transition-all duration-200">
                       Read Article
-                      <ArrowUpRight className="w-4 cursor-pointer h-4" />
-                    </button>
-                  </div>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </span>
+                  </Link>
                 </div>
               </motion.article>
             ))}

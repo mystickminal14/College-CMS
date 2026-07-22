@@ -16,6 +16,7 @@ export interface Blog {
   featuredImage?: string | null;
   featuredImageAlt?: string;
   content?: string;
+  readTime?: number;
   faqs?: BlogFAQ[];
   createdAt?: string;
   updatedAt?: string;
