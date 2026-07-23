@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Briefcase } from "lucide-react";
-import { motion } from "framer-motion";
+import { Briefcase, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import Seo from "../../../context/seo";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 import { APP_URL, IMAGE_URL } from "../../../constants";
@@ -16,6 +16,7 @@ const VacancyWeb = () => {
   const [vacancies, setVacancies] = useState<JobVacancy[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [selected, setSelected] = useState<JobVacancy | null>(null);
+  const [details, setDetails] = useState<JobVacancy | null>(null);
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const { data, isLoading, isFetching } = useGetVacancies({
@@ -180,33 +181,47 @@ const VacancyWeb = () => {
                       )}
 
                       {/* Title */}
-                      <h3 className="text-base font-bold text-gray-900 leading-snug mb-3">
+                      <h3 className="text-base font-bold text-gray-900 leading-snug mb-3 line-clamp-2 break-words">
                         {vacancy.designation}
                       </h3>
 
                       {/* Description */}
                       {vacancy.description && (
-                        <p className="text-sm text-gray-500 leading-relaxed mb-4">
-                          {vacancy.description}
-                        </p>
+                        <div className="mb-4">
+                          <p className="text-sm text-gray-500 leading-relaxed line-clamp-3 break-words">
+                            {vacancy.description}
+                          </p>
+                          {vacancy.description.length > 120 && (
+                            <button
+                              onClick={() => setDetails(vacancy)}
+                              className="text-blue-600 hover:text-blue-700 hover:underline text-xs font-semibold mt-1"
+                            >
+                              Read more
+                            </button>
+                          )}
+                        </div>
                       )}
 
                       {/* Details */}
                       <div className="flex-1 border-t border-gray-100 pt-3 space-y-2 text-sm mb-5">
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-400 text-xs font-medium">Location</span>
-                          <span className="text-gray-700 font-medium text-right max-w-[58%] text-xs truncate">
+                        <div className="flex justify-between items-start gap-2">
+                          <span className="text-gray-400 text-xs font-medium shrink-0">Location</span>
+                          <span className="text-gray-700 font-medium text-right max-w-[58%] text-xs break-words line-clamp-2">
                             {vacancy.location}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-400 text-xs font-medium">Timings</span>
-                          <span className="text-gray-700 font-medium text-xs">{vacancy.timings}</span>
+                        <div className="flex justify-between items-start gap-2">
+                          <span className="text-gray-400 text-xs font-medium shrink-0">Timings</span>
+                          <span className="text-gray-700 font-medium text-right max-w-[58%] text-xs break-words line-clamp-2">
+                            {vacancy.timings}
+                          </span>
                         </div>
                         {vacancy.salary && (
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-400 text-xs font-medium">Salary</span>
-                            <span className="text-gray-700 font-medium text-xs">{vacancy.salary}</span>
+                          <div className="flex justify-between items-start gap-2">
+                            <span className="text-gray-400 text-xs font-medium shrink-0">Salary</span>
+                            <span className="text-gray-700 font-medium text-right max-w-[58%] text-xs break-words line-clamp-2">
+                              {vacancy.salary}
+                            </span>
                           </div>
                         )}
                         {deadline && (
@@ -240,6 +255,107 @@ const VacancyWeb = () => {
           </>
         )}
       </div>
+
+      {/* Description / details popup */}
+      <AnimatePresence>
+        {details && (
+          <motion.div
+            key="details-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
+          >
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={() => setDetails(null)}
+            />
+            <motion.div
+              key="details-modal"
+              initial={{ opacity: 0, y: 60, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 60, scale: 0.97 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 w-full sm:max-w-xl bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[90dvh] sm:max-h-[85vh]"
+            >
+              {/* Header */}
+              <div className="flex items-start justify-between px-6 pt-6 pb-4 border-b border-gray-100 shrink-0">
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-0.5">
+                    Job Details
+                  </p>
+                  <h2 className="text-xl font-bold text-gray-900 leading-snug break-words">
+                    {details.designation}
+                  </h2>
+                  <p className="text-sm text-gray-500 mt-0.5">
+                    {details.location} · {details.timings}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setDetails(null)}
+                  className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition shrink-0 ml-4"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Body */}
+              <div className="overflow-y-auto flex-1 px-6 py-5">
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {details.employmentType && (
+                    <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-full">
+                      {details.employmentType}
+                    </span>
+                  )}
+                  {details.experienceRequired && (
+                    <span className="text-[11px] font-semibold bg-violet-50 text-violet-700 border border-violet-200 px-2.5 py-0.5 rounded-full">
+                      {details.experienceRequired}
+                    </span>
+                  )}
+                  {details.salary && (
+                    <span className="text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                      {details.salary}
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line break-words">
+                  {details.description}
+                </p>
+
+                {formatDeadline(details.applicationEndDate) && (
+                  <p className="text-xs text-gray-400 mt-5">
+                    Application deadline:{" "}
+                    <span className="text-red-500 font-semibold">
+                      {formatDeadline(details.applicationEndDate)}
+                    </span>
+                  </p>
+                )}
+              </div>
+
+              {/* Footer */}
+              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/80 rounded-b-2xl shrink-0 flex items-center gap-3">
+                <button
+                  onClick={() => setDetails(null)}
+                  className="flex-1 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-semibold text-sm hover:bg-gray-100 transition"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    setSelected(details);
+                    setDetails(null);
+                  }}
+                  className="flex-1 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
+                >
+                  Apply Now
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {selected && (
         <VacancyApplyModal vacancy={selected} onClose={() => setSelected(null)} />
