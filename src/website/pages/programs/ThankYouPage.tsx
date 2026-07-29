@@ -76,8 +76,7 @@ export default function ThankYouPage() {
               transition={{ delay: 0.45 }}
               className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-md mx-auto"
             >
-              Your enquiry has been submitted successfully. Our admissions team
-              will reach out to you shortly to guide you through the next steps.
+              Your journey to evolve begins here. Our admissions team will connect with you shortly and guide you through the next steps towards your future.
             </motion.p>
 
             {/* Actions */}
@@ -115,7 +114,7 @@ export default function ThankYouPage() {
                 className="inline-flex items-center gap-1.5 hover:text-blue-600 transition"
               >
                 <Phone className="h-3.5 w-3.5" />
-                +977 1 5244070
+                +977 9801110200
               </a>
               <a
                 href="mailto:info@lbef.edu.np"
