@@ -1,6 +1,28 @@
 import { Clock } from "lucide-react";
+import useGetEnabledCourses from "../../../../pages/courses/hooks/useGetEnabledCourses";
+import { formatTimeRange } from "../../../../pages/class-timing/utils/format";
+import type { ClassTiming as ClassTimingModel } from "../../../../pages/class-timing/model/ClassTimingModel";
+
+/** "6:30 AM – 11:00 AM · Sunday – Friday", or whichever half exists */
+const describe = (timing: ClassTimingModel) =>
+  [formatTimeRange(timing), timing.days].filter(Boolean).join(" · ");
 
 const ClassTiming = () => {
+  const { data, isLoading, isError } = useGetEnabledCourses();
+
+  // One row per course, built from the timings assigned to it
+  const rows = (data?.data ?? [])
+    .map((course) => {
+      const timings = course.classTimings ?? [];
+      return {
+        id: course.id,
+        name: `${course.prefix ?? ""} ${course.title ?? ""}`.trim(),
+        lectures: timings.filter((timing) => timing.kind === "LECTURE"),
+        tutorials: timings.filter((timing) => timing.kind === "TUTORIAL"),
+      };
+    })
+    .filter((row) => row.lectures.length > 0 || row.tutorials.length > 0);
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
       <div className="flex items-center gap-3 mb-6">
@@ -24,39 +46,49 @@ const ClassTiming = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200">
-                B.Sc.(IT) Morning Session
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 border-r border-gray-200">
-                06:30 A.M – 11:00 A.M
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                11:00 A.M – 1:00 P.M
-              </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200">
-                B.Sc.(IT) Day Session
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 border-r border-gray-200">
-                10:00 A.M – 2:00 A.M
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                02:00 A.M – 04:00 P.M
-              </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200">
-                M.Sc.(ITM)
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 border-r border-gray-200">
-                06:30 A.M– 09:00 A.M (Sunday– Friday)
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                09:45 A.M – 11:30 A.M
-              </td>
-            </tr>
+            {isLoading && (
+              <tr>
+                <td colSpan={3} className="px-6 py-6 text-sm text-gray-500 text-center">
+                  Loading class timings...
+                </td>
+              </tr>
+            )}
+
+            {!isLoading && rows.length === 0 && (
+              <tr>
+                <td colSpan={3} className="px-6 py-6 text-sm text-gray-500 text-center">
+                  {isError
+                    ? "Class timings could not be loaded right now."
+                    : "Class timings will be published shortly."}
+                </td>
+              </tr>
+            )}
+
+            {rows.map((row) => (
+              <tr key={row.id}>
+                <td className="px-6 py-4 text-sm font-medium text-gray-900 border-r border-gray-200">
+                  {row.name}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-700 border-r border-gray-200">
+                  {row.lectures.length === 0
+                    ? "—"
+                    : row.lectures.map((timing) => (
+                        <span key={timing.id} className="block whitespace-nowrap">
+                          {describe(timing)}
+                        </span>
+                      ))}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-700">
+                  {row.tutorials.length === 0
+                    ? "—"
+                    : row.tutorials.map((timing) => (
+                        <span key={timing.id} className="block whitespace-nowrap">
+                          {describe(timing)}
+                        </span>
+                      ))}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

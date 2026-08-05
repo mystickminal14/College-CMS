@@ -4,29 +4,40 @@ import lbefLogo from '../../../assets/pcpslogo.webp';
 import { APP_URL, IMAGE_URL } from "../../../constants";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from '../../comp/animation';
-import type { ENotice, Notices } from '../../../pages/notices/model/NoticeModel';
+import type { Notices } from '../../../pages/notices/model/NoticeModel';
 import useGetNotices from "../../../pages/notices/hooks/useGetAll";
+import useGetNoticeTypeNameAll from "../../../pages/notice-type/hooks/useGetNoticeTypeName";
+import {
+  noticeTypeLabel,
+  noticeTypeWebBadgeClass,
+} from "../../../pages/notice-type/utils/badge";
 import Seo from "../../../context/seo";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 const PAGE_LIMIT = 10;
 
 const NoticeWeb = () => {
   const [page, setPage] = useState(1);
-  const [department, setDepartment] = useState<ENotice | "">("");
+  const [typeId, setTypeId] = useState<number | "">("");
   const [notices, setNotices] = useState<Notices[]>([]);
   const [hasMore, setHasMore] = useState(true);
 
   const { data, isLoading, isFetching: isQueryFetching } = useGetNotices({
-    department: department,
+    typeId,
     page,
     limit: PAGE_LIMIT,
   });
-  // Department options
-  const departmentOptions = [
-    { value: '', label: 'All Departments' },
-    { value: 'ADMINISTRATIVE', label: 'Administrative' },
-    { value: 'ACADEMIC', label: 'Academic' },
+
+  // Notice type options come from the NoticeType table, so new types added in
+  // the admin panel show up here without a code change
+  const { data: noticeTypesData } = useGetNoticeTypeNameAll();
+  const typeOptions = [
+    { value: '' as number | '', label: 'All Types' },
+    ...(noticeTypesData?.data ?? []).map((type) => ({
+      value: (type.id ?? '') as number | '',
+      label: type.name,
+    })),
   ];
+  const selectedTypeLabel = typeOptions.find(opt => opt.value === typeId)?.label;
   // Merge paginated data
   useEffect(() => {
     if (!data?.data) return;
@@ -46,9 +57,9 @@ const NoticeWeb = () => {
     }
     setHasMore(Boolean(data.pagination?.hasNextPage));
   }, [data, page]);
-  // Handle department filter change
-  const handleDepartmentChange = (value: ENotice) => {
-    setDepartment(value);
+  // Handle notice type filter change
+  const handleTypeChange = (value: number | "") => {
+    setTypeId(value);
     setPage(1);
     setNotices([]);
     setHasMore(true);
@@ -142,8 +153,8 @@ const NoticeWeb = () => {
         <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-50 rounded-full border border-gray-200">
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
           <p className="text-gray-600 text-sm font-medium">
-            {department
-              ? `All ${departmentOptions.find(opt => opt.value === department)?.label} notices loaded`
+            {typeId
+              ? `All ${selectedTypeLabel} notices loaded`
               : "All notices loaded"
             } ({notices.length} total)
           </p>
@@ -180,15 +191,15 @@ const NoticeWeb = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <Filter className="w-5 h-5 text-blue-600" />
-                <h3 className="text-lg font-semibold text-gray-800">Filter by Department</h3>
+                <h3 className="text-lg font-semibold text-gray-800">Filter by Notice Type</h3>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {departmentOptions.map((option) => (
+                {typeOptions.map((option) => (
                   <button
                     key={option.value}
-                    onClick={() => handleDepartmentChange(option.value as ENotice)}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${department === option.value
+                    onClick={() => handleTypeChange(option.value)}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${typeId === option.value
                       ? 'bg-blue-600 text-white shadow-md'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
@@ -199,12 +210,12 @@ const NoticeWeb = () => {
               </div>
             </div>
 
-            {department && (
+            {typeId && (
               <div className="mt-3 pt-3 border-t border-gray-100">
                 <p className="text-sm text-gray-600">
-                  Showing notices from:
+                  Showing notices of type:
                   <span className="font-semibold text-blue-600 ml-1">
-                    {departmentOptions.find(opt => opt.value === department)?.label}
+                    {selectedTypeLabel}
                   </span>
                 </p>
               </div>
@@ -221,7 +232,7 @@ const NoticeWeb = () => {
               <div className="text-center sm:text-left">
                 <p className="font-bold text-gray-800 text-sm sm:text-base">
                   Showing {notices.length} of {data?.pagination?.total || 0} Notices
-                  {department && ` (${departmentOptions.find(opt => opt.value === department)?.label})`}
+                  {typeId && ` (${selectedTypeLabel})`}
                 </p>
                 <p className="text-gray-600 text-xs sm:text-sm mt-1">
                   {hasMore ? `Click "Load More" to see additional notices` : "All notices loaded"}
@@ -241,11 +252,11 @@ const NoticeWeb = () => {
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-gray-700 mb-2">
                 No Notices Available
-                {department && ` for ${departmentOptions.find(opt => opt.value === department)?.label}`}
+                {typeId && ` for ${selectedTypeLabel}`}
               </h3>
               <p className="text-gray-500 max-w-md mx-auto text-xs sm:text-sm px-4">
-                {department
-                  ? "There are no notices for this department at the moment. Try selecting a different department."
+                {typeId
+                  ? "There are no notices of this type at the moment. Try selecting a different notice type."
                   : "There are no notices at the moment. Please check back later for updates."
                 }
               </p>
@@ -282,12 +293,11 @@ const NoticeWeb = () => {
                           <div className="flex flex-col h-full">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
                               <span
-                                className={`px-3 py-1 rounded-full text-xs font-bold ${notice.type === 'ACADEMIC'
-                                  ? 'bg-linear-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
-                                  : 'bg-linear-to-r from-purple-100 to-purple-50 text-purple-800 border border-purple-200'
-                                  }`}
+                                className={`px-3 py-1 rounded-full text-xs font-bold ${noticeTypeWebBadgeClass(
+                                  notice.type
+                                )}`}
                               >
-                                {notice.type}
+                                {noticeTypeLabel(notice.type)}
                               </span>
                               {notice.file && (
                                 <div className="flex items-center gap-1 text-blue-600 text-xs sm:text-sm">

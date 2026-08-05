@@ -1,3 +1,5 @@
+import type { ClassTiming } from "../../class-timing/model/ClassTimingModel";
+
 export interface Courses {
   id?: number;
   shiftId: number | null;
@@ -19,6 +21,8 @@ export interface Courses {
   image?: string;
   status?: EStatus;
   hasDetails?:boolean;
+  classTimings?: ClassTiming[];
+  classTimingIds?: number[];
 }
 export interface Shift {
   id: number;
@@ -27,4 +31,6 @@ export interface Shift {
   status?: EStatus;
 }
 export type EStatus = "ENABLED" | "DISABLED";
+
+export type { ClassTiming };
 

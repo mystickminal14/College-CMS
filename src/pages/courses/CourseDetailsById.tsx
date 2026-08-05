@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import type { Courses } from "./model/CourseModel";
 import CourseNewHeader from "./components/CourseNewHeader";
 import { BlockType, type CourseDetailBlock } from "./model/CourseDetailModel";
+import { courseShiftName } from "./utils/courseTiming";
+import CourseTimingCards from "./components/CourseTimingCards";
 import { IMAGE_URL } from "../../constants";
 import {
   Clock,
   CalendarDays,
+  CalendarClock,
   Languages,
   BookOpen,
   GraduationCap,
@@ -74,6 +77,9 @@ const CourseSkeleton = () => (
 
 /* ------------------ INNER COMPONENT (course guaranteed non-undefined) ------------------ */
 const CourseDetailsInner = ({ course }: { course: Courses }) => {
+  const shiftName = courseShiftName(course);
+  const classTimings = course.classTimings ?? [];
+
   const [activeCategory, setActiveCategory] = useState("COURSE_STRUCTURE");
   const contentRef = useRef<HTMLDivElement | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -263,6 +269,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                       { icon: CalendarDays, label: "Duration", value: `${course.duration} years (${course.semester} semester)` },
                       { icon: Languages, label: "Language", value: "English" },
                       { icon: BookOpen, label: "Credits", value: `${course.credit} Credit Hours` },
+                      ...(shiftName ? [{ icon: CalendarClock, label: "Shift", value: shiftName }] : []),
                     ].map((item, i) => (
                       <motion.div key={i} variants={fadeItem} className="flex items-center gap-2">
                         <item.icon className="w-4 h-4 text-blue-600" />
@@ -282,105 +289,18 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                     </motion.div>
                   </div>
 
-                  {/* CLASS TIMING - DYNAMIC BASED ON DEGREE LEVEL */}
-                  <motion.div variants={fadeItem} className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                    {/* Check if it's Bachelor's degree */}
-                    {course.degree === 'Bachelor' ? (
-                      <>
-                        {/* Morning Session */}
-                        <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-blue-100 p-2 rounded-md">
-                              <Clock className="w-4 h-4 text-blue-600" />
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-800">Morning Session</p>
-                              <p className="text-xs font-medium text-blue-700">6:30 AM – 11:00 AM</p>
-                              <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                            </div>
-                          </div>
-                        </div>
+                  {/* CLASS TIMING + TUTORIALS — driven by the ClassTiming records assigned to this course */}
+                  <CourseTimingCards
+                    timings={classTimings}
+                    variant="LECTURE"
+                    itemVariants={fadeItem}
+                  />
 
-                        {/* Day Session */}
-                        <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-emerald-100 p-2 rounded-md">
-                              <Clock className="w-4 h-4 text-emerald-600" />
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-800">Day Session</p>
-                              <p className="text-xs font-medium text-emerald-700">10:00 AM – 2:00 PM</p>
-                              <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      /* Master's degree - Single timing */
-                      <div className="col-span-full bg-blue-50 border border-blue-100 rounded-lg p-3">
-                        <div className="flex items-center gap-3">
-                          <div className="bg-blue-100 p-2 rounded-md">
-                            <Clock className="w-4 h-4 text-blue-600" />
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold text-gray-800">Class Timing</p>
-                            <p className="text-xs font-medium text-blue-700">6:30 AM – 9:00 AM</p>
-                            <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
-
-                  {/* TUTORIALS SECTION - DYNAMIC BASED ON DEGREE LEVEL */}
-                  <motion.div variants={fadeItem} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {/* Check if it's Bachelor's degree */}
-                    {course.prefix?.toLowerCase().includes('b.sc') || course.prefix?.toLowerCase().includes('bachelor') ? (
-                      <>
-                        {/* Morning Tutorial */}
-                        <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-emerald-100 p-2 rounded-md">
-                              <BookOpen className="w-4 h-4 text-emerald-600" />
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-800">Morning Tutorials</p>
-                              <p className="text-xs font-medium text-emerald-700">11:00 AM – 1:00 PM</p>
-                              <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Day Tutorial */}
-                        <div className="bg-purple-50 border border-purple-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-purple-100 p-2 rounded-md">
-                              <BookOpen className="w-4 h-4 text-purple-600" />
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-800">Day Tutorials</p>
-                              <p className="text-xs font-medium text-purple-700">2:00 PM – 4:00 PM</p>
-                              <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      /* Master's degree - Single tutorial timing */
-                      <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">
-                        <div className="flex items-center gap-3">
-                          <div className="bg-emerald-100 p-2 rounded-md">
-                            <BookOpen className="w-4 h-4 text-emerald-600" />
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold text-gray-800">Tutorials</p>
-                            <p className="text-xs font-medium text-emerald-700">9:45 AM – 11:30 AM</p>
-                            <p className="text-[11px] text-gray-600">Sunday – Friday</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
+                  <CourseTimingCards
+                    timings={classTimings}
+                    variant="TUTORIAL"
+                    itemVariants={fadeItem}
+                  />
 
                   {/* SCHOLARSHIP */}
                   <motion.div

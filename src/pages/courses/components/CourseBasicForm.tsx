@@ -11,6 +11,8 @@ import InputField from "../../../utils/InputField";
 import { FaMoneyBill } from "react-icons/fa";
 import useGetCourseCategoryNameAll from "../../course-category/hooks/useGetCatName";
 import useGetShiftNameAll from "../../shift/hooks/useGetShiftName";
+import useGetClassTimingNameAll from "../../class-timing/hooks/useGetClassTimingName";
+import { formatTimeRange } from "../../class-timing/utils/format";
 
 interface CoursesBasicFormProps {
   formData: {
@@ -24,8 +26,9 @@ interface CoursesBasicFormProps {
     details: string;fullForm:string,
     semester: string;
     shiftId: number | null;
+    classTimingIds: number[];
   };
-onChange: (field: string, value: string | number | null) => void;  isSubmitting?: boolean;
+onChange: (field: string, value: string | number | null | number[]) => void;  isSubmitting?: boolean;
 }
 
 const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
@@ -37,6 +40,17 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
 const categories = categoryData?.data ?? [];
   const { data: shiftData, isLoading: shiftLoading } = useGetShiftNameAll();
   const shifts = shiftData?.data ?? [];
+  const { data: classTimingData, isLoading: classTimingLoading } =
+    useGetClassTimingNameAll();
+  const classTimings = classTimingData?.data ?? [];
+
+  const toggleClassTiming = (id: number) => {
+    const current = formData.classTimingIds ?? [];
+    onChange(
+      "classTimingIds",
+      current.includes(id) ? current.filter((v) => v !== id) : [...current, id]
+    );
+  };
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -181,6 +195,61 @@ const categories = categoryData?.data ?? [];
           </select>
         </div>
      </div>
+
+      {/* Class timings — drives the timing cards on the course detail page */}
+      <div className="border-t border-gray-300 pt-4">
+        <label className="mb-2 font-medium text-sm flex items-center gap-2 text-gray-700">
+          <Clock className="w-4 h-4" />
+          Class Timings
+        </label>
+
+        {classTimingLoading ? (
+          <p className="text-sm text-gray-500">Loading class timings...</p>
+        ) : classTimings.length === 0 ? (
+          <p className="text-sm text-gray-500">
+            No class timings yet — add them under Courses → Class Timing.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {classTimings.map((timing) => {
+              const checked = (formData.classTimingIds ?? []).includes(
+                Number(timing.id)
+              );
+              const range = formatTimeRange(timing);
+
+              return (
+                <label
+                  key={timing.id}
+                  className={`flex items-start gap-3 border rounded-lg px-3 py-2 cursor-pointer transition ${
+                    checked
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-300 hover:border-blue-300"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    className="mt-1"
+                    checked={checked}
+                    disabled={isSubmitting}
+                    onChange={() => toggleClassTiming(Number(timing.id))}
+                  />
+                  <span>
+                    <span className="block text-sm font-medium text-gray-800">
+                      {timing.name}
+                      <span className="ml-2 text-[11px] uppercase text-gray-500">
+                        {timing.kind === "LECTURE" ? "Lecture" : "Tutorial"}
+                      </span>
+                    </span>
+                    <span className="block text-xs text-gray-600">
+                      {[range, timing.days].filter(Boolean).join(" · ")}
+                    </span>
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      </div>
       <div className="border-t border-gray-300 pt-4 flex flex-col md:flex-row gap-6">
  <InputField
   icon={<Calendar className="w-5 h-5" />}

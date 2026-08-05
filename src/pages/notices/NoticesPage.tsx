@@ -15,23 +15,29 @@ import AddEditNoticesWizardModal from "./components/Wizard";
 import DeleteNoticesModal from "./components/DeleteModel";
 import { NoticeColumns } from "./utils/columns";
 
-import type { ENotice, Notices } from "./model/NoticeModel";
+import type { Notices } from "./model/NoticeModel";
 import { PAGE_LIMIT } from "../../constants";
+import NoticeTypeComp from "../notice-type/NoticeTypeComp";
+import useGetNoticeTypeNameAll from "../notice-type/hooks/useGetNoticeTypeName";
+import { noticeTypeLabel, noticeTypeSolidClass } from "../notice-type/utils/badge";
 
 const NoticesPage = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(PAGE_LIMIT);
-  const [selectedENotice, setSelectedENotice] = useState<ENotice | "">("");
+  const [selectedTypeId, setSelectedTypeId] = useState<number | "">("");
   const [noticeToEdit, setNoticeToEdit] = useState<Notices | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  const [viewMode, setViewMode] = useState<"table" | "card" | "type">("table");
 
   const { data, isLoading, isError } = useGetNotices({
-    department: selectedENotice,
+    typeId: selectedTypeId,
     page,
     limit,
   });
+
+  const { data: noticeTypesData } = useGetNoticeTypeNameAll();
+  const noticeTypes = noticeTypesData?.data ?? [];
 
   const handleLimitChange = (newLimit: number) => {
     setLimit(newLimit);
@@ -47,8 +53,6 @@ const NoticesPage = () => {
   const totalPages = data?.pagination?.totalPages ?? 1;
   const hasNextPage = data?.pagination?.hasNextPage ?? false;
   const total = data?.pagination?.total ?? 0;
-
-  const ENotices: ENotice[] = ["ADMINISTRATIVE", "ACADEMIC"];
 
   const handleAdd = () => {
     setNoticeToEdit(null);
@@ -107,21 +111,34 @@ const NoticesPage = () => {
             <FaThLarge className="w-4 h-4" />
             <span>Cards</span>
           </button>
+          <button
+            onClick={() => setViewMode("type")}
+            className={`px-4 py-2 flex items-center space-x-1 rounded transition-colors ${
+              viewMode === "type"
+                ? "bg-[#1a7cd3] text-white"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+          >
+            <FaTable className="w-4 h-4" />
+            <span>Notice Types</span>
+          </button>
         </div>
 
+        {viewMode !== "type" && (
         <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
           <select
             className="w-full md:w-auto px-4 py-3 pr-10 text-gray-900 text-sm bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 hover:border-gray-400 transition duration-150"
-            value={selectedENotice}
+            value={selectedTypeId}
             onChange={(e) => {
-              setSelectedENotice(e.target.value as ENotice | "");
+              const val = e.target.value;
+              setSelectedTypeId(val ? Number(val) : "");
               setPage(1);
             }}
           >
             <option value="">All Types</option>
-            {ENotices.map((type) => (
-              <option key={type} value={type}>
-                {type.charAt(0) + type.slice(1).toLowerCase()}
+            {noticeTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.name}
               </option>
             ))}
           </select>
@@ -141,9 +158,14 @@ const NoticesPage = () => {
             <span>Add Notice</span>
           </button>
         </div>
+        )}
       </div>
 
+      {/* Notice type management view */}
+      {viewMode === "type" && <NoticeTypeComp />}
+
       {/* Content */}
+      {viewMode !== "type" && (
       <div>
         {viewMode === "table" ? (
           <EnhancedTable
@@ -162,27 +184,30 @@ const NoticesPage = () => {
                   <h3 className="font-bold text-lg">{notice.program_name}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-300">{notice.date}</p>
                 </div>
-                <span className={`mt-3 inline-block px-3 py-1 rounded-full text-white font-medium text-sm ${
-                  notice.type === "ACADEMIC" ? "bg-blue-500" : "bg-red-500"
-                }`}>
-                  {notice.type}
+                <span className={`mt-3 inline-block px-3 py-1 rounded-full text-white font-medium text-sm ${noticeTypeSolidClass(
+                  notice.type
+                )}`}>
+                  {noticeTypeLabel(notice.type)}
                 </span>
               </div>
             ))}
           </div>
         )}
       </div>
+      )}
 
       {/* Pagination */}
-      <Pagination
-        page={page}
-        hasNextPage={hasNextPage}
-        totalPages={totalPages}
-        onPageChange={setPage}
-        limit={limit}
-        onLimitChange={handleLimitChange}
-        total={total}
-      />
+      {viewMode !== "type" && (
+        <Pagination
+          page={page}
+          hasNextPage={hasNextPage}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          limit={limit}
+          onLimitChange={handleLimitChange}
+          total={total}
+        />
+      )}
 
       {/* Modals */}
       <DeleteNoticesModal

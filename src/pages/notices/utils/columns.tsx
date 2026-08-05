@@ -1,5 +1,9 @@
 import { IMAGE_URL } from "../../../constants";
-import type { Notices, ENotice } from "../model/NoticeModel";
+import type { Notices } from "../model/NoticeModel";
+import {
+  noticeTypeBadgeClass,
+  noticeTypeLabel,
+} from "../../notice-type/utils/badge";
 
 export const NoticeColumns = [
   { label: "Program Name", accessor: "program_name" },
@@ -31,18 +35,14 @@ export const NoticeColumns = [
   {
     label: "Notice Type",
     accessor: "type",
-    render: (row: Notices) => {
-      const type: ENotice = row.type;
-      const color =
-        type === "ACADEMIC" ? "bg-blue-100 text-blue-800" : "bg-red-100 text-red-800";
-
-      return (
-        <span
-          className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${color}`}
-        >
-          {type}
-        </span>
-      );
-    },
+    render: (row: Notices) => (
+      <span
+        className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${noticeTypeBadgeClass(
+          row.type
+        )}`}
+      >
+        {noticeTypeLabel(row.type)}
+      </span>
+    ),
   },
 ];

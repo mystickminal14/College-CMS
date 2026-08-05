@@ -51,6 +51,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     semester: string;
     details: string;
     shiftId: number | null;
+    classTimingIds: number[];
   }>({
     title: "",
     categoryId: null,
@@ -66,6 +67,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     semester: "",
     details: "",
     shiftId: null,
+    classTimingIds: [],
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -90,6 +92,8 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
         duration: courseToEdit.duration ?? "",
         semester: String(courseToEdit.semester ?? ""),
         shiftId: courseToEdit.shiftId ?? courseToEdit.shift?.id ?? null,
+        classTimingIds:
+          courseToEdit.classTimings?.map((timing) => Number(timing.id)) ?? [],
       });
 
       setCourseId(courseToEdit.id ?? null);
@@ -116,6 +120,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
       semester: "",
       details: "",
       shiftId: null,
+      classTimingIds: [],
     });
     setImageFile(null);
     setImagePreview(null);
@@ -123,7 +128,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     setStep(1);
   };
 
-  const handleChange = (field: string, value: string | number | null) =>
+  const handleChange = (field: string, value: string | number | null | number[]) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   const handleImageChange = (file: File) => {

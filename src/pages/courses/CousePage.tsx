@@ -30,6 +30,7 @@ import useGetCourseCategoryNameAll from "../course-category/hooks/useGetCatName"
 import useToggleCourseStatus from "./hooks/useToggleStatus";
 import ToggleStatusModal from "./components/ToggleStatus";
 import ShiftComp from "../shift/ShiftComp";
+import ClassTimingComp from "../class-timing/ClassTimingComp";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -38,7 +39,7 @@ const CoursePage = () => {
   const [courseToEdit, setCourseToEdit] = useState<Courses | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [viewMode, setViewMode] = useState<"table" | "card" | "category" | "shift">("table");
+  const [viewMode, setViewMode] = useState<"table" | "card" | "category" | "shift" | "timing">("table");
 
   // ── Copy ──────────────────────────────────────────────────────────────────
   const copyMutation = useCopyCourse();
@@ -204,7 +205,7 @@ const confirmToggle = () => {
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
         {/* View toggle buttons */}
         <div className="flex gap-2">
-          {(["category", "shift", "table", "card"] as const).map((mode) => (
+          {(["category", "shift", "timing", "table", "card"] as const).map((mode) => (
             <button
               key={mode}
               onClick={() => setViewMode(mode)}
@@ -219,13 +220,13 @@ const confirmToggle = () => {
               ) : (
                 <FaTable className="w-4 h-4" />
               )}
-              <span>{mode.charAt(0).toUpperCase() + mode.slice(1)}</span>
+              <span>{mode === "timing" ? "Class Timing" : mode.charAt(0).toUpperCase() + mode.slice(1)}</span>
             </button>
           ))}
         </div>
 
         {/* Search / filter / add — hidden in category and shift views */}
-        {viewMode !== "category" && viewMode !== "shift" && (
+        {viewMode !== "category" && viewMode !== "shift" && viewMode !== "timing" && (
           <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
             <SearchBox placeholder="Search Courses..." onSearch={handleSearch} />
             <select
@@ -262,8 +263,11 @@ const confirmToggle = () => {
       {/* Shift view */}
       {viewMode === "shift" && <ShiftComp />}
 
+      {/* Class timing view */}
+      {viewMode === "timing" && <ClassTimingComp />}
+
       {/* Table / Card view */}
-      {viewMode !== "category" && viewMode !== "shift" && (
+      {viewMode !== "category" && viewMode !== "shift" && viewMode !== "timing" && (
         <div>
           {viewMode === "table" ? (
             <EnhancedTable

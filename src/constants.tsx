@@ -1,9 +1,9 @@
 export const PCPS_BASE_URL = 'https://edusysapi.lbef.info';
-export const BASE_URL = 'https://lbef-server.lbef.org/api';
-export const IMAGE_URL = 'https://lbef-server.lbef.org';
+// export const BASE_URL = 'https://lbef-server.lbef.org/api';
+// export const IMAGE_URL = 'https://lbef-server.lbef.org';
 
-// export const BASE_URL = 'http://localhost:8000/api';
-// export const IMAGE_URL = 'http://localhost:8000';
+export const BASE_URL = 'http://localhost:8000/api';
+export const IMAGE_URL = 'http://localhost:8000';
 export const APP_URL = 'https://www.lbef.org';
 
 export const PAGE_LIMIT = 10;
@@ -14,6 +14,8 @@ export const FAQ_CACHE_KEY = 'faq';
 export const COURSE_CAT_CACHE_KEY = 'course-category';
 export const SHIFT_CACHE_KEY = 'shift';
 export const SHIFT_NAME_CACHE_KEY = 'shift_name';
+export const CLASS_TIMING_CACHE_KEY = 'class_timing';
+export const CLASS_TIMING_NAME_CACHE_KEY = 'class_timing_name';
 export const HERO_SECTION_CACHE_KEY = 'hero-image';
 export const BLOG_CACHE_KEY = "blogs";
 export const USER_CACHE_KEY = 'users';
@@ -61,6 +63,8 @@ export const COURSE_NAME_CACHE_KEY = 'courses';
 export const TEAM_CACHE_KEY = 'team';
 export const DEPT_TEAM_CACHE_KEY = 'team';
 export const NOTICE_CACHE_KEY = 'notice';
+export const NOTICE_TYPE_CACHE_KEY = 'notice_type';
+export const NOTICE_TYPE_NAME_CACHE_KEY = 'notice_type_name';
 export const NEWS_CACHE_KEY = 'news';
 export const VACANCY_CACHE_KEY = 'vacancy';
 export const APPLICANT_CACHE_KEY = 'applicant';

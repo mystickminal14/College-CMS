@@ -5,7 +5,7 @@ import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import NoticesBasicInfoForm from "./BasicForm";
 import NoticePdfUploadForm from "./ImageUpload";
 import { AppContext } from "../../../context/ContextApp";
-import type { ENotice, Notices } from "../model/NoticeModel";
+import type { Notices } from "../model/NoticeModel";
 
 interface AddEditNoticesWizardModalProps {
   isOpen: boolean;
@@ -30,11 +30,11 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
   const isEditMode = !!NoticesToEdit;
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [formData, setFormData] = useState<{ title: string; program_name: string; date: string; type: ENotice }>({
+  const [formData, setFormData] = useState<{ title: string; program_name: string; date: string; typeId: number | "" }>({
     title: "",
     program_name: "",
     date: "",
-    type: "ADMINISTRATIVE",
+    typeId: "",
   });
   const [noticeId, setNoticeId] = useState<number | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -47,7 +47,7 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
           title: NoticesToEdit.title || NoticesToEdit.program_name || "",
           program_name: NoticesToEdit.program_name || "",
           date: NoticesToEdit.date || "",
-          type: NoticesToEdit.type,
+          typeId: NoticesToEdit.typeId ?? NoticesToEdit.type?.id ?? "",
         });
         setNoticeId(NoticesToEdit.id || null);
 
@@ -68,7 +68,7 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
   }, [isOpen, NoticesToEdit]);
 
   const resetForm = () => {
-    setFormData({ title: "", program_name: "", date: "", type: "ADMINISTRATIVE" });
+    setFormData({ title: "", program_name: "", date: "", typeId: "" });
     setNoticeId(null);
     setPdfFile(null);
     setExistingPdfFileName(null);
@@ -76,14 +76,17 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
   };
 
   const handleFormChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [field]: field === "typeId" ? (value ? Number(value) : "") : value,
+    }));
   };
 
   const validateStep1 = () => {
     if (!formData.title.trim()) return appContext?.showToast("Title is required", "warn");
     if (!formData.program_name.trim()) return appContext?.showToast("Program name is required", "warn");
     if (!formData.date.trim()) return appContext?.showToast("Date is required", "warn");
-    if (!formData.type) return appContext?.showToast("Type is required", "warn");
+    if (!formData.typeId) return appContext?.showToast("Notice type is required", "warn");
     return true;
   };
 
@@ -96,7 +99,7 @@ const AddEditNoticesWizardModal: React.FC<AddEditNoticesWizardModalProps> = ({
       title: formData.title,
       program_name: formData.program_name,
       date: formData.date,
-      type: formData.type,
+      typeId: Number(formData.typeId),
     };
 
     if (isEditMode && editMutation && noticeId) {
