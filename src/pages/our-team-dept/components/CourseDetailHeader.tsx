@@ -102,10 +102,7 @@ const CourseHeader = ({ course }: CourseHeaderProps) => {
                 {
                   icon: Clock,
                   title: "Shift",
-                  value:
-                    course.shift === "BOTH"
-                      ? "Morning/Evening"
-                      : course.shift.toLowerCase(),
+                  value: course.shift?.name ?? "—",
                 },
                 {
                   icon: Calendar,

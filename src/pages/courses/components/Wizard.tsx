@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { X, BookOpen, Loader2 } from "lucide-react";
 import type { UseMutationResult } from "@tanstack/react-query";
-import type { Courses, EShift } from "../model/CourseModel";
+import type { Courses } from "../model/CourseModel";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 
 import { AppContext } from "../../../context/ContextApp";
@@ -50,7 +50,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     fullForm: string;
     semester: string;
     details: string;
-    shift: EShift;
+    shiftId: number | null;
   }>({
     title: "",
     categoryId: null,
@@ -65,7 +65,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     fullForm: "",
     semester: "",
     details: "",
-    shift: "" as EShift,
+    shiftId: null,
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -89,7 +89,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
         credit: String(courseToEdit.credit ?? ""),
         duration: courseToEdit.duration ?? "",
         semester: String(courseToEdit.semester ?? ""),
-        shift: courseToEdit.shift ?? "MORNING",
+        shiftId: courseToEdit.shiftId ?? courseToEdit.shift?.id ?? null,
       });
 
       setCourseId(courseToEdit.id ?? null);
@@ -115,7 +115,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
       duration: "",
       semester: "",
       details: "",
-      shift: "" as EShift,
+      shiftId: null,
     });
     setImageFile(null);
     setImagePreview(null);
@@ -167,7 +167,7 @@ const AddEditCoursesWizardModal: React.FC<AddEditCoursesWizardModalProps> = ({
     if (!formData.credit.trim()) return appContext?.showToast("Credit is required", "warn");
     if (!formData.duration.trim()) return appContext?.showToast("Duration is required", "warn");
     if (!formData.semester.trim()) return appContext?.showToast("Semester is required", "warn");
-    if (!formData.shift) return appContext?.showToast("Shift is required", "warn");
+    if (!formData.shiftId) return appContext?.showToast("Shift is required", "warn");
     if (!formData.intake.trim()) return appContext?.showToast("Intake Date is required", "warn");
 
     return true;

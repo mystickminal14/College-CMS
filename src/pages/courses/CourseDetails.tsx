@@ -64,6 +64,9 @@ const fadeItem: Variants = {
 const CourseDetailsInner = ({ course }: { course: Courses }) => {
   const id = course?.id ?? "1";
 
+  // Weekend MBA runs Friday/Saturday, so it skips the weekday tutorial timings
+  const isWeekendMba = course.slug === "mba" || course.slug === "mba-htm";
+
   const [activeCategory, setActiveCategory] = useState("COURSE_STRUCTURE");
   const contentRef = useRef<HTMLDivElement | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -367,8 +370,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
       )}
 
       {/* MBA Weekend */}
-      {(course.slug === "mba" ||
-        course.slug === "mba-htm") && (
+      {isWeekendMba && (
         <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">
           <div className="flex items-start gap-3">
             <div className="bg-emerald-100 p-2 rounded-md">
@@ -381,11 +383,15 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
               </p>
 
               <p className="text-xs font-medium text-emerald-700">
-                Friday: 4:30 PM – 8:30 PM
+                Friday: 5:30 PM – 8:30 PM
               </p>
 
               <p className="text-xs font-medium text-emerald-700">
-                Saturday: 8:00 AM – 4:00 PM
+                Saturday: 8:00 AM – 2:00 PM
+              </p>
+
+              <p className="text-xs font-medium text-emerald-700">
+                Tutorials
               </p>
             </div>
           </div>
@@ -427,6 +433,9 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                           </div>
                         </div>
                       </>
+                    ) : isWeekendMba ? (
+                      /* Weekend MBA lists its tutorials in the routine card above, untimed */
+                      null
                     ) : (
                       /* Master's degree - Single tutorial timing */
                       <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">

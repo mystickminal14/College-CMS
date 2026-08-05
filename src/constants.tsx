@@ -12,6 +12,8 @@ export const LOGIN_CACHE_KEY = 'login';
 export const FAQ_CACHE_KEY = 'faq';
 
 export const COURSE_CAT_CACHE_KEY = 'course-category';
+export const SHIFT_CACHE_KEY = 'shift';
+export const SHIFT_NAME_CACHE_KEY = 'shift_name';
 export const HERO_SECTION_CACHE_KEY = 'hero-image';
 export const BLOG_CACHE_KEY = "blogs";
 export const USER_CACHE_KEY = 'users';

@@ -17,7 +17,7 @@ export interface Course {
   intake: string;
   image: string;
   semester: string;
-  shift: string;
+  shift: { id: number; name: string; slug?: string | null } | null;
   blocks?: CourseBlock[];
 }
 

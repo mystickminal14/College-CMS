@@ -1,6 +1,7 @@
 export interface Courses {
   id?: number;
-  shift: EShift;
+  shiftId: number | null;
+  shift?: Shift | null;
   title: string;
   credit: string;
   duration: string;
@@ -19,6 +20,11 @@ export interface Courses {
   status?: EStatus;
   hasDetails?:boolean;
 }
-export type EShift = "MORNING" | "BOTH" | "EVENING";
+export interface Shift {
+  id: number;
+  name: string;
+  slug?: string | null;
+  status?: EStatus;
+}
 export type EStatus = "ENABLED" | "DISABLED";
 

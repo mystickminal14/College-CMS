@@ -29,6 +29,7 @@ import CourseCategoryComp from "../course-category/CourseCategoryComp";
 import useGetCourseCategoryNameAll from "../course-category/hooks/useGetCatName";
 import useToggleCourseStatus from "./hooks/useToggleStatus";
 import ToggleStatusModal from "./components/ToggleStatus";
+import ShiftComp from "../shift/ShiftComp";
 
 const CoursePage = () => {
   const [page, setPage] = useState(1);
@@ -37,7 +38,7 @@ const CoursePage = () => {
   const [courseToEdit, setCourseToEdit] = useState<Courses | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [viewMode, setViewMode] = useState<"table" | "card" | "category">("table");
+  const [viewMode, setViewMode] = useState<"table" | "card" | "category" | "shift">("table");
 
   // ── Copy ──────────────────────────────────────────────────────────────────
   const copyMutation = useCopyCourse();
@@ -203,7 +204,7 @@ const confirmToggle = () => {
       <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between my-4">
         {/* View toggle buttons */}
         <div className="flex gap-2">
-          {(["category", "table", "card"] as const).map((mode) => (
+          {(["category", "shift", "table", "card"] as const).map((mode) => (
             <button
               key={mode}
               onClick={() => setViewMode(mode)}
@@ -223,8 +224,8 @@ const confirmToggle = () => {
           ))}
         </div>
 
-        {/* Search / filter / add — hidden in category view */}
-        {viewMode !== "category" && (
+        {/* Search / filter / add — hidden in category and shift views */}
+        {viewMode !== "category" && viewMode !== "shift" && (
           <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
             <SearchBox placeholder="Search Courses..." onSearch={handleSearch} />
             <select
@@ -258,8 +259,11 @@ const confirmToggle = () => {
       {/* Category view */}
       {viewMode === "category" && <CourseCategoryComp />}
 
+      {/* Shift view */}
+      {viewMode === "shift" && <ShiftComp />}
+
       {/* Table / Card view */}
-      {viewMode !== "category" && (
+      {viewMode !== "category" && viewMode !== "shift" && (
         <div>
           {viewMode === "table" ? (
             <EnhancedTable

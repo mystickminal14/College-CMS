@@ -97,10 +97,7 @@ function CourseCard({
   const careerItems = extractItems(course.blocks?.find(b => b.category === "CAREER_OPTIONS"));
   const eligItems = extractItems(course.blocks?.find(b => b.category === "ELIGIBLITY_CRITERIA"));
 
-  const shiftLabel =
-    course.shift === "BOTH" ? "Morning & Evening"
-      : course.shift === "MORNING" ? "Morning"
-        : "Evening";
+  const shiftLabel = course.shift?.name;
 
   return (
     <motion.div
@@ -115,9 +112,11 @@ function CourseCard({
           <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-100 px-2.5 py-0.5 rounded-full">
             {course.degree}
           </span>
-          <span className="text-[11px] font-semibold bg-gray-50 text-gray-500 border border-gray-200 px-2.5 py-0.5 rounded-full">
-            {shiftLabel}
-          </span>
+          {shiftLabel && (
+            <span className="text-[11px] font-semibold bg-gray-50 text-gray-500 border border-gray-200 px-2.5 py-0.5 rounded-full">
+              {shiftLabel}
+            </span>
+          )}
         </div>
 
         <h3 className="text-base font-bold text-gray-900 leading-snug mb-0.5">

@@ -8,9 +8,9 @@ import {
   SunMoon,
 } from "lucide-react";
 import InputField from "../../../utils/InputField";
-import type { EShift } from "../model/CourseModel";
 import { FaMoneyBill } from "react-icons/fa";
 import useGetCourseCategoryNameAll from "../../course-category/hooks/useGetCatName";
+import useGetShiftNameAll from "../../shift/hooks/useGetShiftName";
 
 interface CoursesBasicFormProps {
   formData: {
@@ -23,12 +23,10 @@ interface CoursesBasicFormProps {
       categoryId: number | null;feeStructure:string;
     details: string;fullForm:string,
     semester: string;
-    shift: EShift;
+    shiftId: number | null;
   };
 onChange: (field: string, value: string | number | null) => void;  isSubmitting?: boolean;
 }
-
-const Shifts: EShift[] = ["MORNING", "BOTH", "EVENING"];
 
 const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
   formData,
@@ -37,6 +35,8 @@ const CoursesBasicForm: React.FC<CoursesBasicFormProps> = ({
 }) => {
   const { data: categoryData, isLoading: categoryLoading } = useGetCourseCategoryNameAll();
 const categories = categoryData?.data ?? [];
+  const { data: shiftData, isLoading: shiftLoading } = useGetShiftNameAll();
+  const shifts = shiftData?.data ?? [];
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -166,14 +166,16 @@ const categories = categoryData?.data ?? [];
 
           <select
             className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
-            value={formData.shift}
-            onChange={(e) => onChange("shift", e.target.value)}
-            disabled={isSubmitting}
+            value={formData.shiftId ?? ""}
+            onChange={(e) =>
+              onChange("shiftId", e.target.value ? Number(e.target.value) : null)
+            }
+            disabled={isSubmitting || shiftLoading}
           >
             <option value="">Select Shift</option>
-            {Shifts.map((shift) => (
-              <option key={shift} value={shift}>
-                {shift.charAt(0) + shift.slice(1).toLowerCase()}
+            {shifts.map((shift) => (
+              <option key={shift.id} value={shift.id}>
+                {shift.name}
               </option>
             ))}
           </select>
