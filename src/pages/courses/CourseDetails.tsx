@@ -65,7 +65,9 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
   const id = course?.id ?? "1";
 
   // Weekend MBA runs Friday/Saturday, so it skips the weekday tutorial timings
-  const isWeekendMba = course.slug === "mba" || course.slug === "mba-htm";
+  const isWeekendMba = ["mba", "mba-htm", "mba-ai", "mba-dl"].includes(
+    course.slug ?? ""
+  );
 
   const [activeCategory, setActiveCategory] = useState("COURSE_STRUCTURE");
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -327,48 +329,6 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
     </>
   ) : (
     <>
-      {/* MBA AI */}
-      {course.slug === "mba-ai" && (
-        <div className="col-span-full bg-blue-50 border border-blue-100 rounded-lg p-3">
-          <div className="flex items-start gap-3">
-            <div className="bg-blue-100 p-2 rounded-md">
-              <Clock className="w-4 h-4 text-blue-600" />
-            </div>
-
-            <div>
-              <p className="text-xs font-semibold text-gray-800">
-                MBA (AI)
-              </p>
-
-              <p className="text-xs font-medium text-blue-700">
-                Sunday to Friday - 6:30 AM to 8:30 AM
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* MBA DL */}
-      {course.slug === "mba-dl" && (
-        <div className="col-span-full bg-blue-50 border border-blue-100 rounded-lg p-3">
-          <div className="flex items-start gap-3">
-            <div className="bg-blue-100 p-2 rounded-md">
-              <Clock className="w-4 h-4 text-blue-600" />
-            </div>
-
-            <div>
-              <p className="text-xs font-semibold text-gray-800">
-                MBA (DL)
-              </p>
-
-              <p className="text-xs font-medium text-blue-700">
-                Sunday to Friday - 6:30 AM to 8:30 AM
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* MBA Weekend */}
       {isWeekendMba && (
         <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">
@@ -388,10 +348,6 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
 
               <p className="text-xs font-medium text-emerald-700">
                 Saturday: 8:00 AM – 2:00 PM
-              </p>
-
-              <p className="text-xs font-medium text-emerald-700">
-                Tutorials
               </p>
             </div>
           </div>
@@ -434,8 +390,18 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
                         </div>
                       </>
                     ) : isWeekendMba ? (
-                      /* Weekend MBA lists its tutorials in the routine card above, untimed */
-                      null
+                      /* Weekend MBA - tutorial days only, no timing */
+                      <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">
+                        <div className="flex items-center gap-3">
+                          <div className="bg-emerald-100 p-2 rounded-md">
+                            <BookOpen className="w-4 h-4 text-emerald-600" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold text-gray-800">Tutorials</p>
+                            <p className="text-[11px] text-gray-600">Friday &amp; Saturday</p>
+                          </div>
+                        </div>
+                      </div>
                     ) : (
                       /* Master's degree - Single tutorial timing */
                       <div className="col-span-full bg-emerald-50 border border-emerald-100 rounded-lg p-3">
