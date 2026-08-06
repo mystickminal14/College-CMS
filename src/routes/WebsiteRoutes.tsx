@@ -200,6 +200,10 @@ export const websiteRoutes = [
             path: "volume/abstract/:id",
             element: <JournalPageWeb />,
           },
+          {
+            path: "volume/abstract/:id/:slug",
+            element: <JournalPageWeb />,
+          },
         ],
       },
       {

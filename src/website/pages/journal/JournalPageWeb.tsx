@@ -1,9 +1,8 @@
 // JournalPageWeb.tsx
-import { useState } from 'react';
 import JournalHomeContent from './JournalHome';
 import JournalEditorialBoard from './JournalEditorialBoard';
 import JournalIssueDetails from './JournalIssueDetails';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import JournalAbstract from '../../../pages/journal/JournalAbstract';
 import ContactListPage from '../contact-list/ContactListingPage';
 import Seo from '../../../context/seo';
@@ -13,25 +12,33 @@ import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 type TabType = 'home' | 'editorial' | 'contact';
 
 const JournalPageWeb = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('home');
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  // The tab lives in the URL so it survives remounts when moving between the
+  // journal routes (home / issue details / abstract) and stays shareable.
+  const tabParam = searchParams.get('tab') as TabType | null;
+  const activeTab: TabType =
+    tabParam === 'editorial' || tabParam === 'contact' ? tabParam : 'home';
+
+  const isAbstract = location.pathname.includes('/abstract');
+
+  // Tabs always return to the journal root, otherwise clicking one from an
+  // issue/abstract route would leave the sub-route content rendered.
+  const handleTabChange = (tab: TabType) => {
+    navigate(tab === 'home' ? '/lrjstm' : `/lrjstm?tab=${tab}`);
+  };
 
   const renderContent = () => {
-    const isAbstract = window.location.pathname.includes("/abstract");
-
-    if (isAbstract) {
-      return <JournalAbstract />;
-    }
-
     switch (activeTab) {
-      case "home":
-        return id ? <JournalIssueDetails /> : <JournalHomeContent />;
       case "editorial":
         return <JournalEditorialBoard />;
       case "contact":
         return <ContactListPage />;
       default:
+        if (isAbstract) return <JournalAbstract />;
         return id ? <JournalIssueDetails /> : <JournalHomeContent />;
     }
   };
@@ -82,7 +89,7 @@ const JournalPageWeb = () => {
                 {tabs.map((tab) => (
                   <button
                     key={tab.key}
-                    onClick={() => setActiveTab(tab.key)}
+                    onClick={() => handleTabChange(tab.key)}
                     className={`
                     px-4 py-2
                     sm:px-6 sm:py-2.5
@@ -118,7 +125,7 @@ const JournalPageWeb = () => {
                     {tabs.map((tab) => (
                       <button
                         key={tab.key}
-                        onClick={() => setActiveTab(tab.key)}
+                        onClick={() => handleTabChange(tab.key)}
                         className={`
                         w-full text-left px-3 py-2.5
                         text-sm font-medium
@@ -142,13 +149,15 @@ const JournalPageWeb = () => {
                   {id && activeTab === 'home' && (
                     <div className="mt-4 pt-3 border-t border-gray-100">
                       <button
-                        onClick={() => navigate(-1)}
+                        onClick={() =>
+                          navigate(isAbstract ? `/lrjstm/volume/view/${id}` : '/lrjstm')
+                        }
                         className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors w-full"
                       >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                        Back to Issues
+                        {isAbstract ? 'Back to Articles' : 'Back to Issues'}
                       </button>
                     </div>
                   )}
@@ -181,9 +190,10 @@ const JournalPageWeb = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                   <span className="font-medium text-gray-800">
-                    {activeTab === 'home' && id ? 'Issue Details' :
-                      activeTab === 'home' ? 'Home' :
-                        activeTab === 'editorial' ? 'Editorial Board' : 'Contact'}
+                    {activeTab === 'home' && isAbstract ? 'Abstract' :
+                      activeTab === 'home' && id ? 'Issue Details' :
+                        activeTab === 'home' ? 'Home' :
+                          activeTab === 'editorial' ? 'Editorial Board' : 'Contact'}
                   </span>
                 </div>
               </div>

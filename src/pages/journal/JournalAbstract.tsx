@@ -1,25 +1,46 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { IMAGE_URL } from "../../constants";
+import useGetJournalDetails from "./hooks/details/useGetJournalDetails";
+import {
+	makeJournalSlug,
+	makeJournalUrl,
+} from "../../website/pages/journal/journalUrl";
+import type { JournalDetailsPayload } from "./model/JournalModel";
 
 const JournalAbstract = () => {
 	const location = useLocation();
-	const article = location.state?.article;
-	function makeJournalUrl(pageStr: any) {
-		if (!pageStr) return "";
-		const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)\s*-\s*(\d+)/;
-		const match = pageStr.match(regex);
+	const { id, slug } = useParams<{ id: string; slug?: string }>();
 
-		if (!match) return "";
+	// The article is passed via router state when navigating from the issue list,
+	// but a shared/refreshed URL has no state — fall back to fetching the issue
+	// and matching the article by its slug.
+	const stateArticle: JournalDetailsPayload | undefined =
+		location.state?.article;
 
-		const [, vol, issue, start, end] = match;
+	const { data, isLoading } = useGetJournalDetails(
+		stateArticle ? "" : id ?? ""
+	);
 
-		const folder = `${vol}-${issue}`;
-		const file = `${vol}-${issue}-${start}-${end}.pdf`;
-
-		return `https://www.lbef.org/journal/${folder}/download/${file}`;
-	}
+	const article =
+		stateArticle ??
+		(data?.data ?? []).find((item) =>
+			slug
+				? makeJournalSlug(item.pageNo) === slug || String(item.id) === slug
+				: false
+		);
 
 	const pdfUrl = makeJournalUrl(article?.pageNo) || (article?.link ? `${IMAGE_URL}${article.link}` : "");
+
+	if (isLoading) {
+		return (
+			<div className="bg-white rounded-xl border border-gray-200 p-10 space-y-3">
+				{[...Array(4)].map((_, i) => (
+					<div key={i} className="animate-pulse bg-gray-200 h-6 rounded-lg" />
+				))}
+			</div>
+		);
+	}
+
 	if (!article) {
 		return (
 			<div className="bg-white rounded-xl border border-gray-200 p-10 text-center">

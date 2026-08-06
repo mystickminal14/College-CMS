@@ -4,6 +4,7 @@ import useGetJournalDetails from "../../../pages/journal/hooks/details/useGetJou
 import { parseDate } from "../../../utils/ParseDate";
 import Seo from "../../../context/seo";
 import { IMAGE_URL } from "../../../constants";
+import { makeJournalSlug, makeJournalUrl } from "./journalUrl";
 
 const JournalIssueDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,17 +12,6 @@ const JournalIssueDetails = () => {
 
   const details = data?.data ?? [];
   const navigate = useNavigate();
-
-  function makeJournalUrl(pageStr: any) {
-    if (!pageStr) return "";
-    const regex = /Vol\s*(\d+)\s*\(Issue\s*(\d+)\)\s*-\s*(\d+)\s*-\s*(\d+)/;
-    const match = pageStr.match(regex);
-    if (!match) return "";
-    const [, vol, issue, start, end] = match;
-    const folder = `${vol}-${issue}`;
-    const file = `${vol}-${issue}-${start}-${end}.pdf`;
-    return `https://www.lbef.org/journal/${folder}/download/${file}`;
-  }
 
 
   if (isLoading) {
@@ -83,7 +73,7 @@ const JournalIssueDetails = () => {
             </p>
           </div>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/lrjstm")}
             className="flex items-center px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors border border-gray-200"
           >
             <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,9 +190,12 @@ const JournalIssueDetails = () => {
                     {item.abstract && (
                       <button
                         onClick={() =>
-                          navigate(`/lrjstm/volume/abstract/${id}`, {
-                            state: { article: item },
-                          })
+                          navigate(
+                            `/lrjstm/volume/abstract/${id}/${
+                              makeJournalSlug(item.pageNo) || item.id
+                            }`,
+                            { state: { article: item } }
+                          )
                         }
                         className="flex items-center px-3 py-1.5 text-sm bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
                       >
