@@ -39,8 +39,11 @@ export interface JournalDetailsPayload {
   country?: string;        
   abstract?: string;       
   availableOnline?: string;   
-  keywords?: string[];    
-  link?: string;           
+  keywords?: string[];
+  link?: string;
+  image?: string;
+  doi?: string;
+  howToCite?: string;
 }
 /* ✅ THIS IS REQUIRED FOR EDIT */
 export interface EditJournalDetailsPayload {

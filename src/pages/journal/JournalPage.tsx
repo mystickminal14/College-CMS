@@ -2,7 +2,7 @@ import { useState } from "react";
 import TitleBox from "../../components/layout/TitleBox";
 import EnhancedTable from "../../template/EnhancedTable";
 import Pagination from "../../utils/Pagination";
-import { Edit, Trash2, Eye } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import type { Journals } from "./model/JournalModel";
 import CreateEditParentJournalModal from "./components/CreateParent";
 import DeleteJournalModal from "./components/DeleteJournal";
@@ -59,7 +59,11 @@ const navigate=useNavigate();
   // ---------------- Table Actions ----------------
   const tableActions = [
     {
-      icon: <Eye className="w-5 h-5" />,
+      icon: (
+        <span className="px-1 text-sm font-medium whitespace-nowrap">
+          Details
+        </span>
+      ),
       tooltip: "View Details",
       onClick: handleView,
       color: "text-green-600 hover:bg-green-600 hover:text-white",

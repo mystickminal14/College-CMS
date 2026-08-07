@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Tailwind v4's preflight sets buttons to cursor: default. Restore the pointer
+   everywhere, and show not-allowed while a button is disabled. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  label[for],
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
 @keyframes ripple {
   0% {
     transform: scale(0.6);

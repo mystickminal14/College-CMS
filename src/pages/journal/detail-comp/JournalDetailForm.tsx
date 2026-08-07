@@ -1,6 +1,6 @@
 import InputField from "../../../utils/InputField";
 import ChipInputField from "./ChipInput";
-import { User, BookOpen, Globe, Hash, Calendar, FileText } from "lucide-react";
+import { User, BookOpen, Globe, Hash, Calendar, FileText, Link2, Quote } from "lucide-react";
 import type { JournalDetailsPayload } from "../model/JournalModel";
 
 interface Props {
@@ -113,6 +113,28 @@ const JournalDetailsForm: React.FC<Props> = ({ formData, onChange, isSubmitting,
         onChange={onChange}
       />
 
+      <InputField
+        icon={<Link2 size={18} />}
+        label="DOI"
+        field="doi"
+        type="url"
+        value={formData.doi || ""}
+        placeholder="e.g. https://doi.org/10.1234/abcd.5678"
+        isSubmitting={isSubmitting}
+        onChange={onChange}
+      />
+
+      <InputField
+        icon={<Quote size={18} />}
+        label="How to Cite"
+        field="howToCite"
+        type="textarea"
+        rows={3}
+        value={formData.howToCite || ""}
+        placeholder="e.g. Sharma, R. (2025). Article title. LBEF Research Journal, 9(1), 12-25."
+        isSubmitting={isSubmitting}
+        onChange={onChange}
+      />
 
     </div>
   );

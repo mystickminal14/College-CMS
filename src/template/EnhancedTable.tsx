@@ -137,7 +137,7 @@ const EnhancedTable = <T extends { id?: string | number }>({
                                 data-tooltip-id={`tooltip-${row.id ?? index}-${i}`}
                                 data-tooltip-content={tooltipContent}
                                 onClick={() => action.onClick(row)}
-                                className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 ${buttonColor ||
+                                className={`p-2.5 rounded-lg border transition-all duration-200 transform hover:scale-105 cursor-pointer ${buttonColor ||
                                   "text-[#1a7cd3] hover:bg-[#1a7cd3] hover:text-white border-[#1a7cd3]/20 hover:border-[#1a7cd3]"
                                   }`}
                               >
