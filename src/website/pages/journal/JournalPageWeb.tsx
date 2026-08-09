@@ -64,7 +64,7 @@ const JournalPageWeb = () => {
         <HeroTitleWithGif
           title="LBEF Research Journal  of Science, Technology And Management"
           highlightedText="Journal "
-          subtitle="Our quarterly research publication featuring articles by Master's level students, drawing on their final year dissertations."
+          // subtitle=""
           badgeText="Journal"
         />
 

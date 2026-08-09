@@ -7,6 +7,7 @@ import {
 	makeJournalUrl,
 } from "../../website/pages/journal/journalUrl";
 import type { JournalDetailsPayload } from "./model/JournalModel";
+import { toCitationHtml, toCitationText } from "./citationHtml";
 
 const JournalAbstract = () => {
 	const location = useLocation();
@@ -40,7 +41,10 @@ const JournalAbstract = () => {
 			: `https://doi.org/${doi.replace(/^doi:\s*/i, "")}`
 		: "";
 
-	const howToCite = article?.howToCite?.trim();
+	// Authored as rich text in the admin panel, so it arrives as HTML — sanitise
+	// it for display and keep a flattened copy for the clipboard.
+	const howToCite = toCitationHtml(article?.howToCite);
+	const howToCiteText = toCitationText(article?.howToCite);
 	const imageUrl = article?.image ? `${IMAGE_URL}${article.image}` : "";
 
 	const [copied, setCopied] = useState(false);
@@ -66,9 +70,9 @@ const JournalAbstract = () => {
 	}, [zoomed]);
 
 	const handleCopyCitation = async () => {
-		if (!howToCite) return;
+		if (!howToCiteText) return;
 		try {
-			await navigator.clipboard.writeText(howToCite);
+			await navigator.clipboard.writeText(howToCiteText);
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2000);
 		} catch {
@@ -230,6 +234,19 @@ const JournalAbstract = () => {
 
 				{howToCite && (
 					<section className="rounded-xl border border-blue-100 bg-blue-50/50 overflow-hidden">
+						{/* Tailwind's preflight strips the inline formatting the citation
+						    editor produces, so restore it for this block only. */}
+						<style>{`
+							.journal-citation p { margin: 0; }
+							.journal-citation p + p { margin-top: 0.5rem; }
+							.journal-citation em, .journal-citation i { font-style: italic; }
+							.journal-citation strong, .journal-citation b { font-weight: 700; }
+							.journal-citation u { text-decoration: underline; }
+							.journal-citation sup { vertical-align: super; font-size: 0.75em; }
+							.journal-citation sub { vertical-align: sub; font-size: 0.75em; }
+							.journal-citation a { color: #1d4ed8; text-decoration: underline; }
+						`}</style>
+
 						<header className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-blue-100 bg-blue-50">
 							<h2 className="flex items-center text-sm font-semibold uppercase tracking-wide text-blue-800">
 								<svg
@@ -245,7 +262,7 @@ const JournalAbstract = () => {
 										d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
 									/>
 								</svg>
-								How to Cite
+								How to cite (APA 7th Edition)
 							</h2>
 							<button
 								onClick={handleCopyCitation}
@@ -289,9 +306,10 @@ const JournalAbstract = () => {
 							</button>
 						</header>
 
-						<p className="px-4 py-3 text-sm text-gray-800 leading-relaxed whitespace-pre-line wrap-break-words">
-							{howToCite}
-						</p>
+						<div
+							className="journal-citation px-4 py-3 text-sm text-gray-800 leading-relaxed wrap-break-words"
+							dangerouslySetInnerHTML={{ __html: howToCite }}
+						/>
 					</section>
 				)}
 

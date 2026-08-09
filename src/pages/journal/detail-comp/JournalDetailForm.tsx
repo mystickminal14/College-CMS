@@ -1,5 +1,6 @@
 import InputField from "../../../utils/InputField";
 import ChipInputField from "./ChipInput";
+import CitationEditor from "./CitationEditor";
 import { User, BookOpen, Globe, Hash, Calendar, FileText, Link2, Quote } from "lucide-react";
 import type { JournalDetailsPayload } from "../model/JournalModel";
 
@@ -124,12 +125,10 @@ const JournalDetailsForm: React.FC<Props> = ({ formData, onChange, isSubmitting,
         onChange={onChange}
       />
 
-      <InputField
+      <CitationEditor
         icon={<Quote size={18} />}
-        label="How to Cite"
+        label="How to cite (APA 7th Edition)"
         field="howToCite"
-        type="textarea"
-        rows={3}
         value={formData.howToCite || ""}
         placeholder="e.g. Sharma, R. (2025). Article title. LBEF Research Journal, 9(1), 12-25."
         isSubmitting={isSubmitting}
