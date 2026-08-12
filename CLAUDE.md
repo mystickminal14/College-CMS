@@ -62,7 +62,9 @@ Errors are normalized by the response interceptor into `ApiErrorResponse` before
 
 ### Constants and cache keys
 
-All API URLs and React Query cache keys live in `src/constants.tsx`. The production API base is `https://lbef-server.lbef.org/api`; the localhost alternative is commented out there.
+All API URLs and React Query cache keys live in `src/constants.tsx`. The URL constants (`BASE_URL`, `IMAGE_URL`, `APP_URL`, `PCPS_BASE_URL`) read from Vite env vars, so import them from `constants.tsx` rather than touching `import.meta.env` directly.
+
+All env values currently live in a single `.env` (no dev/production split), pointed at the real backend (`https://lbef-server.lbef.org`). Create a git-ignored `.env.local` to override on your machine, e.g. to point at `http://localhost:8000` during local backend development. All `VITE_*` values are inlined into the client bundle, so never put secrets there.
 
 ### Global state (Context API)
 

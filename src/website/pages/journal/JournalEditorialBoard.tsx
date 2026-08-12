@@ -45,21 +45,21 @@ const positionConfig: Record<HonoraryPosition, {
     borderColor: 'border-green-200',
     icon: <UserCog className="w-5 h-5" />
   },
-  ASSOCIATE_EDITOR: {
-    title: 'ASSOCIATE EDITOR(S)',
-    order: 4,
-    bgColor: 'bg-yellow-50',
-    textColor: 'text-yellow-700',
-    borderColor: 'border-yellow-200',
-    icon: <Users className="w-5 h-5" />
-  },
   MANAGING_EDITOR: {
     title: 'MANAGING EDITOR',
-    order: 5,
+    order: 4,
     bgColor: 'bg-orange-50',
     textColor: 'text-orange-700',
     borderColor: 'border-orange-200',
     icon: <FileText className="w-5 h-5" />
+  },
+  ASSOCIATE_EDITOR: {
+    title: 'ASSOCIATE EDITOR(S)',
+    order: 5,
+    bgColor: 'bg-yellow-50',
+    textColor: 'text-yellow-700',
+    borderColor: 'border-yellow-200',
+    icon: <Users className="w-5 h-5" />
   },
   EDITORIAL_BOARD_MEMBER: {
     title: 'EDITORIAL BOARD MEMBER(S)',

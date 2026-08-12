@@ -108,7 +108,16 @@ const JournalIssueDetails = () => {
           </thead>
 
           <tbody className="divide-y divide-gray-100">
-            {details.map((item, index) => (
+            {details.map((item, index) => {
+              // A DOI may be stored as a full URL or as a bare identifier (10.xxxx/yyyy).
+              const doi = item.doi?.trim();
+              const doiHref = doi
+                ? /^https?:\/\//i.test(doi)
+                  ? doi
+                  : `https://doi.org/${doi.replace(/^doi:\s*/i, "")}`
+                : "";
+
+              return (
               <tr
                 key={item.id}
                 className="hover:bg-blue-50/50 transition-colors duration-150 group"
@@ -159,6 +168,17 @@ const JournalIssueDetails = () => {
                           <span className="px-2 py-1 bg-green-50 text-green-700 rounded">
                             🌐 {parseDate(item.availableOnline)}
                           </span>
+                        )}
+                        {doiHref && (
+                          <a
+                            href={doiHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded hover:bg-indigo-100 transition-colors"
+                          >
+                            DOI: {doi}
+                          </a>
                         )}
                       </div>
                     </div>
@@ -253,7 +273,8 @@ const JournalIssueDetails = () => {
                   </div>
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>

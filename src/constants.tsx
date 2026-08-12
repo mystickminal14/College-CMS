@@ -1,10 +1,9 @@
-export const PCPS_BASE_URL = 'https://edusysapi.lbef.info';
-// export const BASE_URL = 'https://lbef-server.lbef.org/api';
-// export const IMAGE_URL = 'https://lbef-server.lbef.org';
 
-export const BASE_URL = 'http://localhost:8000/api';
-export const IMAGE_URL = 'http://localhost:8000';
-export const APP_URL = 'https://www.lbef.org';
+export const PCPS_BASE_URL = import.meta.env.VITE_PCPS_BASE_URL ?? 'https://edusysapi.lbef.info';
+
+export const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://lbef-server.lbef.org/api';
+export const IMAGE_URL = import.meta.env.VITE_IMAGE_URL ?? 'https://lbef-server.lbef.org';
+export const APP_URL = import.meta.env.VITE_APP_URL ?? 'https://www.lbef.org';
 
 export const PAGE_LIMIT = 10;
 export const PAGE_LIMIT_OPTIONS = [10, 25, 50, 100];

@@ -27,6 +27,13 @@ npm start          # node server.mjs  -> serves dist/ + injects blog meta
 - `GET /blogs/:slug` → fetch blog from API, inject metaTitle/metaDescription/OG, send HTML
 - everything else → serve `dist/` static assets, with SPA fallback to `index.html`
 
+## .htaccess
+
+`deploy/.htaccess` (SPA fallback, PHP SEO-injector routes, font MIME/CORS
+rules) is **not** in `public/`, so `npm run build` never bundles it into
+`dist/`. Upload it to `public_html` manually and keep it out of `public/` —
+otherwise it gets silently overwritten/duplicated on every rebuild.
+
 ## cPanel setup (Setup Node.js App / App Manager)
 
 1. Push code to the repo and pull it onto the server (or upload the project).

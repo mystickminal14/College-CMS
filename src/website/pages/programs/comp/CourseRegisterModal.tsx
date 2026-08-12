@@ -171,7 +171,7 @@ export default function CourseRegisterModal({ courseName, onClose, onAfterRegist
                 </Field>
 
                 <Turnstile
-                  siteKey={import.meta.env.VITE_CF_TURNSTILE_SITE_KEY}
+                  siteKey={import.meta.env.VITE_CF_TURNSTILE_SITE_KEY ?? ""}
                   onSuccess={(token) => setCfToken(token)}
                   onExpire={() => setCfToken(null)}
                   onError={() => setCfToken(null)}
