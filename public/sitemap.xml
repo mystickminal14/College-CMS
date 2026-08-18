@@ -1,16 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+    <!-- Homepage -->
+    <url>
+        <loc>https://www.lbef.org/</loc>
+    </url>
 
-<url>
-  <loc>https://www.lbef.org/</loc>
-  <lastmod>2026-05-13T06:28:16+00:00</lastmod>
-</url>
+    <!-- About -->
+    <url>
+        <loc>https://www.lbef.org/about</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/about-university</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/recognitions</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/permission-letter</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/achivements</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/messages</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/ourteam</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/training-and-placement</loc>
+    </url>
 
+    <!-- Academic -->
+    <url>
+        <loc>https://www.lbef.org/events/</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/academic-holidays</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/administrative-holidays</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/academic-planners</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/academic-club</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/downloads/</loc>
+    </url>
+
+    <!-- Courses -->
+    <url>
+        <loc>https://www.lbef.org/courses</loc>
+    </url>
+
+    <!-- Student Information -->
+    <url>
+        <loc>https://www.lbef.org/fee-payment-planners</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/payment-modes</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/alumni-speaks</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/online-libraries</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/contact-info</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/notice</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/codeofconduct</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/verification</loc>
+    </url>
+
+    <!-- Admission -->
+    <url>
+        <loc>https://www.lbef.org/admission-procedure</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/scholarship</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/gyandeep-scholarship</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/ict-scholarship</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/merit-scholarship</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/ictregistration</loc>
+    </url>
+
+    <!-- LBEF Connect -->
+    <url>
+        <loc>https://www.lbef.org/lbef-connect</loc>
+    </url>
+
+    <!-- News -->
+    <url>
+        <loc>https://www.lbef.org/news</loc>
+    </url>
+
+    <!-- Media -->
+    <url>
+        <loc>https://www.lbef.org/media/photo-gallery</loc>
+    </url>
+    <url>
+        <loc>https://www.lbef.org/media/blogs</loc>
+    </url>
+
+    <!-- Research Journal -->
+    <url>
+        <loc>https://www.lbef.org/lrjstm</loc>
+    </url>
+
+    <!-- Jobs -->
+    <url>
+        <loc>https://www.lbef.org/vacancy</loc>
+    </url>
 
 </urlset>
