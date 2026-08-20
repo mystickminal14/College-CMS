@@ -15,6 +15,7 @@ import {
   MdPhoto,
   MdDocumentScanner,
   MdWork,
+  MdBadge,
 } from 'react-icons/md';
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -54,6 +55,7 @@ const menuItems: MenuItem[] = [
   { id: "hero-section", icon: MdBusinessCenter, label: "Hero Section", badge: "New" },
   { id: "popup", icon: MdPhoto, label: "Popup", badge: "New" },
   { id: "faq", icon: MdBusinessCenter, label: "FAQ", badge: "New" },
+  { id: "visitor", icon: MdBadge, label: "Visitor Book" },
 
   {
     id: "students",

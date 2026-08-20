@@ -41,6 +41,7 @@ import BlogFormPage from "../pages/blogs/components/EditPage";
 import VacancyPage from "../pages/job-vacancy/vacancy/VacancyPage";
 import ApplicantPage from "../pages/job-vacancy/applicant/ApplicantPage";
 import CourseRegistrationPage from "../pages/course-registration/CourseRegistrationPage";
+import VisitorBookPage from "../pages/visitor-book/VisitorBookPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -53,6 +54,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "hero-section": "HERO_SECTION",
   "popup": "POPUP",
   "administation/notice": "NOTICE",
+  "visitor": "VISITOR",
   "administation/contact": "CONTACT",
   "students/planner": "ACADEMIC_PLANNER",
   "students/fee-planner": "FEE_PLANNER",
@@ -147,6 +149,7 @@ export const adminRoutes = [
       { path: "course-details/:key/add/:id", element: <AddCourseDetailsPage /> },
       { path: "course-details/edit/:id", element: <EditCourseDetailsPage /> },
       { path: "administation/notice", element: <NoticesPage /> },
+      { path: "visitor", element: <VisitorBookPage /> },
       { path: "administation/contact", element: <ContactPage /> },
       { path: "students/planner", element: <PlannersPage /> },
       { path: "students/planner-course", element: <PlannerCoursePage /> },

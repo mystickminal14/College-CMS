@@ -41,7 +41,7 @@ const IndustryPartnerSection = () => {
 
         </p>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-          Our Industry{" "}
+          Our Global{" "}
           <span className="relative inline-block text-[#7B9EFF]">
             Partners
             <img

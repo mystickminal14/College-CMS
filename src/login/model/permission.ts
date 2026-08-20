@@ -5,7 +5,8 @@ export type PermissionNameType =
   | "INTAKE" | "DOCUMENTS" | "ACADEMIC_PLANNER" | "FEE_PLANNER" | "DOWNLOADS"|"BLOGS"
   | "VACANCY"
   | "COURSE_REGISTRATION"
-  | "POPUP";
+  | "POPUP"
+  | "VISITOR";
 
 export interface PermissionName {
   id: number;

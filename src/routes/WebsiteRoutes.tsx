@@ -53,6 +53,8 @@ const VacancyDetailWeb = lazy(() => import("../website/pages/vacancy/VacancyDeta
 const CategoryCoursesPage = lazy(() => import("../website/pages/programs/CategoryCoursesPage"));
 const ThankYouPage = lazy(() => import("../website/pages/programs/ThankYouPage"));
 const ReferralPage = lazy(() => import("../website/pages/referral/ReferralPage"));
+const VisitorPassPage = lazy(() => import("../website/pages/visitor-pass/VisitorPassPage"));
+const VisitorKioskPage = lazy(() => import("../pages/visitor-book/kiosk/VisitorKioskPage"));
 /* =======================
    Placeholder Page
 ======================= */
@@ -136,6 +138,7 @@ export const websiteRoutes = [
       { path: "notice", element: <NoticeWeb /> },
       { path: "admission-procedure", element: <AdmissionProcedure />, },
       { path: "verification", element: <VerificationPage/>, },
+      { path: "visitor-pass/:qrToken", element: <VisitorPassPage />, },
 
 
       // {
@@ -245,6 +248,9 @@ export const websiteRoutes = [
       { path: "*", element: <NotFoundPage /> },
     ],
   },
+  // Reception kiosk — deliberately outside WebsiteLayout so there is no navbar,
+  // footer or chatbot to wander off into on a shared tablet.
+  { path: "/visitor", element: <VisitorKioskPage /> },
   { path: "*", element: <NotFoundPage /> },
 
 ];

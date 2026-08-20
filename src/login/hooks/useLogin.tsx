@@ -66,6 +66,7 @@ const useLogin = () => {
           VACANCY: "/app/job-vacancy/vacancy",
           COURSE_REGISTRATION: "/app/course-registration",
           POPUP: "/app/popup",
+          VISITOR: "/app/visitor",
         };
 
         navigate(redirectMap[firstPermission] || "/app/course");

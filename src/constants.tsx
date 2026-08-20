@@ -69,6 +69,10 @@ export const VACANCY_CACHE_KEY = 'vacancy';
 export const APPLICANT_CACHE_KEY = 'applicant';
 export const COURSE_REGISTRATION_CACHE_KEY = 'course-registration';
 export const POPUP_CACHE_KEY = 'popup';
+export const VISIT_PURPOSE_CACHE_KEY = 'visit_purpose';
+export const VISIT_PURPOSE_NAME_CACHE_KEY = 'visit_purpose_name';
+export const VISITOR_CACHE_KEY = 'visitor';
+export const VISITOR_TODAY_CACHE_KEY = 'visitor_today';
 
 
 
