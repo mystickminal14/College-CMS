@@ -20,20 +20,15 @@ const formatTime = (value: string | null) =>
  * harder to scan off a kiosk screen for no gain — the readable lines below
  * already convey everything an offline phone needs.
  */
-export const buildPassQrText = (
-  qrToken: string,
-  pass: VisitorPass,
-  department?: string | null,
-) =>
+export const buildPassQrText = (qrToken: string, pass: VisitorPass) =>
   [
     "LBEF VISITOR PASS",
     `Code: ${pass.code}`,
     `Name: ${pass.name}`,
     `Purpose: ${pass.purpose}`,
-    // Both are optional on the record, so they are omitted rather than printed
-    // as "null" — and dropping them keeps the QR a version or two smaller.
+    // Optional on the record, so it is omitted rather than printed as "null"
+    // — and dropping it keeps the QR a version or two smaller.
     ...(pass.personToMeet ? [`To meet: ${pass.personToMeet}`] : []),
-    ...(department ? [`Department: ${department}`] : []),
     `Visitors: ${pass.numberOfPerson}`,
     `Date: ${new Date(pass.visitedDate).toLocaleDateString()}`,
     `In: ${formatTime(pass.inTime)}`,

@@ -1,62 +1,162 @@
-import type { ReactNode } from "react";
-import { Check } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { AlertCircle } from "lucide-react";
 
-import { focusRing } from "./tokens";
+import { IMAGE_URL } from "../../../constants";
+import { eyebrowClass, labelClass, optionalTagClass } from "./tokens";
 
-interface OptionCardProps {
-  selected: boolean;
-  onClick: () => void;
+/**
+ * Question at the top of every step. The red rule under the heading gives each
+ * screen the same anchor line, so the eye lands in the same place every time
+ * the step changes — which matters more on a kiosk than on a page someone
+ * reads at their own pace. It tapers to transparent rather than stopping dead,
+ * so it reads as an underline for the words above it and not as a divider
+ * cutting the screen in half.
+ */
+export const StepHeading: React.FC<{
+  eyebrow?: string;
   title: string;
-  subtitle?: string;
-  media?: ReactNode;
-  muted?: boolean;
-}
-
-/** One tappable choice — a department, or a member of staff. */
-export const OptionCard: React.FC<OptionCardProps> = ({
-  selected,
-  onClick,
-  title,
-  subtitle,
-  media,
-  muted,
-}) => (
-  <button
-    type="button"
-    onClick={onClick}
-    aria-pressed={selected}
-    className={`${focusRing} relative flex flex-col items-center text-center gap-3 px-4 py-6 min-h-36 rounded-2xl border-2 bg-white transition active:scale-[0.98] ${
-      selected
-        ? "border-blue-600 bg-blue-50 shadow-md"
-        : muted
-          ? "border-dashed border-gray-300 hover:border-blue-400 hover:shadow-sm"
-          : "border-gray-200 hover:border-blue-400 hover:shadow-sm"
-    }`}
-  >
-    {selected && (
-      <span className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center">
-        <Check className="w-4 h-4 text-white" strokeWidth={3} />
-      </span>
-    )}
-
-    {media}
-
-    <span className="text-[17px] font-semibold text-gray-900 leading-tight text-balance">
-      {title}
-    </span>
-    {subtitle && <span className="text-sm text-gray-500 leading-snug line-clamp-2">{subtitle}</span>}
-  </button>
-);
-
-/** Question at the top of every step. */
-export const StepHeading: React.FC<{ eyebrow: string; title: string; hint?: string }> = ({
-  eyebrow,
-  title,
-  hint,
-}) => (
-  <header className="mb-7">
-    <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 mb-2">{eyebrow}</p>
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-balance">{title}</h1>
-    {hint && <p className="text-base text-gray-600 mt-2 leading-relaxed">{hint}</p>}
+  hint?: string;
+  aside?: ReactNode;
+}> = ({ eyebrow, title, hint, aside }) => (
+  <header className="mb-5 sm:mb-7">
+    <div className="flex items-end justify-between gap-6">
+      <div className="min-w-0">
+        {eyebrow && <p className={`${eyebrowClass} text-[#125DAA] mb-2.5`}>{eyebrow}</p>}
+        <h1 className="text-2xl sm:text-3xl xl:text-[2.125rem] font-bold tracking-[-0.02em] text-slate-900 text-balance leading-[1.15]">
+          {title}
+        </h1>
+        {hint && (
+          <p className="text-[15px] sm:text-base text-slate-500 mt-2 leading-snug max-w-2xl">
+            {hint}
+          </p>
+        )}
+      </div>
+      {aside && <div className="hidden lg:block shrink-0">{aside}</div>}
+    </div>
+    <div className="mt-4 sm:mt-5 h-1 w-20 rounded-full bg-linear-to-r from-[#E01B2E] to-[#E01B2E]/0" />
   </header>
 );
+
+/**
+ * A labelled band inside a form card, so one long form reads as a few short
+ * ones. Numbered because the bands really are answered top to bottom.
+ */
+export const FormSection: React.FC<{
+  index: number;
+  title: string;
+  hint?: string;
+  children: ReactNode;
+}> = ({ index, title, hint, children }) => (
+  <section>
+    <div className="flex items-center gap-3 mb-4">
+      <span className="w-7 h-7 shrink-0 rounded-lg bg-[#125DAA]/10 text-[#125DAA] text-[13px] font-bold flex items-center justify-center tabular-nums">
+        {index}
+      </span>
+      <h2 className="text-[13px] font-bold uppercase tracking-[0.14em] text-slate-500">{title}</h2>
+      <span aria-hidden="true" className="flex-1 h-px bg-linear-to-r from-slate-200 to-transparent" />
+    </div>
+    {hint && <p className="text-sm text-slate-500 -mt-1.5 mb-4 leading-snug">{hint}</p>}
+    {children}
+  </section>
+);
+
+/**
+ * Label + control + error, in one place. Every field on the kiosk wears the
+ * same 8px gap and the same red line underneath, and "optional" is a tag beside
+ * the label rather than a quieter clause inside it — at tablet distance a
+ * smaller weight mid-sentence just reads as noise.
+ */
+export const Field: React.FC<{
+  label: string;
+  htmlFor?: string;
+  optional?: boolean;
+  hint?: string;
+  error?: string;
+  errorId?: string;
+  className?: string;
+  children: ReactNode;
+}> = ({ label, htmlFor, optional, hint, error, errorId, className = "", children }) => {
+  const Label = htmlFor ? "label" : "p";
+  // min-w-0 because a Field is nearly always a grid cell, and a grid item
+  // refuses to shrink below its content's min-content width — which for a bare
+  // <input> is its `size` attribute, around 380px. Without this the fields
+  // hang out over the right edge of the card on any narrow screen.
+  return (
+    <div className={`min-w-0 ${className}`}>
+      <div className="flex items-center gap-2.5 mb-2">
+        <Label className={labelClass} {...(htmlFor ? { htmlFor } : {})}>
+          {label}
+        </Label>
+        {optional && <span className={optionalTagClass}>Optional</span>}
+      </div>
+      {hint && <p className="text-sm text-slate-500 -mt-1 mb-2 leading-snug">{hint}</p>}
+      {children}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
+    </div>
+  );
+};
+
+export const FieldError: React.FC<{ id?: string; children: ReactNode }> = ({ id, children }) => (
+  <p id={id} role="alert" className="flex items-start gap-1.5 mt-2 text-[15px] font-medium text-red-600">
+    <AlertCircle className="w-4 h-4 shrink-0 mt-[3px]" />
+    <span>{children}</span>
+  </p>
+);
+
+/** Whole-step failure — the register call came back with something to say. */
+export const Alert: React.FC<{ children: ReactNode; className?: string }> = ({
+  children,
+  className = "",
+}) => (
+  <div
+    role="alert"
+    className={`flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3.5 text-[15px] text-red-700 ${className}`}
+  >
+    <AlertCircle className="w-5 h-5 shrink-0 mt-px" />
+    <span className="leading-snug">{children}</span>
+  </div>
+);
+
+const initials = (name: string) =>
+  name
+    .replace(/\b(Er|Dr|Mr|Mrs|Ms|Prof)\.?\s+/gi, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+
+const AVATAR_SIZE = {
+  sm: "w-11 h-11 text-sm",
+  md: "w-16 h-16 text-lg",
+} as const;
+
+/** Staff portraits are optional and sometimes point at a file that is no longer
+ *  on disk, so a broken image falls back to initials rather than a torn icon. */
+export const StaffAvatar: React.FC<{ src: string | null; name: string; size?: "sm" | "md" }> = ({
+  src,
+  name,
+  size = "md",
+}) => {
+  const [failed, setFailed] = useState(false);
+  const sizeClass = AVATAR_SIZE[size];
+
+  if (!src || failed) {
+    return (
+      <span
+        className={`${sizeClass} shrink-0 rounded-full bg-linear-to-br from-[#125DAA]/15 to-[#125DAA]/5 text-[#125DAA] font-bold flex items-center justify-center ring-1 ring-[#125DAA]/10`}
+      >
+        {initials(name)}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={`${IMAGE_URL}${src}`}
+      alt=""
+      onError={() => setFailed(true)}
+      className={`${sizeClass} shrink-0 rounded-full object-cover ring-1 ring-slate-900/5`}
+    />
+  );
+};

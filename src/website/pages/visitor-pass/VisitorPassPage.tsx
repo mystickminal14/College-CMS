@@ -102,7 +102,7 @@ const VisitorPassPage = () => {
               </div>
 
               <p className="text-xs text-gray-400 text-center pt-2">
-                Show this screen at reception.
+                Show this screen on arrival.
               </p>
             </div>
           )}

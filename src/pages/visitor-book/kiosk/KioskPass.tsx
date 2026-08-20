@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import { CheckCircle2, ScanLine, UserRound, WifiOff } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
-import lbefLogo from "../../../assets/lbef_five.webp";
-import { IMAGE_URL } from "../../../constants";
 import type { VisitorPass } from "../model/VisitorModel";
 import { buildPassQrText } from "../utils/passPayload";
 import { KioskActions } from "./KioskFrame";
@@ -12,128 +10,82 @@ import { primaryButtonClass } from "./tokens";
 interface Props {
   pass: VisitorPass;
   qrToken: string;
-  department: string | null;
-  photoPreview: string;
   onDone: () => void;
 }
 
 const formatTime = (value: string | null) =>
   value ? new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "--";
 
-const KioskPass: React.FC<Props> = ({ pass, qrToken, department, photoPreview, onDone }) => {
+const KioskPass: React.FC<Props> = ({ pass, qrToken, onDone }) => {
   const [qrDataUrl, setQrDataUrl] = useState("");
 
   useEffect(() => {
     // Level L keeps this multi-line payload down to QR version 9-11. Rendered
-    // at 576px for hidpi crispness but displayed at 224 CSS px, which leaves
-    // ~3.7px per module — comfortably above what a phone camera needs.
-    QRCode.toDataURL(buildPassQrText(qrToken, pass, department), {
-      width: 576,
-      margin: 1,
+    // at 640px for hidpi crispness but displayed around 350 CSS px, which
+    // leaves ~6px per module — well above what a phone camera needs.
+    //
+    // margin: 2 bakes the quiet zone into the image itself, so the only white
+    // around the code is the white the scanner needs. Nothing pads it further.
+    QRCode.toDataURL(buildPassQrText(qrToken, pass), {
+      width: 640,
+      margin: 2,
       errorCorrectionLevel: "L",
     })
       .then(setQrDataUrl)
       .catch(() => setQrDataUrl(""));
-  }, [qrToken, pass, department]);
+  }, [qrToken, pass]);
 
-  const photoSrc = photoPreview || (pass.photo ? `${IMAGE_URL}${pass.photo}` : "");
   const firstName = pass.name.split(" ")[0];
 
-  const rows: [string, string][] = [
-    ["Purpose", pass.purpose],
-    ...(pass.personToMeet ? ([["Meeting", pass.personToMeet]] as [string, string][]) : []),
-    ...(department ? ([["Department", department]] as [string, string][]) : []),
-    ["Group size", String(pass.numberOfPerson)],
-    ["Checked in", formatTime(pass.inTime)],
-  ];
+  const meta = [
+    pass.personToMeet ? `Meeting ${pass.personToMeet}` : null,
+    pass.numberOfPerson > 1 ? `Group of ${pass.numberOfPerson}` : null,
+    formatTime(pass.inTime),
+  ].filter(Boolean) as string[];
 
   return (
-    <div>
-      <header className="mb-7">
-        <span className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center">
-          <CheckCircle2 className="w-8 h-8 text-green-600" />
-        </span>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-4">
+    // The pass is one object — the code — so the step is a single centred
+    // column rather than a full-width heading with a small card adrift under
+    // it. Everything here is either the QR or a caption for it.
+    <div className="mx-auto w-full max-w-xs sm:max-w-sm">
+      <header className="mb-5 text-center">
+        <p className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-emerald-600">
+          <CheckCircle2 className="w-4 h-4" />
+          Checked in
+        </p>
+        <h1 className="mt-2 text-2xl sm:text-[1.75rem] font-bold tracking-[-0.02em] text-slate-900 leading-[1.15] text-balance">
           You're all set, {firstName}.
         </h1>
-        <p className="text-base text-gray-600 mt-2 max-w-xl">
-          Show this pass at the reception desk. Scan the code to keep a copy on your phone.
-        </p>
       </header>
 
-      <div className="flex flex-col lg:flex-row lg:items-start gap-8">
-        <div className="w-full max-w-sm shrink-0 rounded-2xl border border-gray-200 shadow-md overflow-hidden bg-white">
-          <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-gray-100">
-            <img src={lbefLogo} alt="LBEF College" className="h-10 w-auto object-contain" />
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-700 bg-blue-50 rounded-full px-3 py-1">
-              Visitor
-            </span>
+      <div className="rounded-2xl bg-white p-3 ring-1 ring-slate-900/5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_20px_48px_-24px_rgba(15,23,42,0.3)]">
+        {qrDataUrl ? (
+          <img src={qrDataUrl} alt="Visitor pass QR code" className="block w-full h-auto" />
+        ) : (
+          <div className="aspect-square flex items-center justify-center text-[15px] text-slate-400">
+            Generating code
           </div>
-
-          <div className="flex items-center gap-4 px-5 py-4 border-b border-gray-100">
-            {photoSrc ? (
-              <img
-                src={photoSrc}
-                alt=""
-                className="w-16 h-16 rounded-full object-cover shrink-0 border border-gray-200"
-              />
-            ) : (
-              <span className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
-                <UserRound className="w-8 h-8 text-gray-400" />
-              </span>
-            )}
-            <div className="min-w-0">
-              <p className="text-lg font-bold text-gray-900 truncate">{pass.name}</p>
-              <p className="text-xl font-bold text-blue-600 tabular-nums tracking-wide">
-                {pass.code}
-              </p>
-            </div>
-          </div>
-
-          <div className="px-5 py-5 flex justify-center">
-            {qrDataUrl ? (
-              <img src={qrDataUrl} alt="Visitor pass QR code" className="w-56 h-56" />
-            ) : (
-              <div className="w-56 h-56 flex items-center justify-center text-[15px] text-gray-400">
-                Generating code
-              </div>
-            )}
-          </div>
-
-          <dl className="px-5 pb-5 pt-4 space-y-2 text-[15px] border-t border-gray-100">
-            {rows.map(([label, value]) => (
-              <div key={label} className="flex justify-between gap-4">
-                <dt className="text-gray-500 shrink-0">{label}</dt>
-                <dd className="font-semibold text-gray-900 text-right">{value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        <ul className="space-y-5 max-w-sm">
-          <li className="flex gap-3.5">
-            <ScanLine className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-            <p className="text-[15px] text-gray-900">
-              Point your phone camera at the code to save your pass.
-              <span className="block text-gray-500 mt-0.5">
-                Reception can also look you up by {pass.code}.
-              </span>
-            </p>
-          </li>
-          <li className="flex gap-3.5">
-            <WifiOff className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-            <p className="text-[15px] text-gray-900">
-              The code carries your details.
-              <span className="block text-gray-500 mt-0.5">
-                It still opens without an internet connection.
-              </span>
-            </p>
-          </li>
-        </ul>
+        )}
       </div>
 
+      {/* Captions sit on the ground, not inside the card, so the white
+          rectangle is the scannable area and nothing else. */}
+      <p className="mt-4 text-center text-3xl font-extrabold tracking-[0.1em] tabular-nums text-[#125DAA]">
+        {pass.code}
+      </p>
+      <p className="mt-2 text-center text-sm text-slate-500 leading-snug">
+        {pass.name} · {meta.join(" · ")}
+      </p>
+
       <KioskActions>
-        <button type="button" onClick={onDone} className={`${primaryButtonClass} ml-auto`}>
+        <p className="hidden sm:block text-sm text-slate-500">
+          Scan the code to keep a copy, or show this screen on your way in.
+        </p>
+        <button
+          type="button"
+          onClick={onDone}
+          className={`${primaryButtonClass} ml-auto max-sm:w-full`}
+        >
           Done
         </button>
       </KioskActions>

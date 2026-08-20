@@ -30,11 +30,6 @@ export interface VisitorsTodaySummary {
   checkedOut: number;
 }
 
-export interface KioskDepartment {
-  id: number;
-  name: string;
-}
-
 export interface KioskStaff {
   id: number;
   name: string;

@@ -55,7 +55,7 @@ const VisitorPassModal: React.FC<Props> = ({ visitor, onClose }) => {
           )}
 
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            Scan this with your phone to see your visitor pass — show it at reception.
+            Scan this with your phone to see your visitor pass — show it on arrival.
           </p>
         </div>
 
