@@ -138,8 +138,6 @@ export const websiteRoutes = [
       { path: "notice", element: <NoticeWeb /> },
       { path: "admission-procedure", element: <AdmissionProcedure />, },
       { path: "verification", element: <VerificationPage/>, },
-      { path: "visitor-pass/:qrToken", element: <VisitorPassPage />, },
-
 
       // {
       //   path: "students-life",
@@ -251,6 +249,9 @@ export const websiteRoutes = [
   // Reception kiosk — deliberately outside WebsiteLayout so there is no navbar,
   // footer or chatbot to wander off into on a shared tablet.
   { path: "/visitor", element: <VisitorKioskPage /> },
+  // Scanned visitor pass preview — also outside WebsiteLayout, same reason:
+  // this is a standalone screen shown on a phone after scanning the QR code.
+  { path: "/visitor-pass/:qrToken", element: <VisitorPassPage /> },
   { path: "*", element: <NotFoundPage /> },
 
 ];
