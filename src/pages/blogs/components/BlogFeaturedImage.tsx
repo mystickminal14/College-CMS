@@ -127,7 +127,7 @@ const BlogFeaturedImage = ({
       <input
         ref={fileRef}
         type="file"
-        accept="image/*,.tif,.tiff"
+        accept="image/*,.tif,.tiff,.avif"
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];

@@ -213,7 +213,7 @@ const BlogToolbar = ({ editor }: { editor: Editor }) => {
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp,image/jpg,image/tiff,.tif,.tiff"
+        accept="image/jpeg,image/png,image/webp,image/jpg,image/tiff,image/avif,.tif,.tiff,.avif"
         className="hidden"
         onChange={handleImageFile}
       />
