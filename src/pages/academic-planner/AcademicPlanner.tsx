@@ -5,7 +5,7 @@ import Pagination from "../../utils/Pagination";
 import { Edit, Trash2, Plus } from "lucide-react";
 import { FaTable, FaThLarge } from "react-icons/fa";
 
-import { PAGE_LIMIT } from "../../constants";
+import { IMAGE_URL, PAGE_LIMIT } from "../../constants";
 
 // -------- Academic Year --------
 import useGetAcademicYearsPagination from "./hooks/year/usePagination";
@@ -82,6 +82,27 @@ const PlannersPage = () => {
     },
     { label: "Semester", accessor: "semester" },
     { label: "Intake", accessor: "intake" },
+    {
+      label: "File",
+      accessor: "file",
+      render: (row: AcademicPlanner) => {
+        const handleOpenFile = () => {
+          if (row.file) {
+            window.open(IMAGE_URL + row.file, "_blank");
+          } else {
+            alert("No file available");
+          }
+        };
+        return (
+          <button
+            onClick={handleOpenFile}
+            className="px-3 py-1 bg-blue-500 cursor-pointer text-white rounded hover:bg-blue-600 transition"
+          >
+            Open File
+          </button>
+        );
+      },
+    },
 
   ];
 

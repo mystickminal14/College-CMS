@@ -77,6 +77,13 @@ const getSessionPriority = (session: string) => {
   return sessionPriority[month] ?? 999;
 };
 
+// "year" is free text (e.g. "2024-2025"); use the first 4-digit number so
+// ranges still compare correctly instead of Number() failing on "2024-2025".
+const getYearSortValue = (year: string) => {
+  const match = year.match(/\d{4}/);
+  return match ? Number(match[0]) : 0;
+};
+
 /* ------------------ MAIN COMPONENT ------------------ */
 
 const PAGE_LIMIT = 20;
@@ -117,7 +124,7 @@ const AcademicWebPlanner = () => {
   const sortedGroups = Object.entries(groupedData).sort(([a], [b]) => {
     const [yearA, sessionA] = a.split('__');
     const [yearB, sessionB] = b.split('__');
-    if (yearA !== yearB) return Number(yearB) - Number(yearA);
+    if (yearA !== yearB) return getYearSortValue(yearB) - getYearSortValue(yearA);
     return getSessionPriority(sessionA) - getSessionPriority(sessionB);
   });
 
