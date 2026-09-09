@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft  } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import useGetSlug from "./hooks/useGetSlug";
 import { APP_URL, IMAGE_URL } from "../../constants";
@@ -14,7 +14,7 @@ const PreviewBlog = () => {
 
   const blog = data?.data;
 
-  const toggleFaq = (index:any) => {
+  const toggleFaq = (index: any) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
@@ -65,14 +65,14 @@ const PreviewBlog = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 py-8 md:py-12">
-      
+
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
           {blog.title}
         </h1>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8 pb-4 border-b border-gray-100">
-         
-          
+
+
           {blog.publishDate && (
             <>
               <span>•</span>
@@ -83,7 +83,7 @@ const PreviewBlog = () => {
               })}</span>
             </>
           )}
-          
+
           <span>•</span>
           <span>{readTime} min read</span>
         </div>
@@ -224,7 +224,7 @@ const PreviewBlog = () => {
           dangerouslySetInnerHTML={{ __html: blog.content || "" }}
         />
 
-      
+
         {/* FAQs - Your design integrated */}
         {blog.faqs && blog.faqs.length > 0 && (
           <div className="mt-12 mb-16">
@@ -234,7 +234,7 @@ const PreviewBlog = () => {
                 <span className="relative inline-block text-[#474AFF]">
                   Questions
                   <svg className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full h-3" viewBox="0 0 200 10" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 5 Q50 0 100 5 Q150 10 200 5" stroke="#474AFF" strokeWidth="2" fill="none" opacity="0.3"/>
+                    <path d="M0 5 Q50 0 100 5 Q150 10 200 5" stroke="#474AFF" strokeWidth="2" fill="none" opacity="0.3" />
                   </svg>
                 </span>
               </h2>
@@ -243,14 +243,13 @@ const PreviewBlog = () => {
             <div className="space-y-4">
               {blog.faqs.map((faq, index) => {
                 const isOpen = openFaqIndex === index;
-                
+
                 return (
                   <div key={index} className="rounded-lg overflow-hidden border border-gray-200">
                     <button
                       onClick={() => toggleFaq(index)}
-                      className={`w-full px-6 py-4 flex justify-between items-center text-left font-medium text-lg transition-all duration-200 ${
-                        isOpen ? 'bg-[#474AFF] text-white' : 'bg-white hover:bg-gray-50 text-gray-900'
-                      }`}
+                      className={`w-full px-6 py-4 flex justify-between items-center text-left font-medium text-lg transition-all duration-200 ${isOpen ? 'bg-[#474AFF] text-white' : 'bg-white hover:bg-gray-50 text-gray-900'
+                        }`}
                     >
                       <span className="pr-4">{faq.question}</span>
                       <span className="text-2xl font-bold shrink-0 ml-4">
@@ -297,7 +296,7 @@ const PreviewBlog = () => {
             Stay in touch for more insights and updates from LBEF
           </p>
           <button
-            onClick={() => navigate("/blogs")}
+            onClick={() => navigate("/media/blogs")}
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#474AFF] text-white rounded-full hover:bg-gray-800 transition-colors"
           >
             Explore More Articles

@@ -17,6 +17,7 @@ import ApeuSubFooter from "./components/ApeuSubFooter";
 import LbefSubFooter from "./components/LbefSubFooter";
 import IndustryPartnerSection from "./components/IndustryPartner";
 import BlogSECTION from "./components/BlogSection";
+import InfrastructureSection from "./components/InfrastructureSection";
 export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -65,6 +66,11 @@ export default function HomePage() {
               className="relative z-20 bg-white"
             >
               <WhyChooseLBEF />
+              <motion.div
+                className="sticky top-0 z-10 bg-white"
+              >
+                <InfrastructureSection />
+              </motion.div>
               <motion.div
                 className="sticky top-0 z-10 bg-white"
               >
@@ -120,6 +126,7 @@ export default function HomePage() {
           <University />
           <VideoSection />
           <WhyChooseLBEF />
+          <InfrastructureSection />
           <IndustryPartnerSection />
           <JoinStudents />
           <Testimonial />

@@ -35,6 +35,7 @@ const GyandeepScholasrhip = lazy(() => import("../website/pages/admission/Gyande
 const MeritScholarship = lazy(() => import("../website/pages/admission/Merit"));
 const JournalPageWeb = lazy(() => import("../website/pages/journal/JournalPageWeb"));
 const AboutUniversity = lazy(() => import("../website/pages/about-university/AboutUniversity"));
+const Infrastructure = lazy(() => import("../website/pages/infrastructure/Infrastructure"));
 const NewsPageWeb = lazy(() => import("../website/pages/news/News"));
 const ICTScholarship = lazy(() => import("../website/pages/admission/IctScholarship"));
 const PaymentModes = lazy(() => import("../website/pages/payment-modes/PaymentModes"));
@@ -101,6 +102,7 @@ export const websiteRoutes = [
       // },
       { path: "about", element: <AboutPage /> },
       { path: "about-university", element: <AboutUniversity /> },
+      { path: "infrastructure", element: <Infrastructure /> },
       { path: "recognitions", element: <RecognitionPageWeb /> },
       { path: "permission-letter", element: <PermissionPageWeb /> },
       { path: "achivements", element: <AchievementWeb /> },

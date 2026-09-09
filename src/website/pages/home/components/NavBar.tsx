@@ -137,6 +137,7 @@ export function NavBar() {
       dropdown: [
         { name: "About LBEF", link: "/about" },
         { name: "About University", link: "/about-university" },
+        { name: "Infrastructure", link: "/infrastructure" },
         { name: "Recognitions", link: "/recognitions" },
         { name: "Permission Letter", link: "/permission-letter" },
         { name: "Achivements", link: "/achivements" },
