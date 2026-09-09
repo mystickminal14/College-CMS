@@ -67,7 +67,7 @@ const OurTeamWeb = () => {
       {/* ================= HERO WITH GIF BACKGROUND ================= */}
       <HeroTitleWithGif
         title="Meet The People Powering LBEF’s Bold, Futuristic Journey"
-        highlightedText="Powering"
+        highlightedText={["Powering", "Journey"]}
         subtitle="LBEF’s team brings together academic excellence, visionary leadership, and a future-focused mindset to deliver effective, globally relevant education."
         badgeText="Academic Excellence Team"
       />

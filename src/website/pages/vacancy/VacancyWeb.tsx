@@ -98,7 +98,7 @@ const VacancyWeb = () => {
 
       <HeroTitleWithGif
         title="Join Our Team at LBEF"
-        highlightedText="LBEF"
+        highlightedText={["Team", "LBEF"]}
         subtitle="We are looking for passionate educators and professionals to join our growing team."
         badgeText="Career Opportunities"
       />

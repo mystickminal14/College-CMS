@@ -95,7 +95,7 @@ const StudentAccess = () => {
       />
       <HeroTitleWithGif
         title="Student Access & Digital Learning Resources"
-        highlightedText="Digital"
+        highlightedText={["Digital", "Resources"]}
         subtitle="  Access comprehensive academic databases, digital libraries, and learning platforms
             to support your research and studies at LBEF through APU's partnership."
         badgeText="Digital Learning Resources"

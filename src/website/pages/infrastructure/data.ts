@@ -42,26 +42,6 @@ import office02 from "../../../assets/infrastructure/office-02.webp";
 export { campusHero };
 
 /* =======================
-   Headline numbers
-======================= */
-
-export interface CampusStat {
-  value: number;
-  /** Rendered after the counted value, e.g. "+" or " sq. ft." */
-  suffix: string;
-  /** Rendered before the counted value, e.g. "~" */
-  prefix?: string;
-  label: string;
-}
-
-export const campusStats: CampusStat[] = [
-  { value: 7, suffix: " Ropani", label: "Campus land in the heart of Kathmandu" },
-  { value: 50000, suffix: "+ sq. ft.", label: "Total built-up area" },
-  { value: 6, suffix: "", label: "Academic and administrative blocks" },
-  { value: 90, prefix: "~", suffix: "", label: "Rooms and functional spaces" },
-];
-
-/* =======================
    Infrastructure at a glance
 ======================= */
 
@@ -70,26 +50,49 @@ export interface GlanceRow {
   facilities: string;
 }
 
-export const glanceRows: GlanceRow[] = [
-  { category: "Academic and administrative blocks", facilities: "6" },
-  { category: "Identified rooms and functional spaces", facilities: "Approximately 90" },
-  { category: "Classrooms and tutorial rooms", facilities: "32" },
-  { category: "Lecture and seminar halls", facilities: "2" },
-  { category: "Computer and specialised laboratories", facilities: "7" },
-  { category: "Physical and digital library spaces", facilities: "2" },
-  { category: "Learning hubs and collaborative spaces", facilities: "3" },
-  { category: "Meeting rooms", facilities: "3" },
-  { category: "Dedicated server room", facilities: "1" },
-  { category: "Software Development Wing", facilities: "1" },
-  { category: "Training and Placement Cell", facilities: "1" },
-  { category: "Alumni Cell", facilities: "1" },
-  { category: "Infirmary", facilities: "1" },
-  { category: "Audio-visual room", facilities: "1" },
-  { category: "Café and canteen", facilities: "2" },
-  { category: "Blocks with parking facilities", facilities: "3" },
+export interface GlanceGroup {
+  title: string;
+  rows: GlanceRow[];
+}
+
+/** The campus ledger, grouped so the numbers read as a survey rather than a
+    flat table. */
+export const glanceGroups: GlanceGroup[] = [
   {
-    category: "Indoor and outdoor recreation",
-    facilities: "Basketball, table tennis, carrom, chess and foosball",
+    title: "Teaching and learning",
+    rows: [
+      { category: "Classrooms and tutorial rooms", facilities: "32" },
+      { category: "Lecture and seminar halls", facilities: "2" },
+      { category: "Computer and specialised laboratories", facilities: "7" },
+      { category: "Physical and digital library spaces", facilities: "2" },
+      { category: "Learning hubs and collaborative spaces", facilities: "3" },
+      { category: "Audio-visual room", facilities: "1" },
+    ],
+  },
+  {
+    title: "Campus and operations",
+    rows: [
+      { category: "Academic and administrative blocks", facilities: "6" },
+      { category: "Identified rooms and functional spaces", facilities: "~90" },
+      { category: "Meeting rooms", facilities: "3" },
+      { category: "Dedicated server room", facilities: "1" },
+      { category: "Software Development Wing", facilities: "1" },
+      { category: "Blocks with parking facilities", facilities: "3" },
+    ],
+  },
+  {
+    title: "Student services",
+    rows: [
+      { category: "Training and Placement Cell", facilities: "1" },
+      { category: "Alumni Cell", facilities: "1" },
+      { category: "Infirmary", facilities: "1" },
+      { category: "Café and canteen", facilities: "2" },
+      { category: "Counselling and student support rooms", facilities: "Yes" },
+      {
+        category: "Indoor and outdoor recreation",
+        facilities: "5 activities",
+      },
+    ],
   },
 ];
 
@@ -99,6 +102,11 @@ export const glanceRows: GlanceRow[] = [
 
 export interface CampusBlock {
   name: string;
+  /** What the block's Nepali name refers to — every block is named after a
+      Nepali flower or bird. */
+  namesake: string;
+  /** A short note on that namesake, shown under the block name. */
+  namesakeNote: string;
   /** Undefined for blocks we do not yet have a photograph of. */
   image?: string;
   description: string;
@@ -108,43 +116,55 @@ export interface CampusBlock {
 export const campusBlocks: CampusBlock[] = [
   {
     name: "Laligurans",
+    namesake: "Rhododendron",
+    namesakeNote: "Nepal's national flower",
     image: blockLaligurans,
     description:
-      "One of the principal academic blocks, housing classrooms, tutorial rooms and student-facing departments, with parking available on site.",
-    tags: ["Classrooms", "Parking"],
+      "A principal academic block. Classrooms and tutorial rooms sit above the student-facing departments, and parking runs along the ground level.",
+    tags: ["Classrooms", "Tutorial rooms", "Parking"],
   },
   {
     name: "Saypatri",
+    namesake: "Marigold",
+    namesakeNote: "The flower of Tihar",
     image: blockSayapatri,
     description:
-      "A dedicated teaching and administrative block supporting day-to-day academic delivery and institutional operations.",
+      "Teaching and administration share this block, keeping academic delivery and the offices that support it under one roof.",
     tags: ["Academic", "Administration"],
   },
   {
     name: "Sunkhari",
+    namesake: "Orchid",
+    namesakeNote: "Sunakhari, the golden orchid",
     description:
-      "Supports academic and operational functions, and is one of the three blocks offering on-site parking for students, staff and visitors.",
-    tags: ["Academic", "Parking"],
+      "Academic and operational functions, plus one of the three parking areas serving students, staff and visitors.",
+    tags: ["Academic", "Operations", "Parking"],
   },
   {
     name: "Danphe",
+    namesake: "Himalayan monal",
+    namesakeNote: "Nepal's national bird",
     image: blockDanphe,
     description:
-      "Hosts learning and support spaces alongside parking facilities, forming part of the campus's student services corridor.",
+      "The student services corridor — learning and support spaces alongside parking, close to where students arrive each morning.",
     tags: ["Student services", "Parking"],
   },
   {
     name: "Saras",
+    namesake: "Sarus crane",
+    namesakeNote: "The tallest flying bird in Nepal",
     image: blockSaras,
     description:
-      "Provides classrooms, faculty spaces and functional rooms that support programme delivery across the college.",
+      "Classrooms, faculty rooms and the functional spaces that keep programme delivery running across the college.",
     tags: ["Classrooms", "Faculty"],
   },
   {
     name: "Suga",
+    namesake: "Parrot",
+    namesakeNote: "A familiar sight across the valley",
     image: blockSuga,
     description:
-      "Accommodates academic, administrative and support functions that keep the wider campus ecosystem running.",
+      "Academic, administrative and support functions that hold the wider campus ecosystem together.",
     tags: ["Academic", "Support"],
   },
 ];

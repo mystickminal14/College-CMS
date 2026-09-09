@@ -63,7 +63,7 @@ const JournalPageWeb = () => {
         {/* ================= HERO ================= */}
         <HeroTitleWithGif
           title="LBEF Research Journal  of Science, Technology And Management"
-          highlightedText="Journal "
+          highlightedText={["Journal", "Management"]}
           // subtitle=""
           badgeText="Journal"
         />

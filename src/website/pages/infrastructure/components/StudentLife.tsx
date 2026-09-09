@@ -14,106 +14,101 @@ import SectionHeading from "./SectionHeading";
 
 const supportFacilities = [
   {
-    icon: <HeartPulse className="w-6 h-6" />,
+    icon: HeartPulse,
     title: "Infirmary",
     description:
-      "On-campus first aid and rest space for students who fall unwell during the day.",
+      "First aid and a quiet bed for anyone who falls unwell during the day.",
   },
   {
-    icon: <MessageCircleHeart className="w-6 h-6" />,
-    title: "Counselling Rooms",
+    icon: MessageCircleHeart,
+    title: "Counselling rooms",
     description:
-      "Private rooms for academic guidance, personal counselling and pastoral support.",
+      "Private rooms for academic guidance and personal counselling.",
   },
   {
-    icon: <LifeBuoy className="w-6 h-6" />,
+    icon: LifeBuoy,
     title: "Student Support Department",
     description:
-      "A single point of contact for enrolment, documentation and day-to-day queries.",
+      "One desk for enrolment, documentation and the questions that come up mid-semester.",
   },
   {
-    icon: <Briefcase className="w-6 h-6" />,
-    title: "Training & Placement Cell",
+    icon: Briefcase,
+    title: "Training and Placement Cell",
     description:
-      "Internship placement, employability training and industry connections.",
+      "Internships, employability training and the industry contacts behind them.",
   },
   {
-    icon: <GraduationCap className="w-6 h-6" />,
+    icon: GraduationCap,
     title: "Alumni Cell",
     description:
-      "Keeps graduates connected to the college through mentoring and networking.",
+      "Keeps graduates in the room — mentoring, referrals and networking.",
   },
   {
-    icon: <Coffee className="w-6 h-6" />,
-    title: "Café & Canteen",
+    icon: Coffee,
+    title: "Café and canteen",
     description:
-      "Two dining spaces for meals, breaks and informal conversation between classes.",
+      "Two places to eat, and the ones where most of the group projects start.",
   },
 ];
 
 const StudentLife = () => {
   return (
-    <section className="mb-16 md:mb-20">
+    <section className="mb-20 md:mb-28">
       <SectionHeading
-        title="Student Support and"
-        highlightedText="Campus Life"
-        subtitle="Student wellbeing and personal development are central to the LBEF campus experience. Alongside academic facilities, the College provides health, counselling, career and recreational services designed to support students throughout their time here."
+        eyebrow="Student life"
+        title="The parts of campus that aren't a"
+        highlightedText="classroom"
+        subtitle="Health, counselling, careers and recreation run alongside teaching — not as an afterthought to it."
       />
 
-      <div className="grid gap-6 mb-6 sm:grid-cols-2 lg:grid-cols-3">
-        {supportFacilities.map((facility, index) => (
-          <motion.div
-            key={facility.title}
-            initial={{ scale: 0.95, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            whileHover={{ y: -8 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 15,
-              delay: index * 0.07,
-            }}
-            className="flex gap-4 p-5 border border-gray-200 shadow-lg bg-linear-to-br from-white to-gray-50 rounded-2xl"
-          >
-            <div className="inline-flex items-center justify-center w-12 h-12 text-blue-600 rounded-full shrink-0 bg-blue-50">
-              {facility.icon}
-            </div>
-            <div>
-              <h3 className="mb-1 font-bold text-gray-900">{facility.title}</h3>
-              <p className="text-sm leading-relaxed text-gray-600">
+      <div className="grid gap-3 mb-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-4">
+        {supportFacilities.map((facility, index) => {
+          const Icon = facility.icon;
+
+          return (
+            <motion.div
+              key={facility.title}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: (index % 3) * 0.07 }}
+              className="p-5 transition-colors border border-gray-200 group rounded-2xl hover:border-blue-300 hover:bg-blue-50/40"
+            >
+              <span className="inline-flex items-center justify-center w-11 h-11 mb-4 text-blue-600 transition-colors rounded-full bg-blue-50 group-hover:bg-blue-600 group-hover:text-white">
+                <Icon className="w-5 h-5" />
+              </span>
+              <h3 className="font-semibold text-[#0B1220]">{facility.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
                 {facility.description}
               </p>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-5 md:gap-4">
         <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 100, damping: 15 }}
-          className="p-6 border border-gray-200 shadow-lg bg-linear-to-br from-white to-gray-50 rounded-2xl"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45 }}
+          className="p-6 text-white md:col-span-3 bg-blue-600 rounded-2xl"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="inline-flex items-center justify-center w-12 h-12 text-blue-600 rounded-full bg-blue-50">
-              <Trophy className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-gray-900">
-              Indoor &amp; Outdoor Recreation
-            </h3>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center justify-center rounded-full size-11 bg-white/15">
+              <Trophy className="w-5 h-5" />
+            </span>
+            <h3 className="text-lg font-bold">Recreation, indoor and out</h3>
           </div>
-          <p className="mb-4 text-sm leading-relaxed text-gray-600">
-            Students can take part in a range of indoor and outdoor activities
-            across the campus.
+          <p className="mt-3 text-sm leading-relaxed text-white/80">
+            Five activities run across the campus between classes and after
+            them.
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-5">
             {recreationActivities.map((activity) => (
               <span
                 key={activity}
-                className="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-full"
+                className="px-3 py-1.5 text-sm font-medium border rounded-full border-white/25 bg-white/10"
               >
                 {activity}
               </span>
@@ -122,43 +117,24 @@ const StudentLife = () => {
         </motion.div>
 
         <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            damping: 15,
-            delay: 0.1,
-          }}
-          className="p-6 border border-gray-200 shadow-lg bg-linear-to-br from-white to-gray-50 rounded-2xl"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="p-6 border border-gray-200 md:col-span-2 rounded-2xl"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="inline-flex items-center justify-center w-12 h-12 text-blue-600 rounded-full bg-blue-50">
-              <Car className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-gray-900">Parking</h3>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center justify-center text-blue-600 rounded-full size-11 bg-blue-50">
+              <Car className="w-5 h-5" />
+            </span>
+            <h3 className="text-lg font-bold text-[#0B1220]">Parking</h3>
           </div>
-          <p className="text-sm leading-relaxed text-gray-600">
-            Parking facilities are available within the Laligurans, Sunkhari and
-            Danphe blocks, keeping the campus accessible for students, staff and
-            visitors arriving by vehicle.
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Laligurans, Sunkhari and Danphe each have parking on site, so
+            arriving by vehicle does not mean circling the neighbourhood.
           </p>
         </motion.div>
       </div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="max-w-3xl mx-auto mt-10 leading-relaxed text-center text-gray-600"
-      >
-        Overall, LBEF's infrastructure represents a coordinated and future-ready
-        campus ecosystem where academic excellence, digital innovation, student
-        wellbeing, recreation, employability and institutional leadership come
-        together in one accessible location.
-      </motion.p>
     </section>
   );
 };

@@ -1,13 +1,13 @@
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
-import CampusBlocks from "./components/CampusBlocks";
-import CampusCollage from "./components/CampusCollage";
-import CampusStats from "./components/CampusStats";
-import FacilityGallery from "./components/FacilityGallery";
-import GlanceTable from "./components/GlanceTable";
-import LearningEnvironment from "./components/LearningEnvironment";
+import AcademicSpaces from "./components/AcademicSpaces";
+import BlockDirectory from "./components/BlockDirectory";
+import CampusPlate from "./components/CampusPlate";
+import CampusLedger from "./components/CampusLedger";
+import FacilityBento from "./components/FacilityBento";
 import StudentLife from "./components/StudentLife";
+import VisitCampus from "./components/VisitCampus";
 
 export default function InfrastructurePage() {
   return (
@@ -18,23 +18,23 @@ export default function InfrastructurePage() {
         url={`${APP_URL}/infrastructure`}
       />
 
-      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-white">
         <div className="container px-4 py-8 mx-auto sm:px-6 lg:px-8">
           <HeroTitleWithGif
             title="Campus Infrastructure"
             highlightedText="Infrastructure"
-            subtitle="Located in the heart of Kathmandu, LBEF College offers a modern and well-integrated campus spread across approximately 7 ropani of land, with a total built-up area exceeding 50,000 sq. ft., operating through six purpose-oriented blocks — Laligurans, Saypatri, Sunkhari, Danphe, Saras and Suga."
+            subtitle="Seven ropani in the heart of Kathmandu, six blocks named after Nepali flowers and birds, and more than 50,000 sq. ft. of rooms students actually use."
             badgeText="Campus Infrastructure"
           />
 
           <div className="mx-auto max-w-7xl">
-            <CampusCollage />
-            <CampusStats />
-            <CampusBlocks />
-            <LearningEnvironment />
-            <FacilityGallery />
-            <GlanceTable />
+            <CampusPlate />
+            <BlockDirectory />
+            <AcademicSpaces />
+            <FacilityBento />
+            <CampusLedger />
             <StudentLife />
+            <VisitCampus />
           </div>
         </div>
       </div>

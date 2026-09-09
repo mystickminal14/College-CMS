@@ -19,7 +19,7 @@ const RecognitionPageWeb = () => {
       />
       <HeroTitleWithGif
         title="Our College Recognitions Over the Years"
-        highlightedText="Recognitions"
+        highlightedText={["Recognitions", "Years"]}
         subtitle="Celebrating excellence, dedication, and success. Explore the academic and
             institutional recognitions and achievements that reflect our commitment to
             growth and distinction."

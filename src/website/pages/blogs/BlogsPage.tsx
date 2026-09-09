@@ -58,7 +58,7 @@ const BlogsPage = () => {
       {/* HERO */}
       <HeroTitleWithGif
         title="Explore Our Stories, Ideas & Insights"
-        highlightedText="Stories, Ideas & Insights"
+        highlightedText={["Stories", "Insights"]}
         subtitle="Discover knowledge, inspiration, and updates from our team shaping the future of education."
         badgeText="LBEF Blog"
       />

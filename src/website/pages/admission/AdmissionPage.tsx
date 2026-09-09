@@ -132,7 +132,7 @@ const AdmissionProcedure = () => {
       <div className="min-h-screen bg-gray-50">
         <HeroTitleWithGif
           title="Admission Procedure for New Applicant"
-          highlightedText="Procedure"
+          highlightedText={["Procedure", "Applicant"]}
           subtitle="A clear guide to the admission process, eligibility and timelines."
           badgeText="Prospective"
         />
