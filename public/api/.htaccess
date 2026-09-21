@@ -1,0 +1,7 @@
+# The config holds the Sociair token. Apache executes .php rather than serving
+# it, so its contents never go out over HTTP — this is the belt to that braces,
+# for the case where PHP is disabled or misconfigured and .php files would
+# otherwise be served as plain text.
+<FilesMatch "^sms-config(\.sample)?\.php$">
+    Require all denied
+</FilesMatch>

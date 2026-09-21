@@ -139,7 +139,7 @@ export const websiteRoutes = [
       { path: "contact-info", element: <ContactListPage /> },
       { path: "notice", element: <NoticeWeb /> },
       { path: "admission-procedure", element: <AdmissionProcedure />, },
-      { path: "verification", element: <VerificationPage/>, },
+      { path: "verification", element: <VerificationPage />, },
 
       // {
       //   path: "students-life",
@@ -184,10 +184,10 @@ export const websiteRoutes = [
         children: [
           { path: "", element: <Gallery /> },
           { path: "photo-gallery", element: <Gallery /> },
-              {
-        path: "blogs",
-        element: <BlogsPAge/>,
-      },
+          {
+            path: "blogs",
+            element: <BlogsPAge />,
+          },
           {
             path: "photo-gallery/:name/:id",
             element: <GalleryView />,
@@ -224,26 +224,26 @@ export const websiteRoutes = [
       { path: "ictregistration", element: <ICTRegistration /> },
       { path: "vacancy", element: <VacancyWeb /> },
       { path: "vacancy/:id", element: <VacancyDetailWeb /> },
-  
+
       {
         path: "ugc",
         element: <PlaceholderPage pageName="UGC" />,
       },
-      {
-        path: "contact",
-        element: <PlaceholderPage pageName="Contact Us" />,
-      },
+      // {
+      //   path: "contact",
+      //   element: <PlaceholderPage pageName="Contact Us" />,
+      // },
       {
         path: "ourteam/:id",
         element: <TeamDetail />,
       },
+      // {
+      //   path: "enroll",
+      //   element: <PlaceholderPage pageName="Enroll Now" />,
+      // },
       {
-        path: "enroll",
-        element: <PlaceholderPage pageName="Enroll Now" />,
-      },
-       {
         path: "blogs/:slug",
-        element: <PreviewBlog/>,
+        element: <PreviewBlog />,
       },
       { path: "*", element: <NotFoundPage /> },
     ],

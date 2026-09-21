@@ -29,3 +29,6 @@ dist-ssr
 .env.local
 .env.*.local
 .env/*
+
+# Holds the Sociair SMS token; created on the server from sms-config.sample.php
+public/api/sms-config.php

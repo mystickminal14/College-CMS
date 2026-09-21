@@ -1,7 +1,6 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { AlertCircle } from "lucide-react";
 
-import { IMAGE_URL } from "../../../constants";
 import { eyebrowClass, labelClass, optionalTagClass } from "./tokens";
 
 /**
@@ -116,47 +115,3 @@ export const Alert: React.FC<{ children: ReactNode; className?: string }> = ({
     <span className="leading-snug">{children}</span>
   </div>
 );
-
-const initials = (name: string) =>
-  name
-    .replace(/\b(Er|Dr|Mr|Mrs|Ms|Prof)\.?\s+/gi, "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
-
-const AVATAR_SIZE = {
-  sm: "w-11 h-11 text-sm",
-  md: "w-16 h-16 text-lg",
-} as const;
-
-/** Staff portraits are optional and sometimes point at a file that is no longer
- *  on disk, so a broken image falls back to initials rather than a torn icon. */
-export const StaffAvatar: React.FC<{ src: string | null; name: string; size?: "sm" | "md" }> = ({
-  src,
-  name,
-  size = "md",
-}) => {
-  const [failed, setFailed] = useState(false);
-  const sizeClass = AVATAR_SIZE[size];
-
-  if (!src || failed) {
-    return (
-      <span
-        className={`${sizeClass} shrink-0 rounded-full bg-linear-to-br from-[#125DAA]/15 to-[#125DAA]/5 text-[#125DAA] font-bold flex items-center justify-center ring-1 ring-[#125DAA]/10`}
-      >
-        {initials(name)}
-      </span>
-    );
-  }
-
-  return (
-    <img
-      src={`${IMAGE_URL}${src}`}
-      alt=""
-      onError={() => setFailed(true)}
-      className={`${sizeClass} shrink-0 rounded-full object-cover ring-1 ring-slate-900/5`}
-    />
-  );
-};

@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import APIClient from "../../../services/apiClient";
 import { AppContext } from "../../../context/ContextApp";
 import type { ApiErrorResponse, ApiResponse } from "../../../services/apiTypes";
 import type { Visitor } from "../model/VisitorModel";
+import VisitorApi from "../services/VisitorService";
 import { VISITOR_CACHE_KEY, VISITOR_TODAY_CACHE_KEY } from "../../../constants";
 
 const useCheckOutVisitor = () => {
@@ -16,10 +16,8 @@ const useCheckOutVisitor = () => {
   const { showToast } = appContext;
 
   return useMutation<ApiResponse<Visitor>, ApiErrorResponse, number>({
-    mutationFn: (id) => {
-      const apiClient = new APIClient<Visitor>(`/visitor/check-out/${id}`);
-      return apiClient.put({});
-    },
+    // PUT /visitor/{id}/checkout — the id leads, the verb is the sub-resource.
+    mutationFn: (id) => VisitorApi.put({}, `${id}/checkout`),
     onSuccess: (res) => {
       showToast(res.message || "Visitor checked out successfully!", "success");
       queryClient.invalidateQueries({ queryKey: [VISITOR_CACHE_KEY] });

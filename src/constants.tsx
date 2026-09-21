@@ -1,6 +1,19 @@
 
 export const PCPS_BASE_URL = import.meta.env.VITE_PCPS_BASE_URL ?? 'https://edusysapi.lbef.info';
 
+// The visitor register lives on the PHP edusys API, not the Node server the
+// rest of the CMS talks to. Its routes all hang off /api, and the photos it
+// stores are plain relative paths (uploads/visitor/<file>.jpg) served by the
+// same host — hence the two constants rather than one.
+export const VISITOR_BASE_URL = `https://edusysapi.lbef.info`;
+export const VISITOR_IMAGE_URL = 'https://edusysapi.lbef.info';
+
+// Ships in public/ and so lands beside index.html in the cPanel docroot, the
+// same way blog-seo.php does. Not a route on either API: sms.sociair.com sends
+// no CORS headers and the Sociair token is billable, so neither the call nor
+// the credential can live in the browser. See public/api/send-pass-sms.php.
+export const PASS_SMS_URL = '/api/send-pass-sms.php';
+
 export const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://lbef-server.lbef.org/api';
 export const IMAGE_URL = import.meta.env.VITE_IMAGE_URL ?? 'https://lbef-server.lbef.org';
 export const APP_URL = import.meta.env.VITE_APP_URL ?? 'https://www.lbef.org';
@@ -69,10 +82,9 @@ export const VACANCY_CACHE_KEY = 'vacancy';
 export const APPLICANT_CACHE_KEY = 'applicant';
 export const COURSE_REGISTRATION_CACHE_KEY = 'course-registration';
 export const POPUP_CACHE_KEY = 'popup';
-export const VISIT_PURPOSE_CACHE_KEY = 'visit_purpose';
-export const VISIT_PURPOSE_NAME_CACHE_KEY = 'visit_purpose_name';
 export const VISITOR_CACHE_KEY = 'visitor';
 export const VISITOR_TODAY_CACHE_KEY = 'visitor_today';
+export const VISITOR_PASS_CACHE_KEY = 'visitor_pass';
 
 
 

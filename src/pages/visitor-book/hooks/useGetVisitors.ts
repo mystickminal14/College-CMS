@@ -9,7 +9,8 @@ interface VisitorQueryProps {
   page?: number;
   limit?: number;
   status?: EVisitorStatus | "";
-  purposeId?: number | "";
+  /** Matched against the stored purpose text, not an id. */
+  purpose?: string;
   date?: string;
 }
 
@@ -18,19 +19,19 @@ const useGetVisitors = ({
   page = 1,
   limit = 10,
   status = "",
-  purposeId = "",
+  purpose = "",
   date = "",
 }: VisitorQueryProps) => {
   const params = new URLSearchParams();
   if (search) params.append("search", search);
   if (status) params.append("status", status);
-  if (purposeId) params.append("purposeId", String(purposeId));
+  if (purpose) params.append("purpose", purpose);
   if (date) params.append("date", date);
   params.append("page", String(page));
   params.append("limit", String(limit));
 
   return useQuery<ApiResponse<Visitor[]>, ApiErrorResponse>({
-    queryKey: [VISITOR_CACHE_KEY, search, page, limit, status, purposeId, date],
+    queryKey: [VISITOR_CACHE_KEY, search, page, limit, status, purpose, date],
     queryFn: () => VisitorApi.getAll(`?${params.toString()}`),
   });
 };

@@ -6,20 +6,21 @@ const formatTime = (value?: string | null) => {
 };
 
 export const VisitorColumns = [
+  {
+    label: "Code",
+    accessor: "code",
+    render: (row: Visitor) => (
+      <span className="font-mono text-xs text-gray-600 dark:text-gray-300">{row.code || "--"}</span>
+    ),
+  },
   { label: "Name", accessor: "name" },
   { label: "Phone", accessor: "phone" },
   {
     label: "Purpose",
     accessor: "purpose",
-    render: (row: Visitor) =>
-      row.purpose?.isOther ? row.otherPurpose || "Other" : row.purpose?.name ?? "--",
+    render: (row: Visitor) => row.purpose || "--",
   },
-  // Both are optional on the record, so they render a dash rather than blank.
-  {
-    label: "Department",
-    accessor: "department",
-    render: (row: Visitor) => row.department || "--",
-  },
+  // Optional on the record, so it renders a dash rather than blank.
   {
     label: "Person to Meet",
     accessor: "personToMeet",

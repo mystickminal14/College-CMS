@@ -19,9 +19,8 @@ import AddVisitorModal from "./components/AddVisitorModal";
 import VisitorPassModal from "./components/VisitorPassModal";
 import CheckOutVisitorModal from "./components/CheckOutVisitorModal";
 import DeleteVisitorModal from "./components/DeleteVisitorModal";
-import VisitPurposeComp from "../visit-purpose/VisitPurposeComp";
 
-type ViewMode = "today" | "all" | "purposes";
+type ViewMode = "today" | "all";
 
 const VisitorBookPage = () => {
   const [viewMode, setViewMode] = useState<ViewMode>("today");
@@ -146,31 +145,18 @@ const VisitorBookPage = () => {
             <FaTable className="w-4 h-4" />
             <span>All Visitors</span>
           </button>
-          <button
-            onClick={() => setViewMode("purposes")}
-            className={`px-4 py-2 flex items-center space-x-1 rounded transition-colors ${
-              viewMode === "purposes"
-                ? "bg-[#1a7cd3] text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
-          >
-            <FaTable className="w-4 h-4" />
-            <span>Purposes</span>
-          </button>
         </div>
 
-        {viewMode !== "purposes" && (
-          <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
-            {viewMode === "all" && <SearchBox placeholder="Search name / phone..." onSearch={handleSearch} />}
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="px-4 py-2 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
-            >
-              <FaPlus className="w-4 h-4" />
-              <span>Add Visitor</span>
-            </button>
-          </div>
-        )}
+        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
+          {viewMode === "all" && <SearchBox placeholder="Search name / phone..." onSearch={handleSearch} />}
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="px-4 py-2 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
+          >
+            <FaPlus className="w-4 h-4" />
+            <span>Add Visitor</span>
+          </button>
+        </div>
       </div>
 
       {viewMode === "today" && (
@@ -237,16 +223,10 @@ const VisitorBookPage = () => {
         </>
       )}
 
-      {viewMode === "purposes" && <VisitPurposeComp />}
-
       <AddVisitorModal
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
         onCreated={(visitor) => setPassVisitor(visitor)}
-        onManagePurposes={() => {
-          setShowAddModal(false);
-          setViewMode("purposes");
-        }}
       />
 
       <VisitorPassModal visitor={passVisitor} onClose={() => setPassVisitor(null)} />

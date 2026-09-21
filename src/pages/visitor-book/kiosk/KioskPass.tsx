@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, MessageSquareText } from "lucide-react";
 
 import type { VisitorPass } from "../model/VisitorModel";
 import { buildPassQrText } from "../utils/passPayload";
@@ -10,13 +10,15 @@ import { primaryButtonClass } from "./tokens";
 interface Props {
   pass: VisitorPass;
   qrToken: string;
+  /** The API texted the pass link on registration. */
+  smsSent: boolean;
   onDone: () => void;
 }
 
 const formatTime = (value: string | null) =>
   value ? new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "--";
 
-const KioskPass: React.FC<Props> = ({ pass, qrToken, onDone }) => {
+const KioskPass: React.FC<Props> = ({ pass, qrToken, smsSent, onDone }) => {
   const [qrDataUrl, setQrDataUrl] = useState("");
 
   useEffect(() => {
@@ -76,6 +78,16 @@ const KioskPass: React.FC<Props> = ({ pass, qrToken, onDone }) => {
       <p className="mt-2 text-center text-sm text-slate-500 leading-snug">
         {pass.name} · {meta.join(" · ")}
       </p>
+
+      {/* Only shown when the gateway actually took the message — promising a
+          text that never arrives is worse than saying nothing, and the QR
+          above already works on its own. */}
+      {smsSent && (
+        <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-slate-500">
+          <MessageSquareText className="w-4 h-4 shrink-0 text-emerald-600" />
+          We've texted your pass code and the guest WiFi login to your phone.
+        </p>
+      )}
 
       <KioskActions>
         <p className="hidden sm:block text-sm text-slate-500">

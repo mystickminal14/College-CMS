@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { CheckCircle2, Clock, LogOut, User, XCircle } from "lucide-react";
 
 import useGetVisitorPass from "../../../pages/visitor-book/hooks/useGetVisitorPass";
-import { IMAGE_URL } from "../../../constants";
+import { VISITOR_IMAGE_URL } from "../../../constants";
 
 const formatTime = (value: string | null) => {
   if (!value) return "--";
@@ -23,7 +23,7 @@ const VisitorPassPage = () => {
         <div className="bg-linear-to-r from-[#125DAA] to-[#1a7cd3] p-6 text-center">
           {pass?.photo ? (
             <img
-              src={`${IMAGE_URL}${pass.photo}`}
+              src={`${VISITOR_IMAGE_URL}/${pass.photo}`}
               alt={pass.name}
               className="w-20 h-20 rounded-full object-cover mx-auto mb-2 border-2 border-white/70"
             />
@@ -81,7 +81,7 @@ const VisitorPassPage = () => {
               <div className="border-t border-gray-100 pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Here to meet</span>
-                  <span className="font-medium text-gray-900">{pass.personToMeet}</span>
+                  <span className="font-medium text-gray-900">{pass.personToMeet || "--"}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Visitors</span>

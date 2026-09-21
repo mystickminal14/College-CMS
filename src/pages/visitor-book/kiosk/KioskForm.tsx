@@ -5,18 +5,17 @@ import {
   ChevronDown,
   Loader2,
   Minus,
-  PencilLine,
   Phone,
   Plus,
-  Search,
   UserRound,
-  UserX,
-  X,
 } from "lucide-react";
 
-import useGetVisitPurposeNameAll from "../../visit-purpose/hooks/useGetVisitPurposeName";
-import type { VisitPurpose } from "../../visit-purpose/model/VisitPurposeModel";
-import { useKioskStaff } from "../hooks/useKiosk";
+import {
+  VISIT_PURPOSES,
+  findVisitPurpose,
+  resolvePurpose,
+  type VisitPurpose,
+} from "../data/visitPurposes";
 import { KioskActions } from "./KioskFrame";
 import {
   fieldClass,
@@ -28,7 +27,7 @@ import {
   primaryButtonClass,
   textareaClass,
 } from "./tokens";
-import { Field, FormSection, StaffAvatar, StepHeading } from "./ui";
+import { Field, FormSection, StepHeading } from "./ui";
 
 // The submit button renders in the frame's fixed action bar, outside this
 // form's DOM subtree, so it reaches the form by id instead of by nesting.
@@ -39,8 +38,6 @@ const FORM_ID = "kiosk-form";
 const DIAL_CODE = "+977";
 const NEPALI_MOBILE = /^9\d{9}$/;
 
-const STAFF_PAGE_SIZE = 6;
-
 // Nothing server-side caps the group, but a wall tablet with a +1 button that
 // keeps going is a tablet that eventually reports a party of 400.
 const MAX_GROUP = 20;
@@ -49,8 +46,8 @@ export interface KioskFormValues {
   name: string;
   phone: string;
   numberOfPerson: number;
-  purposeId: number;
-  otherPurpose?: string;
+  /** Already resolved to text — see resolvePurpose in ../data/visitPurposes. */
+  purpose: string;
   personToMeet?: string;
   note?: string;
 }
@@ -81,227 +78,30 @@ const useDismiss = (open: boolean, ref: React.RefObject<HTMLDivElement | null>, 
   }, [open, ref, close]);
 };
 
-const optionRowClass =
-  "w-full flex items-center gap-3.5 px-4 py-3.5 text-left transition hover:bg-slate-50 focus:outline-none focus-visible:bg-slate-50";
-
 /**
- * Whom-to-meet is a searchable dropdown rather than a plain <select> so each
- * row can carry the staff member's photo — a native select cannot render
- * images. "Other" is always the first row, letting a visitor who can't find
- * their host switch straight to typing a name.
+ * Whom-to-meet is free text. The PHP visitor API stores `personToMeet` as a
+ * plain optional string and exposes no staff directory to the kiosk, so there
+ * is nothing to search against — a visitor types the name they were given.
  */
-const MeetPicker: React.FC<{
-  selected: { name: string; position: string; avatar: string | null } | null;
-  isOther: boolean;
-  manualName: string;
-  onPickStaff: (member: { name: string; position: string; avatar: string | null }) => void;
-  onPickOther: () => void;
-  onManualNameChange: (value: string) => void;
-  onClear: () => void;
-}> = ({ selected, isOther, manualName, onPickStaff, onPickOther, onManualNameChange, onClear }) => {
-  const [open, setOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const boxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearch(searchInput.trim());
-      setPage(1);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
-
-  useDismiss(open, boxRef, () => setOpen(false));
-
-  const { data, isLoading } = useKioskStaff({ search, page, limit: STAFF_PAGE_SIZE });
-  const staff = data?.data ?? [];
-  const pagination = data?.pagination;
-  const totalPages = pagination?.totalPages ?? 1;
-
-  if (isOther) {
-    return (
-      <div className="flex items-stretch gap-2.5">
-        <div className="relative flex-1 min-w-0">
-          <PencilLine className="pointer-events-none absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-          <input
-            type="text"
-            value={manualName}
-            onChange={(e) => onManualNameChange(e.target.value)}
-            placeholder="Type the person's full name"
-            autoFocus
-            className={`${fieldClass} pl-12 sm:pl-13`}
-          />
-        </div>
-        <button
-          type="button"
-          onClick={onClear}
-          className={`${iconButtonClass} sm:w-16 sm:h-16`}
-          aria-label="Back to the staff list"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <div ref={boxRef} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        className={`${fieldClass} ${focusRing} flex items-center gap-3.5 text-left ${
-          open ? "border-[#125DAA] ring-4 ring-[#125DAA]/12" : ""
-        }`}
-      >
-        {selected ? (
-          <>
-            <StaffAvatar src={selected.avatar} name={selected.name} size="sm" />
-            <span className="min-w-0 flex-1">
-              <span className="block font-semibold text-slate-900 truncate">{selected.name}</span>
-              {selected.position && (
-                <span className="block text-sm text-slate-500 truncate">{selected.position}</span>
-              )}
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="w-11 h-11 shrink-0 rounded-full bg-slate-100 flex items-center justify-center">
-              <UserRound className="w-5 h-5 text-slate-400" />
-            </span>
-            <span className="flex-1 min-w-0 truncate text-slate-400">Search staff by name</span>
-          </>
-        )}
-        {selected ? (
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClear();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.stopPropagation();
-                e.preventDefault();
-                onClear();
-              }
-            }}
-            aria-label="Clear selection"
-            className="shrink-0 w-8 h-8 -mr-1 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
-          >
-            <X className="w-5 h-5" />
-          </span>
-        ) : (
-          <ChevronDown
-            className={`w-5 h-5 shrink-0 text-slate-400 transition-transform duration-200 ${
-              open ? "rotate-180" : ""
-            }`}
-          />
-        )}
-      </button>
-
-      {open && (
-        <div className={`${popoverClass} absolute z-20 mt-2 w-full overflow-hidden`}>
-          <div className="p-3 border-b border-slate-100 bg-slate-50/60">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Search by name or position"
-                autoFocus
-                className={`${focusRing} w-full h-12 pl-10 pr-3 text-[15px] rounded-xl border border-slate-200 bg-white placeholder:text-slate-400`}
-              />
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => {
-              setOpen(false);
-              onPickOther();
-            }}
-            className={`${optionRowClass} border-b border-slate-100`}
-          >
-            <span className="w-11 h-11 shrink-0 rounded-full bg-[#125DAA]/10 flex items-center justify-center">
-              <PencilLine className="w-5 h-5 text-[#125DAA]" />
-            </span>
-            <span className="min-w-0">
-              <span className="block font-semibold text-slate-900">Someone else</span>
-              <span className="block text-sm text-slate-500">Type the name yourself</span>
-            </span>
-          </button>
-
-          <div className="max-h-72 overflow-y-auto overscroll-contain">
-            {isLoading ? (
-              <div className="flex items-center justify-center py-10 text-slate-300">
-                <Loader2 className="w-6 h-6 animate-spin" />
-              </div>
-            ) : staff.length === 0 ? (
-              <div className="flex flex-col items-center gap-2 py-10 text-center px-6">
-                <UserX className="w-7 h-7 text-slate-300" />
-                <p className="text-sm text-slate-500">
-                  Nobody matches that search. Try a surname, or pick “Someone else”.
-                </p>
-              </div>
-            ) : (
-              staff.map((member) => (
-                <button
-                  key={member.id}
-                  type="button"
-                  onClick={() => {
-                    setOpen(false);
-                    onPickStaff({
-                      name: member.name,
-                      position: member.position,
-                      avatar: member.portrait || member.image,
-                    });
-                  }}
-                  className={optionRowClass}
-                >
-                  <StaffAvatar src={member.portrait || member.image} name={member.name} size="sm" />
-                  <span className="min-w-0">
-                    <span className="block font-semibold text-slate-900 truncate">{member.name}</span>
-                    <span className="block text-sm text-slate-500 truncate">{member.position}</span>
-                  </span>
-                </button>
-              ))
-            )}
-          </div>
-
-          {totalPages > 1 && (
-            <div className="flex items-center justify-between px-3 py-2.5 border-t border-slate-100 bg-slate-50/60">
-              <button
-                type="button"
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={!pagination?.hasPrevPage}
-                className="px-3 py-1.5 rounded-lg text-sm font-semibold text-[#125DAA] hover:bg-white disabled:text-slate-300 disabled:hover:bg-transparent transition"
-              >
-                Previous
-              </button>
-              <span className="text-xs font-medium text-slate-500 tabular-nums">
-                {page} of {totalPages}
-              </span>
-              <button
-                type="button"
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={!pagination?.hasNextPage}
-                className="px-3 py-1.5 rounded-lg text-sm font-semibold text-[#125DAA] hover:bg-white disabled:text-slate-300 disabled:hover:bg-transparent transition"
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+const MeetInput: React.FC<{
+  id?: string;
+  value: string;
+  onChange: (value: string) => void;
+}> = ({ id, value, onChange }) => (
+  <div className="relative">
+    <UserRound className="pointer-events-none absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+    <input
+      id={id}
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder="Type the person's name"
+      maxLength={191}
+      autoComplete="off"
+      className={`${fieldClass} pl-12 sm:pl-13`}
+    />
+  </div>
+);
 
 /**
  * A native <select> renders its option list chrome-side, which on kiosk
@@ -447,17 +247,9 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
   const [purposeError, setPurposeError] = useState("");
   const [otherPurposeError, setOtherPurposeError] = useState("");
 
-  const [meetSelected, setMeetSelected] = useState<{
-    name: string;
-    position: string;
-    avatar: string | null;
-  } | null>(null);
-  const [meetIsOther, setMeetIsOther] = useState(false);
-  const [meetManualName, setMeetManualName] = useState("");
+  const [personToMeet, setPersonToMeet] = useState("");
 
-  const { data: purposeData } = useGetVisitPurposeNameAll();
-  const purposes = purposeData?.data ?? [];
-  const selectedPurpose = purposes.find((p) => p.id === purposeId);
+  const selectedPurpose = findVisitPurpose(purposeId);
 
   const setCount = (delta: number) => {
     onDirty();
@@ -513,15 +305,15 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
       return;
     }
 
-    const personToMeet = meetIsOther ? meetManualName.trim() : meetSelected?.name;
+    const host = personToMeet.trim();
 
     onSubmit({
       name: trimmedName,
       phone: `${DIAL_CODE}${phone}`,
       numberOfPerson,
-      purposeId,
-      ...(needsOther ? { otherPurpose: otherPurpose.trim() } : {}),
-      ...(personToMeet ? { personToMeet } : {}),
+      // One free-text column on the server, so "Other" submits what was typed.
+      purpose: resolvePurpose(purposeId, otherPurpose),
+      ...(host ? { personToMeet: host } : {}),
       ...(note.trim() ? { note: note.trim() } : {}),
     });
   };
@@ -604,7 +396,7 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
               >
                 <PurposePicker
                   id="kiosk-purpose"
-                  purposes={purposes}
+                  purposes={VISIT_PURPOSES}
                   selectedId={purposeId}
                   hasError={!!purposeError}
                   describedBy={purposeError ? "kiosk-purpose-error" : undefined}
@@ -617,38 +409,21 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
                 />
               </Field>
 
-              <Field label="Who are you here to see" optional>
-                <MeetPicker
-                  selected={meetSelected}
-                  isOther={meetIsOther}
-                  manualName={meetManualName}
-                  onPickStaff={(member) => {
+              <Field label="Who are you here to see" htmlFor="kiosk-meet" optional>
+                <MeetInput
+                  id="kiosk-meet"
+                  value={personToMeet}
+                  onChange={(value) => {
                     onDirty();
-                    setMeetIsOther(false);
-                    setMeetSelected(member);
-                  }}
-                  onPickOther={() => {
-                    onDirty();
-                    setMeetSelected(null);
-                    setMeetIsOther(true);
-                  }}
-                  onManualNameChange={(value) => {
-                    onDirty();
-                    setMeetManualName(value);
-                  }}
-                  onClear={() => {
-                    onDirty();
-                    setMeetSelected(null);
-                    setMeetIsOther(false);
-                    setMeetManualName("");
+                    setPersonToMeet(value);
                   }}
                 />
               </Field>
             </div>
 
-            {/* Only the purpose flagged isOther in the CMS opens a free-text box.
-                It is tinted and rule-marked so it reads as a follow-up to the
-                answer above it, rather than as a field that appeared by magic. */}
+            {/* Only the "Other" reason opens a free-text box. It is tinted and
+                rule-marked so it reads as a follow-up to the answer above it,
+                rather than as a field that appeared by magic. */}
             {selectedPurpose?.isOther && (
               <div className="mt-4 rounded-2xl border-l-3 border-[#125DAA] bg-[#125DAA]/[0.04] p-4 sm:p-5">
                 <Field

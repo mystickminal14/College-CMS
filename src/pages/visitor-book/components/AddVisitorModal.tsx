@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Loader2, Plus, X } from "lucide-react";
 
-import useGetVisitPurposeNameAll from "../../visit-purpose/hooks/useGetVisitPurposeName";
 import useCreateVisitor from "../hooks/useCreateVisitor";
 import type { Visitor } from "../model/VisitorModel";
+import { VISIT_PURPOSES, findVisitPurpose, resolvePurpose } from "../data/visitPurposes";
 import PersonToMeetInput from "./PersonToMeetInput";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onCreated: (visitor: Visitor) => void;
-  onManagePurposes: () => void;
 }
 
 const emptyForm = {
@@ -23,12 +22,10 @@ const emptyForm = {
   note: "",
 };
 
-const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated, onManagePurposes }) => {
+const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated }) => {
   const [form, setForm] = useState(emptyForm);
 
-  const { data: purposeData } = useGetVisitPurposeNameAll();
-  const purposes = purposeData?.data ?? [];
-  const selectedPurpose = purposes.find((p) => p.id === Number(form.purposeId));
+  const selectedPurpose = findVisitPurpose(Number(form.purposeId));
 
   const createMutation = useCreateVisitor();
 
@@ -45,9 +42,10 @@ const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated, onManage
       name: form.name.trim(),
       phone: form.phone.trim(),
       numberOfPerson: Number(form.numberOfPerson) || 1,
-      purposeId: Number(form.purposeId),
+      // The API stores one free-text purpose, so "Other" submits the words the
+      // visitor gave rather than the label "Other".
+      purpose: resolvePurpose(Number(form.purposeId), form.otherPurpose),
       personToMeet: form.personToMeet.trim(),
-      ...(selectedPurpose?.isOther ? { otherPurpose: form.otherPurpose.trim() } : {}),
       ...(form.note.trim() ? { note: form.note.trim() } : {}),
     };
 
@@ -82,19 +80,12 @@ const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated, onManage
               required
             >
               <option value="">Select Purpose</option>
-              {purposes.map((p) => (
+              {VISIT_PURPOSES.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name}
                 </option>
               ))}
             </select>
-            <button
-              type="button"
-              onClick={onManagePurposes}
-              className="text-xs text-[#1a7cd3] mt-1 hover:underline"
-            >
-              + Add Purpose
-            </button>
           </div>
 
           {selectedPurpose?.isOther && (
@@ -105,6 +96,7 @@ const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated, onManage
                 value={form.otherPurpose}
                 onChange={(e) => setForm((f) => ({ ...f, otherPurpose: e.target.value }))}
                 className="w-full px-4 py-2 border rounded-lg"
+                maxLength={150}
                 required
               />
             </div>
@@ -158,6 +150,7 @@ const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated, onManage
               onChange={(e) => setForm((f) => ({ ...f, note: e.target.value }))}
               className="w-full px-4 py-2 border rounded-lg"
               rows={3}
+              maxLength={1000}
             />
           </div>
         </div>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, TimerReset } from "lucide-react";
 
 import { useKioskRegister } from "../hooks/useKiosk";
+import useSendPassSms from "../hooks/useSendPassSms";
 import useGetVisitorPass from "../hooks/useGetVisitorPass";
 import KioskFrame, { type KioskStep } from "./KioskFrame";
 import KioskPass from "./KioskPass";
@@ -30,9 +31,16 @@ const VisitorKioskPage = () => {
   const [formDirty, setFormDirty] = useState(false);
   const [visitorName, setVisitorName] = useState("");
   const [qrToken, setQrToken] = useState<string | null>(null);
+  // Set from the SMS function's reply, so the pass step can only claim a text
+  // was sent if the gateway actually accepted it.
+  const [smsSent, setSmsSent] = useState(false);
   const [registerError, setRegisterError] = useState("");
 
   const registerMutation = useKioskRegister();
+  const { mutate: sendPassSms } = useSendPassSms();
+  // Which visit has already been texted. A ref, not state: it must not cause a
+  // render, and it is read in the same effect that writes it.
+  const textedFor = useRef<string | null>(null);
 
   // Fetched only once the visitor reaches the pass step. Public endpoint —
   // no token needed.
@@ -43,6 +51,8 @@ const VisitorKioskPage = () => {
     setFormDirty(false);
     setVisitorName("");
     setQrToken(null);
+    setSmsSent(false);
+    textedFor.current = null;
     setRegisterError("");
     setStep("form");
   };
@@ -75,6 +85,19 @@ const VisitorKioskPage = () => {
     });
   };
 
+  // Sent once the pass is on screen, not when the camera opens: a visitor still
+  // deciding about their photo has not been shown their code yet, and the text
+  // is meant to land with it.
+  //
+  // `textedFor` makes this idempotent, so neither StrictMode's double-invoked
+  // effects nor a re-render can send — or pay for — a second message.
+  useEffect(() => {
+    if (step !== "pass" || !pass || !qrToken || textedFor.current === qrToken) return;
+
+    textedFor.current = qrToken;
+    sendPassSms(qrToken, { onSuccess: (result) => setSmsSent(result.sent) });
+  }, [step, pass, qrToken, sendPassSms]);
+
   const isFinished = step === "pass";
 
   const steps: KioskStep[] = [
@@ -104,7 +127,12 @@ const VisitorKioskPage = () => {
 
           {step === "pass" &&
             (pass ? (
-              <KioskPass pass={pass} qrToken={qrToken ?? ""} onDone={reset} />
+              <KioskPass
+                pass={pass}
+                qrToken={qrToken ?? ""}
+                smsSent={smsSent}
+                onDone={reset}
+              />
             ) : (
               <div className="flex flex-col items-center justify-center gap-3.5 py-24 text-slate-500">
                 <Loader2 className="w-8 h-8 animate-spin text-[#125DAA]" />
