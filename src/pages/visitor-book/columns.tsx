@@ -1,9 +1,5 @@
 import type { Visitor } from "./model/VisitorModel";
-
-const formatTime = (value?: string | null) => {
-  if (!value) return "--";
-  return new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-};
+import { formatVisitorTime } from "./utils/visitorTime";
 
 export const VisitorColumns = [
   {
@@ -29,12 +25,12 @@ export const VisitorColumns = [
   {
     label: "In Time",
     accessor: "inTime",
-    render: (row: Visitor) => formatTime(row.inTime),
+    render: (row: Visitor) => formatVisitorTime(row.inTime),
   },
   {
     label: "Out Time",
     accessor: "outTime",
-    render: (row: Visitor) => formatTime(row.outTime),
+    render: (row: Visitor) => formatVisitorTime(row.outTime),
   },
   {
     label: "Status",

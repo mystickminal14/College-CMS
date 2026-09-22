@@ -4,6 +4,7 @@ import { CheckCircle2, MessageSquareText } from "lucide-react";
 
 import type { VisitorPass } from "../model/VisitorModel";
 import { buildPassQrText } from "../utils/passPayload";
+import { formatVisitorTime } from "../utils/visitorTime";
 import { KioskActions } from "./KioskFrame";
 import { primaryButtonClass } from "./tokens";
 
@@ -15,8 +16,6 @@ interface Props {
   onDone: () => void;
 }
 
-const formatTime = (value: string | null) =>
-  value ? new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "--";
 
 const KioskPass: React.FC<Props> = ({ pass, qrToken, smsSent, onDone }) => {
   const [qrDataUrl, setQrDataUrl] = useState("");
@@ -42,7 +41,7 @@ const KioskPass: React.FC<Props> = ({ pass, qrToken, smsSent, onDone }) => {
   const meta = [
     pass.personToMeet ? `Meeting ${pass.personToMeet}` : null,
     pass.numberOfPerson > 1 ? `Group of ${pass.numberOfPerson}` : null,
-    formatTime(pass.inTime),
+    formatVisitorTime(pass.inTime),
   ].filter(Boolean) as string[];
 
   return (

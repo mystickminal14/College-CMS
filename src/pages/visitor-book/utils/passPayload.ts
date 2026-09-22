@@ -1,5 +1,6 @@
 import { APP_URL } from "../../../constants";
 import type { VisitorPass } from "../model/VisitorModel";
+import { formatVisitorDate, formatVisitorTime } from "./visitorTime";
 
 // A visitor's phone is very often offline at reception (no data, no guest wifi),
 // and a QR holding only a URL is useless in that case. So the QR carries the pass
@@ -9,8 +10,6 @@ import type { VisitorPass } from "../model/VisitorModel";
 
 export const buildPassUrl = (qrToken: string) => `${APP_URL}/visitor-pass/${qrToken}`;
 
-const formatTime = (value: string | null) =>
-  value ? new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "--";
 
 /**
  * The text encoded into the QR image.
@@ -30,7 +29,7 @@ export const buildPassQrText = (qrToken: string, pass: VisitorPass) =>
     // — and dropping it keeps the QR a version or two smaller.
     ...(pass.personToMeet ? [`To meet: ${pass.personToMeet}`] : []),
     `Visitors: ${pass.numberOfPerson}`,
-    `Date: ${new Date(pass.visitedDate).toLocaleDateString()}`,
-    `In: ${formatTime(pass.inTime)}`,
+    `Date: ${formatVisitorDate(pass.visitedDate)}`,
+    `In: ${formatVisitorTime(pass.inTime)}`,
     buildPassUrl(qrToken),
   ].join("\n");

@@ -3,14 +3,10 @@ import { CheckCircle2, Clock, LogOut, User, XCircle } from "lucide-react";
 
 import useGetVisitorPass from "../../../pages/visitor-book/hooks/useGetVisitorPass";
 import { VISITOR_IMAGE_URL } from "../../../constants";
-
-const formatTime = (value: string | null) => {
-  if (!value) return "--";
-  return new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-};
+import { formatVisitorDate, formatVisitorTime } from "../../../pages/visitor-book/utils/visitorTime";
 
 const formatDate = (value: string) =>
-  new Date(value).toLocaleDateString([], { year: "numeric", month: "short", day: "numeric" });
+  formatVisitorDate(value, { year: "numeric", month: "short", day: "numeric" });
 
 const VisitorPassPage = () => {
   const { qrToken } = useParams<{ qrToken: string }>();
@@ -96,7 +92,7 @@ const VisitorPassPage = () => {
                     <Clock className="w-3 h-3" /> In / Out
                   </span>
                   <span className="font-medium text-gray-900">
-                    {formatTime(pass.inTime)} — {formatTime(pass.outTime)}
+                    {formatVisitorTime(pass.inTime)} — {formatVisitorTime(pass.outTime)}
                   </span>
                 </div>
               </div>

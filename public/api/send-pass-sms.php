@@ -101,10 +101,16 @@ function normalize_mobile($raw)
 function format_visit_date($value)
 {
     if (!$value) return '';
-    // The API returns "2026-09-21 04:09:55" — no zone. Read literally, because
-    // treating it as UTC would shift an early-morning visit onto the day before.
-    $ts = strtotime($value);
-    return $ts ? date('j M Y', $ts) : '';
+    // The API returns "2026-09-21 04:09:55" — no zone, but stamped by a PHP
+    // running on UTC, so it is 5h45m behind Nepal. Read it as UTC and print it
+    // in Nepal time, or a visit made before 05:45 prints as the day before.
+    try {
+        $dt = new DateTime($value, new DateTimeZone('UTC'));
+    } catch (Exception $e) {
+        return '';
+    }
+    $dt->setTimezone(new DateTimeZone('Asia/Kathmandu'));
+    return $dt->format('j M Y');
 }
 
 /** GET/POST JSON over cURL. Returns array(status, decoded body). */
