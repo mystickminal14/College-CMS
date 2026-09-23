@@ -1,7 +1,7 @@
 import { Editor, useEditorState } from "@tiptap/react";
 import {
   Bold, Italic, Strikethrough, List, ListOrdered,
-  Quote, Undo, Redo, Table, Link, Image, ExternalLink,
+  Quote, Undo, Redo, Table, Link, Unlink, Image, ExternalLink,
   AlignLeft, AlignCenter, AlignRight, Minus,
 } from "lucide-react";
 import { useRef, useContext, useState } from "react";
@@ -77,8 +77,18 @@ const BlogToolbar = ({ editor }: { editor: Editor }) => {
   };
 
   const addLink = () => {
-    const url = window.prompt("Enter URL");
-    if (url) editor.chain().focus().setLink({ href: url }).run();
+    const prev = editor.getAttributes("link").href ?? "";
+    const url = window.prompt("Enter URL (leave empty to remove link)", prev);
+    if (url === null) return;
+    if (url.trim() === "") {
+      removeLink();
+      return;
+    }
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url.trim() }).run();
+  };
+
+  const removeLink = () => {
+    editor.chain().focus().extendMarkRange("link").unsetLink().run();
   };
 
   const addImageFromUrl = () => {
@@ -201,8 +211,11 @@ const BlogToolbar = ({ editor }: { editor: Editor }) => {
       <Divider />
 
       {/* Link & Image */}
-      <Btn tooltip="Insert Link" active={s.isLink} onClick={addLink}>
+      <Btn tooltip={s.isLink ? "Edit Link" : "Insert Link"} active={s.isLink} onClick={addLink}>
         <Link size={14} />
+      </Btn>
+      <Btn tooltip="Remove Link" disabled={!s.isLink} onClick={removeLink}>
+        <Unlink size={14} />
       </Btn>
       <Btn tooltip="Upload Image from Computer" disabled={imageUploading} onClick={triggerImageUpload}>
         <Image size={14} />
