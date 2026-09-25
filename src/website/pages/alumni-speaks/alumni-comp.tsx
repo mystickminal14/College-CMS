@@ -16,6 +16,31 @@ function limitWords(text: string, maxWords: number) {
     : text;
 }
 
+// Extract the YouTube video ID from any common URL shape
+// (watch?v=, youtu.be/, /embed/, /shorts/, with or without extra query params).
+function getYouTubeVideoId(url: string): string {
+  if (!url) return "";
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("youtu.be")) {
+      return parsed.pathname.slice(1).split("/")[0];
+    }
+    const vParam = parsed.searchParams.get("v");
+    if (vParam) return vParam;
+    if (parsed.pathname.includes("/embed/")) {
+      return parsed.pathname.split("/embed/")[1]?.split("/")[0] ?? "";
+    }
+    if (parsed.pathname.includes("/shorts/")) {
+      return parsed.pathname.split("/shorts/")[1]?.split("/")[0] ?? "";
+    }
+    return "";
+  } catch {
+    // Fallback for non-standard/relative strings that fail URL parsing.
+    const match = url.match(/(?:v=|youtu\.be\/|\/embed\/|\/shorts\/)([\w-]+)/);
+    return match?.[1] ?? "";
+  }
+}
+
 // Video popup component
 function VideoPopup({ videoUrl, isOpen, onClose }: {
   videoUrl: string;
@@ -24,10 +49,8 @@ function VideoPopup({ videoUrl, isOpen, onClose }: {
 }) {
   if (!isOpen) return null;
 
-  const embedUrl = videoUrl
-    .replace("watch?v=", "embed/")
-    .replace("youtu.be/", "www.youtube.com/embed/")
-    .split("?")[0];
+  const videoId = getYouTubeVideoId(videoUrl);
+  const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : "";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4">
@@ -43,14 +66,20 @@ function VideoPopup({ videoUrl, isOpen, onClose }: {
         </button>
 
         <div className="relative pt-[56.25%]">
-          <iframe
-            src={embedUrl}
-            title="Alumni Video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute top-0 left-0 w-full h-full rounded-lg"
-          />
+          {embedUrl ? (
+            <iframe
+              src={embedUrl}
+              title="Alumni Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute top-0 left-0 w-full h-full rounded-lg"
+            />
+          ) : (
+            <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-gray-900 flex items-center justify-center text-white text-sm">
+              This video link couldn't be loaded.
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -260,7 +289,7 @@ export function AlumniComp() {
                           >
                             <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity z-10" />
                             <img
-                              src={`https://img.youtube.com/vi/${activeAlumni.link.split('v=')[1]?.split('&')[0] || ''}/hqdefault.webp`}
+                              src={`https://i.ytimg.com/vi/${getYouTubeVideoId(activeAlumni.link)}/hqdefault.jpg`}
                               alt="Video thumbnail"
                               className="w-full h-full object-cover"
                             />
