@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import useGetAll from "../home/alumnis/hooks/useGetAlumni";
 import type { Alumni } from "../../../pages/alumni/model/AlumniModel";
 import { IMAGE_URL } from "../../../constants";
+import { getYouTubeVideoId } from "../../../utils/youtube";
 
 
 const MAX_WORDS = 250;
@@ -14,31 +15,6 @@ function limitWords(text: string, maxWords: number) {
   return words.length > maxWords
     ? words.slice(0, maxWords).join(" ") + "..."
     : text;
-}
-
-// Extract the YouTube video ID from any common URL shape
-// (watch?v=, youtu.be/, /embed/, /shorts/, with or without extra query params).
-function getYouTubeVideoId(url: string): string {
-  if (!url) return "";
-  try {
-    const parsed = new URL(url);
-    if (parsed.hostname.includes("youtu.be")) {
-      return parsed.pathname.slice(1).split("/")[0];
-    }
-    const vParam = parsed.searchParams.get("v");
-    if (vParam) return vParam;
-    if (parsed.pathname.includes("/embed/")) {
-      return parsed.pathname.split("/embed/")[1]?.split("/")[0] ?? "";
-    }
-    if (parsed.pathname.includes("/shorts/")) {
-      return parsed.pathname.split("/shorts/")[1]?.split("/")[0] ?? "";
-    }
-    return "";
-  } catch {
-    // Fallback for non-standard/relative strings that fail URL parsing.
-    const match = url.match(/(?:v=|youtu\.be\/|\/embed\/|\/shorts\/)([\w-]+)/);
-    return match?.[1] ?? "";
-  }
 }
 
 // Video popup component
