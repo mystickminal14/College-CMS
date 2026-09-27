@@ -246,7 +246,7 @@ const TeamDetailModal = ({
                     : IMAGE_URL + member.image
                 }
                 alt={member.name}
-                className="w-full h-80 object-cover object-[center_20%]"
+                className="w-full h-80 object-contain"
               />
             </div>
             <h3 className="mt-6 text-xl font-bold text-gray-900">

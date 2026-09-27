@@ -3,9 +3,11 @@ import type { TeamMember } from "../model/team-model";
 import img from "../../../../assets/pcpslogo.webp";
 
 const TeamCard = ({ member }: { member: TeamMember }) => {
-    const imageSrc = member.image
-        ? IMAGE_URL + member.image
-        : img;
+    const imageSrc = member.portrait
+        ? IMAGE_URL + member.portrait
+        : member.image
+            ? IMAGE_URL + member.image
+            : img;
 
     return (
         <div className="w-full max-w-sm mx-auto">
@@ -13,7 +15,7 @@ const TeamCard = ({ member }: { member: TeamMember }) => {
                 <img
                     src={imageSrc}
                     alt={member.name}
-                    className="w-full h-full object-cover object-top rounded-lg transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-contain rounded-lg transition-transform duration-500 group-hover:scale-105"
                 />
             </div>
 
