@@ -1,6 +1,6 @@
 -- Guest WiFi vouchers, read by public/api/send-pass-sms.php.
 -- The first seven columns match the voucher CSV from the WiFi controller, in
--- order, so a batch imports straight in. sms_status is ours: NULL until the
+-- order. sms_status is ours: NULL until the
 -- voucher has been texted, then 'sent'.
 -- Rename the table freely; set VOUCHER_TABLE in sms-config.php to match.
 
@@ -19,17 +19,10 @@ CREATE TABLE IF NOT EXISTS wifi_vouchers (
     KEY idx_unsent (status, sms_status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Import a batch. phpMyAdmin: Import > CSV, skip 1 line, column names
---   code,pin,status,batch,location,created_at,redeemed_at
--- or from the mysql client with local_infile enabled:
-LOAD DATA LOCAL INFILE '1st_Batch_Guest_100___29th_Sept_2026_vouchers.csv'
-INTO TABLE wifi_vouchers
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(code, pin, status, batch, location, @created_at, @redeemed_at)
-SET created_at  = STR_TO_DATE(NULLIF(LEFT(@created_at, 19), ''), '%Y-%m-%dT%H:%i:%s'),  -- CSV is UTC
-    redeemed_at = STR_TO_DATE(NULLIF(LEFT(@redeemed_at, 19), ''), '%Y-%m-%dT%H:%i:%s');
+-- Importing a batch: do NOT use phpMyAdmin's CSV import (it auto-creates a
+-- table with COL 1..COL 8 columns) or LOAD DATA LOCAL INFILE (disabled on the
+-- server, error #3948). Turn the CSV into an INSERT IGNORE ... VALUES file and
+-- run that from the SQL tab or Import > SQL instead.
 
 -- What the SMS script runs:
 --   first unsent voucher

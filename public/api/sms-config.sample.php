@@ -3,7 +3,7 @@
 // gitignored and .htaccess refuses to serve either file.
 
 define('SMS_TOKEN', '');                     // Sociair bearer token
-// define('VISITOR_API_BASE_URL', 'https://edusysapi.lbef.info/api');
+// define('VISITOR_API_BASE_URL', 'https://edusysapi.lbef.info');   // no /api
 // define('SMS_ORG_NAME', 'LBEF');
 // define('WIFI_SSID', 'LBEF');
 

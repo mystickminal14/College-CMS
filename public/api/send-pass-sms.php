@@ -40,7 +40,9 @@ function sms_setting($name, $default = '')
 }
 
 $SMS_TOKEN   = sms_setting('SMS_TOKEN');
-$API_BASE    = rtrim(sms_setting('VISITOR_API_BASE_URL', 'https://edusysapi.lbef.info/api'), '/');
+// No /api segment: the API routes on the first path segment, so
+// https://edusysapi.lbef.info/api/visitor/... is "Endpoint not found".
+$API_BASE    = rtrim(sms_setting('VISITOR_API_BASE_URL', 'https://edusysapi.lbef.info'), '/');
 $ORG_NAME    = sms_setting('SMS_ORG_NAME', 'LBEF');
 $WIFI_SSID   = sms_setting('WIFI_SSID', 'LBEF');
 
@@ -240,6 +242,13 @@ list($lookupStatus, $pass) = http_json(
 );
 
 if ($lookupStatus === 404) {
+    // The API 404s for a wrong base URL too ("Endpoint not found."), and that
+    // is a config problem, not a missing visitor — say which one it was.
+    $apiMessage = is_array($pass) && isset($pass['message']) ? $pass['message'] : '';
+    if ($apiMessage !== 'Visitor pass not found.') {
+        error_log('send-pass-sms: ' . $API_BASE . ' is not the visitor API - ' . $apiMessage);
+        not_sent('SMS is misconfigured: visitor API URL is wrong.', 502);
+    }
     not_sent('Visitor pass not found.', 404);
 }
 if ($lookupStatus !== 200 || !is_array($pass)) {
