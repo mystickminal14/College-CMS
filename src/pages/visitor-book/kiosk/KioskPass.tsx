@@ -71,7 +71,7 @@ const KioskPass: React.FC<Props> = ({ pass, qrToken, smsSent, onDone }) => {
 
       {/* Captions sit on the ground, not inside the card, so the white
           rectangle is the scannable area and nothing else. */}
-      <p className="mt-4 text-center text-3xl font-extrabold tracking-[0.1em] tabular-nums text-[#125DAA]">
+      <p className="mt-4 text-center text-3xl font-extrabold tracking-widest tabular-nums text-[#125DAA]">
         {pass.code}
       </p>
       <p className="mt-2 text-center text-sm text-slate-500 leading-snug">
