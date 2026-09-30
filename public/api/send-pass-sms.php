@@ -159,12 +159,29 @@ function next_unsent_voucher($db, $table)
     return ($row && $row['code'] !== '' && $row['pin'] !== '') ? $row : null;
 }
 
-/** Takes a voucher out of stock once its SMS has been accepted. */
-function mark_voucher_sent($db, $table, $id)
+/**
+ * The visitor's database id, read back out of their pass code: visitorCode()
+ * on the API side builds "V-2026-0042" from it, and the public pass endpoint
+ * returns only the code, never the raw id.
+ */
+function visitor_id_from_code($code)
+{
+    return preg_match('/^V-\d{4}-(\d+)$/', (string) $code, $m) ? (int) $m[1] : null;
+}
+
+/**
+ * Takes a voucher out of stock once its SMS has been accepted, and records who
+ * it went to so a voucher can be traced back to a visitor.
+ */
+function mark_voucher_sent($db, $table, $id, $visitorId, $visitorCode, $visitorName, $mobile)
 {
     try {
-        $stmt = $db->prepare('UPDATE `' . $table . "` SET sms_status = 'sent' WHERE id = ?");
-        $stmt->execute(array((int) $id));
+        $stmt = $db->prepare(
+            'UPDATE `' . $table . "` SET sms_status = 'sent',"
+            . ' visitor_id = ?, visitor_code = ?, visitor_name = ?, sent_to = ?, sent_at = NOW()'
+            . ' WHERE id = ?'
+        );
+        $stmt->execute(array($visitorId, $visitorCode, $visitorName, $mobile, (int) $id));
     } catch (PDOException $e) {
         // The visitor already has the SMS; only the bookkeeping failed, and the
         // same voucher will go out again next time. Worth a log line, not a 500.
@@ -337,7 +354,15 @@ if ($sendStatus !== 200 || $rejected) {
 }
 
 if ($voucher) {
-    mark_voucher_sent($db, $VOUCHER_TABLE, $voucher['id']);
+    mark_voucher_sent(
+        $db,
+        $VOUCHER_TABLE,
+        $voucher['id'],
+        visitor_id_from_code($pass['code']),
+        $pass['code'],
+        $name,
+        $mobile
+    );
 }
 
 reply(200, array('sent' => true, 'reason' => $gatewayMessage));
