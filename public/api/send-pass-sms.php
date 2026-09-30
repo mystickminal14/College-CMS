@@ -18,8 +18,9 @@
  * endpoint cannot use it to text arbitrary words to arbitrary numbers - the
  * worst they can do is re-send one visitor their own pass.
  *
- * Credentials come from sms-config.php beside this file (copy
- * sms-config.sample.php and fill it in on the server). That file is gitignored
+ * Credentials — the Sociair token and the WiFi voucher database login — come
+ * from sms-config.php beside this file (copy sms-config.sample.php and fill it
+ * in on the server). That file is gitignored
  * and .htaccess blocks it from being fetched directly.
  */
 header('Content-Type: application/json');
@@ -41,13 +42,15 @@ function sms_setting($name, $default = '')
 $SMS_TOKEN   = sms_setting('SMS_TOKEN');
 $API_BASE    = rtrim(sms_setting('VISITOR_API_BASE_URL', 'https://edusysapi.lbef.info/api'), '/');
 $ORG_NAME    = sms_setting('SMS_ORG_NAME', 'LBEF');
+$WIFI_SSID   = sms_setting('WIFI_SSID', 'LBEF');
 
-// Guest WiFi handed to the visitor in the same text. One shared demo login for
-// now, because per-visitor credentials do not exist yet — when the network can
-// issue a login per visit, that is the only thing that changes here.
-$WIFI_SSID     = sms_setting('WIFI_SSID', 'LBEF-Guest');
-$WIFI_USERNAME = sms_setting('WIFI_USERNAME', 'demo');
-$WIFI_PASSWORD = sms_setting('WIFI_PASSWORD', 'demo1234');
+// The guest WiFi voucher table: code = username, pin = password, and
+// sms_status = 'sent' once a voucher has been texted to someone.
+$DB_HOST       = sms_setting('DB_HOST', 'localhost');
+$DB_NAME       = sms_setting('DB_NAME');
+$DB_USER       = sms_setting('DB_USER');
+$DB_PASS       = sms_setting('DB_PASS');
+$VOUCHER_TABLE = sms_setting('VOUCHER_TABLE', 'wifi_vouchers');
 
 const SOCIAIR_ENDPOINT = 'https://sms.sociair.com/api/sms';
 
@@ -111,6 +114,60 @@ function format_visit_date($value)
     }
     $dt->setTimezone(new DateTimeZone('Asia/Kathmandu'));
     return $dt->format('j M Y');
+}
+
+/**
+ * PDO handle for the voucher database, or null when it is not configured or
+ * unreachable — the pass still goes out then, just without a WiFi login.
+ */
+function voucher_db($host, $name, $user, $pass)
+{
+    if ($name === '' || $user === '') return null;
+    try {
+        return new PDO(
+            'mysql:host=' . $host . ';dbname=' . $name . ';charset=utf8mb4',
+            $user,
+            $pass,
+            array(
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_TIMEOUT => 4,
+            )
+        );
+    } catch (PDOException $e) {
+        error_log('send-pass-sms: voucher DB connect failed - ' . $e->getMessage());
+        return null;
+    }
+}
+
+/** The first voucher not yet texted to anyone: array(id, code, pin), or null. */
+function next_unsent_voucher($db, $table)
+{
+    if (!$db) return null;
+    try {
+        $row = $db->query(
+            'SELECT id, code, pin FROM `' . $table . '`'
+            . " WHERE status = 'active' AND (sms_status IS NULL OR sms_status <> 'sent')"
+            . ' ORDER BY id LIMIT 1'
+        )->fetch();
+    } catch (PDOException $e) {
+        error_log('send-pass-sms: voucher lookup failed - ' . $e->getMessage());
+        return null;
+    }
+    return ($row && $row['code'] !== '' && $row['pin'] !== '') ? $row : null;
+}
+
+/** Takes a voucher out of stock once its SMS has been accepted. */
+function mark_voucher_sent($db, $table, $id)
+{
+    try {
+        $stmt = $db->prepare('UPDATE `' . $table . "` SET sms_status = 'sent' WHERE id = ?");
+        $stmt->execute(array((int) $id));
+    } catch (PDOException $e) {
+        // The visitor already has the SMS; only the bookkeeping failed, and the
+        // same voucher will go out again next time. Worth a log line, not a 500.
+        error_log('send-pass-sms: could not mark voucher ' . $id . ' sent - ' . $e->getMessage());
+    }
 }
 
 /** GET/POST JSON over cURL. Returns array(status, decoded body). */
@@ -202,6 +259,21 @@ if ($mobile === null) {
 $name = html_entity_decode($pass['name'], ENT_QUOTES, 'UTF-8');
 $visitedOn = format_visit_date(isset($pass['visitedDate']) ? $pass['visitedDate'] : null);
 
+// Picked only now, after the number is known to be textable, and marked sent
+// only after Sociair accepts the text — a failed send leaves it in stock.
+// Two kiosks sending in the same instant can both pick the same row; at one
+// reception desk that is rare enough to accept. Every re-send uses a new one.
+// No voucher (stock empty, DB down) still sends the pass, just without WiFi.
+if (!preg_match('/^\w+$/', $VOUCHER_TABLE)) {
+    error_log('send-pass-sms: VOUCHER_TABLE is not a plain table name.');
+    $VOUCHER_TABLE = '';
+}
+$db = $VOUCHER_TABLE !== '' ? voucher_db($DB_HOST, $DB_NAME, $DB_USER, $DB_PASS) : null;
+$voucher = next_unsent_voucher($db, $VOUCHER_TABLE);
+if (!$voucher) {
+    error_log('send-pass-sms: no WiFi voucher for ' . $pass['code']);
+}
+
 /**
  * Deliberately carries no link. The first version texted the pass URL and
  * Sociair refused it — "matches a known scam pattern". A personal name beside a
@@ -215,15 +287,17 @@ $visitedOn = format_visit_date(isset($pass['visitedDate']) ? $pass['visitedDate'
  * doorway and then types the password into a phone — a run-on sentence with
  * the credentials buried in it is the wrong shape for that.
  *
- * Sociair charges per 160-character segment, and the demo values leave this at
- * 110. A longer SSID or key spills into a second segment and doubles the cost
- * of every visit, so keep real credentials short.
+ * Sociair charges per 160-character segment. With 6-character voucher codes
+ * this sits near 110; a long visitor name can spill into a second segment and
+ * double the cost of that text.
  */
 $message = $ORG_NAME . ' visitor pass ' . $pass['code'] . ' for ' . $name
-    . ($visitedOn ? ', ' . $visitedOn : '') . "\n"
-    . 'WiFi: ' . $WIFI_SSID . "\n"
-    . 'username: ' . $WIFI_USERNAME . "\n"
-    . 'password: ' . $WIFI_PASSWORD;
+    . ($visitedOn ? ', ' . $visitedOn : '');
+if ($voucher) {
+    $message .= "\n" . 'WiFi: ' . $WIFI_SSID . "\n"
+        . 'username: ' . $voucher['code'] . "\n"
+        . 'password: ' . $voucher['pin'];
+}
 
 list($sendStatus, $result) = http_json(
     SOCIAIR_ENDPOINT,
@@ -251,6 +325,10 @@ $rejected = is_array($result) && !empty($result['invalid_number']);
 if ($sendStatus !== 200 || $rejected) {
     error_log('send-pass-sms: ' . $mobile . ' not sent (HTTP ' . $sendStatus . ') - ' . $gatewayMessage);
     not_sent($gatewayMessage);
+}
+
+if ($voucher) {
+    mark_voucher_sent($db, $VOUCHER_TABLE, $voucher['id']);
 }
 
 reply(200, array('sent' => true, 'reason' => $gatewayMessage));

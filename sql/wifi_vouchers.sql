@@ -1,0 +1,44 @@
+-- Guest WiFi vouchers, read by public/api/send-pass-sms.php.
+-- The first seven columns match the voucher CSV from the WiFi controller, in
+-- order, so a batch imports straight in. sms_status is ours: NULL until the
+-- voucher has been texted, then 'sent'.
+-- Rename the table freely; set VOUCHER_TABLE in sms-config.php to match.
+
+CREATE TABLE IF NOT EXISTS wifi_vouchers (
+    id           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    code         VARCHAR(32)  NOT NULL,          -- WiFi username
+    pin          VARCHAR(32)  NOT NULL,          -- WiFi password
+    status       VARCHAR(16)  NOT NULL DEFAULT 'active',
+    batch        VARCHAR(191) DEFAULT NULL,
+    location     VARCHAR(64)  DEFAULT NULL,
+    created_at   DATETIME     DEFAULT NULL,
+    redeemed_at  DATETIME     DEFAULT NULL,
+    sms_status   VARCHAR(16)  DEFAULT NULL,      -- NULL = not sent, 'sent' = texted
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_code (code),
+    KEY idx_unsent (status, sms_status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Import a batch. phpMyAdmin: Import > CSV, skip 1 line, column names
+--   code,pin,status,batch,location,created_at,redeemed_at
+-- or from the mysql client with local_infile enabled:
+LOAD DATA LOCAL INFILE '1st_Batch_Guest_100___29th_Sept_2026_vouchers.csv'
+INTO TABLE wifi_vouchers
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(code, pin, status, batch, location, @created_at, @redeemed_at)
+SET created_at  = STR_TO_DATE(NULLIF(LEFT(@created_at, 19), ''), '%Y-%m-%dT%H:%i:%s'),  -- CSV is UTC
+    redeemed_at = STR_TO_DATE(NULLIF(LEFT(@redeemed_at, 19), ''), '%Y-%m-%dT%H:%i:%s');
+
+-- What the SMS script runs:
+--   first unsent voucher
+SELECT id, code, pin FROM wifi_vouchers
+ WHERE status = 'active' AND (sms_status IS NULL OR sms_status <> 'sent')
+ ORDER BY id LIMIT 1;
+--   after Sociair accepts the text
+-- UPDATE wifi_vouchers SET sms_status = 'sent' WHERE id = ?;
+
+-- Stock left
+SELECT COUNT(*) AS unsent FROM wifi_vouchers
+ WHERE status = 'active' AND (sms_status IS NULL OR sms_status <> 'sent');

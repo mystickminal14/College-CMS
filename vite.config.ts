@@ -39,8 +39,12 @@ const passSmsDevEndpoint = (mode: string): Plugin => {
     VISITOR_API_BASE_URL: env.VISITOR_API_BASE_URL ?? 'https://edusysapi.lbef.info/',
     ...(env.SMS_ORG_NAME ? { SMS_ORG_NAME: env.SMS_ORG_NAME } : {}),
     ...(env.WIFI_SSID ? { WIFI_SSID: env.WIFI_SSID } : {}),
-    ...(env.WIFI_USERNAME ? { WIFI_USERNAME: env.WIFI_USERNAME } : {}),
-    ...(env.WIFI_PASSWORD ? { WIFI_PASSWORD: env.WIFI_PASSWORD } : {}),
+    // WiFi voucher database; unset means the text goes out without a login.
+    ...Object.fromEntries(
+      ['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'VOUCHER_TABLE']
+        .filter((key) => env[key])
+        .map((key) => [key, env[key]]),
+    ),
   })
 
   return {
