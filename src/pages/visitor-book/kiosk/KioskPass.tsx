@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import { CheckCircle2, MessageSquareText } from "lucide-react";
 
 import type { VisitorPass } from "../model/VisitorModel";
-import { buildPassQrText } from "../utils/passPayload";
+import { buildPassUrl } from "../utils/passPayload";
 import { formatVisitorTime } from "../utils/visitorTime";
 import { KioskActions } from "./KioskFrame";
 import { primaryButtonClass } from "./tokens";
@@ -21,20 +21,19 @@ const KioskPass: React.FC<Props> = ({ pass, qrToken, smsSent, onDone }) => {
   const [qrDataUrl, setQrDataUrl] = useState("");
 
   useEffect(() => {
-    // Level L keeps this multi-line payload down to QR version 9-11. Rendered
-    // at 640px for hidpi crispness but displayed around 350 CSS px, which
-    // leaves ~6px per module — well above what a phone camera needs.
+    // The code holds only the pass URL, so a scan opens the pass page.
+    // Rendered at 640px for hidpi crispness but displayed around 350 CSS px.
     //
     // margin: 2 bakes the quiet zone into the image itself, so the only white
     // around the code is the white the scanner needs. Nothing pads it further.
-    QRCode.toDataURL(buildPassQrText(qrToken, pass), {
+    QRCode.toDataURL(buildPassUrl(qrToken), {
       width: 640,
       margin: 2,
-      errorCorrectionLevel: "L",
+      errorCorrectionLevel: "M",
     })
       .then(setQrDataUrl)
       .catch(() => setQrDataUrl(""));
-  }, [qrToken, pass]);
+  }, [qrToken]);
 
   const firstName = pass.name.split(" ")[0];
 

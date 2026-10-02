@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { CheckCircle2, X } from "lucide-react";
 
-import { APP_URL } from "../../../constants";
+import { buildPassUrl } from "../utils/passPayload";
 import type { Visitor } from "../model/VisitorModel";
 
 interface Props {
@@ -19,8 +19,7 @@ const VisitorPassModal: React.FC<Props> = ({ visitor, onClose }) => {
       return;
     }
 
-    const passUrl = `${APP_URL}/visitor-pass/${visitor.qrToken}`;
-    QRCode.toDataURL(passUrl, { width: 220, margin: 1 })
+    QRCode.toDataURL(buildPassUrl(visitor.qrToken), { width: 220, margin: 1 })
       .then(setQrDataUrl)
       .catch(() => setQrDataUrl(""));
   }, [visitor?.qrToken]);

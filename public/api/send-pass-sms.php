@@ -44,7 +44,7 @@ $SMS_TOKEN   = sms_setting('SMS_TOKEN');
 // https://edusysapi.lbef.info/api/visitor/... is "Endpoint not found".
 $API_BASE    = rtrim(sms_setting('VISITOR_API_BASE_URL', 'https://edusysapi.lbef.info'), '/');
 $ORG_NAME    = sms_setting('SMS_ORG_NAME', 'LBEF');
-$WIFI_SSID   = sms_setting('WIFI_SSID', 'LBEF');
+$WIFI_SSID   = sms_setting('WIFI_SSID', 'GUEST');
 
 // The guest WiFi voucher table: code = username, pin = password, and
 // sms_status = 'sent' once a voucher has been texted to someone.
