@@ -31,6 +31,8 @@ import {
 import CourseDetailRenderer from "./CourseDetailRender";
 import LbefSubFooter from "../../website/pages/home/components/LbefSubFooter";
 import Seo from "../../context/seo";
+import JsonLd from "../../website/seo/JsonLd";
+import { getCourseSchema } from "../../website/seo/schemas";
 import useGetCourseDetails from "./hooks/useGetDetails";
 import useGetCourseBySlug from "./hooks/useGetCourseBySlug";
 
@@ -148,6 +150,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
         title={`${course?.prefix} ${course?.title} in Nepal | LBEF College`}
         description={`Study ${course?.prefix} ${course?.title} at LBEF College Nepal.`}
       />
+      <JsonLd data={getCourseSchema(course?.slug)} />
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
         <CourseNewHeader course={course} />

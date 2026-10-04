@@ -15,6 +15,8 @@ import Inspiration from "../our-team/component/inspiration";
 import { TenReasons } from "./components/TenReasons";
 import LbefSubFooter from "../home/components/LbefSubFooter";
 import Seo from "../../../context/seo";
+import JsonLd from "../../seo/JsonLd";
+import { aboutSchema } from "../../seo/schemas";
 import { APP_URL } from "../../../constants";
 
 
@@ -41,6 +43,7 @@ export default function AboutPage() {
         url={`${APP_URL}/about`}
 
       />
+      <JsonLd data={aboutSchema} />
 
       {!isMobile ? (
         <div className="relative">

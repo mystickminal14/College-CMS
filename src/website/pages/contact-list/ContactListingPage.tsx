@@ -3,6 +3,8 @@ import { FaEnvelope, FaUser } from "react-icons/fa";
 import decoration from "../../../assets/decoration.webp";
 import useGetContactsAll from "../../../pages/contact/hooks/useGetAll";
 import Seo from "../../../context/seo";
+import JsonLd from "../../seo/JsonLd";
+import { contactSchema } from "../../seo/schemas";
 import { APP_URL } from "../../../constants";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 
@@ -31,6 +33,7 @@ const ContactListPage = () => {
         description="Find official contact details of LBEF College staff for academics, IT support, exams, registration, accounts, and student services."
         url={`${APP_URL}/contact-info`}
       />
+      <JsonLd data={contactSchema} />
 
       <HeroTitleWithGif
         title="Staff Contact List"
