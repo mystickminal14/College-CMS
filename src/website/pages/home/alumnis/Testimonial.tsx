@@ -118,7 +118,7 @@ export function Testimonial() {
       <div className="max-w-7xl mx-auto">
         {/* Heading (unchanged) */}
         <div className="text-center mb-8 sm:mb-10">
-          <motion.h1
+          <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900"
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -139,7 +139,7 @@ export function Testimonial() {
               />
             </motion.span>{" "}
             Say?
-          </motion.h1>
+          </motion.h2>
         </div>
 
         {isLoading ? (

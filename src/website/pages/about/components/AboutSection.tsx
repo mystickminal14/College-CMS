@@ -77,7 +77,7 @@ export default function AboutSection() {
             </motion.div>
 
             {/* Main Heading */}
-            <motion.h1
+            <motion.h2
               initial={{ opacity: 0, x: 60 }}
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
               transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
@@ -94,7 +94,7 @@ export default function AboutSection() {
               </span>
               <br />
               Possibilities.
-            </motion.h1>
+            </motion.h2>
 
             {/* Description Paragraphs */}
             <motion.p

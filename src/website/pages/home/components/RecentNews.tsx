@@ -82,7 +82,7 @@ const RecentNews = () => {
     <section className="bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <motion.h1 initial={{ opacity: 0, y: 100 }} // start from below
+        <motion.h2 initial={{ opacity: 0, y: 100 }} // start from below
           whileInView={{ opacity: 1, y: 0 }} // animate to position
           viewport={{ once: true, amount: 0.3 }} // trigger once when in view
           transition={{ type: "spring", stiffness: 120, damping: 15 }}
@@ -101,7 +101,7 @@ const RecentNews = () => {
               className="absolute left-1/2 -translate-x-1/2 w-full h-3"
             />
           </span>
-        </motion.h1>
+        </motion.h2>
 
         {isLoading && (
           <p className="text-center text-gray-500">Loading news...</p>

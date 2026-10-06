@@ -50,7 +50,7 @@ export function University() {
         </motion.div>
 
         {/* Main Title */}
-        <motion.h1
+        <motion.h2
           className="text-center text-4xl md:text-5xl font-bold leading-tight mb-6 sm:mb-10"
           variants={staggerContainer}
         >
@@ -72,7 +72,7 @@ export function University() {
           <motion.span className="text-gray-900" variants={fadeUp}>
             And Professional Growth
           </motion.span>
-        </motion.h1>
+        </motion.h2>
 
         {/* Description */}
         <motion.div
