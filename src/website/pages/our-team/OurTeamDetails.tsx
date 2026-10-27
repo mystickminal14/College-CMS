@@ -39,7 +39,7 @@ const TeamDetail = () => {
       <Seo
         title={`${member.name} - ${member.position} | Our Team`}
         description={`Learn about ${member.name}, ${member.position} in ${member.department.name}. Explore biography, contact info, and social profiles.`}
-        url={`${APP_URL}/team/${member.id}`}
+        url={`${APP_URL}/ourteam/${member.id}`}
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-20">
         <motion.div

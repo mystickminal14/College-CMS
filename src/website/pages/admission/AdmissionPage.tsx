@@ -125,7 +125,7 @@ const AdmissionProcedure = () => {
       <Seo
         title="Admission Procedure at LBEF College | How to Apply in Nepal"
         description="Learn the step-by-step admission procedure at LBEF College Nepal. Find intake schedules, application process, required documents, scholarships, and FAQs."
-        url={`${APP_URL}/admission-procedure/`}
+        url={`${APP_URL}/admission-procedure`}
 
       />
 

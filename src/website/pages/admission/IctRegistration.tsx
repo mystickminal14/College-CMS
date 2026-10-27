@@ -17,7 +17,7 @@ const ICTRegistration = () => {
       <Seo
         title="National ICT Scholarship | LBEF College Nepal"
         description="Apply for the National ICT Scholarship at LBEF College Nepal. Rewarding meritorious students in Information Technology with tuition fee benefits."
-        url={`${APP_URL}/ict-scholarship`}
+        url={`${APP_URL}/ictregistration`}
       />
 
       <div className="min-h-screen bg-gray-50">

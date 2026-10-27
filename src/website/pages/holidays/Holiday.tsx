@@ -246,7 +246,7 @@ const HolidayWebPlanner: React.FC = () => {
       <Seo
         title="Academic Calendar & Holidays | LBEF College Nepal"
         description="View the official academic calendar of LBEF College Nepal including holidays, events, examinations, and important academic dates."
-        url={`${APP_URL}/administrative-holidays`}
+        url={`${APP_URL}/events/`}
       />
 
       <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">

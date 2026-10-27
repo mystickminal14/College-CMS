@@ -31,7 +31,7 @@ const LoginPage = () => {
       <Seo
   title="About LBEF College | Nepal’s First IT College"
   description="Learn about LBEF College Nepal, its mission, vision, industry partnerships, academic excellence, student success, and global opportunities."
-  url={`${APP_URL}//admin/auth`}
+  url={`${APP_URL}/admin/auth`}
 
 />
       <div className="flex flex-col lg:flex-row w-full max-w-4xl h-[600px] bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden">

@@ -149,7 +149,7 @@ const AlumniFormPage: React.FC = () => {
       <Seo
         title="Alumni Registration | LBEF College Nepal"
         description="Register as an alumnus of LBEF College Nepal. Share your academic journey, professional achievements, and stay connected with the LBEF alumni network."
-        url={`${APP_URL}/students-life/alumni-form`}
+        url={`${APP_URL}/alumni-information-form`}
       />
 
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-gray-100 py-8 px-4">

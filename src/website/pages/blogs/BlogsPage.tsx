@@ -52,7 +52,7 @@ const BlogsPage = () => {
       <Seo
         title="Blogs & Insights | LBEF College Nepal"
         description="Explore the latest blogs, stories, and insights from LBEF College."
-        url={`${APP_URL}/blogs`}
+        url={`${APP_URL}/media/blogs`}
       />
 
       {/* HERO */}

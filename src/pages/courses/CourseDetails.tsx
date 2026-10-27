@@ -6,7 +6,7 @@ import CourseNewHeader from "./components/CourseNewHeader";
 import { BlockType, type CourseDetailBlock } from "./model/CourseDetailModel";
 import { courseShiftName } from "./utils/courseTiming";
 import CourseTimingCards from "./components/CourseTimingCards";
-import { IMAGE_URL } from "../../constants";
+import { APP_URL, IMAGE_URL } from "../../constants";
 import {
   Clock,
   CalendarDays,
@@ -149,6 +149,7 @@ const CourseDetailsInner = ({ course }: { course: Courses }) => {
       <Seo
         title={`${course?.prefix} ${course?.title} in Nepal | LBEF College`}
         description={`Study ${course?.prefix} ${course?.title} at LBEF College Nepal.`}
+        url={`${APP_URL}/${course?.slug}`}
       />
       <JsonLd data={getCourseSchema(course?.slug)} />
 

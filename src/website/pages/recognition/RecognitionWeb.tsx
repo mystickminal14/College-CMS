@@ -15,7 +15,7 @@ const RecognitionPageWeb = () => {
       <Seo
         title="College Recognitions & Achievements | LBEF College Nepal"
         description="Explore LBEF College Nepal's recognitions and achievements over the years, showcasing excellence in academics, institutional awards, and accomplishments."
-        url={`${APP_URL}/recognition`}
+        url={`${APP_URL}/recognitions`}
       />
       <HeroTitleWithGif
         title="Our College Recognitions Over the Years"
