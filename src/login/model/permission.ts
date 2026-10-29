@@ -6,7 +6,8 @@ export type PermissionNameType =
   | "VACANCY"
   | "COURSE_REGISTRATION"
   | "POPUP"
-  | "VISITOR";
+  | "VISITOR"
+  | "CLUBS";
 
 export interface PermissionName {
   id: number;

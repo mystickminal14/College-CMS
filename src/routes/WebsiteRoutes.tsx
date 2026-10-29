@@ -44,7 +44,9 @@ const StudentAccess = lazy(() => import("../website/pages/StudentAccess/StudentA
 const TeamDetail = lazy(() => import("../website/pages/our-team/OurTeamDetails"));
 const GalleryView = lazy(() => import("../website/pages/gallery/GalleryView"));
 const AlumniFormPage = lazy(() => import("../website/pages/alumni-form/pages/Index"));
-const AcademicClub = lazy(() => import("../website/pages/academic-club/AcademicClub"));
+const ClubsWeb = lazy(() => import("../website/pages/clubs/ClubsWeb"));
+const ClubDetailWeb = lazy(() => import("../website/pages/clubs/ClubDetailWeb"));
+const ClubMembersWeb = lazy(() => import("../website/pages/clubs/ClubMembersWeb"));
 const OurMessage = lazy(() => import("../website/pages/our-message/OurMessage"));
 const NotFoundPage = lazy(() => import("../components/NoRouteFound"));
 const Scholarship = lazy(() => import("../website/pages/scholarship/Scholarship"));
@@ -130,7 +132,9 @@ export const websiteRoutes = [
       { path: "codeofconduct", element: <CodeOfConduct />, },
       { path: "fee-payment-planners", element: <FeePlannersWeb /> },
       { path: "academic-planners", element: <AcademicWebPlanner /> },
-      { path: "academic-club", element: <AcademicClub /> },
+      { path: "academic-club", element: <ClubsWeb /> },
+      { path: "academic-club/:slug", element: <ClubDetailWeb /> },
+      { path: "academic-club/:slug/members", element: <ClubMembersWeb /> },
       { path: "downloads", element: <StudentHandbook /> },
       { path: "payment-modes", element: <PaymentModes /> },
       { path: "alumni-speaks", element: <AlumniSpeaks /> },

@@ -6,7 +6,7 @@ import type { ApiErrorResponse, ApiResponse } from "../../services/apiTypes";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/ContextApp";
-import type { PermissionNameType } from "../model/permission";
+import { getHomeRoute } from "../utils/homeRoute";
 
 const api = new APIClient<LoginUser>("/auth/login");
 
@@ -27,53 +27,9 @@ const useLogin = () => {
 
       showToast(res.message || "Login successful", "success");
 
-      if (setUserPermissions) {
-        setUserPermissions(user.permissions.map(p => p.permission.name));
-      } if (user.role === "SUPERADMIN" || user.role === "ADMIN") {
-        navigate("/app/course");
-        return;
-      }
-
-      if (user.permissions && user.permissions.length > 0) {
-        const firstPermission = user.permissions[0].permission.name as PermissionNameType;
-
-        const redirectMap: Record<PermissionNameType, string> = {
-          USERS: "/app/user",
-          COURSES: "/app/course",
-          TEAMS: "/app/teams",
-          ALUMNI: "/app/alumni",
-          NEWS: "/app/media/news",
-          JOURNALS: "/app/media/journals",
-          EDITORIAL_BOARD: "/app/media/editorial-board",
-          CONNECT: "/app/media/connect",
-          GALLERY: "/app/media/gallery",
-          NOTICE: "/app/administation/notice",
-          CONTACT: "/app/administation/contact",
-          HOLIDAY: "/app/administation/holiday",
-          RECOGNITION: "/app/administation/recognition",
-          ACHIEVEMENT: "/app/administation/achievement",
-          INTAKE: "/app/admission/intake",
-          DOCUMENTS: "/app/admission/docs",
-          ACADEMIC_PLANNER: "/app/students/planner",
-          FEE_PLANNER: "/app/students/fee-planner",
-          DOWNLOADS: "/app/students/downloads",
-          BLOGS: "/app/media/blogs",
-          ALMUNI_FORM: "",
-          PLANNER_COURSE: "",
-          SCHOLARSHIP: "",
-          FAQ:"fee",
-          HERO_SECTION: "",
-          VACANCY: "/app/job-vacancy/vacancy",
-          COURSE_REGISTRATION: "/app/course-registration",
-          POPUP: "/app/popup",
-          VISITOR: "/app/visitor",
-        };
-
-        navigate(redirectMap[firstPermission] || "/app/course");
-        return;
-      }
-
-      navigate("/app/course");
+      const permissions = user.permissions.map((p) => p.permission.name);
+      setUserPermissions?.(permissions);
+      navigate(getHomeRoute(permissions));
     },
 
     onError: (err) => {

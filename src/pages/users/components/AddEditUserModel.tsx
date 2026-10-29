@@ -66,6 +66,7 @@ const OTHER_PERMISSIONS: PermissionNameType[] = [
   "VACANCY",
   "COURSE_REGISTRATION",
   "POPUP",
+  "CLUBS",
 ];
 
 export const ALL_PERMISSIONS: PermissionNameType[] = [

@@ -28,6 +28,7 @@ import JournalDetails from "../pages/journal/JournalDetails";
 import EditorialPage from "../pages/editorial-board/EditorialBoard";
 
 import useMe from "../login/hooks/useMe";
+import { getHomeRoute } from "../login/utils/homeRoute";
 import type { PermissionNameType } from "../login/model/permission";
 import PlannerCoursePage from "../pages/planner-course/PlannerCourse";
 import FeePlannersPage from "../pages/fee-planner/FeePlanner";
@@ -42,6 +43,7 @@ import VacancyPage from "../pages/job-vacancy/vacancy/VacancyPage";
 import ApplicantPage from "../pages/job-vacancy/applicant/ApplicantPage";
 import CourseRegistrationPage from "../pages/course-registration/CourseRegistrationPage";
 import VisitorBookPage from "../pages/visitor-book/VisitorBookPage";
+import ClubsPage from "../pages/clubs/ClubsPage";
 
 // ------------------ ROUTE PERMISSIONS ------------------
 const routePermissions: Record<string, PermissionNameType | null> = {
@@ -83,6 +85,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "job-vacancy/vacancy": "VACANCY",
   "job-vacancy/applicant/:vacancyId": "VACANCY",
   "course-registration": "COURSE_REGISTRATION",
+  "clubs": "CLUBS",
 };
 
 // ------------------ PROTECTED ROUTE ------------------
@@ -128,7 +131,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 // ------------------ LOGIN ROUTE ------------------
 const LoginRoute = () => {
   const { data } = useMe();
-  if (data) return <Navigate to="/app/course" replace />;
+  if (data) return <Navigate to={getHomeRoute(data.data?.permissions)} replace />;
   return <LoginPage />;
 };
 
@@ -184,6 +187,7 @@ export const adminRoutes = [
       { path: "job-vacancy/applicant/:vacancyId", element: <ApplicantPage /> },
 
       { path: "course-registration", element: <CourseRegistrationPage /> },
+      { path: "clubs", element: <ClubsPage /> },
 
       // Catch-all unknown routes inside /app
       { path: "*", element: <NotFoundPage /> },

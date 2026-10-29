@@ -73,6 +73,10 @@ export const EDITORIAL_CACHE_KEY = 'editorial';
 
 export const COURSE_NAME_CACHE_KEY = 'courses';
 export const TEAM_CACHE_KEY = 'team';
+export const CLUB_CACHE_KEY = 'club';
+export const CLUB_NAME_CACHE_KEY = 'club_name';
+export const CLUB_MEMBER_CACHE_KEY = 'club_member';
+export const PUBLIC_CLUB_CACHE_KEY = 'public_club';
 export const DEPT_TEAM_CACHE_KEY = 'team';
 export const NOTICE_CACHE_KEY = 'notice';
 export const NOTICE_TYPE_CACHE_KEY = 'notice_type';
