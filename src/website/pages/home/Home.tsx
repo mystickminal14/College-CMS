@@ -69,11 +69,11 @@ export default function HomePage() {
               className="relative z-20 bg-white"
             >
               <WhyChooseLBEF />
-              <motion.div
-                className="sticky top-0 z-10 bg-white"
-              >
+              {/* Not sticky: on short screens the next section would cover the
+                  button at the bottom of this one. */}
+              <div className="relative z-10 bg-white">
                 <InfrastructureSection />
-              </motion.div>
+              </div>
               <motion.div
                 className="sticky top-0 z-10 bg-white"
               >

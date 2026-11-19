@@ -1,13 +1,21 @@
+import type { ReactNode } from "react";
 import Seo from "../../../context/seo";
 import { APP_URL } from "../../../constants";
-import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 import AcademicSpaces from "./components/AcademicSpaces";
 import BlockDirectory from "./components/BlockDirectory";
-import CampusPlate from "./components/CampusPlate";
 import CampusLedger from "./components/CampusLedger";
 import FacilityBento from "./components/FacilityBento";
+import InfraHero from "./components/InfraHero";
+import StatsBar from "./components/StatsBar";
 import StudentLife from "./components/StudentLife";
 import VisitCampus from "./components/VisitCampus";
+
+/** Standard page width; the hero and the learning band break out of it to run full width. */
+const Contained = ({ children }: { children: ReactNode }) => (
+  <div className="container px-4 mx-auto sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl">{children}</div>
+  </div>
+);
 
 export default function InfrastructurePage() {
   return (
@@ -19,24 +27,21 @@ export default function InfrastructurePage() {
       />
 
       <div className="min-h-screen bg-white">
-        <div className="container px-4 py-8 mx-auto sm:px-6 lg:px-8">
-          <HeroTitleWithGif
-            title="Campus Infrastructure"
-            highlightedText="Infrastructure"
-            subtitle="Seven ropani in the heart of Kathmandu, six blocks named after Nepali flowers and birds, and more than 50,000 sq. ft. of rooms students actually use."
-            badgeText="Campus Infrastructure"
-          />
+        <InfraHero />
 
-          <div className="mx-auto max-w-7xl">
-            <CampusPlate />
-            <BlockDirectory />
-            <AcademicSpaces />
-            <FacilityBento />
-            <CampusLedger />
-            <StudentLife />
-            <VisitCampus />
-          </div>
-        </div>
+        <Contained>
+          <StatsBar />
+          <BlockDirectory />
+        </Contained>
+
+        <AcademicSpaces />
+
+        <Contained>
+          <FacilityBento />
+          <CampusLedger />
+          <StudentLife />
+          <VisitCampus />
+        </Contained>
       </div>
     </>
   );

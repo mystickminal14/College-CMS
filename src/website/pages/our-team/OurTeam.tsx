@@ -79,7 +79,6 @@ const OurTeamWeb = () => {
             <Section
               key={group.department.id}
               title={group.department.name}
-              badge={group.department.name}
               color={
                 index % 3 === 0
                   ? "blue"
@@ -112,16 +111,20 @@ export default OurTeamWeb;
 
 /* ================= SECTION COMPONENT ================= */
 
+const accentBar = {
+  blue: "bg-blue-500",
+  purple: "bg-purple-500",
+  green: "bg-green-500",
+} as const;
+
 const Section = ({
   title,
-  badge,
   color,
   members,
   isLoading,
   onSelect,
 }: {
   title: string;
-  badge: string;
   color: "blue" | "green" | "purple";
   members: TeamMember[];
   isLoading: boolean;
@@ -134,17 +137,12 @@ const Section = ({
     viewport={{ once: true }}
     className="mb-20"
   >
-    <div className="mb-8">
-      <div
-        className={`inline-flex items-center gap-2 mb-2 px-4 py-1 rounded-full bg-${color}-100 border border-${color}-200`}
-      >
-        <div className={`w-2 h-2 bg-${color}-500 rounded-full`} />
-        <span className={`text-${color}-700 font-medium`}>{badge}</span>
-      </div>
-
+    <div className="mb-8 flex items-center gap-4">
+      <span className={`h-8 w-1.5 rounded-full ${accentBar[color]}`} />
       <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
         {title}
       </h3>
+      <span className="hidden sm:block h-px flex-1 bg-gray-200" />
     </div>
 
     <motion.div
@@ -152,7 +150,7 @@ const Section = ({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
     >
       {isLoading
         ? Array.from({ length: 4 }).map((_, i) => <TeamCardSkeleton key={i} />)
@@ -161,7 +159,7 @@ const Section = ({
             key={member.id}
             whileHover={{ y: -6 }}
             onClick={() => onSelect(member)}
-            className="cursor-pointer"
+            className="cursor-pointer h-full"
           >
             <TeamCard member={member} />
           </motion.div>
@@ -238,7 +236,7 @@ const TeamDetailModal = ({
 
         <div className="max-h-[70vh] overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="text-center">
-            <div className="rounded-xl overflow-hidden shadow-md">
+            <div className="mx-auto max-w-xs aspect-square rounded-lg overflow-hidden bg-gray-100">
               <img
                 src={
                   member.portrait
@@ -246,7 +244,7 @@ const TeamDetailModal = ({
                     : IMAGE_URL + member.image
                 }
                 alt={member.name}
-                className="w-full h-80 object-contain"
+                className="w-full h-full object-cover object-top mix-blend-multiply"
               />
             </div>
             <h3 className="mt-6 text-xl font-bold text-gray-900">

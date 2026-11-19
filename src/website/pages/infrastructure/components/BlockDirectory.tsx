@@ -27,7 +27,7 @@ const BlockDirectory = () => {
   };
 
   return (
-    <section className="mb-20 md:mb-28">
+    <section id="campus-blocks" className="mb-20 md:mb-28 scroll-mt-28">
       <SectionHeading
         align="center"
         eyebrow="The six blocks"

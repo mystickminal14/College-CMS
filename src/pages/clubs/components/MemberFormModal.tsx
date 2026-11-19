@@ -8,6 +8,7 @@ import { useSaveClubMember, useUploadMemberPhoto } from "../hooks/useClubMembers
 import { useGetClubNames } from "../hooks/useClubs";
 import ModalShell from "./ModalShell";
 import ImagePicker from "./ImagePicker";
+import ClubTextEditor from "./ClubTextEditor";
 
 interface Props {
   isOpen: boolean;
@@ -158,7 +159,7 @@ const MemberForm: React.FC<Omit<Props, "isOpen">> = ({ onClose, member, defaultC
             <InputField label="Current Semester" field="semester" type="number" value={form.semester ? String(form.semester) : ""} onChange={(_, v) => set("semester", v ? Number(v) : null)} placeholder="6" isSubmitting={busy} />
           </div>
 
-          <InputField label="Past Experiences" field="pastExperiences" type="textarea" rows={3} value={form.pastExperiences ?? ""} onChange={(_, v) => set("pastExperiences", v)} placeholder="Vice-President of TechClub (2023-2024), LBEF Hackathon Winner" isSubmitting={busy} />
+          <ClubTextEditor label="Past Experiences" value={form.pastExperiences ?? ""} onChange={(v) => set("pastExperiences", v)} placeholder="Vice-President of TechClub (2023-2024), LBEF Hackathon Winner" disabled={busy} />
 
           <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer">
             <input type="checkbox" checked={!!form.isPresident} onChange={(e) => set("isPresident", e.target.checked)} disabled={busy} className="w-4 h-4" />

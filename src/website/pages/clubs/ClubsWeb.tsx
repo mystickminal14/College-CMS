@@ -7,6 +7,7 @@ import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
 import { APP_URL, IMAGE_URL } from "../../../constants";
 import fallback from "../../../assets/applogo.webp";
 import { useGetPublicClubs } from "./hook/useClubsWeb";
+import ClubRichText from "./component/ClubRichText";
 import JoinButton from "./component/JoinButton";
 
 // Same accent colours the old Academic Clubs page used, cycled per club.
@@ -37,7 +38,7 @@ const Block = ({ title, text, color }: { title: string; text: string; color: str
       <span className={`w-2 h-6 rounded-full bg-linear-to-b ${color}`} />
       {title}
     </h4>
-    <p className="text-gray-600 leading-relaxed pl-4 whitespace-pre-line">{text}</p>
+    <ClubRichText html={text} className="text-gray-600 leading-relaxed pl-4" />
   </div>
 );
 

@@ -1,83 +1,83 @@
-# Deployment (cPanel Node.js) — with SEO meta injection
+# Deployment (cPanel, Apache and PHP)
 
-The site is a Vite React SPA **plus** a small Express server (`server.mjs`) whose
-only job is to inject per-blog `<title>` / `meta description` / Open Graph tags
-into the HTML **before** it reaches the browser or a crawler.
+The website is a Vite React SPA served from `public_html`. React sets page tags
+only after JS runs, so Apache sends every website page through `page-seo.php`,
+which adds the correct tags to `index.html` before responding.
 
-## Why the server exists
+## How SEO works
 
-Crawlers (Google, Bing, Facebook, WhatsApp, LinkedIn, Twitter) read the raw HTML
-response and mostly do **not** execute JavaScript. A pure SPA only fixes meta
-tags client-side (React Helmet), which those crawlers never see — so every blog
-inherited the homepage's title/description. `server.mjs` rewrites the `<head>`
-for `/blogs/:slug` so the correct tags are in the **first** response.
+1. `.htaccess` routes website URLs to `page-seo.php`. `/admin`, `/app`,
+   `/visitor` and `/visitor-pass` skip it and get plain `index.html`.
+2. `page-seo.php` calls `GET /api/page-seo/lookup?path=...` on LBEF-Server.
+3. The API returns admin-saved values (admin panel > Lbef Publication > Page SEO),
+   then that page's default text, and says if the URL is not a real page.
+4. PHP adds the tags and passes them to React as `window.__SEO__`. A URL that is
+   not a real page gets a 404 status. The React app still loads on it.
 
-- No rebuild needed when a blog is published — tags come live from the API.
-- Same tags for humans and bots (no cloaking — Google requires this).
-- 60-second in-memory cache per slug to limit API calls.
+`/sitemap.xml` is built the same way by `sitemap.php` from `GET /api/page-seo/sitemap`.
 
-## What runs
-
-```
-npm run build      # produces dist/  (must exist before the server starts)
-npm start          # node server.mjs  -> serves dist/ + injects blog meta
-```
-
-`server.mjs`:
-- `GET /blogs/:slug` → fetch blog from API, inject metaTitle/metaDescription/OG, send HTML
-- everything else → serve `dist/` static assets, with SPA fallback to `index.html`
+- An admin edit shows up within 60 seconds (cached in `.seo-cache/`). The sitemap
+  refreshes hourly. Delete `.seo-cache/` in `public_html` to refresh immediately.
+- If the API is down, pages use the last cached answer, then plain `index.html`
+  with status 200. The sitemap falls back to the static `sitemap.xml`.
+- Same HTML for people and bots.
+- New fixed pages must be added to `LBEF-Server/src/api/page-seo/page-seo.pages.ts`,
+  or they will return a 404 status. Keep it in step with `WebsiteRoutes.tsx`.
 
 ## .htaccess
 
-`deploy/.htaccess` (SPA fallback, PHP SEO-injector routes, font MIME/CORS
-rules) is **not** in `public/`, so `npm run build` never bundles it into
-`dist/`. Upload it to `public_html` manually and keep it out of `public/` —
-otherwise it gets silently overwritten/duplicated on every rebuild.
+`deploy/.htaccess` is the tracked copy of the production file. It is not in
+`public/`, so `npm run build` does not put it in `dist/`. Upload it to
+`public_html` by hand whenever it changes, and make any server-side edit here too.
 
-## cPanel setup (Setup Node.js App / App Manager)
+## Deploy order
 
-1. Push code to the repo and pull it onto the server (or upload the project).
-2. cPanel → **Setup Node.js App** → **Create Application**
-   - **Node version:** 18 or higher (server.mjs uses the global `fetch`)
-   - **Application mode:** Production
-   - **Application root:** the project folder
-   - **Application startup file:** `server.mjs`
-   - **Application URL / domain:** `www.lbef.org`
-3. Click **Run NPM Install** (installs `express` + `compression` and the rest).
-4. In the app's terminal (or via the "Run JS script" → use the build step):
-   `npm run build`  — `dist/` is gitignored, so it must be built on the server
-   (or upload a locally-built `dist/` into the app root).
-5. **Restart** the application.
+Deploy the API first, because the new `.htaccess` depends on it.
 
-### Environment variables (set in the Node.js App panel)
+1. **Back up** the production database and the current `public_html/.htaccess`.
+2. **API (LBEF-Server):** check `npx prisma migrate status` on production, then
+   `npx prisma migrate deploy`, `npm run build`, and restart. Confirm:
+   `curl "https://lbef-server.lbef.org/api/page-seo/lookup?path=/about"`
+3. **Website:** build with the live API URLs, then upload all of `dist/` to
+   `public_html`. These override the local `.env`, which points at localhost:
+
+   ```bash
+   VITE_API_BASE_URL=https://lbef-server.lbef.org/api \
+   VITE_IMAGE_URL=https://lbef-server.lbef.org \
+   VITE_APP_URL=https://www.lbef.org \
+   npm run build
+   ```
+
+4. **Routing:** upload `deploy/.htaccess` to `public_html`.
+5. Confirm PHP can write to `public_html/.seo-cache/`.
+
+Optional API environment variables, whose defaults match production:
 
 ```
-API_BASE=https://lbef-server.lbef.org/api
-APP_URL=https://www.lbef.org
-IMAGE_URL=https://lbef-server.lbef.org
-PORT=<assigned by cPanel; leave unset to use cPanel's value>
+SITE_URL=https://www.lbef.org
+PUBLIC_API_URL=https://lbef-server.lbef.org
 ```
 
-(Defaults baked into `server.mjs` match production, so these are optional but
-recommended to make the config explicit.)
-
-## Verifying the fix after deploy
+## Checking after deploy
 
 ```bash
-# A crawler's view — title must be the blog's metaTitle, not the homepage title:
-curl -s https://www.lbef.org/blogs/<some-slug> | grep -iE "<title>|description|og:title"
+# Each should show that page's own title and description:
+curl -s https://www.lbef.org/ | grep -iE "<title|name=\"description\""
+curl -s https://www.lbef.org/about | grep -iE "<title|name=\"description\""
+curl -s https://www.lbef.org/bscit | grep -iE "<title|name=\"description\""
+
+# Should print 404:
+curl -s -o /dev/null -w "%{http_code}\n" https://www.lbef.org/no-such-page
+
+# Should list well over 37 URLs:
+curl -s https://www.lbef.org/sitemap.xml | grep -c "<loc>"
 ```
 
-You should see the blog's `metaTitle` / `metaDescription`. Then:
-- Google Search Console → URL Inspection → **Live test** → View rendered HTML.
-- Facebook Sharing Debugger / LinkedIn Post Inspector → re-scrape the URL.
+Then resubmit the sitemap in Google Search Console, and re-scrape a page in the
+Facebook Sharing Debugger.
 
-## Troubleshooting
+## Rolling back
 
-- **Blog shows homepage tags** → app not restarted, or request didn't hit
-  `server.mjs` (confirm startup file is `server.mjs`, not a static handler).
-- **`dist/index.html not found`** → run `npm run build` on the server first.
-- **Blog 404 / falls back to SPA** → blog `status` must be `PUBLISHED` and the
-  slug must resolve at `API_BASE/blogs/slug/:slug`.
-- **Wrong preview image** → check `IMAGE_URL` and `blog.featuredImage`.
-- **`fetch is not defined`** → Node version < 18; bump it in the Node.js App panel.
+Put the backed-up `.htaccess` back. `blog-seo.php`, `category-seo.php` and
+`referral-seo.php` are still shipped so that works. Delete those three from
+`public/` once `page-seo.php` has been stable in production.

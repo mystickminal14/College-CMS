@@ -72,9 +72,9 @@ const StudentLife = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.45, delay: (index % 3) * 0.07 }}
-              className="p-5 transition-colors border border-gray-200 group rounded-2xl hover:border-blue-300 hover:bg-blue-50/40"
+              className="p-6 transition-all duration-300 bg-white shadow-sm group rounded-2xl ring-1 ring-gray-100 hover:-translate-y-1 hover:shadow-lg hover:ring-blue-100"
             >
-              <span className="inline-flex items-center justify-center w-11 h-11 mb-4 text-blue-600 transition-colors rounded-full bg-blue-50 group-hover:bg-blue-600 group-hover:text-white">
+              <span className="inline-flex items-center justify-center w-11 h-11 mb-4 text-blue-600 transition-colors rounded-xl bg-blue-50 group-hover:bg-blue-600 group-hover:text-white">
                 <Icon className="w-5 h-5" />
               </span>
               <h3 className="font-semibold text-[#0B1220]">{facility.title}</h3>
@@ -92,10 +92,10 @@ const StudentLife = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45 }}
-          className="p-6 text-white md:col-span-3 bg-blue-600 rounded-2xl"
+          className="p-6 text-white shadow-lg md:col-span-3 bg-linear-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-blue-600/20"
         >
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center rounded-full size-11 bg-white/15">
+            <span className="inline-flex items-center justify-center rounded-xl size-11 bg-white/15">
               <Trophy className="w-5 h-5" />
             </span>
             <h3 className="text-lg font-bold">Recreation, indoor and out</h3>
@@ -121,10 +121,10 @@ const StudentLife = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45, delay: 0.1 }}
-          className="p-6 border border-gray-200 md:col-span-2 rounded-2xl"
+          className="p-6 bg-white shadow-sm md:col-span-2 rounded-2xl ring-1 ring-gray-100"
         >
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center text-blue-600 rounded-full size-11 bg-blue-50">
+            <span className="inline-flex items-center justify-center text-blue-600 rounded-xl size-11 bg-blue-50">
               <Car className="w-5 h-5" />
             </span>
             <h3 className="text-lg font-bold text-[#0B1220]">Parking</h3>

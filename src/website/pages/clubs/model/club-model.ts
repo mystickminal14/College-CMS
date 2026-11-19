@@ -26,6 +26,7 @@ export interface PublicClubMember {
   id: number;
   name: string;
   designation: string;
+  pastExperiences: string | null;
   linkedIn: string | null;
   image: string | null;
   isPresident: boolean;

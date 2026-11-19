@@ -1,0 +1,201 @@
+RewriteOptions inherit
+RewriteEngine On
+
+# ---------------------------------------------------------------------------
+# SECURITY: Block dotfiles and sensitive files
+# Allow .well-known for SSL certificate validation.
+# This rule applies to sites covered by this .htaccess.
+# ---------------------------------------------------------------------------
+
+RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
+
+# Deny environment files, backups, database dumps and archive files.
+<FilesMatch "^(?:\.env(?:\..*)?|\.DS_Store|\.htaccess|\.htpasswd|.*\.(?:bak|backup|old|orig|save|swp|tmp|sql|sqlite|sqlite3|zip|tar|gz))$">
+    Require all denied
+</FilesMatch>
+
+# Never expose directory contents.
+Options -Indexes
+
+# ---------------------------------------------------------------------------
+# Legacy URL redirects (301)
+# ---------------------------------------------------------------------------
+
+# Old PHP pages -> current SPA pages
+RewriteRule ^(ourteam\.php|our-team)/?$ https://www.lbef.org/ourteam [R=301,L,NC]
+RewriteRule ^(about\.php|aboutus|about-us)/?$ https://www.lbef.org/about [R=301,L,NC]
+RewriteRule ^training-placement-cell(\.php)?/?$ https://www.lbef.org/training-and-placement [R=301,L,NC]
+RewriteRule ^intake-calendar(\.php)?/?$ https://www.lbef.org/academic-planners [R=301,L,NC]
+RewriteRule ^(recognitions|messages|achivements|infrastructure|administrative-holidays)\.php$ https://www.lbef.org/$1 [R=301,L,NC]
+RewriteRule ^publications\.php$ https://www.lbef.org/lrjstm [R=301,L,NC]
+
+# Old site section /the-first-it-college-in-nepal/*.php
+RewriteRule ^the-first-it-college-in-nepal/about\.php$ https://www.lbef.org/about [R=301,L,NC]
+RewriteRule ^the-first-it-college-in-nepal/mba-weekend\.php$ https://www.lbef.org/mba [R=301,L,NC]
+RewriteRule ^the-first-it-college-in-nepal(/.*)?$ https://www.lbef.org/ [R=301,L,NC]
+
+# Old course URLs
+RewriteRule ^course/bscit-cc/?$ https://www.lbef.org/bscitce [R=301,L,NC]
+RewriteRule ^course/bsc-it-mobile-technology/?$ https://www.lbef.org/bscit [R=301,L,NC]
+RewriteRule ^course(/.*)?$ https://www.lbef.org/courses [R=301,L,NC]
+
+# Old journal URLs
+RewriteRule ^journal(/.*)?$ https://www.lbef.org/lrjstm [R=301,L,NC]
+
+# Old WordPress uploads (PDFs)
+RewriteRule ^wp-content/uploads/.*fee.*\.pdf$ https://www.lbef.org/fee-payment-planners [R=301,L,NC]
+RewriteRule ^wp-content/uploads/.*holiday.*\.pdf$ https://www.lbef.org/academic-holidays [R=301,L,NC]
+RewriteRule ^wp-content/uploads/.*/tor-[^/]*\.pdf$ https://www.lbef.org/vacancy [R=301,L,NC]
+RewriteRule ^wp-content/uploads/.*press[^/]*\.pdf$ https://www.lbef.org/news [R=301,L,NC]
+RewriteRule ^wp-content/uploads/.*(planner|classdates|sem[0-9]|-sem-|np[0-9a-z]*f[0-9]{4}|bsc-it-[0-9]).*\.pdf$ https://www.lbef.org/academic-planners [R=301,L,NC]
+RewriteRule ^wp-content/uploads/.*\.pdf$ https://www.lbef.org/notice [R=301,L,NC]
+RewriteRule ^wp-content(/.*)?$ https://www.lbef.org/ [R=301,L,NC]
+
+# Old /assets/* PDFs: redirect only when the file no longer exists.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^assets/planners/.*\.pdf$ https://www.lbef.org/academic-planners [R=301,L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^assets/notices/.*\.pdf$ https://www.lbef.org/notice [R=301,L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^assets/downloads/.*\.pdf$ https://www.lbef.org/downloads [R=301,L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^assets/lbefconnect/.*\.pdf$ https://www.lbef.org/lbef-connect [R=301,L,NC]
+
+# ---------------------------------------------------------------------------
+# Downloads SPA route
+# Keep the existing handling to avoid the old folder redirect.
+# ---------------------------------------------------------------------------
+
+RewriteOptions AllowNoSlash
+
+<If "%{REQUEST_URI} =~ m#^/downloads$#i">
+    DirectorySlash Off
+</If>
+
+RewriteRule ^downloads/?$ page-seo.php [L,NC]
+
+# ---------------------------------------------------------------------------
+# Canonical host and HTTPS
+# ---------------------------------------------------------------------------
+
+# Redirect non-www to www
+RewriteCond %{HTTP_HOST} ^lbef\.org$ [NC]
+RewriteRule ^ https://www.lbef.org%{REQUEST_URI} [R=301,L]
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# ---------------------------------------------------------------------------
+# Admin route
+# ---------------------------------------------------------------------------
+
+# Redirect direct browser requests to /admin or /admin/ to /admin/auth
+RewriteCond %{THE_REQUEST} \s/+admin/?(?:[?\s]) [NC]
+RewriteRule ^admin/?$ /admin/auth [R=301,L]
+
+# Private areas have no SEO tags, so they skip the injector.
+RewriteRule ^(admin|app|visitor|visitor-pass)(/.*)?$ index.html [L,NC]
+
+# ---------------------------------------------------------------------------
+# PHP SEO routes
+# ---------------------------------------------------------------------------
+
+# Apache would otherwise serve index.html for / without reaching the fallback.
+RewriteRule ^$ page-seo.php [L]
+
+# Generated from the API, including blogs and courses.
+RewriteRule ^sitemap\.xml$ sitemap.php [L,NC]
+
+# ---------------------------------------------------------------------------
+# SPA routing for legacy real directories
+# Only apply to lbef.org / www.lbef.org.
+# Keep UGC, Vite assets and API directories accessible.
+# Run after redirects and PHP SEO routes so they retain priority.
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_HOST} ^(www\.)?lbef\.org$ [NC]
+RewriteCond $1 !^(ugc|assets|api)$ [NC]
+RewriteCond %{DOCUMENT_ROOT}/$1 -d
+RewriteRule ^([^/]+)(/.*)?$ /page-seo.php [L]
+
+# ---------------------------------------------------------------------------
+# React SPA fallback
+# Every website page goes through page-seo.php, which adds its tags to index.html.
+# ---------------------------------------------------------------------------
+
+# Exclude API and upload/static directories
+RewriteCond %{REQUEST_URI} !^/api(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/uploads(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/images(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/public(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/ugc(?:/|$) [NC]
+
+# Exclude static file extensions
+RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|mp4|mp3|woff|woff2|ttf|eot)$ [NC]
+
+# Don't rewrite existing files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# React SPA fallback
+RewriteRule ^ page-seo.php [L]
+
+# ---------------------------------------------------------------------------
+# Font MIME types
+# ---------------------------------------------------------------------------
+
+<IfModule mime_module>
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+    AddType font/ttf .ttf
+    AddType font/otf .otf
+    AddType application/vnd.ms-fontobject .eot
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# CORS for fonts
+# ---------------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Cache fonts for one year
+# ---------------------------------------------------------------------------
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+        ExpiresDefault "access plus 1 year"
+        Header append Cache-Control "public, immutable"
+    </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Cache built JS and CSS for one year
+# Vite puts a content hash in these file names, so a new build gets new URLs.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+    <If "%{REQUEST_URI} =~ m#^/assets/.+\.(js|css)$#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# cPanel PHP handler - retain existing configuration
+# ---------------------------------------------------------------------------
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php85” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php85 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

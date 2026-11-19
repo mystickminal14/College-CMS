@@ -85,6 +85,7 @@ const menuItems: MenuItem[] = [
     label: "Lbef Publication",
     subMenus: [
       { id: "blogs", label: "Blogs", icon: FaBlog },
+      { id: "seo", label: "Page SEO", icon: MdArticle },
       { id: "news", label: "News", icon: MdArticle },
       { id: "journals", label: "Journal", icon: MdArticle },
       { id: "editorial-board", label: "Editorial Board", icon: MdArticle },

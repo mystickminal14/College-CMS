@@ -25,33 +25,26 @@ const Inspiration = () => {
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-start">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
             {/* Founder Profile Card */}
-            <div className="bg-white w-full lg:w-auto rounded-xl shadow p-4 lg:p-6">
-              <div className="w-full max-w-sm mx-auto">
-                <div className="aspect-square overflow-hidden rounded-lg group">
-                  <img
-                    src={bgImage}
-                    alt="Founder"
-                    className="w-full h-full object-cover object-top rounded-lg transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mt-4">
-                  Late Mr. Parmanand Kejriwal
-                </h3>
-                <p className="text-sm lg:text-base text-gray-700 mt-1">
-                  Founder of LBEF Group of Institutions
-                </p>
-                <div className="mt-3 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-blue-600 font-medium text-sm">July 12, 1955 - June 20, 2021</span>
-                </div>
+            <div className="w-full max-w-xs mx-auto lg:mx-0 lg:w-72 shrink-0">
+              <div className="aspect-square overflow-hidden rounded-lg group bg-gray-100">
+                <img
+                  src={bgImage}
+                  alt="Late Mr. Parmanand Kejriwal"
+                  className="w-full h-full object-cover object-top mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
+              <h3 className="text-base lg:text-lg font-bold text-gray-900 leading-snug mt-3">
+                Late Mr. Parmanand Kejriwal
+              </h3>
+              <p className="text-sm text-gray-700 mt-0.5 leading-snug">
+                Founder of LBEF Group of Institutions
+              </p>
+              <p className="text-sm font-medium text-blue-600 mt-1">
+                July 12, 1955 – June 20, 2021
+              </p>
             </div>
-
 
             <div className="flex-1">
               {/* Foundation Story */}
@@ -66,9 +59,7 @@ const Inspiration = () => {
 
               {/* Quote Box */}
               <div className="bg-blue-50 border-l-4 border-blue-500 p-6 lg:p-8 rounded-r-lg">
-                <svg className="w-8 h-8 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                </svg>
+                <span className="block text-5xl leading-none text-blue-300 font-serif mb-2">&ldquo;</span>
                 <blockquote className="text-base lg:text-md italic text-gray-700 mb-4">
                   "True education must be rooted in ethics. Guided by this belief, LBEF advances skill-based learning, embraces futuristic thinking to prepare industry-ready graduates, and recognizes women’s empowerment through ICT as vital to nation building."
                 </blockquote>

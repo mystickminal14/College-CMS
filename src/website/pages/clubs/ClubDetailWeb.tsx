@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
-import { FaLinkedinIn, FaUsers } from "react-icons/fa";
+import { FaBriefcase, FaLinkedinIn, FaUsers } from "react-icons/fa";
 import { Eye, Target } from "lucide-react";
 import Seo from "../../../context/seo";
 import HeroTitleWithGif from "../../../components/AnimatedTitleWithGif";
@@ -9,6 +9,7 @@ import fallback from "../../../assets/applogo.webp";
 import { fadeUp } from "../../comp/animation";
 import { useGetPublicClub } from "./hook/useClubsWeb";
 import ClubNotFound from "./component/ClubNotFound";
+import ClubRichText from "./component/ClubRichText";
 import ClubTeamGrid from "./component/ClubTeamGrid";
 import JoinButton from "./component/JoinButton";
 import TeamHeading from "./component/TeamHeading";
@@ -46,11 +47,7 @@ const ClubDetailWeb = () => {
         subtitle="Meet the president and the team behind the club."
         badgeText="Students Clubs"
         titleClassName={club.name.length > 22 ? "lg:text-5xl! md:text-4xl!" : ""}
-      >
-        <Link to="/academic-club" className="inline-block mt-6 text-sm text-blue-600 hover:text-blue-800">
-          ← All clubs
-        </Link>
-      </HeroTitleWithGif>
+      />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="max-w-7xl mx-auto">
@@ -65,42 +62,45 @@ const ClubDetailWeb = () => {
             <h3 className="mb-8 text-2xl md:text-3xl font-bold text-gray-900">Our President</h3>
 
             {president ? (
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center bg-white rounded-3xl border border-gray-200 shadow-sm p-6 sm:p-10">
-                <div className="lg:col-span-2 flex justify-center">
-                  <div className="relative w-full max-w-sm">
-                    <div className="absolute -inset-3 rounded-[2rem] bg-linear-to-br from-blue-200 to-cyan-100 -rotate-3" />
-                    <div className="relative aspect-square rounded-3xl overflow-hidden bg-gray-100 ring-4 ring-white shadow-xl">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 bg-white rounded-3xl border border-gray-200 shadow-sm p-5 sm:p-6">
+                <div className="lg:col-span-2">
+                  <div className="relative h-full">
+                    <div className="absolute -inset-2 rounded-[2rem] bg-linear-to-br from-blue-200 to-cyan-100 -rotate-3" />
+                    {/* Fills the column height; the image is absolute so it never sets that height itself. */}
+                    <div className="relative aspect-square lg:aspect-auto lg:h-full lg:min-h-[24rem] rounded-3xl overflow-hidden bg-gray-100 ring-4 ring-white shadow-xl">
                       <img
                         src={president.image ? `${IMAGE_URL}${president.image}` : fallback}
                         alt={president.name}
-                        className={`w-full h-full ${president.image ? "object-cover object-center" : "object-contain p-16 opacity-60"}`}
+                        className={`absolute inset-0 w-full h-full ${president.image ? "object-cover object-top" : "object-contain p-16 opacity-60"}`}
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3">
+                <div className="lg:col-span-3 self-center p-1 sm:p-2 lg:pr-6">
                   <span className="inline-block text-sm font-semibold text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
                     {club.name}
                   </span>
                   <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900">{president.name}</h2>
                   <p className="mt-1 text-lg font-medium text-blue-700">{president.designation}</p>
 
-                  {(president.semester || president.pastExperiences) && (
-                    <dl className="mt-6 pt-6 border-t border-gray-100 space-y-4 text-gray-800">
-                      {president.semester && (
-                        <div>
-                          <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Current Semester</dt>
-                          <dd className="mt-1 text-lg">{president.semester}</dd>
-                        </div>
-                      )}
-                      {president.pastExperiences && (
-                        <div>
-                          <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Past Experiences</dt>
-                          <dd className="mt-1 text-lg leading-relaxed">{president.pastExperiences}</dd>
-                        </div>
-                      )}
+                  {president.semester && (
+                    <dl className="mt-6 pt-6 border-t border-gray-100 text-gray-800">
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Current Semester</dt>
+                      <dd className="mt-1 text-lg">{president.semester}</dd>
                     </dl>
+                  )}
+
+                  {president.pastExperiences && (
+                    <div className="mt-6 rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                      <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-linear-to-br from-blue-500 to-cyan-500 text-white shadow-sm">
+                          <FaBriefcase className="text-sm" />
+                        </span>
+                        <h3 className="text-lg font-bold text-gray-900">Past Experiences</h3>
+                      </div>
+                      <ClubRichText html={president.pastExperiences} className="mt-3 text-gray-700 leading-relaxed" />
+                    </div>
                   )}
 
                   <div className="mt-8 flex flex-wrap gap-4">
@@ -145,7 +145,7 @@ const ClubDetailWeb = () => {
                     </span>
                     <h3 className="text-lg font-bold text-gray-900">Our Vision</h3>
                   </div>
-                  <p className="mt-3 text-sm text-gray-700 leading-relaxed whitespace-pre-line">{club.vision}</p>
+                  <ClubRichText html={club.vision} className="mt-3 text-sm text-gray-700 leading-relaxed" />
                 </div>
               )}
               {club.mission && (
@@ -156,7 +156,7 @@ const ClubDetailWeb = () => {
                     </span>
                     <h3 className="text-lg font-bold text-gray-900">Our Mission</h3>
                   </div>
-                  <p className="mt-3 text-sm text-gray-700 leading-relaxed whitespace-pre-line">{club.mission}</p>
+                  <ClubRichText html={club.mission} className="mt-3 text-sm text-gray-700 leading-relaxed" />
                 </div>
               )}
             </motion.section>

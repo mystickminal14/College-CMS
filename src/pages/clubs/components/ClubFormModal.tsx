@@ -7,6 +7,7 @@ import type { Club } from "../model/ClubModel";
 import { useSaveClub } from "../hooks/useClubs";
 import ModalShell from "./ModalShell";
 import ImagePicker from "./ImagePicker";
+import ClubTextEditor from "./ClubTextEditor";
 
 interface Props {
   isOpen: boolean;
@@ -48,7 +49,7 @@ const ClubForm: React.FC<{ onClose: () => void; club: Club | null }> = ({ onClos
   };
 
   return (
-    <ModalShell title={club ? "Edit Club" : "Add New Club"} subtitle="Name, logo, mission, vision and join form" onClose={onClose}>
+    <ModalShell title={club ? "Edit Club" : "Add New Club"} subtitle="Name, logo, mission, vision and join form" onClose={onClose} wide>
       <form onSubmit={submit} className="space-y-5">
         <InputField
           icon={<Users className="w-5 h-5" />}
@@ -60,8 +61,8 @@ const ClubForm: React.FC<{ onClose: () => void; club: Club | null }> = ({ onClos
           required
           isSubmitting={mutation.isPending}
         />
-        <InputField label="Mission" field="mission" type="textarea" rows={3} value={mission} onChange={(_, v) => setMission(v)} placeholder="What the club does and how" isSubmitting={mutation.isPending} />
-        <InputField label="Vision" field="vision" type="textarea" rows={3} value={vision} onChange={(_, v) => setVision(v)} placeholder="What the club wants to become" isSubmitting={mutation.isPending} />
+        <ClubTextEditor label="Mission" value={mission} onChange={setMission} placeholder="What the club does and how" disabled={mutation.isPending} />
+        <ClubTextEditor label="Vision" value={vision} onChange={setVision} placeholder="What the club wants to become" disabled={mutation.isPending} />
         <InputField
           icon={<Link2 className="w-5 h-5" />}
           label="Join Now (Google Form link)"

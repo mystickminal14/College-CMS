@@ -26,6 +26,7 @@ import DocumentPage from "../pages/docs-required/DocsPage";
 import JournalsPage from "../pages/journal/JournalPage";
 import JournalDetails from "../pages/journal/JournalDetails";
 import EditorialPage from "../pages/editorial-board/EditorialBoard";
+import PageSeoPage from "../pages/page-seo/PageSeoPage";
 
 import useMe from "../login/hooks/useMe";
 import { getHomeRoute } from "../login/utils/homeRoute";
@@ -66,6 +67,7 @@ const routePermissions: Record<string, PermissionNameType | null> = {
   "alumni/form": "ALMUNI_FORM",
   "faq": "FAQ",
   "media/blogs": "BLOGS",
+  "media/seo": "BLOGS",
   "students/planner-course": "PLANNER_COURSE",
   "administation/achievement": "ACHIEVEMENT",
   "media/news": "NEWS",
@@ -182,6 +184,7 @@ export const adminRoutes = [
       { path: "media/blogs", element: <BlogsPage /> },
       { path: "media/blogs/add", element: <AddBlogPage /> },
       { path: "media/blogs/edit/:id", element: <BlogFormPage /> },
+      { path: "media/seo", element: <PageSeoPage /> },
 
       { path: "job-vacancy/vacancy", element: <VacancyPage /> },
       { path: "job-vacancy/applicant/:vacancyId", element: <ApplicantPage /> },

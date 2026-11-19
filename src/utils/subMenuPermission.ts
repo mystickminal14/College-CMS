@@ -10,6 +10,7 @@ export const subMenuPermissionMap: Record<string, PermissionNameType> = {
 
   // ---------------- Media ----------------
   blogs: "BLOGS",
+  seo: "BLOGS",
   news: "NEWS",
   journals: "JOURNALS",
   "editorial-board": "EDITORIAL_BOARD",
