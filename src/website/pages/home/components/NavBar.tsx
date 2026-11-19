@@ -175,7 +175,7 @@ export function NavBar() {
         { name: "Student Clubs", link: "/academic-club", },
         { name: "Academic Holidays", link: "/academic-holidays" },
         { name: "Academic Calendar", link: "/academic-planners" },
-        { name: "Event Calendar", link: "/events" },
+        { name: "Event Calendar", link: "/events/" },
         { name: "Downloads", link: "/downloads" },
         { name: "Notice Board", link: "/notice" },
         { name: "Student Access", link: "/online-libraries" },
