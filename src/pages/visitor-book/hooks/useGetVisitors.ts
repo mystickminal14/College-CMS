@@ -11,7 +11,9 @@ interface VisitorQueryProps {
   status?: EVisitorStatus | "";
   /** Matched against the stored purpose text, not an id. */
   purpose?: string;
-  date?: string;
+  /** Inclusive Nepal calendar days, YYYY-MM-DD; either end may be blank. */
+  from?: string;
+  to?: string;
 }
 
 const useGetVisitors = ({
@@ -20,18 +22,20 @@ const useGetVisitors = ({
   limit = 10,
   status = "",
   purpose = "",
-  date = "",
+  from = "",
+  to = "",
 }: VisitorQueryProps) => {
   const params = new URLSearchParams();
   if (search) params.append("search", search);
   if (status) params.append("status", status);
   if (purpose) params.append("purpose", purpose);
-  if (date) params.append("date", date);
+  if (from) params.append("from", from);
+  if (to) params.append("to", to);
   params.append("page", String(page));
   params.append("limit", String(limit));
 
   return useQuery<ApiResponse<Visitor[]>, ApiErrorResponse>({
-    queryKey: [VISITOR_CACHE_KEY, search, page, limit, status, purpose, date],
+    queryKey: [VISITOR_CACHE_KEY, search, page, limit, status, purpose, from, to],
     queryFn: () => VisitorApi.getAll(`?${params.toString()}`),
   });
 };

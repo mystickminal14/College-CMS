@@ -40,3 +40,9 @@ export const formatVisitorDate = (
   const date = parseStamp(value);
   return date ? date.toLocaleDateString([], { ...options, timeZone: VISITOR_TIME_ZONE }) : "--";
 };
+
+/** Nepal calendar date as YYYY-MM-DD (en-CA formats that way), or "" if unset. */
+export const formatVisitorIsoDate = (value?: string | null) => {
+  const date = parseStamp(value);
+  return date ? date.toLocaleDateString("en-CA", { timeZone: VISITOR_TIME_ZONE }) : "";
+};

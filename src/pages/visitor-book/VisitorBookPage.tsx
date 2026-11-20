@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { debounce } from "lodash";
 import { FaPlus, FaTable } from "react-icons/fa";
-import { LogOut, QrCode, Trash2, Users, UserCheck, UserX } from "lucide-react";
+import { Download, Loader2, LogOut, QrCode, Trash2, Users, UserCheck, UserX } from "lucide-react";
 
 import TitleBox from "../../components/layout/TitleBox";
 import EnhancedTable from "../../template/EnhancedTable";
 import Pagination from "../../utils/Pagination";
 import SearchBox from "../users/utils/SearchBox";
 import { PAGE_LIMIT } from "../../constants";
+import { AppContext } from "../../context/ContextApp";
 
 import type { Visitor } from "./model/VisitorModel";
-import { VisitorColumns } from "./columns";
+import { AllVisitorColumns, VisitorColumns } from "./columns";
 import useGetVisitors from "./hooks/useGetVisitors";
+import { exportVisitorsToExcel } from "./utils/exportVisitors";
 import useGetVisitorsToday from "./hooks/useGetVisitorsToday";
 import useCheckOutVisitor from "./hooks/useCheckOutVisitor";
 import useDeleteVisitor from "./hooks/useDeleteVisitor";
@@ -27,12 +29,18 @@ const VisitorBookPage = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(PAGE_LIMIT);
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [exporting, setExporting] = useState(false);
+  const appContext = useContext(AppContext);
 
   const { data: todayData, isLoading: todayLoading, isError: todayError } = useGetVisitorsToday();
   const { data: allData, isLoading: allLoading, isError: allError } = useGetVisitors({
     search: debouncedSearch,
     page,
     limit,
+    from: dateFrom,
+    to: dateTo,
   });
 
   const checkOutMutation = useCheckOutVisitor();
@@ -51,6 +59,38 @@ const VisitorBookPage = () => {
     setDebouncedSearch(value);
     setPage(1);
   }, 500);
+
+  const handleDateChange = (which: "from" | "to", value: string) => {
+    if (which === "from") setDateFrom(value);
+    else setDateTo(value);
+    setPage(1);
+  };
+
+  const clearDates = () => {
+    setDateFrom("");
+    setDateTo("");
+    setPage(1);
+  };
+
+  const hasFilters = Boolean(debouncedSearch || dateFrom || dateTo);
+
+  // Exports exactly what the All Visitors filters select; with none set, the
+  // whole register.
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      const count = await exportVisitorsToExcel({ search: debouncedSearch, from: dateFrom, to: dateTo });
+      appContext?.showToast(
+        count ? `Downloaded ${count} visitor${count === 1 ? "" : "s"}` : "No visitors match these filters",
+        count ? "success" : "info",
+      );
+    } catch (err) {
+      const message = (err as { message?: string })?.message || "Export failed";
+      appContext?.showToast(message, "error");
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handleLimitChange = (newLimit: number) => {
     setLimit(newLimit);
@@ -148,7 +188,52 @@ const VisitorBookPage = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:items-center">
-          {viewMode === "all" && <SearchBox placeholder="Search name / phone..." onSearch={handleSearch} />}
+          {viewMode === "all" && (
+            <>
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <label className="flex items-center gap-1">
+                  <span>From</span>
+                  <input
+                    type="date"
+                    value={dateFrom}
+                    max={dateTo || undefined}
+                    onChange={(e) => handleDateChange("from", e.target.value)}
+                    className="px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  />
+                </label>
+                <label className="flex items-center gap-1">
+                  <span>To</span>
+                  <input
+                    type="date"
+                    value={dateTo}
+                    min={dateFrom || undefined}
+                    onChange={(e) => handleDateChange("to", e.target.value)}
+                    className="px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  />
+                </label>
+                {(dateFrom || dateTo) && (
+                  <button
+                    type="button"
+                    onClick={clearDates}
+                    className="px-2 py-1.5 rounded-lg text-[#1a7cd3] hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+              <SearchBox placeholder="Search name / phone..." onSearch={handleSearch} />
+              <button
+                type="button"
+                onClick={handleExport}
+                disabled={exporting}
+                title={hasFilters ? "Download the visitors matching the current filters" : "Download every visitor"}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-60 flex items-center justify-center space-x-1 shadow font-medium whitespace-nowrap"
+              >
+                {exporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                <span>{hasFilters ? "Download Filtered" : "Download All"}</span>
+              </button>
+            </>
+          )}
           <button
             onClick={() => setShowAddModal(true)}
             className="px-4 py-2 bg-[#1a7cd3] text-white rounded-lg hover:bg-[#0f4a8c] flex items-center space-x-1 shadow hover:shadow-md transition-all duration-200 font-medium"
@@ -205,7 +290,7 @@ const VisitorBookPage = () => {
         <>
           <EnhancedTable
             data={allVisitors}
-            columns={VisitorColumns}
+            columns={AllVisitorColumns}
             actions={tableActions}
             loading={allLoading}
             emptyMessage={allError ? "Failed to load visitors" : "No visitors found"}

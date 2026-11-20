@@ -1,5 +1,5 @@
 import type { Visitor } from "./model/VisitorModel";
-import { formatVisitorTime } from "./utils/visitorTime";
+import { formatVisitorDate, formatVisitorTime } from "./utils/visitorTime";
 
 export const VisitorColumns = [
   {
@@ -47,4 +47,26 @@ export const VisitorColumns = [
       </span>
     ),
   },
+];
+
+// The All Visitors tab spans many days, so it adds the visit date ahead of the
+// times. Read from the same UTC stamp so a late-evening entry lands on the
+// right Nepal date.
+const dateColumn = {
+  label: "Date",
+  accessor: "visitedDate",
+  render: (row: Visitor) =>
+    formatVisitorDate(row.visitedDate || row.inTime, {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    }),
+};
+
+const inTimeIndex = VisitorColumns.findIndex((col) => col.accessor === "inTime");
+
+export const AllVisitorColumns = [
+  ...VisitorColumns.slice(0, inTimeIndex),
+  dateColumn,
+  ...VisitorColumns.slice(inTimeIndex),
 ];
