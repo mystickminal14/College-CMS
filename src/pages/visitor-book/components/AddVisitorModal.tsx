@@ -15,6 +15,7 @@ interface Props {
 const emptyForm = {
   name: "",
   phone: "",
+  idNumber: "",
   numberOfPerson: 1,
   purposeId: "",
   otherPurpose: "",
@@ -41,6 +42,7 @@ const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated }) => {
     const payload: Visitor = {
       name: form.name.trim(),
       phone: form.phone.trim(),
+      ...(form.idNumber.trim() ? { idNumber: form.idNumber.trim() } : {}),
       numberOfPerson: Number(form.numberOfPerson) || 1,
       // The API stores one free-text purpose, so "Other" submits the words the
       // visitor gave rather than the label "Other".
@@ -121,6 +123,18 @@ const AddVisitorModal: React.FC<Props> = ({ isOpen, onClose, onCreated }) => {
               onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
               className="w-full px-4 py-2 border rounded-lg"
               required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">ID No</label>
+            <input
+              type="text"
+              value={form.idNumber}
+              onChange={(e) => setForm((f) => ({ ...f, idNumber: e.target.value }))}
+              className="w-full px-4 py-2 border rounded-lg"
+              placeholder="Citizenship / passport / licence no."
+              maxLength={50}
             />
           </div>
 

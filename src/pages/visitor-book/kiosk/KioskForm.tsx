@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  ArrowLeft,
   ArrowRight,
+  IdCard,
   Check,
   ChevronDown,
   Loader2,
@@ -24,6 +26,7 @@ import {
   iconButtonClass,
   panelClass,
   popoverClass,
+  ghostButtonClass,
   primaryButtonClass,
   textareaClass,
 } from "./tokens";
@@ -45,6 +48,7 @@ const MAX_GROUP = 20;
 export interface KioskFormValues {
   name: string;
   phone: string;
+  idNumber?: string;
   numberOfPerson: number;
   /** Already resolved to text — see resolvePurpose in ../data/visitPurposes. */
   purpose: string;
@@ -56,6 +60,8 @@ interface Props {
   isSubmitting: boolean;
   onDirty: () => void;
   onSubmit: (values: KioskFormValues) => void;
+  /** Back to the Check In / Check Out choice. */
+  onBack?: () => void;
 }
 
 /** Closes a popover on Escape as well as on a click outside it. A kiosk has no
@@ -232,9 +238,10 @@ const GroupStepper: React.FC<{ value: number; onChange: (delta: number) => void 
   </div>
 );
 
-const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
+const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit, onBack }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [idNumber, setIdNumber] = useState("");
   const [numberOfPerson, setNumberOfPerson] = useState(1);
   const [note, setNote] = useState("");
   const [noteOpen, setNoteOpen] = useState(false);
@@ -306,10 +313,12 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
     }
 
     const host = personToMeet.trim();
+    const idNo = idNumber.trim();
 
     onSubmit({
       name: trimmedName,
       phone: `${DIAL_CODE}${phone}`,
+      ...(idNo ? { idNumber: idNo } : {}),
       numberOfPerson,
       // One free-text column on the server, so "Other" submits what was typed.
       purpose: resolvePurpose(purposeId, otherPurpose),
@@ -380,6 +389,30 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
                     aria-invalid={!!phoneError}
                     aria-describedby={phoneError ? "kiosk-phone-error" : undefined}
                     className="flex-1 min-w-0 px-4 text-base tracking-wide bg-transparent rounded-r-2xl text-slate-900 placeholder:text-slate-400 placeholder:tracking-normal focus:outline-none"
+                  />
+                </div>
+              </Field>
+
+              <Field
+                label="ID number"
+                htmlFor="kiosk-id-number"
+                optional
+                hint="Citizenship, passport, licence or student ID."
+              >
+                <div className="relative">
+                  <IdCard className="pointer-events-none absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    id="kiosk-id-number"
+                    type="text"
+                    value={idNumber}
+                    onChange={(e) => {
+                      onDirty();
+                      setIdNumber(e.target.value);
+                    }}
+                    placeholder="e.g. 12-01-75-01234"
+                    maxLength={50}
+                    autoComplete="off"
+                    className={`${fieldClass} pl-12 sm:pl-13`}
                   />
                 </div>
               </Field>
@@ -496,14 +529,24 @@ const KioskForm: React.FC<Props> = ({ isSubmitting, onDirty, onSubmit }) => {
       </form>
 
       <KioskActions>
-        <p className="hidden sm:block text-sm text-slate-500">
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            disabled={isSubmitting}
+            className={`${ghostButtonClass} max-sm:flex-1`}
+          >
+            <ArrowLeft className="w-5 h-5" /> Back
+          </button>
+        )}
+        <p className="hidden md:block text-sm text-slate-500">
           Anything tagged Optional can be left blank.
         </p>
         <button
           type="submit"
           form={FORM_ID}
           disabled={isSubmitting}
-          className={`${primaryButtonClass} ml-auto max-sm:w-full`}
+          className={`${primaryButtonClass} ml-auto max-sm:flex-1`}
         >
           {isSubmitting ? (
             <>

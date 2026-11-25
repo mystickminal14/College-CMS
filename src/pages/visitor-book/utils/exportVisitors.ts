@@ -12,6 +12,7 @@ const COLUMNS: { header: string; width: number; value: (v: Visitor) => string | 
   { header: "Code", width: 14, value: (v) => v.code || "" },
   { header: "Name", width: 26, value: (v) => v.name || "" },
   { header: "Phone", width: 18, value: (v) => v.phone || "" },
+  { header: "ID No", width: 18, value: (v) => v.idNumber || "" },
   { header: "No. of Persons", width: 14, value: (v) => v.numberOfPerson ?? 1 },
   { header: "Purpose", width: 20, value: (v) => v.purpose || "" },
   { header: "Person to Meet", width: 26, value: (v) => v.personToMeet || "" },

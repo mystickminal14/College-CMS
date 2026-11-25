@@ -4,6 +4,8 @@ export interface Visitor {
   id?: number;
   name: string;
   phone: string;
+  /** Citizenship / passport / licence number. Optional. */
+  idNumber?: string | null;
   numberOfPerson?: number;
   // A plain string, not a foreign key: the API keeps no purpose table, so this
   // is the reason the visitor picked or, for "Other", the words they typed.

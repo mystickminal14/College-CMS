@@ -221,7 +221,7 @@ const VisitorBookPage = () => {
                   </button>
                 )}
               </div>
-              <SearchBox placeholder="Search name / phone..." onSearch={handleSearch} />
+              <SearchBox placeholder="Search name / phone / ID no..." onSearch={handleSearch} />
               <button
                 type="button"
                 onClick={handleExport}

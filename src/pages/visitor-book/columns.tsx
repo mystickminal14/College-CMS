@@ -12,6 +12,11 @@ export const VisitorColumns = [
   { label: "Name", accessor: "name" },
   { label: "Phone", accessor: "phone" },
   {
+    label: "ID No",
+    accessor: "idNumber",
+    render: (row: Visitor) => row.idNumber || "--",
+  },
+  {
     label: "Purpose",
     accessor: "purpose",
     render: (row: Visitor) => row.purpose || "--",

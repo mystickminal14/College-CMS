@@ -9,14 +9,18 @@ import KioskFrame, { type KioskStep } from "./KioskFrame";
 import KioskPass from "./KioskPass";
 import KioskPhoto from "./KioskPhoto";
 import KioskForm, { type KioskFormValues } from "./KioskForm";
+import KioskChoice from "./KioskChoice";
+import KioskCheckOut from "./KioskCheckOut";
 import { textItem } from "../../../website/comp/animation";
 import { useIdleReset } from "./useIdleReset";
 import { ghostButtonClass, primaryButtonClass } from "./tokens";
 import { Alert } from "./ui";
 
-type Step = "form" | "photo" | "pass";
+type Step = "choose" | "form" | "photo" | "pass" | "checkout";
 
-const STEP_INDEX: Record<Step, number> = { form: 0, photo: 1, pass: 2 };
+// Only the check-in steps show progress; the start screen and check-out are
+// single screens.
+const STEP_INDEX: Partial<Record<Step, number>> = { form: 0, photo: 1, pass: 2 };
 
 // A visitor filling in the form gets longest; deciding whether to take a
 // photo is a quick yes/no; admiring the finished pass only needs time to
@@ -24,10 +28,12 @@ const STEP_INDEX: Record<Step, number> = { form: 0, photo: 1, pass: 2 };
 const IDLE_FORM_MS = 120_000;
 const IDLE_PHOTO_MS = 45_000;
 const IDLE_PASS_MS = 60_000;
+// Today's names are on screen, so the list clears itself quickly.
+const IDLE_CHECKOUT_MS = 60_000;
 const IDLE_WARN_MS = 20_000;
 
 const VisitorKioskPage = () => {
-  const [step, setStep] = useState<Step>("form");
+  const [step, setStep] = useState<Step>("choose");
   const [formDirty, setFormDirty] = useState(false);
   const [visitorName, setVisitorName] = useState("");
   const [qrToken, setQrToken] = useState<string | null>(null);
@@ -54,13 +60,21 @@ const VisitorKioskPage = () => {
     setSmsSent(false);
     textedFor.current = null;
     setRegisterError("");
-    setStep("form");
+    setStep("choose");
   };
 
-  const hasEnteredAnything = formDirty || step !== "form";
+  // The start screen never times out; the empty form gets the full form
+  // timeout once anything is typed, every later screen as soon as it shows.
+  const hasEnteredAnything = step === "form" ? formDirty : step !== "choose";
 
   const idleTimeoutMs =
-    step === "pass" ? IDLE_PASS_MS : step === "photo" ? IDLE_PHOTO_MS : IDLE_FORM_MS;
+    step === "pass"
+      ? IDLE_PASS_MS
+      : step === "photo"
+        ? IDLE_PHOTO_MS
+        : step === "checkout"
+          ? IDLE_CHECKOUT_MS
+          : IDLE_FORM_MS;
 
   const secondsLeft = useIdleReset({
     enabled: hasEnteredAnything,
@@ -108,8 +122,20 @@ const VisitorKioskPage = () => {
 
   return (
     <>
-      <KioskFrame steps={steps} activeIndex={STEP_INDEX[step]} finished={isFinished}>
+      <KioskFrame
+        steps={STEP_INDEX[step] === undefined ? [] : steps}
+        activeIndex={STEP_INDEX[step] ?? 0}
+        finished={isFinished}
+      >
         <motion.div key={step} variants={textItem} initial="hidden" animate="visible">
+          {step === "choose" && (
+            <KioskChoice onCheckIn={() => setStep("form")} onCheckOut={() => setStep("checkout")} />
+          )}
+
+          {step === "checkout" && (
+            <KioskCheckOut onBack={reset} onDone={reset} onDirty={() => setFormDirty(true)} />
+          )}
+
           {step === "form" && (
             <>
               {registerError && <Alert className="mb-6 max-w-2xl">{registerError}</Alert>}
@@ -117,6 +143,7 @@ const VisitorKioskPage = () => {
                 isSubmitting={registerMutation.isPending}
                 onDirty={() => setFormDirty(true)}
                 onSubmit={handleSubmit}
+                onBack={reset}
               />
             </>
           )}
